@@ -185,6 +185,7 @@
              margin-bottom: 15px;
          }
 
+        /* --- Stili per Modal Ricetta: Bottone Chiudi (FIX per Mobile) --- */
         #modal-recipe-close-btn {
             position: absolute;
             top: 10px;
@@ -195,16 +196,20 @@
             font-size: 1.5em;
             font-weight: bold;
             line-height: 1;
-            width: 30px;  /* <-- AGGIUNTO/MODIFICATO */
-            height: 30px; /* <-- AGGIUNTO/MODIFICATO */
+            width: 30px !important; /* Forza dimensione */
+            height: 30px !important; /* Forza dimensione */
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background-color 0.2s ease, color 0.2s ease;
-            box-sizing: border-box; /* <-- AGGIUNTO */
+            /* Resetta stili predefiniti bottone */
+            appearance: none;
+            padding: 0; margin: 0;
+            box-sizing: border-box;
         }
+
         #modal-recipe-close-btn:hover {
             background-color: #aaa;
             color: #333;
