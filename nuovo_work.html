@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu - Bar Nuovo</title>
+    <!-- MODIFICATO Titolo per Dipendenti -->
+    <title>Menu Dipendenti - Bar Nuovo</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        /* Stili Globali, Body, Main */
+        /* Stili Globali, Body, Main (Invariati) */
         :root {
             --bg-dark: #1a1a1a;
             --bg-light-section: #fdfdfd;
@@ -27,82 +28,24 @@
             --search-bottom-offset: 20px;
             --search-right-offset: 20px;
         }
+        html { scroll-padding-bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 10px); scroll-behavior: smooth; }
+        body { font-family: 'Open Sans', sans-serif; margin: 0; padding-top: 0; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.5; font-size: 16px; padding-bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 20px); }
+        main { padding: 0 20px; }
 
-        html {
-            scroll-padding-bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 10px);
-            scroll-behavior: smooth;
-        }
+        /* Header e Titolo */
+        header { text-align: center; margin-bottom: 25px; padding-bottom: 30px; position: relative; width: 100%; border-bottom: none; overflow: hidden; min-height: 190px; z-index: 1; background-image: url('https://bar-menu.github.io/Nuovo-2.jpg'); background-size: cover; background-position: center center; background-repeat: no-repeat; background-color: var(--bg-dark); }
+        header::after { content: ""; position: absolute; bottom: -1px; left: 0; width: 100%; height: 95%; background: linear-gradient(to bottom, rgba(26, 26, 26, 0.0) 0%, rgba(26, 26, 26, 0.9) 70%, var(--bg-dark) 95%); z-index: 0; }
+        header h1 { font-family: 'Poppins', sans-serif; font-size: 1.9em; color: var(--text-light); margin: 0; font-weight: 600; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 1; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); white-space: nowrap; }
 
-        body {
-            font-family: 'Open Sans', sans-serif;
-            margin: 0;
-            padding-top: 0;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.5;
-            font-size: 16px;
-            padding-bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 20px);
-        }
-
-        main {
-            padding: 0 20px;
-        }
-
-        /* Header e Titolo (CSS Modificato) */
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 30px;
-            position: relative;
-            width: 100%;
-            border-bottom: none;
-            overflow: hidden;
-            min-height: 190px; /* Manteniamo altezza ridotta */
-            z-index: 1;
-            /* --- BACKGROUND IMAGE SPOSTATO QUI --- */
-            /* Immagine di default (verrà sovrascritta da JS se necessario) */
-            background-image: url('https://bar-menu.github.io/Nuovo-2.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            /* Aggiungi colore di fallback se l'immagine non carica */
-            background-color: var(--bg-dark);
-        }
-        /* Rimosso header::before */
-        /* header::before { ... } */
-
-        header::after { /* Mantenuto per il gradiente */
-            content: "";
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%; height: 95%;
-            background: linear-gradient(to bottom, rgba(26, 26, 26, 0.0) 0%, rgba(26, 26, 26, 0.9) 70%, var(--bg-dark) 95%);
-            z-index: 0;
-        }
-        header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.9em;
-            color: var(--text-light);
-            margin: 0;
-            font-weight: 600;
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
-            white-space: nowrap;
-        }
-
-        /* Sezioni, Liste, Item (Stili base) */
+        /* Sezioni, Liste, Item (Invariati tranne hover) */
         section { margin-bottom: 40px; background-color: var(--bg-light-section); padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); color: var(--text-dark); display: block; }
         section h2 { font-family: 'Merriweather', serif; font-size: 2.0em; color: var(--text-dark); margin-top: 0; margin-bottom: 25px; border-bottom: 1px solid var(--border-light); padding-bottom: 15px; font-weight: 700; text-align: center; }
         #cocktails h2 .section-price { font-family: 'Open Sans', sans-serif; font-size: 0.65em; font-weight: 600; color: #555; vertical-align: middle; margin-left: 10px; }
         ul { list-style: none; padding: 0; margin: 0; }
         li.menu-item { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--border-light); }
-        li.menu-item:hover:not(.spirit-item) { background-color: #f5f5f5; transition: background-color 0.2s ease-in-out; }
-        li.menu-item.spirit-item:hover { background-color: #ededed; transition: background-color 0.2s ease-in-out; }
+        /* Hover differenziato */
+        li.menu-item:hover:not(.spirit-item):not(.recipe-item) { background-color: #f5f5f5; transition: background-color 0.2s ease-in-out; }
+        li.menu-item.spirit-item:hover, li.menu-item.recipe-item:hover { background-color: #ededed; transition: background-color 0.2s ease-in-out; } /* Hover per cliccabili */
         ul > li.menu-item:last-child:not(:has(~ *)) { border-bottom: none; }
         ul > li.menu-item:has(+ h3) { border-bottom: 1px solid var(--border-light) !important; }
         #panini-piadine ul > li.menu-item:last-child { border-bottom: 1px solid var(--border-light); }
@@ -114,7 +57,7 @@
         .item-description-vini { font-size: 0.93em; }
         .simple-list li { display: block; padding: 10px 0; border-bottom: 1px solid var(--border-light); font-weight: 400; color: var(--text-dark); font-size: 1.0em; text-align: center; justify-content: initial; flex-wrap: initial; align-items: initial; }
         .simple-list li:last-child { border-bottom: none; }
-        .simple-list li:hover { background-color: #f5f5f5; transition: background-color 0.2s ease-in-out; }
+        .simple-list li:hover:not(.recipe-item) { background-color: #f5f5f5; transition: background-color 0.2s ease-in-out; }
         #birre h3 { font-family: 'Merriweather', serif; font-size: 1.3em; color: #444; margin-top: 25px; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #ddd; font-weight: 700; }
         #birre h3:first-of-type { margin-top: 0; }
         #vini ul li .item-name, #franciacorta ul li .item-name { font-weight: 600; font-size: 1.1em; }
@@ -125,14 +68,16 @@
         #panini-piadine p { font-size: 0.95em; color: #666; margin-bottom: 10px; line-height: 1.4; }
         #gin-tonic li.item-description-footer { display: block; text-align: center; margin-top: 15px; border-bottom: none; padding: 10px 0 0 0; font-style: italic; flex-basis: 100%; color: #666; font-size: 0.88em; justify-content: initial; flex-wrap: initial; align-items: initial; }
         #gin-tonic li.item-description-footer:hover { background-color: transparent; }
-        .spirit-item { cursor: pointer; }
+
+        /* Cursore per item cliccabili */
+        .spirit-item, .recipe-item { cursor: pointer; }
 
         /* Footer */
         footer { text-align: center; margin-top: 50px; padding: 25px 20px; border-top: 1px solid var(--border-dark); font-size: 0.85em; color: #999; }
         .footer-logo { display: block; max-width: 100px; height: auto; margin: 0 auto 20px auto; }
         footer p { margin: 5px 0; }
 
-        /* --- Stili Ricerca --- */
+        /* --- Stili Ricerca (Invariati) --- */
         #search-wrapper { position: fixed; bottom: var(--search-bottom-offset); right: var(--search-right-offset); z-index: 1000; display: flex; align-items: center; justify-content: flex-end; width: var(--search-icon-size); height: var(--search-icon-size); transition: width 0.35s ease-in-out; direction: rtl; }
         #search-icon-trigger { width: var(--search-icon-size); height: var(--search-icon-size); border-radius: 50%; background-color: rgba(40, 40, 40, 0.85); backdrop-filter: blur(5px); box-shadow: 0 3px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; z-index: 2; transition: background-color 0.2s ease; direction: ltr; overflow: hidden; }
         #search-icon-trigger i { color: var(--text-light); font-size: 1.3em; line-height: 1; transition: transform 0.3s ease; }
@@ -148,7 +93,7 @@
         #search-wrapper.search-active #search-icon-trigger { background-color: rgba(60, 60, 60, 0.9); }
         #search-wrapper.search-active #search-icon-trigger i { transform: rotate(90deg); }
 
-        /* --- Stili Navigazione Rapida Footer --- */
+        /* --- Stili Navigazione Rapida Footer (Invariati) --- */
         #quick-nav { margin: 0px 0 30px 0; padding: 0 10px; }
         #quick-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
         #quick-nav li { padding: 0; border-bottom: none; display: block; justify-content: initial; flex-wrap: initial; align-items: initial; flex-grow: 0; flex-shrink: 0; }
@@ -156,14 +101,112 @@
         #quick-nav a { display: inline-block; padding: 3px 5px; color: #b0b0b0; text-decoration: none; font-size: 0.85em; font-weight: 400; transition: color 0.2s ease; white-space: nowrap; }
         #quick-nav a:hover, #quick-nav a:focus { color: #fff; text-decoration: underline; outline: none; }
 
-        /* --- Stili Pop-up Descrizione --- */
-        #gin-description-popup { position: fixed; bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 15px); left: 15px; right: 15px; margin-left: auto; margin-right: auto; max-width: 450px; transform: translateY(20px); background-color: rgba(50, 50, 50, 0.95); backdrop-filter: blur(6px); color: var(--text-light); border-radius: 8px; padding: 20px; padding-right: 45px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); z-index: 1100; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s ease 0.3s; }
-        #gin-description-popup.visible { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s, 0s, 0s; }
+        /* --- Stili Pop-up Descrizione (Spiriti/Birre) --- */
+        #description-popup { position: fixed; bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 15px); left: 15px; right: 15px; margin-left: auto; margin-right: auto; max-width: 450px; transform: translateY(20px); background-color: rgba(50, 50, 50, 0.95); backdrop-filter: blur(6px); color: var(--text-light); border-radius: 8px; padding: 20px; padding-right: 45px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); z-index: 1100; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s ease 0.3s; }
+        #description-popup.visible { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s, 0s, 0s; }
         .popup-content { position: relative; }
-        #popup-gin-name { margin-top: 0; margin-bottom: 10px; font-family: 'Poppins', sans-serif; font-size: 1.2em; color: #fff; border-bottom: 1px solid #666; padding-bottom: 8px; }
-        #popup-gin-description { margin-bottom: 0; font-size: 0.95em; line-height: 1.5; color: var(--text-light); }
+        #popup-product-name { margin-top: 0; margin-bottom: 10px; font-family: 'Poppins', sans-serif; font-size: 1.2em; color: #fff; border-bottom: 1px solid #666; padding-bottom: 8px; }
+        #popup-product-description { margin-bottom: 0; font-size: 0.95em; line-height: 1.5; color: var(--text-light); }
         #popup-close-btn { position: absolute; top: -10px; right: -30px; background: none; border: none; color: var(--text-light); font-size: 2.5em; line-height: 1; cursor: pointer; padding: 5px; opacity: 0.8; transition: opacity 0.2s ease; }
         #popup-close-btn:hover { opacity: 1; }
+
+        /* --- NUOVI Stili per Modal Ricetta (Cocktail/Spritz) --- */
+        #recipe-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Overlay scuro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 1200; /* Sopra il popup descrizione */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0s ease 0.3s;
+            box-sizing: border-box;
+        }
+        #recipe-modal.visible {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0s;
+        }
+        .recipe-modal-content {
+            background-color: var(--bg-light-section);
+            color: var(--text-dark);
+            padding: 25px 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 85vh; /* Limita altezza per schermi piccoli */
+            overflow-y: auto; /* Scroll se contenuto lungo */
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            /* Animazione entrata (opzionale) */
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        #recipe-modal.visible .recipe-modal-content {
+             transform: scale(1);
+        }
+        #modal-recipe-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6em;
+            color: var(--text-dark);
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 15px;
+        }
+        #modal-recipe-ingredients h5,
+        #modal-recipe-method h5 {
+            font-family: 'Merriweather', serif;
+            font-size: 1.1em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+         #modal-recipe-ingredients ul {
+             list-style: disc; /* Usa pallini per ingredienti */
+             padding-left: 25px; /* Indenta lista */
+             margin-bottom: 20px;
+         }
+         #modal-recipe-ingredients li {
+             margin-bottom: 5px;
+             font-size: 1em;
+             line-height: 1.5;
+         }
+         #modal-recipe-method p {
+             font-size: 1em;
+             line-height: 1.6;
+             margin-bottom: 15px;
+         }
+        #modal-recipe-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ccc;
+            border: none;
+            color: #555;
+            font-size: 1.5em;
+            font-weight: bold;
+            line-height: 1;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        #modal-recipe-close-btn:hover {
+            background-color: #aaa;
+            color: #333;
+        }
 
         /* Stile "Nessun Risultato" */
         #no-results { text-align: center; color: var(--text-dark); min-height: 200px; padding: 40px 20px; border-radius: 8px; background-color: var(--bg-light-section); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); margin-bottom: 40px; display: none; flex-direction: column; justify-content: center; align-items: center; }
@@ -178,25 +221,80 @@
 
     <!-- Barra di Ricerca Fissa -->
     <div id="search-wrapper">
-        <div id="search-icon-trigger" title="Cerca nel menu">
-            <i class="fas fa-search"></i>
-        </div>
-        <div id="search-input-container">
-            <input type="text" id="search-input" placeholder="Cerca..." autocomplete="off" aria-label="Cerca nel menu">
-        </div>
+        <div id="search-icon-trigger" title="Cerca nel menu"> <i class="fas fa-search"></i> </div>
+        <div id="search-input-container"> <input type="text" id="search-input" placeholder="Cerca..." autocomplete="off" aria-label="Cerca nel menu"> </div>
     </div>
 
-    <!-- Header (Il background verrà impostato da CSS/JS) -->
+    <!-- Header -->
     <header>
-        <h1>MENU</h1>
+        <!-- MODIFICATO Titolo per Dipendenti -->
+        <h1>MENU DIPENDENTI</h1>
     </header>
 
     <main>
-        <!-- SEZIONI MENU (Contenuto con data-description) -->
+        <!-- SEZIONI MENU con data-recipe per Cocktail/Spritz -->
         <section id="caffetteria"><h2>Caffetteria</h2><ul><li class="menu-item"><span class="item-name">Caffè espresso</span><span class="item-price">2.20</span></li><li class="menu-item"><span class="item-name">Caffè decaffeinato</span><span class="item-price">2.30</span></li><li class="menu-item"><span class="item-name">Caffè d'orzo piccolo</span><span class="item-price">2.30</span></li><li class="menu-item"><span class="item-name">Caffè al ginseng</span><span class="item-price">2.30</span></li><li class="menu-item"><span class="item-name">Caffè d'orzo grande</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè al ginseng grande</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè espresso con panna</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè corretto</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè freddo shakerato</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Caffè marocchino</span><span class="item-price">2.80</span></li><li class="menu-item"><span class="item-name">Cappuccino</span><span class="item-price">2.50</span></li><li class="menu-item"><span class="item-name">Cappuccino con latte soia</span><span class="item-price">2.80</span></li><li class="menu-item"><span class="item-name">Latte macchiato</span><span class="item-price">2.80</span></li><li class="menu-item"><span class="item-name">Cioccolata in tazza</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Cioccolata con panna</span><span class="item-price">4.50</span></li><li class="menu-item"><span class="item-name">The / Infusi / Camomilla</span><span class="item-price">3.50</span></li></ul></section>
         <section id="bevande"><h2>Bevande</h2><ul><li class="menu-item"><span class="item-name">Acqua in bicchiere</span><span class="item-price">0.80</span></li><li class="menu-item"><span class="item-name">Acqua 0.5l</span><span class="item-price">1.50</span></li><li class="menu-item"><span class="item-name">Spremuta d'arancia</span><span class="item-price">5.00</span></li><li class="menu-item"><span class="item-name">Succhi di frutta</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Bibite in lattina</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Red Bull</span><span class="item-price">4.50</span></li></ul></section>
-        <section id="spritz"><h2>Spritz & Co.</h2><ul><li class="menu-item"><span class="item-name">Spritz (Aperol / Campari)</span><span class="item-price">6.00</span><span class="item-description">Vino bianco fermo o frizzante, Aperol o Campari, soda, ghiaccio e arancia</span></li><li class="menu-item"><span class="item-name">Hugo</span><span class="item-price">6.00</span><span class="item-description">Prosecco, sciroppo di sambuco, soda, ghiaccio, foglie di menta</span></li><li class="menu-item"><span class="item-name">Spritz St-Germain</span><span class="item-price">6.00</span><span class="item-description">Prosecco, St-Germain (liquore sambuco), soda, ghiaccio, lime</span></li><li class="menu-item spirit-item" data-description="Cocktail classico bitter. Campari, Vermouth Rosso dolce e una spruzzata di soda. Servito con ghiaccio e fetta d'arancia."><span class="item-name">Americano</span><span class="item-price">8.00</span><span class="item-description">Campari, Vermouth Rosso, Soda</span></li><li class="menu-item spirit-item" data-description="Variante 'sbagliata' del Negroni dove il gin è sostituito dal Prosecco. Campari, Vermouth Rosso e Prosecco. Più leggero e frizzante."><span class="item-name">Negroni Sbagliato</span><span class="item-price">8.00</span><span class="item-description">Campari, Vermouth Rosso, Prosecco</span></li></ul></section>
-        <section id="cocktails"><h2>Cocktails <span class="section-price">8.00</span></h2><ul class="simple-list"><li class="menu-item">NEGRONI</li><li class="menu-item">MOJITO</li><li class="menu-item">CAIPIROSKA / CAIPIRINHA / CAIPIRISSIMA</li><li class="menu-item">DAIQUIRI</li><li class="menu-item">SEX ON THE BEACH</li><li class="menu-item">LONG ISLAND ICE TEA</li><li class="menu-item">CUBA LIBRE</li><li class="menu-item">PINA COLADA</li><li class="menu-item">BLACK RUSSIAN / WHITE RUSSIAN</li><li class="menu-item">MARGARITA</li><li class="menu-item">TEQUILA SUNRISE</li><li class="menu-item">ANGELO AZZURRO</li><li class="menu-item">GIN TONIC / VODKA TONIC (Base)</li><li class="menu-item">GIN LEMON / VODKA LEMON (Base)</li><li class="menu-item">PALOMA</li><li class="menu-item">MANHATTAN</li><li class="menu-item">MOSCOW MULE</li><li class="menu-item">OLD FASHIONED</li><li class="menu-item">DRY MARTINI</li><li class="menu-item">ESPRESSO MARTINI</li><li class="menu-item">WHISKEY SOUR</li><li class="menu-item">VODKA SOUR</li><li class="menu-item">AMARETTO SOUR (Disaronno)</li></ul></section>
+        <!-- SEZIONE SPRITZ - Modificata con classe recipe-item e data-recipe -->
+        <section id="spritz">
+            <h2>Spritz & Co.</h2>
+            <ul>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- Ghiaccio abbondante\n- 3 parti Prosecco (es. 9 cl)\n- 2 parti Aperol o Campari (es. 6 cl)\n- 1 spruzzo Soda\n- 1 fetta arancia\n---\nMETODO:\n1. Riempire un calice grande o tumbler con ghiaccio.\n2. Versare il Prosecco.\n3. Aggiungere l'Aperol o Campari.\n4. Aggiungere uno spruzzo di soda.\n5. Mescolare delicatamente con stirrer.\n6. Guarnire con una fetta d'arancia.">
+                    <span class="item-name">Spritz (Aperol / Campari)</span>
+                    <span class="item-price">6.00</span>
+                    <span class="item-description">Vino bianco fermo o frizzante, Aperol o Campari, soda, ghiaccio e arancia</span>
+                </li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- Ghiaccio abbondante\n- 4-5 foglie Menta fresca\n- 2 cl Sciroppo di Sambuco\n- Prosecco (a riempire, circa 10-12 cl)\n- 1 spruzzo Soda\n- Fettina di lime (opzionale)\n---\nMETODO:\n1. Riempire un calice grande con ghiaccio.\n2. Mettere le foglie di menta nel palmo e batterle leggermente per rilasciare aroma, poi aggiungerle nel bicchiere.\n3. Versare lo sciroppo di sambuco.\n4. Aggiungere il Prosecco fino a riempire quasi il bicchiere.\n5. Aggiungere uno spruzzo di soda.\n6. Mescolare delicatamente.\n7. Guarnire con un ciuffo di menta e opzionalmente una fettina di lime.">
+                    <span class="item-name">Hugo</span>
+                    <span class="item-price">6.00</span>
+                    <span class="item-description">Prosecco, sciroppo di sambuco, soda, ghiaccio, foglie di menta</span>
+                </li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- Ghiaccio abbondante\n- 3 parti Prosecco (es. 9 cl)\n- 2 parti St-Germain Liquore al Sambuco (es. 6 cl)\n- 1-2 parti Soda (a piacere)\n- Spicchio di lime\n---\nMETODO:\n1. Riempire un calice grande con ghiaccio.\n2. Versare il St-Germain.\n3. Aggiungere il Prosecco.\n4. Aggiungere la soda.\n5. Mescolare delicatamente.\n6. Guarnire con uno spicchio di lime.">
+                    <span class="item-name">Spritz St-Germain</span>
+                    <span class="item-price">6.00</span>
+                    <span class="item-description">Prosecco, St-Germain (liquore sambuco), soda, ghiaccio, lime</span>
+                </li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 3 cl Campari\n- 3 cl Vermouth Rosso (dolce)\n- Soda (a colmare)\n- Ghiaccio\n- Fetta d'arancia (o scorza)\n---\nMETODO:\n1. Riempire un tumbler basso (Old Fashioned) con ghiaccio.\n2. Versare Campari e Vermouth Rosso.\n3. Colmare con soda.\n4. Mescolare delicatamente.\n5. Guarnire con mezza fetta d'arancia o scorza.">
+                    <span class="item-name">Americano</span>
+                    <span class="item-price">8.00</span>
+                    <span class="item-description">Campari, Vermouth Rosso, Soda</span>
+                </li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 3 cl Campari\n- 3 cl Vermouth Rosso (dolce)\n- Prosecco (a colmare)\n- Ghiaccio\n- Fetta d'arancia\n---\nMETODO:\n1. Riempire un calice grande o tumbler alto con ghiaccio.\n2. Versare Campari e Vermouth Rosso.\n3. Colmare con Prosecco.\n4. Mescolare delicatamente.\n5. Guarnire con mezza fetta d'arancia.">
+                    <span class="item-name">Negroni Sbagliato</span>
+                    <span class="item-price">8.00</span>
+                    <span class="item-description">Campari, Vermouth Rosso, Prosecco</span>
+                </li>
+            </ul>
+        </section>
+        <!-- SEZIONE COCKTAILS - Modificata con classe recipe-item e data-recipe -->
+        <section id="cocktails">
+            <h2>Cocktails <span class="section-price">8.00</span></h2>
+            <ul class="simple-list">
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 3 cl Gin\n- 3 cl Campari\n- 3 cl Vermouth Rosso (dolce)\n- Ghiaccio\n- Fetta d'arancia (o scorza)\n---\nMETODO (Build):\n1. Riempire un tumbler basso (Old Fashioned) con ghiaccio.\n2. Versare Gin, Campari e Vermouth Rosso.\n3. Mescolare delicatamente con stirrer per circa 20 sec.\n4. Guarnire con mezza fetta d'arancia o scorza.">NEGRONI</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 5 cl Rum Bianco Cubano\n- 2 cl Succo di Lime fresco\n- 2 cucchiaini Zucchero di Canna bianco (fine)\n- 8-10 foglie Menta fresca\n- Soda (a colmare)\n- Ghiaccio tritato (o a cubetti piccoli)\n- Rametto di menta e spicchio di lime per guarnire\n---\nMETODO (Muddle & Build):\n1. Mettere menta, zucchero e succo di lime in un tumbler alto.\n2. Pestare DELICATAMENTE con muddler (non tritare la menta).\n3. Aggiungere il Rum.\n4. Riempire il bicchiere con ghiaccio tritato.\n5. Colmare con soda.\n6. Mescolare delicatamente dal basso verso l'alto.\n7. Guarnire con rametto di menta e spicchio di lime.">MOJITO</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI (Base):\n- 5 cl Distillato Base (Vodka per Caipiroska, Cachaça per Caipirinha, Rum bianco per Caipirissima)\n- 1/2 Lime tagliato a spicchi (4-6 pezzi)\n- 2 cucchiaini Zucchero di Canna (bianco o grezzo)\n- Ghiaccio tritato\n---\nMETODO (Muddle & Build):\n1. Mettere gli spicchi di lime e lo zucchero in un tumbler basso (Old Fashioned).\n2. Pestare ENERGICAMENTE con muddler per estrarre succo e oli essenziali.\n3. Riempire il bicchiere con ghiaccio tritato.\n4. Versare il distillato base.\n5. Mescolare bene.">CAIPIROSKA / CAIPIRINHA / CAIPIRISSIMA</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 6 cl Rum Bianco\n- 3 cl Succo di Lime fresco\n- 2 cl Sciroppo di Zucchero (1:1)\n- Ghiaccio\n- Fettina di lime (opzionale)\n---\nMETODO (Shake & Strain):\n1. Raffreddare una coppetta da cocktail.\n2. Versare tutti gli ingredienti in uno shaker con ghiaccio.\n3. Shakerare vigorosamente per 15-20 sec.\n4. Filtrare (double strain) nella coppetta raffreddata.\n5. Guarnire opzionalmente con fettina di lime.">DAIQUIRI</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 4 cl Vodka\n- 2 cl Peach Schnapps (Liquore alla pesca)\n- 6 cl Succo d'Arancia\n- 6 cl Succo di Cranberry (Mirtillo Rosso)\n- Ghiaccio\n- Fetta d'arancia e ciliegina (opzionali)\n---\nMETODO (Build):\n1. Riempire un bicchiere highball con ghiaccio.\n2. Versare Vodka e Peach Schnapps.\n3. Aggiungere il succo d'arancia.\n4. Versare delicatamente il succo di cranberry sopra per creare l'effetto sfumato (opzionale, si può anche mescolare).\n5. Guarnire opzionalmente con fetta d'arancia e ciliegina.">SEX ON THE BEACH</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 1.5 cl Gin\n- 1.5 cl Vodka\n- 1.5 cl Rum Bianco\n- 1.5 cl Tequila Silver\n- 1.5 cl Triple Sec (o Cointreau)\n- 2.5 cl Succo di Limone fresco\n- 3 cl Sciroppo di Zucchero (o meno, a gusto)\n- Cola (a colmare)\n- Ghiaccio\n- Spicchio di limone\n---\nMETODO (Build & Shake opzionale):\n1. Riempire un bicchiere highball con ghiaccio.\n2. Versare tutti gli alcolici (Gin, Vodka, Rum, Tequila, Triple Sec), succo di limone e sciroppo nello shaker con ghiaccio. (Alternativa Build: versarli direttamente nel bicchiere).\n3. Shakerare brevemente (se usato shaker) o mescolare nel bicchiere.\n4. Colmare con Cola.\n5. Mescolare delicatamente.\n6. Guarnire con spicchio di limone.">LONG ISLAND ICE TEA</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 5 cl Rum Scuro (o Ambrato)\n- 10 cl Cola\n- 1 cl Succo di Lime fresco (circa 1/4 di lime spremuto)\n- Ghiaccio\n- Spicchio di lime\n---\nMETODO (Build):\n1. Riempire un bicchiere highball con ghiaccio.\n2. Spremere il succo di lime nel bicchiere.\n3. Aggiungere il Rum.\n4. Colmare con Cola.\n5. Mescolare delicatamente.\n6. Guarnire con uno spicchio di lime.">CUBA LIBRE</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 5 cl Rum Bianco\n- 9 cl Succo d'Ananas\n- 3 cl Latte di Cocco (o Crema di cocco)\n- 1-2 cl Succo di Lime (opzionale, bilancia)\n- Ghiaccio (preferibilmente tritato)\n- Fetta d'ananas e ciliegina\n---\nMETODO (Blend or Shake):\n1. (Blend) Mettere tutti gli ingredienti liquidi e una coppa di ghiaccio tritato nel frullatore. Frullare finché liscio. Versare in un bicchiere grande (Hurricane).\n2. (Shake) Versare tutti gli ingredienti liquidi in uno shaker con ghiaccio. Shakerare vigorosamente. Filtrare in un bicchiere grande riempito di ghiaccio tritato.\n3. Guarnire con fetta d'ananas e ciliegina.">PINA COLADA</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI (Black Russian):\n- 5 cl Vodka\n- 2 cl Liquore al Caffè (es. Kahlua)\n- Ghiaccio\nINGREDIENTI (White Russian):\n- Stessi del Black Russian + Panna liquida fresca (circa 3 cl)\n---\nMETODO (Build):\n1. Riempire un tumbler basso (Old Fashioned) con ghiaccio.\n2. Versare Vodka e Liquore al Caffè. Mescolare.\n3. (Solo per White Russian) Versare delicatamente la panna sopra, facendola galleggiare o mescolando leggermente per effetto marmorizzato.">BLACK RUSSIAN / WHITE RUSSIAN</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 5 cl Tequila Silver (100% Agave)\n- 2.5 cl Triple Sec (o Cointreau)\n- 2 cl Succo di Lime fresco\n- Sale (per bordatura)\n- Ghiaccio\n- Fettina di lime\n---\nMETODO (Shake & Strain):\n1. Bordare una coppetta Margarita (o Coupe) raffreddata con sale (inumidire bordo con lime, passare su sale).\n2. Versare Tequila, Triple Sec e succo di lime in uno shaker con ghiaccio.\n3. Shakerare vigorosamente.\n4. Filtrare (double strain) nella coppetta bordata.\n5. Guarnire con fettina di lime.">MARGARITA</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 5 cl Tequila Silver\n- 10 cl Succo d'Arancia\n- 1.5 cl Sciroppo di Granatina\n- Ghiaccio\n- Fetta d'arancia e ciliegina\n---\nMETODO (Build):\n1. Riempire un bicchiere highball con ghiaccio.\n2. Versare Tequila e succo d'arancia. Mescolare.\n3. Versare LENTAMENTE la granatina lungo il bordo del bicchiere, facendola depositare sul fondo per creare l'effetto 'sunrise'. Non mescolare dopo.\n4. Guarnire con mezza fetta d'arancia e ciliegina.">TEQUILA SUNRISE</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 4 cl Gin\n- 2 cl Blue Curaçao\n- 2 cl Succo di Limone fresco\n- Ghiaccio\n- Ciliegina (opzionale)\n---\nMETODO (Shake & Strain):\n1. Raffreddare una coppetta da cocktail.\n2. Versare tutti gli ingredienti in uno shaker con ghiaccio.\n3. Shakerare vigorosamente.\n4. Filtrare (double strain) nella coppetta raffreddata.\n5. Guarnire opzionalmente con ciliegina.">ANGELO AZZURRO</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI (Gin Tonic):\n- 5 cl Gin (Base/Standard)\n- 12-15 cl Acqua Tonica\n- Ghiaccio abbondante\n- Spicchio di Lime o Limone\nINGREDIENTI (Vodka Tonic):\n- 5 cl Vodka (Base/Standard)\n- 12-15 cl Acqua Tonica\n- Ghiaccio abbondante\n- Spicchio di Lime o Limone\n---\nMETODO (Build):\n1. Riempire un bicchiere highball o balloon con ghiaccio abbondante.\n2. Versare il Gin o la Vodka.\n3. Spremere leggermente lo spicchio di agrume nel bicchiere e poi inserirlo.\n4. Colmare LENTAMENTE con acqua tonica (per preservare bollicine).\n5. Mescolare una sola volta delicatamente.">GIN TONIC / VODKA TONIC (Base)</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI (Gin Lemon):\n- 5 cl Gin (Base/Standard)\n- Lemonsoda (o altra limonata gassata) a colmare\n- Ghiaccio\n- Fettina di limone\nINGREDIENTI (Vodka Lemon):\n- 5 cl Vodka (Base/Standard)\n- Lemonsoda a colmare\n- Ghiaccio\n- Fettina di limone\n---\nMETODO (Build):\n1. Riempire un bicchiere highball con ghiaccio.\n2. Versare il Gin o la Vodka.\n3. Colmare con Lemonsoda.\n4. Mescolare delicatamente.\n5. Guarnire con fettina di limone.">GIN LEMON / VODKA LEMON (Base)</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 5 cl Tequila Silver (100% Agave)\n- 1.5 cl Succo di Lime fresco\n- Soda al Pompelmo Rosa (es. Thomas Henry Pink Grapefruit) a colmare\n- Pizzico di Sale (opzionale)\n- Ghiaccio\n- Spicchio di Pompelmo Rosa o Lime\n---\nMETODO (Build):\n1. Eventualmente bordare un highball con sale.\n2. Riempire il bicchiere con ghiaccio.\n3. Versare Tequila e succo di lime.\n4. Aggiungere un pizzico di sale se usato.\n5. Colmare con soda al pompelmo rosa.\n6. Mescolare delicatamente.\n7. Guarnire con spicchio di pompelmo o lime.">PALOMA</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 5 cl Rye Whiskey (o Bourbon)\n- 2 cl Vermouth Rosso (dolce)\n- 2 gocce Angostura Bitters\n- Ghiaccio (per mescolare)\n- Ciliegina al maraschino (o scorza d'arancia)\n---\nMETODO (Stir & Strain):\n1. Raffreddare una coppetta da cocktail.\n2. Versare Whiskey, Vermouth e Angostura in un mixing glass con ghiaccio.\n3. Mescolare con stirrer per 20-30 secondi (finché ben freddo).\n4. Filtrare (strain) nella coppetta raffreddata.\n5. Guarnire con una ciliegina al maraschino o una scorza d'arancia.">MANHATTAN</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 5 cl Vodka\n- 1.5 cl Succo di Lime fresco\n- Ginger Beer (a colmare, circa 10-12 cl)\n- Ghiaccio\n- Spicchio di lime e/o fetta di zenzero (opzionale)\n---\nMETODO (Build):\n1. Riempire una tazza di rame (Mule mug) o highball con ghiaccio.\n2. Versare la Vodka.\n3. Aggiungere il succo di lime.\n4. Colmare con Ginger Beer.\n5. Mescolare delicatamente.\n6. Guarnire con spicchio di lime (e/o zenzero).">MOSCOW MULE</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 4.5 cl Bourbon (o Rye Whiskey)\n- 1 zolletta di Zucchero (o 1 cucchiaino sciroppo zucchero)\n- 2-3 gocce Angostura Bitters\n- 1 spruzzo Acqua/Soda (opzionale, per sciogliere zucchero)\n- Ghiaccio (1 cubo grande preferibile)\n- Scorza d'arancia\n---\nMETODO (Muddle/Build):\n1. Mettere la zolletta in un tumbler basso (Old Fashioned).\n2. Bagnare la zolletta con Angostura e lo spruzzo d'acqua.\n3. Pestare (muddle) per sciogliere lo zucchero.\n4. Aggiungere il cubo di ghiaccio grande.\n5. Versare il Whiskey.\n6. Mescolare LENTAMENTE per circa 30 secondi.\n7. Spremere la scorza d'arancia sopra il drink per rilasciare oli, poi inserirla nel bicchiere.">OLD FASHIONED</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 6 cl Gin (London Dry preferibile)\n- 1 cl Vermouth Dry\n- Ghiaccio (per mescolare)\n- Oliva verde o scorza di limone\n---\nMETODO (Stir & Strain):\n1. Raffreddare MOLTO bene una coppetta da cocktail (Martini glass).\n2. Riempire un mixing glass con ghiaccio abbondante.\n3. Versare il Vermouth Dry sul ghiaccio, mescolare brevemente e (opzione classica) scolare via il vermouth in eccesso, lasciando solo il ghiaccio 'profumato'. Oppure lasciarlo.\n4. Versare il Gin sul ghiaccio.\n5. Mescolare con stirrer per 30-40 secondi (deve essere freddissimo).\n6. Filtrare (strain) nella coppetta gelata.\n7. Guarnire con un'oliva o una scorza di limone (spremuta sopra prima).">DRY MARTINI</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 5 cl Vodka\n- 3 cl Liquore al Caffè (es. Kahlua)\n- 1 Espresso (fresco, circa 2.5-3 cl)\n- 1 cl Sciroppo di Zucchero (opzionale, a gusto)\n- Ghiaccio\n- 3 Chicchi di Caffè\n---\nMETODO (Shake & Strain):\n1. Raffreddare una coppetta da cocktail.\n2. Preparare un caffè espresso e lasciarlo raffreddare leggermente.\n3. Versare Vodka, Liquore al Caffè, Espresso (e sciroppo se usato) in uno shaker con ghiaccio.\n4. Shakerare VIGOROSAMENTE per 15-20 sec (per creare schiuma).\n5. Filtrare (double strain) nella coppetta raffreddata.\n6. Guarnire con 3 chicchi di caffè al centro.">ESPRESSO MARTINI</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 4.5 cl Bourbon (o Rye Whiskey)\n- 3 cl Succo di Limone fresco\n- 1.5 cl Sciroppo di Zucchero (1:1)\n- (Opzionale) 1.5 cl Albume d'uovo pastorizzato (o Aquafaba)\n- Ghiaccio\n- Fetta d'arancia e/o ciliegina\n- Goccia Angostura (per guarnire, se usato albume)\n---\nMETODO (Shake & Strain - Dry Shake se con albume):\n1. (Se con albume: Dry Shake) Versare Whiskey, limone, sciroppo e albume nello shaker SENZA ghiaccio. Shakerare vigorosamente per 15 sec.\n2. Aggiungere ghiaccio allo shaker.\n3. (Se senza albume, iniziare da qui) Versare Whiskey, limone, sciroppo nello shaker con ghiaccio.\n4. Shakerare vigorosamente per altri 15-20 sec.\n5. Filtrare (strain, o double strain se con albume) in un tumbler basso (Old Fashioned) riempito di ghiaccio fresco.\n6. Guarnire con mezza fetta d'arancia e/o ciliegina. Se usato albume, aggiungere una goccia di Angostura sulla schiuma.">WHISKEY SOUR</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 5 cl Vodka\n- 3 cl Succo di Limone fresco\n- 1.5 cl Sciroppo di Zucchero (1:1)\n- (Opzionale) 1.5 cl Albume d'uovo pastorizzato (o Aquafaba)\n- Ghiaccio\n- Fettina di limone\n- Goccia Angostura (per guarnire, se usato albume)\n---\nMETODO (Shake & Strain - Dry Shake se con albume):\n1. (Se con albume: Dry Shake) Versare Vodka, limone, sciroppo e albume nello shaker SENZA ghiaccio. Shakerare vigorosamente per 15 sec.\n2. Aggiungere ghiaccio allo shaker.\n3. (Se senza albume, iniziare da qui) Versare Vodka, limone, sciroppo nello shaker con ghiaccio.\n4. Shakerare vigorosamente per altri 15-20 sec.\n5. Filtrare (strain, o double strain se con albume) in un tumbler basso (Old Fashioned) riempito di ghiaccio fresco.\n6. Guarnire con fettina di limone. Se usato albume, aggiungere una goccia di Angostura sulla schiuma.">VODKA SOUR</li>
+                <li class="menu-item recipe-item" data-recipe="INGREDIENTI:\n- 5 cl Amaretto Disaronno\n- 3 cl Succo di Limone fresco\n- 1 cl Sciroppo di Zucchero (1:1 - o meno, Disaronno è dolce)\n- (Opzionale) 1.5 cl Albume d'uovo pastorizzato (o Aquafaba)\n- Ghiaccio\n- Ciliegina e/o fettina d'arancia\n- Goccia Angostura (per guarnire, se usato albume)\n---\nMETODO (Shake & Strain - Dry Shake se con albume):\n1. (Se con albume: Dry Shake) Versare Amaretto, limone, sciroppo e albume nello shaker SENZA ghiaccio. Shakerare vigorosamente per 15 sec.\n2. Aggiungere ghiaccio allo shaker.\n3. (Se senza albume, iniziare da qui) Versare Amaretto, limone, sciroppo nello shaker con ghiaccio.\n4. Shakerare vigorosamente per altri 15-20 sec.\n5. Filtrare (strain, o double strain se con albume) in un tumbler basso (Old Fashioned) riempito di ghiaccio fresco.\n6. Guarnire con ciliegina e/o mezza fetta d'arancia. Se usato albume, aggiungere una goccia di Angostura sulla schiuma.">AMARETTO SOUR (Disaronno)</li>
+            </ul>
+        </section>
         <section id="vini"><h2>Vini</h2><ul><li class="menu-item"><span class="item-name">Selezione Vini Rossi</span><span class="item-price-multi"><span class="item-price">Calice 6</span><span class="item-price">Bottiglia 25</span></span><span class="item-description-vini">Chianti, Sangiovese, Merlot, Lambrusco, Cabernet, Morellino, Montepulciano, Valpolicella</span></li><li class="menu-item"><span class="item-name">Selezione Vini Bianchi</span><span class="item-price-multi"><span class="item-price">Calice 6</span><span class="item-price">Bottiglia 25</span></span><span class="item-description-vini">Prosecco DOC, Passerina, Vermentino, Müller-Thurgau, Chardonnay, Pecorino, Fiano, Sauvignon, Greco, Falanghina, Pinot Grigio, Etna Bianco</span></li></ul></section>
         <section id="franciacorta"><h2>Franciacorta</h2><ul><li class="menu-item spirit-item" data-description="Franciacorta Brut fresco e vivace. Note di agrumi, fiori bianchi e crosta di pane. Bollicina fine."><span class="item-name">Contadi Castaldi Brut</span><span class="item-price-multi"><span class="item-price">Calice 8</span><span class="item-price">Bottiglia 40</span></span><span class="item-description"></span></li><li class="menu-item spirit-item" data-description="Iconico Franciacorta Brut. Complesso ed elegante, note di frutta bianca, mandorla, pasticceria. Perlage setoso."><span class="item-name">Bellavista Alma Gran Cuvée Brut</span><span class="item-price-multi"><span class="item-price">Calice 9</span><span class="item-price">Bottiglia 45</span></span><span class="item-description"></span></li><li class="menu-item spirit-item" data-description="Franciacorta Pas Operé (zero dosaggio) millesimato. Molto secco, minerale, complesso con note agrumate e tostate. Grande finezza."><span class="item-name">Bellavista Pas Operé 2015</span><span class="item-price">80</span><span class="item-description">Solo Bottiglia</span></li></ul></section>
         <section id="birre">
@@ -229,7 +327,7 @@
             </ul>
         </section>
         <section id="gin-tonic">
-            <h2>Gin & Tonic</h2>
+            <h2>Gin</h2>
             <ul>
                 <li class="menu-item spirit-item" data-description="Classico London Dry, note spiccate di ginepro e agrumi. Versatile per molti tonic."> <span class="item-name">Bombay Sapphire</span> <span class="item-price">9.00</span> <span class="item-description">London Dry Gin, UK</span> </li>
                 <li class="menu-item spirit-item" data-description="Intenso e secco, con quattro botaniche chiave (ginepro dominante). Ideale per un Gin Tonic deciso."> <span class="item-name">Tanqueray London Dry</span> <span class="item-price">10.00</span> <span class="item-description">London Dry Gin, UK</span> </li>
@@ -378,17 +476,34 @@
         <p>© 2025 Bar Nuovo - Tutti i prezzi sono in Euro (€)</p>
     </footer>
 
-    <!-- Elemento Pop-up per Descrizione -->
-    <div id="gin-description-popup">
+    <!-- Pop-up per Descrizione Spiriti/Birre -->
+    <div id="description-popup">
         <div class="popup-content">
-            <h4 id="popup-gin-name">Nome Prodotto</h4>
-            <p id="popup-gin-description">Descrizione apparirà qui.</p>
+            <h4 id="popup-product-name">Nome Prodotto</h4>
+            <p id="popup-product-description">Descrizione apparirà qui.</p>
             <button id="popup-close-btn" title="Chiudi">×</button>
         </div>
     </div>
 
+    <!-- NUOVO Modal per Ricette Cocktail/Spritz -->
+    <div id="recipe-modal">
+        <div class="recipe-modal-content">
+            <h3 id="modal-recipe-name">Nome Ricetta</h3>
+            <div id="modal-recipe-ingredients">
+                <h5>Ingredienti:</h5>
+                <ul><!-- Verrà popolato da JS --></ul>
+            </div>
+            <div id="modal-recipe-method">
+                <h5>Metodo:</h5>
+                <!-- Verrà popolato da JS -->
+            </div>
+            <button id="modal-recipe-close-btn" title="Chiudi">×</button>
+        </div>
+    </div>
+
+
     <script>
-        // --- JAVASCRIPT ---
+        // --- Elementi DOM ---
         const searchWrapper = document.getElementById('search-wrapper');
         const searchIconTrigger = document.getElementById('search-icon-trigger');
         const searchInputContainer = document.getElementById('search-input-container');
@@ -397,26 +512,35 @@
         const noResultsSection = document.getElementById('no-results');
         const noResultsTermSpan = document.getElementById('no-results-term');
         const clearSearchLink = document.getElementById('clear-search-link');
-        const headerElement = document.querySelector('header'); // Seleziona l'header per cambio BG
+        const headerElement = document.querySelector('header');
 
-        // Elementi Pop-up
-        const descriptionPopup = document.getElementById('gin-description-popup');
-        const popupProductName = document.getElementById('popup-gin-name');
-        const popupProductDescription = document.getElementById('popup-gin-description');
+        // Elementi Pop-up Descrizione
+        const descriptionPopup = document.getElementById('description-popup');
+        const popupProductName = document.getElementById('popup-product-name');
+        const popupProductDescription = document.getElementById('popup-product-description');
         const popupCloseBtn = document.getElementById('popup-close-btn');
-        const spiritItems = document.querySelectorAll('.spirit-item');
+        const spiritItems = document.querySelectorAll('.spirit-item'); // Item con descrizione semplice
+
+        // Elementi Modal Ricetta
+        const recipeModal = document.getElementById('recipe-modal');
+        const recipeModalContent = document.querySelector('.recipe-modal-content');
+        const modalRecipeName = document.getElementById('modal-recipe-name');
+        const modalRecipeIngredientsList = document.querySelector('#modal-recipe-ingredients ul');
+        const modalRecipeMethodContainer = document.getElementById('modal-recipe-method');
+        const modalRecipeCloseBtn = document.getElementById('modal-recipe-close-btn');
+        const recipeItems = document.querySelectorAll('.recipe-item'); // Item con ricetta
 
         // --- URLs Immagini Header Stagionali ---
-        // !!! SOSTITUISCI QUESTI URL CON I TUOI REALI !!!
         const headerImages = {
             default: 'https://bar-menu.github.io/Nuovo-2.jpg',
-            christmas: 'https://bar-menu.github.io/Nuovo-2.jpg',
-            newYear: 'https://bar-menu.github.io/Nuovo-2.jpg',
-            epiphany: 'https://bar-menu.github.io/Nuovo-2.jpg', // Viola scuro per Befana
-            valentine: 'https://bar-menu.github.io/Nuovo-2.jpg', // Rosso
-            ferragosto: 'https://bar-menu.github.io/Nuovo-2.jpg' // Blu mare
-            // Aggiungi 'easter': 'URL_PASQUA' se implementi la logica
+            christmas: 'https://via.placeholder.com/1200x190/D22F2F/FFFFFF?text=Buon+Natale',
+            newYear: 'https://via.placeholder.com/1200x190/1a1a1a/FFD700?text=Felice+Anno+Nuovo',
+            epiphany: 'https://via.placeholder.com/1200x190/6A0DAD/FFFFFF?text=Buona+Epifania',
+            valentine: 'https://via.placeholder.com/1200x190/E41B17/FFFFFF?text=San+Valentino',
+            ferragosto: 'https://via.placeholder.com/1200x190/0077BE/FFFFFF?text=Buon+Ferragosto'
         };
+
+        // --- Funzioni ---
 
         // Funzione Filtro
         function filterItemsAndSections() {
@@ -424,9 +548,10 @@
             const isSearchActive = searchTerm !== '';
             let anyItemVisibleGlobal = false;
             hideDescriptionPopup();
+            hideRecipeModal();
 
             allSections.forEach(section => {
-                const sectionTitleElement = section.querySelector('h2');
+                 const sectionTitleElement = section.querySelector('h2');
                 const sectionTitleText = sectionTitleElement ? sectionTitleElement.textContent.trim().toLowerCase() : '';
                 const isSectionTitleKeywordMatch = isSearchActive && sectionTitleText.includes(searchTerm);
                 let sectionHasVisibleItem = false;
@@ -475,12 +600,14 @@
             if (!searchWrapper.classList.contains('search-active')) {
                 searchWrapper.classList.add('search-active');
                 hideDescriptionPopup();
+                hideRecipeModal();
                 setTimeout(() => { searchInput.focus(); }, 50);
             }
         }
 
         function deactivateSearch(resetSearch = true) {
              hideDescriptionPopup();
+             hideRecipeModal();
              if (searchWrapper.classList.contains('search-active')) {
                  searchWrapper.classList.remove('search-active');
                  searchInput.blur();
@@ -501,45 +628,84 @@
             popupProductDescription.textContent = description;
             descriptionPopup.classList.add('visible');
         }
-
         function hideDescriptionPopup() {
             if (!descriptionPopup) { return; }
             descriptionPopup.classList.remove('visible');
         }
 
-        // --- Funzione per impostare Immagine Header Stagionale ---
+       // Funzioni Modal Ricetta (CORRETTE per gestione \n)
+        function showRecipeModal(element) {
+            const name = element.querySelector('.item-name')?.textContent || element.textContent.trim() || 'Ricetta';
+            let rawRecipeData = element.dataset.recipe || 'Nessuna ricetta disponibile.';
+            const recipeData = rawRecipeData.replace(/\\n/g, '\n'); // Sostituisci '\n' letterali
+
+            if (!recipeModal || !modalRecipeName || !modalRecipeIngredientsList || !modalRecipeMethodContainer) { return; }
+
+            modalRecipeIngredientsList.innerHTML = '';
+            modalRecipeMethodContainer.innerHTML = '<h5>Metodo:</h5>';
+            modalRecipeName.textContent = name;
+
+            const parts = recipeData.split('---');
+            let ingredientsString = parts[0] ? parts[0].replace(/INGREDIENTI:\s*/i, '').trim() : '';
+            let methodString = parts[1] ? parts[1].replace(/METODO(?: \(.*\))?:\s*/i, '').trim() : 'Istruzioni non specificate.'; // Rimuove anche "METODO (...):"
+
+            // Popola lista ingredienti
+            if (ingredientsString) {
+                const ingredientsArray = ingredientsString.split('\n').filter(line => line.trim() !== '');
+                if (ingredientsArray.length > 0) {
+                    ingredientsArray.forEach(ingredient => {
+                        const li = document.createElement('li');
+                        let cleanedIngredient = ingredient.trim().replace(/^\s*-\s*/, '');
+                        li.innerHTML = cleanedIngredient.replace(/(\d+\s?cl|\d+\s?ml|\d+\s?parti|\d+)\b/g, '<strong>$1</strong>');
+                        modalRecipeIngredientsList.appendChild(li);
+                    });
+                } else {
+                     const li = document.createElement('li');
+                     li.textContent = 'Ingredienti non specificati.';
+                     modalRecipeIngredientsList.appendChild(li);
+                }
+            } else {
+                 const li = document.createElement('li');
+                 li.textContent = 'Ingredienti non specificati.';
+                 modalRecipeIngredientsList.appendChild(li);
+            }
+
+            // Popola metodo
+            const methodParagraphs = methodString.split('\n').filter(line => line.trim() !== '');
+            if (methodParagraphs.length > 0) {
+                methodParagraphs.forEach(paraText => {
+                    const p = document.createElement('p');
+                    p.textContent = paraText.trim().replace(/^\d+\.\s*/, ''); // Rimuove numerazione iniziale
+                    modalRecipeMethodContainer.appendChild(p);
+                });
+            } else if (methodString !== 'Istruzioni non specificate.') {
+                 const p = document.createElement('p');
+                 p.textContent = 'Istruzioni non specificate.';
+                 modalRecipeMethodContainer.appendChild(p);
+            }
+
+            recipeModal.classList.add('visible');
+            if(recipeModalContent) recipeModalContent.scrollTop = 0; // Aggiunto controllo esistenza
+        }
+
+        function hideRecipeModal() {
+            if (!recipeModal) { return; }
+            recipeModal.classList.remove('visible');
+        }
+
+
+        // Funzione Immagine Header Stagionale
         function setSeasonalHeaderImage() {
-            if (!headerElement) return; // Se l'header non esiste, esci
-
+            if (!headerElement) return;
             const today = new Date();
-            const month = today.getMonth(); // 0 = Gennaio, 11 = Dicembre
+            const month = today.getMonth();
             const day = today.getDate();
-            let imageUrl = headerImages.default; // Immagine di default
-
-            // Controlla le festività (ordine importante se ci sono sovrapposizioni)
-            // Natale (es. 8 Dic - 6 Gen)
-            if ((month === 11 && day >= 8) || (month === 0 && day <= 6)) {
-                imageUrl = headerImages.christmas;
-            }
-            // Capodanno (1 Gennaio - già coperto da Natale/Epifania, ma potremmo specificarlo)
-            else if (month === 0 && day === 1) {
-                 imageUrl = headerImages.newYear;
-            }
-            // Epifania (6 Gennaio - già coperto da Natale, ma potremmo specificarlo)
-             else if (month === 0 && day === 6) {
-                 imageUrl = headerImages.epiphany;
-             }
-            // San Valentino (14 Feb)
-            else if (month === 1 && day === 14) {
-                imageUrl = headerImages.valentine;
-            }
-            // Ferragosto (15 Ago)
-            else if (month === 7 && day === 15) {
-                imageUrl = headerImages.ferragosto;
-            }
-            // Pasqua - O M E S S O per semplicità (richiede calcolo)
-
-            // Applica l'immagine selezionata
+            let imageUrl = headerImages.default;
+            if ((month === 11 && day >= 8) || (month === 0 && day <= 6)) { imageUrl = headerImages.christmas; }
+            else if (month === 0 && day === 1) { imageUrl = headerImages.newYear; }
+            else if (month === 0 && day === 6) { imageUrl = headerImages.epiphany; }
+            else if (month === 1 && day === 14) { imageUrl = headerImages.valentine; }
+            else if (month === 7 && day === 15) { imageUrl = headerImages.ferragosto; }
             headerElement.style.backgroundImage = `url('${imageUrl}')`;
         }
 
@@ -560,6 +726,9 @@
              if (descriptionPopup && descriptionPopup.classList.contains('visible') && !descriptionPopup.contains(event.target) && !event.target.closest('.spirit-item')) {
                  hideDescriptionPopup();
              }
+             if (recipeModal && recipeModal.classList.contains('visible') && event.target === recipeModal) {
+                 hideRecipeModal();
+             }
         });
 
         searchInputContainer.addEventListener('click', (event) => { if (event.target !== searchInput) { event.stopPropagation(); } });
@@ -568,13 +737,13 @@
 
         // --- Inizializzazione DOMContentLoaded ---
         document.addEventListener('DOMContentLoaded', () => {
-             setSeasonalHeaderImage(); // Imposta immagine header stagionale
+             setSeasonalHeaderImage();
              searchInput.value = '';
              filterItemsAndSections();
              searchWrapper.classList.remove('search-active');
              noResultsSection.style.display = 'none';
 
-             // Listener combinato per quick nav (Reset + Scroll)
+             // Listener combinato per quick nav
              document.querySelectorAll('#quick-nav a').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -590,25 +759,30 @@
                 });
             });
 
-             // Listener per Pop-up Descrizione
+             // Listener per Pop-up Descrizione (.spirit-item)
              if(spiritItems.length > 0 && descriptionPopup && popupCloseBtn) {
                  spiritItems.forEach(item => {
                     item.addEventListener('click', (event) => {
                         event.stopPropagation();
+                        hideRecipeModal(); // Chiudi l'altro
                         showDescriptionPopup(item);
                     });
                  });
+                 popupCloseBtn.addEventListener('click', () => { hideDescriptionPopup(); });
+                 descriptionPopup.addEventListener('click', (event) => { event.stopPropagation(); });
+             }
 
-                 popupCloseBtn.addEventListener('click', () => {
-                     hideDescriptionPopup();
-                 });
-
-                 descriptionPopup.addEventListener('click', (event) => {
-                     event.stopPropagation();
-                 });
-             } else {
-                 // Non mostrare warning in produzione, magari loggare solo in sviluppo
-                 // console.warn("Elementi per il popup descrizione non trovati, funzionalità disabilitata.");
+            // Listener per Modal Ricetta (.recipe-item)
+             if(recipeItems.length > 0 && recipeModal && modalRecipeCloseBtn && recipeModalContent) {
+                recipeItems.forEach(item => {
+                    item.addEventListener('click', (event) => {
+                        event.stopPropagation();
+                        hideDescriptionPopup(); // Chiudi l'altro
+                        showRecipeModal(item);
+                    });
+                });
+                modalRecipeCloseBtn.addEventListener('click', () => { hideRecipeModal(); });
+                recipeModalContent.addEventListener('click', (event) => { event.stopPropagation(); });
              }
         });
     </script>
