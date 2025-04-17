@@ -112,6 +112,23 @@
         .item-price-multi .item-price { font-weight: 700; margin-left: 0; padding-top: 2px; padding-bottom: 2px; text-align: right; width: 100%; }
         .item-description, .item-description-vini { font-size: 0.88em; color: #666; flex-basis: 100%; margin-top: 5px; line-height: 1.4; padding-left: 0; }
         .item-description-vini { font-size: 0.93em; }
+        .item-variations {
+            flex-basis: 100%;    /* Occupa tutta la larghezza */
+            margin-top: 6px;     /* Spazio sopra */
+            font-size: 0.9em;    /* Dimensione leggermente più grande o uguale alla descrizione */
+            color: #444;        /* Grigio più scuro rispetto a #666 della descrizione */
+            font-weight: 600;  /* Semi-bold per evidenziare */
+            line-height: 1.4;
+            padding-left: 0;
+        }
+        .item-variations + .item-description {
+            margin-top: 2px;      /* Riduci lo spazio sopra */
+            font-size: 0.85em;   /* Riduci leggermente la dimensione per gerarchia */
+            color: #666;         /* Mantieni il colore standard della descrizione */
+            font-weight: 400;   /* Mantieni il peso standard della descrizione */
+        }
+        
+        
         .simple-list li { display: block; padding: 10px 0; border-bottom: 1px solid var(--border-light); font-weight: 400; color: var(--text-dark); font-size: 1.0em; text-align: center; justify-content: initial; flex-wrap: initial; align-items: initial; }
         .simple-list li:last-child { border-bottom: none; }
         .simple-list li:hover { background-color: #f5f5f5; transition: background-color 0.2s ease-in-out; }
@@ -236,7 +253,14 @@
                 <li class="menu-item spirit-item" data-description="Distillato con cetriolo e rosa, offre un profilo aromatico unico e rinfrescante."> <span class="item-name">Hendrick's</span> <span class="item-price">10.00</span> <span class="item-description">Infused Gin, Scozia</span> </li>
                 <li class="menu-item spirit-item" data-description="Moderno London Dry con botaniche esotiche come papavero e longan. Morbido e speziato."> <span class="item-name">Bulldog</span> <span class="item-price">10.00</span> <span class="item-description">London Dry Gin, UK</span> </li>
                 <li class="menu-item spirit-item" data-description="Gin mediterraneo con botaniche come oliva arbequina, rosmarino, timo e basilico. Sapore erbaceo distintivo."> <span class="item-name">Gin Mare</span> <span class="item-price">10.00</span> <span class="item-description">Mediterranean Gin, Spagna</span> </li>
-                <li class="menu-item spirit-item" data-description="Gin italiani con agrumi locali. Limone: fresco e agrumato; Arancia: dolce e succoso; Pompelmo Rosa: fresco con nota amara. Originale: ginepro e coriandolo."> <span class="item-name">Malfy</span> <span class="item-price">10.00</span> <span class="item-description">(Originale / Limone / Arancia / Pompelmo Rosa) - Italian Gin</span> </li>
+                <li class="menu-item spirit-item" data-description="Gin italiani con agrumi locali. Originale: ginepro e coriandolo; Limone: fresco e agrumato; Arancia: dolce e succoso; Pompelmo Rosa: fresco con nota amara.">
+                    <span class="item-name">Malfy</span>
+                    <span class="item-price">10.00</span>
+                    <!-- Span per le varianti più visibili -->
+                    <span class="item-variations">(Originale / Limone / Arancia / Pompelmo Rosa)</span>
+                    <!-- Span per la descrizione standard -->
+                    <span class="item-description">Italian Gin</span>
+                </li>
                 <li class="menu-item spirit-item" data-description="Gin artigianale italiano distillato a freddo. Note balsamiche di ginepro, pino mugo e menta."> <span class="item-name">Marconi 46 - Poli</span> <span class="item-price">10.00</span> <span class="item-description">Italian Dry Gin</span> </li>
                 <li class="menu-item spirit-item" data-description="Elegante gin italiano con 20 botaniche locali. Note fresche, agrumate e mediterranee."> <span class="item-name">Portofino Dry Gin</span> <span class="item-price">10.00</span> <span class="item-description">Italian Dry Gin</span> </li>
                 <li class="menu-item spirit-item" data-description="Gin morbido e intensamente fruttato (more, mirtilli). Diverso dai London Dry tradizionali."> <span class="item-name">Brockmans</span> <span class="item-price">10.00</span> <span class="item-description">Botanical Gin, UK</span> </li>
@@ -244,7 +268,16 @@
                 <li class="menu-item spirit-item" data-description="London Dry di alta gamma. Perfetto equilibrio tra ginepro, agrumi e spezie. Ottimo per Martini."> <span class="item-name">No.3 London Dry Gin</span> <span class="item-price">10.00</span> <span class="item-description">London Dry Gin, UK</span> </li>
                 <li class="menu-item spirit-item" data-description="Complesso gin tedesco (Foresta Nera) con 47 botaniche. Note floreali, speziate e agrumate. Intenso."> <span class="item-name">Monkey 47 Schwarzwald</span> <span class="item-price">12.00</span> <span class="item-description">Dry Gin, Germania</span> </li>
                 <li class="menu-item spirit-item" data-description="Gin belga unico, distillato con foglie di coca peruviana e botaniche esotiche. Particolare e aromatico."> <span class="item-name">Amuerte Coca Leaf</span> <span class="item-price">12.00</span> <span class="item-description">(Vari Colori) Distilled Gin, Belgio</span> </li>
-                <li class="menu-item spirit-item" data-description="Gin olandese creato da uno chef. Speziato e versatile, pensato per abbinamenti gastronomici."> <span class="item-name">Gastro Gin "Gin & Jonnie"</span> <span class="item-price">10.00</span> <span class="item-description">Olanda</span> </li>
+                <li class="menu-item spirit-item" data-description="Gin belga unico, distillato con foglie di coca peruviana. Black: botaniche classiche, note balsamiche. Red: note fruttate di piña tomatillo. Particolare e aromatico.">
+                    <span class="item-name">Amuerte Coca Leaf</span>
+                    <span class="item-price">12.00</span>
+                    <!-- Span per le varianti più visibili -->
+                    <span class="item-variations">(Black / Red)</span>
+                     <!-- Span per la descrizione standard -->
+                    <span class="item-description">Distilled Gin, Belgio</span>
+                </li>
+                
+                
                 <li class="item-description-footer">Tutti i Gin Tonic sono serviti con acqua tonica premium.</li>
             </ul>
         </section>
