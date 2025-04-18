@@ -77,7 +77,7 @@
             bottom: -1px;
             left: 0;
             width: 100%; height: 95%;
-            background: linear-gradient(to bottom, rgba(26, 26, 26, 0.0) 0%, rgba(26, 26, 26, 0.9) 70%, var(--bg-dark) 95%);
+            background: linear-gradient(to bottom, rgba(26, 26, 26, 0.0) 0%, rgba(26, 26, 26, 0.9) 90%, var(--bg-dark) 99%);
             z-index: 0;
         }
         header h1 {
@@ -214,7 +214,32 @@
         <section id="bevande"><h2>Bevande</h2><ul><li class="menu-item"><span class="item-name">Acqua in bicchiere</span><span class="item-price">0.80</span></li><li class="menu-item"><span class="item-name">Acqua 0.5l</span><span class="item-price">1.50</span></li><li class="menu-item"><span class="item-name">Spremuta d'arancia</span><span class="item-price">5.00</span></li><li class="menu-item"><span class="item-name">Succhi di frutta</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Bibite in lattina</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Red Bull</span><span class="item-price">4.50</span></li></ul></section>
         <section id="spritz"><h2>Spritz & Co.</h2><ul><li class="menu-item"><span class="item-name">Spritz (Aperol / Campari)</span><span class="item-price">6.00</span><span class="item-description">Vino bianco fermo o frizzante, Aperol o Campari, soda, ghiaccio e arancia</span></li><li class="menu-item"><span class="item-name">Hugo</span><span class="item-price">6.00</span><span class="item-description">Prosecco, sciroppo di sambuco, soda, ghiaccio, foglie di menta</span></li><li class="menu-item"><span class="item-name">Spritz St-Germain</span><span class="item-price">6.00</span><span class="item-description">Prosecco, St-Germain (liquore sambuco), soda, ghiaccio, lime</span></li><li class="menu-item spirit-item" data-description="Cocktail classico bitter. Campari, Vermouth Rosso dolce e una spruzzata di soda. Servito con ghiaccio e fetta d'arancia."><span class="item-name">Americano</span><span class="item-price">8.00</span><span class="item-description">Campari, Vermouth Rosso, Soda</span></li><li class="menu-item spirit-item" data-description="Variante 'sbagliata' del Negroni dove il gin è sostituito dal Prosecco. Campari, Vermouth Rosso e Prosecco. Più leggero e frizzante."><span class="item-name">Negroni Sbagliato</span><span class="item-price">8.00</span><span class="item-description">Campari, Vermouth Rosso, Prosecco</span></li></ul></section>
         <section id="cocktails"><h2>Cocktails <span class="section-price">8.00</span></h2><ul class="simple-list"><li class="menu-item">NEGRONI</li><li class="menu-item">MOJITO</li><li class="menu-item">CAIPIROSKA / CAIPIRINHA / CAIPIRISSIMA</li><li class="menu-item">DAIQUIRI</li><li class="menu-item">SEX ON THE BEACH</li><li class="menu-item">LONG ISLAND ICE TEA</li><li class="menu-item">CUBA LIBRE</li><li class="menu-item">PINA COLADA</li><li class="menu-item">BLACK RUSSIAN / WHITE RUSSIAN</li><li class="menu-item">MARGARITA</li><li class="menu-item">TEQUILA SUNRISE</li><li class="menu-item">ANGELO AZZURRO</li><li class="menu-item">GIN TONIC / VODKA TONIC (Base)</li><li class="menu-item">GIN LEMON / VODKA LEMON (Base)</li><li class="menu-item">PALOMA</li><li class="menu-item">MANHATTAN</li><li class="menu-item">MOSCOW MULE</li><li class="menu-item">OLD FASHIONED</li><li class="menu-item">DRY MARTINI</li><li class="menu-item">ESPRESSO MARTINI</li><li class="menu-item">WHISKEY SOUR</li><li class="menu-item">VODKA SOUR</li><li class="menu-item">AMARETTO SOUR (Disaronno)</li></ul></section>
-        <section id="vini"><h2>Vini</h2><ul><li class="menu-item"><span class="item-name">Selezione Vini Rossi</span><span class="item-price-multi"><span class="item-price">Calice 6</span><span class="item-price">Bottiglia 25</span></span><span class="item-description-vini">Chianti, Sangiovese, Merlot, Lambrusco, Cabernet, Morellino, Montepulciano, Valpolicella</span></li><li class="menu-item"><span class="item-name">Selezione Vini Bianchi</span><span class="item-price-multi"><span class="item-price">Calice 6</span><span class="item-price">Bottiglia 25</span></span><span class="item-description-vini">Prosecco DOC, Passerina, Vermentino, Müller-Thurgau, Chardonnay, Pecorino, Fiano, Sauvignon, Greco, Falanghina, Pinot Grigio, Etna Bianco</span></li></ul></section>
+
+        <section id="vini">
+            <h2>Vini</h2>
+            <ul>
+                <li>
+                    <span class="item-name">Selezione Vini Rossi</span>
+                    <span class="item-price-multi">
+                        <span class="item-price">Calice 6</span>
+                        <span class="item-price">Bottiglia 25</span>
+                    </span>
+                    <!-- DESCRIZIONE CORRETTA VINI ROSSI -->
+                    <span class="item-description-vini">Chianti, Sangiovese, Merlot, Lambrusco, Cabernet, Morellino di Scansano, Montepulciano d'Abruzzo, Valpolicella</span>
+                </li>
+                <li>
+                    <span class="item-name">Selezione Vini Bianchi</span>
+                    <span class="item-price-multi">
+                        <span class="item-price">Calice 6</span>
+                        <span class="item-price">Bottiglia 25</span>
+                    </span>
+                    <!-- DESCRIZIONE CORRETTA VINI BIANCHI -->
+                    <span class="item-description-vini">Prosecco, Passerina, Vermentino, Müller-Thurgau, Chardonnay, Pecorino, Fiano d'Avellino, Sauvignon, Greco di Tufo, Falanghina, Pinot Grigio, Etna </span>
+                </li>
+            </ul>
+        </section>
+        
+        
         <section id="franciacorta"><h2>Franciacorta</h2><ul><li class="menu-item spirit-item" data-description="Franciacorta Brut fresco e vivace. Note di agrumi, fiori bianchi e crosta di pane. Bollicina fine."><span class="item-name">Contadi Castaldi Brut</span><span class="item-price-multi"><span class="item-price">Calice 8</span><span class="item-price">Bottiglia 40</span></span><span class="item-description"></span></li><li class="menu-item spirit-item" data-description="Iconico Franciacorta Brut. Complesso ed elegante, note di frutta bianca, mandorla, pasticceria. Perlage setoso."><span class="item-name">Bellavista Alma Gran Cuvée Brut</span><span class="item-price-multi"><span class="item-price">Calice 9</span><span class="item-price">Bottiglia 45</span></span><span class="item-description"></span></li><li class="menu-item spirit-item" data-description="Franciacorta Pas Operé (zero dosaggio) millesimato. Molto secco, minerale, complesso con note agrumate e tostate. Grande finezza."><span class="item-name">Bellavista Pas Operé 2015</span><span class="item-price">80</span><span class="item-description">Solo Bottiglia</span></li></ul></section>
         <section id="birre">
             <h2>Birre</h2>
@@ -248,36 +273,126 @@
         <section id="gin-tonic">
             <h2>Gin & Tonic</h2>
             <ul>
-                <li class="menu-item spirit-item" data-description="Classico London Dry, note spiccate di ginepro e agrumi. Versatile per molti tonic."> <span class="item-name">Bombay Sapphire</span> <span class="item-price">9.00</span> <span class="item-description">London Dry Gin, UK</span> </li>
-                <li class="menu-item spirit-item" data-description="Intenso e secco, con quattro botaniche chiave (ginepro dominante). Ideale per un Gin Tonic deciso."> <span class="item-name">Tanqueray London Dry</span> <span class="item-price">10.00</span> <span class="item-description">London Dry Gin, UK</span> </li>
-                <li class="menu-item spirit-item" data-description="Distillato con cetriolo e rosa, offre un profilo aromatico unico e rinfrescante."> <span class="item-name">Hendrick's</span> <span class="item-price">10.00</span> <span class="item-description">Infused Gin, Scozia</span> </li>
-                <li class="menu-item spirit-item" data-description="Moderno London Dry con botaniche esotiche come papavero e longan. Morbido e speziato."> <span class="item-name">Bulldog</span> <span class="item-price">10.00</span> <span class="item-description">London Dry Gin, UK</span> </li>
-                <li class="menu-item spirit-item" data-description="Gin mediterraneo con botaniche come oliva arbequina, rosmarino, timo e basilico. Sapore erbaceo distintivo."> <span class="item-name">Gin Mare</span> <span class="item-price">10.00</span> <span class="item-description">Mediterranean Gin, Spagna</span> </li>
+                <!-- Gin in Ordine Alfabetico -->
+                <li class="menu-item spirit-item" data-description="Gin belga unico, distillato con foglie di coca peruviana. Black: botaniche classiche. Red: piña tomatillo. White: note speziate. Green: curuba fruit. Orange: papaya. Blue: fico blu. Particolare e aromatico.">
+                    <span class="item-name">Amuerte Coca Leaf</span>
+                    <span class="item-price">12.00</span>
+                    <!-- Varianti Raggruppate -->
+                    <span class="item-variations">(Black / Red / White / Green / Orange / Blue)</span>
+                    <span class="item-description">Distilled Gin, Belgio</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Classico London Dry, note spiccate di ginepro e agrumi. Versatile per molti tonic.">
+                    <span class="item-name">Bombay Sapphire</span>
+                    <span class="item-price">9.00</span>
+                    <span class="item-description">London Dry Gin, UK</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Gin morbido e intensamente fruttato (more, mirtilli). Diverso dai London Dry tradizionali.">
+                    <span class="item-name">Brockmans Botanical</span>
+                    <span class="item-price">10.00</span>
+                    <span class="item-description">Botanical Gin, UK</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Moderno London Dry con botaniche esotiche come papavero e longan. Morbido e speziato.">
+                    <span class="item-name">Bulldog</span>
+                    <span class="item-price">10.00</span>
+                    <span class="item-description">London Dry Gin, UK</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Gin francese classico, stile London Dry. Distillato in alambicco di rame.">
+                    <span class="item-name">Citadelle Gin</span> <span class="item-price">10.00</span> <span class="item-description">Francia</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Gin artigianale italiano (Marche). Profilo morbido, delicato e bilanciato. Note di ginepro, 13 altre botaniche (tra cui radice di angelica, coriandolo, liquirizia) e un accenno di agrumi. Distillato in rame e brevemente affinato in rovere per un finale vellutato."> <!-- DESCRIZIONE COLLESSI AGGIORNATA -->
+                    <span class="item-name">Collesi</span> <span class="item-price">10.00</span> <span class="item-description">Italia</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Gin premium, stile London Dry.">
+                     <span class="item-name">Cubical</span> <span class="item-price">10.00</span> <span class="item-description">Premium London Dry Gin</span>
+                 </li>
+                <li class="menu-item spirit-item" data-description="Gin giapponese con botaniche come yuzu e pepe sansho.">
+                    <span class="item-name">Etsu</span> <span class="item-price">12.00</span> <span class="item-description">Giappone</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="London Dry Gin prodotto in piccoli lotti.">
+                     <span class="item-name">Fifty Pounds</span> <span class="item-price">10.00</span> <span class="item-description">London Dry Gin</span>
+                 </li>
+                <li class="menu-item spirit-item" data-description="Gin olandese creato da uno chef. Speziato e versatile, pensato per abbinamenti gastronomici.">
+                    <span class="item-name">Gastro Gin "Gin & Jonnie"</span>
+                    <span class="item-price">10.00</span>
+                    <span class="item-description">Olanda</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Gin premium con focus sul geranio come botanica.">
+                     <span class="item-name">Geranium</span> <span class="item-price">10.00</span> <span class="item-description">Premium London Dry Gin</span>
+                 </li>
+                <li class="menu-item spirit-item" data-description="Gin mediterraneo con botaniche come oliva arbequina, rosmarino, timo e basilico. Sapore erbaceo distintivo.">
+                    <span class="item-name">Gin Mare</span>
+                    <span class="item-price">10.00</span>
+                    <span class="item-description">Mediterranean Gin, Spagna</span>
+                </li>
+                 <li class="menu-item spirit-item" data-description="Gin francese, stile floreale.">
+                    <span class="item-name">Gin Eva Floraison</span> <span class="item-price">10.00</span> <span class="item-description">Francia</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Distillato con cetriolo e rosa, offre un profilo aromatico unico e rinfrescante.">
+                    <span class="item-name">Hendrick's</span> <span class="item-price">10.00</span> <span class="item-description">Infused Gin, Scozia</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Edizione limitata Hendrick's ispirata alla notte. Note floreali e speziate.">
+                    <span class="item-name">Hendrick's Lunar</span> <span class="item-price">10.00</span> <span class="item-description">Scozia</span>
+                </li>
+                 <li class="menu-item spirit-item" data-description="Edizione Hendrick's con aggiunta di chinino, assenzio e fiore di loto blu. Più complesso e amaro.">
+                    <span class="item-name">Hendrick's Orbium</span> <span class="item-price">10.00</span> <span class="item-description">Scozia</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Gin tedesco che cambia colore con la tonica.">
+                    <span class="item-name">The Illusionist</span> <span class="item-price">12.00</span> <span class="item-description">Germania</span>
+                </li>
                 <li class="menu-item spirit-item" data-description="Gin italiani con agrumi locali. Originale: ginepro e coriandolo; Limone: fresco e agrumato; Arancia: dolce e succoso; Pompelmo Rosa: fresco con nota amara.">
                     <span class="item-name">Malfy</span>
                     <span class="item-price">10.00</span>
-                    <!-- Span per le varianti più visibili -->
+                    <!-- Varianti Raggruppate -->
                     <span class="item-variations">(Originale / Limone / Arancia / Pompelmo Rosa)</span>
-                    <!-- Span per la descrizione standard -->
                     <span class="item-description">Italian Gin</span>
                 </li>
-                <li class="menu-item spirit-item" data-description="Gin artigianale italiano distillato a freddo. Note balsamiche di ginepro, pino mugo e menta."> <span class="item-name">Marconi 46 - Poli</span> <span class="item-price">10.00</span> <span class="item-description">Italian Dry Gin</span> </li>
-                <li class="menu-item spirit-item" data-description="Elegante gin italiano con 20 botaniche locali. Note fresche, agrumate e mediterranee."> <span class="item-name">Portofino Dry Gin</span> <span class="item-price">10.00</span> <span class="item-description">Italian Dry Gin</span> </li>
-                <li class="menu-item spirit-item" data-description="Gin morbido e intensamente fruttato (more, mirtilli). Diverso dai London Dry tradizionali."> <span class="item-name">Brockmans</span> <span class="item-price">10.00</span> <span class="item-description">Botanical Gin, UK</span> </li>
-                <li class="menu-item spirit-item" data-description="Unico gin con Indicazione Geografica (Plymouth). Sapore pieno, morbido, terroso e agrumato."> <span class="item-name">Plymouth Original Strength</span> <span class="item-price">10.00</span> <span class="item-description">Plymouth Gin, UK</span> </li>
-                <li class="menu-item spirit-item" data-description="London Dry di alta gamma. Perfetto equilibrio tra ginepro, agrumi e spezie. Ottimo per Martini."> <span class="item-name">No.3 London Dry Gin</span> <span class="item-price">10.00</span> <span class="item-description">London Dry Gin, UK</span> </li>
-                <li class="menu-item spirit-item" data-description="Complesso gin tedesco (Foresta Nera) con 47 botaniche. Note floreali, speziate e agrumate. Intenso."> <span class="item-name">Monkey 47 Schwarzwald</span> <span class="item-price">12.00</span> <span class="item-description">Dry Gin, Germania</span> </li>
-                <li class="menu-item spirit-item" data-description="Gin belga unico, distillato con foglie di coca peruviana e botaniche esotiche. Particolare e aromatico."> <span class="item-name">Amuerte Coca Leaf</span> <span class="item-price">12.00</span> <span class="item-description">(Vari Colori) Distilled Gin, Belgio</span> </li>
-                <li class="menu-item spirit-item" data-description="Gin belga unico, distillato con foglie di coca peruviana. Black: botaniche classiche, note balsamiche. Red: note fruttate di piña tomatillo. Particolare e aromatico.">
-                    <span class="item-name">Amuerte Coca Leaf</span>
-                    <span class="item-price">12.00</span>
-                    <!-- Span per le varianti più visibili -->
-                    <span class="item-variations">(Black / Red)</span>
-                     <!-- Span per la descrizione standard -->
-                    <span class="item-description">Distilled Gin, Belgio</span>
+                <li class="menu-item spirit-item" data-description="Gin artigianale italiano distillato a freddo. Note balsamiche di ginepro, pino mugo e menta.">
+                    <span class="item-name">Marconi 46 – Poli</span>
+                    <span class="item-price">10.00</span>
+                    <span class="item-description">Italian Dry Gin</span>
                 </li>
-                
-                
+                <li class="menu-item spirit-item" data-description="Gin inglese distillato con acqua islandese.">
+                     <span class="item-name">Martin Miller's</span> <span class="item-price">10.00</span> <span class="item-description">England, Icelandic water</span>
+                 </li>
+                <li class="menu-item spirit-item" data-description="Complesso gin tedesco (Foresta Nera) con 47 botaniche. Note floreali, speziate e agrumate. Intenso.">
+                    <span class="item-name">Monkey 47 Schwarzwald</span>
+                    <span class="item-price">12.00</span>
+                    <span class="item-description">Dry Gin, Germania</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Variante Sloe Gin di Monkey 47, infuso con prugnole selvatiche. Dolce e fruttato.">
+                    <span class="item-name">Monkey 47 Sloe Prugnolo</span> <span class="item-price">12.00</span> <span class="item-description">Germania</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="London Dry di alta gamma. Perfetto equilibrio tra ginepro, agrumi e spezie. Ottimo per Martini.">
+                    <span class="item-name">No.3 London Dry Gin</span>
+                    <span class="item-price">10.00</span>
+                    <span class="item-description">London Dry Gin, UK</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Gin galiziano a base di uva Albariño. Profilo aromatico e floreale.">
+                    <span class="item-name">Nordés</span> <span class="item-price">12.00</span> <span class="item-description">Spagna</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="London Dry Gin speziato con botaniche esotiche (pepe di Giava, pepe nero, coriandolo).">
+                     <span class="item-name">Ophir Spices of the Orient</span> <span class="item-price">10.00</span> <span class="item-description">London Dry Gin</span>
+                 </li>
+                <li class="menu-item spirit-item" data-description="Gin artigianale italiano, elegante e complesso. Spiccano bergamotto e salvia tra 10 botaniche. Note agrumate, floreali ed erbacee con equilibrio dolce-amaro persistente."> <!-- DESCRIZIONE PIUCINQUE AGGIORNATA E CONCISA -->
+                    <span class="item-name">PiùCinque</span> <span class="item-price">10.00</span> <span class="item-description">Italia</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Unico gin con Indicazione Geografica (Plymouth). Sapore pieno, morbido, terroso e agrumato.">
+                    <span class="item-name">Plymouth Original Strength</span>
+                    <span class="item-price">10.00</span>
+                    <span class="item-description">Plymouth Gin, UK</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Elegante gin italiano con 20 botaniche locali. Note fresche, agrumate e mediterranee.">
+                    <span class="item-name">Portofino Dry Gin</span>
+                    <span class="item-price">10.00</span>
+                    <span class="item-description">Italian Dry Gin</span>
+                </li>
+                <li class="menu-item spirit-item" data-description="Intenso e secco, con quattro botaniche chiave (ginepro dominante). Ideale per un Gin Tonic deciso.">
+                    <span class="item-name">Tanqueray London Dry</span>
+                    <span class="item-price">10.00</span>
+                    <span class="item-description">London Dry Gin, UK</span>
+                </li>
+
+                <!-- Riga Footer -->
                 <li class="item-description-footer">Tutti i Gin Tonic sono serviti con acqua tonica premium.</li>
             </ul>
         </section>
@@ -356,7 +471,9 @@
                 <li class="menu-item spirit-item" data-description="Classico brandy italiano. Gusto morbido e rotondo, note di frutta matura (albicocca), vaniglia e legno."> <span class="item-name">Vecchia Romagna Etichetta Nera</span> <span class="item-price">4.00</span> </li>
                 <li class="menu-item spirit-item" data-description="Brandy italiano dal carattere deciso. Note di frutta secca, spezie dolci da legno, finale più secco."> <span class="item-name">Stravecchio Branca</span> <span class="item-price">4.00</span> </li>
                 <li class="menu-item spirit-item" data-description="Brandy spagnolo de Jerez (Solera Gran Reserva). Invecchiato in botti ex-Sherry. Molto ricco, morbido (uvetta, fichi, spezie)."> <span class="item-name">Cardenal Mendoza Clásico</span> <span class="item-price">6.00</span> <span class="item-description">Brandy de Jerez</span> </li>
-                <li class="menu-item spirit-item" data-description="Cognac francese (VS). Profilo fresco e fruttato (pera, pesca), note floreali e leggero rovere."> <span class="item-name">Cognac Courvoisier VS</span> <span class="item-price">6.00</span> </li>
+           <!-- <li class="menu-item spirit-item" data-description="Cognac francese (VS). Profilo fresco e fruttato (pera, pesca), note floreali e leggero rovere."> <span class="item-name">Cognac Courvoisier VS</span> <span class="item-price">6.00</span> </li>
+               -->    
+           
             </ul>
         </section>
         <section id="spuntini"><h2>Spuntini</h2><ul><li class="menu-item"><span class="item-name">Toast Classico</span><span class="item-price">3.00</span><span class="item-description">(Prosciutto Cotto, Fontina)</span></li><li class="menu-item"><span class="item-name">Focaccia</span><span class="item-price">2.20</span><span class="item-description">(Olive / Pomodorini)</span></li><li class="menu-item"><span class="item-name">Pastine Dolci/Salate</span><span class="item-price">1.40</span><span class="item-description">Varietà del giorno</span></li><li class="menu-item"><span class="item-name">Tramezzino</span><span class="item-price">2.20</span><span class="item-description">Gusti assortiti</span></li></ul></section>

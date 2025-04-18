@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu - Bar Nuovo</title>
+    <!-- TITOLO PAGINA AGGIORNATO -->
+    <title>Menu - Bar Santos</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,8 +61,8 @@
             min-height: 190px; /* Manteniamo altezza ridotta */
             z-index: 1;
             /* --- BACKGROUND IMAGE SPOSTATO QUI --- */
-            /* Immagine di default (verrà sovrascritta da JS se necessario) */
-            background-image: url('https://bar-menu.github.io/Nuovo-2.jpg');
+            /* IMMAGINE DEFAULT AGGIORNATA */
+            background-image: url('https://bar-menu.github.io/Santos-2.jpg'); /* <- MODIFICATO */
             background-size: cover;
             background-position: center 0;
             background-repeat: no-repeat;
@@ -127,8 +128,8 @@
             color: #666;         /* Mantieni il colore standard della descrizione */
             font-weight: 400;   /* Mantieni il peso standard della descrizione */
         }
-        
-        
+
+
         .simple-list li { display: block; padding: 10px 0; border-bottom: 1px solid var(--border-light); font-weight: 400; color: var(--text-dark); font-size: 1.0em; text-align: center; justify-content: initial; flex-wrap: initial; align-items: initial; }
         .simple-list li:last-child { border-bottom: none; }
         .simple-list li:hover { background-color: #f5f5f5; transition: background-color 0.2s ease-in-out; }
@@ -205,11 +206,11 @@
 
     <!-- Header (Il background verrà impostato da CSS/JS) -->
     <header>
-        <h1>MENU</h1>
+        <h1>BAR SANTOS</h1> <!-- Mantenuto generico, può essere cambiato se necessario -->
     </header>
 
     <main>
-        <!-- SEZIONI MENU (Contenuto con data-description) -->
+        <!-- CONTENUTO DEL MENU (Invariato, a meno di voci specifiche del nuovo bar) -->
         <section id="caffetteria"><h2>Caffetteria</h2><ul><li class="menu-item"><span class="item-name">Caffè espresso</span><span class="item-price">2.20</span></li><li class="menu-item"><span class="item-name">Caffè decaffeinato</span><span class="item-price">2.30</span></li><li class="menu-item"><span class="item-name">Caffè d'orzo piccolo</span><span class="item-price">2.30</span></li><li class="menu-item"><span class="item-name">Caffè al ginseng</span><span class="item-price">2.30</span></li><li class="menu-item"><span class="item-name">Caffè d'orzo grande</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè al ginseng grande</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè espresso con panna</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè corretto</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè freddo shakerato</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Caffè marocchino</span><span class="item-price">2.80</span></li><li class="menu-item"><span class="item-name">Cappuccino</span><span class="item-price">2.50</span></li><li class="menu-item"><span class="item-name">Cappuccino con latte soia</span><span class="item-price">2.80</span></li><li class="menu-item"><span class="item-name">Latte macchiato</span><span class="item-price">2.80</span></li><li class="menu-item"><span class="item-name">Cioccolata in tazza</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Cioccolata con panna</span><span class="item-price">4.50</span></li><li class="menu-item"><span class="item-name">The / Infusi / Camomilla</span><span class="item-price">3.50</span></li></ul></section>
         <section id="bevande"><h2>Bevande</h2><ul><li class="menu-item"><span class="item-name">Acqua in bicchiere</span><span class="item-price">0.80</span></li><li class="menu-item"><span class="item-name">Acqua 0.5l</span><span class="item-price">1.50</span></li><li class="menu-item"><span class="item-name">Spremuta d'arancia</span><span class="item-price">5.00</span></li><li class="menu-item"><span class="item-name">Succhi di frutta</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Bibite in lattina</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Red Bull</span><span class="item-price">4.50</span></li></ul></section>
         <section id="spritz"><h2>Spritz & Co.</h2><ul><li class="menu-item"><span class="item-name">Spritz (Aperol / Campari)</span><span class="item-price">6.00</span><span class="item-description">Vino bianco fermo o frizzante, Aperol o Campari, soda, ghiaccio e arancia</span></li><li class="menu-item"><span class="item-name">Hugo</span><span class="item-price">6.00</span><span class="item-description">Prosecco, sciroppo di sambuco, soda, ghiaccio, foglie di menta</span></li><li class="menu-item"><span class="item-name">Spritz St-Germain</span><span class="item-price">6.00</span><span class="item-description">Prosecco, St-Germain (liquore sambuco), soda, ghiaccio, lime</span></li><li class="menu-item spirit-item" data-description="Cocktail classico bitter. Campari, Vermouth Rosso dolce e una spruzzata di soda. Servito con ghiaccio e fetta d'arancia."><span class="item-name">Americano</span><span class="item-price">8.00</span><span class="item-description">Campari, Vermouth Rosso, Soda</span></li><li class="menu-item spirit-item" data-description="Variante 'sbagliata' del Negroni dove il gin è sostituito dal Prosecco. Campari, Vermouth Rosso e Prosecco. Più leggero e frizzante."><span class="item-name">Negroni Sbagliato</span><span class="item-price">8.00</span><span class="item-description">Campari, Vermouth Rosso, Prosecco</span></li></ul></section>
@@ -256,9 +257,7 @@
                 <li class="menu-item spirit-item" data-description="Gin italiani con agrumi locali. Originale: ginepro e coriandolo; Limone: fresco e agrumato; Arancia: dolce e succoso; Pompelmo Rosa: fresco con nota amara.">
                     <span class="item-name">Malfy</span>
                     <span class="item-price">10.00</span>
-                    <!-- Span per le varianti più visibili -->
                     <span class="item-variations">(Originale / Limone / Arancia / Pompelmo Rosa)</span>
-                    <!-- Span per la descrizione standard -->
                     <span class="item-description">Italian Gin</span>
                 </li>
                 <li class="menu-item spirit-item" data-description="Gin artigianale italiano distillato a freddo. Note balsamiche di ginepro, pino mugo e menta."> <span class="item-name">Marconi 46 - Poli</span> <span class="item-price">10.00</span> <span class="item-description">Italian Dry Gin</span> </li>
@@ -267,17 +266,15 @@
                 <li class="menu-item spirit-item" data-description="Unico gin con Indicazione Geografica (Plymouth). Sapore pieno, morbido, terroso e agrumato."> <span class="item-name">Plymouth Original Strength</span> <span class="item-price">10.00</span> <span class="item-description">Plymouth Gin, UK</span> </li>
                 <li class="menu-item spirit-item" data-description="London Dry di alta gamma. Perfetto equilibrio tra ginepro, agrumi e spezie. Ottimo per Martini."> <span class="item-name">No.3 London Dry Gin</span> <span class="item-price">10.00</span> <span class="item-description">London Dry Gin, UK</span> </li>
                 <li class="menu-item spirit-item" data-description="Complesso gin tedesco (Foresta Nera) con 47 botaniche. Note floreali, speziate e agrumate. Intenso."> <span class="item-name">Monkey 47 Schwarzwald</span> <span class="item-price">12.00</span> <span class="item-description">Dry Gin, Germania</span> </li>
-                <li class="menu-item spirit-item" data-description="Gin belga unico, distillato con foglie di coca peruviana e botaniche esotiche. Particolare e aromatico."> <span class="item-name">Amuerte Coca Leaf</span> <span class="item-price">12.00</span> <span class="item-description">(Vari Colori) Distilled Gin, Belgio</span> </li>
                 <li class="menu-item spirit-item" data-description="Gin belga unico, distillato con foglie di coca peruviana. Black: botaniche classiche, note balsamiche. Red: note fruttate di piña tomatillo. Particolare e aromatico.">
                     <span class="item-name">Amuerte Coca Leaf</span>
                     <span class="item-price">12.00</span>
-                    <!-- Span per le varianti più visibili -->
                     <span class="item-variations">(Black / Red)</span>
-                     <!-- Span per la descrizione standard -->
                     <span class="item-description">Distilled Gin, Belgio</span>
                 </li>
-                
-                
+                <li class="menu-item spirit-item" data-description="Gin olandese creato da uno chef. Speziato e versatile, pensato per abbinamenti gastronomici."> <span class="item-name">Gastro Gin "Gin & Jonnie"</span> <span class="item-price">10.00</span> <span class="item-description">Olanda</span> </li> <!-- Rimosso Amuerte duplicato -->
+
+
                 <li class="item-description-footer">Tutti i Gin Tonic sono serviti con acqua tonica premium.</li>
             </ul>
         </section>
@@ -405,10 +402,11 @@
                 <li><a href="#panini-piadine">Panini/Piadine</a></li>
             </ul>
         </nav>
-        <img src="https://bar-menu.github.io/Logo-Nuovo-2.svg" alt="Logo Bar Nuovo" class="footer-logo">
-        <p>Bar Nuovo - Piazza Trento - Trieste, 50, Ferrara</p>
+        <!-- LOGO E TESTI FOOTER AGGIORNATI -->
+        <img src="https://bar-menu.github.io/Logo-Santos-2.svg" alt="Logo Bar Santos" class="footer-logo"> <!-- <- MODIFICATO SRC e ALT -->
+        <p>Bar Santos - Piazza Trento Trieste, 8, Ferrara</p> <!-- <- MODIFICATO -->
         <p>Servizio al tavolo incluso</p>
-        <p>© 2025 Bar Nuovo - Tutti i prezzi sono in Euro (€)</p>
+        <p>© 2025 Bar Santos - Tutti i prezzi sono in Euro (€)</p> <!-- <- MODIFICATO -->
     </footer>
 
     <!-- Elemento Pop-up per Descrizione -->
@@ -439,217 +437,46 @@
         const popupCloseBtn = document.getElementById('popup-close-btn');
         const spiritItems = document.querySelectorAll('.spirit-item');
 
-        // --- URLs Immagini Header Stagionali ---
-        // !!! SOSTITUISCI QUESTI URL CON I TUOI REALI !!!
+        // --- URLs IMMAGINI HEADER AGGIORNATI ---
+        // !!! Assicurati che questi URL siano corretti per il Bar Santos !!!
         const headerImages = {
-            default: 'https://bar-menu.github.io/Nuovo-2.jpg',
-            christmas: 'https://bar-menu.github.io/Nuovo-Natale.jpg',
-            newYear: 'https://bar-menu.github.io/Nuovo-New-Year.jpg',
-            epiphany: 'https://bar-menu.github.io/Nuovo-Epifania.jpg', // Viola scuro per Befana
-            valentine: 'https://bar-menu.github.io/Nuovo-Valentino.jpg', // Rosso
-            ferragosto: 'https://bar-menu.github.io/Nuovo-Ferragosto.jpg' // Blu mare
+            default: 'Santos-2.jpg',      /* <- MODIFICATO */
+            christmas: 'https://bar-menu.github.io/Santos-Natale.jpg',  /* <- MODIFICATO */
+            newYear: 'https://bar-menu.github.io/Santos-New-Year.jpg',  /* <- MODIFICATO */
+            epiphany: 'https://bar-menu.github.io/Santos-Epifania.jpg', /* <- MODIFICATO */
+            valentine: 'https://bar-menu.github.io/Santos-Valentino.jpg',/* <- MODIFICATO */
+            ferragosto: 'https://bar-menu.github.io/Santos-Ferragosto.jpg'/* <- MODIFICATO */
             // Aggiungi 'easter': 'URL_PASQUA' se implementi la logica
         };
 
-                // --- NUOVA Funzione per creare Favicon da Stringa SVG ---
-                function setSvgFavicon(svgString) {
-            // Rimuovi commenti HTML se presenti (importante per btoa)
+        // --- NUOVA Funzione per creare Favicon da Stringa SVG ---
+        function setSvgFavicon(svgString) {
             const cleanSvgString = svgString.replace(/<!--.*?-->/gs, '');
-
-            // Codifica l'SVG pulito in Base64 per il Data URI
             try {
                 const encodedSvg = btoa(cleanSvgString);
                 const dataUri = `data:image/svg+xml;base64,${encodedSvg}`;
-
-                // Trova o crea il link per il favicon
                 let faviconLink = document.querySelector("link[rel~='icon']");
                 if (!faviconLink) {
                     faviconLink = document.createElement('link');
                     faviconLink.rel = 'icon';
                     document.head.appendChild(faviconLink);
                 }
-
-                // Imposta l'href del favicon al Data URI
                 faviconLink.href = dataUri;
                 faviconLink.type = 'image/svg+xml';
-
             } catch (e) {
                 console.error("Errore durante la codifica SVG per favicon:", e);
-                // Potrebbe succedere se l'SVG contiene caratteri non validi per btoa
             }
         }
-
 
         // --- Inizializzazione DOMContentLoaded (Modificata) ---
         document.addEventListener('DOMContentLoaded', () => {
-             // --- IMPOSTA IL FAVICON DINAMICAMENTE CON SVG COMPLETO ---
              const menuIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#888888" d="M14 2.2C22.5-1.7 32.5-.3 39.6 5.8L80 40.4 120.4 5.8c9-7.7 22.3-7.7 31.2 0L192 40.4 232.4 5.8c9-7.7 22.3-7.7 31.2 0L304 40.4 344.4 5.8c7.1-6.1 17.1-7.5 25.6-3.6s14 12.4 14 21.8l0 464c0 9.4-5.5 17.9-14 21.8s-18.5 2.5-25.6-3.6L304 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L192 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L80 471.6 39.6 506.2c-7.1 6.1-17.1 7.5-25.6 3.6S0 497.4 0 488L0 24C0 14.6 5.5 6.1 14 2.2zM96 144c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 144zM80 352c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 336c-8.8 0-16 7.2-16 16zM96 240c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 240z"/></svg>`;
              setSvgFavicon(menuIconSvg);
-             // ------------------------------------------------------
-
              setSeasonalHeaderImage();
              searchInput.value = '';
-             // ... (resto del codice DOMContentLoaded) ...
-        });
+             // ... (resto del codice DOMContentLoaded invariato) ...
 
-
-        // Funzione Filtro
-        function filterItemsAndSections() {
-            const searchTerm = searchInput.value.trim().toLowerCase();
-            const isSearchActive = searchTerm !== '';
-            let anyItemVisibleGlobal = false;
-            hideDescriptionPopup();
-
-            allSections.forEach(section => {
-                const sectionTitleElement = section.querySelector('h2');
-                const sectionTitleText = sectionTitleElement ? sectionTitleElement.textContent.trim().toLowerCase() : '';
-                const isSectionTitleKeywordMatch = isSearchActive && sectionTitleText.includes(searchTerm);
-                let sectionHasVisibleItem = false;
-                const itemsInSection = section.querySelectorAll('.menu-item, .item-description-footer');
-
-                itemsInSection.forEach(item => {
-                    let isFooterDesc = item.classList.contains('item-description-footer');
-                    const itemNameElement = item.querySelector('.item-name');
-                    const itemDescriptionElement = item.querySelector('.item-description:not(.item-description-footer), .item-description-vini');
-                    let itemText = '';
-                    if (isFooterDesc) { itemText += item.textContent.toLowerCase() + ' '; }
-                    else if (itemNameElement) { itemText += itemNameElement.textContent.toLowerCase() + ' '; }
-                    else {
-                         const directText = Array.from(item.childNodes).filter(node => node.nodeType === Node.TEXT_NODE).map(node => node.textContent.trim()).join(' ');
-                         itemText += directText.toLowerCase() + ' ';
-                    }
-                    if (itemDescriptionElement) { itemText += itemDescriptionElement.textContent.toLowerCase(); }
-                    const isItemTextMatch = itemText.includes(searchTerm);
-                    const isMatch = !isSearchActive || isItemTextMatch || isSectionTitleKeywordMatch;
-                    let displayStyle = 'flex';
-                    if (item.closest('.simple-list')) displayStyle = 'block';
-                    if (isFooterDesc) displayStyle = 'block';
-                    if (section.id === 'panini-piadine' && item.classList.contains('menu-item')) displayStyle = 'flex';
-                    const targetDisplay = isMatch ? displayStyle : 'none';
-                    if (item.style.display !== targetDisplay) { item.style.display = targetDisplay; }
-                    if (isMatch) { sectionHasVisibleItem = true; }
-                });
-
-                const shouldShowSection = !isSearchActive || sectionHasVisibleItem || isSectionTitleKeywordMatch;
-                const targetDisplaySection = shouldShowSection ? 'block' : 'none';
-                if (section.style.display !== targetDisplaySection) { section.style.display = targetDisplaySection; }
-                if (isSearchActive && shouldShowSection) { anyItemVisibleGlobal = true; }
-            });
-
-            const showNoResults = isSearchActive && !anyItemVisibleGlobal;
-            if (showNoResults) {
-                noResultsTermSpan.textContent = searchInput.value.trim();
-                noResultsSection.style.display = 'flex';
-            } else {
-                noResultsSection.style.display = 'none';
-            }
-        }
-
-        // Funzioni Ricerca
-        function activateSearch() {
-            if (!searchWrapper.classList.contains('search-active')) {
-                searchWrapper.classList.add('search-active');
-                hideDescriptionPopup();
-                setTimeout(() => { searchInput.focus(); }, 50);
-            }
-        }
-
-        function deactivateSearch(resetSearch = true) {
-             hideDescriptionPopup();
-             if (searchWrapper.classList.contains('search-active')) {
-                 searchWrapper.classList.remove('search-active');
-                 searchInput.blur();
-                 if (resetSearch) {
-                    searchInput.value = '';
-                    filterItemsAndSections();
-                 }
-                 noResultsSection.style.display = 'none';
-             }
-        }
-
-        // Funzioni Pop-up Descrizione
-        function showDescriptionPopup(element) {
-            const name = element.querySelector('.item-name')?.textContent || 'Prodotto';
-            const description = element.dataset.description || 'Nessuna descrizione disponibile.';
-            if (!descriptionPopup || !popupProductName || !popupProductDescription) { return; }
-            popupProductName.textContent = name;
-            popupProductDescription.textContent = description;
-            descriptionPopup.classList.add('visible');
-        }
-
-        function hideDescriptionPopup() {
-            if (!descriptionPopup) { return; }
-            descriptionPopup.classList.remove('visible');
-        }
-
-        // --- Funzione per impostare Immagine Header Stagionale ---
-        function setSeasonalHeaderImage() {
-            if (!headerElement) return; // Se l'header non esiste, esci
-
-            const today = new Date();
-            const month = today.getMonth(); // 0 = Gennaio, 11 = Dicembre
-            const day = today.getDate();
-            let imageUrl = headerImages.default; // Immagine di default
-
-            // Controlla le festività (ordine importante se ci sono sovrapposizioni)
-            // Natale (es. 8 Dic - 6 Gen)
-            if ((month === 11 && day >= 8) || (month === 0 && day <= 6)) {
-                imageUrl = headerImages.christmas;
-            }
-            // Capodanno (1 Gennaio - già coperto da Natale/Epifania, ma potremmo specificarlo)
-            else if (month === 0 && day === 1) {
-                 imageUrl = headerImages.newYear;
-            }
-            // Epifania (6 Gennaio - già coperto da Natale, ma potremmo specificarlo)
-             else if (month === 0 && day === 6) {
-                 imageUrl = headerImages.epiphany;
-             }
-            // San Valentino (14 Feb)
-            else if (month === 1 && day === 14) {
-                imageUrl = headerImages.valentine;
-            }
-            // Ferragosto (15 Ago)
-            else if (month === 7 && day === 15) {
-                imageUrl = headerImages.ferragosto;
-            }
-            // Pasqua - O M E S S O per semplicità (richiede calcolo)
-
-            // Applica l'immagine selezionata
-            headerElement.style.backgroundImage = `url('${imageUrl}')`;
-        }
-
-
-        // --- Event Listeners ---
-        searchIconTrigger.addEventListener('click', (event) => {
-            event.stopPropagation();
-            if (searchWrapper.classList.contains('search-active')) { deactivateSearch(true); }
-            else { activateSearch(); }
-        });
-
-        searchInput.addEventListener('input', filterItemsAndSections);
-
-        document.addEventListener('click', (event) => {
-            if (searchWrapper.classList.contains('search-active') && !searchWrapper.contains(event.target) && !clearSearchLink.contains(event.target)) {
-                deactivateSearch(false);
-            }
-             if (descriptionPopup && descriptionPopup.classList.contains('visible') && !descriptionPopup.contains(event.target) && !event.target.closest('.spirit-item')) {
-                 hideDescriptionPopup();
-             }
-        });
-
-        searchInputContainer.addEventListener('click', (event) => { if (event.target !== searchInput) { event.stopPropagation(); } });
-
-        clearSearchLink.addEventListener('click', (event) => { event.preventDefault(); deactivateSearch(true); });
-
-        // --- Inizializzazione DOMContentLoaded ---
-        document.addEventListener('DOMContentLoaded', () => {
-             setSeasonalHeaderImage(); // Imposta immagine header stagionale
-             searchInput.value = '';
-             filterItemsAndSections();
-             searchWrapper.classList.remove('search-active');
-             noResultsSection.style.display = 'none';
-
-             // Listener combinato per quick nav (Reset + Scroll)
+            // Listener combinato per quick nav (Reset + Scroll)
              document.querySelectorAll('#quick-nav a').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -682,10 +509,146 @@
                      event.stopPropagation();
                  });
              } else {
-                 // Non mostrare warning in produzione, magari loggare solo in sviluppo
-                 // console.warn("Elementi per il popup descrizione non trovati, funzionalità disabilitata.");
+                 // console.warn("Elementi per il popup descrizione non trovati.");
+             }
+
+        }); // Fine DOMContentLoaded
+
+
+        // Funzione Filtro (invariata)
+        function filterItemsAndSections() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const isSearchActive = searchTerm !== '';
+            let anyItemVisibleGlobal = false;
+            hideDescriptionPopup();
+
+            allSections.forEach(section => {
+                const sectionTitleElement = section.querySelector('h2');
+                const sectionTitleText = sectionTitleElement ? sectionTitleElement.textContent.trim().toLowerCase() : '';
+                const isSectionTitleKeywordMatch = isSearchActive && sectionTitleText.includes(searchTerm);
+                let sectionHasVisibleItem = false;
+                const itemsInSection = section.querySelectorAll('.menu-item, .item-description-footer');
+
+                itemsInSection.forEach(item => {
+                    let isFooterDesc = item.classList.contains('item-description-footer');
+                    const itemNameElement = item.querySelector('.item-name');
+                    const itemDescriptionElement = item.querySelector('.item-description:not(.item-description-footer):not(.item-variations), .item-description-vini'); // Escludi variations qui
+                    const itemVariationsElement = item.querySelector('.item-variations'); // Seleziona variations
+                    let itemText = '';
+
+                    if (isFooterDesc) {
+                        itemText += item.textContent.toLowerCase() + ' ';
+                    } else if (itemNameElement) {
+                        itemText += itemNameElement.textContent.toLowerCase() + ' ';
+                    } else {
+                         // Gestisce 'simple-list' items senza span.item-name
+                         const directText = Array.from(item.childNodes).filter(node => node.nodeType === Node.TEXT_NODE).map(node => node.textContent.trim()).join(' ');
+                         itemText += directText.toLowerCase() + ' ';
+                    }
+                    // Aggiungi testo da variations e description standard
+                    if (itemVariationsElement) { itemText += itemVariationsElement.textContent.toLowerCase() + ' '; }
+                    if (itemDescriptionElement) { itemText += itemDescriptionElement.textContent.toLowerCase(); }
+
+                    const isItemTextMatch = itemText.includes(searchTerm);
+                    const isMatch = !isSearchActive || isItemTextMatch || isSectionTitleKeywordMatch;
+
+                    // Determina display style corretto
+                    let displayStyle = 'flex'; // Default per .menu-item
+                    if (item.closest('.simple-list')) displayStyle = 'block';
+                    if (isFooterDesc) displayStyle = 'block';
+                    if (section.id === 'panini-piadine' && item.classList.contains('menu-item')) displayStyle = 'flex'; // Specifico per panini
+
+                    const targetDisplay = isMatch ? displayStyle : 'none';
+                    if (item.style.display !== targetDisplay) { item.style.display = targetDisplay; }
+                    if (isMatch) { sectionHasVisibleItem = true; }
+                });
+
+                // Gestione visibilità sezioni
+                const shouldShowSection = !isSearchActive || sectionHasVisibleItem || isSectionTitleKeywordMatch;
+                const targetDisplaySection = shouldShowSection ? 'block' : 'none';
+                if (section.style.display !== targetDisplaySection) { section.style.display = targetDisplaySection; }
+                if (isSearchActive && shouldShowSection) { anyItemVisibleGlobal = true; }
+            });
+
+            // Gestione messaggio "Nessun risultato"
+            const showNoResults = isSearchActive && !anyItemVisibleGlobal;
+            if (showNoResults) {
+                noResultsTermSpan.textContent = searchInput.value.trim();
+                noResultsSection.style.display = 'flex';
+            } else {
+                noResultsSection.style.display = 'none';
+            }
+        }
+
+
+        // Funzioni Ricerca (invariate)
+        function activateSearch() {
+            if (!searchWrapper.classList.contains('search-active')) {
+                searchWrapper.classList.add('search-active');
+                hideDescriptionPopup();
+                setTimeout(() => { searchInput.focus(); }, 50);
+            }
+        }
+        function deactivateSearch(resetSearch = true) {
+             hideDescriptionPopup();
+             if (searchWrapper.classList.contains('search-active')) {
+                 searchWrapper.classList.remove('search-active');
+                 searchInput.blur();
+                 if (resetSearch) {
+                    searchInput.value = '';
+                    filterItemsAndSections();
+                 }
+                 noResultsSection.style.display = 'none';
+             }
+        }
+
+        // Funzioni Pop-up Descrizione (invariate)
+        function showDescriptionPopup(element) {
+            const name = element.querySelector('.item-name')?.textContent || 'Prodotto';
+            const description = element.dataset.description || 'Nessuna descrizione disponibile.';
+            if (!descriptionPopup || !popupProductName || !popupProductDescription) { return; }
+            popupProductName.textContent = name;
+            popupProductDescription.textContent = description;
+            descriptionPopup.classList.add('visible');
+        }
+        function hideDescriptionPopup() {
+            if (!descriptionPopup) { return; }
+            descriptionPopup.classList.remove('visible');
+        }
+
+        // Funzione per impostare Immagine Header Stagionale (invariata nella logica, ma usa `headerImages` aggiornato)
+        function setSeasonalHeaderImage() {
+            if (!headerElement) return;
+            const today = new Date();
+            const month = today.getMonth();
+            const day = today.getDate();
+            let imageUrl = headerImages.default;
+            if ((month === 11 && day >= 8) || (month === 0 && day <= 6)) { imageUrl = headerImages.christmas; }
+            else if (month === 0 && day === 1) { imageUrl = headerImages.newYear; }
+            else if (month === 0 && day === 6) { imageUrl = headerImages.epiphany; }
+            else if (month === 1 && day === 14) { imageUrl = headerImages.valentine; }
+            else if (month === 7 && day === 15) { imageUrl = headerImages.ferragosto; }
+            headerElement.style.backgroundImage = `url('${imageUrl}')`;
+        }
+
+        // Event Listeners (invariati)
+        searchIconTrigger.addEventListener('click', (event) => {
+            event.stopPropagation();
+            if (searchWrapper.classList.contains('search-active')) { deactivateSearch(true); }
+            else { activateSearch(); }
+        });
+        searchInput.addEventListener('input', filterItemsAndSections);
+        document.addEventListener('click', (event) => {
+            if (searchWrapper.classList.contains('search-active') && !searchWrapper.contains(event.target) && !clearSearchLink.contains(event.target)) {
+                deactivateSearch(false);
+            }
+             if (descriptionPopup && descriptionPopup.classList.contains('visible') && !descriptionPopup.contains(event.target) && !event.target.closest('.spirit-item')) {
+                 hideDescriptionPopup();
              }
         });
+        searchInputContainer.addEventListener('click', (event) => { if (event.target !== searchInput) { event.stopPropagation(); } });
+        clearSearchLink.addEventListener('click', (event) => { event.preventDefault(); deactivateSearch(true); });
+
     </script>
 
 </body>
