@@ -11,7 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Merriweather:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:wght@400;600&family=Merriweather:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    
     <style>
         /* Stili Globali, Body, Main */
         :root {
@@ -22,16 +23,23 @@
             --accent-color: #ccc;
             --border-light: #eee;
             --border-dark: #444;
+            /* Variabili Ricerca Desktop */
             --search-icon-size: 48px;
             --search-bar-width: 280px;
             --search-total-width: calc(var(--search-bar-width) + var(--search-icon-size) + 10px);
             --search-bottom-offset: 20px;
             --search-right-offset: 20px;
+            /* Variabili Barra Mobile */
+            --sticky-nav-height: 50px;
+            --sticky-search-icon-width: 40px;
+            --sticky-search-input-width-active: 180px; /* Larghezza input ricerca mobile aperto */
+            --sticky-nav-bottom-margin: 15px; /* Margine sopra la barra mobile */
         }
 
         html {
-            scroll-padding-bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 10px);
-            scroll-behavior: smooth;
+            /* Aggiorna scroll-padding in base a cosa è visibile */
+             scroll-padding-bottom: 80px; /* Spazio generico, verrà affinato da JS se necessario */
+             scroll-behavior: smooth;
         }
 
         body {
@@ -42,14 +50,14 @@
             color: var(--text-light);
             line-height: 1.5;
             font-size: 16px;
-            padding-bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 20px);
+            /* Padding-bottom gestito dalle media query */
         }
 
         main {
             padding: 0 20px;
         }
 
-        /* Header e Titolo (CSS Modificato) */
+        /* Header e Titolo */
         header {
             text-align: center;
             margin-bottom: 25px;
@@ -58,21 +66,15 @@
             width: 100%;
             border-bottom: none;
             overflow: hidden;
-            min-height: 190px; /* Manteniamo altezza ridotta */
+            min-height: 190px;
             z-index: 1;
-            /* --- BACKGROUND IMAGE SPOSTATO QUI --- */
-            /* IMMAGINE DEFAULT AGGIORNATA */
-            background-image: url('https://bar-menu.github.io/Santos-2.jpg'); /* <- MODIFICATO */
+            background-image: url('https://bar-menu.github.io/Santos-2.jpg');
             background-size: cover;
             background-position: center 0;
             background-repeat: no-repeat;
-            /* Aggiungi colore di fallback se l'immagine non carica */
             background-color: var(--bg-dark);
         }
-        /* Rimosso header::before */
-        /* header::before { ... } */
-
-        header::after { /* Mantenuto per il gradiente */
+        header::after {
             content: "";
             position: absolute;
             bottom: -1px;
@@ -82,21 +84,27 @@
             z-index: 0;
         }
         header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.9em;
+            font-family: 'Kaushan Script', cursive;
+            font-weight: 400; /* Kaushan Script ha un solo peso */
+            font-size: 2.7em; /* Mantieni o aggiusta se necessario */
             color: var(--text-light);
             margin: 0;
-            font-weight: 600;
             position: absolute;
-            bottom: 20px;
+            /* --- MODIFICA QUI --- */
+            /* Riduci questo valore per abbassare il testo */
+            /* Prova prima con 10px, poi magari 5px, o anche 0px se necessario */
+            bottom: 40px;   /* <-- Prova questo valore (o uno inferiore) */
+            /* --- FINE MODIFICA --- */
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9);
             white-space: nowrap;
+            text-transform: capitalize; /* Assicurati sia "Bar Santos" nell'HTML */
+            /* o text-transform: none; */
         }
 
-        /* Sezioni, Liste, Item (Stili base) */
+        /* Sezioni, Liste, Item (Stili base invariati) */
         section { margin-bottom: 40px; background-color: var(--bg-light-section); padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); color: var(--text-dark); display: block; }
         section h2 { font-family: 'Merriweather', serif; font-size: 2.0em; color: var(--text-dark); margin-top: 0; margin-bottom: 25px; border-bottom: 1px solid var(--border-light); padding-bottom: 15px; font-weight: 700; text-align: center; }
         #cocktails h2 .section-price { font-family: 'Open Sans', sans-serif; font-size: 0.65em; font-weight: 600; color: #555; vertical-align: middle; margin-left: 10px; }
@@ -113,23 +121,8 @@
         .item-price-multi .item-price { font-weight: 700; margin-left: 0; padding-top: 2px; padding-bottom: 2px; text-align: right; width: 100%; }
         .item-description, .item-description-vini { font-size: 0.88em; color: #666; flex-basis: 100%; margin-top: 5px; line-height: 1.4; padding-left: 0; }
         .item-description-vini { font-size: 0.93em; }
-        .item-variations {
-            flex-basis: 100%;    /* Occupa tutta la larghezza */
-            margin-top: 6px;     /* Spazio sopra */
-            font-size: 0.9em;    /* Dimensione leggermente più grande o uguale alla descrizione */
-            color: #444;        /* Grigio più scuro rispetto a #666 della descrizione */
-            font-weight: 600;  /* Semi-bold per evidenziare */
-            line-height: 1.4;
-            padding-left: 0;
-        }
-        .item-variations + .item-description {
-            margin-top: 2px;      /* Riduci lo spazio sopra */
-            font-size: 0.85em;   /* Riduci leggermente la dimensione per gerarchia */
-            color: #666;         /* Mantieni il colore standard della descrizione */
-            font-weight: 400;   /* Mantieni il peso standard della descrizione */
-        }
-
-
+        .item-variations { flex-basis: 100%; margin-top: 6px; font-size: 0.9em; color: #444; font-weight: 600; line-height: 1.4; padding-left: 0; }
+        .item-variations + .item-description { margin-top: 2px; font-size: 0.85em; color: #666; font-weight: 400; }
         .simple-list li { display: block; padding: 10px 0; border-bottom: 1px solid var(--border-light); font-weight: 400; color: var(--text-dark); font-size: 1.0em; text-align: center; justify-content: initial; flex-wrap: initial; align-items: initial; }
         .simple-list li:last-child { border-bottom: none; }
         .simple-list li:hover { background-color: #f5f5f5; transition: background-color 0.2s ease-in-out; }
@@ -150,23 +143,7 @@
         .footer-logo { display: block; max-width: 100px; height: auto; margin: 0 auto 20px auto; }
         footer p { margin: 5px 0; }
 
-        /* --- Stili Ricerca --- */
-        #search-wrapper { position: fixed; bottom: var(--search-bottom-offset); right: var(--search-right-offset); z-index: 1000; display: flex; align-items: center; justify-content: flex-end; width: var(--search-icon-size); height: var(--search-icon-size); transition: width 0.35s ease-in-out; direction: rtl; }
-        #search-icon-trigger { width: var(--search-icon-size); height: var(--search-icon-size); border-radius: 50%; background-color: rgba(40, 40, 40, 0.85); backdrop-filter: blur(5px); box-shadow: 0 3px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; z-index: 2; transition: background-color 0.2s ease; direction: ltr; overflow: hidden; }
-        #search-icon-trigger i { color: var(--text-light); font-size: 1.3em; line-height: 1; transition: transform 0.3s ease; }
-        #search-input-container { width: 0; height: calc(var(--search-icon-size) - 8px); overflow: hidden; visibility: hidden; transition: width 0.35s ease-in-out, background-color 0.35s ease-in-out, border-radius 0.35s ease-in-out, visibility 0s ease-in-out 0.35s; background-color: transparent; border-radius: 25px; margin-right: -24px; padding-right: 24px; direction: ltr; box-shadow: 0 3px 10px rgba(0,0,0,0.3); }
-        #search-input { width: var(--search-bar-width); height: 100%; padding: 0 15px; margin: 0; border: none; outline: none; font-size: 1.1em; background-color: transparent; color: var(--text-light); opacity: 0; transition: opacity 0.2s ease 0.1s; }
-        #search-input::placeholder { color: rgba(224, 224, 224, 0.6); opacity: 0; transition: opacity 0.2s ease 0.1s; }
-        #search-input:focus-visible { outline: none; }
-        #search-wrapper.search-active { width: min(var(--search-total-width), calc(100vw - 2 * var(--search-right-offset))); }
-        #search-wrapper.search-active #search-input-container { width: var(--search-bar-width); background-color: rgba(51, 51, 51, 0.9); backdrop-filter: blur(5px); visibility: visible; transition-delay: 0s, 0s, 0s, 0s; }
-        #search-wrapper.search-active #search-input, #search-wrapper.search-active #search-input::placeholder { opacity: 1; }
-        #search-wrapper.search-active #search-input { color: var(--text-light); }
-        #search-wrapper.search-active #search-input::placeholder { color: rgba(224, 224, 224, 0.6); }
-        #search-wrapper.search-active #search-icon-trigger { background-color: rgba(60, 60, 60, 0.9); }
-        #search-wrapper.search-active #search-icon-trigger i { transform: rotate(90deg); }
-
-        /* --- Stili Navigazione Rapida Footer --- */
+        /* --- Stili Navigazione Rapida Footer (SOLO DESKTOP) --- */
         #quick-nav { margin: 0px 0 30px 0; padding: 0 10px; }
         #quick-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
         #quick-nav li { padding: 0; border-bottom: none; display: block; justify-content: initial; flex-wrap: initial; align-items: initial; flex-grow: 0; flex-shrink: 0; }
@@ -175,7 +152,23 @@
         #quick-nav a:hover, #quick-nav a:focus { color: #fff; text-decoration: underline; outline: none; }
 
         /* --- Stili Pop-up Descrizione --- */
-        #gin-description-popup { position: fixed; bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 15px); left: 15px; right: 15px; margin-left: auto; margin-right: auto; max-width: 450px; transform: translateY(20px); background-color: rgba(50, 50, 50, 0.95); backdrop-filter: blur(6px); color: var(--text-light); border-radius: 8px; padding: 20px; padding-right: 45px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); z-index: 1100; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s ease 0.3s; }
+        #gin-description-popup {
+            position: fixed;
+            left: 15px; right: 15px;
+            margin-left: auto; margin-right: auto;
+            max-width: 450px;
+            transform: translateY(20px);
+            background-color: rgba(50, 50, 50, 0.95);
+            backdrop-filter: blur(6px);
+            color: var(--text-light);
+            border-radius: 8px;
+            padding: 20px; padding-right: 45px; /* Spazio per pulsante chiudi */
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            z-index: 1100;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s ease 0.3s;
+            /* 'bottom' gestito da media query */
+        }
         #gin-description-popup.visible { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s, 0s, 0s; }
         .popup-content { position: relative; }
         #popup-gin-name { margin-top: 0; margin-bottom: 10px; font-family: 'Poppins', sans-serif; font-size: 1.2em; color: #fff; border-bottom: 1px solid #666; padding-bottom: 8px; }
@@ -190,27 +183,226 @@
         #no-results strong { color: #d9534f; }
         #no-results a { color: #007bff; text-decoration: underline; cursor: pointer; }
 
+
+        /* --- STILI NAVIGAZIONE MOBILE STICKY CON RICERCA INTEGRATA --- */
+        #quick-nav-mobile-sticky {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%;
+            background-color: rgba(40, 40, 40, 0.9);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            padding: 0;
+            display: flex;
+            align-items: stretch;
+            height: var(--sticky-nav-height);
+            overflow: hidden;
+             /* Nascondi di default, mostrato da media query */
+             display: none;
+        }
+
+        /* Contenitore Ricerca (a sinistra) */
+        #sticky-search-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            padding: 0 5px 0 10px;
+            background-color: rgba(30, 30, 30, 0.8); /* Leggermente diverso */
+            transition: background-color 0.3s ease;
+        }
+        #sticky-search-trigger {
+            background: none; border: none;
+            color: var(--text-light);
+            font-size: 1.2em;
+            padding: 10px; margin: 0;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.3s ease;
+            width: var(--sticky-search-icon-width);
+            height: 100%;
+        }
+        #sticky-search-trigger i { transition: transform 0.3s ease; }
+        #sticky-search-input {
+            width: 0;
+            opacity: 0; visibility: hidden;
+            padding: 0; margin-left: 0;
+            border: none; background-color: transparent;
+            height: calc(100% - 16px);
+            border-radius: 15px;
+            font-size: 1em; color: var(--text-light);
+            outline: none;
+            transition: width 0.35s ease, opacity 0.3s ease 0.1s, visibility 0s linear 0.35s, padding 0.35s ease, margin-left 0.35s ease, background-color 0.35s ease;
+        }
+        #sticky-search-input::placeholder { color: rgba(224, 224, 224, 0.6); }
+
+        /* Contenitore Link (a destra) */
+        .sticky-nav-links-wrapper {
+            flex-grow: 1;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .sticky-nav-links-wrapper::-webkit-scrollbar { display: none; }
+        #quick-nav-mobile-sticky ul {
+            display: flex;
+            gap: 15px;
+            margin: 0; padding: 0 10px;
+            width: max-content; height: 100%;
+            align-items: center;
+        }
+        #quick-nav-mobile-sticky li {
+            display: inline-block; padding: 0; border: none;
+            flex-shrink: 0;
+        }
+        #quick-nav-mobile-sticky li:hover { background: none;}
+        #quick-nav-mobile-sticky a {
+            font-size: 0.9em; color: var(--text-light);
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            text-decoration: none; display: inline-block;
+            /* Altezza barra - 2*padding vert. - eventuale bordo */
+            line-height: calc(var(--sticky-nav-height) - 10px);
+        }
+        #quick-nav-mobile-sticky a:hover,
+        #quick-nav-mobile-sticky a:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff; outline: none;
+        }
+
+        /* Stato Attivo Ricerca Mobile */
+        #quick-nav-mobile-sticky.search-active #sticky-search-input {
+            width: var(--sticky-search-input-width-active);
+            opacity: 1; visibility: visible;
+            padding: 0 12px;
+            margin-left: 8px;
+            background-color: rgba(60, 60, 60, 0.8);
+            transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
+        }
+        #quick-nav-mobile-sticky.search-active #sticky-search-trigger i::before {
+             content: "\f00d"; /* Icona 'X' */
+             font-weight: 900;
+        }
+
+
+        /* --- STILI RICERCA DESKTOP FLOTTANTE (Rinominata) --- */
+        #search-wrapper-desktop {
+            position: fixed; bottom: var(--search-bottom-offset); right: var(--search-right-offset); z-index: 1000;
+            display: flex; align-items: center; justify-content: flex-end;
+            width: var(--search-icon-size); height: var(--search-icon-size);
+            transition: width 0.35s ease-in-out; direction: rtl;
+             /* Nascondi di default, mostrato da media query */
+             display: none;
+        }
+        #search-icon-trigger-desktop {
+            width: var(--search-icon-size); height: var(--search-icon-size); border-radius: 50%;
+            background-color: rgba(40, 40, 40, 0.85); backdrop-filter: blur(5px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3); display: flex; align-items: center;
+            justify-content: center; cursor: pointer; flex-shrink: 0; z-index: 2;
+            transition: background-color 0.2s ease; direction: ltr; overflow: hidden;
+        }
+        #search-icon-trigger-desktop i { color: var(--text-light); font-size: 1.3em; line-height: 1; transition: transform 0.3s ease; }
+        #search-input-container-desktop {
+            width: 0; height: calc(var(--search-icon-size) - 8px); overflow: hidden; visibility: hidden;
+            transition: width 0.35s ease-in-out, background-color 0.35s ease-in-out, border-radius 0.35s ease-in-out, visibility 0s ease-in-out 0.35s;
+            background-color: transparent; border-radius: 25px; margin-right: -24px; padding-right: 24px;
+            direction: ltr; box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        #search-input-desktop {
+            width: var(--search-bar-width); height: 100%; padding: 0 15px; margin: 0; border: none;
+            outline: none; font-size: 1.1em; background-color: transparent; color: var(--text-light);
+            opacity: 0; transition: opacity 0.2s ease 0.1s;
+        }
+        #search-input-desktop::placeholder { color: rgba(224, 224, 224, 0.6); opacity: 0; transition: opacity 0.2s ease 0.1s; }
+        #search-input-desktop:focus-visible { outline: none; }
+        #search-wrapper-desktop.search-active { width: min(var(--search-total-width), calc(100vw - 2 * var(--search-right-offset))); }
+        #search-wrapper-desktop.search-active #search-input-container-desktop {
+            width: var(--search-bar-width); background-color: rgba(51, 51, 51, 0.9); backdrop-filter: blur(5px);
+            visibility: visible; transition-delay: 0s, 0s, 0s, 0s;
+        }
+        #search-wrapper-desktop.search-active #search-input-desktop,
+        #search-wrapper-desktop.search-active #search-input-desktop::placeholder { opacity: 1; }
+        #search-wrapper-desktop.search-active #search-input-desktop { color: var(--text-light); }
+        #search-wrapper-desktop.search-active #search-input-desktop::placeholder { color: rgba(224, 224, 224, 0.6); }
+        #search-wrapper-desktop.search-active #search-icon-trigger-desktop { background-color: rgba(60, 60, 60, 0.9); }
+        #search-wrapper-desktop.search-active #search-icon-trigger-desktop i { transform: rotate(90deg); }
+
+
+        /* --- MEDIA QUERY PER GESTIONE VISIBILITA' E LAYOUT --- */
+        /* Stili Mobile (fino a 768px) */
+        @media (max-width: 768px) {
+            /* Mostra barra mobile sticky */
+            #quick-nav-mobile-sticky { display: flex; }
+            /* Nascondi ricerca desktop e nav footer desktop */
+            #search-wrapper-desktop { display: none; }
+            footer #quick-nav { display: none; }
+
+            /* Adatta padding body e posizione popup */
+            body {
+                 padding-bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin)); /* Altezza barra + margine */
+            }
+            #gin-description-popup {
+                 bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin)); /* Sopra la barra */
+                 z-index: 1100; /* Assicura sia sopra la barra nav */
+            }
+
+            /* Opzionale: riduci header su mobile? */
+            /*
+            header { min-height: 150px; padding-bottom: 20px; }
+            header h1 { font-size: 1.7em; bottom: 15px; }
+            header::after { height: 100%; background: linear-gradient(to bottom, rgba(26, 26, 26, 0.0) 0%, rgba(26, 26, 26, 0.8) 60%, var(--bg-dark) 90%); }
+            */
+        }
+
+        /* Stili Desktop (da 769px in su) */
+        @media (min-width: 769px) {
+            /* Mostra ricerca desktop e nav footer desktop */
+            #search-wrapper-desktop { display: flex; }
+            footer #quick-nav { display: flex; /* O il suo display originale */ }
+            /* Nascondi barra mobile sticky */
+            #quick-nav-mobile-sticky { display: none; }
+
+            /* Ripristina padding/posizioni originali relativi alla ricerca desktop */
+            body {
+                 padding-bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 20px);
+            }
+            #gin-description-popup {
+                 bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 15px);
+            }
+             html { /* Ripristina scroll padding per ricerca desktop */
+                scroll-padding-bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 10px);
+             }
+        }
+        /* --- FINE MEDIA QUERY --- */
+
     </style>
 </head>
 <body>
 
-    <!-- Barra di Ricerca Fissa -->
-    <div id="search-wrapper">
-        <div id="search-icon-trigger" title="Cerca nel menu">
+    <!-- Barra di Ricerca Fissa ORIGINALE (visibile solo su desktop) -->
+    <div id="search-wrapper-desktop">
+        <div id="search-icon-trigger-desktop" title="Cerca nel menu">
             <i class="fas fa-search"></i>
         </div>
-        <div id="search-input-container">
-            <input type="text" id="search-input" placeholder="Cerca..." autocomplete="off" aria-label="Cerca nel menu">
+        <div id="search-input-container-desktop">
+            <input type="text" id="search-input-desktop" placeholder="Cerca..." autocomplete="off" aria-label="Cerca nel menu">
         </div>
     </div>
 
-    <!-- Header (Il background verrà impostato da CSS/JS) -->
+    <!-- Header -->
     <header>
-        <h1>BAR SANTOS</h1> <!-- Mantenuto generico, può essere cambiato se necessario -->
+        <h1>Bar Santos</h1>
     </header>
 
     <main>
-        <!-- CONTENUTO DEL MENU (Invariato, a meno di voci specifiche del nuovo bar) -->
+
+        
+        <!-- CONTENUTO DEL MENU -->
         <section id="caffetteria"><h2>Caffetteria</h2><ul><li class="menu-item"><span class="item-name">Caffè espresso</span><span class="item-price">2.20</span></li><li class="menu-item"><span class="item-name">Caffè decaffeinato</span><span class="item-price">2.30</span></li><li class="menu-item"><span class="item-name">Caffè d'orzo piccolo</span><span class="item-price">2.30</span></li><li class="menu-item"><span class="item-name">Caffè al ginseng</span><span class="item-price">2.30</span></li><li class="menu-item"><span class="item-name">Caffè d'orzo grande</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè al ginseng grande</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè espresso con panna</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè corretto</span><span class="item-price">2.70</span></li><li class="menu-item"><span class="item-name">Caffè freddo shakerato</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Caffè marocchino</span><span class="item-price">2.80</span></li><li class="menu-item"><span class="item-name">Cappuccino</span><span class="item-price">2.50</span></li><li class="menu-item"><span class="item-name">Cappuccino con latte soia</span><span class="item-price">2.80</span></li><li class="menu-item"><span class="item-name">Latte macchiato</span><span class="item-price">2.80</span></li><li class="menu-item"><span class="item-name">Cioccolata in tazza</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Cioccolata con panna</span><span class="item-price">4.50</span></li><li class="menu-item"><span class="item-name">The / Infusi / Camomilla</span><span class="item-price">3.50</span></li></ul></section>
         <section id="bevande"><h2>Bevande</h2><ul><li class="menu-item"><span class="item-name">Acqua in bicchiere</span><span class="item-price">0.80</span></li><li class="menu-item"><span class="item-name">Acqua 0.5l</span><span class="item-price">1.50</span></li><li class="menu-item"><span class="item-name">Spremuta d'arancia</span><span class="item-price">5.00</span></li><li class="menu-item"><span class="item-name">Succhi di frutta</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Bibite in lattina</span><span class="item-price">4.00</span></li><li class="menu-item"><span class="item-name">Red Bull</span><span class="item-price">4.50</span></li></ul></section>
         <section id="spritz"><h2>Spritz & Co.</h2><ul><li class="menu-item"><span class="item-name">Spritz (Aperol / Campari)</span><span class="item-price">6.00</span><span class="item-description">Vino bianco fermo o frizzante, Aperol o Campari, soda, ghiaccio e arancia</span></li><li class="menu-item"><span class="item-name">Hugo</span><span class="item-price">6.00</span><span class="item-description">Prosecco, sciroppo di sambuco, soda, ghiaccio, foglie di menta</span></li><li class="menu-item"><span class="item-name">Spritz St-Germain</span><span class="item-price">6.00</span><span class="item-description">Prosecco, St-Germain (liquore sambuco), soda, ghiaccio, lime</span></li><li class="menu-item spirit-item" data-description="Cocktail classico bitter. Campari, Vermouth Rosso dolce e una spruzzata di soda. Servito con ghiaccio e fetta d'arancia."><span class="item-name">Americano</span><span class="item-price">8.00</span><span class="item-description">Campari, Vermouth Rosso, Soda</span></li><li class="menu-item spirit-item" data-description="Variante 'sbagliata' del Negroni dove il gin è sostituito dal Prosecco. Campari, Vermouth Rosso e Prosecco. Più leggero e frizzante."><span class="item-name">Negroni Sbagliato</span><span class="item-price">8.00</span><span class="item-description">Campari, Vermouth Rosso, Prosecco</span></li></ul></section>
@@ -272,9 +464,7 @@
                     <span class="item-variations">(Black / Red)</span>
                     <span class="item-description">Distilled Gin, Belgio</span>
                 </li>
-                <li class="menu-item spirit-item" data-description="Gin olandese creato da uno chef. Speziato e versatile, pensato per abbinamenti gastronomici."> <span class="item-name">Gastro Gin "Gin & Jonnie"</span> <span class="item-price">10.00</span> <span class="item-description">Olanda</span> </li> <!-- Rimosso Amuerte duplicato -->
-
-
+                <li class="menu-item spirit-item" data-description="Gin olandese creato da uno chef. Speziato e versatile, pensato per abbinamenti gastronomici."> <span class="item-name">Gastro Gin "Gin & Jonnie"</span> <span class="item-price">10.00</span> <span class="item-description">Olanda</span> </li>
                 <li class="item-description-footer">Tutti i Gin Tonic sono serviti con acqua tonica premium.</li>
             </ul>
         </section>
@@ -371,19 +561,32 @@
         </section>
         <!-- FINE SEZIONI MENU -->
 
+
+
         <!-- SEZIONE PER NESSUN RISULTATO -->
         <section id="no-results" style="display: none;">
             <h2>Ricerca</h2>
             <p>Nessun risultato trovato per "<strong id="no-results-term"></strong>".</p>
-            <p style="margin-top: 20px;">Prova a cercare un altro termine o <a href="#" id="clear-search-link">cancella la ricerca</a>.</p>
+            <!-- Opzionale: Link per cancellare ricerca -->
+            <!-- <p style="margin-top: 20px;">Prova a cercare un altro termine o <a href="#" id="clear-search-link">cancella la ricerca</a>.</p> -->
         </section>
         <!-- FINE SEZIONE NESSUN RISULTATO -->
     </main>
 
-    <footer>
-        <nav id="quick-nav" aria-label="Navigazione rapida sezioni menu">
-            <ul>
-                <li><a href="#caffetteria">Caffetteria</a></li>
+    <!-- Barra Navigazione Mobile Sticky CON RICERCA INTEGRATA -->
+    <nav id="quick-nav-mobile-sticky" aria-label="Navigazione rapida mobile">
+        <!-- Contenitore per la ricerca integrata -->
+        <div id="sticky-search-container">
+            <button id="sticky-search-trigger" aria-label="Apri/Chiudi ricerca">
+                <i class="fas fa-search"></i> <!-- Icona iniziale -->
+            </button>
+            <input type="text" id="sticky-search-input" placeholder="Cerca..." autocomplete="off" aria-label="Cerca nel menu (mobile)">
+        </div>
+
+        <!-- Contenitore per i link (scrollabile) -->
+        <div class="sticky-nav-links-wrapper">
+             <ul>
+                <li><a href="#caffetteria">Caffè</a></li>
                 <li><a href="#bevande">Bevande</a></li>
                 <li><a href="#spritz">Spritz</a></li>
                 <li><a href="#cocktails">Cocktails</a></li>
@@ -393,20 +596,46 @@
                 <li><a href="#gin-tonic">Gin</a></li>
                 <li><a href="#rum">Rum</a></li>
                 <li><a href="#whisky">Whisky</a></li>
-                <li><a href="#amari-liquori">Amari/Liquori</a></li>
+                <li><a href="#amari-liquori">Amari</a></li>
                 <li><a href="#grappe">Grappe</a></li>
                 <li><a href="#vermouth">Vermouth</a></li>
                 <li><a href="#vodka">Vodka</a></li>
-                <li><a href="#brandy">Brandy/Cognac</a></li>
+                <li><a href="#brandy">Brandy</a></li>
                 <li><a href="#spuntini">Spuntini</a></li>
-                <li><a href="#panini-piadine">Panini/Piadine</a></li>
+                <li><a href="#panini-piadine">Panini</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Footer Principale -->
+    <footer>
+        <!-- Navigazione Footer (visibile solo su desktop) -->
+        <nav id="quick-nav" aria-label="Navigazione rapida sezioni menu">
+            <ul>
+                 <li><a href="#caffetteria">Caffetteria</a></li>
+                 <li><a href="#bevande">Bevande</a></li>
+                 <li><a href="#spritz">Spritz</a></li>
+                 <li><a href="#cocktails">Cocktails</a></li>
+                 <li><a href="#vini">Vini</a></li>
+                 <li><a href="#franciacorta">Franciacorta</a></li>
+                 <li><a href="#birre">Birre</a></li>
+                 <li><a href="#gin-tonic">Gin</a></li>
+                 <li><a href="#rum">Rum</a></li>
+                 <li><a href="#whisky">Whisky</a></li>
+                 <li><a href="#amari-liquori">Amari/Liquori</a></li>
+                 <li><a href="#grappe">Grappe</a></li>
+                 <li><a href="#vermouth">Vermouth</a></li>
+                 <li><a href="#vodka">Vodka</a></li>
+                 <li><a href="#brandy">Brandy/Cognac</a></li>
+                 <li><a href="#spuntini">Spuntini</a></li>
+                 <li><a href="#panini-piadine">Panini/Piadine</a></li>
             </ul>
         </nav>
-        <!-- LOGO E TESTI FOOTER AGGIORNATI -->
-        <img src="https://bar-menu.github.io/Logo-Santos-2.svg" alt="Logo Bar Santos" class="footer-logo"> <!-- <- MODIFICATO SRC e ALT -->
-        <p>Bar Santos - Piazza Trento Trieste, 8, Ferrara</p> <!-- <- MODIFICATO -->
+        <!-- Logo e Testi Footer -->
+        <img src="https://bar-menu.github.io/Logo-Santos-2.svg" alt="Logo Bar Santos" class="footer-logo">
+        <p>Bar Santos - Piazza Trento Trieste, 8, Ferrara</p>
         <p>Servizio al tavolo incluso</p>
-        <p>© 2025 Bar Santos - Tutti i prezzi sono in Euro (€)</p> <!-- <- MODIFICATO -->
+        <p>© 2025 Bar Santos - Tutti i prezzi sono in Euro (€)</p>
     </footer>
 
     <!-- Elemento Pop-up per Descrizione -->
@@ -420,36 +649,39 @@
 
     <script>
         // --- JAVASCRIPT ---
-        const searchWrapper = document.getElementById('search-wrapper');
-        const searchIconTrigger = document.getElementById('search-icon-trigger');
-        const searchInputContainer = document.getElementById('search-input-container');
-        const searchInput = document.getElementById('search-input');
+
+        // Selettori Ricerca Desktop
+        const searchWrapperDesktop = document.getElementById('search-wrapper-desktop');
+        const searchIconTriggerDesktop = document.getElementById('search-icon-trigger-desktop');
+        const searchInputContainerDesktop = document.getElementById('search-input-container-desktop');
+        const searchInputDesktop = document.getElementById('search-input-desktop');
+
+        // Selettori Ricerca Mobile Integrata
+        const stickyNavBar = document.getElementById('quick-nav-mobile-sticky');
+        const stickySearchTrigger = document.getElementById('sticky-search-trigger');
+        const stickySearchInput = document.getElementById('sticky-search-input');
+
+        // Altri selettori
         const allSections = document.querySelectorAll('main > section:not(#no-results)');
         const noResultsSection = document.getElementById('no-results');
         const noResultsTermSpan = document.getElementById('no-results-term');
-        const clearSearchLink = document.getElementById('clear-search-link');
-        const headerElement = document.querySelector('header'); // Seleziona l'header per cambio BG
-
-        // Elementi Pop-up
+        // const clearSearchLink = document.getElementById('clear-search-link'); // Rimosso o da verificare se serve
+        const headerElement = document.querySelector('header');
         const descriptionPopup = document.getElementById('gin-description-popup');
         const popupProductName = document.getElementById('popup-gin-name');
         const popupProductDescription = document.getElementById('popup-gin-description');
         const popupCloseBtn = document.getElementById('popup-close-btn');
         const spiritItems = document.querySelectorAll('.spirit-item');
 
-        // --- URLs IMMAGINI HEADER AGGIORNATI ---
-        // !!! Assicurati che questi URL siano corretti per il Bar Santos !!!
         const headerImages = {
-            default: 'Santos-2.jpg',      /* <- MODIFICATO */
-            christmas: 'https://bar-menu.github.io/Santos-Natale.jpg',  /* <- MODIFICATO */
-            newYear: 'https://bar-menu.github.io/Santos-New-Year.jpg',  /* <- MODIFICATO */
-            epiphany: 'https://bar-menu.github.io/Santos-Epifania.jpg', /* <- MODIFICATO */
-            valentine: 'https://bar-menu.github.io/Santos-Valentino.jpg',/* <- MODIFICATO */
-            ferragosto: 'https://bar-menu.github.io/Santos-Ferragosto.jpg'/* <- MODIFICATO */
-            // Aggiungi 'easter': 'URL_PASQUA' se implementi la logica
+            default: 'https://bar-menu.github.io/Santos-2.jpg',
+            christmas: 'https://bar-menu.github.io/Santos-Natale.jpg',
+            newYear: 'https://bar-menu.github.io/Santos-New-Year.jpg',
+            epiphany: 'https://bar-menu.github.io/Santos-Epifania.jpg',
+            valentine: 'https://bar-menu.github.io/Santos-Valentino.jpg',
+            ferragosto: 'https://bar-menu.github.io/Santos-Ferragosto.jpg'
         };
 
-        // --- NUOVA Funzione per creare Favicon da Stringa SVG ---
         function setSvgFavicon(svgString) {
             const cleanSvgString = svgString.replace(/<!--.*?-->/gs, '');
             try {
@@ -468,31 +700,33 @@
             }
         }
 
-        // --- Inizializzazione DOMContentLoaded (Modificata) ---
         document.addEventListener('DOMContentLoaded', () => {
-             const menuIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#888888" d="M14 2.2C22.5-1.7 32.5-.3 39.6 5.8L80 40.4 120.4 5.8c9-7.7 22.3-7.7 31.2 0L192 40.4 232.4 5.8c9-7.7 22.3-7.7 31.2 0L304 40.4 344.4 5.8c7.1-6.1 17.1-7.5 25.6-3.6s14 12.4 14 21.8l0 464c0 9.4-5.5 17.9-14 21.8s-18.5 2.5-25.6-3.6L304 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L192 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L80 471.6 39.6 506.2c-7.1 6.1-17.1 7.5-25.6 3.6S0 497.4 0 488L0 24C0 14.6 5.5 6.1 14 2.2zM96 144c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 144zM80 352c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 336c-8.8 0-16 7.2-16 16zM96 240c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 240z"/></svg>`;
+            const menuIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#888888" d="M14 2.2C22.5-1.7 32.5-.3 39.6 5.8L80 40.4 120.4 5.8c9-7.7 22.3-7.7 31.2 0L192 40.4 232.4 5.8c9-7.7 22.3-7.7 31.2 0L304 40.4 344.4 5.8c7.1-6.1 17.1-7.5 25.6-3.6s14 12.4 14 21.8l0 464c0 9.4-5.5 17.9-14 21.8s-18.5 2.5-25.6-3.6L304 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L192 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L80 471.6 39.6 506.2c-7.1 6.1-17.1 7.5-25.6 3.6S0 497.4 0 488L0 24C0 14.6 5.5 6.1 14 2.2zM96 144c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 144zM80 352c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 336c-8.8 0-16 7.2-16 16zM96 240c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 240z"/></svg>`;
              setSvgFavicon(menuIconSvg);
              setSeasonalHeaderImage();
-             searchInput.value = '';
-             // ... (resto del codice DOMContentLoaded invariato) ...
+             if(searchInputDesktop) searchInputDesktop.value = '';
+             if(stickySearchInput) stickySearchInput.value = '';
 
-            // Listener combinato per quick nav (Reset + Scroll)
-             document.querySelectorAll('#quick-nav a').forEach(anchor => {
+            // Listener per TUTTE le quick nav (vecchia footer e mobile sticky)
+            document.querySelectorAll('#quick-nav a, #quick-nav-mobile-sticky ul a').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
-                    deactivateSearch(true);
+                    // Chiudi entrambe le ricerche e popup
+                    deactivateSearch(true, 'desktop');
+                    deactivateSearch(true, 'mobile');
+                    hideDescriptionPopup();
+
                     const targetId = this.getAttribute('href');
                     const targetElement = document.querySelector(targetId);
+
                     if (targetElement) {
-                        setTimeout(() => {
-                            const offsetTop = targetElement.offsetTop - 20;
-                            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-                        }, 50);
+                        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 20;
+                        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
                     }
                 });
             });
 
-             // Listener per Pop-up Descrizione
+            // Listener per Pop-up Descrizione
              if(spiritItems.length > 0 && descriptionPopup && popupCloseBtn) {
                  spiritItems.forEach(item => {
                     item.addEventListener('click', (event) => {
@@ -500,40 +734,101 @@
                         showDescriptionPopup(item);
                     });
                  });
-
                  popupCloseBtn.addEventListener('click', () => {
                      hideDescriptionPopup();
                  });
-
                  descriptionPopup.addEventListener('click', (event) => {
+                     event.stopPropagation(); // Non chiudere cliccando dentro il popup
+                 });
+             }
+
+            // --- LISTENER PER RICERCA (Desktop e Mobile) ---
+
+            // Listener Ricerca Desktop
+            if (searchIconTriggerDesktop && searchWrapperDesktop) {
+                searchIconTriggerDesktop.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    if (searchWrapperDesktop.classList.contains('search-active')) {
+                        deactivateSearch(true, 'desktop');
+                    } else {
+                        activateSearch('desktop');
+                    }
+                });
+                if(searchInputDesktop) searchInputDesktop.addEventListener('input', () => filterItemsAndSections('desktop'));
+                // Click sul contenitore input desktop (non chiude la ricerca)
+                if (searchInputContainerDesktop) {
+                    searchInputContainerDesktop.addEventListener('click', (event) => {
+                        if (event.target !== searchInputDesktop) { event.stopPropagation(); }
+                    });
+                }
+            }
+
+            // Listener Ricerca Mobile Sticky
+            if (stickySearchTrigger && stickyNavBar && stickySearchInput) {
+                stickySearchTrigger.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    if (stickyNavBar.classList.contains('search-active')) {
+                        deactivateSearch(true, 'mobile');
+                    } else {
+                         // Chiudi ricerca desktop se aperta
+                        deactivateSearch(false, 'desktop');
+                        activateSearch('mobile');
+                    }
+                });
+                stickySearchInput.addEventListener('input', () => filterItemsAndSections('mobile'));
+                 // Click sull'input mobile non propaga per non chiudere subito
+                 stickySearchInput.addEventListener('click', (event) => {
                      event.stopPropagation();
                  });
-             } else {
-                 // console.warn("Elementi per il popup descrizione non trovati.");
-             }
+            }
+
+             // Listener per chiudere le ricerche cliccando fuori
+             document.addEventListener('click', (event) => {
+                 // Chiudi ricerca desktop se attiva e si clicca fuori
+                 if (searchWrapperDesktop && searchWrapperDesktop.classList.contains('search-active') && !searchWrapperDesktop.contains(event.target)) {
+                    deactivateSearch(false, 'desktop');
+                 }
+                 // Chiudi ricerca mobile se attiva e si clicca fuori dalla barra intera
+                 if (stickyNavBar && stickyNavBar.classList.contains('search-active') && !stickyNavBar.contains(event.target)) {
+                     deactivateSearch(false, 'mobile');
+                 }
+
+                // Chiudi popup descrizione
+                 if (descriptionPopup && descriptionPopup.classList.contains('visible') && !descriptionPopup.contains(event.target) && !event.target.closest('.spirit-item')) {
+                     hideDescriptionPopup();
+                 }
+             });
 
         }); // Fine DOMContentLoaded
 
 
-        // Funzione Filtro (invariata)
-        function filterItemsAndSections() {
-            const searchTerm = searchInput.value.trim().toLowerCase();
+        // Funzione Filtro MODIFICATA
+        function filterItemsAndSections(sourceType) { // 'desktop' o 'mobile'
+            const inputElement = (sourceType === 'desktop') ? searchInputDesktop : stickySearchInput;
+            // Se l'elemento input non esiste per quel tipo, esci
+            if (!inputElement) return;
+
+            const searchTerm = inputElement.value.trim().toLowerCase();
             const isSearchActive = searchTerm !== '';
             let anyItemVisibleGlobal = false;
-            hideDescriptionPopup();
+
+            // Non chiudere il popup qui se l'utente sta solo digitando
+            // hideDescriptionPopup();
 
             allSections.forEach(section => {
                 const sectionTitleElement = section.querySelector('h2');
                 const sectionTitleText = sectionTitleElement ? sectionTitleElement.textContent.trim().toLowerCase() : '';
+                // La ricerca nel titolo ha senso solo se la sezione è visibile
                 const isSectionTitleKeywordMatch = isSearchActive && sectionTitleText.includes(searchTerm);
+
                 let sectionHasVisibleItem = false;
                 const itemsInSection = section.querySelectorAll('.menu-item, .item-description-footer');
 
                 itemsInSection.forEach(item => {
                     let isFooterDesc = item.classList.contains('item-description-footer');
                     const itemNameElement = item.querySelector('.item-name');
-                    const itemDescriptionElement = item.querySelector('.item-description:not(.item-description-footer):not(.item-variations), .item-description-vini'); // Escludi variations qui
-                    const itemVariationsElement = item.querySelector('.item-variations'); // Seleziona variations
+                    const itemDescriptionElement = item.querySelector('.item-description:not(.item-description-footer):not(.item-variations), .item-description-vini');
+                    const itemVariationsElement = item.querySelector('.item-variations');
                     let itemText = '';
 
                     if (isFooterDesc) {
@@ -541,29 +836,30 @@
                     } else if (itemNameElement) {
                         itemText += itemNameElement.textContent.toLowerCase() + ' ';
                     } else {
-                         // Gestisce 'simple-list' items senza span.item-name
                          const directText = Array.from(item.childNodes).filter(node => node.nodeType === Node.TEXT_NODE).map(node => node.textContent.trim()).join(' ');
                          itemText += directText.toLowerCase() + ' ';
                     }
-                    // Aggiungi testo da variations e description standard
                     if (itemVariationsElement) { itemText += itemVariationsElement.textContent.toLowerCase() + ' '; }
                     if (itemDescriptionElement) { itemText += itemDescriptionElement.textContent.toLowerCase(); }
 
-                    const isItemTextMatch = itemText.includes(searchTerm);
-                    const isMatch = !isSearchActive || isItemTextMatch || isSectionTitleKeywordMatch;
+                    // Considera anche data-description per la ricerca?
+                    const dataDesc = item.dataset.description ? item.dataset.description.toLowerCase() : '';
+                    if (dataDesc) { itemText += ' ' + dataDesc; }
 
-                    // Determina display style corretto
-                    let displayStyle = 'flex'; // Default per .menu-item
+                    const isItemTextMatch = itemText.includes(searchTerm);
+                    const isMatch = !isSearchActive || isItemTextMatch; // Rimuoviamo isSectionTitleKeywordMatch da qui
+
+                    let displayStyle = 'flex';
                     if (item.closest('.simple-list')) displayStyle = 'block';
                     if (isFooterDesc) displayStyle = 'block';
-                    if (section.id === 'panini-piadine' && item.classList.contains('menu-item')) displayStyle = 'flex'; // Specifico per panini
+                    if (section.id === 'panini-piadine' && item.classList.contains('menu-item')) displayStyle = 'flex';
 
                     const targetDisplay = isMatch ? displayStyle : 'none';
                     if (item.style.display !== targetDisplay) { item.style.display = targetDisplay; }
                     if (isMatch) { sectionHasVisibleItem = true; }
                 });
 
-                // Gestione visibilità sezioni
+                // Mostra la sezione se non c'è ricerca attiva, O se ha item visibili, O se il titolo matcha
                 const shouldShowSection = !isSearchActive || sectionHasVisibleItem || isSectionTitleKeywordMatch;
                 const targetDisplaySection = shouldShowSection ? 'block' : 'none';
                 if (section.style.display !== targetDisplaySection) { section.style.display = targetDisplaySection; }
@@ -572,37 +868,61 @@
 
             // Gestione messaggio "Nessun risultato"
             const showNoResults = isSearchActive && !anyItemVisibleGlobal;
-            if (showNoResults) {
-                noResultsTermSpan.textContent = searchInput.value.trim();
+            if (showNoResults && noResultsSection) {
+                if(noResultsTermSpan) noResultsTermSpan.textContent = inputElement.value.trim();
                 noResultsSection.style.display = 'flex';
-            } else {
+            } else if(noResultsSection) {
                 noResultsSection.style.display = 'none';
             }
         }
 
 
-        // Funzioni Ricerca (invariate)
-        function activateSearch() {
-            if (!searchWrapper.classList.contains('search-active')) {
-                searchWrapper.classList.add('search-active');
-                hideDescriptionPopup();
-                setTimeout(() => { searchInput.focus(); }, 50);
+        // Funzioni Attivazione/Disattivazione Ricerca MODIFICATE
+        function activateSearch(type) { // 'desktop' o 'mobile'
+            hideDescriptionPopup();
+            if (type === 'desktop' && searchWrapperDesktop && !searchWrapperDesktop.classList.contains('search-active')) {
+                 // Chiudi mobile se aperta
+                 deactivateSearch(false, 'mobile');
+                 searchWrapperDesktop.classList.add('search-active');
+                 setTimeout(() => { if(searchInputDesktop) searchInputDesktop.focus(); }, 50);
+            } else if (type === 'mobile' && stickyNavBar && !stickyNavBar.classList.contains('search-active')) {
+                 // Chiudi desktop se aperta
+                 deactivateSearch(false, 'desktop');
+                 stickyNavBar.classList.add('search-active');
+                 setTimeout(() => { if(stickySearchInput) stickySearchInput.focus(); }, 50);
             }
         }
-        function deactivateSearch(resetSearch = true) {
-             hideDescriptionPopup();
-             if (searchWrapper.classList.contains('search-active')) {
-                 searchWrapper.classList.remove('search-active');
-                 searchInput.blur();
-                 if (resetSearch) {
-                    searchInput.value = '';
-                    filterItemsAndSections();
-                 }
-                 noResultsSection.style.display = 'none';
-             }
+
+        function deactivateSearch(resetSearch = true, type) { // 'desktop' o 'mobile'
+            let inputToClear = null;
+            let performFilter = false;
+
+            if (type === 'desktop' && searchWrapperDesktop && searchWrapperDesktop.classList.contains('search-active')) {
+                searchWrapperDesktop.classList.remove('search-active');
+                if(searchInputDesktop) searchInputDesktop.blur();
+                inputToClear = searchInputDesktop;
+                performFilter = true; // Filtra sempre quando si chiude desktop
+            } else if (type === 'mobile' && stickyNavBar && stickyNavBar.classList.contains('search-active')) {
+                stickyNavBar.classList.remove('search-active');
+                if(stickySearchInput) stickySearchInput.blur();
+                inputToClear = stickySearchInput;
+                performFilter = true; // Filtra sempre quando si chiude mobile
+            }
+
+            if (resetSearch && inputToClear) {
+                inputToClear.value = '';
+            }
+
+            // Esegui il filtro solo se una ricerca è stata effettivamente disattivata e resetSearch è true
+            if (performFilter && resetSearch) {
+                 filterItemsAndSections(type); // Mostra tutto
+            }
+
+             // Nascondi sempre "nessun risultato" se si disattiva
+             if(noResultsSection) noResultsSection.style.display = 'none';
         }
 
-        // Funzioni Pop-up Descrizione (invariate)
+        // Funzioni Pop-up Descrizione
         function showDescriptionPopup(element) {
             const name = element.querySelector('.item-name')?.textContent || 'Prodotto';
             const description = element.dataset.description || 'Nessuna descrizione disponibile.';
@@ -616,38 +936,30 @@
             descriptionPopup.classList.remove('visible');
         }
 
-        // Funzione per impostare Immagine Header Stagionale (invariata nella logica, ma usa `headerImages` aggiornato)
+        // Funzione Header Stagionale
         function setSeasonalHeaderImage() {
             if (!headerElement) return;
             const today = new Date();
-            const month = today.getMonth();
+            const month = today.getMonth(); // 0-11
             const day = today.getDate();
             let imageUrl = headerImages.default;
-            if ((month === 11 && day >= 8) || (month === 0 && day <= 6)) { imageUrl = headerImages.christmas; }
-            else if (month === 0 && day === 1) { imageUrl = headerImages.newYear; }
-            else if (month === 0 && day === 6) { imageUrl = headerImages.epiphany; }
+
+            // Natale: 8 Dic - 6 Gen
+            if ((month === 11 && day >= 8) || (month === 0 && day <= 6)) {
+                 // Capodanno ha priorità su Natale
+                 if (month === 0 && day === 1) imageUrl = headerImages.newYear;
+                 // Epifania ha priorità su Natale
+                 else if (month === 0 && day === 6) imageUrl = headerImages.epiphany;
+                 else imageUrl = headerImages.christmas;
+            }
+            // San Valentino
             else if (month === 1 && day === 14) { imageUrl = headerImages.valentine; }
+            // Ferragosto
             else if (month === 7 && day === 15) { imageUrl = headerImages.ferragosto; }
+             // Aggiungi altre festività qui (es. Pasqua)
+
             headerElement.style.backgroundImage = `url('${imageUrl}')`;
         }
-
-        // Event Listeners (invariati)
-        searchIconTrigger.addEventListener('click', (event) => {
-            event.stopPropagation();
-            if (searchWrapper.classList.contains('search-active')) { deactivateSearch(true); }
-            else { activateSearch(); }
-        });
-        searchInput.addEventListener('input', filterItemsAndSections);
-        document.addEventListener('click', (event) => {
-            if (searchWrapper.classList.contains('search-active') && !searchWrapper.contains(event.target) && !clearSearchLink.contains(event.target)) {
-                deactivateSearch(false);
-            }
-             if (descriptionPopup && descriptionPopup.classList.contains('visible') && !descriptionPopup.contains(event.target) && !event.target.closest('.spirit-item')) {
-                 hideDescriptionPopup();
-             }
-        });
-        searchInputContainer.addEventListener('click', (event) => { if (event.target !== searchInput) { event.stopPropagation(); } });
-        clearSearchLink.addEventListener('click', (event) => { event.preventDefault(); deactivateSearch(true); });
 
     </script>
 
