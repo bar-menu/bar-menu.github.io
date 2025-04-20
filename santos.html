@@ -116,8 +116,57 @@
         ul > li.menu-item:has(+ h3) { border-bottom: 1px solid var(--border-light) !important; }
         #panini-piadine ul > li.menu-item:last-child { border-bottom: 1px solid var(--border-light); }
         .item-name { flex-grow: 1; padding-right: 15px; font-weight: 600; color: var(--text-dark); font-size: 1.1em; }
-        .item-price { color: var(--text-dark); white-space: nowrap; margin-left: 10px; font-size: 1.0em; font-weight: 700; flex-shrink: 0; text-align: right; }
-        .item-price-multi { display: flex; flex-direction: column; align-items: flex-end; color: var(--text-dark); font-weight: 700; font-size: 1.0em; white-space: nowrap; margin-left: 10px; flex-shrink: 0; }
+        .item-price {
+    /* ... stili esistenti ... */
+    color: var(--text-dark);
+    white-space: nowrap;
+    /* Rimuovi 'margin-left: 10px;' se presente da prima */
+    /* margin-left: 10px; */ /* <-- RIMUOVERE O COMMENTARE */
+    font-size: 1.0em;
+    font-weight: 700;
+    flex-shrink: 0;
+    text-align: right;
+
+    /* --- AGGIUNGI QUESTO --- */
+    margin-left: auto; /* Forza l'elemento all'estrema destra */
+    /* Opzionale: aggiungi un po' di padding a sinistra se sembra troppo attaccato */
+    padding-left: 10px;
+    /* --- FINE AGGIUNTA --- */
+}
+
+.item-price-multi {
+    /* ... stili esistenti ... */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: var(--text-dark);
+    font-weight: 700;
+    font-size: 1.0em;
+    white-space: nowrap;
+     /* Rimuovi 'margin-left: 10px;' se presente da prima */
+    /* margin-left: 10px; */ /* <-- RIMUOVERE O COMMENTARE */
+    flex-shrink: 0;
+
+    /* --- AGGIUNGI QUESTO --- */
+    margin-left: auto; /* Forza l'elemento all'estrema destra */
+    /* Opzionale: aggiungi un po' di padding a sinistra se sembra troppo attaccato */
+    padding-left: 10px;
+    /* --- FINE AGGIUNTA --- */
+}
+
+/* Potrebbe essere utile cambiare anche l'allineamento verticale
+   per evitare strani salti quando il nome va a capo */
+li.menu-item {
+    /* ... stili esistenti ... */
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    /* Prova a cambiare da baseline a flex-start */
+    /* align-items: baseline; */ /* <-- COMMENTA O RIMUOVI */
+    align-items: flex-start;   /* <-- AGGIUNGI QUESTO */
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-light);
+}
         .item-price-multi .item-price { font-weight: 700; margin-left: 0; padding-top: 2px; padding-bottom: 2px; text-align: right; width: 100%; }
         .item-description, .item-description-vini { font-size: 0.88em; color: #666; flex-basis: 100%; margin-top: 5px; line-height: 1.4; padding-left: 0; }
         .item-description-vini { font-size: 0.93em; }
