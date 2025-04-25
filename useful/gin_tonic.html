@@ -6,64 +6,81 @@
     <title>Abbinamenti Gin & Tonic Consigliati</title>
     <style>
         body {
-            font-family: sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: #f8f8f8;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Font stack moderno */
+            line-height: 1.7; /* Maggiore interlinea per leggibilità */
+            margin: 25px;
+            background-color: #f8f9fa; /* Grigio molto chiaro per lo sfondo */
+            color: #495057; /* Grigio scuro per il testo principale */
         }
         h1 {
             text-align: center;
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
+            color: #343a40; /* Grigio antracite scuro */
+            border-bottom: 2px solid #dee2e6; /* Bordo grigio chiaro */
+            padding-bottom: 15px;
+            font-weight: 300; /* Titolo più leggero */
+            letter-spacing: 0.5px;
         }
         dl {
             margin: 0;
             padding: 0;
         }
         dt {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #e0f7fa; /* Azzurrino chiaro */
-            border-left: 5px solid #00796b; /* Verde acqua scuro */
-            border-radius: 4px;
+            font-weight: 600; /* Semi-bold per i nomi dei gin */
+            font-size: 1.15em;
+            margin-top: 25px;
+            padding: 12px 15px;
+            background-color: #ffffff; /* Sfondo bianco per il nome del gin */
+            border-left: 5px solid #6c757d; /* Grigio medio come accento */
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Ombra leggera */
+            color: #343a40; /* Testo scuro */
         }
         dd {
-            margin-left: 20px; /* Indentazione per la descrizione */
-            margin-bottom: 15px;
-            padding: 10px;
+            margin-left: 0; /* Rimuoviamo indentazione di default */
+            margin-bottom: 20px;
+            margin-top: 8px; /* Spazio tra dt e dd */
+            padding: 15px;
             background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef; /* Bordo molto leggero */
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
         strong {
-            color: #00796b; /* Verde acqua scuro per i nomi delle toniche */
+            /* Usiamo un blu/azzurro polvere elegante */
+            color: #547a8b; /* Alternativa: #4a6fa5 */
+            font-weight: 600; /* Leggermente più marcato */
         }
         em {
-            font-style: italic;
-            color: #c0392b; /* Rosso scuro per note/attenzioni */
+            font-style: normal; /* Non corsivo, ma con colore */
+            color: #a45454; /* Rosso mattone/terracotta desaturato */
         }
         .variations {
             display: block;
-            margin-top: 5px;
-            font-size: 0.9em;
-            color: #555;
+            margin-top: 8px;
+            font-size: 0.95em;
+            color: #6c757d; /* Grigio medio */
         }
+        .variations strong {
+             /* Manteniamo il colore blu/azzurro anche qui */
+             color: #547a8b;
+        }
+
 
         /* Responsive adjustments */
         @media (max-width: 600px) {
             body {
-                margin: 10px;
+                margin: 15px;
             }
-            dt, dd {
-                margin-left: 5px;
+             h1 {
+                font-size: 1.8em;
+             }
+            dt {
+                font-size: 1.1em;
+                padding: 10px 12px;
             }
             dd {
-                 margin-left: 10px;
+                 padding: 12px;
+                 margin-left: 0; /* Assicurati che non ci sia indentazione */
             }
         }
     </style>
