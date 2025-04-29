@@ -201,7 +201,6 @@
                         <span class="item-price">Calice 8</span>
                         <span class="item-price">Bottiglia 40</span>
                     </span>
-                    <!-- Descrizione ora nel popup -->
                 </li>
                 <li class="menu-item spirit-item" data-price-calice="9.00" data-price-bottiglia="45.00" data-description="Iconico Franciacorta Brut. Complesso ed elegante, note di frutta bianca, mandorla, pasticceria. Perlage setoso.">
                     <span class="item-name">Bellavista Alma Gran Cuvée Brut</span>
@@ -209,12 +208,11 @@
                         <span class="item-price">Calice 9</span>
                         <span class="item-price">Bottiglia 45</span>
                     </span>
-                     <!-- Descrizione ora nel popup -->
                 </li>
                 <li class="menu-item spirit-item" data-price-bottiglia="80.00" data-description="Franciacorta Pas Operé (zero dosaggio) millesimato. Molto secco, minerale, complesso con note agrumate e tostate. Grande finezza.">
                     <span class="item-name">Bellavista Pas Operé 2018</span>
                     <span class="item-price">80</span>
-                    <span class="item-description">Solo Bottiglia</span> <!-- Descrizione ora nel popup -->
+                    <span class="item-description">Solo Bottiglia</span>
                 </li>
             </ul>
         </section>
@@ -387,17 +385,10 @@
             </ul>
         </section>
 
-        <!-- Sezione Cocktails (ORA QUI) -->
-        <section id="cocktails" data-section-price="8.00"> <!-- Prezzo nell'H2 -->
+        <!-- Sezione Cocktails -->
+        <section id="cocktails" data-section-price="8.00">
             <h2>Cocktails <span class="section-price">8.00</span></h2>
             <ul>
-                <!--
-                  Per ogni cocktail:
-                  - class="menu-item spirit-item" -> Rende la riga cliccabile per il popup
-                  - data-description: Ingredienti base / gusto
-                  - data-strength: Grado alcolico indicativo (Es: Leggero, Medio, Forte, Molto Forte)
-                  - data-preparation: Come si fa, spiegato semplice
-                -->
                 <li class="menu-item spirit-item"
                     data-description="Gin, Campari, Vermouth Rosso. Gusto deciso e amaro."
                     data-strength="Forte"
@@ -495,9 +486,9 @@
                     <span class="item-name">MANHATTAN</span>
                 </li>
                 <li class="menu-item spirit-item"
-                    data-description="Vodka, succo di lime, ginger beer. Speziato (dallo zenzero), fresco."
+                    data-description="Vodka, succo di lime, ginger beer. Speziato (dallo zenzero), fresco, servito in tazza di rame."
                     data-strength="Medio"
-                    data-preparation="Riempi un bicchiere alto con ghiaccio. Versa Vodka (50ml) e succo di lime fresco (15ml). Completa con ginger beer. Mescola delicatamente. Guarnisci con fetta di lime e menta (opzionale).">
+                    data-preparation="Riempi una tazza di rame (o bicchiere alto) con ghiaccio. Versa Vodka (50ml) e succo di lime fresco (15ml). Completa con ginger beer. Mescola delicatamente. Guarnisci con fetta di lime e menta (opzionale).">
                     <span class="item-name">MOSCOW MULE</span>
                 </li>
                 <li class="menu-item spirit-item"
@@ -797,7 +788,7 @@
                     <span class="item-price">3.00</span>
                     <span class="item-description">(Prosciutto Cotto, Fontina)</span>
                 </li>
-                <li class="menu-item" data-price="3.00"> <!-- Corretto prezzo focaccia -->
+                <li class="menu-item" data-price="3.00">
                     <span class="item-name">Focaccia</span>
                     <span class="item-price">3.00</span>
                     <span class="item-description">(Olive / Pomodorini)</span>
@@ -854,15 +845,12 @@
 
     <!-- Barra Navigazione Mobile Sticky CON RICERCA INTEGRATA -->
     <nav id="quick-nav-mobile-sticky" aria-label="Navigazione rapida mobile">
-        <!-- Contenitore per la ricerca integrata -->
         <div id="sticky-search-container">
             <button id="sticky-search-trigger" aria-label="Apri/Chiudi ricerca">
-                <i class="fas fa-search"></i> <!-- Icona iniziale -->
+                <i class="fas fa-search"></i>
             </button>
             <input type="text" id="sticky-search-input" placeholder="Cerca..." autocomplete="off" aria-label="Cerca nel menu (mobile)">
         </div>
-
-        <!-- Contenitore per i link (scrollabile) -->
         <div class="sticky-nav-links-wrapper">
              <ul>
                 <li><a href="#caffetteria">Caffè</a></li>
@@ -872,7 +860,7 @@
                 <li><a href="#franciacorta">Franciacorta</a></li>
                 <li><a href="#birre">Birre</a></li>
                 <li><a href="#gin-tonic">Gin</a></li>
-                <li><a href="#cocktails">Cocktails</a></li> <!-- Ordine aggiornato -->
+                <li><a href="#cocktails">Cocktails</a></li>
                 <li><a href="#rum">Rum</a></li>
                 <li><a href="#whisky">Whisky</a></li>
                 <li><a href="#amari-liquori">Amari</a></li>
@@ -888,7 +876,6 @@
 
     <!-- Footer Principale -->
     <footer>
-        <!-- Navigazione Footer (visibile solo su desktop) -->
         <nav id="quick-nav" aria-label="Navigazione rapida sezioni menu">
             <ul>
                  <li><a href="#caffetteria">Caffetteria</a></li>
@@ -898,7 +885,7 @@
                  <li><a href="#franciacorta">Franciacorta</a></li>
                  <li><a href="#birre">Birre</a></li>
                  <li><a href="#gin-tonic">Gin</a></li>
-                 <li><a href="#cocktails">Cocktails</a></li> <!-- Ordine aggiornato -->
+                 <li><a href="#cocktails">Cocktails</a></li>
                  <li><a href="#rum">Rum</a></li>
                  <li><a href="#whisky">Whisky</a></li>
                  <li><a href="#amari-liquori">Amari/Liquori</a></li>
@@ -910,7 +897,6 @@
                  <li><a href="#panini-piadine">Panini/Piadine</a></li>
             </ul>
         </nav>
-        <!-- Logo e Testi Footer -->
         <img src="https://bar-menu.github.io/Logo-Santos-2.svg" alt="Logo Bar Santos" class="footer-logo">
         <p>Bar Santos - Piazza Trento Trieste, 8, Ferrara</p>
         <p>Servizio al tavolo incluso</p>
@@ -918,19 +904,21 @@
     </footer>
 
     <!-- Elemento Pop-up per Descrizione (MODIFICATO) -->
-    <div id="gin-description-popup"> <!-- ID mantenuto per semplicità, ma ora è generico -->
+    <div id="gin-description-popup">
         <div class="popup-content">
             <h4 id="popup-product-name">Nome Prodotto</h4>
-             <span id="popup-strength" class="strength-badge"></span> <!-- Classe base aggiunta -->
             <p id="popup-product-description">Descrizione apparirà qui.</p>
 
-            <!-- Contenitore preparazione (nascosto inizialmente via CSS) -->
+            <!-- Contenitore preparazione -->
             <div id="popup-preparation-container">
-                <h5>Preparazione:</h5>
+                <h5>Preparazione Semplice:</h5>
                 <p id="popup-preparation-text"></p>
+                <!-- IL BADGE ORA È QUI DENTRO -->
+                <span id="popup-strength" class="strength-badge" style="display: none;"></span>
             </div>
+
             <!-- Bottone per mostrare/nascondere preparazione -->
-            <button id="toggle-prep-btn" title="Mostra preparazione">
+            <button id="toggle-prep-btn" title="Mostra preparazione" style="display: none;">
                 <i class="fas fa-chevron-down"></i> Come si fa?
             </button>
 
@@ -938,7 +926,7 @@
         </div>
     </div>
 
-    <!-- Link al file JavaScript ESTERNO, messo prima di </body> -->
+    <!-- Link al file JavaScript ESTERNO -->
     <script src="script_santos.js" defer></script>
 
 </body>
