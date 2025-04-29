@@ -1,0 +1,329 @@
+/* --- Font Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Raleway:wght@400;600;700&display=swap');
+
+/* --- Impostazioni Generali --- */
+body {
+    font-family: 'Lato', sans-serif; /* Font base leggibile */
+    font-weight: 400;
+    line-height: 1.6;
+    background-color: #f4f4f4; /* Sfondo pagina web leggermente grigio */
+    color: #333; /* Colore testo principale */
+    margin: 0;
+    padding: 20px; /* Spazio attorno al contenitore menu */
+}
+
+.menu-container {
+    max-width: 1000px; /* Larghezza massima per leggibilità a schermo */
+    margin: 20px auto; /* Centra il contenitore */
+    background-color: #ffffff; /* Sfondo bianco del menu */
+    padding: 30px 40px; /* Padding interno */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Ombra leggera */
+    border-radius: 4px; /* Angoli leggermente arrotondati */
+}
+
+/* --- Header --- */
+.menu-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #e0e0e0; /* Linea separatrice sottile */
+    padding-bottom: 20px;
+}
+
+.menu-header h1 {
+    font-family: 'Raleway', sans-serif; /* Font elegante per il titolo */
+    font-weight: 700; /* Grassetto */
+    font-size: 2.8em; /* Dimensione grande */
+    color: #2c3e50; /* Blu/Grigio scuro */
+    margin: 0 0 5px 0;
+    letter-spacing: 1px;
+}
+
+.menu-header p {
+    font-size: 1.1em;
+    color: #7f8c8d; /* Grigio chiaro */
+    margin: 0;
+}
+
+/* --- Contenuto Principale --- */
+.menu-content {
+    /* A schermo, il contenuto scorre normalmente in una colonna */
+}
+
+/* --- Titoli Sezione (h2) --- */
+h2 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600; /* Semi-bold */
+    font-size: 1.6em;
+    color: #004d40; /* Verde/Teal scuro elegante */
+    margin-top: 30px; /* Spazio sopra ogni sezione */
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #b2dfdb; /* Bordo sotto teal chiaro */
+}
+/* Rimuovi margine sopra la prima sezione */
+.menu-content section:first-of-type h2 {
+    margin-top: 0;
+}
+
+/* --- Sottotitoli (h3) --- */
+h3 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 1.1em;
+    color: #444;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+/* --- Liste e Voci Menu --- */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0; /* Spazio sotto ogni lista */
+}
+
+li {
+    margin-bottom: 8px; /* Spazio tra le voci */
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 4px 0; /* Leggero padding verticale */
+    border-bottom: 1px dotted #eee; /* Linea puntinata molto leggera tra item */
+}
+li:last-child .menu-item {
+    border-bottom: none; /* Rimuovi linea dall'ultimo item della lista */
+}
+
+.item-name {
+    margin-right: 15px; /* Spazio tra nome e prezzo */
+    flex-grow: 1;
+    font-weight: 400;
+}
+
+.item-price, .item-price-multi, .note {
+    white-space: nowrap;
+    text-align: right;
+    font-weight: 600; /* Prezzo leggermente più marcato */
+    color: #555;
+    padding-left: 10px; /* Spazio se nome è lungo */
+}
+.item-price::before {
+    content: "€ "; /* Aggiunge simbolo Euro */
+}
+
+.item-price-multi { font-weight: 400; font-size: 0.95em; color: #555; }
+.item-price-multi .item-price::before { content: ""; } /* Rimuovi € se dentro multi */
+.item-price-multi .item-price {
+     font-weight: 400;
+     color: #555;
+     margin-left: 5px;
+}
+
+
+.note {
+    font-size: 0.85em;
+    font-style: italic;
+    color: #777;
+    margin-left: 5px;
+    white-space: normal; /* Permette alle note di andare a capo */
+}
+.note::before { content: ""; } /* Rimuove € dalle note */
+
+/* --- Stili Specifici --- */
+.item-description { /* Descrizioni brevi (Spritz) */
+    display: block; /* Va a capo */
+    font-size: 0.85em;
+    color: #777;
+    font-weight: 300;
+    padding-left: 10px; /* Indenta leggermente */
+    margin-top: 2px;
+    flex-basis: 100%; /* Occupa tutta la larghezza */
+    text-align: left;
+    border-bottom: 1px dotted #eee; /* Stesso bordo degli item */
+    padding-bottom: 0.4em;
+}
+/* Rimuovi bordo doppio per item con descrizione */
+.menu-item + .item-description {
+    border-top: none;
+}
+li:has(> .item-description) .menu-item {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.simple-list { /* Lista cocktail */
+    padding-left: 5px;
+    /* A schermo, i cocktail sono in colonna singola per leggibilità */
+}
+.simple-list li {
+    font-size: 0.95em;
+    margin-bottom: 4px;
+    color: #444;
+}
+
+.section-price { /* Prezzo sezione cocktail */
+    font-size: 0.8em;
+    font-weight: 400;
+    color: #555;
+}
+.section-price::before {
+    content: "€ ";
+}
+
+.item-variations { /* Varianti Gin */
+    display: block;
+    font-size: 0.85em;
+    color: #777;
+    font-weight: 300;
+    padding-left: 10px;
+    margin-top: 2px;
+}
+
+.item-description-vini, .vini-list { /* Descrizioni Vini */
+    display: block;
+    font-size: 0.85em;
+    color: #777;
+    font-weight: 300;
+    margin-top: 5px;
+    padding-left: 10px;
+    flex-basis: 100%;
+    text-align: left;
+}
+.vini-list { padding-left: 0; margin-top: 8px; }
+
+.item-description-footer { /* Footer Gin */
+    font-size: 0.85em;
+    font-style: italic;
+    color: #888;
+    margin-top: 15px;
+    text-align: center;
+    border-top: 1px dotted #eee;
+    padding-top: 10px;
+}
+
+.subtitle { /* Sottotitolo Panini */
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 0.95em;
+}
+
+.ingredients { /* Ingredienti Panini */
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+.ingredients h3 {
+    font-size: 1em; /* Stessa dimensione del testo normale */
+    font-weight: 600;
+    color: #444;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    border: none;
+}
+.ingredients p {
+    margin: 0 0 5px 0;
+    line-height: 1.4;
+}
+
+/* --- Footer --- */
+.menu-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.9em;
+    color: #888;
+}
+
+/* --- Impostazioni per la Stampa --- */
+@media print {
+    @page {
+        size: A4 portrait; /* Stampa su A4 verticale */
+        margin: 15mm; /* Margini di stampa */
+    }
+
+    body {
+        font-size: 9.5pt; /* Dimensione font leggermente ridotta per stampa */
+        background-color: white;
+        color: black;
+        padding: 0; /* Rimuovi padding web */
+    }
+
+    .menu-container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .menu-header {
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+        border-color: #ccc;
+        text-align: left; /* Allinea header a sinistra in stampa */
+        page-break-after: avoid; /* Non separare header dal contenuto */
+    }
+    .menu-header h1 { font-size: 22pt; color: black !important; }
+    .menu-header p { font-size: 10pt; color: #333 !important; }
+
+    .menu-content {
+        column-count: 2; /* <<<<<< DUE COLONNE PER IL CONTENUTO PRINCIPALE >>>>>> */
+        column-gap: 12mm; /* Spazio tra le colonne */
+        column-fill: auto; /* Riempi le colonne */
+    }
+
+    h2 {
+        font-size: 13pt;
+        color: black !important;
+        border-color: #aaa;
+        margin-top: 15px; /* Spazio ridotto sopra sezioni */
+        margin-bottom: 10px;
+        break-before: column; /* FORZA NUOVA COLONNA/PAGINA PER OGNI SEZIONE H2 */
+        break-after: avoid; /* Evita break subito dopo H2 */
+    }
+    /* Evita break prima della prima sezione */
+    .menu-content section:first-of-type h2 {
+         break-before: auto;
+    }
+
+
+    h3 {
+        font-size: 10pt;
+        color: black !important;
+        break-after: avoid;
+    }
+
+    ul { margin-bottom: 15px; }
+    li { margin-bottom: 5px; break-inside: avoid; } /* Evita di spezzare li */
+    .menu-item { border-color: #ddd; padding: 2px 0;}
+
+    .item-name { color: black !important; }
+    .item-price, .item-price-multi, .note { color: #333 !important; }
+    .item-price::before { content: ""; } /* Rimuovi € in stampa */
+    .section-price::before { content: ""; }
+
+    .item-description, .item-description-vini, .vini-list, .note, .item-variations {
+        color: #444 !important;
+        font-size: 8pt; /* Riduci descrizioni */
+    }
+
+    .simple-list { column-count: 1; } /* Rimuovi colonne interne per cocktail in stampa */
+    .simple-list li { font-size: 9pt; }
+
+    .ingredients { font-size: 8.5pt; color: #333 !important; }
+    .ingredients h3 { font-size: 9pt; color: black !important; }
+    .ingredients p { color: #333 !important; }
+
+    .item-description-footer { display: none; } /* Nascondi footer gin */
+    .menu-footer { display: none; } /* Nascondi footer pagina */
+
+    /* Nascondi sezioni non volute in stampa (esempio) */
+    /* #no-results { display: none !important; } */
+}
