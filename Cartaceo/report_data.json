@@ -1,0 +1,556 @@
+{
+    "calculatedHoursSummary": {
+        "Maria F.": {
+            "employeeName": "Maria F.",
+            "weeklyTotalHours": 63.65,
+            "hasErrors": false,
+            "hasWarnings": false,
+            "dailyDetails": [
+                {
+                    "date": "2025-04-21",
+                    "startTime": "2025-04-21 07:04:00",
+                    "endTime": "2025-04-21 16:12:00",
+                    "durationHours": 9.13,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-22",
+                    "startTime": "2025-04-22 07:00:00",
+                    "endTime": "2025-04-22 16:05:00",
+                    "durationHours": 9.08,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-23",
+                    "startTime": "2025-04-23 07:00:00",
+                    "endTime": "2025-04-23 16:03:00",
+                    "durationHours": 9.05,
+                    "notes": "Bar N (07:00) -> Bar S (07:58) -> Bar S (07:58) -> Bar N (16:03)",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-24",
+                    "startTime": "2025-04-24 07:00:00",
+                    "endTime": "2025-04-24 16:09:00",
+                    "durationHours": 9.15,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-25",
+                    "startTime": "2025-04-25 07:00:00",
+                    "endTime": "2025-04-25 16:06:00",
+                    "durationHours": 9.1,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-26",
+                    "startTime": "2025-04-26 07:00:00",
+                    "endTime": "2025-04-26 16:10:00",
+                    "durationHours": 9.17,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-27",
+                    "startTime": "2025-04-27 07:05:00",
+                    "endTime": "2025-04-27 16:03:00",
+                    "durationHours": 8.97,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                }
+            ]
+        },
+        "Ivan I.": {
+            "employeeName": "Ivan I.",
+            "weeklyTotalHours": 34.57,
+            "hasErrors": false,
+            "hasWarnings": true,
+            "dailyDetails": [
+                {
+                    "date": "2025-04-21",
+                    "startTime": "2025-04-21 07:28:00",
+                    "endTime": "2025-04-21 16:04:00",
+                    "durationHours": 8.6,
+                    "notes": "Bar N (07:28) -> Bar S (07:40) -> Bar S (16:04) [Avviso: Numero dispari (3) timbrature.]",
+                    "isError": false,
+                    "isWarning": true,
+                    "alertMessage": "Avviso: Numero dispari (3) timbrature."
+                },
+                {
+                    "date": "2025-04-23",
+                    "startTime": "2025-04-23 07:20:00",
+                    "endTime": "2025-04-23 16:01:00",
+                    "durationHours": 8.68,
+                    "notes": "Bar N (07:20) -> Bar S (09:32) -> Bar S (16:01) [Avviso: Numero dispari (3) timbrature.]",
+                    "isError": false,
+                    "isWarning": true,
+                    "alertMessage": "Avviso: Numero dispari (3) timbrature."
+                },
+                {
+                    "date": "2025-04-24",
+                    "startTime": "2025-04-24 07:24:00",
+                    "endTime": "2025-04-24 16:04:00",
+                    "durationHours": 8.67,
+                    "notes": "Bar N (07:24) -> Bar S (07:43) -> Bar S (16:04) [Avviso: Numero dispari (3) timbrature.]",
+                    "isError": false,
+                    "isWarning": true,
+                    "alertMessage": "Avviso: Numero dispari (3) timbrature."
+                },
+                {
+                    "date": "2025-04-25",
+                    "startTime": "2025-04-25 07:26:00",
+                    "endTime": "2025-04-25 16:03:00",
+                    "durationHours": 8.62,
+                    "notes": "Bar N (07:26) -> Bar S (16:03)",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                }
+            ]
+        },
+        "Marco M.": {
+            "employeeName": "Marco M.",
+            "weeklyTotalHours": 43.67,
+            "hasErrors": true,
+            "hasWarnings": true,
+            "dailyDetails": [
+                {
+                    "date": "2025-04-21",
+                    "startTime": "2025-04-21 10:57:00",
+                    "endTime": "2025-04-21 20:12:00",
+                    "durationHours": 9.25,
+                    "notes": "Bar S",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-22",
+                    "startTime": "2025-04-22 16:01:00",
+                    "endTime": "2025-04-23 01:10:00",
+                    "durationHours": 9.15,
+                    "notes": "Bar S",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-23",
+                    "startTime": "2025-04-23 15:54:00",
+                    "endTime": "2025-04-23 23:43:00",
+                    "durationHours": 7.82,
+                    "notes": "Bar S",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-24",
+                    "startTime": "2025-04-24 15:50:00",
+                    "endTime": "2025-04-25 00:24:00",
+                    "durationHours": 8.57,
+                    "notes": "Bar S",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-25",
+                    "startTime": "2025-04-25 15:55:00",
+                    "endTime": "2025-04-26 00:48:00",
+                    "durationHours": 8.88,
+                    "notes": "Bar S",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-26",
+                    "startTime": "2025-04-26 20:42:00",
+                    "endTime": "2025-04-26 20:42:00",
+                    "durationHours": 0,
+                    "notes": "Errore: Timbratura singola (20:42). [Bar N (20:42)]",
+                    "isError": true,
+                    "isWarning": false,
+                    "alertMessage": "Errore: Timbratura singola (20:42)."
+                },
+                {
+                    "date": "2025-04-27",
+                    "startTime": "2025-04-27 11:43:00",
+                    "endTime": "2025-04-27 11:43:00",
+                    "durationHours": 0,
+                    "notes": "Errore: Timbratura singola (11:43). [Bar N (11:43)]",
+                    "isError": true,
+                    "isWarning": false,
+                    "alertMessage": "Errore: Timbratura singola (11:43)."
+                }
+            ]
+        },
+        "Didier L.": {
+            "employeeName": "Didier L.",
+            "weeklyTotalHours": 53.62,
+            "hasErrors": false,
+            "hasWarnings": false,
+            "dailyDetails": [
+                {
+                    "date": "2025-04-21",
+                    "startTime": "2025-04-21 11:00:00",
+                    "endTime": "2025-04-21 20:23:00",
+                    "durationHours": 9.38,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-22",
+                    "startTime": "2025-04-22 07:13:00",
+                    "endTime": "2025-04-22 16:09:00",
+                    "durationHours": 8.93,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-23",
+                    "startTime": "2025-04-23 10:19:00",
+                    "endTime": "2025-04-23 18:09:00",
+                    "durationHours": 7.83,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-24",
+                    "startTime": "2025-04-24 07:24:00",
+                    "endTime": "2025-04-24 16:10:00",
+                    "durationHours": 8.77,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-25",
+                    "startTime": "2025-04-25 07:29:00",
+                    "endTime": "2025-04-25 16:05:00",
+                    "durationHours": 8.6,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-26",
+                    "startTime": "2025-04-26 09:59:00",
+                    "endTime": "2025-04-26 20:05:00",
+                    "durationHours": 10.1,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                }
+            ]
+        },
+        "Prova": {
+            "employeeName": "Prova",
+            "weeklyTotalHours": 51.63,
+            "hasErrors": false,
+            "hasWarnings": false,
+            "dailyDetails": [
+                {
+                    "date": "2025-04-21",
+                    "startTime": "2025-04-21 11:53:00",
+                    "endTime": "2025-04-21 20:02:00",
+                    "durationHours": 8.15,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-23",
+                    "startTime": "2025-04-23 15:51:00",
+                    "endTime": "2025-04-24 00:25:00",
+                    "durationHours": 8.57,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-24",
+                    "startTime": "2025-04-24 15:53:00",
+                    "endTime": "2025-04-25 01:00:00",
+                    "durationHours": 9.12,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-25",
+                    "startTime": "2025-04-25 15:54:00",
+                    "endTime": "2025-04-26 00:59:00",
+                    "durationHours": 9.08,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-26",
+                    "startTime": "2025-04-26 15:49:00",
+                    "endTime": "2025-04-26 23:08:00",
+                    "durationHours": 7.32,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-27",
+                    "startTime": "2025-04-27 14:54:00",
+                    "endTime": "2025-04-28 00:18:00",
+                    "durationHours": 9.4,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                }
+            ]
+        },
+        "Rita N.": {
+            "employeeName": "Rita N.",
+            "weeklyTotalHours": 56.83,
+            "hasErrors": false,
+            "hasWarnings": false,
+            "dailyDetails": [
+                {
+                    "date": "2025-04-21",
+                    "startTime": "2025-04-21 15:49:00",
+                    "endTime": "2025-04-22 01:53:00",
+                    "durationHours": 10.07,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-22",
+                    "startTime": "2025-04-22 15:52:00",
+                    "endTime": "2025-04-23 01:51:00",
+                    "durationHours": 9.98,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-23",
+                    "startTime": "2025-04-23 11:17:00",
+                    "endTime": "2025-04-23 20:31:00",
+                    "durationHours": 9.23,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-24",
+                    "startTime": "2025-04-24 07:48:00",
+                    "endTime": "2025-04-24 17:52:00",
+                    "durationHours": 10.07,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-26",
+                    "startTime": "2025-04-26 15:45:00",
+                    "endTime": "2025-04-27 00:53:00",
+                    "durationHours": 9.13,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-27",
+                    "startTime": "2025-04-27 15:51:00",
+                    "endTime": "2025-04-28 00:12:00",
+                    "durationHours": 8.35,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                }
+            ]
+        },
+        "Paolo B.": {
+            "employeeName": "Paolo B.",
+            "weeklyTotalHours": 45.67,
+            "hasErrors": false,
+            "hasWarnings": true,
+            "dailyDetails": [
+                {
+                    "date": "2025-04-21",
+                    "startTime": "2025-04-21 15:53:00",
+                    "endTime": "2025-04-22 01:48:00",
+                    "durationHours": 9.92,
+                    "notes": "Bar S",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-22",
+                    "startTime": "2025-04-22 16:31:00",
+                    "endTime": "2025-04-23 03:41:00",
+                    "durationHours": 11.17,
+                    "notes": "Bar S (16:31) -> Bar S (01:07) -> Bar N (01:13) -> Bar N (03:41)",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-23",
+                    "startTime": "2025-04-23 18:17:00",
+                    "endTime": "2025-04-24 01:30:00",
+                    "durationHours": 7.22,
+                    "notes": "Bar S (18:17) -> Bar S (23:50) -> Bar N (23:53) -> Bar N (01:30)",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-24",
+                    "startTime": "2025-04-24 16:00:00",
+                    "endTime": "2025-04-25 00:35:00",
+                    "durationHours": 8.58,
+                    "notes": "Bar S (16:00) -> Bar S (00:31) -> Bar N (00:35) [Avviso: Numero dispari (3) timbrature.]",
+                    "isError": false,
+                    "isWarning": true,
+                    "alertMessage": "Avviso: Numero dispari (3) timbrature."
+                },
+                {
+                    "date": "2025-04-25",
+                    "startTime": "2025-04-25 16:06:00",
+                    "endTime": "2025-04-26 00:53:00",
+                    "durationHours": 8.78,
+                    "notes": "Bar S",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                }
+            ]
+        },
+        "Alessandro Z.": {
+            "employeeName": "Alessandro Z.",
+            "weeklyTotalHours": 26.15,
+            "hasErrors": true,
+            "hasWarnings": true,
+            "dailyDetails": [
+                {
+                    "date": "2025-04-21",
+                    "startTime": "2025-04-21 16:11:00",
+                    "endTime": "2025-04-21 16:11:00",
+                    "durationHours": 0,
+                    "notes": "Errore: Timbratura singola (16:11). [Bar S (16:11)]",
+                    "isError": true,
+                    "isWarning": false,
+                    "alertMessage": "Errore: Timbratura singola (16:11)."
+                },
+                {
+                    "date": "2025-04-25",
+                    "startTime": "2025-04-25 07:24:00",
+                    "endTime": "2025-04-25 16:08:00",
+                    "durationHours": 8.73,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-26",
+                    "startTime": "2025-04-26 07:24:00",
+                    "endTime": "2025-04-26 16:10:00",
+                    "durationHours": 8.77,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-27",
+                    "startTime": "2025-04-27 07:32:00",
+                    "endTime": "2025-04-27 16:11:00",
+                    "durationHours": 8.65,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                }
+            ]
+        },
+        "Mattia M.": {
+            "employeeName": "Mattia M.",
+            "weeklyTotalHours": 8.25,
+            "hasErrors": false,
+            "hasWarnings": false,
+            "dailyDetails": [
+                {
+                    "date": "2025-04-26",
+                    "startTime": "2025-04-26 16:55:00",
+                    "endTime": "2025-04-27 01:10:00",
+                    "durationHours": 8.25,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                },
+                {
+                    "date": "2025-04-27",
+                    "startTime": "2025-04-28 00:07:00",
+                    "endTime": "2025-04-28 00:07:00",
+                    "durationHours": 0,
+                    "notes": "Bar N",
+                    "isError": false,
+                    "isWarning": false,
+                    "alertMessage": null
+                }
+            ]
+        }
+    },
+    "period": {
+        "start": "2025-04-21 05:00:00",
+        "end": "2025-04-28 05:00:00",
+        "timeZoneNote": "Dates interpreted in script timezone: Europe/Rome"
+    },
+    "rulesApplied": [],
+    "dataStats": {
+        "rawDataCount": 101,
+        "employeesProcessed": 9
+    }
+}
