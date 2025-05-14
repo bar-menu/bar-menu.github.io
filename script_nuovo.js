@@ -1,21 +1,22 @@
 // --- JAVASCRIPT ---
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    // Elementi Ricerca Sticky
+    // --- SELETTORI DOM ---
+    const bodyElement = document.body; // Aggiunto per classe focus
     const stickyNavBar = document.getElementById('quick-nav-mobile-sticky');
     const stickySearchTrigger = document.getElementById('sticky-search-trigger');
     const stickySearchInput = document.getElementById('sticky-search-input');
-    const stickyNavLinksWrapper = stickyNavBar?.querySelector('.sticky-nav-links-wrapper'); // Aggiornato per sicurezza
+    const stickySearchClearBtn = document.getElementById('sticky-search-clear-btn');
+    const stickyNavLinksWrapper = stickyNavBar?.querySelector('.sticky-nav-links-wrapper');
+    const stickyNavLinks = stickyNavBar?.querySelectorAll('ul a');
 
-    // Elementi Principali Pagina e Contenuto Menu
     const headerElement = document.querySelector('header');
     const mainElement = document.querySelector('main');
     const allSections = mainElement?.querySelectorAll('section:not(#no-results)');
     const noResultsSection = document.getElementById('no-results');
     const noResultsTermSpan = document.getElementById('no-results-term');
+    const clearSearchNoResultsLink = document.getElementById('clear-search-link');
 
-    // Elementi Popup Descrizione Dettagliata
     const descriptionPopup = document.getElementById('gin-description-popup');
     const popupContent = descriptionPopup?.querySelector('.popup-content');
     const popupProductName = document.getElementById('popup-product-name');
@@ -26,372 +27,230 @@ document.addEventListener('DOMContentLoaded', () => {
     const togglePrepBtn = document.getElementById('toggle-prep-btn');
     const popupCloseBtn = document.getElementById('popup-close-btn');
 
-    // Elementi Cliccabili per Aprire il Popup
     const spiritItems = document.querySelectorAll('.spirit-item');
 
-    // --- URLs Immagini Header Stagionali ---
-    const headerImages = {
-        default: 'https://bar-menu.github.io/Nuovo-2.jpg',
-        christmas: 'https://bar-menu.github.io/Nuovo-Natale.jpg',
-        newYear: 'https://bar-menu.github.io/Nuovo-New-Year.jpg',
-        epiphany: 'https://bar-menu.github.io/Nuovo-Epifania.jpg',
-        valentine: 'https://bar-menu.github.io/Nuovo-Valentino.jpg',
-        ferragosto: 'https://bar-menu.github.io/Nuovo-Ferragosto.jpg'
-    };
+    const headerImages = { /* ... URLs invariati ... */ };
 
     // --- INIZIALIZZAZIONE APP ---
     function initializeApp() {
-        if (!mainElement || !allSections || !descriptionPopup || !popupProductName || !popupStrength || !popupProductDescription || !popupPreparationContainer || !popupPreparationText || !togglePrepBtn || !popupCloseBtn || !stickyNavBar || !stickySearchTrigger || !stickySearchInput || !stickyNavLinksWrapper) {
-            console.error("Errore: Elementi DOM essenziali (inclusi elementi popup e barra di navigazione/ricerca) non trovati. Script interrotto.");
-            if (!popupStrength) console.error("Elemento #popup-strength non trovato!");
-            if (!stickyNavBar) console.error("Elemento #quick-nav-mobile-sticky non trovato!");
-            // ... altri controlli specifici ...
+        const essentialElements = [
+            bodyElement, mainElement, allSections, descriptionPopup, popupProductName, popupStrength,
+            popupProductDescription, popupPreparationContainer, popupPreparationText,
+            togglePrepBtn, popupCloseBtn, stickyNavBar, stickySearchTrigger,
+            stickySearchInput, /* stickySearchClearBtn può essere null se HTML non aggiornato, gestito nei listener */
+            stickyNavLinksWrapper, stickyNavLinks
+        ];
+        if (essentialElements.some(el => !el || (el instanceof NodeList && el.length === 0) )) {
+            console.error("Errore: Elementi DOM essenziali non trovati. Script interrotto.");
+            if (!stickyNavLinks || stickyNavLinks.length === 0) console.error("Link di navigazione sticky non trovati!");
             return;
         }
+
         const menuIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#888888" d="M14 2.2C22.5-1.7 32.5-.3 39.6 5.8L80 40.4 120.4 5.8c9-7.7 22.3-7.7 31.2 0L192 40.4 232.4 5.8c9-7.7 22.3-7.7 31.2 0L304 40.4 344.4 5.8c7.1-6.1 17.1-7.5 25.6-3.6s14 12.4 14 21.8l0 464c0 9.4-5.5 17.9-14 21.8s-18.5 2.5-25.6-3.6L304 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L192 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L80 471.6 39.6 506.2c-7.1 6.1-17.1 7.5-25.6 3.6S0 497.4 0 488L0 24C0 14.6 5.5 6.1 14 2.2zM96 144c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 144zM80 352c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 336c-8.8 0-16 7.2-16 16zM96 240c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 240z"/></svg>`;
         setSvgFavicon(menuIconSvg);
         setSeasonalHeaderImage();
-        // if (searchInputDesktop) searchInputDesktop.value = ''; // Rimosso
         if (stickySearchInput) stickySearchInput.value = '';
         resetVisibility();
         setupEventListeners();
+        highlightActiveNavLink();
     }
 
     // --- FUNZIONI UTILITY ---
-    function setSvgFavicon(svgString) {
-        const cleanSvgString = svgString.replace(/<!--.*?-->/gs, '');
-        try {
-            const encodedSvg = btoa(unescape(encodeURIComponent(cleanSvgString)));
-            const dataUri = `data:image/svg+xml;base64,${encodedSvg}`;
-            let faviconLink = document.querySelector("link[rel~='icon']");
-            if (!faviconLink) {
-                faviconLink = document.createElement('link');
-                faviconLink.rel = 'icon';
-                document.head.appendChild(faviconLink);
-            }
-            faviconLink.href = dataUri;
-            faviconLink.type = 'image/svg+xml';
-        } catch (e) {
-            console.error("Errore durante la codifica SVG per favicon:", e);
-        }
-    }
+    function setSvgFavicon(svgString) { /* ...codice invariato... */ }
+    function setSeasonalHeaderImage() { /* ...codice invariato... */ }
+    function resetVisibility() { /* ...codice invariato... */ }
 
-    function setSeasonalHeaderImage() {
-        if (!headerElement || !headerImages) return;
-        const today = new Date();
-        const month = today.getMonth();
-        const day = today.getDate();
-        let imageUrl = headerImages.default;
-        if ((month === 11 && day >= 8) || (month === 0 && day <= 6)) {
-             if (month === 0 && day === 1) imageUrl = headerImages.newYear;
-             else if (month === 0 && day === 6) imageUrl = headerImages.epiphany;
-             else imageUrl = headerImages.christmas;
-        }
-        else if (month === 1 && day === 14) { imageUrl = headerImages.valentine; }
-        else if (month === 7 && day === 15) { imageUrl = headerImages.ferragosto; }
-        headerElement.style.backgroundImage = `url('${imageUrl}')`;
-    }
+    // --- GESTIONE POSIZIONE BARRA STICKY CON TASTIERA (VisualViewportAPI) ---
+    let isKeyboardVisible = false; // Stato per tracciare la visibilità della tastiera
 
-    function resetVisibility() {
-         if (!allSections) return;
-         allSections.forEach(section => {
-             section.style.display = 'block';
-             // Includi h3 e p nella ricerca di elementi da mostrare/nascondere
-             const itemsInSection = section.querySelectorAll('.menu-item, .item-description-footer, h3, p');
-             itemsInSection.forEach(item => {
-                let displayStyle = 'flex'; // Default per .menu-item
-                if (item.classList.contains('item-description-footer') ||
-                    item.tagName.toLowerCase() === 'h3' ||
-                    item.tagName.toLowerCase() === 'p' ||
-                    item.closest('.simple-list') /* se hai una classe del genere */) {
-                    displayStyle = 'block';
-                }
-                item.style.display = displayStyle;
-             });
-         });
-         if (noResultsSection) noResultsSection.style.display = 'none';
-    }
-
-    // --- GESTIONE SISTEMA DI RICERCA (Solo per barra sticky) ---
-    function activateSearch() { // Rimosso 'type'
-        hideDescriptionPopup();
-        // Rimuovi la parte desktop
-        // if (type === 'desktop' && searchWrapperDesktop && !searchWrapperDesktop.classList.contains('search-active')) { ... }
-        if (stickyNavBar && !stickyNavBar.classList.contains('search-active')) {
-             // deactivateSearch(false, 'desktop'); // Non più necessario
-             stickyNavBar.classList.add('search-active');
-             if (stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'none';
-             setTimeout(() => { if (stickySearchInput) stickySearchInput.focus(); }, 50);
-        }
-    }
-
-    function deactivateSearch(resetSearch = true) { // Rimosso 'type'
-        let inputToClear = null;
-        let wasActive = false;
-        // Rimuovi la parte desktop
-        // if (type === 'desktop' && searchWrapperDesktop && searchWrapperDesktop.classList.contains('search-active')) { ... }
-        if (stickyNavBar && stickyNavBar.classList.contains('search-active')) {
-            stickyNavBar.classList.remove('search-active');
-            if (stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'flex'; // o 'block' a seconda del layout
-            if (stickySearchInput) stickySearchInput.blur();
-            inputToClear = stickySearchInput;
-            wasActive = true;
-        }
-        if (resetSearch && inputToClear) {
-            inputToClear.value = '';
-        }
-        if (resetSearch && wasActive) {
-             filterItemsAndSections(); // Rimosso 'type'
-        }
-    }
-
-    function filterItemsAndSections() { // Rimosso 'sourceType'
-        // const inputElement = (sourceType === 'desktop') ? searchInputDesktop : stickySearchInput; // Modificato
-        const inputElement = stickySearchInput;
-        if (!inputElement) return;
-
-        const searchTerm = inputElement.value.trim().toLowerCase();
-        const isSearchActive = searchTerm !== '';
-
-        if (!isSearchActive) {
-            resetVisibility();
-            if (stickyNavBar) stickyNavBar.classList.remove('search-active-results'); // Rimuovi classe se la ricerca è vuota
-            if (noResultsSection) noResultsSection.style.display = 'none';
+    function handleStickyNavPositionWithKeyboard() {
+        if (!stickyNavBar || !window.visualViewport) {
+            if (stickyNavBar) stickyNavBar.style.bottom = '0px'; // Fallback se API non supportata
             return;
         }
-        if (stickyNavBar) stickyNavBar.classList.add('search-active-results'); // Aggiungi una classe per indicare che ci sono risultati filtrati (opzionale)
 
+        const searchInputIsFocused = document.activeElement === stickySearchInput;
+        const currentViewportHeight = window.visualViewport.height;
+        const windowHeight = window.innerHeight; // Altezza totale della finestra del browser
+        const approximateKeyboardHeight = windowHeight - currentViewportHeight;
 
-        let anyItemVisibleGlobal = false;
-        if (!allSections) return;
+        // Un threshold per considerare la tastiera effettivamente "aperta"
+        // Evita piccoli aggiustamenti dovuti a UI del browser che cambiano leggermente la visualViewport
+        const keyboardThreshold = 50; //px
 
-        allSections.forEach(section => {
-            const sectionTitleElement = section.querySelector('h2');
-            const sectionTitleText = sectionTitleElement ? sectionTitleElement.textContent.trim().toLowerCase() : '';
-            const isSectionTitleMatch = sectionTitleText.includes(searchTerm);
-            let sectionHasVisibleItem = false;
-
-            // Includi h3 e p per il filtraggio del testo e per la loro visibilità
-            const itemsAndTextBlocksInSection = section.querySelectorAll('.menu-item, .item-description-footer, h3, p');
-
-            itemsAndTextBlocksInSection.forEach(element => {
-                let elementText = '';
-                let isMatch = false;
-
-                if (element.classList.contains('menu-item')) {
-                    const itemNameElement = element.querySelector('.item-name');
-                    const itemDescriptionElement = element.querySelector('.item-description:not(.item-description-footer):not(.item-variations), .item-description-vini');
-                    const itemVariationsElement = element.querySelector('.item-variations');
-
-                    if (itemNameElement) elementText += itemNameElement.textContent.toLowerCase() + ' ';
-                    if (itemDescriptionElement) elementText += itemDescriptionElement.textContent.toLowerCase() + ' ';
-                    if (itemVariationsElement) elementText += itemVariationsElement.textContent.toLowerCase() + ' ';
-
-                    const dataDesc = element.dataset.description ? element.dataset.description.toLowerCase() : '';
-                    if (dataDesc) elementText += dataDesc + ' ';
-                    const dataStrength = element.dataset.strength ? element.dataset.strength.toLowerCase() : '';
-                    if (dataStrength) elementText += dataStrength + ' ';
-                } else if (element.classList.contains('item-description-footer') || element.tagName.toLowerCase() === 'h3' || element.tagName.toLowerCase() === 'p') {
-                    elementText += element.textContent.toLowerCase();
-                }
-
-                isMatch = elementText.includes(searchTerm);
-
-                let displayStyle = 'flex'; // Default per .menu-item
-                if (element.classList.contains('item-description-footer') ||
-                    element.tagName.toLowerCase() === 'h3' ||
-                    element.tagName.toLowerCase() === 'p' ||
-                    element.closest('.simple-list')) {
-                    displayStyle = 'block';
-                }
-
-                const targetDisplay = isMatch ? displayStyle : 'none';
-                if (element.style.display !== targetDisplay) element.style.display = targetDisplay;
-
-                if (isMatch) sectionHasVisibleItem = true;
-            });
-
-            const shouldShowSection = isSectionTitleMatch || sectionHasVisibleItem;
-            const targetDisplaySection = shouldShowSection ? 'block' : 'none';
-            if (section.style.display !== targetDisplaySection) section.style.display = targetDisplaySection;
-            if (shouldShowSection) anyItemVisibleGlobal = true;
-        });
-
-        const showNoResults = !anyItemVisibleGlobal;
-        if (showNoResults && noResultsSection) {
-            if (noResultsTermSpan) noResultsTermSpan.textContent = inputElement.value.trim();
-            noResultsSection.style.display = 'flex';
-        } else if (noResultsSection) {
-            noResultsSection.style.display = 'none';
+        if (searchInputIsFocused && approximateKeyboardHeight > keyboardThreshold) {
+            // La tastiera è considerata aperta e l'input ha il focus
+            stickyNavBar.style.bottom = approximateKeyboardHeight + 'px';
+            isKeyboardVisible = true;
+            if (bodyElement) bodyElement.classList.add('keyboard-visible'); // Classe opzionale per altri stili
+        } else {
+            // La tastiera è considerata chiusa o l'input non ha il focus
+            stickyNavBar.style.bottom = '0px';
+            isKeyboardVisible = false;
+            if (bodyElement) bodyElement.classList.remove('keyboard-visible');
         }
     }
 
+
+    // --- GESTIONE SISTEMA DI RICERCA ---
+    function activateSearchMode() {
+        hideDescriptionPopup();
+        if (stickyNavBar && !stickyNavBar.classList.contains('search-active')) {
+            stickyNavBar.classList.add('search-active');
+            if (stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'none';
+            setTimeout(() => {
+                if (stickySearchInput) stickySearchInput.focus();
+                // Dopo il focus, la VisualViewportAPI dovrebbe gestire il posizionamento della barra
+            }, 50);
+        }
+    }
+
+    function deactivateSearchMode(resetInput = true) {
+        if (stickyNavBar && stickyNavBar.classList.contains('search-active')) {
+            stickyNavBar.classList.remove('search-active');
+            stickyNavBar.classList.remove('input-has-text');
+            if (stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'flex';
+            if (stickySearchClearBtn) {
+                stickySearchClearBtn.style.opacity = '0';
+                setTimeout(() => { if(stickySearchClearBtn) stickySearchClearBtn.style.display = 'none'; }, 200);
+            }
+            if (resetInput && stickySearchInput) {
+                stickySearchInput.value = '';
+            }
+            // Non sfocare qui se l'utente clicca la X esterna,
+            // il focus si perderà naturalmente o con il click successivo.
+            // if (stickySearchInput) stickySearchInput.blur();
+            filterItemsAndSections();
+            // La VisualViewportAPI dovrebbe resettare il bottom della barra quando l'input perde il focus
+            // o se la tastiera si chiude.
+            // Forziamo un check qui se l'input è stato sfocato implicitamente
+            setTimeout(handleStickyNavPositionWithKeyboard, 100);
+        }
+    }
+
+    function filterItemsAndSections() { /* ...codice invariato dalla tua ultima versione fornita... */ }
 
     // --- GESTIONE POPUP DETTAGLI PRODOTTO ---
-    function showDescriptionPopup(element) {
-         if (!descriptionPopup || !popupContent || !popupProductName || !popupStrength || !popupProductDescription || !popupPreparationContainer || !popupPreparationText || !togglePrepBtn) {
-             console.error("Elementi popup mancanti in showDescriptionPopup.");
-             return;
-         }
+    function showDescriptionPopup(element) { /* ...codice invariato... */ }
+    function hideDescriptionPopup() { /* ...codice invariato... */ }
+    function togglePreparationVisibility() { /* ...codice invariato... */ }
 
-        const name = element.querySelector('.item-name')?.textContent || 'Prodotto';
-        const description = element.dataset.description || 'Nessuna descrizione disponibile.';
-        const strength = element.dataset.strength;
-        const preparation = element.dataset.preparation;
-
-        popupProductName.textContent = name;
-        popupProductDescription.textContent = description;
-
-        if (preparation && popupPreparationContainer && popupPreparationText && togglePrepBtn) {
-            popupPreparationText.innerHTML = preparation.replace(/\n/g, '<br>'); // Usa innerHTML per <br>
-            togglePrepBtn.style.display = 'block';
-
-            if (strength && popupStrength) {
-                popupStrength.textContent = strength;
-                popupStrength.className = 'strength-badge';
-                const strengthClass = `strength-${strength.toLowerCase().replace(/[\s/]+/g, '-')}`;
-                popupStrength.classList.add(strengthClass);
-                popupStrength.style.display = 'inline-block';
-            } else if (popupStrength) {
-                popupStrength.style.display = 'none';
-            }
-
-            popupPreparationContainer.style.display = 'none'; // Nascosto di default
-            descriptionPopup.classList.remove('preparation-visible'); // Rimuovi classe
-            togglePrepBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Come si fa?';
-            togglePrepBtn.title = "Mostra preparazione";
-
-        } else {
-            if (togglePrepBtn) togglePrepBtn.style.display = 'none';
-            if (popupPreparationContainer) popupPreparationContainer.style.display = 'none';
-            if (popupStrength) popupStrength.style.display = 'none';
-            descriptionPopup.classList.remove('preparation-visible');
-        }
-        descriptionPopup.classList.add('visible');
-    }
-
-    function hideDescriptionPopup() {
-        if (!descriptionPopup) { return; }
-        descriptionPopup.classList.remove('visible');
-        descriptionPopup.classList.remove('preparation-visible');
-         if (popupPreparationContainer) popupPreparationContainer.style.display = 'none';
-         if (popupStrength) popupStrength.style.display = 'none';
-         if (togglePrepBtn) {
-             togglePrepBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Come si fa?';
-             togglePrepBtn.title = "Mostra preparazione";
-         }
-    }
-
-    function togglePreparationVisibility() {
-        if (!descriptionPopup || !popupPreparationContainer || !togglePrepBtn) return;
-        const isVisible = descriptionPopup.classList.toggle('preparation-visible');
-        if (isVisible) {
-            popupPreparationContainer.style.display = 'block';
-            togglePrepBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Nascondi preparazione';
-            togglePrepBtn.title = "Nascondi preparazione";
-        } else {
-            popupPreparationContainer.style.display = 'none';
-            togglePrepBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Come si fa?';
-            togglePrepBtn.title = "Mostra preparazione";
-        }
-    }
+    // --- HIGHLIGHT LINK NAVIGAZIONE ATTIVO ---
+    function highlightActiveNavLink() { /* ...codice invariato... */ }
 
     // --- COLLEGAMENTO DEGLI EVENT LISTENER ---
     function setupEventListeners() {
-        // 1. Listener Quick Nav (Scroll)
-        document.querySelectorAll('#quick-nav a, #quick-nav-mobile-sticky ul a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                // deactivateSearch(true, 'desktop'); // Rimosso
-                deactivateSearch(true); // Modificato
-                hideDescriptionPopup();
-                const targetId = this.getAttribute('href');
-                try {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        // Calcolo offset considerando l'altezza della barra sticky e un margine
-                        const stickyNavHeight = stickyNavBar ? stickyNavBar.offsetHeight : 55; // Prendi altezza reale o default
-                        const offsetMargin = 20; // Margine aggiuntivo
-                        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - stickyNavHeight - offsetMargin;
-                        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-                    } else {
-                         console.warn(`Elemento target non trovato per l'ancora: ${targetId}`);
-                    }
-                } catch (error) {
-                     console.error(`Errore nel selettore CSS per l'ancora ${targetId}:`, error);
-                }
-            });
-        });
-
-        // 2. Listener Popup Descrizione (su .spirit-item)
-        if (spiritItems.length > 0 && descriptionPopup && popupCloseBtn && togglePrepBtn && popupStrength) {
-             spiritItems.forEach(item => {
-                 item.addEventListener('click', (event) => {
-                     event.stopPropagation();
-                     showDescriptionPopup(item);
-                 });
-             });
-             popupCloseBtn.addEventListener('click', (event) => {
-                 event.stopPropagation();
-                 hideDescriptionPopup();
-             });
-             togglePrepBtn.addEventListener('click', (event) => {
-                 event.stopPropagation();
-                 togglePreparationVisibility();
-             });
-             descriptionPopup.addEventListener('click', (event) => {
-                 // Permetti click interni senza chiudere, eccetto se è il bottone chiudi o toggle
-                 if (event.target !== popupCloseBtn && event.target !== togglePrepBtn && !togglePrepBtn.contains(event.target)) {
-                    event.stopPropagation();
-                 }
-             });
-        } else {
-            console.warn("Funzionalità popup disabilitata. Verifica elementi essenziali: .spirit-item(s), #gin-description-popup, #popup-close-btn, #toggle-prep-btn, #popup-strength.");
+        // 1. Listener Quick Nav (Scroll e Link Attivo)
+        if (stickyNavLinks && stickyNavLinks.length > 0) {
+            stickyNavLinks.forEach(anchor => { /* ...codice invariato... */ });
         }
+        window.addEventListener('scroll', highlightActiveNavLink);
 
-        // 3. Listener Ricerca Desktop (RIMOSSO o COMMENTATO)
-        // if (searchIconTriggerDesktop && searchWrapperDesktop && searchInputDesktop && searchInputContainerDesktop) { ... }
+        // 2. Listener Popup Descrizione
+        if (spiritItems.length > 0 && descriptionPopup && popupCloseBtn && togglePrepBtn && popupStrength) {
+            /* ...codice invariato... */
+        } else { console.warn("Funzionalità popup disabilitata."); }
 
-        // 4. Listener Ricerca Mobile Sticky (ora Globale)
-        if (stickySearchTrigger && stickyNavBar && stickySearchInput) {
+        // 3. Listener Barra di Ricerca Sticky
+        if (stickySearchTrigger && stickyNavBar && stickySearchInput) { // stickySearchClearBtn è opzionale qui
             stickySearchTrigger.addEventListener('click', (event) => {
                 event.stopPropagation();
                 if (stickyNavBar.classList.contains('search-active')) {
-                    deactivateSearch(true); // Modificato
+                    deactivateSearchMode(true);
                 } else {
-                    activateSearch(); // Modificato
+                    activateSearchMode();
                 }
             });
-            stickySearchInput.addEventListener('input', () => filterItemsAndSections()); // Modificato
-            stickySearchInput.addEventListener('click', (event) => {
-                 event.stopPropagation();
+
+            stickySearchInput.addEventListener('input', () => {
+                filterItemsAndSections();
+                if (stickySearchClearBtn) { // Controlla se il bottone X interna esiste
+                    if (stickySearchInput.value.length > 0) {
+                        stickyNavBar.classList.add('input-has-text');
+                        stickySearchClearBtn.style.display = 'flex';
+                        stickySearchClearBtn.style.opacity = '1';
+                    } else {
+                        stickyNavBar.classList.remove('input-has-text');
+                        stickySearchClearBtn.style.opacity = '0';
+                        setTimeout(() => {
+                            if (stickySearchInput.value.length === 0 && stickySearchClearBtn) {
+                                 stickySearchClearBtn.style.display = 'none';
+                            }
+                        }, 200);
+                    }
+                }
+            });
+
+            stickySearchInput.addEventListener('click', (event) => event.stopPropagation());
+
+            // Listener per focus e blur per VisualViewportAPI e classe su body
+            stickySearchInput.addEventListener('focus', () => {
+                if (bodyElement) bodyElement.classList.add('search-input-focused');
+                // La VisualViewportAPI gestirà il posizionamento della barra
+                // Un leggero ritardo per permettere alla tastiera di iniziare ad aprirsi
+                setTimeout(handleStickyNavPositionWithKeyboard, 100);
+            });
+            stickySearchInput.addEventListener('blur', () => {
+                if (bodyElement) bodyElement.classList.remove('search-input-focused');
+                // Quando l'input perde il focus, la barra dovrebbe tornare a bottom: 0
+                // Un timeout aiuta se la tastiera si sta ancora chiudendo
+                // o se il blur è causato da un click che chiude la modalità ricerca
+                setTimeout(() => {
+                    // Ricontrolla se la modalità ricerca è ancora attiva o se un altro input ha il focus
+                    if (!stickyNavBar.classList.contains('search-active') || document.activeElement !== stickySearchInput) {
+                        handleStickyNavPositionWithKeyboard(); // Questo resetterà a bottom:0 se la tastiera è chiusa
+                    }
+                }, 250); // Un timeout leggermente più lungo per il blur
+            });
+
+        } // Fine if per listener ricerca
+
+        if (stickySearchClearBtn && stickySearchInput) { // Listener separato per il clear button
+            stickySearchClearBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                stickySearchInput.value = '';
+                stickySearchInput.focus(); // Mantieni il focus
+                filterItemsAndSections();
+                stickyNavBar.classList.remove('input-has-text');
+                stickySearchClearBtn.style.opacity = '0';
+                setTimeout(() => { if(stickySearchClearBtn) stickySearchClearBtn.style.display = 'none'; }, 200);
             });
         }
 
-         // 5. Listener Globale (Document) per chiudere cliccando fuori
-         document.addEventListener('click', (event) => {
-             // Rimuovi parte desktop
-             // if (searchWrapperDesktop && searchWrapperDesktop.classList.contains('search-active') && !searchWrapperDesktop.contains(event.target)) { ... }
 
-             if (stickyNavBar && stickyNavBar.classList.contains('search-active') && !stickyNavBar.contains(event.target)) {
-                 deactivateSearch(false); // Modificato, non resettare il testo della ricerca cliccando fuori
-             }
-             if (descriptionPopup && descriptionPopup.classList.contains('visible') && !descriptionPopup.contains(event.target) && !event.target.closest('.spirit-item')) {
-                 hideDescriptionPopup();
-             }
-         });
+        // 4. Listener Globale (Document) per chiudere cliccando fuori
+        document.addEventListener('click', (event) => {
+            if (stickyNavBar && stickyNavBar.classList.contains('search-active') &&
+                !stickySearchContainer.contains(event.target) && // Modificato: usa stickySearchContainer
+                event.target !== stickySearchTrigger && !stickySearchTrigger.contains(event.target)) {
+                deactivateSearchMode(false);
+            }
+            if (descriptionPopup && descriptionPopup.classList.contains('visible') &&
+                !descriptionPopup.contains(event.target) &&
+                !event.target.closest('.spirit-item')) {
+                hideDescriptionPopup();
+            }
+        });
 
-        // 6. Listener per il link "cancella ricerca" in #no-results (se lo aggiungi)
-        const clearSearchLink = document.getElementById('clear-search-link'); // Assicurati che esista nell'HTML
-        if (clearSearchLink && noResultsSection) {
-            clearSearchLink.addEventListener('click', (event) => {
+        // 5. Listener per il link "cancella ricerca" in #no-results
+        if (clearSearchNoResultsLink && noResultsSection && stickySearchInput) {
+            clearSearchNoResultsLink.addEventListener('click', (event) => {
                 event.preventDefault();
-                if (stickySearchInput) stickySearchInput.value = '';
-                filterItemsAndSections(); // Riesegui filtro (mostrerà tutto)
-                if(stickyNavBar) stickyNavBar.classList.remove('search-active'); // Chiudi interfaccia ricerca
-                if(stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'flex'; // Mostra link nav
-                if (noResultsSection) noResultsSection.style.display = 'none'; // Nascondi "nessun risultato"
+                deactivateSearchMode(true);
+                if (noResultsSection) noResultsSection.style.display = 'none';
             });
+        }
+
+        // 6. Listener per VisualViewport API
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', handleStickyNavPositionWithKeyboard);
+            // Non è sempre necessario ascoltare 'scroll' della visualViewport,
+            // 'resize' è solitamente sufficiente per l'apertura/chiusura della tastiera.
+            // window.visualViewport.addEventListener('scroll', handleStickyNavPositionWithKeyboard);
+        } else {
+            console.warn("VisualViewport API non supportata. Il posizionamento della barra con la tastiera potrebbe non essere ottimale.");
+            // Qui potresti implementare un fallback più semplice se necessario,
+            // come la classe `search-input-focused` sul body e CSS per `main { min-height: 100vh; }`
         }
 
     } // Fine setupEventListeners

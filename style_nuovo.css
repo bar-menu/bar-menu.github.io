@@ -308,14 +308,3 @@
         }
          /* --- FINE MEDIA QUERY --- */
 
-
-
-
-
-/* Aggiungi questo al tuo CSS */
-body.search-input-focused main {
-    /* Prova a forzare un'altezza minima quando l'input di ricerca è attivo.
-       Potrebbe essere necessario aggiustare questo valore.
-       L'idea è dare abbastanza contenuto scrollabile per tenere la barra sopra la tastiera. */
-    min-height: 300vh; /* O un valore più specifico se conosci l'altezza della tastiera */
-}
