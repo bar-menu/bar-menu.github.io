@@ -131,7 +131,7 @@
         #sticky-search-input::placeholder { color: rgba(224, 224, 224, 0.6); }
         #quick-nav-mobile-sticky.search-active #sticky-search-input { width: 180px; opacity: 1; visibility: visible; padding: 0 12px 0 40px; /* Aggiunto padding sinistro quando attivo */ /* margin-left: 0; */ background-color: rgba(60, 60, 60, 0.8); transition-delay: 0s, 0s, 0s, 0s, 0s, 0s; z-index: 1; /* Mantiene sotto icona? No, deve stare sopra */ left: 0; /* Assicura posizione */ }
         #quick-nav-mobile-sticky.search-active #sticky-search-trigger { color: var(--accent-color); } /* Colore icona attiva */
-        #quick-nav-mobile-sticky.search-active #sticky-search-trigger i::before { content: "\f00d"; font-weight: 900; } /* Cambia icona in X */
+        #quick-nav-mobile-sticky.search-active #sticky-search-trigger i::before { content: "\f00d"; font-weight: 900; color: #e74c3c; } /* Cambia icona in X */
         /* Nascondi links quando cerca */
         #quick-nav-mobile-sticky.search-active .sticky-nav-links-wrapper { display: none; }
 
@@ -282,5 +282,8 @@
             }
         }
          /* --- FINE MEDIA QUERY --- */
+
+
+
 
 
