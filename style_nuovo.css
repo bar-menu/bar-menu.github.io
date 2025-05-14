@@ -57,32 +57,38 @@
         section { margin-bottom: 40px; background-color: var(--bg-light-section); padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); color: var(--text-dark); display: block; }
         section h2 {
             font-family: 'Merriweather', serif;
-            font-size: 2.0em;
+            font-size: 2.0em; /* Potrebbe essere necessario ridurre leggermente questo su mobile con media query */
             color: var(--text-dark);
             margin-top: 0;
             margin-bottom: 25px;
             border-bottom: 1px solid var(--border-light);
             padding-bottom: 15px;
             font-weight: 700;
-            text-align: center; /* Rimuoviamo text-align: center se vogliamo un controllo completo con flexbox */
-            /* Aggiungiamo display: flex per allineare titolo e prezzo */
+            /* display: flex; è già qui */
             display: flex;
-            justify-content: space-between; /* Spinge titolo e prezzo ai lati opposti */
-            align-items: baseline; /* Allinea sulla linea di base del testo */
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px; /* Aggiungi un piccolo gap tra titolo e prezzo */
+        }
+        
+        #cocktails h2 .section-title-text {
+            /* Prova ad aggiungere questo per evitare che il titolo si restringa eccessivamente */
+            flex-shrink: 0; /* Impedisce al titolo di restringersi */
+            /* Oppure un valore più basso di 1, es. flex-shrink: 0.5; se vuoi un po' di restringimento */
+            margin-right: auto; /* Spinge il prezzo a destra se il titolo non occupa tutto lo spazio rimanente */
+            /* white-space: nowrap; */ /* Usalo con cautela: se il titolo è troppo lungo per lo schermo, potrebbe strabordare */
+            overflow-wrap: break-word; /* Permette al testo di andare a capo per evitare overflow */
+            word-break: break-word; /* Alternativa per il wrap aggressivo */
+            min-width: 0; /* Importante in alcuni scenari flex per permettere il wrapping corretto */
         }
         
         #cocktails h2 .section-main-price {
-            font-family: 'Open Sans', sans-serif; /* Puoi mantenere questo o usare Merriweather come il titolo */
-            font-size: 0.8em; /* O la dimensione che preferisci, es. 0.8em rispetto al titolo */
-            font-weight: 600; /* O 600 se preferisci meno marcato */
-            color: var(--text-dark); /* Colore del testo normale, non evidenziato */
-            /* vertical-align: baseline; */ /* Gestito da align-items: baseline sull'h2 */
-            /* margin-left: auto; */ /* Non necessario con flex justify-content */
-            /* Rimuovi stili di evidenziazione */
-            background-color: transparent;
-            padding: 0;
-            border: none;
-            border-radius: 0;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.7em; /* Considera di ridurlo ulteriormente per mobile se necessario */
+            font-weight: 400;
+            color: var(--text-dark);
+            white-space: nowrap; /* Impedisce al prezzo di andare a capo, solitamente desiderabile per i prezzi */
+            flex-shrink: 0; /* Impedisce al prezzo di restringersi */
         }
         ul { list-style: none; padding: 0; margin: 0; }
         
@@ -134,7 +140,7 @@
         #quick-nav-mobile-sticky ul { display: flex; gap: 15px; margin: 0; padding: 0 10px; width: max-content; height: 100%; align-items: center; list-style: none; }
         #quick-nav-mobile-sticky li { display: inline-block; padding: 0; border: none; flex-shrink: 0; }
         #quick-nav-mobile-sticky li:hover { background: none;}
-        #quick-nav-mobile-sticky a { font-size: 0.9em; color: var(--sticky-nav-link-color); padding: 5px 8px; border-radius: 4px; transition: background-color 0.2s ease, color 0.2s ease; text-decoration: none; display: inline-block; line-height: calc(var(--sticky-nav-height) - 10px); }
+        #quick-nav-mobile-sticky a { font-size: 0.9em; color: var(--sticky-nav-link-color); padding: 5px 8px; border-radius: 10px; transition: background-color 0.2s ease, color 0.2s ease; text-decoration: none; display: inline-block; line-height: calc(var(--sticky-nav-height) - 10px); }
         #quick-nav-mobile-sticky a:hover, #quick-nav-mobile-sticky a:focus { background-color: rgba(255, 255, 255, 0.15); color: #fff; outline: none; }
 
         /* --- Stili Navigazione Rapida Footer (Stile Nuovo) --- */
