@@ -1,18 +1,12 @@
 // --- JAVASCRIPT ---
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- SELETTORI DOM ---
-    // Elementi Ricerca Desktop
-    const searchWrapperDesktop = document.getElementById('search-wrapper-desktop');
-    const searchIconTriggerDesktop = document.getElementById('search-icon-trigger-desktop');
-    const searchInputContainerDesktop = document.getElementById('search-input-container-desktop');
-    const searchInputDesktop = document.getElementById('search-input-desktop');
 
-    // Elementi Ricerca Mobile Sticky
+    // Elementi Ricerca Sticky
     const stickyNavBar = document.getElementById('quick-nav-mobile-sticky');
     const stickySearchTrigger = document.getElementById('sticky-search-trigger');
     const stickySearchInput = document.getElementById('sticky-search-input');
-    const stickyNavLinksWrapper = document.querySelector('.sticky-nav-links-wrapper');
+    const stickyNavLinksWrapper = stickyNavBar?.querySelector('.sticky-nav-links-wrapper'); // Aggiornato per sicurezza
 
     // Elementi Principali Pagina e Contenuto Menu
     const headerElement = document.querySelector('header');
@@ -25,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const descriptionPopup = document.getElementById('gin-description-popup');
     const popupContent = descriptionPopup?.querySelector('.popup-content');
     const popupProductName = document.getElementById('popup-product-name');
-    const popupStrength = document.getElementById('popup-strength'); // Selettore ripristinato
+    const popupStrength = document.getElementById('popup-strength');
     const popupProductDescription = document.getElementById('popup-product-description');
     const popupPreparationContainer = document.getElementById('popup-preparation-container');
     const popupPreparationText = document.getElementById('popup-preparation-text');
@@ -35,33 +29,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // Elementi Cliccabili per Aprire il Popup
     const spiritItems = document.querySelectorAll('.spirit-item');
 
-        // --- URLs Immagini Header Stagionali ---
-        const headerImages = {
-            default: 'https://bar-menu.github.io/Nuovo-2.jpg',
-            christmas: 'https://bar-menu.github.io/Nuovo-Natale.jpg',
-            newYear: 'https://bar-menu.github.io/Nuovo-New-Year.jpg',
-            epiphany: 'https://bar-menu.github.io/Nuovo-Epifania.jpg',
-            valentine: 'https://bar-menu.github.io/Nuovo-Valentino.jpg',
-            ferragosto: 'https://bar-menu.github.io/Nuovo-Ferragosto.jpg'
-        };
+    // --- URLs Immagini Header Stagionali ---
+    const headerImages = {
+        default: 'https://bar-menu.github.io/Nuovo-2.jpg',
+        christmas: 'https://bar-menu.github.io/Nuovo-Natale.jpg',
+        newYear: 'https://bar-menu.github.io/Nuovo-New-Year.jpg',
+        epiphany: 'https://bar-menu.github.io/Nuovo-Epifania.jpg',
+        valentine: 'https://bar-menu.github.io/Nuovo-Valentino.jpg',
+        ferragosto: 'https://bar-menu.github.io/Nuovo-Ferragosto.jpg'
+    };
 
     // --- INIZIALIZZAZIONE APP ---
     function initializeApp() {
-        // Verifica elementi essenziali, inclusi quelli del popup ripristinati
-        if (!mainElement || !allSections || !descriptionPopup || !popupProductName || !popupStrength || !popupProductDescription || !popupPreparationContainer || !popupPreparationText || !togglePrepBtn || !popupCloseBtn) {
-            console.error("Errore: Elementi DOM essenziali (inclusi elementi popup) non trovati. Script interrotto.");
-            // Potresti voler aggiungere un log più specifico per capire quale elemento manca
-             if (!popupStrength) console.error("Elemento #popup-strength non trovato!");
-             // ... altri controlli specifici se necessario ...
-            return; // Interrompi se manca qualcosa di fondamentale
+        if (!mainElement || !allSections || !descriptionPopup || !popupProductName || !popupStrength || !popupProductDescription || !popupPreparationContainer || !popupPreparationText || !togglePrepBtn || !popupCloseBtn || !stickyNavBar || !stickySearchTrigger || !stickySearchInput || !stickyNavLinksWrapper) {
+            console.error("Errore: Elementi DOM essenziali (inclusi elementi popup e barra di navigazione/ricerca) non trovati. Script interrotto.");
+            if (!popupStrength) console.error("Elemento #popup-strength non trovato!");
+            if (!stickyNavBar) console.error("Elemento #quick-nav-mobile-sticky non trovato!");
+            // ... altri controlli specifici ...
+            return;
         }
         const menuIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#888888" d="M14 2.2C22.5-1.7 32.5-.3 39.6 5.8L80 40.4 120.4 5.8c9-7.7 22.3-7.7 31.2 0L192 40.4 232.4 5.8c9-7.7 22.3-7.7 31.2 0L304 40.4 344.4 5.8c7.1-6.1 17.1-7.5 25.6-3.6s14 12.4 14 21.8l0 464c0 9.4-5.5 17.9-14 21.8s-18.5 2.5-25.6-3.6L304 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L192 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L80 471.6 39.6 506.2c-7.1 6.1-17.1 7.5-25.6 3.6S0 497.4 0 488L0 24C0 14.6 5.5 6.1 14 2.2zM96 144c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 144zM80 352c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 336c-8.8 0-16 7.2-16 16zM96 240c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 240z"/></svg>`;
         setSvgFavicon(menuIconSvg);
         setSeasonalHeaderImage();
-        if (searchInputDesktop) searchInputDesktop.value = '';
+        // if (searchInputDesktop) searchInputDesktop.value = ''; // Rimosso
         if (stickySearchInput) stickySearchInput.value = '';
         resetVisibility();
-        setupEventListeners(); // Chiama dopo che le verifiche sono passate
+        setupEventListeners();
     }
 
     // --- FUNZIONI UTILITY ---
@@ -103,10 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
          if (!allSections) return;
          allSections.forEach(section => {
              section.style.display = 'block';
-             const itemsInSection = section.querySelectorAll('.menu-item, .item-description-footer');
+             // Includi h3 e p nella ricerca di elementi da mostrare/nascondere
+             const itemsInSection = section.querySelectorAll('.menu-item, .item-description-footer, h3, p');
              itemsInSection.forEach(item => {
-                let displayStyle = 'flex';
-                if (item.classList.contains('item-description-footer') || item.closest('.simple-list')) {
+                let displayStyle = 'flex'; // Default per .menu-item
+                if (item.classList.contains('item-description-footer') ||
+                    item.tagName.toLowerCase() === 'h3' ||
+                    item.tagName.toLowerCase() === 'p' ||
+                    item.closest('.simple-list') /* se hai una classe del genere */) {
                     displayStyle = 'block';
                 }
                 item.style.display = displayStyle;
@@ -115,32 +112,27 @@ document.addEventListener('DOMContentLoaded', () => {
          if (noResultsSection) noResultsSection.style.display = 'none';
     }
 
-    // --- GESTIONE SISTEMA DI RICERCA ---
-    function activateSearch(type) {
+    // --- GESTIONE SISTEMA DI RICERCA (Solo per barra sticky) ---
+    function activateSearch() { // Rimosso 'type'
         hideDescriptionPopup();
-        if (type === 'desktop' && searchWrapperDesktop && !searchWrapperDesktop.classList.contains('search-active')) {
-             deactivateSearch(false, 'mobile');
-             searchWrapperDesktop.classList.add('search-active');
-             setTimeout(() => { if (searchInputDesktop) searchInputDesktop.focus(); }, 50);
-        } else if (type === 'mobile' && stickyNavBar && !stickyNavBar.classList.contains('search-active')) {
-             deactivateSearch(false, 'desktop');
+        // Rimuovi la parte desktop
+        // if (type === 'desktop' && searchWrapperDesktop && !searchWrapperDesktop.classList.contains('search-active')) { ... }
+        if (stickyNavBar && !stickyNavBar.classList.contains('search-active')) {
+             // deactivateSearch(false, 'desktop'); // Non più necessario
              stickyNavBar.classList.add('search-active');
              if (stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'none';
              setTimeout(() => { if (stickySearchInput) stickySearchInput.focus(); }, 50);
         }
     }
 
-    function deactivateSearch(resetSearch = true, type) {
+    function deactivateSearch(resetSearch = true) { // Rimosso 'type'
         let inputToClear = null;
         let wasActive = false;
-        if (type === 'desktop' && searchWrapperDesktop && searchWrapperDesktop.classList.contains('search-active')) {
-            searchWrapperDesktop.classList.remove('search-active');
-            if (searchInputDesktop) searchInputDesktop.blur();
-            inputToClear = searchInputDesktop;
-            wasActive = true;
-        } else if (type === 'mobile' && stickyNavBar && stickyNavBar.classList.contains('search-active')) {
+        // Rimuovi la parte desktop
+        // if (type === 'desktop' && searchWrapperDesktop && searchWrapperDesktop.classList.contains('search-active')) { ... }
+        if (stickyNavBar && stickyNavBar.classList.contains('search-active')) {
             stickyNavBar.classList.remove('search-active');
-            if (stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'flex';
+            if (stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'flex'; // o 'block' a seconda del layout
             if (stickySearchInput) stickySearchInput.blur();
             inputToClear = stickySearchInput;
             wasActive = true;
@@ -149,56 +141,82 @@ document.addEventListener('DOMContentLoaded', () => {
             inputToClear.value = '';
         }
         if (resetSearch && wasActive) {
-             filterItemsAndSections(type);
+             filterItemsAndSections(); // Rimosso 'type'
         }
     }
 
-    function filterItemsAndSections(sourceType) {
-        const inputElement = (sourceType === 'desktop') ? searchInputDesktop : stickySearchInput;
+    function filterItemsAndSections() { // Rimosso 'sourceType'
+        // const inputElement = (sourceType === 'desktop') ? searchInputDesktop : stickySearchInput; // Modificato
+        const inputElement = stickySearchInput;
         if (!inputElement) return;
+
         const searchTerm = inputElement.value.trim().toLowerCase();
         const isSearchActive = searchTerm !== '';
-        let anyItemVisibleGlobal = false;
+
         if (!isSearchActive) {
             resetVisibility();
+            if (stickyNavBar) stickyNavBar.classList.remove('search-active-results'); // Rimuovi classe se la ricerca è vuota
+            if (noResultsSection) noResultsSection.style.display = 'none';
             return;
         }
+        if (stickyNavBar) stickyNavBar.classList.add('search-active-results'); // Aggiungi una classe per indicare che ci sono risultati filtrati (opzionale)
+
+
+        let anyItemVisibleGlobal = false;
         if (!allSections) return;
+
         allSections.forEach(section => {
             const sectionTitleElement = section.querySelector('h2');
             const sectionTitleText = sectionTitleElement ? sectionTitleElement.textContent.trim().toLowerCase() : '';
             const isSectionTitleMatch = sectionTitleText.includes(searchTerm);
             let sectionHasVisibleItem = false;
-            const itemsInSection = section.querySelectorAll('.menu-item, .item-description-footer');
-            itemsInSection.forEach(item => {
-                let itemText = '';
+
+            // Includi h3 e p per il filtraggio del testo e per la loro visibilità
+            const itemsAndTextBlocksInSection = section.querySelectorAll('.menu-item, .item-description-footer, h3, p');
+
+            itemsAndTextBlocksInSection.forEach(element => {
+                let elementText = '';
                 let isMatch = false;
-                const itemNameElement = item.querySelector('.item-name');
-                const itemDescriptionElement = item.querySelector('.item-description:not(.item-description-footer):not(.item-variations), .item-description-vini');
-                const itemVariationsElement = item.querySelector('.item-variations');
-                if (itemNameElement) itemText += itemNameElement.textContent.toLowerCase() + ' ';
-                if (itemDescriptionElement) itemText += itemDescriptionElement.textContent.toLowerCase() + ' ';
-                if (itemVariationsElement) itemText += itemVariationsElement.textContent.toLowerCase() + ' ';
-                const dataDesc = item.dataset.description ? item.dataset.description.toLowerCase() : '';
-                if (dataDesc) itemText += dataDesc + ' ';
-                const dataStrength = item.dataset.strength ? item.dataset.strength.toLowerCase() : '';
-                if (dataStrength) itemText += dataStrength + ' ';
-                if (item.classList.contains('item-description-footer')) itemText += item.textContent.toLowerCase();
-                isMatch = itemText.includes(searchTerm);
-                let displayStyle = 'flex';
-                if (item.classList.contains('item-description-footer') || item.closest('.simple-list')) {
+
+                if (element.classList.contains('menu-item')) {
+                    const itemNameElement = element.querySelector('.item-name');
+                    const itemDescriptionElement = element.querySelector('.item-description:not(.item-description-footer):not(.item-variations), .item-description-vini');
+                    const itemVariationsElement = element.querySelector('.item-variations');
+
+                    if (itemNameElement) elementText += itemNameElement.textContent.toLowerCase() + ' ';
+                    if (itemDescriptionElement) elementText += itemDescriptionElement.textContent.toLowerCase() + ' ';
+                    if (itemVariationsElement) elementText += itemVariationsElement.textContent.toLowerCase() + ' ';
+
+                    const dataDesc = element.dataset.description ? element.dataset.description.toLowerCase() : '';
+                    if (dataDesc) elementText += dataDesc + ' ';
+                    const dataStrength = element.dataset.strength ? element.dataset.strength.toLowerCase() : '';
+                    if (dataStrength) elementText += dataStrength + ' ';
+                } else if (element.classList.contains('item-description-footer') || element.tagName.toLowerCase() === 'h3' || element.tagName.toLowerCase() === 'p') {
+                    elementText += element.textContent.toLowerCase();
+                }
+
+                isMatch = elementText.includes(searchTerm);
+
+                let displayStyle = 'flex'; // Default per .menu-item
+                if (element.classList.contains('item-description-footer') ||
+                    element.tagName.toLowerCase() === 'h3' ||
+                    element.tagName.toLowerCase() === 'p' ||
+                    element.closest('.simple-list')) {
                     displayStyle = 'block';
                 }
+
                 const targetDisplay = isMatch ? displayStyle : 'none';
-                // Applica lo stile solo se è diverso per evitare reflow inutili
-                if (item.style.display !== targetDisplay) item.style.display = targetDisplay;
+                if (element.style.display !== targetDisplay) element.style.display = targetDisplay;
+
                 if (isMatch) sectionHasVisibleItem = true;
             });
+
             const shouldShowSection = isSectionTitleMatch || sectionHasVisibleItem;
             const targetDisplaySection = shouldShowSection ? 'block' : 'none';
             if (section.style.display !== targetDisplaySection) section.style.display = targetDisplaySection;
             if (shouldShowSection) anyItemVisibleGlobal = true;
         });
+
         const showNoResults = !anyItemVisibleGlobal;
         if (showNoResults && noResultsSection) {
             if (noResultsTermSpan) noResultsTermSpan.textContent = inputElement.value.trim();
@@ -208,54 +226,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
     // --- GESTIONE POPUP DETTAGLI PRODOTTO ---
     function showDescriptionPopup(element) {
-        // Verifica elementi popup necessari (incluso popupStrength)
          if (!descriptionPopup || !popupContent || !popupProductName || !popupStrength || !popupProductDescription || !popupPreparationContainer || !popupPreparationText || !togglePrepBtn) {
              console.error("Elementi popup mancanti in showDescriptionPopup.");
-             return; // Non continuare se manca qualcosa
+             return;
          }
 
-        // Recupera dati
         const name = element.querySelector('.item-name')?.textContent || 'Prodotto';
         const description = element.dataset.description || 'Nessuna descrizione disponibile.';
         const strength = element.dataset.strength;
         const preparation = element.dataset.preparation;
 
-        // Popola campi base
         popupProductName.textContent = name;
         popupProductDescription.textContent = description;
 
-        // Gestisci sezione preparazione
         if (preparation && popupPreparationContainer && popupPreparationText && togglePrepBtn) {
-            popupPreparationText.textContent = preparation; // Solo testo preparazione
-            togglePrepBtn.style.display = 'block'; // Mostra bottone
+            popupPreparationText.innerHTML = preparation.replace(/\n/g, '<br>'); // Usa innerHTML per <br>
+            togglePrepBtn.style.display = 'block';
 
-            // Gestisci badge forza DENTRO la sezione preparazione
             if (strength && popupStrength) {
                 popupStrength.textContent = strength;
-                popupStrength.className = 'strength-badge'; // Resetta classi
+                popupStrength.className = 'strength-badge';
                 const strengthClass = `strength-${strength.toLowerCase().replace(/[\s/]+/g, '-')}`;
                 popupStrength.classList.add(strengthClass);
-                popupStrength.style.display = 'inline-block'; // Mostra
+                popupStrength.style.display = 'inline-block';
             } else if (popupStrength) {
-                popupStrength.style.display = 'none'; // Nascondi se non c'è forza
+                popupStrength.style.display = 'none';
             }
 
-            // Resetta stato toggle
-            popupPreparationContainer.style.display = 'none';
-            descriptionPopup.classList.remove('preparation-visible');
+            popupPreparationContainer.style.display = 'none'; // Nascosto di default
+            descriptionPopup.classList.remove('preparation-visible'); // Rimuovi classe
             togglePrepBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Come si fa?';
             togglePrepBtn.title = "Mostra preparazione";
 
-        } else { // Se non c'è preparazione
+        } else {
             if (togglePrepBtn) togglePrepBtn.style.display = 'none';
             if (popupPreparationContainer) popupPreparationContainer.style.display = 'none';
-            if (popupStrength) popupStrength.style.display = 'none'; // Nascondi badge
+            if (popupStrength) popupStrength.style.display = 'none';
             descriptionPopup.classList.remove('preparation-visible');
         }
-
-        // Mostra il popup
         descriptionPopup.classList.add('visible');
     }
 
@@ -264,7 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
         descriptionPopup.classList.remove('visible');
         descriptionPopup.classList.remove('preparation-visible');
          if (popupPreparationContainer) popupPreparationContainer.style.display = 'none';
-         // Nascondi il badge strength quando chiudi il popup
          if (popupStrength) popupStrength.style.display = 'none';
          if (togglePrepBtn) {
              togglePrepBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Come si fa?';
@@ -292,14 +302,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('#quick-nav a, #quick-nav-mobile-sticky ul a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                deactivateSearch(true, 'desktop');
-                deactivateSearch(true, 'mobile');
+                // deactivateSearch(true, 'desktop'); // Rimosso
+                deactivateSearch(true); // Modificato
                 hideDescriptionPopup();
                 const targetId = this.getAttribute('href');
                 try {
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
-                        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 20;
+                        // Calcolo offset considerando l'altezza della barra sticky e un margine
+                        const stickyNavHeight = stickyNavBar ? stickyNavBar.offsetHeight : 55; // Prendi altezza reale o default
+                        const offsetMargin = 20; // Margine aggiuntivo
+                        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - stickyNavHeight - offsetMargin;
                         window.scrollTo({ top: offsetTop, behavior: 'smooth' });
                     } else {
                          console.warn(`Elemento target non trovato per l'ancora: ${targetId}`);
@@ -311,7 +324,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // 2. Listener Popup Descrizione (su .spirit-item)
-        // Verifica elementi essenziali (CON popupStrength)
         if (spiritItems.length > 0 && descriptionPopup && popupCloseBtn && togglePrepBtn && popupStrength) {
              spiritItems.forEach(item => {
                  item.addEventListener('click', (event) => {
@@ -328,56 +340,59 @@ document.addEventListener('DOMContentLoaded', () => {
                  togglePreparationVisibility();
              });
              descriptionPopup.addEventListener('click', (event) => {
-                 event.stopPropagation();
+                 // Permetti click interni senza chiudere, eccetto se è il bottone chiudi o toggle
+                 if (event.target !== popupCloseBtn && event.target !== togglePrepBtn && !togglePrepBtn.contains(event.target)) {
+                    event.stopPropagation();
+                 }
              });
         } else {
-            // Log migliorato per capire cosa manca
-            console.warn("Funzionalità popup disabilitata. Verifica l'esistenza di: .spirit-item(s) = ", spiritItems.length, ", #gin-description-popup = ", !!descriptionPopup, ", #popup-close-btn = ", !!popupCloseBtn, ", #toggle-prep-btn = ", !!togglePrepBtn, ", #popup-strength = ", !!popupStrength);
+            console.warn("Funzionalità popup disabilitata. Verifica elementi essenziali: .spirit-item(s), #gin-description-popup, #popup-close-btn, #toggle-prep-btn, #popup-strength.");
         }
 
-        // 3. Listener Ricerca Desktop
-        if (searchIconTriggerDesktop && searchWrapperDesktop && searchInputDesktop && searchInputContainerDesktop) {
-            searchIconTriggerDesktop.addEventListener('click', (event) => {
-                event.stopPropagation();
-                if (searchWrapperDesktop.classList.contains('search-active')) {
-                    deactivateSearch(true, 'desktop');
-                } else {
-                    activateSearch('desktop');
-                }
-            });
-            searchInputDesktop.addEventListener('input', () => filterItemsAndSections('desktop'));
-            searchInputDesktop.addEventListener('click', (e) => e.stopPropagation());
-            searchInputContainerDesktop.addEventListener('click', (e) => e.stopPropagation());
-        }
+        // 3. Listener Ricerca Desktop (RIMOSSO o COMMENTATO)
+        // if (searchIconTriggerDesktop && searchWrapperDesktop && searchInputDesktop && searchInputContainerDesktop) { ... }
 
-        // 4. Listener Ricerca Mobile Sticky
+        // 4. Listener Ricerca Mobile Sticky (ora Globale)
         if (stickySearchTrigger && stickyNavBar && stickySearchInput) {
             stickySearchTrigger.addEventListener('click', (event) => {
                 event.stopPropagation();
                 if (stickyNavBar.classList.contains('search-active')) {
-                    deactivateSearch(true, 'mobile');
+                    deactivateSearch(true); // Modificato
                 } else {
-                    activateSearch('mobile');
+                    activateSearch(); // Modificato
                 }
             });
-            stickySearchInput.addEventListener('input', () => filterItemsAndSections('mobile'));
-             stickySearchInput.addEventListener('click', (event) => {
+            stickySearchInput.addEventListener('input', () => filterItemsAndSections()); // Modificato
+            stickySearchInput.addEventListener('click', (event) => {
                  event.stopPropagation();
-             });
+            });
         }
 
          // 5. Listener Globale (Document) per chiudere cliccando fuori
          document.addEventListener('click', (event) => {
-             if (searchWrapperDesktop && searchWrapperDesktop.classList.contains('search-active') && !searchWrapperDesktop.contains(event.target)) {
-                deactivateSearch(false, 'desktop');
-             }
+             // Rimuovi parte desktop
+             // if (searchWrapperDesktop && searchWrapperDesktop.classList.contains('search-active') && !searchWrapperDesktop.contains(event.target)) { ... }
+
              if (stickyNavBar && stickyNavBar.classList.contains('search-active') && !stickyNavBar.contains(event.target)) {
-                 deactivateSearch(false, 'mobile');
+                 deactivateSearch(false); // Modificato, non resettare il testo della ricerca cliccando fuori
              }
              if (descriptionPopup && descriptionPopup.classList.contains('visible') && !descriptionPopup.contains(event.target) && !event.target.closest('.spirit-item')) {
                  hideDescriptionPopup();
              }
          });
+
+        // 6. Listener per il link "cancella ricerca" in #no-results (se lo aggiungi)
+        const clearSearchLink = document.getElementById('clear-search-link'); // Assicurati che esista nell'HTML
+        if (clearSearchLink && noResultsSection) {
+            clearSearchLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (stickySearchInput) stickySearchInput.value = '';
+                filterItemsAndSections(); // Riesegui filtro (mostrerà tutto)
+                if(stickyNavBar) stickyNavBar.classList.remove('search-active'); // Chiudi interfaccia ricerca
+                if(stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'flex'; // Mostra link nav
+                if (noResultsSection) noResultsSection.style.display = 'none'; // Nascondi "nessun risultato"
+            });
+        }
 
     } // Fine setupEventListeners
 
