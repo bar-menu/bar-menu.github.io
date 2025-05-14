@@ -127,7 +127,31 @@
         #sticky-search-container { display: flex; align-items: center; flex-shrink: 0; padding: 0 5px 0 10px; position: relative; /* background-color: rgba(30, 30, 30, 0.8); */ }
         #sticky-search-trigger { background: none; border: none; color: var(--sticky-nav-link-color); font-size: 1.2em; padding: 10px; margin: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; width: 40px; height: 100%; z-index: 2; }
         #sticky-search-trigger i { transition: transform 0.3s ease; }
-        #sticky-search-input { width: 0; opacity: 0; visibility: hidden; padding: 0; margin-left: 10px; border: none; background-color: transparent; height: calc(100% - 16px); border-radius: 15px; font-size: 1em; color: var(--text-light); outline: none; transition: width 0.35s ease, opacity 0.3s ease 0.1s, visibility 0s linear 0.35s, padding 0.35s ease, margin-left 0.35s ease, background-color 0.35s ease; position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 1; }
+        #sticky-search-input {
+            width: 0;
+            opacity: 0;
+            visibility: hidden;
+            padding: 0;
+            /* margin-left: 10px;  RIMOSSO */
+            border: none;
+            background-color: transparent;
+            height: calc(100% - 16px);
+            border-radius: 15px; /* O il tuo valore, es. 18px */
+            font-size: 1em;
+            color: var(--text-light);
+            outline: none;
+            box-sizing: border-box; /* Buona pratica aggiungerlo */
+            transition: width 0.35s ease, opacity 0.3s ease 0.1s, visibility 0s linear 0.35s,
+                        padding 0.35s ease, background-color 0.35s ease,
+                        left 0.35s ease; /* 'left' è già nella transizione */
+                        /* Rimuovi margin-left dalla transizione se non lo usi più */
+            position: absolute;
+            /* Invece di margin-left, sposta direttamente 'left' */
+            left: 10px!important; /* <<< QUI LA MODIFICA CHIAVE PER LO STATO BASE */
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1; /* Sotto il trigger (lente/X esterna) */
+        }
         #sticky-search-input::placeholder { color: rgba(224, 224, 224, 0.6); }
         #quick-nav-mobile-sticky.search-active #sticky-search-input { width: 180px; opacity: 1; visibility: visible; padding: 0 12px 0 40px; /* Aggiunto padding sinistro quando attivo */ /* margin-left: 0; */ background-color: rgba(60, 60, 60, 0.8); transition-delay: 0s, 0s, 0s, 0s, 0s, 0s; z-index: 1; /* Mantiene sotto icona? No, deve stare sopra */ left: 0; /* Assicura posizione */ }
         #quick-nav-mobile-sticky.search-active #sticky-search-trigger { color: var(--accent-color); } /* Colore icona attiva */
