@@ -52,18 +52,45 @@
         <!-- FINE SEZIONE NESSUN RISULTATO -->
     </main>
 
-    <!-- Barra Navigazione Mobile Sticky -->
-    <nav id="quick-nav-mobile-sticky" aria-label="Navigazione rapida mobile">
-        <div id="sticky-search-container">
-            <button id="sticky-search-trigger" aria-label="Apri/Chiudi ricerca">
-                <i class="fas fa-search"></i>
-            </button>
-            <input type="text" id="sticky-search-input" placeholder="Cerca..." autocomplete="off" aria-label="Cerca nel menu (mobile)">
-        </div>
-        <div class="sticky-nav-links-wrapper">
-             <ul> <li><a href="#caffetteria">Caffè</a></li> <li><a href="#bevande">Bevande</a></li> <li><a href="#spritz">Spritz</a></li> <li><a href="#cocktails">Cocktails</a></li> <li><a href="#vini">Vini</a></li> <li><a href="#franciacorta">Franciacorta</a></li> <li><a href="#birre">Birre</a></li> <li><a href="#gin-tonic">Gin</a></li> <li><a href="#rum">Rum</a></li> <li><a href="#whisky">Whisky</a></li> <li><a href="#amari-liquori">Amari</a></li> <li><a href="#grappe">Grappe</a></li> <li><a href="#vermouth">Vermouth</a></li> <li><a href="#vodka">Vodka</a></li> <li><a href="#brandy">Brandy</a></li> <li><a href="#spuntini">Spuntini</a></li> <li><a href="#panini-piadine">Panini</a></li> </ul>
-        </div>
-    </nav>
+<!-- Barra Navigazione Mobile Sticky -->
+<nav id="quick-nav-mobile-sticky" aria-label="Navigazione rapida mobile">
+    <div id="sticky-search-container">
+        <button id="sticky-search-trigger" aria-label="Apri/Chiudi ricerca">
+            <i class="fas fa-search"></i> <!-- Icona Lente (diventerà X per chiudere modalità ricerca) -->
+        </button>
+        <input type="text" id="sticky-search-input" placeholder="Cerca..." autocomplete="off" aria-label="Cerca nel menu (mobile)">
+
+        <!-- ============================================================== -->
+        <!-- === INSERISCI QUI IL BOTTONE PER PULIRE LA RICERCA (X interna) === -->
+        <!-- ============================================================== -->
+        <button id="sticky-search-clear-btn" aria-label="Pulisci ricerca" style="display: none;">
+            <i class="fas fa-times"></i> <!-- Icona X di Font Awesome -->
+        </button>
+        <!-- ============================================================== -->
+
+    </div>
+    <div class="sticky-nav-links-wrapper">
+         <ul>
+             <li><a href="#caffetteria">Caffè</a></li>
+             <li><a href="#bevande">Bevande</a></li>
+             <li><a href="#spritz">Spritz</a></li>
+             <li><a href="#cocktails">Cocktails</a></li>
+             <li><a href="#vini">Vini</a></li>
+             <li><a href="#franciacorta">Franciacorta</a></li>
+             <li><a href="#birre">Birre</a></li>
+             <li><a href="#gin-tonic">Gin</a></li>
+             <li><a href="#rum">Rum</a></li>
+             <li><a href="#whisky">Whisky</a></li>
+             <li><a href="#amari-liquori">Amari</a></li>
+             <li><a href="#grappe">Grappe</a></li>
+             <li><a href="#vermouth">Vermouth</a></li>
+             <li><a href="#vodka">Vodka</a></li>
+             <li><a href="#brandy">Brandy</a></li>
+             <li><a href="#spuntini">Spuntini</a></li>
+             <li><a href="#panini-piadine">Panini</a></li>
+        </ul>
+    </div>
+</nav>
 
 
     <!-- Footer Principale (Stile Nuovo) -->
