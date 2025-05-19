@@ -1,61 +1,352 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <base target="_top">
+    <base target="_top"> <!-- Utile se servi da GAS, ma non dannoso qui -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Form Correzione</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; box-sizing: border-box; }
-        *, *:before, *:after { box-sizing: inherit; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; margin: 0; padding: 20px; background-color: var(--tg-theme-bg-color, #ffffff); color: var(--tg-theme-text-color, #000000); font-size: 17px; line-height: 1.6; }
-        h2 { color: var(--tg-theme-text-color); border-bottom: 1px solid var(--tg-theme-hint-color); padding-bottom: 12px; margin-top: 0; margin-bottom: 25px; font-size: 1.4em; font-weight: 600; text-align: center; }
-        label { display: block; margin-top: 20px; margin-bottom: 8px; font-weight: 500; font-size: 0.95em; color: var(--tg-theme-hint-color); }
-        input[type="text"], input[type="date"], input[type="time"], textarea, select { width: 100%; padding: 14px 12px; margin-top: 0; border: 1.5px solid var(--tg-theme-hint-color, #cccccc); border-radius: 10px; background-color: var(--tg-theme-secondary-bg-color, #f9f9f9); color: var(--tg-theme-text-color); box-sizing: border-box; font-size: 1em; transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
-        select { padding: 14px 12px; appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007AFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 12px auto; }
-        input[readonly] { background-color: var(--tg-theme-secondary-bg-color, #eeeeee); opacity: 0.7; border-color: var(--tg-theme-hint-color, #dddddd); }
-        input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, textarea:focus, select:focus { border-color: var(--tg-theme-button-color, #2481CC); box-shadow: 0 0 0 3px var(--tg-theme-button-color-alpha, rgba(36, 129, 204, 0.25)); outline: none; }
-        :root { --tg-theme-button-color-alpha: rgba(36, 129, 204, 0.25); --tg-theme-destructive-text-color-alpha: rgba(255, 77, 77, 0.25); }
-        input.input-error, select.input-error { border-color: var(--tg-theme-destructive-text-color, #ff4d4d) !important; box-shadow: 0 0 0 3px var(--tg-theme-destructive-text-color-alpha, rgba(255, 77, 77, 0.25)) !important; }
-        .error-message { font-size: 0.8em; color: var(--tg-theme-destructive-text-color, #ff4d4d); margin-top: 4px; min-height: 1.2em; }
-        textarea { min-height: 100px; resize: vertical; }
-        .info-summary { background-color: var(--tg-theme-secondary-bg-color, #f0f0f0); padding: 15px; border-radius: 10px; margin-bottom: 25px; border: 1px solid var(--tg-theme-hint-color, #e0e0e0); }
-        .info-summary p { margin: 5px 0 10px 0; font-size: 1em; display: flex; align-items: baseline; }
-        .info-summary .info-label { font-weight: 500; color: var(--tg-theme-hint-color); margin-right: 8px; font-size: 0.9em; flex-shrink: 0; }
-        .info-summary .info-value { font-weight: 600; color: var(--tg-theme-text-color); }
-        #summaryEmployeeName.info-value { text-transform: uppercase; padding: 2px 6px; border-radius: 4px; font-size: 0.95em; }
-        .info-summary .problem-details-container { margin: 5px 0 10px 0; font-size: 1em; display: flex; align-items: flex-start; }
-        .problem-value-multiline #problemType, .problem-value-multiline #problemTime, .problem-value-multiline #problemDateText { display: block; line-height: 1.4; }
-        .problem-value-multiline #problemTime { font-weight: normal; }
-        .problem-value-multiline #problemDateText { font-weight: 600; }
-        .field-group { margin-bottom: 20px; }
-        .date-info-text { font-size: 0.8em; color: var(--tg-theme-hint-color); margin-top: 4px; font-style: italic; }
-        #missingTimeDateContext { font-size: 0.85em; color: var(--tg-theme-hint-color); margin-left: 8px; font-style: italic; min-height: 1.2em; }
-        #submitHtmlButton, .modal-button { background-color: var(--tg-theme-button-color, #2481CC); color: var(--tg-theme-button-text-color, #FFFFFF); padding: 14px 18px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; font-weight: 500; transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.1s ease; }
-        #submitHtmlButton { padding: 16px 20px; font-size: 1.1em; font-weight: 600; width: 100%; margin-top: 30px; text-transform: uppercase; letter-spacing: 0.5px; }
-        #addNotesButton { background-color: transparent; color: var(--tg-theme-hint-color, #707579); border: 1.5px solid var(--tg-theme-hint-color, #adb5bd); padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 0.95em; font-weight: 500; width: auto; display: inline-block; margin-top: 10px; margin-bottom: 5px; transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
-        #addNotesButton:hover:not(:disabled) { background-color: var(--tg-theme-secondary-bg-color, rgba(0,0,0,0.05)); border-color: var(--tg-theme-text-color); color: var(--tg-theme-text-color); }
-        #submitHtmlButton:hover:not(:disabled), .modal-button:hover:not(:disabled) { opacity: 0.85; }
-        #submitHtmlButton:active:not(:disabled) { transform: scale(0.98); }
-        #submitHtmlButton:disabled { background-color: var(--tg-theme-hint-color, #cccccc); color: var(--tg-theme-secondary-bg-color, #666666); cursor: not-allowed; opacity: 0.7; }
-        #loadingMessage, #errorMessage { text-align: center; padding: 30px 20px; font-style: italic; font-size: 1em; color: var(--tg-theme-hint-color); }
-        #errorMessage { color: var(--tg-theme-destructive-text-color, red); font-weight: bold; }
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background-color: var(--tg-theme-secondary-bg-color, #ffffff); padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); color: var(--tg-theme-text-color); }
-        .modal-content textarea { width: 100%; min-height: 80px; margin-bottom: 15px; border-color: var(--tg-theme-hint-color); background-color: var(--tg-theme-bg-color); }
-        .modal-content label { margin-top: 0; margin-bottom: 5px; }
-        .modal-buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
-        .modal-button.secondary { background-color: var(--tg-theme-hint-color, #ccc); color: var(--tg-theme-text-color, #333); }
-        #currentNotesDisplay { font-size: 0.9em; color: var(--tg-theme-text-color); margin-top: 0px; padding: 8px; background-color: var(--tg-theme-bg-color); border-radius: 6px; border: 1px dashed var(--tg-theme-hint-color, #e0e0e0); min-height: 20px; white-space: pre-wrap; word-wrap: break-word; }
-        #currentNotesDisplay.empty { font-style: italic; color: var(--tg-theme-hint-color); }
+        /* Stili Base e Tipografia (come li avevi definiti) */
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            margin: 0;
+            padding: 20px;
+            background-color: var(--tg-theme-bg-color, #ffffff); /* Default per browser normali */
+            color: var(--tg-theme-text-color, #000000);       /* Default per browser normali */
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        h2 {
+            color: var(--tg-theme-text-color);
+            border-bottom: 1px solid var(--tg-theme-hint-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.4em;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95em;
+            color: var(--tg-theme-hint-color);
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px 12px;
+            margin-top: 0;
+            border: 1.5px solid var(--tg-theme-hint-color, #cccccc);
+            border-radius: 10px;
+            background-color: var(--tg-theme-secondary-bg-color, #f9f9f9);
+            color: var(--tg-theme-text-color);
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        select {
+            padding: 14px 12px; /* Allineato con gli altri input */
+        }
+
+        input[readonly] {
+            background-color: var(--tg-theme-secondary-bg-color, #eeeeee);
+            opacity: 0.7;
+            border-color: var(--tg-theme-hint-color, #dddddd);
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="time"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--tg-theme-button-color, #2481CC);
+            box-shadow: 0 0 0 3px var(--tg-theme-button-color-alpha, rgba(36, 129, 204, 0.25)); /* Custom property per alpha */
+            outline: none;
+        }
+        /* Proprietà custom per alpha dei colori Telegram */
+        :root {
+             --tg-theme-button-color-alpha: rgba(36, 129, 204, 0.25); /* Esempio, da aggiornare dinamicamente se possibile */
+             --tg-theme-destructive-text-color-alpha: rgba(255, 77, 77, 0.25); /* Esempio */
+        }
+
+
+        input.input-error {
+            border-color: var(--tg-theme-destructive-text-color, #ff4d4d) !important;
+            box-shadow: 0 0 0 3px var(--tg-theme-destructive-text-color-alpha, rgba(255, 77, 77, 0.25)) !important;
+        }
+        .error-message {
+            font-size: 0.8em;
+            color: var(--tg-theme-destructive-text-color, #ff4d4d);
+            margin-top: 4px;
+        }
+
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .info-summary {
+            background-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
+        }
+
+        .info-summary p {
+            margin: 5px 0 10px 0;
+            font-size: 1em;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .info-summary .info-label {
+            font-weight: 500;
+            color: var(--tg-theme-hint-color);
+            margin-right: 8px;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .info-summary .info-value {
+            font-weight: 600;
+            color: var(--tg-theme-text-color);
+        }
+
+        #summaryEmployeeName.info-value {
+            text-transform: uppercase;
+            /* background-color: var(--tg-theme-hint-color, #e9ecef); */ /* Potrebbe non essere ideale con tutti i temi */
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .info-summary .problem-details-container {
+            margin: 5px 0 10px 0;
+            font-size: 1em;
+            display: flex;
+            align-items: flex-start; /* Allinea all'inizio se il testo è multiriga */
+        }
+
+        .problem-value-multiline #problemType,
+        .problem-value-multiline #problemTime,
+        .problem-value-multiline #problemDateText {
+            display: block;
+        }
+        .problem-value-multiline #problemTime {
+            font-weight: normal; /* O 600 se preferisci */
+        }
+
+
+        .field-group {
+            margin-bottom: 20px;
+        }
+
+        .date-info-text {
+            font-size: 0.8em;
+            color: var(--tg-theme-hint-color);
+            margin-top: 4px;
+            font-style: italic;
+        }
+        #missingTimeDateContext {
+            font-size: 0.85em;
+            color: var(--tg-theme-hint-color);
+            margin-left: 8px;
+            font-style: italic;
+        }
+
+        #submitHtmlButton, .modal-button {
+            background-color: var(--tg-theme-button-color, #2481CC);
+            color: var(--tg-theme-button-text-color, #FFFFFF);
+            padding: 14px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+        #submitHtmlButton {
+            padding: 16px 20px;
+            font-size: 1.1em;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #addNotesButton {
+            background-color: transparent;
+            color: var(--tg-theme-hint-color, #707579);
+            border: 1.5px solid var(--tg-theme-hint-color, #adb5bd);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            width: auto;
+            display: inline-block;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+        #addNotesButton:hover:not(:disabled) {
+             background-color: var(--tg-theme-secondary-bg-color, rgba(0,0,0,0.05));
+             border-color: var(--tg-theme-text-color);
+             color: var(--tg-theme-text-color);
+        }
+
+        #submitHtmlButton:hover:not(:disabled),
+        .modal-button:hover:not(:disabled) {
+            opacity: 0.85;
+        }
+        #submitHtmlButton:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+        #submitHtmlButton:disabled {
+            background-color: var(--tg-theme-hint-color, #cccccc); /* Usa hint color per disabilitato */
+            color: var(--tg-theme-secondary-bg-color, #666666); /* Testo più scuro su sfondo chiaro */
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        #loadingMessage, #errorMessage {
+            text-align: center;
+            padding: 30px 20px;
+            font-style: italic;
+            font-size: 1em;
+            color: var(--tg-theme-hint-color);
+        }
+        #errorMessage {
+            color: var(--tg-theme-destructive-text-color, red);
+            font-weight: bold;
+        }
+
+
+        #dateCorrectionGroup { /* Mantenuto per riferimento, la logica JS lo gestirà */
+            /* display: none !important; */ /* Rimuovi !important, gestito da JS */
+        }
+
+        /* Styles for Notes Modal */
+        .modal-overlay {
+            display: none; /* Nascosto di default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5); /* Sfondo semi-trasparente */
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: var(--tg-theme-secondary-bg-color, #ffffff);
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: var(--tg-theme-text-color);
+        }
+        .modal-content textarea {
+            width: 100%;
+            min-height: 80px;
+            margin-bottom: 15px;
+            border-color: var(--tg-theme-hint-color);
+            background-color: var(--tg-theme-bg-color); /* Sfondo input modale */
+        }
+        .modal-content label {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .modal-button.secondary {
+            background-color: var(--tg-theme-hint-color, #ccc);
+            color: var(--tg-theme-text-color, #333);
+        }
+        #currentNotesDisplay {
+            font-size: 0.9em;
+            color: var(--tg-theme-text-color);
+            margin-top: 0px;
+            padding: 8px;
+            background-color: var(--tg-theme-bg-color);
+            border-radius: 6px;
+            border: 1px dashed var(--tg-theme-hint-color, #e0e0e0);
+            min-height: 20px;
+            white-space: pre-wrap; /* Per rispettare a capo nelle note */
+            word-wrap: break-word; /* Per andare a capo con parole lunghe */
+        }
+         #currentNotesDisplay.empty {
+            font-style: italic;
+            color: var(--tg-theme-hint-color);
+        }
+
+        /* Debug Section Styling */
+        #debugSection {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--tg-theme-hint-color);
+        }
+        #debugSection h3 {
+            font-size: 1.1em;
+            text-align: left;
+            border-bottom: none;
+            margin-bottom: 10px;
+        }
+        #debugSection p {
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+        #debugSection pre {
+            background-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
+            padding: 10px;
+            border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
+            border-radius: 6px;
+            font-size: 0.85em;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
     </style>
 </head>
-<body style="visibility: hidden;">
-    <div id="formContainer" style="display: none;">
+<body>
+    <div id="formContainer" style="display: none;"> <!-- Nascosto finché i dati non sono pronti -->
         <h2>Form Correzione</h2>
+
         <div class="info-summary">
-            <p><span class="info-label">Dipendente:</span><strong id="summaryEmployeeName" class="info-value">N/D</strong></p>
+            <p>
+                <span class="info-label">Dipendente:</span>
+                <strong id="summaryEmployeeName" class="info-value">N/D</strong>
+            </p>
             <div class="problem-details-container">
                 <span class="info-label">Problema:</span>
                 <div id="summaryProblemFullDescription" class="info-value problem-value-multiline">
@@ -65,32 +356,33 @@
                 </div>
             </div>
         </div>
+
         <form id="correctionForm">
+            <!-- Campi Nascosti per passare dati originali e note -->
             <input type="hidden" id="problemIdInput" name="problemId">
             <input type="hidden" id="originalEmployeeNameInput" name="originalEmployeeName">
             <input type="hidden" id="originalProblemDateISOInput" name="originalProblemDateISO">
             <input type="hidden" id="originalSingleTimeInput" name="originalSingleTime">
-            <input type="hidden" id="originalSingleBarInput" name="originalSingleBar">
             <input type="hidden" id="notesHiddenInput" name="notes">
-            <input type="hidden" id="problemContextIdInput" name="problemContextId">
-            <input type="hidden" id="correctorUserNameInput" name="correctorUserName">
-            <input type="hidden" id="correctorUserFirstNameInput" name="correctorUserFirstName">
-            <input type="hidden" id="correctorUserLastNameInput" name="correctorUserLastName">
 
+            <!-- Sezione Correzione Data (nascosta di default) -->
             <div class="field-group" id="dateCorrectionGroup" style="display:none;">
                 <label for="correctedDate">Data Corretta (lascia vuoto per deduzione):</label>
                 <input type="date" id="correctedDate" name="correctedDate">
                 <p class="date-info-text">La data verrà dedotta automaticamente se possibile.</p>
             </div>
+
+            <!-- Sezione per Problemi di Orario Singolo (nascosta di default) -->
             <div class="field-group" id="singleTimeCorrectionSection" style="display:none;">
-                <label for="singleCorrectionAction">Azione Richiesta:</label>
+                <label for="singleCorrectionAction">Aggiungi uscita o ingresso mancante:</label>
                 <select id="singleCorrectionAction" name="singleCorrectionAction">
                     <option value="">-- Seleziona un'azione --</option>
-                    <option value="isEntry_addExit">Uscita Mancante (l'originale era Entrata)</option>
-                    <option value="isExit_addEntry">Entrata Mancante (l'originale era Uscita)</option>
+                    <option value="isEntry_addExit">Uscita Mancante</option>
+                    <option value="isExit_addEntry">Entrata Mancante</option>
                 </select>
-                 <div id="singleCorrectionActionError" class="error-message" style="display:none;"></div>
             </div>
+
+            <!-- Campo Orario Mancante (nascosto di default) -->
             <div class="field-group" id="missingTimeFieldGroup" style="display:none;">
                 <div style="display: flex; align-items: center;">
                     <div style="flex-grow: 1;">
@@ -101,15 +393,21 @@
                     <span id="missingTimeDateContext"></span>
                 </div>
             </div>
+
+            <!-- Sezione Note -->
             <div class="field-group">
                 <button type="button" id="addNotesButton">Aggiungi Note (opzionale)</button>
                 <div id="currentNotesDisplay" class="empty">Nessuna nota.</div>
             </div>
+
+            <!-- Pulsante di Invio -->
             <div class="field-group" style="margin-top: 30px;">
                 <button type="button" id="submitHtmlButton">Invia Correzione</button>
             </div>
         </form>
     </div>
+
+    <!-- Modale per le Note -->
     <div id="notesModalOverlay" class="modal-overlay">
         <div class="modal-content">
             <label for="notesTextareaModal">Inserisci le tue note:</label>
@@ -120,289 +418,443 @@
             </div>
         </div>
     </div>
+
+    <!-- Messaggio di Caricamento/Errore Iniziale -->
     <div id="loadingMessage">Caricamento dati...</div>
     <div id="errorMessage" style="display:none;"></div>
 
+    <!-- Sezione Debug (verrà popolata da JavaScript) -->
+    <div id="debugSection" style="display: none;"> <!-- Nascosta di default, mostrala se in modalità debug -->
+        <!-- Il contenuto verrà aggiunto da JS -->
+    </div>
+
+<!-- Inserisci questo intero blocco <script>...</script> 
+     alla fine del tuo <body>, prima di </body> 
+     nel file formdatiminiapp.html che carichi su GitHub Pages -->
+
      <script>
+        // Inizio Blocco JavaScript
         document.addEventListener('DOMContentLoaded', function () {
             const tg = window.Telegram.WebApp;
-            const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2qm7YA_UPHA1TAz2UYRLEzL5uukraSYQXYaC5t8dxHVydezV3pvi-xawyf9qHr4lg/exec'; // !!! VERIFICA QUESTO URL !!!
-
+            // IMPORTANTISSIMO: Sostituisci con il VERO URL del tuo Google Apps Script Web App distribuito!
+            const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2qm7YA_UPHA1TAz2UYRLEzL5uukraSYQXYaC5t8dxHVydezV3pvi-xawyf9qHr4lg/exec';
+    
+            // --- Cache degli Elementi DOM ---
             const formContainer = document.getElementById('formContainer');
             const loadingMessage = document.getElementById('loadingMessage');
             const errorMessageDiv = document.getElementById('errorMessage');
+            const correctionForm = document.getElementById('correctionForm');
+    
             const summaryEmployeeName = document.getElementById('summaryEmployeeName');
-            const problemTypeSpan = document.getElementById('problemType');
-            const problemTimeSpan = document.getElementById('problemTime');
-            const problemDateTextSpan = document.getElementById('problemDateText');
+            const summaryProblemType = document.getElementById('problemType');
+            const summaryProblemTime = document.getElementById('problemTime');
+            const summaryProblemDateText = document.getElementById('problemDateText');
+    
             const problemIdInput = document.getElementById('problemIdInput');
-            const problemContextIdInput = document.getElementById('problemContextIdInput');
             const originalEmployeeNameInput = document.getElementById('originalEmployeeNameInput');
             const originalProblemDateISOInput = document.getElementById('originalProblemDateISOInput');
             const originalSingleTimeInput = document.getElementById('originalSingleTimeInput');
-            const originalSingleBarInput = document.getElementById('originalSingleBarInput');
             const notesHiddenInput = document.getElementById('notesHiddenInput');
-            const correctorUserNameInput = document.getElementById('correctorUserNameInput');
-            const correctorUserFirstNameInput = document.getElementById('correctorUserFirstNameInput');
-            const correctorUserLastNameInput = document.getElementById('correctorUserLastNameInput');
+    
             const correctedDateInput = document.getElementById('correctedDate');
             const singleCorrectionActionSelect = document.getElementById('singleCorrectionAction');
-            const singleCorrectionActionError = document.getElementById('singleCorrectionActionError');
             const missingTimeValueInput = document.getElementById('missingTimeValue');
             const missingTimeLabel = document.getElementById('missingTimeLabel');
             const missingTimeDateContext = document.getElementById('missingTimeDateContext');
             const missingTimeError = document.getElementById('missingTimeError');
+    
             const dateCorrectionGroup = document.getElementById('dateCorrectionGroup');
             const singleTimeCorrectionSection = document.getElementById('singleTimeCorrectionSection');
             const missingTimeFieldGroup = document.getElementById('missingTimeFieldGroup');
+    
             const addNotesButton = document.getElementById('addNotesButton');
             const currentNotesDisplay = document.getElementById('currentNotesDisplay');
             const notesModalOverlay = document.getElementById('notesModalOverlay');
             const notesTextareaModal = document.getElementById('notesTextareaModal');
             const saveNotesButton = document.getElementById('saveNotesButton');
             const cancelNotesButton = document.getElementById('cancelNotesButton');
+    
             const submitHtmlButton = document.getElementById('submitHtmlButton');
-
-            let initialStartParamData = null;
-            let currentUserDetails = { id: null, username: "", first_name: "", last_name: "" };
-
-            function setThemeClass() { if (tg && tg.colorScheme) { document.documentElement.className = tg.colorScheme; } else { console.warn("setThemeClass: tg o tg.colorScheme non definiti.");} }
-            function hexToRgba(hex, alpha) { if(!hex || typeof hex !== 'string') hex = '#000000'; hex=hex.replace('#',''); const r=parseInt(hex.substring(0,2),16)||0; const g=parseInt(hex.substring(2,4),16)||0; const b=parseInt(hex.substring(4,6),16)||0; return `rgba(${r},${g},${b},${alpha})`;}
-            function applyThemeVariables() { const rootStyle=document.documentElement.style; if (!tg || !tg.themeParams) { console.warn("applyThemeVariables: tg o tg.themeParams non definiti."); return; } const buttonColor=tg.themeParams.button_color||'#2481CC'; const destructiveColor=tg.themeParams.destructive_text_color||'#ff4d4d'; rootStyle.setProperty('--tg-theme-button-color-alpha',hexToRgba(buttonColor,0.25)); rootStyle.setProperty('--tg-theme-destructive-text-color-alpha',hexToRgba(destructiveColor,0.25));}
-            function showFatalError(message) { loadingMessage.style.display='none'; formContainer.style.display='none'; errorMessageDiv.textContent="Errore Avvio: " + message; errorMessageDiv.style.display='block'; console.error("FATAL ERROR MiniApp:",message); document.body.style.visibility = 'visible'; }
-            function base64UrlDecode(str) { if(!str||typeof str!=='string'||str.trim()==="")return null; try{let base64=str.replace(/-/g,'+').replace(/_/g,'/'); while(base64.length%4){base64+='=';} return decodeURIComponent(atob(base64).split('').map(function(c){return '%'+('00'+c.charCodeAt(0).toString(16)).slice(-2);}).join(''));}catch(e){console.error("Errore base64UrlDecode:",e,"Stringa:",str);return null;}}
-            
-            function parseStartParam(startParamString) {
-                console.log("parseStartParam - Ricevuto:", startParamString);
-                if(!startParamString||startParamString==="Nessuno"||startParamString.trim()===""){ console.error("parseStartParam: Parametro avvio mancante."); return{error:"Parametro di avvio mancante."};}
-                const decodedJsonString=base64UrlDecode(startParamString);
-                if(!decodedJsonString){ console.error("parseStartParam: Decodifica Base64 fallita.", "Input:",startParamString); return{error:"Decodifica parametro fallita.",rawValue:startParamString};}
-                try{ const parsed = JSON.parse(decodedJsonString); console.log("parseStartParam - Dati Parsati OK:", parsed); return parsed;}
-                catch(e){console.error("parseStartParam: Errore Parsing JSON.", e, "Stringa Decodificata:", decodedJsonString); return{error:"Formato dati non valido (JSON).",rawValue:startParamString,decodedValue:decodedJsonString};}
+            const debugSection = document.getElementById('debugSection');
+    
+            let initialStartParamData = null; // Per conservare i dati originali del start_param
+            let isDebugMode = false;          // Per mostrare la sezione debug
+            let currentTelegramUserId = "USER_ID_NON_ANCORA_LETTO";
+    
+    
+            // --- Funzioni Utilità ---
+            function hexToRgba(hex, alpha) {
+                if (!hex || typeof hex !== 'string') hex = '#000000'; // Default nero se hex non valido
+                hex = hex.replace('#', '');
+                const r = parseInt(hex.substring(0, 2), 16) || 0;
+                const g = parseInt(hex.substring(2, 4), 16) || 0;
+                const b = parseInt(hex.substring(4, 6), 16) || 0;
+                return `rgba(${r}, ${g}, ${b}, ${alpha})`;
             }
-
+    
+            function applyThemeVariables() {
+                const rootStyle = document.documentElement.style;
+                const buttonColor = tg.themeParams.button_color || '#2481CC';
+                const destructiveColor = tg.themeParams.destructive_text_color || '#ff4d4d';
+                rootStyle.setProperty('--tg-theme-button-color-alpha', hexToRgba(buttonColor, 0.25));
+                rootStyle.setProperty('--tg-theme-destructive-text-color-alpha', hexToRgba(destructiveColor, 0.25));
+            }
+    
+            function showFatalError(message) {
+                console.error("ERRORE FATALE:", message);
+                if (loadingMessage) loadingMessage.style.display = 'none';
+                if (formContainer) formContainer.style.display = 'none';
+                if (errorMessageDiv) {
+                    errorMessageDiv.textContent = message;
+                    errorMessageDiv.style.display = 'block';
+                }
+                if (debugSection) debugSection.style.display = 'block'; // Mostra sempre debug in caso di errore fatale
+                updateDebugSection("ERRORE FATALE: " + message, null, null, null, null);
+            }
+    
+            function base64UrlDecode(str) {
+                if (!str || typeof str !== 'string' || str.trim() === "") return null;
+                try {
+                    let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+                    while (base64.length % 4) { base64 += '='; }
+                    return decodeURIComponent(atob(base64).split('').map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join(''));
+                } catch (e) {
+                    console.error("Errore nella decodifica base64url:", e, "Stringa:", str);
+                    return null;
+                }
+            }
+    
+            function parseStartParam(startParamString) {
+                if (!startParamString || startParamString === "Nessuno" || startParamString.trim() === "") {
+                    console.warn("startParamString è vuoto o 'Nessuno'.");
+                    return { error: "Parametro di avvio mancante o vuoto." };
+                }
+                const decodedJsonString = base64UrlDecode(startParamString);
+                if (!decodedJsonString) {
+                     return { error: "Decodifica del parametro di avvio fallita.", rawValue: startParamString };
+                }
+                try {
+                    return JSON.parse(decodedJsonString);
+                } catch (e) {
+                    console.error("Errore nel parsing del JSON decodificato:", e, "JSON Decodificato:", decodedJsonString);
+                    return { error: "Formato dati del parametro di avvio non valido.", rawValue: startParamString, decodedValue: decodedJsonString };
+                }
+            }
+    
             function populateUI(data) {
-                console.log("populateUI - Dati Input:", JSON.stringify(data));
                 if (!data || data.error) {
-                    const errorMsg = `Dati iniziali per il form non validi o mancanti. ${data && data.error ? data.error : ''} ${data && data.rawValue ? `(Grezzo: ${data.rawValue.substring(0,30)}...)` : ''}`;
+                    const errorMsg = `Errore nel caricare i dati iniziali: ${data ? (data.error + (data.rawValue ? ` (Grezzo: ${data.rawValue.substring(0,50)}...)` : (data.decodedValue ? ` (Decodificato: ${data.decodedValue.substring(0,50)}...)` : ''))) : 'Nessun dato o formato sconosciuto.'}`;
                     showFatalError(errorMsg);
+                    tg.showAlert(errorMsg.substring(0, 200)); // Limita lunghezza alert
                     return;
                 }
-                initialStartParamData = data; // Salva i dati iniziali
-
-                summaryEmployeeName.textContent = data.employeeName || 'N/D';
-                let mainProblemDescription = data.problemDescription || 'N/D';
-                let timeAndBarDisplay = '';
-                let dateDisplay = '';
-
-                const isSingleTimestampProblem = data.problemType && (
-                    data.problemType === 'SINGLE_MISSING_ENTRY' ||
-                    data.problemType === 'SINGLE_MISSING_EXIT' ||
-                    data.problemType === 'SINGLE_TIMESTAMP' ||
-                    (data.problemTypeForForm && data.problemTypeForForm === 'SINGLE_TIMESTAMP')
-                );
-
-                if (isSingleTimestampProblem && data.originalSingleTime) {
-                    const escapedTime = data.originalSingleTime.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                    const timePattern = new RegExp(`\\s*\\(${escapedTime}\\)\\.?`, 'g');
-                    mainProblemDescription = mainProblemDescription.replace(timePattern, '').trim();
-                    if (mainProblemDescription && !mainProblemDescription.endsWith('.') && !mainProblemDescription.endsWith('!')) {
-                        mainProblemDescription += '.';
+                initialStartParamData = data; // Salva i dati originali
+                console.log("Dati iniziali parsati per UI:", initialStartParamData);
+    
+                if (summaryEmployeeName) summaryEmployeeName.textContent = data.employeeName || 'N/D';
+                if (summaryProblemType) summaryProblemType.textContent = data.problemDescription || 'N/D';
+                if (summaryProblemTime) summaryProblemTime.textContent = data.problemTime || '';
+                if (summaryProblemDateText) summaryProblemDateText.textContent = data.problemDate || '';
+    
+                if (problemIdInput) problemIdInput.value = data.problemId || '';
+                if (originalEmployeeNameInput) originalEmployeeNameInput.value = data.employeeName || '';
+                if (originalProblemDateISOInput) originalProblemDateISOInput.value = data.problemDateISO || '';
+                if (originalSingleTimeInput) originalSingleTimeInput.value = data.originalSingleTime || '';
+    
+                if (dateCorrectionGroup) dateCorrectionGroup.style.display = 'none';
+                if (singleTimeCorrectionSection) singleTimeCorrectionSection.style.display = 'none';
+                if (missingTimeFieldGroup) missingTimeFieldGroup.style.display = 'none';
+    
+                if (data.problemType === 'SINGLE_MISSING_ENTRY' || data.problemType === 'SINGLE_MISSING_EXIT') {
+                    if (singleTimeCorrectionSection) singleTimeCorrectionSection.style.display = 'block';
+                    if (missingTimeFieldGroup) missingTimeFieldGroup.style.display = 'block';
+                    if (singleCorrectionActionSelect) {
+                         singleCorrectionActionSelect.value = (data.problemType === 'SINGLE_MISSING_ENTRY') ? 'isExit_addEntry' : 'isEntry_addExit';
                     }
-                }
-                problemTypeSpan.textContent = mainProblemDescription;
-
-                if (data.originalSingleTime) {
-                    timeAndBarDisplay = data.originalSingleTime;
-                    if (data.originalSingleBar && data.originalSingleBar !== "N/D") {
-                        timeAndBarDisplay += ` (Bar ${data.originalSingleBar})`;
+                    if (missingTimeLabel) {
+                        missingTimeLabel.textContent = (data.problemType === 'SINGLE_MISSING_ENTRY') ? "Orario Entrata Mancante (HH:MM):" : "Orario Uscita Mancante (HH:MM):";
                     }
-                }
-                problemTimeSpan.textContent = timeAndBarDisplay;
-
-                if (data.problemDateISO) {
-                    try {
-                        const dateParts = data.problemDateISO.split('-');
-                        if (dateParts.length === 3) dateDisplay = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-                        else dateDisplay = data.problemDateISO;
-                    } catch (e) { dateDisplay = data.problemDateISO; console.error("Errore formattazione data per UI:", e); }
-                } else { dateDisplay = data.problemDate || 'N/D'; }
-                problemDateTextSpan.textContent = dateDisplay;
-
-                problemIdInput.value = data.problemId || '';
-                problemContextIdInput.value = data.problemContextId || '';
-                originalEmployeeNameInput.value = data.employeeName || '';
-                originalProblemDateISOInput.value = data.problemDateISO || '';
-                originalSingleTimeInput.value = data.originalSingleTime || '';
-                originalSingleBarInput.value = data.originalSingleBar || '';
-                
-                correctorUserNameInput.value = currentUserDetails.username || '';
-                correctorUserFirstNameInput.value = currentUserDetails.first_name || '';
-                correctorUserLastNameInput.value = currentUserDetails.last_name || '';
-
-                dateCorrectionGroup.style.display = 'none';
-                singleTimeCorrectionSection.style.display = 'none';
-                missingTimeFieldGroup.style.display = 'none';
-
-                if (isSingleTimestampProblem) {
-                    singleTimeCorrectionSection.style.display = 'block';
-                    if (data.problemType === 'SINGLE_MISSING_ENTRY') singleCorrectionActionSelect.value = 'isExit_addEntry';
-                    else if (data.problemType === 'SINGLE_MISSING_EXIT') singleCorrectionActionSelect.value = 'isEntry_addExit';
-                    else singleCorrectionActionSelect.value = '';
-                    handleSingleCorrectionActionChange();
+                    if (missingTimeDateContext) missingTimeDateContext.textContent = `per il giorno ${data.problemDateFormatted || data.problemDateISO || 'N/A'}`;
                 } else if (data.problemType === 'DATE_CORRECTION_NEEDED') {
-                    dateCorrectionGroup.style.display = 'block';
+                    if (dateCorrectionGroup) dateCorrectionGroup.style.display = 'block';
                 }
-                
-                loadingMessage.style.display = 'none';
-                errorMessageDiv.style.display = 'none';
-                formContainer.style.display = 'block';
-                document.body.style.visibility = 'visible';
+    
+                if (loadingMessage) loadingMessage.style.display = 'none';
+                if (errorMessageDiv) errorMessageDiv.style.display = 'none';
+                if (formContainer) formContainer.style.display = 'block';
             }
-
-            function openNotesModal() { notesTextareaModal.value=notesHiddenInput.value; notesModalOverlay.style.display='flex'; notesTextareaModal.focus(); }
-            function closeNotesModal() { notesModalOverlay.style.display='none'; }
-            function updateNotesDisplay(notesText) { currentNotesDisplay.textContent=(notesText&¬esText.trim()!=="")?notesText.trim():"Nessuna nota."; currentNotesDisplay.classList.toggle('empty',!(notesText&¬esText.trim()!=="")); }
-            function saveNotesFromModal() { const newNotes=notesTextareaModal.value.trim(); notesHiddenInput.value=newNotes; updateNotesDisplay(newNotes); closeNotesModal(); }
-            function isValidTimeFormat(timeString) { if (!timeString) return false; return /^([01]\d|2[0-3]):([0-5]\d)$/.test(timeString); }
-            function formatDate_DDMMYYYY(dateStrYYYYMMDD) { if (!dateStrYYYYMMDD || typeof dateStrYYYYMMDD !== 'string') return ""; const parts = dateStrYYYYMMDD.split('-'); if (parts.length !== 3) return dateStrYYYYMMDD; return `${parts[2]}-${parts[1]}-${parts[0]}`; }
-
-            function updateMissingTimeDateContext() {
-                if (!singleCorrectionActionSelect || !missingTimeDateContext || !missingTimeValueInput || !originalSingleTimeInput || !originalProblemDateISOInput) { return; }
-                const action = singleCorrectionActionSelect.value; missingTimeDateContext.textContent = "";
-                const originalTime = originalSingleTimeInput.value; const missingTime = missingTimeValueInput.value; const problemDateISO = originalProblemDateISOInput.value;
-                if (!problemDateISO) { return; }
-                if (action === "isEntry_addExit" && isValidTimeFormat(originalTime) && isValidTimeFormat(missingTime)) {
-                    const entryMinutes = parseInt(originalTime.split(':')[0]) * 60 + parseInt(originalTime.split(':')[1]); const exitMinutes = parseInt(missingTime.split(':')[0]) * 60 + parseInt(missingTime.split(':')[1]);
-                    let exitDateToDisplay = problemDateISO;
-                    if (exitMinutes < entryMinutes) { try { const d = new Date(problemDateISO + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + 1); exitDateToDisplay = d.toISOString().split('T')[0]; } catch(e) { console.error("Errore data succ:", e); } }
-                    missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(exitDateToDisplay)})`;
-                } else if (action === "isExit_addEntry" && isValidTimeFormat(missingTime)) { missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(problemDateISO)})`; }
+    
+            function updateDebugSection(startParamVal, parsedDataObj, initDataStr, initDataUnsafeObj, locationSearchStr) {
+                if (!debugSection) return;
+                debugSection.innerHTML = `
+                    <h3>Debug Dati Telegram Ricevuti:</h3>
+                    <p><strong>Parametro Start (valore grezzo ricevuto):</strong></p><pre>${startParamVal === undefined ? "undefined" : (startParamVal === null ? "null" : String(startParamVal))}</pre>
+                    <p><strong>Dati Parsati da Start Param (se JSON):</strong></p><pre>${parsedDataObj ? JSON.stringify(parsedDataObj, null, 2) : "N/D o errore parsing"}</pre>
+                    <p><strong>initData (grezzo):</strong></p><pre>${initDataStr || "Non presente"}</pre>
+                    <p><strong>initDataUnsafe (JSON):</strong></p><pre>${initDataUnsafeObj ? JSON.stringify(initDataUnsafeObj, null, 2) : "Non presente"}</pre>
+                    <p><strong>URL Search (window.location.search):</strong></p><pre>${locationSearchStr || "Vuoto"}</pre>
+                `;
             }
-            
-            function handleSingleCorrectionActionChange() {
-                const action = singleCorrectionActionSelect.value;
-                if (!missingTimeLabel || !missingTimeFieldGroup || !missingTimeValueInput || !missingTimeError || !singleCorrectionActionSelect || !singleCorrectionActionError) { return; }
-                missingTimeValueInput.value = ''; missingTimeValueInput.classList.remove('input-error'); missingTimeError.style.display = 'none'; missingTimeError.textContent = '';
-                singleCorrectionActionSelect.classList.remove('input-error'); singleCorrectionActionError.style.display = 'none';
-                if (action === "isEntry_addExit") { missingTimeLabel.textContent = "Orario Uscita Mancante (HH:MM):"; missingTimeFieldGroup.style.display = 'block';
-                } else if (action === "isExit_addEntry") { missingTimeLabel.textContent = "Orario Entrata Mancante (HH:MM):"; missingTimeFieldGroup.style.display = 'block';
-                } else { missingTimeFieldGroup.style.display = 'none'; }
-                updateMissingTimeDateContext();
+    
+    
+            // --- 2. Gestione Modale Note --- (le tue funzioni vanno bene, le includo per completezza)
+            function openNotesModal() {
+                if (notesTextareaModal && notesHiddenInput && notesModalOverlay) {
+                    notesTextareaModal.value = notesHiddenInput.value;
+                    notesModalOverlay.style.display = 'flex';
+                    notesTextareaModal.focus();
+                }
             }
-
+            function closeNotesModal() {
+                if (notesModalOverlay) notesModalOverlay.style.display = 'none';
+            }
+            function updateNotesDisplay(notesText) {
+                if (currentNotesDisplay) {
+                    currentNotesDisplay.textContent = (notesText && notesText.trim() !== "") ? notesText.trim() : "Nessuna nota.";
+                    currentNotesDisplay.classList.toggle('empty', !(notesText && notesText.trim() !== ""));
+                }
+            }
+            function saveNotesFromModal() {
+                if (notesTextareaModal && notesHiddenInput) {
+                    const newNotes = notesTextareaModal.value.trim();
+                    notesHiddenInput.value = newNotes;
+                    updateNotesDisplay(newNotes);
+                    closeNotesModal();
+                }
+            }
+            if (addNotesButton) addNotesButton.addEventListener('click', openNotesModal);
+            if (cancelNotesButton) cancelNotesButton.addEventListener('click', closeNotesModal);
+            if (saveNotesButton) saveNotesButton.addEventListener('click', saveNotesFromModal);
+    
+    
+            // --- 3. Validazione Form ---
             function validateForm() {
                 let isValid = true;
-                if (missingTimeError) missingTimeError.style.display = 'none'; if (missingTimeValueInput) missingTimeValueInput.classList.remove('input-error');
-                if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.remove('input-error'); if (singleCorrectionActionError) singleCorrectionActionError.style.display = 'none';
-                if (singleTimeCorrectionSection.style.display !== 'none') {
-                    const action = singleCorrectionActionSelect.value; const missingTime = missingTimeValueInput.value; const originalTime = originalSingleTimeInput.value;
-                    if (action === '') { if (singleCorrectionActionError) { singleCorrectionActionError.textContent = "È necessario selezionare un'azione."; singleCorrectionActionError.style.display = 'block';} if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.add('input-error'); isValid = false;
-                    } else {
-                        if (!missingTime) { if (missingTimeError) { missingTimeError.textContent = "L'orario è obbligatorio."; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false;
-                        } else if (!isValidTimeFormat(missingTime)) { if (missingTimeError) { missingTimeError.textContent = "Formato orario non valido (HH:MM)."; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false;
-                        } else {
-                            const newTimeMinutes = parseInt(missingTime.split(':')[0]) * 60 + parseInt(missingTime.split(':')[1]); let originalTimeMinutes = -1;
-                            if (isValidTimeFormat(originalTime)) originalTimeMinutes = parseInt(originalTime.split(':')[0]) * 60 + parseInt(originalTime.split(':')[1]);
-                            if (action === "isExit_addEntry") { // Aggiungendo ENTRATA
-                                if (originalTimeMinutes !== -1 && newTimeMinutes >= originalTimeMinutes) { if (missingTimeError) { missingTimeError.textContent = `L'entrata (${missingTime}) non può essere uguale o dopo l'uscita originale (${originalTime}).`; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; }
-                                if (newTimeMinutes < (5 * 60) || newTimeMinutes > (23 * 60)) { if (missingTimeError && isValid) { missingTimeError.textContent = "L'entrata deve essere tra 05:00 e 23:00."; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; }
-                            } else if (action === "isEntry_addExit") { // Aggiungendo USCITA
-                                if (originalTimeMinutes !== -1 && newTimeMinutes === originalTimeMinutes) { if (missingTimeError) { missingTimeError.textContent = `L'uscita (${missingTime}) non può essere uguale all'entrata (${originalTime}) lo stesso giorno.`; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; }
-                            }
+                if (missingTimeError) missingTimeError.style.display = 'none';
+                if (missingTimeValueInput) missingTimeValueInput.classList.remove('input-error');
+    
+                if (missingTimeFieldGroup && missingTimeFieldGroup.style.display !== 'none' &&
+                    singleCorrectionActionSelect && singleCorrectionActionSelect.value !== '') {
+                    if (!missingTimeValueInput || !missingTimeValueInput.value) {
+                        if (missingTimeError) {
+                            missingTimeError.textContent = "L'orario è obbligatorio.";
+                            missingTimeError.style.display = 'block';
                         }
+                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                        isValid = false;
+                    } else if (missingTimeValueInput && !/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(missingTimeValueInput.value)) {
+                         if (missingTimeError) {
+                            missingTimeError.textContent = "Formato orario non valido (HH:MM).";
+                            missingTimeError.style.display = 'block';
+                        }
+                         if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                         isValid = false;
                     }
-                } return isValid;
+                }
+                return isValid;
             }
-
-            submitHtmlButton.addEventListener('click', function() {
-                if (!validateForm()) { tg.showAlert("Per favore, correggi gli errori nel form.", function() { const firstErrorInput = document.querySelector('#correctionForm .input-error'); if (firstErrorInput) firstErrorInput.focus();}); return; }
-                tg.showConfirm("Confermi l'invio della correzione?", function(isConfirmed) {
-                    if (isConfirmed) {
-                        submitHtmlButton.disabled = true; submitHtmlButton.textContent = "Invio in corso...";
-                        if (tg.MainButton && tg.MainButton.isVisible && typeof tg.MainButton.showProgress === 'function') tg.MainButton.showProgress();
-                        const dataToSend = { problemId: problemIdInput.value, problemContextId: problemContextIdInput.value, originalEmployeeName: originalEmployeeNameInput.value, originalProblemDateISO: originalProblemDateISOInput.value, originalSingleTime: originalSingleTimeInput.value, originalSingleBar: originalSingleBarInput.value, correctedDate: correctedDateInput.value, singleCorrectionAction: singleCorrectionActionSelect.value, missingTimeValue: missingTimeValueInput.value, notes: notesHiddenInput.value, initDataRaw: tg.initData || "", telegramUserId: currentUserDetails.id, correctorUserInfo: { id: currentUserDetails.id, username: currentUserDetails.username, first_name: currentUserDetails.first_name, last_name: currentUserDetails.last_name }, clientTimestamp: new Date().toISOString() };
-                        console.log("Invio a GAS:", JSON.stringify(dataToSend, null, 2));
-                        fetch(GAS_WEB_APP_URL, { method: 'POST', redirect: 'follow', cache: 'no-cache', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ payload: dataToSend }) })
-                        .then(response => { if (!response.ok) { return response.text().then(text => { try { const errData = JSON.parse(text); throw new Error(errData.message || `Errore HTTP ${response.status} - ${text.substring(0,100)}`); } catch (parseError) { throw new Error(`Errore HTTP ${response.status} - Risposta non JSON: ${text.substring(0,100)}`); }}); } return response.json(); })
-                        .then(data => { console.log('GAS OK:', data); if (data.status === "successo") { submitHtmlButton.textContent = "Inviato"; tg.showAlert(data.message || "Correzione inviata!", function() { tg.close(); }); } else { tg.showAlert(`Errore App: ${data.message || 'Sconosciuto.'}`); submitHtmlButton.disabled = false; submitHtmlButton.textContent = "Invia Correzione";}})
-                        .catch((error) => { console.error('Errore Fetch GAS:', error); tg.showAlert(`Errore Comunicazione: ${error.message}.`); submitHtmlButton.disabled = false; submitHtmlButton.textContent = "Invia Correzione";})
-                        .finally(() => { if (tg.MainButton && tg.MainButton.isProgressVisible && typeof tg.MainButton.hideProgress === 'function') tg.MainButton.hideProgress(); });
+    
+            // --- 4. Gestione Invio Form ---
+            if (submitHtmlButton) {
+                submitHtmlButton.addEventListener('click', function() {
+                    if (!validateForm()) {
+                        tg.showAlert("Per favore, correggi gli errori nel form.", function() {
+                            const firstErrorInput = correctionForm ? correctionForm.querySelector('.input-error') : null;
+                            if (firstErrorInput) firstErrorInput.focus();
+                        });
+                        return;
                     }
+    
+                    tg.showConfirm("Confermi l'invio della correzione?", function(isConfirmed) {
+                        if (isConfirmed) {
+                            submitHtmlButton.disabled = true;
+                            submitHtmlButton.textContent = "Invio in corso...";
+                            if(tg.MainButton.isVisible) tg.MainButton.showProgress();
+    
+                            const dataToSend = {
+                                problemId: problemIdInput ? problemIdInput.value : (initialStartParamData ? initialStartParamData.problemId : ""),
+                                problemContextId: initialStartParamData ? initialStartParamData.problemContextId : "", // Passa il context ID ricevuto
+                                originalEmployeeName: originalEmployeeNameInput ? originalEmployeeNameInput.value : "",
+                                originalProblemDateISO: originalProblemDateISOInput ? originalProblemDateISOInput.value : "",
+                                originalSingleTime: originalSingleTimeInput ? originalSingleTimeInput.value : "",
+                                correctedDate: correctedDateInput ? correctedDateInput.value : "",
+                                singleCorrectionAction: singleCorrectionActionSelect ? singleCorrectionActionSelect.value : "",
+                                missingTimeValue: missingTimeValueInput ? missingTimeValueInput.value : "",
+                                notes: notesHiddenInput ? notesHiddenInput.value : "",
+                                initDataRaw: tg.initData || "",
+                                telegramUserId: currentTelegramUserId, // Ora include l'ID utente se letto
+                                clientTimestamp: new Date().toISOString(),
+                                startParamReceived: startParamValueForDebug // Valore grezzo per debug server
+                            };
+    
+                            console.log("Dati inviati al server:", JSON.stringify(dataToSend, null, 2));
+    
+                            
+                            fetch(GAS_WEB_APP_URL, {
+                                                method: 'POST',
+                                                redirect: 'follow', // <-- Aggiungi questo
+                                                // mode: 'cors', // Puoi commentare o rimuovere mode: 'cors' se usi text/plain,
+                                                            // perché text/plain non fa una preflight CORS "vera"
+                                                            // ma lasciarlo non dovrebbe fare danno. Prova entrambe le opzioni.
+                                                cache: 'no-cache',
+                                                headers: {
+                                                    // Visto che il payload effettivo è JSON, ma vogliamo bypassare la preflight OPTIONS
+                                                    // proviamo con text/plain come suggerito da Stack Overflow.
+                                                    'Content-Type': 'text/plain;charset=utf-8',
+                                                },
+                                                body: JSON.stringify({ payload: dataToSend }) // Il corpo è ancora una stringa JSON
+                                            })
+                                            .then(response => {
+                                                console.log("Risposta RAW dal server (fetch con text/plain):", response);
+                                                if (!response.ok) {
+                                                    // Se la risposta HTTP non è ok, prova a leggere il corpo come testo
+                                                    return response.text().then(text => {
+                                                        console.error("Testo della risposta (non OK) dal server (text/plain):", text);
+                                                        // Dato che il server GAS dovrebbe comunque rispondere con JSON (anche per errori gestiti)
+                                                        // proviamo a parsarlo
+                                                        try {
+                                                            const errData = JSON.parse(text);
+                                                            throw new Error(errData.message || `Errore HTTP ${response.status} - Contenuto: ${text.substring(0,100)}`);
+                                                        } catch (parseError) {
+                                                            // Se GAS ha restituito un errore HTML (es. errore di script non gestito)
+                                                            // o se la risposta non era JSON
+                                                            throw new Error(`Errore HTTP ${response.status} - Risposta non JSON o errore server GAS: ${text.substring(0,100)}`);
+                                                        }
+                                                    });
+                                                }
+                                                // Se response.ok, GAS dovrebbe aver restituito JSON, quindi proviamo a parsarlo.
+                                                // Anche se abbiamo inviato text/plain, il nostro doPost restituisce application/json
+                                                return response.json();
+                                            })
+                                            .then(data => {
+                                                console.log('Successo da GAS (con text/plain):', data);
+                                                if (data.status === "successo") {
+                                                    tg.showAlert(data.message || "Correzione inviata con successo!", function() { tg.close(); });
+                                                } else {
+                                                    tg.showAlert(`Errore dall'applicazione: ${data.message || 'Sconosciuto.'}`);
+                                                    if (submitHtmlButton) {
+                                                        submitHtmlButton.disabled = false;
+                                                        submitHtmlButton.textContent = "Invia Correzione";
+                                                    }
+                                                }
+                                            })
+                                            .catch((error) => {
+                                                console.error('ERRORE DETTAGLIATO nel fetch a GAS (con text/plain):', error);
+                                                tg.showAlert(`Errore di comunicazione (text/plain): ${error.message}. Controlla console.`);
+                                                if (submitHtmlButton) {
+                                                    submitHtmlButton.disabled = false;
+                                                    submitHtmlButton.textContent = "Invia Correzione";
+                                                }
+                                            })
+                                            .finally(() => {
+                                                if(tg.MainButton.isVisible && typeof tg.MainButton.hideProgress === 'function') tg.MainButton.hideProgress();
+                                            });
+                            
+                            
+                            fetch(GAS_WEB_APP_URL, {
+                                method: 'POST',
+                                mode: 'cors',
+                                cache: 'no-cache',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ payload: dataToSend }) // Invia come oggetto {payload: ...}
+                            })
+                            .then(response => {
+                                console.log("Risposta RAW dal server (fetch):", response);
+                                if (!response.ok) {
+                                    return response.text().then(text => { // Leggi come testo prima
+                                        console.error("Testo della risposta (non OK) dal server:", text);
+                                        try {
+                                            const errData = JSON.parse(text); // Prova a parsare come JSON
+                                            throw new Error(errData.message || `Errore HTTP ${response.status} - Contenuto: ${text.substring(0,100)}`);
+                                        } catch (parseError) { // Se non è JSON o il parsing fallisce
+                                            throw new Error(`Errore HTTP ${response.status} - Risposta non JSON: ${text.substring(0,100)}`);
+                                        }
+                                    });
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Successo da GAS:', data);
+                                if (data.status === "successo") {
+                                    tg.showAlert(data.message || "Correzione inviata con successo!", function() { tg.close(); });
+                                } else {
+                                    tg.showAlert(`Errore dall'applicazione: ${data.message || 'Sconosciuto.'}`);
+                                    submitHtmlButton.disabled = false;
+                                    submitHtmlButton.textContent = "Invia Correzione";
+                                }
+                            })
+                            .catch((error) => {
+                                console.error('ERRORE DETTAGLIATO nel fetch a GAS:', error);
+                                tg.showAlert(`Errore di comunicazione: ${error.message}. Controlla console (se possibile).`);
+                                submitHtmlButton.disabled = false;
+                                submitHtmlButton.textContent = "Invia Correzione";
+                            })
+                            .finally(() => {
+                                if(tg.MainButton.isVisible && typeof tg.MainButton.hideProgress === 'function') tg.MainButton.hideProgress();
+                            });
+                        }
+                    });
                 });
-            });
-
+            } else {
+                console.error("Pulsante di invio 'submitHtmlButton' non trovato nel DOM.");
+            }
+    
+    
+            // --- Inizializzazione ---
+            let startParamValueForDebug = "Nessuno (non ancora letto)"; // Per il log finale
+    
             try {
-                console.log("Avvio Inizializzazione Mini App...");
-                if (!tg) { console.error("FATAL: Telegram.WebApp (tg) non è definito!"); showFatalError("Oggetto Telegram WebApp non disponibile."); return; }
-                
-                tg.onEvent('themeChanged', setThemeClass); 
-                setThemeClass(); // Applica tema al caricamento
-                
-                tg.ready(); // Notifica Telegram che la Web App è pronta
-                applyThemeVariables(); 
-                tg.expand();
-
-                tg.BackButton.show();
-                tg.BackButton.onClick(function() { 
-                    console.log("BackButton premuto");
-                    tg.showConfirm("Vuoi chiudere il form senza salvare le modifiche?", function(isConfirmed) {
-                        if (isConfirmed) tg.close();
-                    }); 
-                });
-
-                if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-                     currentUserDetails.id = String(tg.initDataUnsafe.user.id); 
-                     currentUserDetails.username = tg.initDataUnsafe.user.username || "";
-                     currentUserDetails.first_name = tg.initDataUnsafe.user.first_name || "";
-                     currentUserDetails.last_name = tg.initDataUnsafe.user.last_name || "";
-                } else { 
-                    console.warn("Dati utente (tg.initDataUnsafe.user) non trovati. Potrebbe essere un test in browser o un problema.");
-                    // Per test in browser senza initData, potresti voler impostare un ID di default
-                    // currentUserDetails.id = "test_user_123"; 
+                if (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) {
+                     currentTelegramUserId = String(tg.initDataUnsafe.user.id);
                 }
-                console.log("Dettagli Utente Corrente:", currentUserDetails);
-
-                let startParamValue="Nessuno";
-                if(tg.initDataUnsafe && tg.initDataUnsafe.start_param){ 
-                    startParamValue=tg.initDataUnsafe.start_param; 
-                    console.log("startParam da tg.initDataUnsafe:", startParamValue);
-                } else { 
-                    const urlParams = new URLSearchParams(window.location.search); 
-                    const webAppStartParam = urlParams.get('tgWebAppStartParam'); 
-                    if(webAppStartParam) { 
-                        startParamValue=webAppStartParam; 
-                        console.log("startParam da parametro URL 'tgWebAppStartParam':", startParamValue); 
-                    } else { 
-                        console.warn("Nessun start_param trovato (né da initDataUnsafe né da URL). Il form potrebbe non caricare i dati del problema.");
-                        showFatalError("Parametro di avvio (start_param) non trovato. Impossibile caricare i dati del problema.");
-                        return; // Interrompi l'inizializzazione se non ci sono dati
+                console.log("Current Telegram User ID:", currentTelegramUserId);
+    
+                if (tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
+                    startParamValueForDebug = tg.initDataUnsafe.start_param;
+                } else {
+                    const currentUrlParams = new URLSearchParams(window.location.search);
+                    const tgWebAppStartParamFromUrl = currentUrlParams.get('tgWebAppStartParam');
+                    if (tgWebAppStartParamFromUrl) {
+                        startParamValueForDebug = tgWebAppStartParamFromUrl;
                     }
                 }
+                console.log("startParamValueForDebug letto come:", startParamValueForDebug);
                 
-                const parsedData = parseStartParam(startParamValue);
-                populateUI(parsedData); // Questo ora dovrebbe mostrare il form o un errore specifico da showFatalError
-                
-                // Aggiungi listener DOPO che gli elementi sono nel DOM e potenzialmente visibili
-                addNotesButton.addEventListener('click', openNotesModal);
-                saveNotesButton.addEventListener('click', saveNotesFromModal);
-                cancelNotesButton.addEventListener('click', closeNotesModal);
-                singleCorrectionActionSelect.addEventListener('change', handleSingleCorrectionActionChange);
-                missingTimeValueInput.addEventListener('input', function() { 
-                    missingTimeValueInput.classList.remove('input-error'); 
-                    if(missingTimeError) missingTimeError.style.display = 'none'; 
-                    updateMissingTimeDateContext(); 
-                });
-                missingTimeValueInput.addEventListener('blur', function() { 
-                    validateForm(); // Valida l'intero form per coerenza e aggiornare il contesto
-                });
-                console.log("Inizializzazione Mini App completata.");
-
+                // Verifica per la modalità debug speciale se startapp=debug
+                if (startParamValueForDebug && startParamValueForDebug.toLowerCase() === 'debug') {
+                    isDebugMode = true;
+                    const debugData = {
+                        problemId: "DEBUG_ID", employeeName: "Debug User", problemDescription: "Test Problema (Uscita Manc.)",
+                        problemTime: "alle 09:00", problemDate: "del Giorno Debug", problemDateISO: new Date().toISOString().split('T')[0],
+                        originalSingleTime: "09:00", problemType: "SINGLE_MISSING_EXIT", problemDateFormatted: "Oggi (Debug)",
+                        problemContextId: "debug_context_123"
+                    };
+                    populateUI(debugData);
+                } else {
+                     const parsedData = parseStartParam(startParamValueForDebug); // startParamValueForDebug contiene il payload base64url
+                     populateUI(parsedData);
+                }
+    
             } catch (initError) {
-                console.error("Errore CRITICO Blocco Try/Catch Inizializzazione:", initError, initError.stack);
-                showFatalError(initError.message + (initError.stack ? `\nStack: ${initError.stack.substring(0,250)}...` : ""));
+                showFatalError("Errore durante l'inizializzazione: " + initError.message);
             }
-        });
+    
+            // Mostra sempre la sezione debug se isDebugMode è true, o per utenti specifici
+            if (isDebugMode || (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id === 824994510)) {
+                 if(debugSection) debugSection.style.display = 'block';
+            }
+            updateDebugSection(
+                startParamValueForDebug,
+                initialStartParamData, // Questo è l'oggetto dopo parseStartParam
+                tg.initData,
+                tg.initDataUnsafe,
+                window.location.search
+            );
+    
+        }); // Fine DOMContentLoaded
     </script>
+
 </body>
 </html>
