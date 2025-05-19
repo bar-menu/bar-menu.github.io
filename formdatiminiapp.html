@@ -1,147 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mio Form MiniApp</title>
-    <!-- Includi lo script di Telegram WebApp -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Test Parametri Telegram</title>
     <style>
-        body { font-family: sans-serif; padding: 15px; color: var(--tg-theme-text-color); background-color: var(--tg-theme-bg-color); }
-        .form-group { margin-bottom: 10px; }
-        label { display: block; margin-bottom: 5px; }
-        input[type="text"], textarea { width: 95%; padding: 8px; border: 1px solid var(--tg-theme-hint-color); border-radius: 4px; }
-        button { padding: 10px 15px; background-color: var(--tg-theme-button-color); color: var(--tg-theme-button-text-color); border: none; border-radius: 4px; cursor: pointer; }
-        #message { margin-top: 10px; }
+        body { font-family: sans-serif; padding: 15px; }
+        pre { background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc; word-wrap: break-word; white-space: pre-wrap;}
     </style>
 </head>
 <body>
-    <h1>Compila il Form</h1>
-    <p>Parametro ricevuto: <strong id="parametroDisplay">Nessuno</strong></p>
+    <h1>Dati di Avvio Telegram</h1>
 
-    <form id="mioForm">
-        <div class="form-group">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email" required> <!-- Usa type="email" per validazione base -->
-        </div>
-        <div class="form-group">
-            <label for="note">Note:</label>
-            <textarea id="note" name="note" rows="3"></textarea>
-        </div>
-        <button type="submit">Invia Dati</button>
-    </form>
+    <p><strong>Parametro <code>start_param</code> (da initDataUnsafe):</strong></p>
+    <pre id="startParam"></pre>
 
-    <div id="message"></div>
+    <p><strong>Parametro <code>tgWebAppStartParam</code> (da URL search):</strong></p>
+    <pre id="tgWebAppStartParam"></pre>
+
+    <p><strong><code>window.location.search</code>:</strong></p>
+    <pre id="locationSearch"></pre>
+
+    <p><strong><code>Telegram.WebApp.initData</code> (grezzo):</strong></p>
+    <pre id="initDataRaw"></pre>
+
+    <p><strong><code>Telegram.WebApp.initDataUnsafe</code> (JSON):</strong></p>
+    <pre id="initDataUnsafe"></pre>
 
     <script>
         const tg = window.Telegram.WebApp;
-        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2qm7YA_UPHA1TAz2UYRLEzL5uukraSYQXYaC5t8dxHVydezV3pvi-xawyf9qHr4lg/exec'; // SOSTITUISCI QUESTO!
 
         tg.ready(); // Annuncia che l'app è pronta
-        tg.expand(); // Prova ad espandere
 
-// Aggiungi questo nel tuo script dentro form.html, dopo tg.ready()
-console.log("tg.initData:", tg.initData);
-console.log("tg.initDataUnsafe:", JSON.stringify(tg.initDataUnsafe, null, 2));
+        // Prova a leggere da initDataUnsafe.start_param
+        document.getElementById('startParam').textContent =
+            (tg.initDataUnsafe && tg.initDataUnsafe.start_param) ? tg.initDataUnsafe.start_param : "Non presente in initDataUnsafe";
 
-// Puoi anche mostrarli in pagina per un debug visivo veloce
-let debugDiv = document.createElement('div');
-debugDiv.innerHTML = `
-    <hr>
-    <h3>Debug Dati Telegram:</h3>
-    <p><strong>initData (grezzo):</strong></p>
-    <pre style="word-wrap: break-word; white-space: pre-wrap;">${tg.initData || "Non presente"}</pre>
-    <p><strong>initDataUnsafe (JSON):</strong></p>
-    <pre style="word-wrap: break-word; white-space: pre-wrap;">${JSON.stringify(tg.initDataUnsafe, null, 2) || "Non presente"}</pre>
-`;
-document.body.appendChild(debugDiv);
-```    *   Apri la Mini App e guarda cosa viene stampato/visualizzato.
-
-
-
-        // 1. Leggere il parametro startapp (sia da initDataUnsafe che da URL come fallback)
-        let startParamValue = "Nessuno";
-        if (tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
-            startParamValue = tg.initDataUnsafe.start_param;
-        } else {
-            try {
-                const currentUrlParams = new URLSearchParams(window.location.search);
-                const tgWebAppStartParamFromUrl = currentUrlParams.get('tgWebAppStartParam');
-                if (tgWebAppStartParamFromUrl) {
-                    startParamValue = tgWebAppStartParamFromUrl;
-                }
-            } catch (e) {
-                console.warn("Errore nel leggere tgWebAppStartParam dall'URL:", e);
+        // Prova a leggere tgWebAppStartParam dall'URL
+        let paramFromUrl = "Non trovato nell'URL";
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const val = urlParams.get('tgWebAppStartParam');
+            if (val) {
+                paramFromUrl = val;
             }
+        } catch(e) {
+            paramFromUrl = "Errore lettura URL: " + e.message;
         }
-        document.getElementById('parametroDisplay').textContent = startParamValue || "Nessuno (vuoto)";
+        document.getElementById('tgWebAppStartParam').textContent = paramFromUrl;
 
-        // Se il parametro start_param fosse un JSON, potresti fare:
-        // if (startParamValue && startParamValue !== "Nessuno") {
-        //    try {
-        //      const paramsObj = JSON.parse(startParamValue);
-        //      if (paramsObj.defaultNome) document.getElementById('nome').value = paramsObj.defaultNome;
-        //    } catch (e) { console.error("start_param non è JSON valido:", e); }
-        // }
-
-
-        // 2. Gestire l'invio del form
-        document.getElementById('mioForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Impedisce l'invio tradizionale del form
-            tg.MainButton.showProgress(false); // Mostra il loader sul MainButton se lo usi
-            tg.showConfirm("Confermi l'invio dei dati?", function(isConfirmed) {
-                if (isConfirmed) {
-                    const formData = {
-                        nome: document.getElementById('nome').value,
-                        email: document.getElementById('email').value,
-                        note: document.getElementById('note').value,
-                        startParam: startParamValue, // Includi il parametro di avvio se utile
-                        initDataRaw: tg.initData // Includi initData grezzo per la validazione lato server (se presente)
-                    };
-
-                    document.getElementById('message').textContent = 'Invio dati in corso...';
-
-                    fetch(GAS_WEB_APP_URL, {
-                        method: 'POST',
-                        mode: 'cors', // Necessario se GAS e GitHub Pages sono origini diverse (lo sono)
-                        cache: 'no-cache',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({payload: formData}) // GAS si aspetta spesso un oggetto con una chiave 'payload' o simile per i dati grezzi
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Successo da GAS:', data);
-                        document.getElementById('message').textContent = 'Dati inviati con successo! Risposta: ' + data.status;
-                        tg.MainButton.hideProgress();
-                        // Potresti chiudere la Mini App dopo un successo
-                        // setTimeout(() => tg.close(), 1500);
-                    })
-                    .catch((error) => {
-                        console.error('Errore invio a GAS:', error);
-                        document.getElementById('message').textContent = 'Errore durante l\'invio dei dati.';
-                        tg.MainButton.hideProgress();
-                    });
-                } else {
-                     tg.MainButton.hideProgress();
-                }
-            });
-        });
-
-        // Configurazione opzionale del MainButton di Telegram (se vuoi usarlo al posto del pulsante HTML)
-        // tg.MainButton.setText("Invia Dati Form");
-        // tg.MainButton.onClick(function() {
-        //     // Simula il submit del form per riutilizzare la logica sopra
-        //     document.getElementById('mioForm').dispatchEvent(new Event('submit', { cancelable: true }));
-        // });
-        // if (tg.initDataUnsafe && tg.initDataUnsafe.user) { // Il MainButton è più affidabile se initData è presente
-        //     tg.MainButton.show();
-        // }
+        document.getElementById('locationSearch').textContent = window.location.search || "Vuoto";
+        document.getElementById('initDataRaw').textContent = tg.initData || "Non presente";
+        document.getElementById('initDataUnsafe').textContent = JSON.stringify(tg.initDataUnsafe, null, 2) || "Non presente";
 
     </script>
 </body>
