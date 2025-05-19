@@ -338,8 +338,67 @@
                 }
                 updateMissingTimeDateContext(); // Aggiorna il contesto della data
             }
-            
-            
+
+                     // ***** INSERISCI QUESTE FUNZIONI NEL TUO BLOCCO <SCRIPT> *****
+
+                        function isValidTimeFormat(timeString) {
+                if (!timeString) return false;
+                return /^([01]\d|2[0-3]):([0-5]\d)$/.test(timeString);
+            }
+
+            function formatDate_DDMMYYYY(dateStrYYYYMMDD) { // Input YYYY-MM-DD
+                if (!dateStrYYYYMMDD || typeof dateStrYYYYMMDD !== 'string') return "";
+                const parts = dateStrYYYYMMDD.split('-');
+                if (parts.length !== 3) return dateStrYYYYMMDD; // Fallback se non è YYYY-MM-DD
+                return `${parts[2]}-${parts[1]}-${parts[0]}`; // Converte in GG-MM-AAAA
+            }
+
+            function updateMissingTimeDateContext() {
+                // Assicurati che tutti gli elementi necessari siano disponibili
+                if (!singleCorrectionActionSelect || !missingTimeDateContext || !missingTimeValueInput || !originalSingleTimeInput || !originalProblemDateISOInput) {
+                    console.warn("updateMissingTimeDateContext: uno o più elementi DOM necessari non sono stati trovati.");
+                    return;
+                }
+
+                const action = singleCorrectionActionSelect.value;
+                missingTimeDateContext.textContent = ""; // Pulisci il contesto precedente
+
+                const originalTime = originalSingleTimeInput.value; // Timbratura singola esistente
+                const missingTime = missingTimeValueInput.value;   // Orario inserito dall'utente
+                const problemDateISO = originalProblemDateISOInput.value; // Data del problema in formato YYYY-MM-DD
+
+                if (!problemDateISO) {
+                    console.warn("updateMissingTimeDateContext: problemDateISO è mancante, impossibile aggiornare il contesto.");
+                    return;
+                }
+
+                if (action === "isEntry_addExit" && isValidTimeFormat(originalTime) && isValidTimeFormat(missingTime)) {
+                    // Caso: L'originale era un'ENTRATA (originalTime), stiamo aggiungendo un'USCITA (missingTime)
+                    const entryMinutes = parseInt(originalTime.split(':')[0]) * 60 + parseInt(originalTime.split(':')[1]);
+                    const exitMinutes = parseInt(missingTime.split(':')[0]) * 60 + parseInt(missingTime.split(':')[1]);
+                    
+                    let exitDateToDisplay = problemDateISO; // Di default, l'uscita è lo stesso giorno
+                    if (exitMinutes < entryMinutes) { // Se l'orario di uscita è prima dell'entrata, significa giorno dopo
+                        try {
+                            const currentDateObj = new Date(problemDateISO + "T00:00:00Z"); // Interpreta come UTC per evitare problemi di fuso
+                            currentDateObj.setUTCDate(currentDateObj.getUTCDate() + 1); // Aggiungi un giorno
+                            exitDateToDisplay = currentDateObj.toISOString().split('T')[0]; // Ottieni YYYY-MM-DD del giorno dopo
+                        } catch(e) {
+                            console.error("Errore nel calcolo della data successiva per l'uscita:", e);
+                            // Non modificare exitDateToDisplay, userà problemDateISO
+                        }
+                    }
+                    missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(exitDateToDisplay)})`;
+                } else if (action === "isExit_addEntry" && isValidTimeFormat(missingTime)) {
+                    // Caso: L'originale era un'USCITA (originalTime), stiamo aggiungendo un'ENTRATA (missingTime)
+                    // L'entrata è sempre considerata per lo stesso giorno del problema originale
+                     missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(problemDateISO)})`;
+                }
+                // Se l'azione non è una di queste o gli orari non sono validi, il contesto rimane vuoto.
+            }
+
+            // ***** FINE FUNZIONI DA INSERIRE *****   
+
             function handleSingleCorrectionActionChange() {
                 const action = singleCorrectionActionSelect.value;
                 if (!missingTimeLabel || !missingTimeFieldGroup || !missingTimeValueInput || !missingTimeError || !singleCorrectionActionSelect || !singleCorrectionActionError) { return; }
