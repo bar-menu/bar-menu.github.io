@@ -126,7 +126,7 @@
      <script>
         document.addEventListener('DOMContentLoaded', function () {
             const tg = window.Telegram.WebApp;
-            const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2qm7YA_UPHA1TAz2UYRLEzL5uukraSYQXYaC5t8dxHVydezV3pvi-xawyf9qHr4lg/exec'; // !!! IMPORTANTE !!!
+            const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2qm7YA_UPHA1TAz2UYRLEzL5uukraSYQXYaC5t8dxHVydezV3pvi-xawyf9qHr4lg/exec'; // !!! VERIFICA QUESTO URL !!!
 
             const formContainer = document.getElementById('formContainer');
             const loadingMessage = document.getElementById('loadingMessage');
@@ -166,39 +166,45 @@
             let initialStartParamData = null;
             let currentUserDetails = { id: null, username: "", first_name: "", last_name: "" };
 
-            function setThemeClass() { if (tg && tg.colorScheme) { document.documentElement.className = tg.colorScheme; } }
+            function setThemeClass() { if (tg && tg.colorScheme) { document.documentElement.className = tg.colorScheme; } else { console.warn("setThemeClass: tg o tg.colorScheme non definiti.");} }
             function hexToRgba(hex, alpha) { if(!hex || typeof hex !== 'string') hex = '#000000'; hex=hex.replace('#',''); const r=parseInt(hex.substring(0,2),16)||0; const g=parseInt(hex.substring(2,4),16)||0; const b=parseInt(hex.substring(4,6),16)||0; return `rgba(${r},${g},${b},${alpha})`;}
-            function applyThemeVariables() { const rootStyle=document.documentElement.style; if (!tg || !tg.themeParams) { console.warn("tg.themeParams non disponibile."); return; } const buttonColor=tg.themeParams.button_color||'#2481CC'; const destructiveColor=tg.themeParams.destructive_text_color||'#ff4d4d'; rootStyle.setProperty('--tg-theme-button-color-alpha',hexToRgba(buttonColor,0.25)); rootStyle.setProperty('--tg-theme-destructive-text-color-alpha',hexToRgba(destructiveColor,0.25));}
-            function showFatalError(message) { loadingMessage.style.display='none'; formContainer.style.display='none'; errorMessageDiv.textContent="Errore critico: " + message; errorMessageDiv.style.display='block'; console.error("FATAL ERROR:",message); document.body.style.visibility = 'visible'; }
-            function base64UrlDecode(str) { if(!str||typeof str!=='string'||str.trim()==="")return null; try{let base64=str.replace(/-/g,'+').replace(/_/g,'/'); while(base64.length%4){base64+='=';} return decodeURIComponent(atob(base64).split('').map(function(c){return '%'+('00'+c.charCodeAt(0).toString(16)).slice(-2);}).join(''));}catch(e){console.error("Errore decodifica base64url:",e,"Stringa:",str);return null;}}
+            function applyThemeVariables() { const rootStyle=document.documentElement.style; if (!tg || !tg.themeParams) { console.warn("applyThemeVariables: tg o tg.themeParams non definiti."); return; } const buttonColor=tg.themeParams.button_color||'#2481CC'; const destructiveColor=tg.themeParams.destructive_text_color||'#ff4d4d'; rootStyle.setProperty('--tg-theme-button-color-alpha',hexToRgba(buttonColor,0.25)); rootStyle.setProperty('--tg-theme-destructive-text-color-alpha',hexToRgba(destructiveColor,0.25));}
+            function showFatalError(message) { loadingMessage.style.display='none'; formContainer.style.display='none'; errorMessageDiv.textContent="Errore Avvio: " + message; errorMessageDiv.style.display='block'; console.error("FATAL ERROR MiniApp:",message); document.body.style.visibility = 'visible'; }
+            function base64UrlDecode(str) { if(!str||typeof str!=='string'||str.trim()==="")return null; try{let base64=str.replace(/-/g,'+').replace(/_/g,'/'); while(base64.length%4){base64+='=';} return decodeURIComponent(atob(base64).split('').map(function(c){return '%'+('00'+c.charCodeAt(0).toString(16)).slice(-2);}).join(''));}catch(e){console.error("Errore base64UrlDecode:",e,"Stringa:",str);return null;}}
+            
             function parseStartParam(startParamString) {
-                console.log("parseStartParam - Stringa Input:", startParamString);
+                console.log("parseStartParam - Ricevuto:", startParamString);
                 if(!startParamString||startParamString==="Nessuno"||startParamString.trim()===""){ console.error("parseStartParam: Parametro avvio mancante."); return{error:"Parametro di avvio mancante."};}
                 const decodedJsonString=base64UrlDecode(startParamString);
-                if(!decodedJsonString){ console.error("parseStartParam: Decodifica fallita.",startParamString); return{error:"Decodifica parametro fallita.",rawValue:startParamString};}
-                try{ const parsed = JSON.parse(decodedJsonString); console.log("parseStartParam - Dati OK:", parsed); return parsed;}
-                catch(e){console.error("parseStartParam: Errore JSON.", e, "Decodificato:", decodedJsonString); return{error:"Formato dati non valido.",rawValue:startParamString,decodedValue:decodedJsonString};}
+                if(!decodedJsonString){ console.error("parseStartParam: Decodifica Base64 fallita.", "Input:",startParamString); return{error:"Decodifica parametro fallita.",rawValue:startParamString};}
+                try{ const parsed = JSON.parse(decodedJsonString); console.log("parseStartParam - Dati Parsati OK:", parsed); return parsed;}
+                catch(e){console.error("parseStartParam: Errore Parsing JSON.", e, "Stringa Decodificata:", decodedJsonString); return{error:"Formato dati non valido (JSON).",rawValue:startParamString,decodedValue:decodedJsonString};}
             }
 
             function populateUI(data) {
                 console.log("populateUI - Dati Input:", JSON.stringify(data));
-                if (!data || data.error) { const errorMsg=`${data ? (data.error + (data.rawValue ? ` (Grezzo: ${data.rawValue.substring(0,50)}...)` : (data.decodedValue ? ` (Decodificato: ${data.decodedValue.substring(0,50)}...)` : ''))) : 'Dati iniziali mancanti.'}`; showFatalError(errorMsg); return;}
-                initialStartParamData = data;
+                if (!data || data.error) {
+                    const errorMsg = `Dati iniziali per il form non validi o mancanti. ${data && data.error ? data.error : ''} ${data && data.rawValue ? `(Grezzo: ${data.rawValue.substring(0,30)}...)` : ''}`;
+                    showFatalError(errorMsg);
+                    return;
+                }
+                initialStartParamData = data; // Salva i dati iniziali
+
                 summaryEmployeeName.textContent = data.employeeName || 'N/D';
                 let mainProblemDescription = data.problemDescription || 'N/D';
                 let timeAndBarDisplay = '';
                 let dateDisplay = '';
 
-                // Condizione semplificata per identificare timbratura singola
                 const isSingleTimestampProblem = data.problemType && (
                     data.problemType === 'SINGLE_MISSING_ENTRY' ||
                     data.problemType === 'SINGLE_MISSING_EXIT' ||
-                    data.problemType === 'SINGLE_TIMESTAMP' || // Aggiunto per coprire il tipo generico dal GAS
+                    data.problemType === 'SINGLE_TIMESTAMP' ||
                     (data.problemTypeForForm && data.problemTypeForForm === 'SINGLE_TIMESTAMP')
                 );
 
                 if (isSingleTimestampProblem && data.originalSingleTime) {
-                    const timePattern = new RegExp(`\\s*\\(${data.originalSingleTime.replace(':', '\\:')}\\)\\.?`, 'g');
+                    const escapedTime = data.originalSingleTime.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    const timePattern = new RegExp(`\\s*\\(${escapedTime}\\)\\.?`, 'g');
                     mainProblemDescription = mainProblemDescription.replace(timePattern, '').trim();
                     if (mainProblemDescription && !mainProblemDescription.endsWith('.') && !mainProblemDescription.endsWith('!')) {
                         mainProblemDescription += '.';
@@ -206,9 +212,21 @@
                 }
                 problemTypeSpan.textContent = mainProblemDescription;
 
-                if (data.originalSingleTime) { timeAndBarDisplay = data.originalSingleTime; if (data.originalSingleBar && data.originalSingleBar !== "N/D") timeAndBarDisplay += ` (Bar ${data.originalSingleBar})`; }
+                if (data.originalSingleTime) {
+                    timeAndBarDisplay = data.originalSingleTime;
+                    if (data.originalSingleBar && data.originalSingleBar !== "N/D") {
+                        timeAndBarDisplay += ` (Bar ${data.originalSingleBar})`;
+                    }
+                }
                 problemTimeSpan.textContent = timeAndBarDisplay;
-                if (data.problemDateISO) { try { const dateParts = data.problemDateISO.split('-'); if (dateParts.length === 3) dateDisplay = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`; else dateDisplay = data.problemDateISO; } catch (e) { dateDisplay = data.problemDateISO; console.error("Errore UI data:", e); } } else dateDisplay = data.problemDate || 'N/D';
+
+                if (data.problemDateISO) {
+                    try {
+                        const dateParts = data.problemDateISO.split('-');
+                        if (dateParts.length === 3) dateDisplay = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+                        else dateDisplay = data.problemDateISO;
+                    } catch (e) { dateDisplay = data.problemDateISO; console.error("Errore formattazione data per UI:", e); }
+                } else { dateDisplay = data.problemDate || 'N/D'; }
                 problemDateTextSpan.textContent = dateDisplay;
 
                 problemIdInput.value = data.problemId || '';
@@ -217,6 +235,7 @@
                 originalProblemDateISOInput.value = data.problemDateISO || '';
                 originalSingleTimeInput.value = data.originalSingleTime || '';
                 originalSingleBarInput.value = data.originalSingleBar || '';
+                
                 correctorUserNameInput.value = currentUserDetails.username || '';
                 correctorUserFirstNameInput.value = currentUserDetails.first_name || '';
                 correctorUserLastNameInput.value = currentUserDetails.last_name || '';
@@ -229,11 +248,12 @@
                     singleTimeCorrectionSection.style.display = 'block';
                     if (data.problemType === 'SINGLE_MISSING_ENTRY') singleCorrectionActionSelect.value = 'isExit_addEntry';
                     else if (data.problemType === 'SINGLE_MISSING_EXIT') singleCorrectionActionSelect.value = 'isEntry_addExit';
-                    else singleCorrectionActionSelect.value = ''; // Caso generico SINGLE_TIMESTAMP o non specificato
+                    else singleCorrectionActionSelect.value = '';
                     handleSingleCorrectionActionChange();
                 } else if (data.problemType === 'DATE_CORRECTION_NEEDED') {
                     dateCorrectionGroup.style.display = 'block';
                 }
+                
                 loadingMessage.style.display = 'none';
                 errorMessageDiv.style.display = 'none';
                 formContainer.style.display = 'block';
@@ -248,10 +268,10 @@
             function formatDate_DDMMYYYY(dateStrYYYYMMDD) { if (!dateStrYYYYMMDD || typeof dateStrYYYYMMDD !== 'string') return ""; const parts = dateStrYYYYMMDD.split('-'); if (parts.length !== 3) return dateStrYYYYMMDD; return `${parts[2]}-${parts[1]}-${parts[0]}`; }
 
             function updateMissingTimeDateContext() {
-                if (!singleCorrectionActionSelect || !missingTimeDateContext || !missingTimeValueInput || !originalSingleTimeInput || !originalProblemDateISOInput) { console.warn("updateMTDC: elem DOM mancanti"); return; }
+                if (!singleCorrectionActionSelect || !missingTimeDateContext || !missingTimeValueInput || !originalSingleTimeInput || !originalProblemDateISOInput) { return; }
                 const action = singleCorrectionActionSelect.value; missingTimeDateContext.textContent = "";
                 const originalTime = originalSingleTimeInput.value; const missingTime = missingTimeValueInput.value; const problemDateISO = originalProblemDateISOInput.value;
-                if (!problemDateISO) { console.warn("updateMTDC: problemDateISO mancante"); return; }
+                if (!problemDateISO) { return; }
                 if (action === "isEntry_addExit" && isValidTimeFormat(originalTime) && isValidTimeFormat(missingTime)) {
                     const entryMinutes = parseInt(originalTime.split(':')[0]) * 60 + parseInt(originalTime.split(':')[1]); const exitMinutes = parseInt(missingTime.split(':')[0]) * 60 + parseInt(missingTime.split(':')[1]);
                     let exitDateToDisplay = problemDateISO;
@@ -262,7 +282,7 @@
             
             function handleSingleCorrectionActionChange() {
                 const action = singleCorrectionActionSelect.value;
-                if (!missingTimeLabel || !missingTimeFieldGroup || !missingTimeValueInput || !missingTimeError || !singleCorrectionActionSelect || !singleCorrectionActionError) { console.error("handleSCAC: elem DOM mancanti."); return; }
+                if (!missingTimeLabel || !missingTimeFieldGroup || !missingTimeValueInput || !missingTimeError || !singleCorrectionActionSelect || !singleCorrectionActionError) { return; }
                 missingTimeValueInput.value = ''; missingTimeValueInput.classList.remove('input-error'); missingTimeError.style.display = 'none'; missingTimeError.textContent = '';
                 singleCorrectionActionSelect.classList.remove('input-error'); singleCorrectionActionError.style.display = 'none';
                 if (action === "isEntry_addExit") { missingTimeLabel.textContent = "Orario Uscita Mancante (HH:MM):"; missingTimeFieldGroup.style.display = 'block';
@@ -284,10 +304,10 @@
                         } else {
                             const newTimeMinutes = parseInt(missingTime.split(':')[0]) * 60 + parseInt(missingTime.split(':')[1]); let originalTimeMinutes = -1;
                             if (isValidTimeFormat(originalTime)) originalTimeMinutes = parseInt(originalTime.split(':')[0]) * 60 + parseInt(originalTime.split(':')[1]);
-                            if (action === "isExit_addEntry") {
+                            if (action === "isExit_addEntry") { // Aggiungendo ENTRATA
                                 if (originalTimeMinutes !== -1 && newTimeMinutes >= originalTimeMinutes) { if (missingTimeError) { missingTimeError.textContent = `L'entrata (${missingTime}) non può essere uguale o dopo l'uscita originale (${originalTime}).`; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; }
                                 if (newTimeMinutes < (5 * 60) || newTimeMinutes > (23 * 60)) { if (missingTimeError && isValid) { missingTimeError.textContent = "L'entrata deve essere tra 05:00 e 23:00."; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; }
-                            } else if (action === "isEntry_addExit") {
+                            } else if (action === "isEntry_addExit") { // Aggiungendo USCITA
                                 if (originalTimeMinutes !== -1 && newTimeMinutes === originalTimeMinutes) { if (missingTimeError) { missingTimeError.textContent = `L'uscita (${missingTime}) non può essere uguale all'entrata (${originalTime}) lo stesso giorno.`; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; }
                             }
                         }
@@ -300,50 +320,87 @@
                 tg.showConfirm("Confermi l'invio della correzione?", function(isConfirmed) {
                     if (isConfirmed) {
                         submitHtmlButton.disabled = true; submitHtmlButton.textContent = "Invio in corso...";
-                        if (tg.MainButton && tg.MainButton.isVisible) tg.MainButton.showProgress();
+                        if (tg.MainButton && tg.MainButton.isVisible && typeof tg.MainButton.showProgress === 'function') tg.MainButton.showProgress();
                         const dataToSend = { problemId: problemIdInput.value, problemContextId: problemContextIdInput.value, originalEmployeeName: originalEmployeeNameInput.value, originalProblemDateISO: originalProblemDateISOInput.value, originalSingleTime: originalSingleTimeInput.value, originalSingleBar: originalSingleBarInput.value, correctedDate: correctedDateInput.value, singleCorrectionAction: singleCorrectionActionSelect.value, missingTimeValue: missingTimeValueInput.value, notes: notesHiddenInput.value, initDataRaw: tg.initData || "", telegramUserId: currentUserDetails.id, correctorUserInfo: { id: currentUserDetails.id, username: currentUserDetails.username, first_name: currentUserDetails.first_name, last_name: currentUserDetails.last_name }, clientTimestamp: new Date().toISOString() };
                         console.log("Invio a GAS:", JSON.stringify(dataToSend, null, 2));
                         fetch(GAS_WEB_APP_URL, { method: 'POST', redirect: 'follow', cache: 'no-cache', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ payload: dataToSend }) })
                         .then(response => { if (!response.ok) { return response.text().then(text => { try { const errData = JSON.parse(text); throw new Error(errData.message || `Errore HTTP ${response.status} - ${text.substring(0,100)}`); } catch (parseError) { throw new Error(`Errore HTTP ${response.status} - Risposta non JSON: ${text.substring(0,100)}`); }}); } return response.json(); })
                         .then(data => { console.log('GAS OK:', data); if (data.status === "successo") { submitHtmlButton.textContent = "Inviato"; tg.showAlert(data.message || "Correzione inviata!", function() { tg.close(); }); } else { tg.showAlert(`Errore App: ${data.message || 'Sconosciuto.'}`); submitHtmlButton.disabled = false; submitHtmlButton.textContent = "Invia Correzione";}})
                         .catch((error) => { console.error('Errore Fetch GAS:', error); tg.showAlert(`Errore Comunicazione: ${error.message}.`); submitHtmlButton.disabled = false; submitHtmlButton.textContent = "Invia Correzione";})
-                        .finally(() => { if (tg.MainButton && tg.MainButton.isProgressVisible) tg.MainButton.hideProgress(); });
+                        .finally(() => { if (tg.MainButton && tg.MainButton.isProgressVisible && typeof tg.MainButton.hideProgress === 'function') tg.MainButton.hideProgress(); });
                     }
                 });
             });
 
             try {
-                console.log("Inizializzazione Mini App...");
-                if (!tg) { console.error("Telegram.WebApp (tg) non definito!"); showFatalError("Oggetto Telegram non inizializzato."); return; }
-                tg.onEvent('themeChanged', setThemeClass); setThemeClass();
-                tg.ready(); applyThemeVariables(); tg.expand();
+                console.log("Avvio Inizializzazione Mini App...");
+                if (!tg) { console.error("FATAL: Telegram.WebApp (tg) non è definito!"); showFatalError("Oggetto Telegram WebApp non disponibile."); return; }
+                
+                tg.onEvent('themeChanged', setThemeClass); 
+                setThemeClass(); // Applica tema al caricamento
+                
+                tg.ready(); // Notifica Telegram che la Web App è pronta
+                applyThemeVariables(); 
+                tg.expand();
+
                 tg.BackButton.show();
-                tg.BackButton.onClick(function() { tg.showConfirm("Vuoi chiudere il form senza salvare?", function(ok) { if (ok) tg.close(); }); });
+                tg.BackButton.onClick(function() { 
+                    console.log("BackButton premuto");
+                    tg.showConfirm("Vuoi chiudere il form senza salvare le modifiche?", function(isConfirmed) {
+                        if (isConfirmed) tg.close();
+                    }); 
+                });
 
                 if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-                     currentUserDetails.id = String(tg.initDataUnsafe.user.id); currentUserDetails.username = tg.initDataUnsafe.user.username || "";
-                     currentUserDetails.first_name = tg.initDataUnsafe.user.first_name || ""; currentUserDetails.last_name = tg.initDataUnsafe.user.last_name || "";
-                } else { console.warn("Dati utente (tg.initDataUnsafe.user) non trovati."); }
-                console.log("Dettagli Utente:", currentUserDetails);
+                     currentUserDetails.id = String(tg.initDataUnsafe.user.id); 
+                     currentUserDetails.username = tg.initDataUnsafe.user.username || "";
+                     currentUserDetails.first_name = tg.initDataUnsafe.user.first_name || "";
+                     currentUserDetails.last_name = tg.initDataUnsafe.user.last_name || "";
+                } else { 
+                    console.warn("Dati utente (tg.initDataUnsafe.user) non trovati. Potrebbe essere un test in browser o un problema.");
+                    // Per test in browser senza initData, potresti voler impostare un ID di default
+                    // currentUserDetails.id = "test_user_123"; 
+                }
+                console.log("Dettagli Utente Corrente:", currentUserDetails);
 
                 let startParamValue="Nessuno";
-                if(tg.initDataUnsafe && tg.initDataUnsafe.start_param){ startParamValue=tg.initDataUnsafe.start_param; console.log("startParam da initData:", startParamValue);
-                } else { const u=new URLSearchParams(window.location.search); const p=u.get('tgWebAppStartParam'); if(p) { startParamValue=p; console.log("startParam da URL:", startParamValue); } else { console.warn("Nessun start_param."); }}
+                if(tg.initDataUnsafe && tg.initDataUnsafe.start_param){ 
+                    startParamValue=tg.initDataUnsafe.start_param; 
+                    console.log("startParam da tg.initDataUnsafe:", startParamValue);
+                } else { 
+                    const urlParams = new URLSearchParams(window.location.search); 
+                    const webAppStartParam = urlParams.get('tgWebAppStartParam'); 
+                    if(webAppStartParam) { 
+                        startParamValue=webAppStartParam; 
+                        console.log("startParam da parametro URL 'tgWebAppStartParam':", startParamValue); 
+                    } else { 
+                        console.warn("Nessun start_param trovato (né da initDataUnsafe né da URL). Il form potrebbe non caricare i dati del problema.");
+                        showFatalError("Parametro di avvio (start_param) non trovato. Impossibile caricare i dati del problema.");
+                        return; // Interrompi l'inizializzazione se non ci sono dati
+                    }
+                }
                 
                 const parsedData = parseStartParam(startParamValue);
-                populateUI(parsedData); // Questo ora dovrebbe mostrare il form o un errore da showFatalError
+                populateUI(parsedData); // Questo ora dovrebbe mostrare il form o un errore specifico da showFatalError
                 
+                // Aggiungi listener DOPO che gli elementi sono nel DOM e potenzialmente visibili
                 addNotesButton.addEventListener('click', openNotesModal);
                 saveNotesButton.addEventListener('click', saveNotesFromModal);
                 cancelNotesButton.addEventListener('click', closeNotesModal);
                 singleCorrectionActionSelect.addEventListener('change', handleSingleCorrectionActionChange);
-                missingTimeValueInput.addEventListener('input', function() { missingTimeValueInput.classList.remove('input-error'); missingTimeError.style.display = 'none'; updateMissingTimeDateContext(); });
-                missingTimeValueInput.addEventListener('blur', function() { validateForm(); });
-                console.log("Inizializzazione Mini App completata con successo.");
+                missingTimeValueInput.addEventListener('input', function() { 
+                    missingTimeValueInput.classList.remove('input-error'); 
+                    if(missingTimeError) missingTimeError.style.display = 'none'; 
+                    updateMissingTimeDateContext(); 
+                });
+                missingTimeValueInput.addEventListener('blur', function() { 
+                    validateForm(); // Valida l'intero form per coerenza e aggiornare il contesto
+                });
+                console.log("Inizializzazione Mini App completata.");
 
             } catch (initError) {
-                console.error("Errore CRITICO init:", initError);
-                showFatalError(initError.message + (initError.stack ? `\nStack: ${initError.stack.substring(0,200)}...` : ""));
+                console.error("Errore CRITICO Blocco Try/Catch Inizializzazione:", initError, initError.stack);
+                showFatalError(initError.message + (initError.stack ? `\nStack: ${initError.stack.substring(0,250)}...` : ""));
             }
         });
     </script>
