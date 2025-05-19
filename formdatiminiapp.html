@@ -44,6 +44,25 @@
         tg.ready(); // Annuncia che l'app è pronta
         tg.expand(); // Prova ad espandere
 
+// Aggiungi questo nel tuo script dentro form.html, dopo tg.ready()
+console.log("tg.initData:", tg.initData);
+console.log("tg.initDataUnsafe:", JSON.stringify(tg.initDataUnsafe, null, 2));
+
+// Puoi anche mostrarli in pagina per un debug visivo veloce
+let debugDiv = document.createElement('div');
+debugDiv.innerHTML = `
+    <hr>
+    <h3>Debug Dati Telegram:</h3>
+    <p><strong>initData (grezzo):</strong></p>
+    <pre style="word-wrap: break-word; white-space: pre-wrap;">${tg.initData || "Non presente"}</pre>
+    <p><strong>initDataUnsafe (JSON):</strong></p>
+    <pre style="word-wrap: break-word; white-space: pre-wrap;">${JSON.stringify(tg.initDataUnsafe, null, 2) || "Non presente"}</pre>
+`;
+document.body.appendChild(debugDiv);
+```    *   Apri la Mini App e guarda cosa viene stampato/visualizzato.
+
+
+
         // 1. Leggere il parametro startapp (sia da initDataUnsafe che da URL come fallback)
         let startParamValue = "Nessuno";
         if (tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
