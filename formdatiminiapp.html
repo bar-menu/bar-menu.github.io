@@ -1,59 +1,763 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_top"> <!-- Utile se servi da GAS, ma non dannoso qui -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Form Correzione</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <title>Test Parametri Telegram</title>
     <style>
-        body { font-family: sans-serif; padding: 15px; }
-        pre { background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc; word-wrap: break-word; white-space: pre-wrap;}
+        /* Stili Base e Tipografia (come li avevi definiti) */
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            margin: 0;
+            padding: 20px;
+            background-color: var(--tg-theme-bg-color, #ffffff); /* Default per browser normali */
+            color: var(--tg-theme-text-color, #000000);       /* Default per browser normali */
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        h2 {
+            color: var(--tg-theme-text-color);
+            border-bottom: 1px solid var(--tg-theme-hint-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.4em;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95em;
+            color: var(--tg-theme-hint-color);
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px 12px;
+            margin-top: 0;
+            border: 1.5px solid var(--tg-theme-hint-color, #cccccc);
+            border-radius: 10px;
+            background-color: var(--tg-theme-secondary-bg-color, #f9f9f9);
+            color: var(--tg-theme-text-color);
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        select {
+            padding: 14px 12px; /* Allineato con gli altri input */
+        }
+
+        input[readonly] {
+            background-color: var(--tg-theme-secondary-bg-color, #eeeeee);
+            opacity: 0.7;
+            border-color: var(--tg-theme-hint-color, #dddddd);
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="time"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--tg-theme-button-color, #2481CC);
+            box-shadow: 0 0 0 3px var(--tg-theme-button-color-alpha, rgba(36, 129, 204, 0.25)); /* Custom property per alpha */
+            outline: none;
+        }
+        /* Proprietà custom per alpha dei colori Telegram */
+        :root {
+             --tg-theme-button-color-alpha: rgba(36, 129, 204, 0.25); /* Esempio, da aggiornare dinamicamente se possibile */
+             --tg-theme-destructive-text-color-alpha: rgba(255, 77, 77, 0.25); /* Esempio */
+        }
+
+
+        input.input-error {
+            border-color: var(--tg-theme-destructive-text-color, #ff4d4d) !important;
+            box-shadow: 0 0 0 3px var(--tg-theme-destructive-text-color-alpha, rgba(255, 77, 77, 0.25)) !important;
+        }
+        .error-message {
+            font-size: 0.8em;
+            color: var(--tg-theme-destructive-text-color, #ff4d4d);
+            margin-top: 4px;
+        }
+
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .info-summary {
+            background-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
+        }
+
+        .info-summary p {
+            margin: 5px 0 10px 0;
+            font-size: 1em;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .info-summary .info-label {
+            font-weight: 500;
+            color: var(--tg-theme-hint-color);
+            margin-right: 8px;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .info-summary .info-value {
+            font-weight: 600;
+            color: var(--tg-theme-text-color);
+        }
+
+        #summaryEmployeeName.info-value {
+            text-transform: uppercase;
+            /* background-color: var(--tg-theme-hint-color, #e9ecef); */ /* Potrebbe non essere ideale con tutti i temi */
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .info-summary .problem-details-container {
+            margin: 5px 0 10px 0;
+            font-size: 1em;
+            display: flex;
+            align-items: flex-start; /* Allinea all'inizio se il testo è multiriga */
+        }
+
+        .problem-value-multiline #problemType,
+        .problem-value-multiline #problemTime,
+        .problem-value-multiline #problemDateText {
+            display: block;
+        }
+        .problem-value-multiline #problemTime {
+            font-weight: normal; /* O 600 se preferisci */
+        }
+
+
+        .field-group {
+            margin-bottom: 20px;
+        }
+
+        .date-info-text {
+            font-size: 0.8em;
+            color: var(--tg-theme-hint-color);
+            margin-top: 4px;
+            font-style: italic;
+        }
+        #missingTimeDateContext {
+            font-size: 0.85em;
+            color: var(--tg-theme-hint-color);
+            margin-left: 8px;
+            font-style: italic;
+        }
+
+        #submitHtmlButton, .modal-button {
+            background-color: var(--tg-theme-button-color, #2481CC);
+            color: var(--tg-theme-button-text-color, #FFFFFF);
+            padding: 14px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+        #submitHtmlButton {
+            padding: 16px 20px;
+            font-size: 1.1em;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #addNotesButton {
+            background-color: transparent;
+            color: var(--tg-theme-hint-color, #707579);
+            border: 1.5px solid var(--tg-theme-hint-color, #adb5bd);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            width: auto;
+            display: inline-block;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+        #addNotesButton:hover:not(:disabled) {
+             background-color: var(--tg-theme-secondary-bg-color, rgba(0,0,0,0.05));
+             border-color: var(--tg-theme-text-color);
+             color: var(--tg-theme-text-color);
+        }
+
+        #submitHtmlButton:hover:not(:disabled),
+        .modal-button:hover:not(:disabled) {
+            opacity: 0.85;
+        }
+        #submitHtmlButton:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+        #submitHtmlButton:disabled {
+            background-color: var(--tg-theme-hint-color, #cccccc); /* Usa hint color per disabilitato */
+            color: var(--tg-theme-secondary-bg-color, #666666); /* Testo più scuro su sfondo chiaro */
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        #loadingMessage, #errorMessage {
+            text-align: center;
+            padding: 30px 20px;
+            font-style: italic;
+            font-size: 1em;
+            color: var(--tg-theme-hint-color);
+        }
+        #errorMessage {
+            color: var(--tg-theme-destructive-text-color, red);
+            font-weight: bold;
+        }
+
+
+        #dateCorrectionGroup { /* Mantenuto per riferimento, la logica JS lo gestirà */
+            /* display: none !important; */ /* Rimuovi !important, gestito da JS */
+        }
+
+        /* Styles for Notes Modal */
+        .modal-overlay {
+            display: none; /* Nascosto di default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5); /* Sfondo semi-trasparente */
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: var(--tg-theme-secondary-bg-color, #ffffff);
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: var(--tg-theme-text-color);
+        }
+        .modal-content textarea {
+            width: 100%;
+            min-height: 80px;
+            margin-bottom: 15px;
+            border-color: var(--tg-theme-hint-color);
+            background-color: var(--tg-theme-bg-color); /* Sfondo input modale */
+        }
+        .modal-content label {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .modal-button.secondary {
+            background-color: var(--tg-theme-hint-color, #ccc);
+            color: var(--tg-theme-text-color, #333);
+        }
+        #currentNotesDisplay {
+            font-size: 0.9em;
+            color: var(--tg-theme-text-color);
+            margin-top: 0px;
+            padding: 8px;
+            background-color: var(--tg-theme-bg-color);
+            border-radius: 6px;
+            border: 1px dashed var(--tg-theme-hint-color, #e0e0e0);
+            min-height: 20px;
+            white-space: pre-wrap; /* Per rispettare a capo nelle note */
+            word-wrap: break-word; /* Per andare a capo con parole lunghe */
+        }
+         #currentNotesDisplay.empty {
+            font-style: italic;
+            color: var(--tg-theme-hint-color);
+        }
+
+        /* Debug Section Styling */
+        #debugSection {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--tg-theme-hint-color);
+        }
+        #debugSection h3 {
+            font-size: 1.1em;
+            text-align: left;
+            border-bottom: none;
+            margin-bottom: 10px;
+        }
+        #debugSection p {
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+        #debugSection pre {
+            background-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
+            padding: 10px;
+            border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
+            border-radius: 6px;
+            font-size: 0.85em;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
     </style>
 </head>
 <body>
-    <h1>Dati di Avvio Telegram</h1>
+    <div id="formContainer" style="display: none;"> <!-- Nascosto finché i dati non sono pronti -->
+        <h2>Form Correzione</h2>
 
-    <p><strong>Parametro <code>start_param</code> (da initDataUnsafe):</strong></p>
-    <pre id="startParam"></pre>
+        <div class="info-summary">
+            <p>
+                <span class="info-label">Dipendente:</span>
+                <strong id="summaryEmployeeName" class="info-value">N/D</strong>
+            </p>
+            <div class="problem-details-container">
+                <span class="info-label">Problema:</span>
+                <div id="summaryProblemFullDescription" class="info-value problem-value-multiline">
+                    <span id="problemType">N/D</span>
+                    <span id="problemTime">N/D</span>
+                    <span id="problemDateText">N/D</span>
+                </div>
+            </div>
+        </div>
 
-    <p><strong>Parametro <code>tgWebAppStartParam</code> (da URL search):</strong></p>
-    <pre id="tgWebAppStartParam"></pre>
+        <form id="correctionForm">
+            <!-- Campi Nascosti per passare dati originali e note -->
+            <input type="hidden" id="problemIdInput" name="problemId">
+            <input type="hidden" id="originalEmployeeNameInput" name="originalEmployeeName">
+            <input type="hidden" id="originalProblemDateISOInput" name="originalProblemDateISO">
+            <input type="hidden" id="originalSingleTimeInput" name="originalSingleTime">
+            <input type="hidden" id="notesHiddenInput" name="notes">
 
-    <p><strong><code>window.location.search</code>:</strong></p>
-    <pre id="locationSearch"></pre>
+            <!-- Sezione Correzione Data (nascosta di default) -->
+            <div class="field-group" id="dateCorrectionGroup" style="display:none;">
+                <label for="correctedDate">Data Corretta (lascia vuoto per deduzione):</label>
+                <input type="date" id="correctedDate" name="correctedDate">
+                <p class="date-info-text">La data verrà dedotta automaticamente se possibile.</p>
+            </div>
 
-    <p><strong><code>Telegram.WebApp.initData</code> (grezzo):</strong></p>
-    <pre id="initDataRaw"></pre>
+            <!-- Sezione per Problemi di Orario Singolo (nascosta di default) -->
+            <div class="field-group" id="singleTimeCorrectionSection" style="display:none;">
+                <label for="singleCorrectionAction">Aggiungi uscita o ingresso mancante:</label>
+                <select id="singleCorrectionAction" name="singleCorrectionAction">
+                    <option value="">-- Seleziona un'azione --</option>
+                    <option value="isEntry_addExit">Uscita Mancante</option>
+                    <option value="isExit_addEntry">Entrata Mancante</option>
+                </select>
+            </div>
 
-    <p><strong><code>Telegram.WebApp.initDataUnsafe</code> (JSON):</strong></p>
-    <pre id="initDataUnsafe"></pre>
+            <!-- Campo Orario Mancante (nascosto di default) -->
+            <div class="field-group" id="missingTimeFieldGroup" style="display:none;">
+                <div style="display: flex; align-items: center;">
+                    <div style="flex-grow: 1;">
+                        <label for="missingTimeValue" id="missingTimeLabel">Orario Mancante (HH:MM):</label>
+                        <input type="time" id="missingTimeValue" name="missingTimeValue">
+                        <div id="missingTimeError" class="error-message" style="display:none;"></div>
+                    </div>
+                    <span id="missingTimeDateContext"></span>
+                </div>
+            </div>
+
+            <!-- Sezione Note -->
+            <div class="field-group">
+                <button type="button" id="addNotesButton">Aggiungi Note (opzionale)</button>
+                <div id="currentNotesDisplay" class="empty">Nessuna nota.</div>
+            </div>
+
+            <!-- Pulsante di Invio -->
+            <div class="field-group" style="margin-top: 30px;">
+                <button type="button" id="submitHtmlButton">Invia Correzione</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modale per le Note -->
+    <div id="notesModalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <label for="notesTextareaModal">Inserisci le tue note:</label>
+            <textarea id="notesTextareaModal" name="notesTextareaModal" rows="4"></textarea>
+            <div class="modal-buttons">
+                <button type="button" id="cancelNotesButton" class="modal-button secondary">Annulla</button>
+                <button type="button" id="saveNotesButton" class="modal-button">Salva Note</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messaggio di Caricamento/Errore Iniziale -->
+    <div id="loadingMessage">Caricamento dati...</div>
+    <div id="errorMessage" style="display:none;"></div>
+
+    <!-- Sezione Debug (verrà popolata da JavaScript) -->
+    <div id="debugSection" style="display: none;"> <!-- Nascosta di default, mostrala se in modalità debug -->
+        <!-- Il contenuto verrà aggiunto da JS -->
+    </div>
 
     <script>
-        const tg = window.Telegram.WebApp;
+        // Inizio Blocco JavaScript (ex clientLogic.js)
+        document.addEventListener('DOMContentLoaded', function () {
+            const tg = window.Telegram.WebApp;
+            const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2qm7YA_UPHA1TAz2UYRLEzL5uukraSYQXYaC5t8dxHVydezV3pvi-xawyf9qHr4lg/exec'; // URL GAS
 
-        tg.ready(); // Annuncia che l'app è pronta
+            // Elementi dell'UI
+            const formContainer = document.getElementById('formContainer');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const errorMessageDiv = document.getElementById('errorMessage');
+            const correctionForm = document.getElementById('correctionForm');
 
-        // Prova a leggere da initDataUnsafe.start_param
-        document.getElementById('startParam').textContent =
-            (tg.initDataUnsafe && tg.initDataUnsafe.start_param) ? tg.initDataUnsafe.start_param : "Non presente in initDataUnsafe";
+            const summaryEmployeeName = document.getElementById('summaryEmployeeName');
+            const summaryProblemType = document.getElementById('problemType');
+            const summaryProblemTime = document.getElementById('problemTime');
+            const summaryProblemDateText = document.getElementById('problemDateText');
 
-        // Prova a leggere tgWebAppStartParam dall'URL
-        let paramFromUrl = "Non trovato nell'URL";
-        try {
-            const urlParams = new URLSearchParams(window.location.search);
-            const val = urlParams.get('tgWebAppStartParam');
-            if (val) {
-                paramFromUrl = val;
+            const problemIdInput = document.getElementById('problemIdInput');
+            const originalEmployeeNameInput = document.getElementById('originalEmployeeNameInput');
+            const originalProblemDateISOInput = document.getElementById('originalProblemDateISOInput');
+            const originalSingleTimeInput = document.getElementById('originalSingleTimeInput');
+            const notesHiddenInput = document.getElementById('notesHiddenInput');
+
+            const correctedDateInput = document.getElementById('correctedDate');
+            const singleCorrectionActionSelect = document.getElementById('singleCorrectionAction');
+            const missingTimeValueInput = document.getElementById('missingTimeValue');
+            const missingTimeLabel = document.getElementById('missingTimeLabel');
+            const missingTimeDateContext = document.getElementById('missingTimeDateContext');
+            const missingTimeError = document.getElementById('missingTimeError');
+
+            const dateCorrectionGroup = document.getElementById('dateCorrectionGroup');
+            const singleTimeCorrectionSection = document.getElementById('singleTimeCorrectionSection');
+            const missingTimeFieldGroup = document.getElementById('missingTimeFieldGroup');
+
+            const addNotesButton = document.getElementById('addNotesButton');
+            const currentNotesDisplay = document.getElementById('currentNotesDisplay');
+            const notesModalOverlay = document.getElementById('notesModalOverlay');
+            const notesTextareaModal = document.getElementById('notesTextareaModal');
+            const saveNotesButton = document.getElementById('saveNotesButton');
+            const cancelNotesButton = document.getElementById('cancelNotesButton');
+
+            const submitHtmlButton = document.getElementById('submitHtmlButton');
+            const debugSection = document.getElementById('debugSection');
+
+            let initialStartParamData = null;
+            let isDebugMode = false; // Puoi impostarlo a true per mostrare sempre il debug
+
+            // --- 1. Inizializzazione e Lettura Parametri ---
+            try {
+                tg.ready();
+                tg.expand();
+                applyThemeVariables(); // Applica variabili per alpha colori
+            } catch (sdkError) {
+                console.error("Errore SDK Telegram:", sdkError);
+                showFatalError("Impossibile inizializzare l'app Telegram.");
+                return; // Interrompe l'esecuzione se l'SDK non è disponibile
             }
-        } catch(e) {
-            paramFromUrl = "Errore lettura URL: " + e.message;
-        }
-        document.getElementById('tgWebAppStartParam').textContent = paramFromUrl;
+            
+            function applyThemeVariables() {
+                // Prova a derivare versioni alpha dei colori di Telegram
+                // Questo è un workaround perché non ci sono variabili CSS dirette per l'alpha
+                const rootStyle = document.documentElement.style;
+                const buttonColor = tg.themeParams.button_color || '#2481CC'; // Colore di default
+                const destructiveColor = tg.themeParams.destructive_text_color || '#ff4d4d';
 
-        document.getElementById('locationSearch').textContent = window.location.search || "Vuoto";
-        document.getElementById('initDataRaw').textContent = tg.initData || "Non presente";
-        document.getElementById('initDataUnsafe').textContent = JSON.stringify(tg.initDataUnsafe, null, 2) || "Non presente";
+                rootStyle.setProperty('--tg-theme-button-color-alpha', hexToRgba(buttonColor, 0.25));
+                rootStyle.setProperty('--tg-theme-destructive-text-color-alpha', hexToRgba(destructiveColor, 0.25));
+            }
 
+            function hexToRgba(hex, alpha) {
+                hex = hex.replace('#', '');
+                const r = parseInt(hex.substring(0, 2), 16);
+                const g = parseInt(hex.substring(2, 4), 16);
+                const b = parseInt(hex.substring(4, 6), 16);
+                return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            }
+
+
+            function showFatalError(message) {
+                loadingMessage.style.display = 'none';
+                formContainer.style.display = 'none';
+                errorMessageDiv.textContent = message;
+                errorMessageDiv.style.display = 'block';
+                debugSection.style.display = 'block'; // Mostra debug in caso di errore fatale
+            }
+
+
+            function base64UrlDecode(str) {
+                if (!str) return null;
+                try {
+                    let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+                    while (base64.length % 4) {
+                        base64 += '=';
+                    }
+                    //  return decodeURIComponent(atob(base64)); // Semplice atob se il JSON non ha caratteri speciali che necessitano URI decoding
+                    // Versione più robusta che gestisce caratteri UTF-8 dopo atob
+                    return decodeURIComponent(atob(base64).split('').map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join(''));
+                } catch (e) {
+                    console.error("Errore nella decodifica base64url:", e, "Stringa:", str);
+                    return null; // Restituisce null se la decodifica fallisce
+                }
+            }
+
+
+            function parseStartParam(startParamString) {
+                if (!startParamString || startParamString === "Nessuno" || startParamString.trim() === "") {
+                    console.warn("startParamString è vuoto o 'Nessuno'");
+                    return { error: "Parametro di avvio mancante o vuoto." };
+                }
+                // Ipotizziamo che startParamString sia base64url di un JSON
+                const decodedJsonString = base64UrlDecode(startParamString);
+                if (!decodedJsonString) {
+                     return { error: "Decodifica del parametro di avvio fallita.", rawValue: startParamString };
+                }
+                try {
+                    return JSON.parse(decodedJsonString);
+                } catch (e) {
+                    console.error("Errore nel parsing del JSON decodificato:", e, "JSON Decodificato:", decodedJsonString);
+                    return { error: "Formato dati del parametro di avvio non valido.", rawValue: startParamString, decodedValue: decodedJsonString };
+                }
+            }
+
+            function populateUI(data) {
+                if (!data || data.error) {
+                    const errorMsg = `Errore nel caricare i dati iniziali: ${data ? (data.error + (data.rawValue ? ` (Valore grezzo: ${data.rawValue})` : (data.decodedValue ? ` (Valore decodificato: ${data.decodedValue})` : ''))) : 'Nessun dato o formato sconosciuto.'}`;
+                    showFatalError(errorMsg);
+                    tg.showAlert(errorMsg);
+                    return;
+                }
+
+                initialStartParamData = data;
+
+                summaryEmployeeName.textContent = data.employeeName || 'N/D';
+                summaryProblemType.textContent = data.problemDescription || 'N/D';
+                summaryProblemTime.textContent = data.problemTime || ''; // Potrebbe essere vuoto
+                summaryProblemDateText.textContent = data.problemDate || ''; // Potrebbe essere vuoto
+
+                problemIdInput.value = data.problemId || '';
+                originalEmployeeNameInput.value = data.employeeName || '';
+                originalProblemDateISOInput.value = data.problemDateISO || '';
+                originalSingleTimeInput.value = data.originalSingleTime || '';
+
+                // Logica condizionale per mostrare/nascondere sezioni
+                dateCorrectionGroup.style.display = 'none';
+                singleTimeCorrectionSection.style.display = 'none';
+                missingTimeFieldGroup.style.display = 'none';
+
+                if (data.problemType === 'SINGLE_MISSING_ENTRY' || data.problemType === 'SINGLE_MISSING_EXIT') {
+                    singleTimeCorrectionSection.style.display = 'block';
+                    missingTimeFieldGroup.style.display = 'block';
+                    if (data.problemType === 'SINGLE_MISSING_ENTRY') {
+                        singleCorrectionActionSelect.value = 'isExit_addEntry';
+                        missingTimeLabel.textContent = "Orario Entrata Mancante (HH:MM):";
+                    } else {
+                        singleCorrectionActionSelect.value = 'isEntry_addExit';
+                        missingTimeLabel.textContent = "Orario Uscita Mancante (HH:MM):";
+                    }
+                    missingTimeDateContext.textContent = `per il giorno ${data.problemDateFormatted || data.problemDateISO || 'N/A'}`;
+                } else if (data.problemType === 'DATE_CORRECTION_NEEDED') {
+                    dateCorrectionGroup.style.display = 'block';
+                }
+                // Altre condizioni se necessario
+
+                loadingMessage.style.display = 'none';
+                errorMessageDiv.style.display = 'none';
+                formContainer.style.display = 'block';
+            }
+
+            let startParamValue = "Nessuno";
+            if (tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
+                startParamValue = tg.initDataUnsafe.start_param;
+            } else {
+                try {
+                    const currentUrlParams = new URLSearchParams(window.location.search);
+                    const tgWebAppStartParamFromUrl = currentUrlParams.get('tgWebAppStartParam');
+                    if (tgWebAppStartParamFromUrl) {
+                        startParamValue = tgWebAppStartParamFromUrl;
+                    }
+                } catch (e) {
+                    console.warn("Errore nel leggere tgWebAppStartParam dall'URL:", e);
+                }
+            }
+            
+            // Verifica se startParamValue è per il debug
+            if (startParamValue && startParamValue.toLowerCase() === 'debug') {
+                isDebugMode = true;
+                // Simula dati per il debug se necessario, o semplicemente mostra la sezione debug
+                const debugData = {
+                    problemId: "DEBUG_ID",
+                    employeeName: "Debug User",
+                    problemDescription: "Test Problema",
+                    problemTime: "alle 10:00",
+                    problemDate: "del Giorno Debug",
+                    problemDateISO: new Date().toISOString().split('T')[0],
+                    originalSingleTime: "10:00",
+                    problemType: "SINGLE_MISSING_EXIT",
+                    problemDateFormatted: "Oggi (Debug)"
+                };
+                populateUI(debugData);
+            } else {
+                 const parsedData = parseStartParam(startParamValue);
+                 populateUI(parsedData);
+            }
+
+
+            // --- 2. Gestione Modale Note ---
+            addNotesButton.addEventListener('click', function() {
+                notesTextareaModal.value = notesHiddenInput.value;
+                notesModalOverlay.style.display = 'flex';
+                notesTextareaModal.focus();
+            });
+            cancelNotesButton.addEventListener('click', function() {
+                notesModalOverlay.style.display = 'none';
+            });
+            saveNotesButton.addEventListener('click', function() {
+                const notes = notesTextareaModal.value.trim();
+                notesHiddenInput.value = notes;
+                currentNotesDisplay.textContent = notes || "Nessuna nota.";
+                currentNotesDisplay.classList.toggle('empty', !notes);
+                notesModalOverlay.style.display = 'none';
+            });
+
+            // --- 3. Validazione Form ---
+            function validateForm() {
+                let isValid = true;
+                missingTimeError.style.display = 'none';
+                missingTimeValueInput.classList.remove('input-error');
+
+                if (missingTimeFieldGroup.style.display !== 'none' && singleCorrectionActionSelect.value !== '') {
+                    if (!missingTimeValueInput.value) {
+                        missingTimeError.textContent = "L'orario è obbligatorio.";
+                        missingTimeError.style.display = 'block';
+                        missingTimeValueInput.classList.add('input-error');
+                        isValid = false;
+                    } else if (!/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(missingTimeValueInput.value)) {
+                         missingTimeError.textContent = "Formato orario non valido (HH:MM).";
+                         missingTimeError.style.display = 'block';
+                         missingTimeValueInput.classList.add('input-error');
+                         isValid = false;
+                    }
+                }
+                return isValid;
+            }
+
+            // --- 4. Gestione Invio Form ---
+            submitHtmlButton.addEventListener('click', function() {
+                if (!validateForm()) {
+                    tg.showAlert("Per favore, correggi gli errori nel form.", function() {
+                        const firstErrorInput = correctionForm.querySelector('.input-error');
+                        if (firstErrorInput) firstErrorInput.focus();
+                    });
+                    return;
+                }
+
+                tg.showConfirm("Confermi l'invio della correzione?", function(isConfirmed) {
+                    if (isConfirmed) {
+                        submitHtmlButton.disabled = true;
+                        submitHtmlButton.textContent = "Invio in corso...";
+                        if(tg.MainButton.isVisible) tg.MainButton.showProgress();
+
+                        const dataToSend = {
+                            problemId: problemIdInput.value,
+                            originalEmployeeName: originalEmployeeNameInput.value,
+                            originalProblemDateISO: originalProblemDateISOInput.value,
+                            originalSingleTime: originalSingleTimeInput.value,
+                            correctedDate: correctedDateInput.value,
+                            singleCorrectionAction: singleCorrectionActionSelect.value,
+                            missingTimeValue: missingTimeValueInput.value,
+                            notes: notesHiddenInput.value,
+                            initDataRaw: tg.initData || "", // Invia stringa vuota se non presente
+                            startParamReceived: startParamValue // Invia anche lo start_param grezzo ricevuto
+                        };
+
+                        fetch(GAS_WEB_APP_URL, {
+                            method: 'POST',
+                            mode: 'cors',
+                            cache: 'no-cache',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ payload: dataToSend })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.json().then(errData => {
+                                    throw new Error(errData.message || `Errore HTTP ${response.status}`);
+                                }).catch(() => { throw new Error(`Errore HTTP ${response.status} - ${response.statusText}`); });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.status === "successo") {
+                                tg.showAlert("Correzione inviata con successo!", function() { tg.close(); });
+                            } else {
+                                tg.showAlert(`Errore dall'applicazione: ${data.message || 'Sconosciuto.'}`);
+                                submitHtmlButton.disabled = false;
+                                submitHtmlButton.textContent = "Invia Correzione";
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Errore fetch a GAS:', error);
+                            tg.showAlert(`Errore di comunicazione: ${error.message}. Riprova.`);
+                            submitHtmlButton.disabled = false;
+                            submitHtmlButton.textContent = "Invia Correzione";
+                        })
+                        .finally(() => {
+                            if(tg.MainButton.isVisible) tg.MainButton.hideProgress();
+                        });
+                    }
+                });
+            });
+
+            // --- Debug Visualizzazione Dati ---
+            if (isDebugMode || (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id === 824994510)) { // Mostra debug per utente specifico o se isDebugMode=true
+                 debugSection.style.display = 'block';
+            }
+
+            debugSection.innerHTML = `
+                <h3>Debug Dati Telegram Ricevuti:</h3>
+                <p><strong>Parametro Start (valore grezzo ricevuto):</strong></p><pre>${startParamValue === undefined ? "undefined" : (startParamValue === null ? "null" : startParamValue)}</pre>
+                <p><strong>Dati Parsati da Start Param (se JSON):</strong></p><pre>${initialStartParamData ? JSON.stringify(initialStartParamData, null, 2) : "N/D o errore parsing"}</pre>
+                <p><strong>initData (grezzo):</strong></p>
+                <pre>${tg.initData || "Non presente"}</pre>
+                <p><strong>initDataUnsafe (JSON):</strong></p>
+                <pre>${JSON.stringify(tg.initDataUnsafe, null, 2) || "Non presente"}</pre>
+                <p><strong>URL Search (window.location.search):</strong></p>
+                <pre>${window.location.search || "Vuoto"}</pre>
+            `;
+
+        }); // Fine DOMContentLoaded
     </script>
 </body>
 </html>
