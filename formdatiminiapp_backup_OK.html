@@ -125,7 +125,6 @@
     <div id="debugSection" style="display: none;"></div>
 
      <script>
-        <script>
         document.addEventListener('DOMContentLoaded', function () {
             const tg = window.Telegram.WebApp;
             const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2qm7YA_UPHA1TAz2UYRLEzL5uukraSYQXYaC5t8dxHVydezV3pvi-xawyf9qHr4lg/exec';
@@ -171,7 +170,7 @@
 
             let initialStartParamData = null;
             let currentUserDetails = { id: null, username: "", first_name: "", last_name: "" };
-            let isDebugMode = false; // Imposta a true per vedere sempre il debug
+            let isDebugMode = false;
             let startParamValueForDebug = "Nessuno (non letto)";
 
             function setThemeClass() { if (tg && tg.colorScheme) { document.documentElement.className = tg.colorScheme; } else { console.warn("setThemeClass: tg o tg.colorScheme non definiti.");} }
@@ -211,7 +210,7 @@
                 if (extraError) debugContent += `<p><strong>ERRORE AGGIUNTIVO:</strong></p><pre style="color:red;">${extraError}</pre>`;
                 debugSection.innerHTML = debugContent;
             }
-            
+
             function populateUI(data) {
                 console.log("populateUI - Dati Input (abbreviati):", JSON.stringify(data));
                 if (!data || data.error) {
@@ -269,12 +268,12 @@
                 dateCorrectionGroup.style.display = 'none';
                 singleTimeCorrectionSection.style.display = 'none';
                 missingTimeFieldGroup.style.display = 'none';
-                missingTimeDateContext.dataset.inferredMissingPairDate = ""; // Inizializza dataset
 
                 const isSingleTimestampProblem = data.pType && data.pType.toUpperCase() === 'SINGLE_TIMESTAMP';
                 if (isSingleTimestampProblem) {
                     singleTimeCorrectionSection.style.display = 'block';
-                    singleCorrectionActionSelect.value = ''; 
+                    // <!-- MODIFIED: Removed pre-selection logic for singleCorrectionActionSelect -->
+                    singleCorrectionActionSelect.value = ''; // Ensure it starts with the default placeholder
                     handleSingleCorrectionActionChange(); 
                 }
                 
@@ -288,185 +287,90 @@
 
             function isValidTimeFormat(timeString) { return timeString && /^([01]\d|2[0-3]):([0-5]\d)$/.test(timeString); }
             function formatDate_DDMMYYYY(dateStrYYYYMMDD) { if (!dateStrYYYYMMDD || typeof dateStrYYYYMMDD !== 'string') return ""; const parts = dateStrYYYYMMDD.split('-'); if (parts.length !== 3) return dateStrYYYYMMDD; return `${parts[2]}-${parts[1]}-${parts[0]}`; }
-            
-            function G_addDaysToISONoTime(isoDateStringYYYYMMDD, days) {
-                if (!isoDateStringYYYYMMDD) return "";
-                try {
-                    const [year, month, day] = isoDateStringYYYYMMDD.split('-').map(Number);
-                    const date = new Date(Date.UTC(year, month - 1, day)); 
-                    date.setUTCDate(date.getUTCDate() + days);
-                    return date.toISOString().split('T')[0];
-                } catch (e) {
-                    console.error("Errore in G_addDaysToISONoTime:", e, "Input:", isoDateStringYYYYMMDD);
-                    return isoDateStringYYYYMMDD; 
-                }
-            }
 
             function updateMissingTimeDateContext() {
                 if (!singleCorrectionActionSelect || !missingTimeDateContext || !missingTimeValueInput || !originalSingleTimeInput || !originalProblemDateISOInput) return;
-                
-                const action = singleCorrectionActionSelect.value;
-                missingTimeDateContext.textContent = "";
-                missingTimeDateContext.dataset.inferredMissingPairDate = ""; 
+                const action = singleCorrectionActionSelect.value; missingTimeDateContext.textContent = "";
+                const originalTime = originalSingleTimeInput.value; const missingTime = missingTimeValueInput.value;
+                const problemDateISO = originalProblemDateISOInput.value; if (!problemDateISO) return;
 
-                const originalTime = originalSingleTimeInput.value;
-                const missingTime = missingTimeValueInput.value;
-                const problemDateISO = originalProblemDateISOInput.value;
-
-                if (!problemDateISO || !action) return;
-
-                let inferredDateForMissingPair = problemDateISO; 
-
-                if (isValidTimeFormat(originalTime) && isValidTimeFormat(missingTime)) {
-                    const originalTimeMinutes = parseInt(originalTime.split(':')[0]) * 60 + parseInt(originalTime.split(':')[1]);
-                    const missingTimeMinutes = parseInt(missingTime.split(':')[0]) * 60 + parseInt(missingTime.split(':')[1]);
-
-                    if (action === "isEntry_addExit") { 
-                        if (missingTimeMinutes < originalTimeMinutes) { 
-                            inferredDateForMissingPair = G_addDaysToISONoTime(problemDateISO, 1);
-                        }
-                        missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(inferredDateForMissingPair)})`;
-                    } else if (action === "isExit_addEntry") { 
-                        if (missingTimeMinutes > originalTimeMinutes && originalTimeMinutes < (6 * 60) ) { // Se l'uscita originale è molto presto (es. 00:07) e l'entrata nuova è tarda (es. 16:00)
-                            inferredDateForMissingPair = G_addDaysToISONoTime(problemDateISO, -1);
-                        } else if (missingTimeMinutes > originalTimeMinutes && originalTimeMinutes > (6*60) ) {
-                            // Se l'uscita originale NON è presto (es. 17:00) e l'entrata nuova è ancora più tarda (es. 18:00), questo è un errore logico gestito da validateForm
-                            // Non cambiamo la data qui, lasciamo che la validazione dia errore.
-                            // In questo caso, l'entrata dovrebbe essere precedente nello stesso giorno o giorno prima.
-                        }
-                        // Se missingTimeMinutes <= originalTimeMinutes, è lo stesso giorno o giorno prima (se uscita orig. era dopo mezzanotte e entrata prima)
-                        // Il caso 16:00 (nuova entrata) vs 00:07 (uscita orig) deve risultare in giorno precedente.
-                        // Il caso 08:00 (nuova entrata) vs 17:00 (uscita orig) deve risultare stesso giorno.
-                        // La logica sopra con "originalTimeMinutes < (6*60)" tenta di coprire il "00:07".
-                        // Se l'originale è uscita (es. 00:07 del Giorno Y) e l'utente mette Entrata 16:00.
-                        // originalTimeMinutes = 7. missingTimeMinutes = 16*60 = 960.
-                        // missingTimeMinutes (960) > originalTimeMinutes (7) AND originalTimeMinutes (7) < 360 -> TRUE. Giorno Y-1.
-                         if (missingTimeMinutes > originalTimeMinutes && originalTimeMinutes >= (6 * 60) ) {
-                            // Questo scenario è un errore logico se originalTime è uscita.
-                            // es. Uscita originale 17:00. Nuova entrata 18:00 (dello stesso giorno).
-                            // Non si deve cambiare data, validateForm lo bloccherà.
-                         } else if (missingTimeMinutes <= originalTimeMinutes) {
-                            // es. Uscita originale 17:00. Nuova entrata 08:00. Stesso giorno.
-                         } else if (missingTimeMinutes > originalTimeMinutes && originalTimeMinutes < (6*60)){
-                            // Già coperto sopra, ma per chiarezza: Entrata (es. 16:00) > Uscita (es. 00:30) -> Entrata del giorno prima
-                            // già gestito dalla prima condizione interna a isExit_addEntry
-                         }
-
-
-                        missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(inferredDateForMissingPair)})`;
+                if (action === "isEntry_addExit" && isValidTimeFormat(originalTime) && isValidTimeFormat(missingTime)) {
+                    const entryMinutes = parseInt(originalTime.split(':')[0]) * 60 + parseInt(originalTime.split(':')[1]);
+                    const exitMinutes = parseInt(missingTime.split(':')[0]) * 60 + parseInt(missingTime.split(':')[1]);
+                    let exitDateToDisplay = problemDateISO;
+                    if (exitMinutes < entryMinutes) { 
+                        try { const d = new Date(problemDateISO + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + 1); exitDateToDisplay = d.toISOString().split('T')[0]; } 
+                        catch(e) { console.error("Errore calcolo data successiva:", e); }
                     }
-                } else if (action && isValidTimeFormat(missingTime)) {
-                     if (action === "isEntry_addExit") missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(problemDateISO)})`;
-                     if (action === "isExit_addEntry") missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(problemDateISO)})`;
+                    missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(exitDateToDisplay)})`;
+                } else if (action === "isExit_addEntry" && isValidTimeFormat(missingTime)) {
+                    missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(problemDateISO)})`;
                 }
-                
-                missingTimeDateContext.dataset.inferredMissingPairDate = inferredDateForMissingPair;
             }
 
             function handleSingleCorrectionActionChange() {
                 const action = singleCorrectionActionSelect.value;
                 if (!missingTimeLabel || !missingTimeFieldGroup || !missingTimeValueInput || !missingTimeError || !singleCorrectionActionSelect || !singleCorrectionActionError) return;
-                
-                missingTimeValueInput.value = ''; 
-                missingTimeValueInput.classList.remove('input-error'); 
-                missingTimeError.style.display = 'none'; 
-                missingTimeError.textContent = '';
-                singleCorrectionActionSelect.classList.remove('input-error'); 
-                singleCorrectionActionError.style.display = 'none';
-                
-                if (action === "isEntry_addExit") { 
-                    missingTimeLabel.textContent = "Orario Uscita Mancante (HH:MM):"; 
-                    missingTimeFieldGroup.style.display = 'block'; 
-                } else if (action === "isExit_addEntry") { 
-                    missingTimeLabel.textContent = "Orario Entrata Mancante (HH:MM):"; 
-                    missingTimeFieldGroup.style.display = 'block'; 
-                } else { 
-                    missingTimeFieldGroup.style.display = 'none'; 
-                }
-                updateMissingTimeDateContext(); 
+                missingTimeValueInput.value = ''; missingTimeValueInput.classList.remove('input-error'); missingTimeError.style.display = 'none'; missingTimeError.textContent = '';
+                singleCorrectionActionSelect.classList.remove('input-error'); singleCorrectionActionError.style.display = 'none';
+                if (action === "isEntry_addExit") { missingTimeLabel.textContent = "Orario Uscita Mancante (HH:MM):"; missingTimeFieldGroup.style.display = 'block'; } 
+                else if (action === "isExit_addEntry") { missingTimeLabel.textContent = "Orario Entrata Mancante (HH:MM):"; missingTimeFieldGroup.style.display = 'block'; } 
+                else { missingTimeFieldGroup.style.display = 'none'; }
+                updateMissingTimeDateContext();
                 updateMainButtonState(); 
             }
 
             function validateForm() {
                 let isValid = true;
-                if (missingTimeError) { missingTimeError.style.display = 'none'; missingTimeError.textContent = ''; }
-                if (missingTimeValueInput) missingTimeValueInput.classList.remove('input-error');
-                if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.remove('input-error'); 
-                if (singleCorrectionActionError) { singleCorrectionActionError.style.display = 'none'; singleCorrectionActionError.textContent = ''; }
+                if (missingTimeError) missingTimeError.style.display = 'none'; if (missingTimeValueInput) missingTimeValueInput.classList.remove('input-error');
+                if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.remove('input-error'); if (singleCorrectionActionError) singleCorrectionActionError.style.display = 'none';
                 
                 if (singleTimeCorrectionSection.style.display !== 'none') {
-                    const action = singleCorrectionActionSelect.value;
-                    const missingTimeStr = missingTimeValueInput.value;
-                    const originalTimeStr = originalSingleTimeInput.value;
-                    const originalDateISO = originalProblemDateISOInput.value;
-                    
-                    const inferredDateForMissingPairISO = missingTimeDateContext.dataset.inferredMissingPairDate || originalDateISO;
-
-                    if (action === '') { 
-                        if (singleCorrectionActionError) { singleCorrectionActionError.textContent = "Selezionare un'azione."; singleCorrectionActionError.style.display = 'block';} 
-                        if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.add('input-error'); 
-                        isValid = false; 
-                    } else { 
-                        if (!missingTimeStr) { 
-                            if (missingTimeError) { missingTimeError.textContent = "Orario obbligatorio."; missingTimeError.style.display = 'block'; } 
-                            if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); 
-                            isValid = false; 
-                        } else if (!isValidTimeFormat(missingTimeStr)) { 
-                            if (missingTimeError) { missingTimeError.textContent = "Formato HH:MM non valido."; missingTimeError.style.display = 'block'; } 
-                            if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); 
-                            isValid = false; 
-                        } else if (!isValidTimeFormat(originalTimeStr) || !originalDateISO) {
-                            console.warn("Dati originali (data/ora) non completi per validazione completa lato client.");
-                        } else {
-                            let originalDateTime, missingPairDateTime;
-                            let entryDateTime, exitDateTime;
-
-                            try {
-                                originalDateTime = new Date(`${originalDateISO}T${originalTimeStr}:00`);
-                                missingPairDateTime = new Date(`${inferredDateForMissingPairISO}T${missingTimeStr}:00`);
-
-                                if (action === "isEntry_addExit") { 
-                                    entryDateTime = originalDateTime;
-                                    exitDateTime = missingPairDateTime;
-                                    if (exitDateTime <= entryDateTime) {
-                                        if (missingTimeError) { missingTimeError.textContent = `L'uscita (${missingTimeStr} del ${formatDate_DDMMYYYY(inferredDateForMissingPairISO)}) deve essere successiva all'entrata (${originalTimeStr} del ${formatDate_DDMMYYYY(originalDateISO)}).`; missingTimeError.style.display = 'block'; }
-                                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                    const action = singleCorrectionActionSelect.value; const missingTime = missingTimeValueInput.value; const originalTime = originalSingleTimeInput.value;
+                    if (action === '') { if (singleCorrectionActionError) { singleCorrectionActionError.textContent = "Selezionare un'azione."; singleCorrectionActionError.style.display = 'block';} if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.add('input-error'); isValid = false; } 
+                    else { 
+                        if (!missingTime) { if (missingTimeError) { missingTimeError.textContent = "Orario obbligatorio."; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; } 
+                        else if (!isValidTimeFormat(missingTime)) { if (missingTimeError) { missingTimeError.textContent = "Formato HH:MM non valido."; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; } 
+                        else { 
+                            const newTimeMinutes = parseInt(missingTime.split(':')[0]) * 60 + parseInt(missingTime.split(':')[1]); let originalTimeMinutes = -1;
+                            if (isValidTimeFormat(originalTime)) originalTimeMinutes = parseInt(originalTime.split(':')[0]) * 60 + parseInt(originalTime.split(':')[1]);
+                            if (action === "isExit_addEntry") { 
+                                if (originalTimeMinutes !== -1 && newTimeMinutes >= originalTimeMinutes) { if (missingTimeError) { missingTimeError.textContent = `Entrata (${missingTime}) deve essere prima dell'uscita orig. (${originalTime}).`; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; }
+                            } else if (action === "isEntry_addExit") { 
+                                if (originalTimeMinutes !== -1 && newTimeMinutes === originalTimeMinutes ) { 
+                                   const exitDateContext = missingTimeDateContext.textContent || "";
+                                   const problemDateFormatted = formatDate_DDMMYYYY(originalProblemDateISOInput.value);
+                                   if (exitDateContext.includes(problemDateFormatted)) { 
+                                        if (missingTimeError) { missingTimeError.textContent = `Uscita (${missingTime}) non può essere uguale all'entrata (${originalTime}) nello stesso giorno.`; missingTimeError.style.display = 'block'; } 
+                                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); 
                                         isValid = false;
-                                    }
-                                } else if (action === "isExit_addEntry") { 
-                                    entryDateTime = missingPairDateTime;
-                                    exitDateTime = originalDateTime;
-                                    if (entryDateTime >= exitDateTime) {
-                                        if (missingTimeError) { missingTimeError.textContent = `L'entrata (${missingTimeStr} del ${formatDate_DDMMYYYY(inferredDateForMissingPairISO)}) deve essere precedente all'uscita (${originalTimeStr} del ${formatDate_DDMMYYYY(originalDateISO)}).`; missingTimeError.style.display = 'block'; }
-                                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
-                                        isValid = false;
-                                    }
+                                   }
                                 }
-                            } catch (e) {
-                                console.error("Errore nella creazione/comparazione date per validazione:", e);
-                                if (missingTimeError) { missingTimeError.textContent = "Errore interno nella validazione date."; missingTimeError.style.display = 'block'; }
-                                isValid = false;
                             }
                         }
                     }
                 }
                 return isValid;
             }
-            
+
+            // MODIFIED: Function to update MainButton state (show/hide)
             function updateMainButtonState() {
                 if (!tg || !tg.MainButton) return;
-                const formIsValid = validateForm(); 
-                if (formIsValid) {
+
+                const isValid = validateForm();
+                if (isValid) {
                     tg.MainButton.setParams({
                         is_active: true,
+                        has_shine_effect: true,
                         color: tg.themeParams.button_color || '#2481CC',
                         text_color: tg.themeParams.button_text_color || '#FFFFFF',
+                        // is_visible: true // Show implies visible
                     });
                     tg.MainButton.enable();
-                    tg.MainButton.show(); 
+                    tg.MainButton.show(); // MODIFIED: Show the button
                 } else {
-                    tg.MainButton.disable(); 
-                    tg.MainButton.hide();   
+                    tg.MainButton.hide(); // MODIFIED: Hide the button
+                    tg.MainButton.disable(); // Still good to disable it conceptually
                 }
             }
             
@@ -486,17 +390,15 @@
                         tg.MainButton.showProgress();
                         tg.MainButton.disable(); 
                         
-                        const inferredMissingPairDate = missingTimeDateContext.dataset.inferredMissingPairDate || originalProblemDateISOInput.value;
-                        
                         const dataToSend = {
                             problemContextId: problemContextIdInput.value,
                             originalEmployeeName: originalEmployeeNameInput.value,
                             originalProblemDateISO: originalProblemDateISOInput.value,
                             originalSingleTime: originalSingleTimeInput.value,
                             originalSingleBar: originalSingleBarInput.value,
+                            correctedDate: correctedDateInput.value,
                             singleCorrectionAction: singleCorrectionActionSelect.value,
                             missingTimeValue: missingTimeValueInput.value,
-                            correctedDate: singleTimeCorrectionSection.style.display !== 'none' ? inferredMissingPairDate : correctedDateInput.value,
                             notes: notesHiddenInput.value,
                             initDataRaw: tg.initData || "",
                             telegramUserId: currentUserDetails.id,
@@ -524,21 +426,22 @@
                                 tg.showAlert(data.message || "Correzione inviata!", function() { tg.close(); }); 
                             } else { 
                                 if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
-                                tg.MainButton.hideProgress(); 
-                                updateMainButtonState(); 
                                 tg.showAlert(`Errore App: ${data.message || 'Sconosciuto.'}`); 
                             }
                         })
                         .catch((error) => { 
                             if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
                             console.error('Errore Fetch GAS:', error); 
-                            tg.MainButton.hideProgress();
-                            updateMainButtonState();
                             tg.showAlert(`Errore Comunicazione: ${error.message}.`); 
+                        })
+                        .finally(() => { 
+                            tg.MainButton.hideProgress();
+                            updateMainButtonState(); 
                         });
                     }
                 });
             }
+
 
             function openNotesModal() { notesTextareaModal.value = notesHiddenInput.value; notesModalOverlay.style.display = 'flex'; notesTextareaModal.focus(); }
             function closeNotesModal() { notesModalOverlay.style.display = 'none'; }
@@ -566,10 +469,13 @@
 
                 if (tg.MainButton) {
                     tg.MainButton.setText("INVIA CORREZIONE");
+                    // Initial properties are set, but visibility is controlled by updateMainButtonState
                     tg.MainButton.onClick(handleFormSubmit);
+                    // Don't explicitly call tg.MainButton.show() here; updateMainButtonState will handle it.
                 } else {
                     console.warn("Telegram.WebApp.MainButton non disponibile.");
                 }
+
 
                 if (tg.BackButton) { tg.BackButton.show(); tg.BackButton.onClick(function() { tg.showConfirm("Chiudere senza salvare?", (ok) => { if(ok) tg.close(); }); }); }
                 
@@ -581,11 +487,7 @@
                 } else { console.warn("Dati utente (tg.initDataUnsafe.user) non trovati."); }
 
                 if(tg.initDataUnsafe && tg.initDataUnsafe.start_param){ startParamValueForDebug = tg.initDataUnsafe.start_param; } 
-                else { 
-                    const urlParams = new URLSearchParams(window.location.search); 
-                    const webAppStartParam = urlParams.get('tgWebAppStartParam'); 
-                    if(webAppStartParam) startParamValueForDebug = webAppStartParam; 
-                }
+                else { const urlParams = new URLSearchParams(window.location.search); const webAppStartParam = urlParams.get('tgWebAppStartParam'); if(webAppStartParam) startParamValueForDebug = webAppStartParam; }
                 
                 console.log("startParam letto:", startParamValueForDebug);
 
@@ -597,8 +499,7 @@
                     return;
                 }
                 
-                const DEBUG_USER_ID = 'IL_TUO_ID_TELEGRAM_PER_DEBUG'; // Sostituisci con un ID reale per testare
-                if (isDebugMode || (currentUserDetails.id && currentUserDetails.id === DEBUG_USER_ID)) { 
+                if (isDebugMode || (currentUserDetails.id && currentUserDetails.id === 'IL_TUO_ID_TELEGRAM_PER_DEBUG')) { 
                     if(debugSection) debugSection.style.display = 'block';
                 }
 
@@ -611,17 +512,18 @@
                 }
                 if (missingTimeValueInput) {
                     missingTimeValueInput.addEventListener('input', function() { 
-                        if(missingTimeError) { missingTimeError.style.display = 'none'; missingTimeError.textContent = ''; }
                         missingTimeValueInput.classList.remove('input-error'); 
+                        if(missingTimeError) missingTimeError.style.display = 'none'; 
                         updateMissingTimeDateContext(); 
                         updateMainButtonState(); 
                     });
                     missingTimeValueInput.addEventListener('blur', function() { 
+                        validateForm(); 
                         updateMainButtonState(); 
                     }); 
                 }
                 
-                updateMainButtonState(); 
+                updateMainButtonState(); // Initial call to set MainButton state (likely hide it)
 
                 console.log("Inizializzazione Mini App completata.");
 
