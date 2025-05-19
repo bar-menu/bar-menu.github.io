@@ -135,16 +135,25 @@
             margin: 5px 0 10px 0;
             font-size: 1em;
             display: flex;
-            align-items: flex-start;
+            align-items: flex-start; /* Allinea l'etichetta in alto con il blocco di testo */
         }
+        /* Stili per il blocco descrizione problema */
         .problem-value-multiline #problemType,
         .problem-value-multiline #problemTime,
         .problem-value-multiline #problemDateText {
-            display: block;
+            display: block; /* Ogni elemento su una nuova riga */
+            line-height: 1.4; /* Spaziatura tra le righe del problema */
+        }
+        .problem-value-multiline #problemType {
+            /* Stile per la descrizione principale, se necessario */
         }
         .problem-value-multiline #problemTime {
-            font-weight: normal;
+            font-weight: normal; /* Orario e bar potrebbero non necessitare bold se la data è bold */
         }
+        .problem-value-multiline #problemDateText {
+            font-weight: 600; /* Data in grassetto */
+        }
+
         .field-group {
             margin-bottom: 20px;
         }
@@ -282,11 +291,6 @@
             font-style: italic;
             color: var(--tg-theme-hint-color);
         }
-        #debugSection { /* Mantenuto nel CSS ma il div è rimosso dall'HTML visibile */
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--tg-theme-hint-color);
-        }
     </style>
 </head>
 <body>
@@ -313,6 +317,7 @@
             <input type="hidden" id="originalEmployeeNameInput" name="originalEmployeeName">
             <input type="hidden" id="originalProblemDateISOInput" name="originalProblemDateISO">
             <input type="hidden" id="originalSingleTimeInput" name="originalSingleTime">
+            <input type="hidden" id="originalSingleBarInput" name="originalSingleBar"> <!-- Aggiunto -->
             <input type="hidden" id="notesHiddenInput" name="notes">
             <input type="hidden" id="problemContextIdInput" name="problemContextId">
             <input type="hidden" id="correctorUserNameInput" name="correctorUserName">
@@ -371,9 +376,6 @@
     <div id="loadingMessage">Caricamento dati...</div>
     <div id="errorMessage" style="display:none;"></div>
 
-    <!-- La sezione Debug è stata rimossa dalla visualizzazione, ma il div #debugSection è ancora definito nel CSS
-         se si volesse riattivarlo programmaticamente per utenti specifici, ma per ora non viene creato. -->
-
      <script>
         document.addEventListener('DOMContentLoaded', function () {
             const tg = window.Telegram.WebApp;
@@ -384,15 +386,19 @@
             const loadingMessage = document.getElementById('loadingMessage');
             const errorMessageDiv = document.getElementById('errorMessage');
             const correctionForm = document.getElementById('correctionForm');
+
             const summaryEmployeeName = document.getElementById('summaryEmployeeName');
-            const summaryProblemType = document.getElementById('problemType');
-            const summaryProblemTime = document.getElementById('problemTime');
-            const summaryProblemDateText = document.getElementById('problemDateText');
+            // Elementi span specifici per i dettagli del problema
+            const problemTypeSpan = document.getElementById('problemType');
+            const problemTimeSpan = document.getElementById('problemTime');
+            const problemDateTextSpan = document.getElementById('problemDateText');
+
             const problemIdInput = document.getElementById('problemIdInput');
             const problemContextIdInput = document.getElementById('problemContextIdInput');
             const originalEmployeeNameInput = document.getElementById('originalEmployeeNameInput');
             const originalProblemDateISOInput = document.getElementById('originalProblemDateISOInput');
             const originalSingleTimeInput = document.getElementById('originalSingleTimeInput');
+            const originalSingleBarInput = document.getElementById('originalSingleBarInput'); // Input per il bar
             const notesHiddenInput = document.getElementById('notesHiddenInput');
             const correctorUserNameInput = document.getElementById('correctorUserNameInput');
             const correctorUserFirstNameInput = document.getElementById('correctorUserFirstNameInput');
@@ -484,17 +490,62 @@
                 console.log("Dati iniziali per UI:", initialStartParamData);
 
                 summaryEmployeeName.textContent = data.employeeName || 'N/D';
-                summaryProblemType.textContent = data.problemDescription || 'N/D';
-                summaryProblemTime.textContent = data.problemTime || '';
-                summaryProblemDateText.textContent = data.problemDate || '';
+
+                // -------- NUOVA LOGICA PER VISUALIZZAZIONE DETTAGLIO PROBLEMA --------
+                let mainProblemDescription = data.problemDescription || 'N/D';
+                let timeAndBarDisplay = '';
+                let dateDisplay = '';
+
+                // Pulisci la descrizione principale se è una timbratura singola e contiene già l'ora
+                if ((data.problemType === 'SINGLE_MISSING_ENTRY' || data.problemType === 'SINGLE_MISSING_EXIT' || (data.problemTypeForForm && data.problemTypeForForm === 'SINGLE_TIMESTAMP')) && data.originalSingleTime) {
+                    // Rimuove "(HH:MM)" o "(HH:MM)." dalla descrizione per evitare duplicati
+                    const timePattern = new RegExp(`\\s*\\(${data.originalSingleTime.replace(':', '\\:')}\\)\\.?`, 'g');
+                    mainProblemDescription = mainProblemDescription.replace(timePattern, '').trim();
+                    // Assicurati che termini con un punto se non lo fa già
+                    if (mainProblemDescription && !mainProblemDescription.endsWith('.') && !mainProblemDescription.endsWith('!')) {
+                        mainProblemDescription += '.';
+                    }
+                }
+                problemTypeSpan.textContent = mainProblemDescription;
+
+
+                // Orario e Bar (se timbratura singola)
+                if (data.originalSingleTime) {
+                    timeAndBarDisplay = data.originalSingleTime;
+                    if (data.originalSingleBar && data.originalSingleBar !== "N/D") {
+                        timeAndBarDisplay += ` (Bar ${data.originalSingleBar})`;
+                    }
+                }
+                problemTimeSpan.textContent = timeAndBarDisplay;
+
+                // Formattazione Data (da YYYY-MM-DD a GG-MM-AAAA)
+                if (data.problemDateISO) {
+                    try {
+                        const dateParts = data.problemDateISO.split('-'); // YYYY, MM, DD
+                        if (dateParts.length === 3) {
+                            dateDisplay = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`; // GG-MM-AAAA
+                        } else {
+                            dateDisplay = data.problemDateISO; // Fallback
+                        }
+                    } catch (e) {
+                        dateDisplay = data.problemDateISO; // Fallback in caso di errore
+                        console.error("Errore formattazione data per UI:", e);
+                    }
+                } else {
+                    dateDisplay = data.problemDate || 'N/D'; // Fallback se problemDateISO non c'è
+                }
+                problemDateTextSpan.textContent = dateDisplay;
+                // -------- FINE NUOVA LOGICA --------
+
 
                 problemIdInput.value = data.problemId || '';
-                problemContextIdInput.value = data.problemContextId || ''; // Assicurati che questo venga passato
+                problemContextIdInput.value = data.problemContextId || '';
                 originalEmployeeNameInput.value = data.employeeName || '';
                 originalProblemDateISOInput.value = data.problemDateISO || '';
                 originalSingleTimeInput.value = data.originalSingleTime || '';
+                originalSingleBarInput.value = data.originalSingleBar || ''; // Popola l'input nascosto del bar
 
-                // Popola i campi nascosti per i dettagli dell'utente correttore
+
                 correctorUserNameInput.value = currentUserDetails.username || '';
                 correctorUserFirstNameInput.value = currentUserDetails.first_name || '';
                 correctorUserLastNameInput.value = currentUserDetails.last_name || '';
@@ -509,7 +560,7 @@
                     missingTimeFieldGroup.style.display = 'block';
                     singleCorrectionActionSelect.value = (data.problemType === 'SINGLE_MISSING_ENTRY') ? 'isExit_addEntry' : 'isEntry_addExit';
                     missingTimeLabel.textContent = (data.problemType === 'SINGLE_MISSING_ENTRY') ? "Orario Entrata Mancante (HH:MM):" : "Orario Uscita Mancante (HH:MM):";
-                    missingTimeDateContext.textContent = `per il giorno ${data.problemDateFormatted || data.problemDateISO || 'N/A'}`;
+                    missingTimeDateContext.textContent = `per il giorno ${data.problemDateFormatted || dateDisplay || data.problemDateISO || 'N/A'}`;
                 } else if (data.problemType === 'DATE_CORRECTION_NEEDED') {
                     dateCorrectionGroup.style.display = 'block';
                 }
@@ -576,21 +627,21 @@
                     if (isConfirmed) {
                         submitHtmlButton.disabled = true;
                         submitHtmlButton.textContent = "Invio in corso...";
-                        if(tg.MainButton.isVisible) tg.MainButton.showProgress();
+                        if(tg.MainButton.isVisible && typeof tg.MainButton.showProgress === 'function') tg.MainButton.showProgress(); // Per potenziale uso futuro del MainButton
 
                         const dataToSend = {
                             problemId: problemIdInput.value,
-                            problemContextId: problemContextIdInput.value, // Inviato per modificare il messaggio
+                            problemContextId: problemContextIdInput.value,
                             originalEmployeeName: originalEmployeeNameInput.value,
                             originalProblemDateISO: originalProblemDateISOInput.value,
                             originalSingleTime: originalSingleTimeInput.value,
+                            originalSingleBar: originalSingleBarInput.value, // Invia il bar
                             correctedDate: correctedDateInput.value,
                             singleCorrectionAction: singleCorrectionActionSelect.value,
                             missingTimeValue: missingTimeValueInput.value,
                             notes: notesHiddenInput.value,
                             initDataRaw: tg.initData || "",
                             telegramUserId: currentTelegramUserId,
-                            // Dettagli dell'utente che corregge, per il messaggio di notifica
                             correctorUserInfo: {
                                 id: currentTelegramUserId,
                                 username: correctorUserNameInput.value,
@@ -598,7 +649,6 @@
                                 last_name: correctorUserLastNameInput.value
                             },
                             clientTimestamp: new Date().toISOString()
-                            // startParamReceived non è più necessario per il server se non per debug specifico
                         };
 
                         console.log("Dati inviati al server:", JSON.stringify(dataToSend, null, 2));
@@ -626,21 +676,20 @@
                         .then(data => {
                             console.log('Successo da GAS:', data);
                             if (data.status === "successo") {
-                                submitHtmlButton.textContent = "Modulo Inviato"; // Testo cambiato
-                                // Il pulsante rimane disabilitato
+                                submitHtmlButton.textContent = "Modulo Inviato";
                                 tg.showAlert(data.message || "Correzione inviata con successo!", function() {
-                                    tg.close(); // Chiude la Mini App dopo che l'utente chiude l'alert
+                                    tg.close();
                                 });
                             } else {
                                 tg.showAlert(`Errore dall'applicazione: ${data.message || 'Sconosciuto.'}`);
-                                submitHtmlButton.disabled = false; // Riabilita solo in caso di errore applicativo
+                                submitHtmlButton.disabled = false;
                                 submitHtmlButton.textContent = "Invia Correzione";
                             }
                         })
                         .catch((error) => {
                             console.error('ERRORE DETTAGLIATO nel fetch a GAS:', error);
                             tg.showAlert(`Errore di comunicazione: ${error.message}. Controlla console.`);
-                            submitHtmlButton.disabled = false; // Riabilita in caso di errore di rete/fetch
+                            submitHtmlButton.disabled = false;
                             submitHtmlButton.textContent = "Invia Correzione";
                         })
                         .finally(() => {
@@ -654,13 +703,13 @@
 
             // Inizializzazione
             try {
-                tg.ready(); // Annuncia che la Web App è pronta
-                applyThemeVariables(); // Applica stili basati sul tema Telegram
-                tg.expand(); // Espande la Web App a tutta altezza
+                tg.ready();
+                applyThemeVariables();
+                tg.expand();
 
                 if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
                      currentTelegramUserId = String(tg.initDataUnsafe.user.id);
-                     currentUserDetails = { // Salva i dettagli dell'utente
+                     currentUserDetails = {
                         username: tg.initDataUnsafe.user.username || "",
                         first_name: tg.initDataUnsafe.user.first_name || "",
                         last_name: tg.initDataUnsafe.user.last_name || ""
@@ -682,14 +731,6 @@
                 }
                 console.log("startParamValue letto:", startParamValue);
                 
-                // Logica per il debug mode se `startapp=debug` (mantenuta per test futuri se necessario)
-                // if (startParamValue && startParamValue.toLowerCase() === 'debug') {
-                //     const debugData = { /* ... dati di debug ... */ };
-                //     populateUI(debugData);
-                // } else {
-                //      const parsedData = parseStartParam(startParamValue);
-                //      populateUI(parsedData);
-                // }
                 const parsedData = parseStartParam(startParamValue);
                 populateUI(parsedData);
     
