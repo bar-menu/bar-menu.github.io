@@ -29,7 +29,7 @@
         .info-summary .problem-details-container { margin: 5px 0 10px 0; font-size: 1em; display: flex; align-items: flex-start; }
         .problem-value-multiline #problemType, .problem-value-multiline #problemTime, .problem-value-multiline #problemDateText { display: block; line-height: 1.4;}
         .problem-value-multiline #problemTime { font-weight: normal; }
-        .problem-value-multiline #problemDateText { font-weight: 600; } /* Data in grassetto come da tua richiesta originale */
+        .problem-value-multiline #problemDateText { font-weight: 600; } 
         .field-group { margin-bottom: 20px; }
         .date-info-text { font-size: 0.8em; color: var(--tg-theme-hint-color); margin-top: 4px; font-style: italic; }
         #missingTimeDateContext { font-size: 0.85em; color: var(--tg-theme-hint-color); margin-left: 8px; font-style: italic; min-height: 1.2em;}
@@ -71,21 +71,22 @@
             </div>
         </div>
         <form id="correctionForm">
-            <input type="hidden" id="problemIdInput" name="problemId">
+            <!-- Questi campi hidden saranno popolati da populateUI e i loro valori 
+                 inviati al GAS con i nomi attributo 'name' specificati -->
+            <input type="hidden" id="problemContextIdInput" name="problemContextId"> <!-- Sarà popolato con data.ctxId -->
             <input type="hidden" id="originalEmployeeNameInput" name="originalEmployeeName">
             <input type="hidden" id="originalProblemDateISOInput" name="originalProblemDateISO">
             <input type="hidden" id="originalSingleTimeInput" name="originalSingleTime">
-            <!-- Aggiunto input per originalSingleBar se vuoi inviarlo indietro al server -->
             <input type="hidden" id="originalSingleBarInput" name="originalSingleBar">
+
+            <!-- Non è più necessario problemIdInput se problemContextIdInput fa lo stesso lavoro -->
+            <!-- <input type="hidden" id="problemIdInput" name="problemId"> --> 
+            
             <input type="hidden" id="notesHiddenInput" name="notes">
-            <!-- Campi per dettagli utente correttore, popolati da JS -->
             <input type="hidden" id="correctorUserIdInput" name="correctorUserId">
             <input type="hidden" id="correctorUserNameInput" name="correctorUserName">
             <input type="hidden" id="correctorUserFirstNameInput" name="correctorUserFirstName">
             <input type="hidden" id="correctorUserLastNameInput" name="correctorUserLastName">
-            <!-- Input per problemContextId per modificare il messaggio Telegram -->
-            <input type="hidden" id="problemContextIdInput" name="problemContextId">
-
 
             <div class="field-group" id="dateCorrectionGroup" style="display:none;">
                 <label for="correctedDate">Data Corretta (lascia vuoto per deduzione):</label>
@@ -137,27 +138,28 @@
      <script>
         document.addEventListener('DOMContentLoaded', function () {
             const tg = window.Telegram.WebApp;
-            const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2qm7YA_UPHA1TAz2UYRLEzL5uukraSYQXYaC5t8dxHVydezV3pvi-xawyf9qHr4lg/exec'; // VERIFICA QUESTO URL!
+            const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2qm7YA_UPHA1TAz2UYRLEzL5uukraSYQXYaC5t8dxHVydezV3pvi-xawyf9qHr4lg/exec';
 
             const formContainer = document.getElementById('formContainer');
             const loadingMessage = document.getElementById('loadingMessage');
             const errorMessageDiv = document.getElementById('errorMessage');
-            // const correctionForm = document.getElementById('correctionForm'); // Non usato direttamente
             const summaryEmployeeName = document.getElementById('summaryEmployeeName');
             const problemTypeSpan = document.getElementById('problemType');
             const problemTimeSpan = document.getElementById('problemTime');
             const problemDateTextSpan = document.getElementById('problemDateText');
-            const problemIdInput = document.getElementById('problemIdInput');
+            
+            // const problemIdInput = document.getElementById('problemIdInput'); // Rimosso, useremo solo problemContextIdInput
             const problemContextIdInput = document.getElementById('problemContextIdInput');
             const originalEmployeeNameInput = document.getElementById('originalEmployeeNameInput');
             const originalProblemDateISOInput = document.getElementById('originalProblemDateISOInput');
             const originalSingleTimeInput = document.getElementById('originalSingleTimeInput');
             const originalSingleBarInput = document.getElementById('originalSingleBarInput');
             const notesHiddenInput = document.getElementById('notesHiddenInput');
-            const correctorUserIdInput = document.getElementById('correctorUserIdInput'); // Per l'ID utente
+            const correctorUserIdInput = document.getElementById('correctorUserIdInput'); 
             const correctorUserNameInput = document.getElementById('correctorUserNameInput');
             const correctorUserFirstNameInput = document.getElementById('correctorUserFirstNameInput');
             const correctorUserLastNameInput = document.getElementById('correctorUserLastNameInput');
+            
             const correctedDateInput = document.getElementById('correctedDate');
             const singleCorrectionActionSelect = document.getElementById('singleCorrectionAction');
             const singleCorrectionActionError = document.getElementById('singleCorrectionActionError');
@@ -165,9 +167,11 @@
             const missingTimeLabel = document.getElementById('missingTimeLabel');
             const missingTimeDateContext = document.getElementById('missingTimeDateContext');
             const missingTimeError = document.getElementById('missingTimeError');
+            
             const dateCorrectionGroup = document.getElementById('dateCorrectionGroup');
             const singleTimeCorrectionSection = document.getElementById('singleTimeCorrectionSection');
             const missingTimeFieldGroup = document.getElementById('missingTimeFieldGroup');
+            
             const addNotesButton = document.getElementById('addNotesButton');
             const currentNotesDisplay = document.getElementById('currentNotesDisplay');
             const notesModalOverlay = document.getElementById('notesModalOverlay');
@@ -181,7 +185,6 @@
             let currentUserDetails = { id: null, username: "", first_name: "", last_name: "" };
             let isDebugMode = false;
             let startParamValueForDebug = "Nessuno (non letto)";
-
 
             function setThemeClass() { if (tg && tg.colorScheme) { document.documentElement.className = tg.colorScheme; } else { console.warn("setThemeClass: tg o tg.colorScheme non definiti.");} }
             function hexToRgba(hex, alpha) { if(!hex || typeof hex !== 'string') hex = '#000000'; hex=hex.replace('#',''); const r=parseInt(hex.substring(0,2),16)||0; const g=parseInt(hex.substring(2,4),16)||0; const b=parseInt(hex.substring(4,6),16)||0; return `rgba(${r},${g},${b},${alpha})`;}
@@ -200,7 +203,7 @@
             
             function parseStartParam(startParamString) {
                 console.log("parseStartParam - Ricevuto:", startParamString);
-                if(!startParamString||startParamString==="Nessuno"||startParamString.trim()===""){ console.error("parseStartParam: Parametro avvio mancante."); return{error:"Parametro di avvio mancante."};}
+                if(!startParamString||startParamString==="Nessuno"||startParamString.trim()===""){ console.error("parseStartParam: Parametro avvio mancante."); return{error:"Parametro di avrio mancante."};} // Corretto "avvio"
                 const decodedJsonString=base64UrlDecode(startParamString);
                 if(!decodedJsonString){ console.error("parseStartParam: Decodifica Base64 fallita.","Input:",startParamString); return{error:"Decodifica parametro fallita.",rawValue:startParamString};}
                 try{ const parsed = JSON.parse(decodedJsonString); console.log("parseStartParam - Dati Parsati OK:", parsed); return parsed;}
@@ -216,76 +219,56 @@
                     <p><strong>initData (grezzo):</strong></p><pre>${initDataStr || "Non presente"}</pre>
                     <p><strong>initDataUnsafe (JSON):</strong></p><pre>${initDataUnsafeObj ? JSON.stringify(initDataUnsafeObj, null, 2) : "Non presente"}</pre>
                     <p><strong>URL Search (window.location.search):</strong></p><pre>${locationSearchStr || "Vuoto"}</pre>`;
-                if (extraError) {
-                    debugContent += `<p><strong>ERRORE AGGIUNTIVO:</strong></p><pre style="color:red;">${extraError}</pre>`;
-                }
+                if (extraError) debugContent += `<p><strong>ERRORE AGGIUNTIVO:</strong></p><pre style="color:red;">${extraError}</pre>`;
                 debugSection.innerHTML = debugContent;
             }
 
-                       // All'interno del blocco <script> del tuo HTML
-            // Sostituisci la tua funzione populateUI esistente con questa:
-
             function populateUI(data) {
-                console.log("populateUI - Dati Input (dovrebbero essere con chiavi abbreviate):", JSON.stringify(data));
+                console.log("populateUI - Dati Input (abbreviati):", JSON.stringify(data));
                 if (!data || data.error) {
-                    const errorMsg = `Dati iniziali per il form non validi o corrotti. ${data && data.error ? data.error : ''} ${data && data.rawValue ? `(Grezzo: ${data.rawValue.substring(0,30)}...)` : ''}`;
+                    const errorMsg = `Dati iniziali per il form non validi. ${data && data.error ? data.error : ''} ${data && data.rawValue ? `(Grezzo: ${data.rawValue.substring(0,30)}...)` : ''}`;
                     showFatalError(errorMsg, startParamValueForDebug, data, tg.initData, tg.initDataUnsafe, window.location.search);
                     return;
                 }
-                initialStartParamData = data; // Salva i dati originali (ora abbreviati)
+                initialStartParamData = data;
 
-                // Usa i nomi delle chiavi abbreviati ricevuti dal GAS
-                summaryEmployeeName.textContent = data.name || 'N/D'; // da data.employeeName a data.name
+                summaryEmployeeName.textContent = data.name || 'N/D'; // Usa data.name
 
-                // Per la descrizione principale, se il GAS non la invia più (per ridurre payload),
-                // dobbiamo crearne una di base qui.
-                let mainProblemDescriptionUI = "Dettaglio problema non fornito nel link."; // Fallback
-                if (data.pType && data.pType.toUpperCase().includes('SINGLE')) { // Se pType contiene "SINGLE"
-                    mainProblemDescriptionUI = `Timbratura singola rilevata.`;
-                    if (data.origTime) { // Aggiungi l'orario se disponibile
-                         // Non tentiamo di pulire una descrizione che non c'è più, ma costruiamola.
+                // Costruzione dinamica descrizione problema
+                let mainProblemDescriptionUI = "Problema Rilevato"; 
+                if (data.pType) { // Usa data.pType
+                    switch (data.pType.toUpperCase()) {
+                        case 'SINGLE_TIMESTAMP': mainProblemDescriptionUI = "Timbratura singola"; break;
+                        case 'TIME_05XX': mainProblemDescriptionUI = "Timbratura orario 05:xx"; break;
+                        case 'DURATION_EXCEEDED_15H': mainProblemDescriptionUI = "Durata servizio > 15 ore"; break;
+                        case 'DURATION_TOO_SHORT_1H': mainProblemDescriptionUI = "Durata servizio < 1 ora"; break;
+                        case 'LOGICAL_ERROR_TIME': mainProblemDescriptionUI = "Errore logico (uscita < entrata)"; break;
+                        default: mainProblemDescriptionUI = `Tipo: ${data.pType}`;
                     }
-                } else if (data.pType) {
-                    mainProblemDescriptionUI = `Tipo problema: ${data.pType}`;
                 }
-                // Potresti voler passare una descrizione breve dal GAS se lo spazio lo consente
-                // Altrimenti, questa è una descrizione generica.
-                // Se il GAS invia ancora `problemDescription` (sconsigliato per payload lungo), usalo:
-                // mainProblemDescriptionUI = data.problemDescription || mainProblemDescriptionUI;
                 problemTypeSpan.textContent = mainProblemDescriptionUI;
 
-
                 let timeAndBarDisplay = '';
-                if (data.origTime) { // da data.originalSingleTime a data.origTime
+                if (data.origTime) { // Usa data.origTime
                     timeAndBarDisplay = data.origTime;
-                    if (data.origBar && data.origBar !== "N/D") { // da data.originalSingleBar a data.origBar
+                    if (data.origBar && data.origBar !== "N/D") { // Usa data.origBar
                         timeAndBarDisplay += ` (Bar ${data.origBar})`;
                     }
                 }
                 problemTimeSpan.textContent = timeAndBarDisplay;
 
-                let dateDisplay = '';
-                if (data.pDateISO) { // da data.problemDateISO a data.pDateISO
+                let dateDisplay = 'N/D';
+                if (data.pDateISO) { // Usa data.pDateISO (YYYY-MM-DD)
                     try {
                         const dateParts = data.pDateISO.split('-');
-                        if (dateParts.length === 3) {
-                            dateDisplay = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`; // GG-MM-AAAA
-                        } else {
-                            dateDisplay = data.pDateISO;
-                        }
-                    } catch (e) {
-                        dateDisplay = data.pDateISO;
-                        console.error("Errore formattazione data per UI:", e);
-                    }
-                } else {
-                    dateDisplay = 'N/D';
+                        if (dateParts.length === 3) dateDisplay = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`; // GG-MM-AAAA
+                        else dateDisplay = data.pDateISO;
+                    } catch (e) { dateDisplay = data.pDateISO; console.error("Errore formattazione data UI:", e); }
                 }
                 problemDateTextSpan.textContent = dateDisplay;
 
-                // problemIdInput e problemContextIdInput ora usano data.ctxId
-                problemIdInput.value = data.ctxId || '';       // Usa ctxId, problemId non viene più inviato
-                problemContextIdInput.value = data.ctxId || ''; // Usa ctxId
-
+                // Popola campi hidden con i dati abbreviati ricevuti
+                problemContextIdInput.value = data.ctxId || ''; // ctxId è l'ID principale ora
                 originalEmployeeNameInput.value = data.name || '';
                 originalProblemDateISOInput.value = data.pDateISO || '';
                 originalSingleTimeInput.value = data.origTime || '';
@@ -296,154 +279,64 @@
                 correctorUserFirstNameInput.value = currentUserDetails.first_name || '';
                 correctorUserLastNameInput.value = currentUserDetails.last_name || '';
 
-                // Nascondi tutte le sezioni condizionali di default
                 dateCorrectionGroup.style.display = 'none';
                 singleTimeCorrectionSection.style.display = 'none';
                 missingTimeFieldGroup.style.display = 'none';
 
-                // Determina se mostrare la sezione per timbratura singola basata su pType
-                const isSingleTypeProblem = data.pType && (
-                    data.pType.toUpperCase().startsWith('SINGLE') || // Cattura SINGLE_TIMESTAMP, SINGLE_MISSING_ENTRY, ecc.
-                    (data.problemTypeForForm && data.problemTypeForForm.toUpperCase() === 'SINGLE_TIMESTAMP') // Retrocompatibilità, anche se problemTypeForForm non dovrebbe più arrivare
-                );
-
-                if (isSingleTypeProblem) {
-                    singleTimeCorrectionSection.style.display = 'block'; // Mostra la select
-
-                    // Logica di preselezione della select basata su pType e origTime
-                    // Se pType è un generico "SINGLE_TIMESTAMP", deduci l'azione dall'ora
-                    if (data.pType.toUpperCase() === 'SINGLE_TIMESTAMP' && data.origTime) {
+                // Logica UI basata su data.pType
+                const isSingleTimestampProblem = data.pType && data.pType.toUpperCase() === 'SINGLE_TIMESTAMP';
+                if (isSingleTimestampProblem) {
+                    singleTimeCorrectionSection.style.display = 'block';
+                    if (data.origTime) { // Preselezione select
                         const hour = parseInt(data.origTime.split(':')[0], 10);
                         if (!isNaN(hour)) {
-                            if (hour < 14) { // Esempio: orario mattutino, si presume fosse un'entrata, manca uscita
-                                singleCorrectionActionSelect.value = 'isEntry_addExit';
-                            } else { // Orario pomeridiano/serale, si presume fosse un'uscita, manca entrata
-                                singleCorrectionActionSelect.value = 'isExit_addEntry';
-                            }
-                        } else {
-                             singleCorrectionActionSelect.value = ''; // Non si può dedurre
-                        }
-                    } else if (data.pType.toUpperCase() === 'SINGLE_MISSING_ENTRY') {
-                        singleCorrectionActionSelect.value = 'isExit_addEntry';
-                    } else if (data.pType.toUpperCase() === 'SINGLE_MISSING_EXIT') {
-                        singleCorrectionActionSelect.value = 'isEntry_addExit';
-                    } else {
-                        singleCorrectionActionSelect.value = ''; // Default se pType non corrisponde
-                    }
-                    
-                    handleSingleCorrectionActionChange(); // Chiama per mostrare/nascondere il campo orario
-                } else if (data.pType === 'DATE_CORRECTION_NEEDED') { // Esempio per un altro tipo
-                    dateCorrectionGroup.style.display = 'block';
+                            if (hour < 14) singleCorrectionActionSelect.value = 'isEntry_addExit';
+                            else singleCorrectionActionSelect.value = 'isExit_addEntry';
+                        } else singleCorrectionActionSelect.value = '';
+                    } else singleCorrectionActionSelect.value = '';
+                    handleSingleCorrectionActionChange();
                 }
-                // Altri else if per diversi data.pType...
-                
+                // Altre logiche per pType diversi da SINGLE_TIMESTAMP possono essere aggiunte qui
+                // Esempio: if (data.pType === 'SOME_OTHER_TYPE') { ... }
+
                 loadingMessage.style.display = 'none';
                 errorMessageDiv.style.display = 'none';
                 formContainer.style.display = 'block';
                 document.body.style.visibility = 'visible';
-                // Aggiorna la sezione debug con i dati (ora abbreviati)
                 updateDebugSection(startParamValueForDebug, initialStartParamData, tg.initData, tg.initDataUnsafe, window.location.search);
             }
 
-            function handleSingleCorrectionActionChange() {
-                const action = singleCorrectionActionSelect.value;
-                // Assicurati che gli elementi esistano prima di manipolarli
-                if (!missingTimeLabel || !missingTimeFieldGroup || !missingTimeValueInput || !missingTimeError || !singleCorrectionActionSelect || !singleCorrectionActionError) {
-                    console.error("handleSingleCorrectionActionChange: Elementi DOM critici per la gestione dell'orario mancante non trovati.");
-                    return;
-                }
-                
-                // Pulisci sempre l'input e gli errori quando l'azione cambia
-                missingTimeValueInput.value = '';
-                missingTimeValueInput.classList.remove('input-error');
-                missingTimeError.style.display = 'none';
-                missingTimeError.textContent = '';
-
-                // Pulisci errore della select stessa
-                singleCorrectionActionSelect.classList.remove('input-error');
-                singleCorrectionActionError.style.display = 'none';
-
-                if (action === "isEntry_addExit") {
-                    missingTimeLabel.textContent = "Orario Uscita Mancante (HH:MM):";
-                    missingTimeFieldGroup.style.display = 'block'; // Mostra il campo orario
-                } else if (action === "isExit_addEntry") {
-                    missingTimeLabel.textContent = "Orario Entrata Mancante (HH:MM):";
-                    missingTimeFieldGroup.style.display = 'block'; // Mostra il campo orario
-                } else {
-                    // Se nessuna azione selezionata (o un valore non gestito), nascondi il campo orario
-                    missingTimeFieldGroup.style.display = 'none';
-                }
-                updateMissingTimeDateContext(); // Aggiorna il contesto della data
-            }
-
-                     // ***** INSERISCI QUESTE FUNZIONI NEL TUO BLOCCO <SCRIPT> *****
-
-                        function isValidTimeFormat(timeString) {
-                if (!timeString) return false;
-                return /^([01]\d|2[0-3]):([0-5]\d)$/.test(timeString);
-            }
-
-            function formatDate_DDMMYYYY(dateStrYYYYMMDD) { // Input YYYY-MM-DD
-                if (!dateStrYYYYMMDD || typeof dateStrYYYYMMDD !== 'string') return "";
-                const parts = dateStrYYYYMMDD.split('-');
-                if (parts.length !== 3) return dateStrYYYYMMDD; // Fallback se non è YYYY-MM-DD
-                return `${parts[2]}-${parts[1]}-${parts[0]}`; // Converte in GG-MM-AAAA
-            }
+            function isValidTimeFormat(timeString) { return timeString && /^([01]\d|2[0-3]):([0-5]\d)$/.test(timeString); }
+            function formatDate_DDMMYYYY(dateStrYYYYMMDD) { if (!dateStrYYYYMMDD || typeof dateStrYYYYMMDD !== 'string') return ""; const parts = dateStrYYYYMMDD.split('-'); if (parts.length !== 3) return dateStrYYYYMMDD; return `${parts[2]}-${parts[1]}-${parts[0]}`; }
 
             function updateMissingTimeDateContext() {
-                // Assicurati che tutti gli elementi necessari siano disponibili
-                if (!singleCorrectionActionSelect || !missingTimeDateContext || !missingTimeValueInput || !originalSingleTimeInput || !originalProblemDateISOInput) {
-                    console.warn("updateMissingTimeDateContext: uno o più elementi DOM necessari non sono stati trovati.");
-                    return;
-                }
-
-                const action = singleCorrectionActionSelect.value;
-                missingTimeDateContext.textContent = ""; // Pulisci il contesto precedente
-
-                const originalTime = originalSingleTimeInput.value; // Timbratura singola esistente
-                const missingTime = missingTimeValueInput.value;   // Orario inserito dall'utente
-                const problemDateISO = originalProblemDateISOInput.value; // Data del problema in formato YYYY-MM-DD
-
-                if (!problemDateISO) {
-                    console.warn("updateMissingTimeDateContext: problemDateISO è mancante, impossibile aggiornare il contesto.");
-                    return;
-                }
+                if (!singleCorrectionActionSelect || !missingTimeDateContext || !missingTimeValueInput || !originalSingleTimeInput || !originalProblemDateISOInput) return;
+                const action = singleCorrectionActionSelect.value; missingTimeDateContext.textContent = "";
+                const originalTime = originalSingleTimeInput.value; const missingTime = missingTimeValueInput.value;
+                const problemDateISO = originalProblemDateISOInput.value; if (!problemDateISO) return;
 
                 if (action === "isEntry_addExit" && isValidTimeFormat(originalTime) && isValidTimeFormat(missingTime)) {
-                    // Caso: L'originale era un'ENTRATA (originalTime), stiamo aggiungendo un'USCITA (missingTime)
                     const entryMinutes = parseInt(originalTime.split(':')[0]) * 60 + parseInt(originalTime.split(':')[1]);
                     const exitMinutes = parseInt(missingTime.split(':')[0]) * 60 + parseInt(missingTime.split(':')[1]);
-                    
-                    let exitDateToDisplay = problemDateISO; // Di default, l'uscita è lo stesso giorno
-                    if (exitMinutes < entryMinutes) { // Se l'orario di uscita è prima dell'entrata, significa giorno dopo
-                        try {
-                            const currentDateObj = new Date(problemDateISO + "T00:00:00Z"); // Interpreta come UTC per evitare problemi di fuso
-                            currentDateObj.setUTCDate(currentDateObj.getUTCDate() + 1); // Aggiungi un giorno
-                            exitDateToDisplay = currentDateObj.toISOString().split('T')[0]; // Ottieni YYYY-MM-DD del giorno dopo
-                        } catch(e) {
-                            console.error("Errore nel calcolo della data successiva per l'uscita:", e);
-                            // Non modificare exitDateToDisplay, userà problemDateISO
-                        }
+                    let exitDateToDisplay = problemDateISO;
+                    if (exitMinutes < entryMinutes) { // Uscita giorno dopo
+                        try { const d = new Date(problemDateISO + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + 1); exitDateToDisplay = d.toISOString().split('T')[0]; } 
+                        catch(e) { console.error("Errore calcolo data successiva:", e); }
                     }
                     missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(exitDateToDisplay)})`;
                 } else if (action === "isExit_addEntry" && isValidTimeFormat(missingTime)) {
-                    // Caso: L'originale era un'USCITA (originalTime), stiamo aggiungendo un'ENTRATA (missingTime)
-                    // L'entrata è sempre considerata per lo stesso giorno del problema originale
-                     missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(problemDateISO)})`;
+                    missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(problemDateISO)})`;
                 }
-                // Se l'azione non è una di queste o gli orari non sono validi, il contesto rimane vuoto.
             }
-
-            // ***** FINE FUNZIONI DA INSERIRE *****   
 
             function handleSingleCorrectionActionChange() {
                 const action = singleCorrectionActionSelect.value;
-                if (!missingTimeLabel || !missingTimeFieldGroup || !missingTimeValueInput || !missingTimeError || !singleCorrectionActionSelect || !singleCorrectionActionError) { return; }
+                if (!missingTimeLabel || !missingTimeFieldGroup || !missingTimeValueInput || !missingTimeError || !singleCorrectionActionSelect || !singleCorrectionActionError) return;
                 missingTimeValueInput.value = ''; missingTimeValueInput.classList.remove('input-error'); missingTimeError.style.display = 'none'; missingTimeError.textContent = '';
                 singleCorrectionActionSelect.classList.remove('input-error'); singleCorrectionActionError.style.display = 'none';
-                if (action === "isEntry_addExit") { missingTimeLabel.textContent = "Orario Uscita Mancante (HH:MM):"; missingTimeFieldGroup.style.display = 'block';
-                } else if (action === "isExit_addEntry") { missingTimeLabel.textContent = "Orario Entrata Mancante (HH:MM):"; missingTimeFieldGroup.style.display = 'block';
-                } else { missingTimeFieldGroup.style.display = 'none'; }
+                if (action === "isEntry_addExit") { missingTimeLabel.textContent = "Orario Uscita Mancante (HH:MM):"; missingTimeFieldGroup.style.display = 'block'; } 
+                else if (action === "isExit_addEntry") { missingTimeLabel.textContent = "Orario Entrata Mancante (HH:MM):"; missingTimeFieldGroup.style.display = 'block'; } 
+                else { missingTimeFieldGroup.style.display = 'none'; }
                 updateMissingTimeDateContext();
             }
 
@@ -451,56 +344,65 @@
                 let isValid = true;
                 if (missingTimeError) missingTimeError.style.display = 'none'; if (missingTimeValueInput) missingTimeValueInput.classList.remove('input-error');
                 if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.remove('input-error'); if (singleCorrectionActionError) singleCorrectionActionError.style.display = 'none';
-                if (singleTimeCorrectionSection.style.display !== 'none') { // Solo se la sezione è visibile
+                
+                // Valida solo se la sezione di correzione timbratura singola è visibile
+                if (singleTimeCorrectionSection.style.display !== 'none') {
                     const action = singleCorrectionActionSelect.value; const missingTime = missingTimeValueInput.value; const originalTime = originalSingleTimeInput.value;
-                    if (action === '') { if (singleCorrectionActionError) { singleCorrectionActionError.textContent = "È necessario selezionare un'azione."; singleCorrectionActionError.style.display = 'block';} if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.add('input-error'); isValid = false;
-                    } else { // Azione selezionata
-                        if (!missingTime) { if (missingTimeError) { missingTimeError.textContent = "L'orario è obbligatorio."; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false;
-                        } else if (!isValidTimeFormat(missingTime)) { if (missingTimeError) { missingTimeError.textContent = "Formato orario non valido (HH:MM)."; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false;
-                        } else { // Orario presente e in formato valido, controlli logici:
+                    if (action === '') { if (singleCorrectionActionError) { singleCorrectionActionError.textContent = "Selezionare un'azione."; singleCorrectionActionError.style.display = 'block';} if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.add('input-error'); isValid = false; } 
+                    else { 
+                        if (!missingTime) { if (missingTimeError) { missingTimeError.textContent = "Orario obbligatorio."; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; } 
+                        else if (!isValidTimeFormat(missingTime)) { if (missingTimeError) { missingTimeError.textContent = "Formato HH:MM non valido."; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; } 
+                        else { 
                             const newTimeMinutes = parseInt(missingTime.split(':')[0]) * 60 + parseInt(missingTime.split(':')[1]); let originalTimeMinutes = -1;
                             if (isValidTimeFormat(originalTime)) originalTimeMinutes = parseInt(originalTime.split(':')[0]) * 60 + parseInt(originalTime.split(':')[1]);
-                            if (action === "isExit_addEntry") { // Aggiungendo ENTRATA (originale era USCITA)
-                                if (originalTimeMinutes !== -1 && newTimeMinutes >= originalTimeMinutes) { if (missingTimeError) { missingTimeError.textContent = `L'entrata (${missingTime}) non può essere uguale o dopo l'uscita originale (${originalTime}).`; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; }
-                                if (newTimeMinutes < (5 * 60) || newTimeMinutes > (23 * 60)) { if (missingTimeError && isValid) { missingTimeError.textContent = "L'entrata deve essere tra 05:00 e 23:00."; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; }
-                            } else if (action === "isEntry_addExit") { // Aggiungendo USCITA (originale era ENTRATA)
-                                if (originalTimeMinutes !== -1 && newTimeMinutes === originalTimeMinutes) { if (missingTimeError) { missingTimeError.textContent = `L'uscita (${missingTime}) non può essere uguale all'entrata (${originalTime}) lo stesso giorno.`; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; }
+                            if (action === "isExit_addEntry") { // Aggiungendo ENTRATA
+                                if (originalTimeMinutes !== -1 && newTimeMinutes >= originalTimeMinutes) { if (missingTimeError) { missingTimeError.textContent = `Entrata (${missingTime}) deve essere prima dell'uscita orig. (${originalTime}).`; missingTimeError.style.display = 'block'; } if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); isValid = false; }
+                                // Rimosso controllo 05:00-23:00 per flessibilità, può essere reintrodotto se necessario
+                            } else if (action === "isEntry_addExit") { // Aggiungendo USCITA
+                                if (originalTimeMinutes !== -1 && newTimeMinutes === originalTimeMinutes && updateMissingTimeDateContext().includes(formatDate_DDMMYYYY(originalProblemDateISOInput.value)) ) { // Controllo se l'uscita è lo stesso giorno dell'entrata originale
+                                   // Il controllo sulla data esatta dell'uscita (stesso giorno o giorno dopo) viene fatto in updateMissingTimeDateContext
+                                   // Se newTimeMinutes < originalTimeMinutes, si assume che l'uscita sia il giorno dopo (OK)
+                                   // Se newTimeMinutes > originalTimeMinutes, l'uscita è lo stesso giorno (OK)
+                                   // Se newTimeMinutes == originalTimeMinutes E l'uscita è dedotta come STESSO giorno, allora è errore.
+                                   const exitDateContext = missingTimeDateContext.textContent || "";
+                                   const problemDateFormatted = formatDate_DDMMYYYY(originalProblemDateISOInput.value);
+                                   if (exitDateContext.includes(problemDateFormatted)) { // L'uscita è stata dedotta per lo stesso giorno
+                                        if (missingTimeError) { missingTimeError.textContent = `Uscita (${missingTime}) non può essere uguale all'entrata (${originalTime}) nello stesso giorno.`; missingTimeError.style.display = 'block'; } 
+                                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); 
+                                        isValid = false;
+                                   }
+                                }
                             }
                         }
                     }
-                } return isValid;
+                }
+                return isValid;
             }
-
+            
             if (submitHtmlButton) {
                 submitHtmlButton.addEventListener('click', function() {
-                    if (!validateForm()) { tg.showAlert("Per favore, correggi gli errori nel form.", function() { const firstErrorInput = document.querySelector('#correctionForm .input-error'); if (firstErrorInput) firstErrorInput.focus();}); return; }
+                    if (!validateForm()) { tg.showAlert("Correggi gli errori nel form.", function() { const firstErrorInput = document.querySelector('#correctionForm .input-error'); if (firstErrorInput) firstErrorInput.focus();}); return; }
                     tg.showConfirm("Confermi l'invio della correzione?", function(isConfirmed) {
                         if (isConfirmed) {
-                            submitHtmlButton.disabled = true; submitHtmlButton.textContent = "Invio in corso...";
-                            if (tg.MainButton && tg.MainButton.isVisible && typeof tg.MainButton.showProgress === 'function') tg.MainButton.showProgress();
+                            submitHtmlButton.disabled = true; submitHtmlButton.textContent = "Invio...";
+                            if (tg.MainButton && tg.MainButton.isVisible) tg.MainButton.showProgress();
                             
                             const dataToSend = {
-                                problemId: problemIdInput.value,
-                                problemContextId: problemContextIdInput.value,
+                                // problemId: problemIdInput.value, // Rimosso, usa problemContextId
+                                problemContextId: problemContextIdInput.value, // Questo è l'ID univoco per il GAS
                                 originalEmployeeName: originalEmployeeNameInput.value,
                                 originalProblemDateISO: originalProblemDateISOInput.value,
                                 originalSingleTime: originalSingleTimeInput.value,
-                                originalSingleBar: originalSingleBarInput.value, // Invia il bar
+                                originalSingleBar: originalSingleBarInput.value,
                                 correctedDate: correctedDateInput.value,
                                 singleCorrectionAction: singleCorrectionActionSelect.value,
                                 missingTimeValue: missingTimeValueInput.value,
                                 notes: notesHiddenInput.value,
                                 initDataRaw: tg.initData || "",
-                                // Dettagli utente correttore
-                                telegramUserId: currentUserDetails.id, // Usa l'ID dall'oggetto currentUserDetails
-                                correctorUserInfo: { 
-                                    id: currentUserDetails.id, 
-                                    username: currentUserDetails.username, 
-                                    first_name: currentUserDetails.first_name, 
-                                    last_name: currentUserDetails.last_name 
-                                },
+                                telegramUserId: currentUserDetails.id,
+                                correctorUserInfo: currentUserDetails,
                                 clientTimestamp: new Date().toISOString(),
-                                startParamReceived: startParamValueForDebug // Per debug lato server
+                                startParamReceived: startParamValueForDebug // Per debug su GAS
                             };
                             console.log("Invio a GAS:", JSON.stringify(dataToSend, null, 2));
 
@@ -508,83 +410,69 @@
                             .then(response => { if (!response.ok) { return response.text().then(text => { try { const errData = JSON.parse(text); throw new Error(errData.message || `Errore HTTP ${response.status} - ${text.substring(0,100)}`); } catch (parseError) { throw new Error(`Errore HTTP ${response.status} - Risposta non JSON: ${text.substring(0,100)}`); }}); } return response.json(); })
                             .then(data => { console.log('GAS OK:', data); if (data.status === "successo") { submitHtmlButton.textContent = "Inviato"; tg.showAlert(data.message || "Correzione inviata!", function() { tg.close(); }); } else { tg.showAlert(`Errore App: ${data.message || 'Sconosciuto.'}`); submitHtmlButton.disabled = false; submitHtmlButton.textContent = "Invia Correzione";}})
                             .catch((error) => { console.error('Errore Fetch GAS:', error); tg.showAlert(`Errore Comunicazione: ${error.message}.`); submitHtmlButton.disabled = false; submitHtmlButton.textContent = "Invia Correzione";})
-                            .finally(() => { if (tg.MainButton && tg.MainButton.isProgressVisible && typeof tg.MainButton.hideProgress === 'function') tg.MainButton.hideProgress(); });
+                            .finally(() => { if (tg.MainButton && tg.MainButton.isProgressVisible) tg.MainButton.hideProgress(); });
                         }
                     });
                 });
             }
 
+            // Funzioni per il modale delle note (invariate, ma da includere)
+            function openNotesModal() { notesTextareaModal.value = notesHiddenInput.value; notesModalOverlay.style.display = 'flex'; notesTextareaModal.focus(); }
+            function closeNotesModal() { notesModalOverlay.style.display = 'none'; }
+            function saveNotesFromModal() {
+                const notesTrimmed = notesTextareaModal.value.trim();
+                notesHiddenInput.value = notesTrimmed;
+                if (notesTrimmed) { currentNotesDisplay.textContent = notesTrimmed; currentNotesDisplay.classList.remove('empty'); } 
+                else { currentNotesDisplay.textContent = "Nessuna nota."; currentNotesDisplay.classList.add('empty'); }
+                closeNotesModal();
+            }
+
             try {
                 console.log("Avvio Inizializzazione Mini App...");
-                if (!tg) { console.error("FATAL: Telegram.WebApp (tg) non è definito!"); showFatalError("Oggetto Telegram WebApp non disponibile."); return; }
+                if (!tg) { showFatalError("Oggetto Telegram.WebApp non definito."); return; }
                 
                 tg.onEvent('themeChanged', setThemeClass); setThemeClass();
                 tg.ready(); applyThemeVariables(); tg.expand();
 
-                // MOSTRA E CONFIGURA BACK BUTTON
-                if (tg.BackButton) {
-                    tg.BackButton.show();
-                    tg.BackButton.onClick(function() { 
-                        console.log("BackButton premuto");
-                        tg.showConfirm("Vuoi chiudere il form senza salvare le modifiche?", function(isConfirmed) {
-                            if (isConfirmed) tg.close();
-                        }); 
-                    });
-                } else {
-                    console.warn("tg.BackButton non disponibile.");
-                }
+                if (tg.BackButton) { tg.BackButton.show(); tg.BackButton.onClick(function() { tg.showConfirm("Chiudere senza salvare?", (ok) => { if(ok) tg.close(); }); }); }
                 
-                // Configurazione MainButton (opzionale, se si vuole usare per l'invio)
-                // Per ora lo lasciamo invisibile e usiamo il bottone HTML.
-                // Se si volesse usare il MainButton di Telegram:
-                // if (tg.MainButton) {
-                //    tg.MainButton.setText("INVIA CORREZIONE (TG)");
-                //    tg.MainButton.onClick(function() { if(submitHtmlButton) submitHtmlButton.click(); });
-                //    tg.MainButton.show();
-                // } else {
-                //    console.warn("tg.MainButton non disponibile.");
-                // }
-
-
                 if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
                      currentUserDetails.id = String(tg.initDataUnsafe.user.id); 
                      currentUserDetails.username = tg.initDataUnsafe.user.username || "";
                      currentUserDetails.first_name = tg.initDataUnsafe.user.first_name || "";
                      currentUserDetails.last_name = tg.initDataUnsafe.user.last_name || "";
                 } else { console.warn("Dati utente (tg.initDataUnsafe.user) non trovati."); }
-                console.log("Dettagli Utente Corrente:", currentUserDetails);
 
-                if(tg.initDataUnsafe && tg.initDataUnsafe.start_param){ startParamValueForDebug = tg.initDataUnsafe.start_param; console.log("startParam da tg.initDataUnsafe:", startParamValueForDebug);
-                } else { const urlParams = new URLSearchParams(window.location.search); const webAppStartParam = urlParams.get('tgWebAppStartParam'); if(webAppStartParam) { startParamValueForDebug = webAppStartParam; console.log("startParam da URL:", startParamValueForDebug); } else { console.warn("Nessun start_param trovato."); }}
+                if(tg.initDataUnsafe && tg.initDataUnsafe.start_param){ startParamValueForDebug = tg.initDataUnsafe.start_param; } 
+                else { const urlParams = new URLSearchParams(window.location.search); const webAppStartParam = urlParams.get('tgWebAppStartParam'); if(webAppStartParam) startParamValueForDebug = webAppStartParam; }
                 
-                if (startParamValueForDebug && startParamValueForDebug.toLowerCase() === 'debug') {
-                    isDebugMode = true;
-                    const debugProblemData = { problemId: "DBG_ID_001", employeeName: "Mario Debug", problemDescription: "ERRORE: Timbratura Singola (Debug)", problemTime: "10:00", problemDate: new Date().toLocaleDateString('it-IT'), problemDateISO: new Date().toISOString().split('T')[0], originalSingleTime: "10:00", originalSingleBar: "N", problemType: "SINGLE_TIMESTAMP", problemDateFormatted: new Date().toLocaleDateString('it-IT', {day:'2-digit', month:'short'}), problemContextId: "debug_ctx_001" };
-                    populateUI(debugProblemData);
-                } else if (startParamValueForDebug === "Nessuno (non letto)") {
-                    showFatalError("Parametro di avvio (start_param) non trovato. Impossibile caricare i dati del problema.", startParamValueForDebug, null, tg.initData, tg.initDataUnsafe, window.location.search);
-                    return;
-                } else {
+                console.log("startParam letto:", startParamValueForDebug);
+
+                if (startParamValueForDebug && startParamValueForDebug !== "Nessuno (non letto)") {
                     const parsedData = parseStartParam(startParamValueForDebug);
                     populateUI(parsedData);
+                } else {
+                    showFatalError("Parametro di avvio (start_param) non trovato o non valido.", startParamValueForDebug, null, tg.initData, tg.initDataUnsafe, window.location.search);
+                    return;
                 }
                 
-                if (isDebugMode || (currentUserDetails.id && currentUserDetails.id === '824994510')) { // Sostituisci con il tuo ID Telegram per debug
+                if (isDebugMode || (currentUserDetails.id && currentUserDetails.id === 'IL_TUO_ID_TELEGRAM_PER_DEBUG')) { // SOSTITUISCI SE NECESSARIO
                     if(debugSection) debugSection.style.display = 'block';
                 }
-                // updateDebugSection è chiamato alla fine di populateUI o showFatalError
 
                 addNotesButton.addEventListener('click', openNotesModal);
                 saveNotesButton.addEventListener('click', saveNotesFromModal);
                 cancelNotesButton.addEventListener('click', closeNotesModal);
-                singleCorrectionActionSelect.addEventListener('change', handleSingleCorrectionActionChange);
-                missingTimeValueInput.addEventListener('input', function() { missingTimeValueInput.classList.remove('input-error'); if(missingTimeError) missingTimeError.style.display = 'none'; updateMissingTimeDateContext(); });
-                missingTimeValueInput.addEventListener('blur', function() { validateForm(); });
+                if (singleCorrectionActionSelect) singleCorrectionActionSelect.addEventListener('change', handleSingleCorrectionActionChange);
+                if (missingTimeValueInput) {
+                    missingTimeValueInput.addEventListener('input', function() { missingTimeValueInput.classList.remove('input-error'); if(missingTimeError) missingTimeError.style.display = 'none'; updateMissingTimeDateContext(); });
+                    missingTimeValueInput.addEventListener('blur', function() { validateForm(); }); // Riesegui validazione su blur
+                }
                 console.log("Inizializzazione Mini App completata.");
 
             } catch (initError) {
-                console.error("Errore CRITICO Blocco Try/Catch Inizializzazione:", initError, initError.stack);
-                showFatalError(initError.message + (initError.stack ? `\nStack: ${initError.stack.substring(0,250)}...` : ""), startParamValueForDebug, null, tg.initData, tg.initDataUnsafe, window.location.search);
+                console.error("Errore CRITICO Inizializzazione:", initError, initError.stack);
+                showFatalError(initError.message + (initError.stack ? ` Stack: ${initError.stack.substring(0,250)}...` : ""), startParamValueForDebug, null, tg.initData, tg.initDataUnsafe, window.location.search);
             }
         });
     </script>
