@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <base target="_top"> <!-- Utile se servi da GAS, ma non dannoso qui -->
+    <base target="_top">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Form Correzione</title>
@@ -22,8 +22,8 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             margin: 0;
             padding: 20px;
-            background-color: var(--tg-theme-bg-color, #ffffff); /* Default per browser normali */
-            color: var(--tg-theme-text-color, #000000);       /* Default per browser normali */
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
             font-size: 17px;
             line-height: 1.6;
         }
@@ -66,7 +66,7 @@
         }
 
         select {
-            padding: 14px 12px; /* Allineato con gli altri input */
+            padding: 14px 12px;
         }
 
         input[readonly] {
@@ -81,16 +81,13 @@
         textarea:focus,
         select:focus {
             border-color: var(--tg-theme-button-color, #2481CC);
-            box-shadow: 0 0 0 3px var(--tg-theme-button-color-alpha, rgba(36, 129, 204, 0.25)); /* Custom property per alpha */
+            box-shadow: 0 0 0 3px var(--tg-theme-button-color-alpha, rgba(36, 129, 204, 0.25));
             outline: none;
         }
-        /* Proprietà custom per alpha dei colori Telegram */
         :root {
-             --tg-theme-button-color-alpha: rgba(36, 129, 204, 0.25); /* Esempio, da aggiornare dinamicamente se possibile */
-             --tg-theme-destructive-text-color-alpha: rgba(255, 77, 77, 0.25); /* Esempio */
+             --tg-theme-button-color-alpha: rgba(36, 129, 204, 0.25);
+             --tg-theme-destructive-text-color-alpha: rgba(255, 77, 77, 0.25);
         }
-
-
         input.input-error {
             border-color: var(--tg-theme-destructive-text-color, #ff4d4d) !important;
             box-shadow: 0 0 0 3px var(--tg-theme-destructive-text-color-alpha, rgba(255, 77, 77, 0.25)) !important;
@@ -100,13 +97,10 @@
             color: var(--tg-theme-destructive-text-color, #ff4d4d);
             margin-top: 4px;
         }
-
-
         textarea {
             min-height: 100px;
             resize: vertical;
         }
-
         .info-summary {
             background-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
             padding: 15px;
@@ -114,14 +108,12 @@
             margin-bottom: 25px;
             border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
         }
-
         .info-summary p {
             margin: 5px 0 10px 0;
             font-size: 1em;
             display: flex;
             align-items: baseline;
         }
-
         .info-summary .info-label {
             font-weight: 500;
             color: var(--tg-theme-hint-color);
@@ -129,41 +121,33 @@
             font-size: 0.9em;
             flex-shrink: 0;
         }
-
         .info-summary .info-value {
             font-weight: 600;
             color: var(--tg-theme-text-color);
         }
-
         #summaryEmployeeName.info-value {
             text-transform: uppercase;
-            /* background-color: var(--tg-theme-hint-color, #e9ecef); */ /* Potrebbe non essere ideale con tutti i temi */
             padding: 2px 6px;
             border-radius: 4px;
             font-size: 0.95em;
         }
-
         .info-summary .problem-details-container {
             margin: 5px 0 10px 0;
             font-size: 1em;
             display: flex;
-            align-items: flex-start; /* Allinea all'inizio se il testo è multiriga */
+            align-items: flex-start;
         }
-
         .problem-value-multiline #problemType,
         .problem-value-multiline #problemTime,
         .problem-value-multiline #problemDateText {
             display: block;
         }
         .problem-value-multiline #problemTime {
-            font-weight: normal; /* O 600 se preferisci */
+            font-weight: normal;
         }
-
-
         .field-group {
             margin-bottom: 20px;
         }
-
         .date-info-text {
             font-size: 0.8em;
             color: var(--tg-theme-hint-color);
@@ -176,7 +160,6 @@
             margin-left: 8px;
             font-style: italic;
         }
-
         #submitHtmlButton, .modal-button {
             background-color: var(--tg-theme-button-color, #2481CC);
             color: var(--tg-theme-button-text-color, #FFFFFF);
@@ -186,7 +169,7 @@
             cursor: pointer;
             font-size: 1em;
             font-weight: 500;
-            transition: background-color 0.2s ease, opacity 0.2s ease;
+            transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
         }
         #submitHtmlButton {
             padding: 16px 20px;
@@ -197,7 +180,6 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
         #addNotesButton {
             background-color: transparent;
             color: var(--tg-theme-hint-color, #707579);
@@ -218,7 +200,6 @@
              border-color: var(--tg-theme-text-color);
              color: var(--tg-theme-text-color);
         }
-
         #submitHtmlButton:hover:not(:disabled),
         .modal-button:hover:not(:disabled) {
             opacity: 0.85;
@@ -227,12 +208,11 @@
             transform: scale(0.98);
         }
         #submitHtmlButton:disabled {
-            background-color: var(--tg-theme-hint-color, #cccccc); /* Usa hint color per disabilitato */
-            color: var(--tg-theme-secondary-bg-color, #666666); /* Testo più scuro su sfondo chiaro */
+            background-color: var(--tg-theme-hint-color, #cccccc);
+            color: var(--tg-theme-secondary-bg-color, #666666);
             cursor: not-allowed;
             opacity: 0.7;
         }
-
         #loadingMessage, #errorMessage {
             text-align: center;
             padding: 30px 20px;
@@ -244,21 +224,14 @@
             color: var(--tg-theme-destructive-text-color, red);
             font-weight: bold;
         }
-
-
-        #dateCorrectionGroup { /* Mantenuto per riferimento, la logica JS lo gestirà */
-            /* display: none !important; */ /* Rimuovi !important, gestito da JS */
-        }
-
-        /* Styles for Notes Modal */
         .modal-overlay {
-            display: none; /* Nascosto di default */
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5); /* Sfondo semi-trasparente */
+            background-color: rgba(0,0,0,0.5);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -277,7 +250,7 @@
             min-height: 80px;
             margin-bottom: 15px;
             border-color: var(--tg-theme-hint-color);
-            background-color: var(--tg-theme-bg-color); /* Sfondo input modale */
+            background-color: var(--tg-theme-bg-color);
         }
         .modal-content label {
             margin-top: 0;
@@ -302,44 +275,22 @@
             border-radius: 6px;
             border: 1px dashed var(--tg-theme-hint-color, #e0e0e0);
             min-height: 20px;
-            white-space: pre-wrap; /* Per rispettare a capo nelle note */
-            word-wrap: break-word; /* Per andare a capo con parole lunghe */
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
          #currentNotesDisplay.empty {
             font-style: italic;
             color: var(--tg-theme-hint-color);
         }
-
-        /* Debug Section Styling */
-        #debugSection {
+        #debugSection { /* Mantenuto nel CSS ma il div è rimosso dall'HTML visibile */
             margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid var(--tg-theme-hint-color);
         }
-        #debugSection h3 {
-            font-size: 1.1em;
-            text-align: left;
-            border-bottom: none;
-            margin-bottom: 10px;
-        }
-        #debugSection p {
-            font-size: 0.9em;
-            margin: 5px 0;
-        }
-        #debugSection pre {
-            background-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
-            padding: 10px;
-            border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
-            border-radius: 6px;
-            font-size: 0.85em;
-            word-wrap: break-word;
-            white-space: pre-wrap;
-        }
-
     </style>
 </head>
 <body>
-    <div id="formContainer" style="display: none;"> <!-- Nascosto finché i dati non sono pronti -->
+    <div id="formContainer" style="display: none;">
         <h2>Form Correzione</h2>
 
         <div class="info-summary">
@@ -358,21 +309,23 @@
         </div>
 
         <form id="correctionForm">
-            <!-- Campi Nascosti per passare dati originali e note -->
             <input type="hidden" id="problemIdInput" name="problemId">
             <input type="hidden" id="originalEmployeeNameInput" name="originalEmployeeName">
             <input type="hidden" id="originalProblemDateISOInput" name="originalProblemDateISO">
             <input type="hidden" id="originalSingleTimeInput" name="originalSingleTime">
             <input type="hidden" id="notesHiddenInput" name="notes">
+            <input type="hidden" id="problemContextIdInput" name="problemContextId">
+            <input type="hidden" id="correctorUserNameInput" name="correctorUserName">
+            <input type="hidden" id="correctorUserFirstNameInput" name="correctorUserFirstName">
+            <input type="hidden" id="correctorUserLastNameInput" name="correctorUserLastName">
 
-            <!-- Sezione Correzione Data (nascosta di default) -->
+
             <div class="field-group" id="dateCorrectionGroup" style="display:none;">
                 <label for="correctedDate">Data Corretta (lascia vuoto per deduzione):</label>
                 <input type="date" id="correctedDate" name="correctedDate">
                 <p class="date-info-text">La data verrà dedotta automaticamente se possibile.</p>
             </div>
 
-            <!-- Sezione per Problemi di Orario Singolo (nascosta di default) -->
             <div class="field-group" id="singleTimeCorrectionSection" style="display:none;">
                 <label for="singleCorrectionAction">Aggiungi uscita o ingresso mancante:</label>
                 <select id="singleCorrectionAction" name="singleCorrectionAction">
@@ -382,7 +335,6 @@
                 </select>
             </div>
 
-            <!-- Campo Orario Mancante (nascosto di default) -->
             <div class="field-group" id="missingTimeFieldGroup" style="display:none;">
                 <div style="display: flex; align-items: center;">
                     <div style="flex-grow: 1;">
@@ -394,20 +346,17 @@
                 </div>
             </div>
 
-            <!-- Sezione Note -->
             <div class="field-group">
                 <button type="button" id="addNotesButton">Aggiungi Note (opzionale)</button>
                 <div id="currentNotesDisplay" class="empty">Nessuna nota.</div>
             </div>
 
-            <!-- Pulsante di Invio -->
             <div class="field-group" style="margin-top: 30px;">
                 <button type="button" id="submitHtmlButton">Invia Correzione</button>
             </div>
         </form>
     </div>
 
-    <!-- Modale per le Note -->
     <div id="notesModalOverlay" class="modal-overlay">
         <div class="modal-content">
             <label for="notesTextareaModal">Inserisci le tue note:</label>
@@ -419,79 +368,66 @@
         </div>
     </div>
 
-    <!-- Messaggio di Caricamento/Errore Iniziale -->
     <div id="loadingMessage">Caricamento dati...</div>
     <div id="errorMessage" style="display:none;"></div>
 
-    <!-- Sezione Debug (verrà popolata da JavaScript) -->
-    <div id="debugSection" style="display: none;"> <!-- Nascosta di default, mostrala se in modalità debug -->
-        <!-- Il contenuto verrà aggiunto da JS -->
-    </div>
-
-<!-- Inserisci questo intero blocco <script>...</script> 
-     alla fine del tuo <body>, prima di </body> 
-     nel file formdatiminiapp.html che carichi su GitHub Pages -->
+    <!-- La sezione Debug è stata rimossa dalla visualizzazione, ma il div #debugSection è ancora definito nel CSS
+         se si volesse riattivarlo programmaticamente per utenti specifici, ma per ora non viene creato. -->
 
      <script>
-        // Inizio Blocco JavaScript
         document.addEventListener('DOMContentLoaded', function () {
             const tg = window.Telegram.WebApp;
-            // IMPORTANTISSIMO: Sostituisci con il VERO URL del tuo Google Apps Script Web App distribuito!
-            const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2qm7YA_UPHA1TAz2UYRLEzL5uukraSYQXYaC5t8dxHVydezV3pvi-xawyf9qHr4lg/exec';
-    
-            // --- Cache degli Elementi DOM ---
+            const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2qm7YA_UPHA1TAz2UYRLEzL5uukraSYQXYaC5t8dxHVydezV3pvi-xawyf9qHr4lg/exec'; // SOSTITUISCI CON IL TUO URL!
+
+            // Cache Elementi DOM
             const formContainer = document.getElementById('formContainer');
             const loadingMessage = document.getElementById('loadingMessage');
             const errorMessageDiv = document.getElementById('errorMessage');
             const correctionForm = document.getElementById('correctionForm');
-    
             const summaryEmployeeName = document.getElementById('summaryEmployeeName');
             const summaryProblemType = document.getElementById('problemType');
             const summaryProblemTime = document.getElementById('problemTime');
             const summaryProblemDateText = document.getElementById('problemDateText');
-    
             const problemIdInput = document.getElementById('problemIdInput');
+            const problemContextIdInput = document.getElementById('problemContextIdInput');
             const originalEmployeeNameInput = document.getElementById('originalEmployeeNameInput');
             const originalProblemDateISOInput = document.getElementById('originalProblemDateISOInput');
             const originalSingleTimeInput = document.getElementById('originalSingleTimeInput');
             const notesHiddenInput = document.getElementById('notesHiddenInput');
-    
+            const correctorUserNameInput = document.getElementById('correctorUserNameInput');
+            const correctorUserFirstNameInput = document.getElementById('correctorUserFirstNameInput');
+            const correctorUserLastNameInput = document.getElementById('correctorUserLastNameInput');
             const correctedDateInput = document.getElementById('correctedDate');
             const singleCorrectionActionSelect = document.getElementById('singleCorrectionAction');
             const missingTimeValueInput = document.getElementById('missingTimeValue');
             const missingTimeLabel = document.getElementById('missingTimeLabel');
             const missingTimeDateContext = document.getElementById('missingTimeDateContext');
             const missingTimeError = document.getElementById('missingTimeError');
-    
             const dateCorrectionGroup = document.getElementById('dateCorrectionGroup');
             const singleTimeCorrectionSection = document.getElementById('singleTimeCorrectionSection');
             const missingTimeFieldGroup = document.getElementById('missingTimeFieldGroup');
-    
             const addNotesButton = document.getElementById('addNotesButton');
             const currentNotesDisplay = document.getElementById('currentNotesDisplay');
             const notesModalOverlay = document.getElementById('notesModalOverlay');
             const notesTextareaModal = document.getElementById('notesTextareaModal');
             const saveNotesButton = document.getElementById('saveNotesButton');
             const cancelNotesButton = document.getElementById('cancelNotesButton');
-    
             const submitHtmlButton = document.getElementById('submitHtmlButton');
-            const debugSection = document.getElementById('debugSection');
-    
-            let initialStartParamData = null; // Per conservare i dati originali del start_param
-            let isDebugMode = false;          // Per mostrare la sezione debug
+
+            let initialStartParamData = null;
             let currentTelegramUserId = "USER_ID_NON_ANCORA_LETTO";
-    
-    
-            // --- Funzioni Utilità ---
+            let currentUserDetails = { username: "", first_name: "", last_name: "" };
+
+
             function hexToRgba(hex, alpha) {
-                if (!hex || typeof hex !== 'string') hex = '#000000'; // Default nero se hex non valido
+                if (!hex || typeof hex !== 'string') hex = '#000000';
                 hex = hex.replace('#', '');
                 const r = parseInt(hex.substring(0, 2), 16) || 0;
                 const g = parseInt(hex.substring(2, 4), 16) || 0;
                 const b = parseInt(hex.substring(4, 6), 16) || 0;
                 return `rgba(${r}, ${g}, ${b}, ${alpha})`;
             }
-    
+
             function applyThemeVariables() {
                 const rootStyle = document.documentElement.style;
                 const buttonColor = tg.themeParams.button_color || '#2481CC';
@@ -499,19 +435,15 @@
                 rootStyle.setProperty('--tg-theme-button-color-alpha', hexToRgba(buttonColor, 0.25));
                 rootStyle.setProperty('--tg-theme-destructive-text-color-alpha', hexToRgba(destructiveColor, 0.25));
             }
-    
+
             function showFatalError(message) {
-                console.error("ERRORE FATALE:", message);
-                if (loadingMessage) loadingMessage.style.display = 'none';
-                if (formContainer) formContainer.style.display = 'none';
-                if (errorMessageDiv) {
-                    errorMessageDiv.textContent = message;
-                    errorMessageDiv.style.display = 'block';
-                }
-                if (debugSection) debugSection.style.display = 'block'; // Mostra sempre debug in caso di errore fatale
-                updateDebugSection("ERRORE FATALE: " + message, null, null, null, null);
+                loadingMessage.style.display = 'none';
+                formContainer.style.display = 'none';
+                errorMessageDiv.textContent = message;
+                errorMessageDiv.style.display = 'block';
+                console.error("FATAL ERROR:", message);
             }
-    
+
             function base64UrlDecode(str) {
                 if (!str || typeof str !== 'string' || str.trim() === "") return null;
                 try {
@@ -521,300 +453,250 @@
                         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
                     }).join(''));
                 } catch (e) {
-                    console.error("Errore nella decodifica base64url:", e, "Stringa:", str);
+                    console.error("Errore decodifica base64url:", e, "Stringa:", str);
                     return null;
                 }
             }
-    
+
             function parseStartParam(startParamString) {
                 if (!startParamString || startParamString === "Nessuno" || startParamString.trim() === "") {
-                    console.warn("startParamString è vuoto o 'Nessuno'.");
-                    return { error: "Parametro di avvio mancante o vuoto." };
+                    return { error: "Parametro di avvio mancante." };
                 }
                 const decodedJsonString = base64UrlDecode(startParamString);
                 if (!decodedJsonString) {
-                     return { error: "Decodifica del parametro di avvio fallita.", rawValue: startParamString };
+                     return { error: "Decodifica fallita.", rawValue: startParamString };
                 }
                 try {
                     return JSON.parse(decodedJsonString);
                 } catch (e) {
-                    console.error("Errore nel parsing del JSON decodificato:", e, "JSON Decodificato:", decodedJsonString);
-                    return { error: "Formato dati del parametro di avvio non valido.", rawValue: startParamString, decodedValue: decodedJsonString };
+                    return { error: "Formato dati non valido.", rawValue: startParamString, decodedValue: decodedJsonString };
                 }
             }
-    
+
             function populateUI(data) {
                 if (!data || data.error) {
-                    const errorMsg = `Errore nel caricare i dati iniziali: ${data ? (data.error + (data.rawValue ? ` (Grezzo: ${data.rawValue.substring(0,50)}...)` : (data.decodedValue ? ` (Decodificato: ${data.decodedValue.substring(0,50)}...)` : ''))) : 'Nessun dato o formato sconosciuto.'}`;
+                    const errorMsg = `Errore caricamento dati: ${data ? (data.error + (data.rawValue ? ` (Grezzo: ${data.rawValue.substring(0,50)}...)` : (data.decodedValue ? ` (Decodificato: ${data.decodedValue.substring(0,50)}...)` : ''))) : 'Dati sconosciuti.'}`;
                     showFatalError(errorMsg);
-                    tg.showAlert(errorMsg.substring(0, 200)); // Limita lunghezza alert
+                    tg.showAlert(errorMsg.substring(0, 200));
                     return;
                 }
-                initialStartParamData = data; // Salva i dati originali
-                console.log("Dati iniziali parsati per UI:", initialStartParamData);
-    
-                if (summaryEmployeeName) summaryEmployeeName.textContent = data.employeeName || 'N/D';
-                if (summaryProblemType) summaryProblemType.textContent = data.problemDescription || 'N/D';
-                if (summaryProblemTime) summaryProblemTime.textContent = data.problemTime || '';
-                if (summaryProblemDateText) summaryProblemDateText.textContent = data.problemDate || '';
-    
-                if (problemIdInput) problemIdInput.value = data.problemId || '';
-                if (originalEmployeeNameInput) originalEmployeeNameInput.value = data.employeeName || '';
-                if (originalProblemDateISOInput) originalProblemDateISOInput.value = data.problemDateISO || '';
-                if (originalSingleTimeInput) originalSingleTimeInput.value = data.originalSingleTime || '';
-    
-                if (dateCorrectionGroup) dateCorrectionGroup.style.display = 'none';
-                if (singleTimeCorrectionSection) singleTimeCorrectionSection.style.display = 'none';
-                if (missingTimeFieldGroup) missingTimeFieldGroup.style.display = 'none';
-    
+                initialStartParamData = data;
+                console.log("Dati iniziali per UI:", initialStartParamData);
+
+                summaryEmployeeName.textContent = data.employeeName || 'N/D';
+                summaryProblemType.textContent = data.problemDescription || 'N/D';
+                summaryProblemTime.textContent = data.problemTime || '';
+                summaryProblemDateText.textContent = data.problemDate || '';
+
+                problemIdInput.value = data.problemId || '';
+                problemContextIdInput.value = data.problemContextId || ''; // Assicurati che questo venga passato
+                originalEmployeeNameInput.value = data.employeeName || '';
+                originalProblemDateISOInput.value = data.problemDateISO || '';
+                originalSingleTimeInput.value = data.originalSingleTime || '';
+
+                // Popola i campi nascosti per i dettagli dell'utente correttore
+                correctorUserNameInput.value = currentUserDetails.username || '';
+                correctorUserFirstNameInput.value = currentUserDetails.first_name || '';
+                correctorUserLastNameInput.value = currentUserDetails.last_name || '';
+
+
+                dateCorrectionGroup.style.display = 'none';
+                singleTimeCorrectionSection.style.display = 'none';
+                missingTimeFieldGroup.style.display = 'none';
+
                 if (data.problemType === 'SINGLE_MISSING_ENTRY' || data.problemType === 'SINGLE_MISSING_EXIT') {
-                    if (singleTimeCorrectionSection) singleTimeCorrectionSection.style.display = 'block';
-                    if (missingTimeFieldGroup) missingTimeFieldGroup.style.display = 'block';
-                    if (singleCorrectionActionSelect) {
-                         singleCorrectionActionSelect.value = (data.problemType === 'SINGLE_MISSING_ENTRY') ? 'isExit_addEntry' : 'isEntry_addExit';
-                    }
-                    if (missingTimeLabel) {
-                        missingTimeLabel.textContent = (data.problemType === 'SINGLE_MISSING_ENTRY') ? "Orario Entrata Mancante (HH:MM):" : "Orario Uscita Mancante (HH:MM):";
-                    }
-                    if (missingTimeDateContext) missingTimeDateContext.textContent = `per il giorno ${data.problemDateFormatted || data.problemDateISO || 'N/A'}`;
+                    singleTimeCorrectionSection.style.display = 'block';
+                    missingTimeFieldGroup.style.display = 'block';
+                    singleCorrectionActionSelect.value = (data.problemType === 'SINGLE_MISSING_ENTRY') ? 'isExit_addEntry' : 'isEntry_addExit';
+                    missingTimeLabel.textContent = (data.problemType === 'SINGLE_MISSING_ENTRY') ? "Orario Entrata Mancante (HH:MM):" : "Orario Uscita Mancante (HH:MM):";
+                    missingTimeDateContext.textContent = `per il giorno ${data.problemDateFormatted || data.problemDateISO || 'N/A'}`;
                 } else if (data.problemType === 'DATE_CORRECTION_NEEDED') {
-                    if (dateCorrectionGroup) dateCorrectionGroup.style.display = 'block';
+                    dateCorrectionGroup.style.display = 'block';
                 }
-    
-                if (loadingMessage) loadingMessage.style.display = 'none';
-                if (errorMessageDiv) errorMessageDiv.style.display = 'none';
-                if (formContainer) formContainer.style.display = 'block';
+
+                loadingMessage.style.display = 'none';
+                errorMessageDiv.style.display = 'none';
+                formContainer.style.display = 'block';
             }
-    
-            function updateDebugSection(startParamVal, parsedDataObj, initDataStr, initDataUnsafeObj, locationSearchStr) {
-                if (!debugSection) return;
-                debugSection.innerHTML = `
-                    <h3>Debug Dati Telegram Ricevuti:</h3>
-                    <p><strong>Parametro Start (valore grezzo ricevuto):</strong></p><pre>${startParamVal === undefined ? "undefined" : (startParamVal === null ? "null" : String(startParamVal))}</pre>
-                    <p><strong>Dati Parsati da Start Param (se JSON):</strong></p><pre>${parsedDataObj ? JSON.stringify(parsedDataObj, null, 2) : "N/D o errore parsing"}</pre>
-                    <p><strong>initData (grezzo):</strong></p><pre>${initDataStr || "Non presente"}</pre>
-                    <p><strong>initDataUnsafe (JSON):</strong></p><pre>${initDataUnsafeObj ? JSON.stringify(initDataUnsafeObj, null, 2) : "Non presente"}</pre>
-                    <p><strong>URL Search (window.location.search):</strong></p><pre>${locationSearchStr || "Vuoto"}</pre>
-                `;
-            }
-    
-    
-            // --- 2. Gestione Modale Note --- (le tue funzioni vanno bene, le includo per completezza)
+
+            // Gestione Modale Note
             function openNotesModal() {
-                if (notesTextareaModal && notesHiddenInput && notesModalOverlay) {
-                    notesTextareaModal.value = notesHiddenInput.value;
-                    notesModalOverlay.style.display = 'flex';
-                    notesTextareaModal.focus();
-                }
+                notesTextareaModal.value = notesHiddenInput.value;
+                notesModalOverlay.style.display = 'flex';
+                notesTextareaModal.focus();
             }
-            function closeNotesModal() {
-                if (notesModalOverlay) notesModalOverlay.style.display = 'none';
-            }
+            function closeNotesModal() { notesModalOverlay.style.display = 'none'; }
             function updateNotesDisplay(notesText) {
-                if (currentNotesDisplay) {
-                    currentNotesDisplay.textContent = (notesText && notesText.trim() !== "") ? notesText.trim() : "Nessuna nota.";
-                    currentNotesDisplay.classList.toggle('empty', !(notesText && notesText.trim() !== ""));
-                }
+                currentNotesDisplay.textContent = (notesText && notesText.trim() !== "") ? notesText.trim() : "Nessuna nota.";
+                currentNotesDisplay.classList.toggle('empty', !(notesText && notesText.trim() !== ""));
             }
             function saveNotesFromModal() {
-                if (notesTextareaModal && notesHiddenInput) {
-                    const newNotes = notesTextareaModal.value.trim();
-                    notesHiddenInput.value = newNotes;
-                    updateNotesDisplay(newNotes);
-                    closeNotesModal();
-                }
+                const newNotes = notesTextareaModal.value.trim();
+                notesHiddenInput.value = newNotes;
+                updateNotesDisplay(newNotes);
+                closeNotesModal();
             }
-            if (addNotesButton) addNotesButton.addEventListener('click', openNotesModal);
-            if (cancelNotesButton) cancelNotesButton.addEventListener('click', closeNotesModal);
-            if (saveNotesButton) saveNotesButton.addEventListener('click', saveNotesFromModal);
-    
-    
-            // --- 3. Validazione Form ---
+            addNotesButton.addEventListener('click', openNotesModal);
+            cancelNotesButton.addEventListener('click', closeNotesModal);
+            saveNotesButton.addEventListener('click', saveNotesFromModal);
+
+            // Validazione Form
             function validateForm() {
                 let isValid = true;
-                if (missingTimeError) missingTimeError.style.display = 'none';
-                if (missingTimeValueInput) missingTimeValueInput.classList.remove('input-error');
-    
-                if (missingTimeFieldGroup && missingTimeFieldGroup.style.display !== 'none' &&
-                    singleCorrectionActionSelect && singleCorrectionActionSelect.value !== '') {
-                    if (!missingTimeValueInput || !missingTimeValueInput.value) {
-                        if (missingTimeError) {
-                            missingTimeError.textContent = "L'orario è obbligatorio.";
-                            missingTimeError.style.display = 'block';
-                        }
-                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                missingTimeError.style.display = 'none';
+                missingTimeValueInput.classList.remove('input-error');
+
+                if (missingTimeFieldGroup.style.display !== 'none' && singleCorrectionActionSelect.value !== '') {
+                    if (!missingTimeValueInput.value) {
+                        missingTimeError.textContent = "L'orario è obbligatorio.";
+                        missingTimeError.style.display = 'block';
+                        missingTimeValueInput.classList.add('input-error');
                         isValid = false;
-                    } else if (missingTimeValueInput && !/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(missingTimeValueInput.value)) {
-                         if (missingTimeError) {
-                            missingTimeError.textContent = "Formato orario non valido (HH:MM).";
-                            missingTimeError.style.display = 'block';
-                        }
-                         if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
-                         isValid = false;
+                    } else if (!/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(missingTimeValueInput.value)) {
+                        missingTimeError.textContent = "Formato orario non valido (HH:MM).";
+                        missingTimeError.style.display = 'block';
+                        missingTimeValueInput.classList.add('input-error');
+                        isValid = false;
                     }
                 }
                 return isValid;
             }
-    
-            // --- 4. Gestione Invio Form ---
-            if (submitHtmlButton) {
-                submitHtmlButton.addEventListener('click', function() {
-                    if (!validateForm()) {
-                        tg.showAlert("Per favore, correggi gli errori nel form.", function() {
-                            const firstErrorInput = correctionForm ? correctionForm.querySelector('.input-error') : null;
-                            if (firstErrorInput) firstErrorInput.focus();
-                        });
-                        return;
-                    }
-    
-                    tg.showConfirm("Confermi l'invio della correzione?", function(isConfirmed) {
-                        if (isConfirmed) {
-                            submitHtmlButton.disabled = true;
-                            submitHtmlButton.textContent = "Invio in corso...";
-                            if(tg.MainButton.isVisible) tg.MainButton.showProgress();
-    
-                            const dataToSend = {
-                                problemId: problemIdInput ? problemIdInput.value : (initialStartParamData ? initialStartParamData.problemId : ""),
-                                problemContextId: initialStartParamData ? initialStartParamData.problemContextId : "", // Passa il context ID ricevuto
-                                originalEmployeeName: originalEmployeeNameInput ? originalEmployeeNameInput.value : "",
-                                originalProblemDateISO: originalProblemDateISOInput ? originalProblemDateISOInput.value : "",
-                                originalSingleTime: originalSingleTimeInput ? originalSingleTimeInput.value : "",
-                                correctedDate: correctedDateInput ? correctedDateInput.value : "",
-                                singleCorrectionAction: singleCorrectionActionSelect ? singleCorrectionActionSelect.value : "",
-                                missingTimeValue: missingTimeValueInput ? missingTimeValueInput.value : "",
-                                notes: notesHiddenInput ? notesHiddenInput.value : "",
-                                initDataRaw: tg.initData || "",
-                                telegramUserId: currentTelegramUserId, // Ora include l'ID utente se letto
-                                clientTimestamp: new Date().toISOString(),
-                                startParamReceived: startParamValueForDebug // Valore grezzo per debug server
-                            };
-    
-                            console.log("Dati inviati al server:", JSON.stringify(dataToSend, null, 2));
-    
-                            
-                            fetch(GAS_WEB_APP_URL, {
-                                        method: 'POST',
-                                        redirect: 'follow', // <-- Aggiungi questo
-                                        // mode: 'cors', // Puoi commentare o rimuovere mode: 'cors' se usi text/plain,
-                                                    // perché text/plain non fa una preflight CORS "vera"
-                                                    // ma lasciarlo non dovrebbe fare danno. Prova entrambe le opzioni.
-                                        cache: 'no-cache',
-                                        headers: {
-                                            // Visto che il payload effettivo è JSON, ma vogliamo bypassare la preflight OPTIONS
-                                            // proviamo con text/plain come suggerito da Stack Overflow.
-                                            'Content-Type': 'text/plain;charset=utf-8',
-                                        },
-                                        body: JSON.stringify({ payload: dataToSend }) // Il corpo è ancora una stringa JSON
-                                    })
-                                    .then(response => {
-                                        console.log("Risposta RAW dal server (fetch con text/plain):", response);
-                                        if (!response.ok) {
-                                            // Se la risposta HTTP non è ok, prova a leggere il corpo come testo
-                                            return response.text().then(text => {
-                                                console.error("Testo della risposta (non OK) dal server (text/plain):", text);
-                                                // Dato che il server GAS dovrebbe comunque rispondere con JSON (anche per errori gestiti)
-                                                // proviamo a parsarlo
-                                                try {
-                                                    const errData = JSON.parse(text);
-                                                    throw new Error(errData.message || `Errore HTTP ${response.status} - Contenuto: ${text.substring(0,100)}`);
-                                                } catch (parseError) {
-                                                    // Se GAS ha restituito un errore HTML (es. errore di script non gestito)
-                                                    // o se la risposta non era JSON
-                                                    throw new Error(`Errore HTTP ${response.status} - Risposta non JSON o errore server GAS: ${text.substring(0,100)}`);
-                                                }
-                                            });
-                                        }
-                                        // Se response.ok, GAS dovrebbe aver restituito JSON, quindi proviamo a parsarlo.
-                                        // Anche se abbiamo inviato text/plain, il nostro doPost restituisce application/json
-                                        return response.json();
-                                    })
-                                    .then(data => {
-                                        console.log('Successo da GAS (con text/plain):', data);
-                                        if (data.status === "successo") {
-                                            tg.showAlert(data.message || "Correzione inviata con successo!", function() { tg.close(); });
-                                        } else {
-                                            tg.showAlert(`Errore dall'applicazione: ${data.message || 'Sconosciuto.'}`);
-                                            if (submitHtmlButton) {
-                                                submitHtmlButton.disabled = false;
-                                                submitHtmlButton.textContent = "Invia Correzione";
-                                            }
-                                        }
-                                    })
-                                    .catch((error) => {
-                                        console.error('ERRORE DETTAGLIATO nel fetch a GAS (con text/plain):', error);
-                                        tg.showAlert(`Errore di comunicazione (text/plain): ${error.message}. Controlla console.`);
-                                        if (submitHtmlButton) {
-                                            submitHtmlButton.disabled = false;
-                                            submitHtmlButton.textContent = "Invia Correzione";
-                                        }
-                                    })
-                                    .finally(() => {
-                                        if(tg.MainButton.isVisible && typeof tg.MainButton.hideProgress === 'function') tg.MainButton.hideProgress();
-                                    });
-                            
-                            
 
-                        }
+            // Gestione Invio Form
+            submitHtmlButton.addEventListener('click', function() {
+                if (!validateForm()) {
+                    tg.showAlert("Per favore, correggi gli errori nel form.", function() {
+                        const firstErrorInput = correctionForm.querySelector('.input-error');
+                        if (firstErrorInput) firstErrorInput.focus();
                     });
+                    return;
+                }
+
+                tg.showConfirm("Confermi l'invio della correzione?", function(isConfirmed) {
+                    if (isConfirmed) {
+                        submitHtmlButton.disabled = true;
+                        submitHtmlButton.textContent = "Invio in corso...";
+                        if(tg.MainButton.isVisible) tg.MainButton.showProgress();
+
+                        const dataToSend = {
+                            problemId: problemIdInput.value,
+                            problemContextId: problemContextIdInput.value, // Inviato per modificare il messaggio
+                            originalEmployeeName: originalEmployeeNameInput.value,
+                            originalProblemDateISO: originalProblemDateISOInput.value,
+                            originalSingleTime: originalSingleTimeInput.value,
+                            correctedDate: correctedDateInput.value,
+                            singleCorrectionAction: singleCorrectionActionSelect.value,
+                            missingTimeValue: missingTimeValueInput.value,
+                            notes: notesHiddenInput.value,
+                            initDataRaw: tg.initData || "",
+                            telegramUserId: currentTelegramUserId,
+                            // Dettagli dell'utente che corregge, per il messaggio di notifica
+                            correctorUserInfo: {
+                                id: currentTelegramUserId,
+                                username: correctorUserNameInput.value,
+                                first_name: correctorUserFirstNameInput.value,
+                                last_name: correctorUserLastNameInput.value
+                            },
+                            clientTimestamp: new Date().toISOString()
+                            // startParamReceived non è più necessario per il server se non per debug specifico
+                        };
+
+                        console.log("Dati inviati al server:", JSON.stringify(dataToSend, null, 2));
+                        
+                        fetch(GAS_WEB_APP_URL, {
+                            method: 'POST',
+                            redirect: 'follow',
+                            cache: 'no-cache',
+                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                            body: JSON.stringify({ payload: dataToSend })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.text().then(text => {
+                                    try {
+                                        const errData = JSON.parse(text);
+                                        throw new Error(errData.message || `Errore HTTP ${response.status} - ${text.substring(0,100)}`);
+                                    } catch (parseError) {
+                                        throw new Error(`Errore HTTP ${response.status} - Risposta non JSON: ${text.substring(0,100)}`);
+                                    }
+                                });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Successo da GAS:', data);
+                            if (data.status === "successo") {
+                                submitHtmlButton.textContent = "Modulo Inviato"; // Testo cambiato
+                                // Il pulsante rimane disabilitato
+                                tg.showAlert(data.message || "Correzione inviata con successo!", function() {
+                                    tg.close(); // Chiude la Mini App dopo che l'utente chiude l'alert
+                                });
+                            } else {
+                                tg.showAlert(`Errore dall'applicazione: ${data.message || 'Sconosciuto.'}`);
+                                submitHtmlButton.disabled = false; // Riabilita solo in caso di errore applicativo
+                                submitHtmlButton.textContent = "Invia Correzione";
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('ERRORE DETTAGLIATO nel fetch a GAS:', error);
+                            tg.showAlert(`Errore di comunicazione: ${error.message}. Controlla console.`);
+                            submitHtmlButton.disabled = false; // Riabilita in caso di errore di rete/fetch
+                            submitHtmlButton.textContent = "Invia Correzione";
+                        })
+                        .finally(() => {
+                            if(tg.MainButton.isVisible && typeof tg.MainButton.hideProgress === 'function') {
+                                tg.MainButton.hideProgress();
+                            }
+                        });
+                    }
                 });
-            } else {
-                console.error("Pulsante di invio 'submitHtmlButton' non trovato nel DOM.");
-            }
-    
-    
-            // --- Inizializzazione ---
-            let startParamValueForDebug = "Nessuno (non ancora letto)"; // Per il log finale
-    
+            });
+
+            // Inizializzazione
             try {
-                if (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) {
+                tg.ready(); // Annuncia che la Web App è pronta
+                applyThemeVariables(); // Applica stili basati sul tema Telegram
+                tg.expand(); // Espande la Web App a tutta altezza
+
+                if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
                      currentTelegramUserId = String(tg.initDataUnsafe.user.id);
+                     currentUserDetails = { // Salva i dettagli dell'utente
+                        username: tg.initDataUnsafe.user.username || "",
+                        first_name: tg.initDataUnsafe.user.first_name || "",
+                        last_name: tg.initDataUnsafe.user.last_name || ""
+                     };
                 }
                 console.log("Current Telegram User ID:", currentTelegramUserId);
-    
+                console.log("Current User Details:", currentUserDetails);
+
+
+                let startParamValue = "Nessuno";
                 if (tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
-                    startParamValueForDebug = tg.initDataUnsafe.start_param;
+                    startParamValue = tg.initDataUnsafe.start_param;
                 } else {
                     const currentUrlParams = new URLSearchParams(window.location.search);
                     const tgWebAppStartParamFromUrl = currentUrlParams.get('tgWebAppStartParam');
                     if (tgWebAppStartParamFromUrl) {
-                        startParamValueForDebug = tgWebAppStartParamFromUrl;
+                        startParamValue = tgWebAppStartParamFromUrl;
                     }
                 }
-                console.log("startParamValueForDebug letto come:", startParamValueForDebug);
+                console.log("startParamValue letto:", startParamValue);
                 
-                // Verifica per la modalità debug speciale se startapp=debug
-                if (startParamValueForDebug && startParamValueForDebug.toLowerCase() === 'debug') {
-                    isDebugMode = true;
-                    const debugData = {
-                        problemId: "DEBUG_ID", employeeName: "Debug User", problemDescription: "Test Problema (Uscita Manc.)",
-                        problemTime: "alle 09:00", problemDate: "del Giorno Debug", problemDateISO: new Date().toISOString().split('T')[0],
-                        originalSingleTime: "09:00", problemType: "SINGLE_MISSING_EXIT", problemDateFormatted: "Oggi (Debug)",
-                        problemContextId: "debug_context_123"
-                    };
-                    populateUI(debugData);
-                } else {
-                     const parsedData = parseStartParam(startParamValueForDebug); // startParamValueForDebug contiene il payload base64url
-                     populateUI(parsedData);
-                }
+                // Logica per il debug mode se `startapp=debug` (mantenuta per test futuri se necessario)
+                // if (startParamValue && startParamValue.toLowerCase() === 'debug') {
+                //     const debugData = { /* ... dati di debug ... */ };
+                //     populateUI(debugData);
+                // } else {
+                //      const parsedData = parseStartParam(startParamValue);
+                //      populateUI(parsedData);
+                // }
+                const parsedData = parseStartParam(startParamValue);
+                populateUI(parsedData);
     
             } catch (initError) {
-                showFatalError("Errore durante l'inizializzazione: " + initError.message);
+                showFatalError("Errore inizializzazione: " + initError.message);
             }
-    
-            // Mostra sempre la sezione debug se isDebugMode è true, o per utenti specifici
-            if (isDebugMode || (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id === 824994510)) {
-                 if(debugSection) debugSection.style.display = 'block';
-            }
-            updateDebugSection(
-                startParamValueForDebug,
-                initialStartParamData, // Questo è l'oggetto dopo parseStartParam
-                tg.initData,
-                tg.initDataUnsafe,
-                window.location.search
-            );
-    
-        }); // Fine DOMContentLoaded
+        });
     </script>
-
 </body>
 </html>
