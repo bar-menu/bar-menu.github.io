@@ -222,52 +222,74 @@
                 debugSection.innerHTML = debugContent;
             }
 
+                       // All'interno del blocco <script> del tuo HTML
+            // Sostituisci la tua funzione populateUI esistente con questa:
+
             function populateUI(data) {
-                console.log("populateUI - Dati Input:", JSON.stringify(data));
+                console.log("populateUI - Dati Input (dovrebbero essere con chiavi abbreviate):", JSON.stringify(data));
                 if (!data || data.error) {
-                    const errorMsg = `Dati iniziali per il form non validi. ${data && data.error ? data.error : ''} ${data && data.rawValue ? `(Grezzo: ${data.rawValue.substring(0,30)}...)` : ''}`;
+                    const errorMsg = `Dati iniziali per il form non validi o corrotti. ${data && data.error ? data.error : ''} ${data && data.rawValue ? `(Grezzo: ${data.rawValue.substring(0,30)}...)` : ''}`;
                     showFatalError(errorMsg, startParamValueForDebug, data, tg.initData, tg.initDataUnsafe, window.location.search);
                     return;
                 }
-                initialStartParamData = data;
+                initialStartParamData = data; // Salva i dati originali (ora abbreviati)
 
-                summaryEmployeeName.textContent = data.employeeName || 'N/D';
-                let mainProblemDescription = data.problemDescription || 'N/D';
+                // Usa i nomi delle chiavi abbreviati ricevuti dal GAS
+                summaryEmployeeName.textContent = data.name || 'N/D'; // da data.employeeName a data.name
+
+                // Per la descrizione principale, se il GAS non la invia più (per ridurre payload),
+                // dobbiamo crearne una di base qui.
+                let mainProblemDescriptionUI = "Dettaglio problema non fornito nel link."; // Fallback
+                if (data.pType && data.pType.toUpperCase().includes('SINGLE')) { // Se pType contiene "SINGLE"
+                    mainProblemDescriptionUI = `Timbratura singola rilevata.`;
+                    if (data.origTime) { // Aggiungi l'orario se disponibile
+                         // Non tentiamo di pulire una descrizione che non c'è più, ma costruiamola.
+                    }
+                } else if (data.pType) {
+                    mainProblemDescriptionUI = `Tipo problema: ${data.pType}`;
+                }
+                // Potresti voler passare una descrizione breve dal GAS se lo spazio lo consente
+                // Altrimenti, questa è una descrizione generica.
+                // Se il GAS invia ancora `problemDescription` (sconsigliato per payload lungo), usalo:
+                // mainProblemDescriptionUI = data.problemDescription || mainProblemDescriptionUI;
+                problemTypeSpan.textContent = mainProblemDescriptionUI;
+
+
                 let timeAndBarDisplay = '';
-                let dateDisplay = '';
-
-                // Determina se è un problema di timbratura singola
-                // Questo problemType viene dal GAS e potrebbe essere generico come 'SINGLE_TIMESTAMP'
-                // o più specifico come 'SINGLE_MISSING_ENTRY' (che la MiniApp stessa potrebbe aver dedotto se avesse più logica)
-                const isSingleTimestampProblem = data.problemType && (
-                    data.problemType.toUpperCase().startsWith('SINGLE_TIMESTAMP') || // Cattura SINGLE_TIMESTAMP
-                    data.problemType.toUpperCase() === 'SINGLE_MISSING_ENTRY' ||
-                    data.problemType.toUpperCase() === 'SINGLE_MISSING_EXIT' ||
-                    (data.problemTypeForForm && data.problemTypeForForm.toUpperCase() === 'SINGLE_TIMESTAMP') // Retrocompatibilità
-                );
-
-                if (isSingleTimestampProblem && data.originalSingleTime) {
-                    const escapedTime = data.originalSingleTime.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                    const timePattern = new RegExp(`\\s*\\(${escapedTime}\\)\\.?`, 'g');
-                    mainProblemDescription = mainProblemDescription.replace(timePattern, '').trim();
-                    if (mainProblemDescription && !mainProblemDescription.endsWith('.') && !mainProblemDescription.endsWith('!')) {
-                        mainProblemDescription += '.';
+                if (data.origTime) { // da data.originalSingleTime a data.origTime
+                    timeAndBarDisplay = data.origTime;
+                    if (data.origBar && data.origBar !== "N/D") { // da data.originalSingleBar a data.origBar
+                        timeAndBarDisplay += ` (Bar ${data.origBar})`;
                     }
                 }
-                problemTypeSpan.textContent = mainProblemDescription;
-
-                if (data.originalSingleTime) { timeAndBarDisplay = data.originalSingleTime; if (data.originalSingleBar && data.originalSingleBar !== "N/D") timeAndBarDisplay += ` (Bar ${data.originalSingleBar})`; }
                 problemTimeSpan.textContent = timeAndBarDisplay;
 
-                if (data.problemDateISO) { try { const dateParts = data.problemDateISO.split('-'); if (dateParts.length === 3) dateDisplay = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`; else dateDisplay = data.problemDateISO; } catch (e) { dateDisplay = data.problemDateISO; console.error("Errore UI data:", e); } } else { dateDisplay = data.problemDate || 'N/D'; }
+                let dateDisplay = '';
+                if (data.pDateISO) { // da data.problemDateISO a data.pDateISO
+                    try {
+                        const dateParts = data.pDateISO.split('-');
+                        if (dateParts.length === 3) {
+                            dateDisplay = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`; // GG-MM-AAAA
+                        } else {
+                            dateDisplay = data.pDateISO;
+                        }
+                    } catch (e) {
+                        dateDisplay = data.pDateISO;
+                        console.error("Errore formattazione data per UI:", e);
+                    }
+                } else {
+                    dateDisplay = 'N/D';
+                }
                 problemDateTextSpan.textContent = dateDisplay;
 
-                problemIdInput.value = data.problemId || '';
-                problemContextIdInput.value = data.problemContextId || '';
-                originalEmployeeNameInput.value = data.employeeName || '';
-                originalProblemDateISOInput.value = data.problemDateISO || '';
-                originalSingleTimeInput.value = data.originalSingleTime || '';
-                originalSingleBarInput.value = data.originalSingleBar || '';
+                // problemIdInput e problemContextIdInput ora usano data.ctxId
+                problemIdInput.value = data.ctxId || '';       // Usa ctxId, problemId non viene più inviato
+                problemContextIdInput.value = data.ctxId || ''; // Usa ctxId
+
+                originalEmployeeNameInput.value = data.name || '';
+                originalProblemDateISOInput.value = data.pDateISO || '';
+                originalSingleTimeInput.value = data.origTime || '';
+                originalSingleBarInput.value = data.origBar || '';
                 
                 correctorUserIdInput.value = currentUserDetails.id || '';
                 correctorUserNameInput.value = currentUserDetails.username || '';
@@ -277,34 +299,49 @@
                 // Nascondi tutte le sezioni condizionali di default
                 dateCorrectionGroup.style.display = 'none';
                 singleTimeCorrectionSection.style.display = 'none';
-                missingTimeFieldGroup.style.display = 'none'; // Anche questo, verrà mostrato da handleSingleCorrectionActionChange
+                missingTimeFieldGroup.style.display = 'none';
 
-                if (isSingleTimestampProblem) {
-                    singleTimeCorrectionSection.style.display = 'block'; // Mostra sempre la select se è timbratura singola
+                // Determina se mostrare la sezione per timbratura singola basata su pType
+                const isSingleTypeProblem = data.pType && (
+                    data.pType.toUpperCase().startsWith('SINGLE') || // Cattura SINGLE_TIMESTAMP, SINGLE_MISSING_ENTRY, ecc.
+                    (data.problemTypeForForm && data.problemTypeForForm.toUpperCase() === 'SINGLE_TIMESTAMP') // Retrocompatibilità, anche se problemTypeForForm non dovrebbe più arrivare
+                );
 
-                    // Pre-seleziona l'azione se il tipo è specifico
-                    // problemType qui viene dai dati passati al link (es. SINGLE_MISSING_ENTRY)
-                    if (data.problemType === 'SINGLE_MISSING_ENTRY') { // Era un'uscita, manca entrata
+                if (isSingleTypeProblem) {
+                    singleTimeCorrectionSection.style.display = 'block'; // Mostra la select
+
+                    // Logica di preselezione della select basata su pType e origTime
+                    // Se pType è un generico "SINGLE_TIMESTAMP", deduci l'azione dall'ora
+                    if (data.pType.toUpperCase() === 'SINGLE_TIMESTAMP' && data.origTime) {
+                        const hour = parseInt(data.origTime.split(':')[0], 10);
+                        if (!isNaN(hour)) {
+                            if (hour < 14) { // Esempio: orario mattutino, si presume fosse un'entrata, manca uscita
+                                singleCorrectionActionSelect.value = 'isEntry_addExit';
+                            } else { // Orario pomeridiano/serale, si presume fosse un'uscita, manca entrata
+                                singleCorrectionActionSelect.value = 'isExit_addEntry';
+                            }
+                        } else {
+                             singleCorrectionActionSelect.value = ''; // Non si può dedurre
+                        }
+                    } else if (data.pType.toUpperCase() === 'SINGLE_MISSING_ENTRY') {
                         singleCorrectionActionSelect.value = 'isExit_addEntry';
-                    } else if (data.problemType === 'SINGLE_MISSING_EXIT') { // Era un'entrata, manca uscita
+                    } else if (data.pType.toUpperCase() === 'SINGLE_MISSING_EXIT') {
                         singleCorrectionActionSelect.value = 'isEntry_addExit';
                     } else {
-                        // Se è un generico SINGLE_TIMESTAMP (o altro tipo non specifico per azione)
-                        // lascia la select "-- Seleziona un'azione --"
-                        singleCorrectionActionSelect.value = '';
+                        singleCorrectionActionSelect.value = ''; // Default se pType non corrisponde
                     }
-                    // CHIAMA handleSingleCorrectionActionChange PER AGGIORNARE LA VISIBILITA' DEL CAMPO ORARIO
-                    // in base al valore (anche vuoto) della select.
-                    handleSingleCorrectionActionChange(); 
-                } else if (data.problemType === 'DATE_CORRECTION_NEEDED') { // Esempio per un altro tipo di problema
+                    
+                    handleSingleCorrectionActionChange(); // Chiama per mostrare/nascondere il campo orario
+                } else if (data.pType === 'DATE_CORRECTION_NEEDED') { // Esempio per un altro tipo
                     dateCorrectionGroup.style.display = 'block';
                 }
-                // Altri else if per altri problemType futuri...
+                // Altri else if per diversi data.pType...
                 
                 loadingMessage.style.display = 'none';
                 errorMessageDiv.style.display = 'none';
                 formContainer.style.display = 'block';
                 document.body.style.visibility = 'visible';
+                // Aggiorna la sezione debug con i dati (ora abbreviati)
                 updateDebugSection(startParamValueForDebug, initialStartParamData, tg.initData, tg.initDataUnsafe, window.location.search);
             }
 
