@@ -693,67 +693,107 @@
     
                             
                             fetch(GAS_WEB_APP_URL, {
-                                        method: 'POST',
-                                        redirect: 'follow', // <-- Aggiungi questo
-                                        // mode: 'cors', // Puoi commentare o rimuovere mode: 'cors' se usi text/plain,
-                                                    // perché text/plain non fa una preflight CORS "vera"
-                                                    // ma lasciarlo non dovrebbe fare danno. Prova entrambe le opzioni.
-                                        cache: 'no-cache',
-                                        headers: {
-                                            // Visto che il payload effettivo è JSON, ma vogliamo bypassare la preflight OPTIONS
-                                            // proviamo con text/plain come suggerito da Stack Overflow.
-                                            'Content-Type': 'text/plain;charset=utf-8',
-                                        },
-                                        body: JSON.stringify({ payload: dataToSend }) // Il corpo è ancora una stringa JSON
-                                    })
-                                    .then(response => {
-                                        console.log("Risposta RAW dal server (fetch con text/plain):", response);
-                                        if (!response.ok) {
-                                            // Se la risposta HTTP non è ok, prova a leggere il corpo come testo
-                                            return response.text().then(text => {
-                                                console.error("Testo della risposta (non OK) dal server (text/plain):", text);
-                                                // Dato che il server GAS dovrebbe comunque rispondere con JSON (anche per errori gestiti)
-                                                // proviamo a parsarlo
-                                                try {
-                                                    const errData = JSON.parse(text);
-                                                    throw new Error(errData.message || `Errore HTTP ${response.status} - Contenuto: ${text.substring(0,100)}`);
-                                                } catch (parseError) {
-                                                    // Se GAS ha restituito un errore HTML (es. errore di script non gestito)
-                                                    // o se la risposta non era JSON
-                                                    throw new Error(`Errore HTTP ${response.status} - Risposta non JSON o errore server GAS: ${text.substring(0,100)}`);
+                                            method: 'POST',
+                                            redirect: 'follow', // <-- Aggiungi questo
+                                            // mode: 'cors', // Puoi commentare o rimuovere mode: 'cors' se usi text/plain,
+                                                        // perché text/plain non fa una preflight CORS "vera"
+                                                        // ma lasciarlo non dovrebbe fare danno. Prova entrambe le opzioni.
+                                            cache: 'no-cache',
+                                            headers: {
+                                                // Visto che il payload effettivo è JSON, ma vogliamo bypassare la preflight OPTIONS
+                                                // proviamo con text/plain come suggerito da Stack Overflow.
+                                                'Content-Type': 'text/plain;charset=utf-8',
+                                            },
+                                            body: JSON.stringify({ payload: dataToSend }) // Il corpo è ancora una stringa JSON
+                                        })
+                                        .then(response => {
+                                            console.log("Risposta RAW dal server (fetch con text/plain):", response);
+                                            if (!response.ok) {
+                                                // Se la risposta HTTP non è ok, prova a leggere il corpo come testo
+                                                return response.text().then(text => {
+                                                    console.error("Testo della risposta (non OK) dal server (text/plain):", text);
+                                                    // Dato che il server GAS dovrebbe comunque rispondere con JSON (anche per errori gestiti)
+                                                    // proviamo a parsarlo
+                                                    try {
+                                                        const errData = JSON.parse(text);
+                                                        throw new Error(errData.message || `Errore HTTP ${response.status} - Contenuto: ${text.substring(0,100)}`);
+                                                    } catch (parseError) {
+                                                        // Se GAS ha restituito un errore HTML (es. errore di script non gestito)
+                                                        // o se la risposta non era JSON
+                                                        throw new Error(`Errore HTTP ${response.status} - Risposta non JSON o errore server GAS: ${text.substring(0,100)}`);
+                                                    }
+                                                });
+                                            }
+                                            // Se response.ok, GAS dovrebbe aver restituito JSON, quindi proviamo a parsarlo.
+                                            // Anche se abbiamo inviato text/plain, il nostro doPost restituisce application/json
+                                            return response.json();
+                                        })
+                                        .then(data => {
+                                            console.log('Successo da GAS (con text/plain):', data);
+                                            if (data.status === "successo") {
+                                                tg.showAlert(data.message || "Correzione inviata con successo!", function() { tg.close(); });
+                                            } else {
+                                                tg.showAlert(`Errore dall'applicazione: ${data.message || 'Sconosciuto.'}`);
+                                                if (submitHtmlButton) {
+                                                    submitHtmlButton.disabled = false;
+                                                    submitHtmlButton.textContent = "Invia Correzione";
                                                 }
-                                            });
-                                        }
-                                        // Se response.ok, GAS dovrebbe aver restituito JSON, quindi proviamo a parsarlo.
-                                        // Anche se abbiamo inviato text/plain, il nostro doPost restituisce application/json
-                                        return response.json();
-                                    })
-                                    .then(data => {
-                                        console.log('Successo da GAS (con text/plain):', data);
-                                        if (data.status === "successo") {
-                                            tg.showAlert(data.message || "Correzione inviata con successo!", function() { tg.close(); });
-                                        } else {
-                                            tg.showAlert(`Errore dall'applicazione: ${data.message || 'Sconosciuto.'}`);
+                                            }
+                                        })
+                                        .catch((error) => {
+                                            console.error('ERRORE DETTAGLIATO nel fetch a GAS (con text/plain):', error);
+                                            tg.showAlert(`Errore di comunicazione (text/plain): ${error.message}. Controlla console.`);
                                             if (submitHtmlButton) {
                                                 submitHtmlButton.disabled = false;
                                                 submitHtmlButton.textContent = "Invia Correzione";
                                             }
+                                        })
+                                        .finally(() => {
+                                            if(tg.MainButton.isVisible && typeof tg.MainButton.hideProgress === 'function') tg.MainButton.hideProgress();
+                                        });
+                            
+                            
+                            fetch(GAS_WEB_APP_URL, {
+                                method: 'POST',
+                                mode: 'cors',
+                                cache: 'no-cache',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ payload: dataToSend }) // Invia come oggetto {payload: ...}
+                            })
+                            .then(response => {
+                                console.log("Risposta RAW dal server (fetch):", response);
+                                if (!response.ok) {
+                                    return response.text().then(text => { // Leggi come testo prima
+                                        console.error("Testo della risposta (non OK) dal server:", text);
+                                        try {
+                                            const errData = JSON.parse(text); // Prova a parsare come JSON
+                                            throw new Error(errData.message || `Errore HTTP ${response.status} - Contenuto: ${text.substring(0,100)}`);
+                                        } catch (parseError) { // Se non è JSON o il parsing fallisce
+                                            throw new Error(`Errore HTTP ${response.status} - Risposta non JSON: ${text.substring(0,100)}`);
                                         }
-                                    })
-                                    .catch((error) => {
-                                        console.error('ERRORE DETTAGLIATO nel fetch a GAS (con text/plain):', error);
-                                        tg.showAlert(`Errore di comunicazione (text/plain): ${error.message}. Controlla console.`);
-                                        if (submitHtmlButton) {
-                                            submitHtmlButton.disabled = false;
-                                            submitHtmlButton.textContent = "Invia Correzione";
-                                        }
-                                    })
-                                    .finally(() => {
-                                        if(tg.MainButton.isVisible && typeof tg.MainButton.hideProgress === 'function') tg.MainButton.hideProgress();
                                     });
-                            
-                            
-
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Successo da GAS:', data);
+                                if (data.status === "successo") {
+                                    tg.showAlert(data.message || "Correzione inviata con successo!", function() { tg.close(); });
+                                } else {
+                                    tg.showAlert(`Errore dall'applicazione: ${data.message || 'Sconosciuto.'}`);
+                                    submitHtmlButton.disabled = false;
+                                    submitHtmlButton.textContent = "Invia Correzione";
+                                }
+                            })
+                            .catch((error) => {
+                                console.error('ERRORE DETTAGLIATO nel fetch a GAS:', error);
+                                tg.showAlert(`Errore di comunicazione: ${error.message}. Controlla console (se possibile).`);
+                                submitHtmlButton.disabled = false;
+                                submitHtmlButton.textContent = "Invia Correzione";
+                            })
+                            .finally(() => {
+                                if(tg.MainButton.isVisible && typeof tg.MainButton.hideProgress === 'function') tg.MainButton.hideProgress();
+                            });
                         }
                     });
                 });
