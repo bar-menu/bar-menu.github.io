@@ -290,6 +290,9 @@
                     singleCorrectionActionSelect.value = ''; 
                     handleSingleCorrectionActionChange(); 
                 }
+
+
+                
                 
                 loadingMessage.style.display = 'none';
                 errorMessageDiv.style.display = 'none';
@@ -586,23 +589,31 @@
                     if(debugSection) debugSection.style.display = 'block';
                 }
 
-                // Event listener per il vecchio sistema di note rimossi.
-                // Aggiungi listener per il nuovo campo note per gestire il placeholder robustamente
                 if (notesTextField) {
+                    notesTextField.addEventListener('keydown', function(event) {
+                        // Se viene premuto Enter e NON Shift+Enter
+                        if (event.key === 'Enter' && !event.shiftKey) {
+                            event.preventDefault(); // Impedisce di andare a capo
+                            handleFormSubmit();     // Chiama la funzione di invio del form
+                        }
+                        // Se si vuole permettere Shift+Enter per andare a capo, non serve altro qui.
+                        // Se si vuole bloccare anche Shift+Enter, la condizione sarebbe solo: if (event.key === 'Enter')
+                    });
+
+                    // Listener per focus e blur (già presenti, li lascio per contesto)
                     notesTextField.addEventListener('focus', function() {
-                        // Se il contenuto è uguale al placeholder (caso raro, ma possibile se incollato), pulisci
                         if (this.textContent === this.dataset.placeholder) {
-                            // this.textContent = ''; // Non necessario se :empty::before è usato bene
+                            // this.textContent = ''; // Opzionale, il CSS dovrebbe gestirlo
                         }
                     });
                     notesTextField.addEventListener('blur', function() {
-                        // Se il campo è vuoto dopo il trim, assicurati che innerHTML sia vuoto
-                        // per far funzionare il placeholder CSS :empty::before
                         if (this.textContent.trim() === '') {
-                            this.innerHTML = ''; // Rimuove <br> o spazi che potrebbero ingannare :empty
+                            this.innerHTML = ''; 
                         }
                     });
                 }
+
+
                 
                 if (singleCorrectionActionSelect) {
                     singleCorrectionActionSelect.addEventListener('change', handleSingleCorrectionActionChange); 
