@@ -23,11 +23,11 @@
         textarea { min-height: 100px; resize: vertical; }
         /* Stili per il div contenteditable per farlo assomigliare agli altri input */
         div[contenteditable="true"].input {
-            min-height: 70px; /* Altezza minima per più righe */
-            line-height: 1.6; /* Coerenza con altri input */
-            -webkit-user-modify: read-write-plaintext-only; /* Evita HTML complesso incollato */
-            white-space: pre-wrap; /* Permette di andare a capo e rispetta gli spazi */
-            word-wrap: break-word; /* Va a capo se la parola è troppo lunga */
+            min-height: 50px; /* Ridotta altezza minima, simile ad altri input */
+            line-height: 1.6; 
+            -webkit-user-modify: read-write-plaintext-only; 
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
         }
         /* Placeholder per contenteditable */
         div[contenteditable="true"].input:empty::before {
@@ -115,7 +115,7 @@
                 <div
                     class="input" 
                     contenteditable="true"
-                    data-placeholder="Aggiungi nota (opzionale)..."
+                    data-placeholder="Aggiungi nota..."
                     id="text_field"
                 ></div>
             </div>
