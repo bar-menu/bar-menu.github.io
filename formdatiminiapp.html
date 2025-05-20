@@ -384,32 +384,35 @@
                 let isValid = true;
                 if (missingTimeError) { missingTimeError.style.display = 'none'; missingTimeError.textContent = ''; }
                 if (missingTimeValueInput) missingTimeValueInput.classList.remove('input-error');
-                if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.remove('input-error'); 
+                if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.remove('input-error');
                 if (singleCorrectionActionError) { singleCorrectionActionError.style.display = 'none'; singleCorrectionActionError.textContent = ''; }
-                
+
                 if (singleTimeCorrectionSection.style.display !== 'none') {
                     const action = singleCorrectionActionSelect.value;
                     const missingTimeStr = missingTimeValueInput.value;
                     const originalTimeStr = originalSingleTimeInput.value;
                     const originalDateISO = originalProblemDateISOInput.value;
-                    
+
                     const inferredDateForMissingPairISO = missingTimeDateContext.dataset.inferredMissingPairDate || originalDateISO;
 
-                    if (action === '') { 
-                        if (singleCorrectionActionError) { singleCorrectionActionError.textContent = "Selezionare un'azione."; singleCorrectionActionError.style.display = 'block';} 
-                        if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.add('input-error'); 
-                        isValid = false; 
-                    } else { 
-                        if (!missingTimeStr) { 
-                            if (missingTimeError) { missingTimeError.textContent = "Orario obbligatorio."; missingTimeError.style.display = 'block'; } 
-                            if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); 
-                            isValid = false; 
-                        } else if (!isValidTimeFormat(missingTimeStr)) { 
-                            if (missingTimeError) { missingTimeError.textContent = "Formato HH:MM non valido."; missingTimeError.style.display = 'block'; } 
-                            if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error'); 
-                            isValid = false; 
+                    if (action === '') {
+                        if (singleCorrectionActionError) { singleCorrectionActionError.textContent = "Selezionare un'azione."; singleCorrectionActionError.style.display = 'block'; }
+                        if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.add('input-error');
+                        isValid = false;
+                    } else {
+                        if (!missingTimeStr) {
+                            if (missingTimeError) { missingTimeError.textContent = "Orario obbligatorio."; missingTimeError.style.display = 'block'; }
+                            if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                            isValid = false;
+                        } else if (!isValidTimeFormat(missingTimeStr)) {
+                            if (missingTimeError) { missingTimeError.textContent = "Formato HH:MM non valido."; missingTimeError.style.display = 'block'; }
+                            if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                            isValid = false;
                         } else if (!isValidTimeFormat(originalTimeStr) || !originalDateISO) {
                             console.warn("Dati originali (data/ora) non completi per validazione completa lato client.");
+                            // Potresti voler mostrare un errore qui
+                            // if (missingTimeError) { missingTimeError.textContent = "Dati problema originale incompleti."; missingTimeError.style.display = 'block'; }
+                            // isValid = false;
                         } else {
                             let originalDateTime, missingPairDateTime;
                             let entryDateTime, exitDateTime;
@@ -418,7 +421,11 @@
                                 originalDateTime = new Date(`${originalDateISO}T${originalTimeStr}:00`);
                                 missingPairDateTime = new Date(`${inferredDateForMissingPairISO}T${missingTimeStr}:00`);
 
-                                if (action === "isEntry_addExit") { 
+                                if (isNaN(originalDateTime.getTime()) || isNaN(missingPairDateTime.getTime())) {
+                                    throw new Error("Data/ora non valide per la creazione dell'oggetto Date.");
+                                }
+
+                                if (action === "isEntry_addExit") {
                                     entryDateTime = originalDateTime;
                                     exitDateTime = missingPairDateTime;
                                     if (exitDateTime <= entryDateTime) {
@@ -426,7 +433,7 @@
                                         if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
                                         isValid = false;
                                     }
-                                } else if (action === "isExit_addEntry") { 
+                                } else if (action === "isExit_addEntry") {
                                     entryDateTime = missingPairDateTime;
                                     exitDateTime = originalDateTime;
                                     if (entryDateTime >= exitDateTime) {
@@ -435,18 +442,40 @@
                                         isValid = false;
                                     }
                                 }
+
+                                // CONTROLLO GENERALE SULLA DURATA MASSIMA DEL TURNO (se la validazione di base è passata finora)
+                                if (isValid && entryDateTime && exitDateTime) {
+                                    const durationMillis = exitDateTime.getTime() - entryDateTime.getTime();
+                                    const durationHours = durationMillis / (1000 * 60 * 60);
+
+                                    if (durationHours > 16) {
+                                        if (missingTimeError) {
+                                            missingTimeError.textContent = `La durata del turno (${durationHours.toFixed(1)} ore) supera il limite di 16 ore. Controllare date/orari.`;
+                                            missingTimeError.style.display = 'block';
+                                        }
+                                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                                        isValid = false;
+                                    } else if (durationHours <= 0 && action) { // Controllo aggiuntivo per durata non positiva se non già catturato
+                                        if (missingTimeError) {
+                                            missingTimeError.textContent = `La durata del turno non può essere zero o negativa. Controllare date/orari.`;
+                                            missingTimeError.style.display = 'block';
+                                        }
+                                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                                        isValid = false;
+                                    }
+                                }
+
                             } catch (e) {
                                 console.error("Errore nella creazione/comparazione date per validazione:", e);
-                                if (missingTimeError) { missingTimeError.textContent = "Errore interno nella validazione date."; missingTimeError.style.display = 'block'; }
+                                if (missingTimeError) { missingTimeError.textContent = "Errore interno nella validazione date/orari. " + e.message; missingTimeError.style.display = 'block'; }
                                 isValid = false;
                             }
                         }
                     }
                 }
-                // Le note sono opzionali, quindi non aggiungono validazione qui.
                 return isValid;
             }
-            
+           
             function updateMainButtonState() {
                 if (!tg || !tg.MainButton) return;
                 const formIsValid = validateForm(); 
