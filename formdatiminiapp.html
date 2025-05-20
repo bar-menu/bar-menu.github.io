@@ -13,14 +13,29 @@
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; margin: 0; padding: 20px; background-color: var(--tg-theme-bg-color, #ffffff); color: var(--tg-theme-text-color, #000000); font-size: 17px; line-height: 1.6; }
         h2 { color: var(--tg-theme-text-color); border-bottom: 1px solid var(--tg-theme-hint-color); padding-bottom: 12px; margin-top: 0; margin-bottom: 25px; font-size: 1.4em; font-weight: 600; text-align: center; }
         label { display: block; margin-top: 20px; margin-bottom: 8px; font-weight: 500; font-size: 0.95em; color: var(--tg-theme-hint-color); }
-        input[type="text"], input[type="date"], input[type="time"], textarea, select { width: 100%; padding: 14px 12px; margin-top: 0; border: 1.5px solid var(--tg-theme-hint-color, #cccccc); border-radius: 10px; background-color: var(--tg-theme-secondary-bg-color, #f9f9f9); color: var(--tg-theme-text-color); box-sizing: border-box; font-size: 1em; transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        input[type="text"], input[type="date"], input[type="time"], textarea, select, div[contenteditable="true"].input { width: 100%; padding: 14px 12px; margin-top: 0; border: 1.5px solid var(--tg-theme-hint-color, #cccccc); border-radius: 10px; background-color: var(--tg-theme-secondary-bg-color, #f9f9f9); color: var(--tg-theme-text-color); box-sizing: border-box; font-size: 1em; transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
         select { padding: 14px 12px; appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007AFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 12px auto; }
         input[readonly] { background-color: var(--tg-theme-secondary-bg-color, #eeeeee); opacity: 0.7; border-color: var(--tg-theme-hint-color, #dddddd); }
-        input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, textarea:focus, select:focus { border-color: var(--tg-theme-button-color, #2481CC); box-shadow: 0 0 0 3px var(--tg-theme-button-color-alpha, rgba(36, 129, 204, 0.25)); outline: none; }
+        input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, textarea:focus, select:focus, div[contenteditable="true"].input:focus { border-color: var(--tg-theme-button-color, #2481CC); box-shadow: 0 0 0 3px var(--tg-theme-button-color-alpha, rgba(36, 129, 204, 0.25)); outline: none; }
         :root { --tg-theme-button-color-alpha: rgba(36, 129, 204, 0.25); --tg-theme-destructive-text-color-alpha: rgba(255, 77, 77, 0.25); }
-        input.input-error, select.input-error { border-color: var(--tg-theme-destructive-text-color, #ff4d4d) !important; box-shadow: 0 0 0 3px var(--tg-theme-destructive-text-color-alpha, rgba(255, 77, 77, 0.25)) !important; }
+        input.input-error, select.input-error, div[contenteditable="true"].input.input-error { border-color: var(--tg-theme-destructive-text-color, #ff4d4d) !important; box-shadow: 0 0 0 3px var(--tg-theme-destructive-text-color-alpha, rgba(255, 77, 77, 0.25)) !important; }
         .error-message { font-size: 0.8em; color: var(--tg-theme-destructive-text-color, #ff4d4d); margin-top: 4px; min-height: 1.2em;}
         textarea { min-height: 100px; resize: vertical; }
+        /* Stili per il div contenteditable per farlo assomigliare agli altri input */
+        div[contenteditable="true"].input {
+            min-height: 70px; /* Altezza minima per più righe */
+            line-height: 1.6; /* Coerenza con altri input */
+            -webkit-user-modify: read-write-plaintext-only; /* Evita HTML complesso incollato */
+            white-space: pre-wrap; /* Permette di andare a capo e rispetta gli spazi */
+            word-wrap: break-word; /* Va a capo se la parola è troppo lunga */
+        }
+        /* Placeholder per contenteditable */
+        div[contenteditable="true"].input:empty::before {
+            content: attr(data-placeholder);
+            color: var(--tg-theme-hint-color, #999999);
+            pointer-events: none; /* Permette il click "attraverso" il placeholder */
+            display: block; /* Assicura che occupi spazio */
+        }
         .info-summary { background-color: var(--tg-theme-secondary-bg-color, #f0f0f0); padding: 15px; border-radius: 10px; margin-bottom: 25px; border: 1px solid var(--tg-theme-hint-color, #e0e0e0); }
         .info-summary p { margin: 5px 0 10px 0; font-size: 1em; display: flex; align-items: baseline; }
         .info-summary .info-label { font-weight: 500; color: var(--tg-theme-hint-color); margin-right: 8px; font-size: 0.9em; flex-shrink: 0; }
@@ -34,20 +49,10 @@
         .date-info-text { font-size: 0.8em; color: var(--tg-theme-hint-color); margin-top: 4px; font-style: italic; }
         #missingTimeDateContext { font-size: 0.85em; color: var(--tg-theme-hint-color); margin-left: 8px; font-style: italic; min-height: 1.2em;}
         .modal-button { background-color: var(--tg-theme-button-color, #2481CC); color: var(--tg-theme-button-text-color, #FFFFFF); padding: 14px 18px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; font-weight: 500; transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.1s ease; }
-        #addNotesButton { background-color: transparent; color: var(--tg-theme-hint-color, #707579); border: 1.5px solid var(--tg-theme-hint-color, #adb5bd); padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 0.95em; font-weight: 500; width: auto; display: inline-block; margin-top: 10px; margin-bottom: 5px; transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
-        #addNotesButton:hover:not(:disabled) { background-color: var(--tg-theme-secondary-bg-color, rgba(0,0,0,0.05)); border-color: var(--tg-theme-text-color); color: var(--tg-theme-text-color); }
         .modal-button:hover:not(:disabled) { opacity: 0.85; }
         .modal-button:active:not(:disabled) { transform: scale(0.98); }
         #loadingMessage, #errorMessage { text-align: center; padding: 30px 20px; font-style: italic; font-size: 1em; color: var(--tg-theme-hint-color); }
         #errorMessage { color: var(--tg-theme-destructive-text-color, red); font-weight: bold; }
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background-color: var(--tg-theme-secondary-bg-color, #ffffff); padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); color: var(--tg-theme-text-color); }
-        .modal-content textarea { width: 100%; min-height: 80px; margin-bottom: 15px; border-color: var(--tg-theme-hint-color); background-color: var(--tg-theme-bg-color); }
-        .modal-content label { margin-top: 0; margin-bottom: 5px; }
-        .modal-buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
-        .modal-button.secondary { background-color: var(--tg-theme-hint-color, #ccc); color: var(--tg-theme-text-color, #333); }
-        #currentNotesDisplay { font-size: 0.9em; color: var(--tg-theme-text-color); margin-top: 0px; padding: 8px; background-color: var(--tg-theme-bg-color); border-radius: 6px; border: 1px dashed var(--tg-theme-hint-color, #e0e0e0); min-height: 20px; white-space: pre-wrap; word-wrap: break-word; }
-        #currentNotesDisplay.empty { font-style: italic; color: var(--tg-theme-hint-color); }
         #debugSection { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--tg-theme-hint-color); }
         #debugSection h3 { font-size: 1.1em; text-align: left; border-bottom: none; margin-bottom: 10px; }
         #debugSection p { font-size: 0.9em; margin: 5px 0; }
@@ -74,7 +79,7 @@
             <input type="hidden" id="originalProblemDateISOInput" name="originalProblemDateISO">
             <input type="hidden" id="originalSingleTimeInput" name="originalSingleTime">
             <input type="hidden" id="originalSingleBarInput" name="originalSingleBar">
-            <input type="hidden" id="notesHiddenInput" name="notes">
+            <!-- notesHiddenInput rimosso -->
             <input type="hidden" id="correctorUserIdInput" name="correctorUserId">
             <input type="hidden" id="correctorUserNameInput" name="correctorUserName">
             <input type="hidden" id="correctorUserFirstNameInput" name="correctorUserFirstName">
@@ -104,22 +109,19 @@
                     <span id="missingTimeDateContext"></span>
                 </div>
             </div>
+            <!-- Nuovo campo note -->
             <div class="field-group">
-                <button type="button" id="addNotesButton">Aggiungi Note (opzionale)</button>
-                <div id="currentNotesDisplay" class="empty">Nessuna nota.</div>
+                <label for="text_field">Note (opzionale):</label>
+                <div
+                    class="input" 
+                    contenteditable="true"
+                    data-placeholder="Aggiungi nota (opzionale)..."
+                    id="text_field"
+                ></div>
             </div>
         </form>
     </div>
-    <div id="notesModalOverlay" class="modal-overlay">
-        <div class="modal-content">
-            <label for="notesTextareaModal">Inserisci le tue note:</label>
-            <textarea id="notesTextareaModal" name="notesTextareaModal" rows="4"></textarea>
-            <div class="modal-buttons">
-                <button type="button" id="cancelNotesButton" class="modal-button secondary">Annulla</button>
-                <button type="button" id="saveNotesButton" class="modal-button">Salva Note</button>
-            </div>
-        </div>
-    </div>
+    <!-- notesModalOverlay rimosso -->
     <div id="loadingMessage">Caricamento dati...</div>
     <div id="errorMessage" style="display:none;"></div>
     <div id="debugSection" style="display: none;"></div>
@@ -142,7 +144,7 @@
             const originalProblemDateISOInput = document.getElementById('originalProblemDateISOInput');
             const originalSingleTimeInput = document.getElementById('originalSingleTimeInput');
             const originalSingleBarInput = document.getElementById('originalSingleBarInput');
-            const notesHiddenInput = document.getElementById('notesHiddenInput');
+            // notesHiddenInput rimosso
             const correctorUserIdInput = document.getElementById('correctorUserIdInput'); 
             const correctorUserNameInput = document.getElementById('correctorUserNameInput');
             const correctorUserFirstNameInput = document.getElementById('correctorUserFirstNameInput');
@@ -160,17 +162,20 @@
             const singleTimeCorrectionSection = document.getElementById('singleTimeCorrectionSection');
             const missingTimeFieldGroup = document.getElementById('missingTimeFieldGroup');
             
-            const addNotesButton = document.getElementById('addNotesButton');
-            const currentNotesDisplay = document.getElementById('currentNotesDisplay');
-            const notesModalOverlay = document.getElementById('notesModalOverlay');
-            const notesTextareaModal = document.getElementById('notesTextareaModal');
-            const saveNotesButton = document.getElementById('saveNotesButton');
-            const cancelNotesButton = document.getElementById('cancelNotesButton');
+            // Elementi del vecchio sistema di note rimossi:
+            // const addNotesButton = document.getElementById('addNotesButton');
+            // const currentNotesDisplay = document.getElementById('currentNotesDisplay');
+            // const notesModalOverlay = document.getElementById('notesModalOverlay');
+            // const notesTextareaModal = document.getElementById('notesTextareaModal');
+            // const saveNotesButton = document.getElementById('saveNotesButton');
+            // const cancelNotesButton = document.getElementById('cancelNotesButton');
+            const notesTextField = document.getElementById('text_field'); // Nuovo campo note
+
             const debugSection = document.getElementById('debugSection');
 
             let initialStartParamData = null;
             let currentUserDetails = { id: null, username: "", first_name: "", last_name: "" };
-            let isDebugMode = false; // Imposta a true per vedere sempre il debug
+            let isDebugMode = false; 
             let startParamValueForDebug = "Nessuno (non letto)";
 
             function setThemeClass() { if (tg && tg.colorScheme) { document.documentElement.className = tg.colorScheme; } else { console.warn("setThemeClass: tg o tg.colorScheme non definiti.");} }
@@ -265,10 +270,19 @@
                 correctorUserFirstNameInput.value = currentUserDetails.first_name || '';
                 correctorUserLastNameInput.value = currentUserDetails.last_name || '';
 
+                // Popola il nuovo campo note
+                if (notesTextField) {
+                    if (data.notes) { // Se i dati iniziali hanno note
+                        notesTextField.textContent = data.notes;
+                    } else {
+                        notesTextField.textContent = ''; // Assicura che sia vuoto per il placeholder CSS
+                    }
+                }
+
                 dateCorrectionGroup.style.display = 'none';
                 singleTimeCorrectionSection.style.display = 'none';
                 missingTimeFieldGroup.style.display = 'none';
-                missingTimeDateContext.dataset.inferredMissingPairDate = ""; // Inizializza dataset
+                missingTimeDateContext.dataset.inferredMissingPairDate = ""; 
 
                 const isSingleTimestampProblem = data.pType && data.pType.toUpperCase() === 'SINGLE_TIMESTAMP';
                 if (isSingleTimestampProblem) {
@@ -326,32 +340,9 @@
                         }
                         missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(inferredDateForMissingPair)})`;
                     } else if (action === "isExit_addEntry") { 
-                        if (missingTimeMinutes > originalTimeMinutes && originalTimeMinutes < (6 * 60) ) { // Se l'uscita originale è molto presto (es. 00:07) e l'entrata nuova è tarda (es. 16:00)
+                        if (missingTimeMinutes > originalTimeMinutes && originalTimeMinutes < (6 * 60) ) { 
                             inferredDateForMissingPair = G_addDaysToISONoTime(problemDateISO, -1);
-                        } else if (missingTimeMinutes > originalTimeMinutes && originalTimeMinutes > (6*60) ) {
-                            // Se l'uscita originale NON è presto (es. 17:00) e l'entrata nuova è ancora più tarda (es. 18:00), questo è un errore logico gestito da validateForm
-                            // Non cambiamo la data qui, lasciamo che la validazione dia errore.
-                            // In questo caso, l'entrata dovrebbe essere precedente nello stesso giorno o giorno prima.
                         }
-                        // Se missingTimeMinutes <= originalTimeMinutes, è lo stesso giorno o giorno prima (se uscita orig. era dopo mezzanotte e entrata prima)
-                        // Il caso 16:00 (nuova entrata) vs 00:07 (uscita orig) deve risultare in giorno precedente.
-                        // Il caso 08:00 (nuova entrata) vs 17:00 (uscita orig) deve risultare stesso giorno.
-                        // La logica sopra con "originalTimeMinutes < (6*60)" tenta di coprire il "00:07".
-                        // Se l'originale è uscita (es. 00:07 del Giorno Y) e l'utente mette Entrata 16:00.
-                        // originalTimeMinutes = 7. missingTimeMinutes = 16*60 = 960.
-                        // missingTimeMinutes (960) > originalTimeMinutes (7) AND originalTimeMinutes (7) < 360 -> TRUE. Giorno Y-1.
-                         if (missingTimeMinutes > originalTimeMinutes && originalTimeMinutes >= (6 * 60) ) {
-                            // Questo scenario è un errore logico se originalTime è uscita.
-                            // es. Uscita originale 17:00. Nuova entrata 18:00 (dello stesso giorno).
-                            // Non si deve cambiare data, validateForm lo bloccherà.
-                         } else if (missingTimeMinutes <= originalTimeMinutes) {
-                            // es. Uscita originale 17:00. Nuova entrata 08:00. Stesso giorno.
-                         } else if (missingTimeMinutes > originalTimeMinutes && originalTimeMinutes < (6*60)){
-                            // Già coperto sopra, ma per chiarezza: Entrata (es. 16:00) > Uscita (es. 00:30) -> Entrata del giorno prima
-                            // già gestito dalla prima condizione interna a isExit_addEntry
-                         }
-
-
                         missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(inferredDateForMissingPair)})`;
                     }
                 } else if (action && isValidTimeFormat(missingTime)) {
@@ -449,6 +440,7 @@
                         }
                     }
                 }
+                // Le note sono opzionali, quindi non aggiungono validazione qui.
                 return isValid;
             }
             
@@ -496,7 +488,7 @@
                             singleCorrectionAction: singleCorrectionActionSelect.value,
                             missingTimeValue: missingTimeValueInput.value,
                             correctedDate: singleTimeCorrectionSection.style.display !== 'none' ? inferredMissingPairDate : correctedDateInput.value,
-                            notes: notesHiddenInput.value,
+                            notes: notesTextField ? notesTextField.textContent.trim() : "", // Legge dal nuovo campo note
                             initDataRaw: tg.initData || "",
                             telegramUserId: currentUserDetails.id,
                             correctorUserInfo: currentUserDetails,
@@ -539,15 +531,8 @@
                 });
             }
 
-            function openNotesModal() { notesTextareaModal.value = notesHiddenInput.value; notesModalOverlay.style.display = 'flex'; notesTextareaModal.focus(); }
-            function closeNotesModal() { notesModalOverlay.style.display = 'none'; }
-            function saveNotesFromModal() {
-                const notesTrimmed = notesTextareaModal.value.trim();
-                notesHiddenInput.value = notesTrimmed;
-                if (notesTrimmed) { currentNotesDisplay.textContent = notesTrimmed; currentNotesDisplay.classList.remove('empty'); } 
-                else { currentNotesDisplay.textContent = "Nessuna nota."; currentNotesDisplay.classList.add('empty'); }
-                closeNotesModal();
-            }
+            // Funzioni del vecchio sistema di note rimosse:
+            // openNotesModal, closeNotesModal, saveNotesFromModal
 
             try {
                 console.log("Avvio Inizializzazione Mini App...");
@@ -596,14 +581,28 @@
                     return;
                 }
                 
-                const DEBUG_USER_ID = 'IL_TUO_ID_TELEGRAM_PER_DEBUG'; // Sostituisci con un ID reale per testare
+                const DEBUG_USER_ID = 'IL_TUO_ID_TELEGRAM_PER_DEBUG'; 
                 if (isDebugMode || (currentUserDetails.id && currentUserDetails.id === DEBUG_USER_ID)) { 
                     if(debugSection) debugSection.style.display = 'block';
                 }
 
-                addNotesButton.addEventListener('click', openNotesModal);
-                saveNotesButton.addEventListener('click', saveNotesFromModal);
-                cancelNotesButton.addEventListener('click', closeNotesModal);
+                // Event listener per il vecchio sistema di note rimossi.
+                // Aggiungi listener per il nuovo campo note per gestire il placeholder robustamente
+                if (notesTextField) {
+                    notesTextField.addEventListener('focus', function() {
+                        // Se il contenuto è uguale al placeholder (caso raro, ma possibile se incollato), pulisci
+                        if (this.textContent === this.dataset.placeholder) {
+                            // this.textContent = ''; // Non necessario se :empty::before è usato bene
+                        }
+                    });
+                    notesTextField.addEventListener('blur', function() {
+                        // Se il campo è vuoto dopo il trim, assicurati che innerHTML sia vuoto
+                        // per far funzionare il placeholder CSS :empty::before
+                        if (this.textContent.trim() === '') {
+                            this.innerHTML = ''; // Rimuove <br> o spazi che potrebbero ingannare :empty
+                        }
+                    });
+                }
                 
                 if (singleCorrectionActionSelect) {
                     singleCorrectionActionSelect.addEventListener('change', handleSingleCorrectionActionChange); 
