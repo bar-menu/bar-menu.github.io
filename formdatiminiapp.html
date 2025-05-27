@@ -319,42 +319,107 @@
             }
 
             function updateMissingTimeDateContext() {
-                if (!singleCorrectionActionSelect || !missingTimeDateContext || !missingTimeValueInput || !originalSingleTimeInput || !originalProblemDateISOInput) return;
-                
-                const action = singleCorrectionActionSelect.value;
-                missingTimeDateContext.textContent = "";
-                missingTimeDateContext.dataset.inferredMissingPairDate = ""; 
+            // Assicurati che tutti gli elementi DOM necessari siano recuperabili qui
+            // o passati come argomenti se preferisci una funzione più pura.
+            const singleCorrectionActionSelect = document.getElementById('singleCorrectionAction');
+            const missingTimeDateContext = document.getElementById('missingTimeDateContext');
+            const missingTimeValueInput = document.getElementById('missingTimeValue');
+            const originalSingleTimeInput = document.getElementById('originalSingleTimeInput');
+            const originalProblemDateISOInput = document.getElementById('originalProblemDateISOInput');
 
-                const originalTime = originalSingleTimeInput.value;
-                const missingTime = missingTimeValueInput.value;
-                const problemDateISO = originalProblemDateISOInput.value;
-
-                if (!problemDateISO || !action) return;
-
-                let inferredDateForMissingPair = problemDateISO; 
-
-                if (isValidTimeFormat(originalTime) && isValidTimeFormat(missingTime)) {
-                    const originalTimeMinutes = parseInt(originalTime.split(':')[0]) * 60 + parseInt(originalTime.split(':')[1]);
-                    const missingTimeMinutes = parseInt(missingTime.split(':')[0]) * 60 + parseInt(missingTime.split(':')[1]);
-
-                    if (action === "isEntry_addExit") { 
-                        if (missingTimeMinutes < originalTimeMinutes) { 
-                            inferredDateForMissingPair = G_addDaysToISONoTime(problemDateISO, 1);
-                        }
-                        missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(inferredDateForMissingPair)})`;
-                    } else if (action === "isExit_addEntry") { 
-                        if (missingTimeMinutes > originalTimeMinutes && originalTimeMinutes < (6 * 60) ) { 
-                            inferredDateForMissingPair = G_addDaysToISONoTime(problemDateISO, -1);
-                        }
-                        missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(inferredDateForMissingPair)})`;
-                    }
-                } else if (action && isValidTimeFormat(missingTime)) {
-                     if (action === "isEntry_addExit") missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(problemDateISO)})`;
-                     if (action === "isExit_addEntry") missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(problemDateISO)})`;
-                }
-                
-                missingTimeDateContext.dataset.inferredMissingPairDate = inferredDateForMissingPair;
+            if (!singleCorrectionActionSelect || !missingTimeDateContext || !missingTimeValueInput || !originalSingleTimeInput || !originalProblemDateISOInput) {
+                console.warn("updateMissingTimeDateContext: Elementi DOM chiave mancanti.");
+                if(missingTimeDateContext) missingTimeDateContext.textContent = ""; // Pulisce il contesto se possibile
+                return;
             }
+            
+            const action = singleCorrectionActionSelect.value;
+            missingTimeDateContext.textContent = ""; // Pulisce il testo ad ogni aggiornamento
+            missingTimeDateContext.dataset.inferredMissingPairDate = ""; // Resetta il dataset
+
+            const originalTimeStr = originalSingleTimeInput.value; // Ora timbratura singola originale (es. "01:55")
+            const missingTimeStr = missingTimeValueInput.value;   // Ora nuova timbratura (es. "18:30")
+            const problemDateISO = originalProblemDateISOInput.value; // Giorno LAVORATIVO del problema (es. "2025-05-24")
+
+            // Se non c'è una data del problema o un'azione selezionata, non possiamo fare nulla.
+            if (!problemDateISO || !action) {
+                return;
+            }
+
+            // Inizializza la data inferita con la data del giorno lavorativo del problema.
+            // Questa sarà la data solare della nuova timbratura a meno che la logica non la cambi.
+            let inferredDateForNewTimestamp = problemDateISO; 
+
+            // Procedi solo se entrambe le ore sono in formato valido.
+            if (isValidTimeFormat(originalTimeStr) && isValidTimeFormat(missingTimeStr)) {
+                const originalTimeHours = parseInt(originalTimeStr.split(':')[0]);
+                const originalTimeMinutes = parseInt(originalTimeStr.split(':')[1]);
+                const missingTimeHours = parseInt(missingTimeStr.split(':')[0]);
+                const missingTimeMinutes = parseInt(missingTimeStr.split(':')[1]);
+
+                // Converti tutto in minuti dall'inizio del giorno per facilitare i confronti
+                const originalTimeTotalMinutes = originalTimeHours * 60 + originalTimeMinutes;
+                const missingTimeTotalMinutes = missingTimeHours * 60 + missingTimeMinutes;
+
+                if (action === "isEntry_addExit") { 
+                    // Originale è ENTRATA, sto aggiungendo un'USCITA.
+                    // Se l'ora della NUOVA USCITA (missingTimeTotalMinutes) è precedente o uguale 
+                    // all'ora dell'ENTRATA ORIGINALE (originalTimeTotalMinutes),
+                    // allora la nuova uscita deve essere del giorno solare SUCCESSIVO
+                    // rispetto al giorno solare dell'entrata originale (che si presume sia problemDateISO).
+                    if (missingTimeTotalMinutes <= originalTimeTotalMinutes) { 
+                        inferredDateForNewTimestamp = G_addDaysToISONoTime(problemDateISO, 1);
+                    } else {
+                        // Altrimenti, la nuova uscita è nello stesso giorno solare di problemDateISO.
+                        inferredDateForNewTimestamp = problemDateISO; 
+                    }
+                    missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(inferredDateForNewTimestamp)})`;
+
+                } else if (action === "isExit_addEntry") { 
+                    // Originale è USCITA (es. "01:55" del giorno lavorativo problemDateISO), 
+                    // sto aggiungendo un'ENTRATA (es. "18:30").
+
+                    // La `problemDateISO` rappresenta il GIORNO LAVORATIVO.
+                    // Esempio 1 (Caso Paolo B.):
+                    //   Uscita originale (originalTimeStr): "01:55"
+                    //   Giorno Lavorativo (problemDateISO): "2025-05-24"
+                    //   Questa uscita è avvenuta nel giorno SOLARE "2025-05-25" alle 01:55.
+                    //   Nuova Entrata (missingTimeStr): "18:30"
+                    //   Per precedere l'uscita, questa entrata deve essere del giorno SOLARE "2025-05-24".
+                    //   Questo giorno solare ("2025-05-24") è lo stesso di `problemDateISO`.
+                    
+                    // Esempio 2:
+                    //   Uscita originale (originalTimeStr): "23:00"
+                    //   Giorno Lavorativo (problemDateISO): "2025-05-24"
+                    //   Questa uscita è avvenuta nel giorno SOLARE "2025-05-24" alle 23:00.
+                    //   Nuova Entrata (missingTimeStr): "18:30"
+                    //   Per precedere l'uscita, questa entrata deve essere del giorno SOLARE "2025-05-24".
+                    //   Anche in questo caso, il giorno solare della nuova entrata è `problemDateISO`.
+
+                    // Conclusione: se l'originale è un'uscita, l'entrata che la precede 
+                    // apparterrà (nella stragrande maggioranza dei casi di turni "normali")
+                    // al giorno solare identificato da `problemDateISO`.
+                    // La validazione successiva in `validateForm` controllerà la coerenza logica.
+                    inferredDateForNewTimestamp = problemDateISO;
+                                
+                    missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(inferredDateForNewTimestamp)})`;
+                }
+            } else if (action && isValidTimeFormat(missingTimeStr)) {
+                // Caso base se l'ora originale non è valida o non fornita, ma l'utente ha inserito un'ora mancante valida.
+                // Usiamo problemDateISO come data per la nuova timbratura, la validazione farà il resto.
+                inferredDateForNewTimestamp = problemDateISO; // Default
+                if (action === "isEntry_addExit") {
+                    missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(inferredDateForNewTimestamp)})`;
+                } else if (action === "isExit_addEntry") {
+                    missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(inferredDateForNewTimestamp)})`;
+                }
+            }
+            
+            // Salva la data inferita nel dataset dell'elemento per un facile recupero successivo
+            missingTimeDateContext.dataset.inferredMissingPairDate = inferredDateForNewTimestamp;
+        }
+
+
 
             function handleSingleCorrectionActionChange() {
                 const action = singleCorrectionActionSelect.value;
