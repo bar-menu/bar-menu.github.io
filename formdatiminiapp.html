@@ -278,7 +278,7 @@
                 // Mostra l'ora originale e la SUA DATA SOLARE
                 if (problemTimeSpan) {
                     if (timeAndBarDisplayForOriginal) {
-                        problemTimeSpan.textContent = `Originale: ${timeAndBarDisplayForOriginal} del ${originalSolarDateFormattedForDisplay}`;
+                        problemTimeSpan.textContent = `${timeAndBarDisplayForOriginal} del ${originalSolarDateFormattedForDisplay}`;
                     } else {
                         problemTimeSpan.textContent = "Dettaglio orario originale non disponibile.";
                     }
@@ -290,7 +290,7 @@
                     workDayDateFormattedForDisplay = formatDate_DDMMYYYY(data.pDateISO);
                 }
                 if (problemDateTextSpan) {
-                    problemDateTextSpan.textContent = `(Giorno Lavorativo di riferimento: ${workDayDateFormattedForDisplay})`;
+                    problemDateTextSpan.textContent = `(Giorno Lavorativo: ${workDayDateFormattedForDisplay})`;
                 }
                 // --- FINE VISUALIZZAZIONE MODIFICATA ---
 
