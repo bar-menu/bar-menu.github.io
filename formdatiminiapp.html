@@ -84,6 +84,7 @@
             <input type="hidden" id="correctorUserNameInput" name="correctorUserName">
             <input type="hidden" id="correctorUserFirstNameInput" name="correctorUserFirstName">
             <input type="hidden" id="correctorUserLastNameInput" name="correctorUserLastName">
+            <input type="hidden" id="effectiveOriginalSolarDateISOInput" name="effectiveOriginalSolarDateISO">
 
             <div class="field-group" id="dateCorrectionGroup" style="display:none;">
                 <label for="correctedDate">Data Corretta (lascia vuoto per deduzione):</label>
@@ -224,7 +225,25 @@
                     return;
                 }
                 initialStartParamData = data;
-
+                // --- NUOVO BLOCCO PER CALCOLARE E SALVARE LA DATA SOLARE ORIGINALE ---
+                let calculatedEffectiveOriginalSolarDateISO = data.pDateISO; // Inizializza con il giorno lavorativo
+                if (data.origTime && isValidTimeFormat(data.origTime)) { // Aggiunto isValidTimeFormat per sicurezza
+                    const [hOrig, mOrig] = data.origTime.split(':').map(Number);
+                    if (hOrig < 5) { // Se l'ora originale è prima delle 5 del mattino
+                        calculatedEffectiveOriginalSolarDateISO = G_addDaysToISONoTime(data.pDateISO, 1);
+                    }
+                }
+                // Ora salva questa data calcolata. Aggiungi un input nascosto nel tuo HTML:
+                // <input type="hidden" id="effectiveOriginalSolarDateISOInput" name="effectiveOriginalSolarDateISO">
+                const effectiveOriginalSolarDateISOInput = document.getElementById('effectiveOriginalSolarDateISOInput');
+                if (effectiveOriginalSolarDateISOInput) {
+                    effectiveOriginalSolarDateISOInput.value = calculatedEffectiveOriginalSolarDateISO;
+                    console.log("Effective Original Solar Date calcolata e salvata:", calculatedEffectiveOriginalSolarDateISO);
+                } else {
+                    console.warn("Input 'effectiveOriginalSolarDateISOInput' non trovato nell'HTML!");
+                    // Potresti voler gestire questo come un errore fatale o avere un fallback.
+                    // Per ora, la validazione potrebbe fallire se non trova questo valore.
+                }  
                 summaryEmployeeName.textContent = data.name || 'N/D'; 
 
                 let mainProblemDescriptionUI = "Problema Rilevato"; 
@@ -446,101 +465,122 @@
             }
 
             function validateForm() {
-                let isValid = true;
-                if (missingTimeError) { missingTimeError.style.display = 'none'; missingTimeError.textContent = ''; }
-                if (missingTimeValueInput) missingTimeValueInput.classList.remove('input-error');
-                if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.remove('input-error');
-                if (singleCorrectionActionError) { singleCorrectionActionError.style.display = 'none'; singleCorrectionActionError.textContent = ''; }
+            let isValid = true;
+            // Reset messaggi di errore e classi
+            if (missingTimeError) { missingTimeError.style.display = 'none'; missingTimeError.textContent = ''; }
+            if (missingTimeValueInput) missingTimeValueInput.classList.remove('input-error');
+            if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.remove('input-error');
+            if (singleCorrectionActionError) { singleCorrectionActionError.style.display = 'none'; singleCorrectionActionError.textContent = ''; }
 
-                if (singleTimeCorrectionSection.style.display !== 'none') {
-                    const action = singleCorrectionActionSelect.value;
-                    const missingTimeStr = missingTimeValueInput.value;
-                    const originalTimeStr = originalSingleTimeInput.value;
-                    const originalDateISO = originalProblemDateISOInput.value;
+            // Controlla solo la sezione di correzione timbratura singola se è visibile
+            if (singleTimeCorrectionSection.style.display !== 'none') {
+                const action = singleCorrectionActionSelect.value;
+                const missingTimeStr = missingTimeValueInput.value;
+                
+                // Recupera i dati originali
+                const originalWorkDayISO = originalProblemDateISOInput.value; // Giorno LAVORATIVO originale
+                const originalTimeStr = originalSingleTimeInput.value;       // Ora originale (HH:MM)
+                
+                // Recupera la data SOLARE effettiva della timbratura originale (calcolata da populateUI)
+                const actualOriginalSolarDateISO = document.getElementById('effectiveOriginalSolarDateISOInput').value;
+                
+                // Recupera la data SOLARE inferita per la timbratura MANCANTE (calcolata da updateMissingTimeDateContext)
+                const inferredDateForMissingPairISO = missingTimeDateContext.dataset.inferredMissingPairDate || originalWorkDayISO;
 
-                    const inferredDateForMissingPairISO = missingTimeDateContext.dataset.inferredMissingPairDate || originalDateISO;
-
-                    if (action === '') {
-                        if (singleCorrectionActionError) { singleCorrectionActionError.textContent = "Selezionare un'azione."; singleCorrectionActionError.style.display = 'block'; }
-                        if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.add('input-error');
+                if (action === '') {
+                    if (singleCorrectionActionError) { singleCorrectionActionError.textContent = "Selezionare un'azione."; singleCorrectionActionError.style.display = 'block'; }
+                    if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.add('input-error');
+                    isValid = false;
+                } else {
+                    if (!missingTimeStr) {
+                        if (missingTimeError) { missingTimeError.textContent = "Orario obbligatorio."; missingTimeError.style.display = 'block'; }
+                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
                         isValid = false;
+                    } else if (!isValidTimeFormat(missingTimeStr)) {
+                        if (missingTimeError) { missingTimeError.textContent = "Formato ora (HH:MM) non valido."; missingTimeError.style.display = 'block'; }
+                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                        isValid = false;
+                    } else if (!isValidTimeFormat(originalTimeStr) || !originalWorkDayISO || !actualOriginalSolarDateISO) {
+                        // Se uno di questi dati cruciali manca, la validazione non può essere completa.
+                        console.warn("validateForm: Dati originali (ora, giorno lavorativo o data solare effettiva) non completi per validazione.");
+                        if (missingTimeError) { 
+                            missingTimeError.textContent = "Dati del problema originale incompleti. Impossibile validare."; 
+                            missingTimeError.style.display = 'block'; 
+                        }
+                        isValid = false; 
                     } else {
-                        if (!missingTimeStr) {
-                            if (missingTimeError) { missingTimeError.textContent = "Orario obbligatorio."; missingTimeError.style.display = 'block'; }
-                            if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
-                            isValid = false;
-                        } else if (!isValidTimeFormat(missingTimeStr)) {
-                            if (missingTimeError) { missingTimeError.textContent = "Formato HH:MM non valido."; missingTimeError.style.display = 'block'; }
-                            if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
-                            isValid = false;
-                        } else if (!isValidTimeFormat(originalTimeStr) || !originalDateISO) {
-                            console.warn("Dati originali (data/ora) non completi per validazione completa lato client.");
-                            // Potresti voler mostrare un errore qui
-                            // if (missingTimeError) { missingTimeError.textContent = "Dati problema originale incompleti."; missingTimeError.style.display = 'block'; }
-                            // isValid = false;
-                        } else {
-                            let originalDateTime, missingPairDateTime;
-                            let entryDateTime, exitDateTime;
+                        // Se tutti i dati base ci sono, procedi con la validazione logica
+                        let originalDateTime, missingPairDateTime;
+                        let entryDateTime, exitDateTime;
 
-                            try {
-                                originalDateTime = new Date(`${originalDateISO}T${originalTimeStr}:00`);
-                                missingPairDateTime = new Date(`${inferredDateForMissingPairISO}T${missingTimeStr}:00`);
+                        try {
+                            // Crea oggetti Date interpretandoli come UTC (aggiungendo 'Z')
+                            // originalDateTime è la timbratura ESISTENTE
+                            originalDateTime = new Date(`${actualOriginalSolarDateISO}T${originalTimeStr}:00Z`);
+                            // missingPairDateTime è la timbratura che l'UTENTE STA AGGIUNGENDO
+                            missingPairDateTime = new Date(`${inferredDateForMissingPairISO}T${missingTimeStr}:00Z`);
 
-                                if (isNaN(originalDateTime.getTime()) || isNaN(missingPairDateTime.getTime())) {
-                                    throw new Error("Data/ora non valide per la creazione dell'oggetto Date.");
-                                }
-
-                                if (action === "isEntry_addExit") {
-                                    entryDateTime = originalDateTime;
-                                    exitDateTime = missingPairDateTime;
-                                    if (exitDateTime <= entryDateTime) {
-                                        if (missingTimeError) { missingTimeError.textContent = `L'uscita (${missingTimeStr} del ${formatDate_DDMMYYYY(inferredDateForMissingPairISO)}) deve essere successiva all'entrata (${originalTimeStr} del ${formatDate_DDMMYYYY(originalDateISO)}).`; missingTimeError.style.display = 'block'; }
-                                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
-                                        isValid = false;
-                                    }
-                                } else if (action === "isExit_addEntry") {
-                                    entryDateTime = missingPairDateTime;
-                                    exitDateTime = originalDateTime;
-                                    if (entryDateTime >= exitDateTime) {
-                                        if (missingTimeError) { missingTimeError.textContent = `L'entrata (${missingTimeStr} del ${formatDate_DDMMYYYY(inferredDateForMissingPairISO)}) deve essere precedente all'uscita (${originalTimeStr} del ${formatDate_DDMMYYYY(originalDateISO)}).`; missingTimeError.style.display = 'block'; }
-                                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
-                                        isValid = false;
-                                    }
-                                }
-
-                                // CONTROLLO GENERALE SULLA DURATA MASSIMA DEL TURNO (se la validazione di base è passata finora)
-                                if (isValid && entryDateTime && exitDateTime) {
-                                    const durationMillis = exitDateTime.getTime() - entryDateTime.getTime();
-                                    const durationHours = durationMillis / (1000 * 60 * 60);
-
-                                    if (durationHours > 16) {
-                                        if (missingTimeError) {
-                                            missingTimeError.textContent = `La durata del turno (${durationHours.toFixed(1)} ore) supera il limite di 16 ore. Controllare date/orari.`;
-                                            missingTimeError.style.display = 'block';
-                                        }
-                                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
-                                        isValid = false;
-                                    } else if (durationHours <= 0 && action) { // Controllo aggiuntivo per durata non positiva se non già catturato
-                                        if (missingTimeError) {
-                                            missingTimeError.textContent = `La durata del turno non può essere zero o negativa. Controllare date/orari.`;
-                                            missingTimeError.style.display = 'block';
-                                        }
-                                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
-                                        isValid = false;
-                                    }
-                                }
-
-                            } catch (e) {
-                                console.error("Errore nella creazione/comparazione date per validazione:", e);
-                                if (missingTimeError) { missingTimeError.textContent = "Errore interno nella validazione date/orari. " + e.message; missingTimeError.style.display = 'block'; }
-                                isValid = false;
+                            if (isNaN(originalDateTime.getTime()) || isNaN(missingPairDateTime.getTime())) {
+                                throw new Error("Data/ora non valide per la creazione dell'oggetto Date per il confronto.");
                             }
+
+                            if (action === "isEntry_addExit") { 
+                                // Timbratura esistente (originalDateTime) è l'ENTRATA
+                                // Timbratura da aggiungere (missingPairDateTime) è l'USCITA
+                                entryDateTime = originalDateTime;
+                                exitDateTime = missingPairDateTime;
+                                if (exitDateTime.getTime() <= entryDateTime.getTime()) {
+                                    if (missingTimeError) { missingTimeError.textContent = `L'uscita (${missingTimeStr} del ${formatDate_DDMMYYYY(inferredDateForMissingPairISO)}) deve essere successiva all'entrata (${originalTimeStr} del ${formatDate_DDMMYYYY(actualOriginalSolarDateISO)}).`; missingTimeError.style.display = 'block'; }
+                                    if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                                    isValid = false;
+                                }
+                            } else if (action === "isExit_addEntry") {
+                                // Timbratura esistente (originalDateTime) è l'USCITA
+                                // Timbratura da aggiungere (missingPairDateTime) è l'ENTRATA
+                                entryDateTime = missingPairDateTime;
+                                exitDateTime = originalDateTime;
+                                if (entryDateTime.getTime() >= exitDateTime.getTime()) {
+                                    if (missingTimeError) { missingTimeError.textContent = `L'entrata (${missingTimeStr} del ${formatDate_DDMMYYYY(inferredDateForMissingPairISO)}) deve essere precedente all'uscita (${originalTimeStr} del ${formatDate_DDMMYYYY(actualOriginalSolarDateISO)}).`; missingTimeError.style.display = 'block'; }
+                                    if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                                    isValid = false;
+                                }
+                            }
+
+                            // CONTROLLO GENERALE SULLA DURATA MASSIMA DEL TURNO (se la validazione di base è passata finora)
+                            if (isValid && entryDateTime && exitDateTime) {
+                                const durationMillis = exitDateTime.getTime() - entryDateTime.getTime();
+                                const durationHours = durationMillis / (1000 * 60 * 60);
+
+                                if (durationHours > 16) {
+                                    if (missingTimeError) {
+                                        missingTimeError.textContent = `La durata del turno (${durationHours.toFixed(1)} ore) supera il limite di 16 ore. Controllare date/orari.`;
+                                        missingTimeError.style.display = 'block';
+                                    }
+                                    if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                                    isValid = false;
+                                } else if (durationHours <= 0 && (action === "isEntry_addExit" || action === "isExit_addEntry")) {
+                                    // Questo controllo è importante per durate zero o negative non catturate prima
+                                    if (missingTimeError && missingTimeError.style.display === 'none') { // Mostra solo se non c'è già un errore più specifico
+                                        missingTimeError.textContent = `La durata del turno (${durationHours.toFixed(1)}h) non può essere zero o negativa. Controllare date/orari.`;
+                                        missingTimeError.style.display = 'block';
+                                    }
+                                    if (missingTimeValueInput && !missingTimeValueInput.classList.contains('input-error')) missingTimeValueInput.classList.add('input-error');
+                                    isValid = false;
+                                }
+                            }
+
+                        } catch (e) {
+                            console.error("Errore nella creazione/comparazione date per validazione:", e);
+                            if (missingTimeError) { missingTimeError.textContent = "Errore interno nella validazione date/orari. " + e.message; missingTimeError.style.display = 'block'; }
+                            isValid = false;
                         }
                     }
                 }
-                return isValid;
             }
-           
+            // Non ci sono altri campi da validare al momento (es. 'correctedDate' o le note sono opzionali)
+            return isValid;
+        }
+
             function updateMainButtonState() {
                 if (!tg || !tg.MainButton) return;
                 const formIsValid = validateForm(); 
