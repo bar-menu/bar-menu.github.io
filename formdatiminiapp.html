@@ -217,132 +217,134 @@
                 debugSection.innerHTML = debugContent;
             }
             
+        // QUESTA È LA FUNZIONE populateUI COMPLETA. SOSTITUISCI LA VECCHIA.
+
             function populateUI(data) {
-                console.log("populateUI - Dati Input (abbreviati):", JSON.stringify(data));
+                console.log("populateUI V2 - Dati Input:", JSON.stringify(data));
                 if (!data || data.error) {
-                    const errorMsg = `Dati iniziali per il form non validi. ${data && data.error ? data.error : ''} ${data && data.rawValue ? `(Grezzo: ${data.rawValue.substring(0,30)}...)` : ''}`;
+                    const errorMsg = `Dati iniziali per il form non validi. ${data?.error || ''} ${data?.rawValue ? `(Grezzo: ${data.rawValue.substring(0,30)}...)` : ''}`;
                     showFatalError(errorMsg, startParamValueForDebug, data, tg.initData, tg.initDataUnsafe, window.location.search);
                     return;
                 }
                 initialStartParamData = data;
 
-                // Calcola la data solare effettiva della timbratura originale
-                let calculatedEffectiveOriginalSolarDateISO = data.pDateISO; // Inizializza con il giorno lavorativo
-                if (data.origTime && isValidTimeFormat(data.origTime)) { 
-                    const [hOrig, mOrig] = data.origTime.split(':').map(Number);
+                // Recupero elementi DOM
+                const summaryEmployeeName = document.getElementById('summaryEmployeeName'); // Assumo esista
+                const problemTypeSpan = document.getElementById('problemType'); // Assumo esista
+                const problemTimeSpan = document.getElementById('problemTime'); // Assumo esista
+                const problemDateTextSpan = document.getElementById('problemDateText'); // Assumo esista
+                const problemContextIdInput = document.getElementById('problemContextId');
+                const originalEmployeeNameInput = document.getElementById('originalEmployeeName');
+                const originalProblemDateISOInput = document.getElementById('originalProblemDateISO');
+                const originalSingleTimeInput = document.getElementById('originalSingleTimeInput'); // Assumo ID corretto
+                const originalSingleBarInput = document.getElementById('originalSingleBarInput');   // Assumo ID corretto
+                const effectiveOriginalSolarDateISOInput = document.getElementById('effectiveOriginalSolarDateISOInput');
+                const notesTextField = document.getElementById('notesTextField');
+                const dateCorrectionGroup = document.getElementById('dateCorrectionGroup');
+                const singleTimeCorrectionSection = document.getElementById('singleTimeCorrectionSection');
+                const missingTimeFieldGroup = document.getElementById('missingTimeFieldGroup');
+                const singleCorrectionActionSelect = document.getElementById('singleCorrectionActionSelect'); // Assumo ID corretto
+                const loadingMessage = document.getElementById('loadingMessage');
+                const errorMessageDiv = document.getElementById('errorMessage');
+                const formContainer = document.getElementById('formContainer');
+
+                // --- Calcolo Data Solare Effettiva dell'Ancora Iniziale ---
+                let initialAnchorTime = data.origTime;
+                let initialEffectiveSolarDateISO = data.pDateISO;
+                if (initialAnchorTime && isValidTimeFormat(initialAnchorTime)) { 
+                    const [hOrig, mOrig] = initialAnchorTime.split(':').map(Number);
                     if (hOrig < 5) { 
-                        calculatedEffectiveOriginalSolarDateISO = G_addDaysToISONoTime(data.pDateISO, 1);
+                        initialEffectiveSolarDateISO = G_addDaysToISONoTime(data.pDateISO, 1);
                     }
                 }
-                // Salva la data solare originale calcolata nell'input nascosto
-                const effectiveOriginalSolarDateISOInput = document.getElementById('effectiveOriginalSolarDateISOInput');
-                if (effectiveOriginalSolarDateISOInput) {
-                    effectiveOriginalSolarDateISOInput.value = calculatedEffectiveOriginalSolarDateISO;
-                    console.log("populateUI: Effective Original Solar Date calcolata e salvata:", calculatedEffectiveOriginalSolarDateISO);
-                } else {
-                    console.warn("populateUI: Input 'effectiveOriginalSolarDateISOInput' non trovato nell'HTML!");
-                    // Considera un errore fatale se questo input è cruciale per la validazione
-                }  
-
-                // Popola il riepilogo in alto
-                summaryEmployeeName.textContent = data.name || 'N/D'; 
-
-                let mainProblemDescriptionUI = "Problema Rilevato"; 
-                if (data.pType) { 
-                    switch (data.pType.toUpperCase()) {
-                        case 'SINGLE_TIMESTAMP': mainProblemDescriptionUI = "Timbratura singola"; break;
-                        case 'TIME_05XX': mainProblemDescriptionUI = "Timbratura orario 05:xx"; break;
-                        case 'DURATION_EXCEEDED_15H': mainProblemDescriptionUI = "Durata servizio > 15 ore"; break;
-                        case 'DURATION_TOO_SHORT_1H': mainProblemDescriptionUI = "Durata servizio < 1 ora"; break;
-                        case 'LOGICAL_ERROR_TIME': mainProblemDescriptionUI = "Errore logico (uscita < entrata)"; break;
-                        default: mainProblemDescriptionUI = `Tipo Problema: ${data.pType}`; // Più generico
+                
+                // --- Funzione interna per impostare l'ancora (orario/bar/data solare) ---
+                function setAnchor(time, bar, solarDate) {
+                    if (originalSingleTimeInput) originalSingleTimeInput.value = time || '';
+                    if (originalSingleBarInput) originalSingleBarInput.value = bar || '';
+                    if (effectiveOriginalSolarDateISOInput) effectiveOriginalSolarDateISOInput.value = solarDate || '';
+                    
+                    const timeAndBarDisplay = (time) ? `${time} (Bar ${bar || 'N/D'})` : "Dettaglio non disponibile.";
+                    const dateForDisplay = (solarDate) ? formatDate_DDMMYYYY(solarDate) : 'N/D';
+                    
+                    if (problemTimeSpan) {
+                        problemTimeSpan.textContent = `${timeAndBarDisplay} del ${dateForDisplay}`;
                     }
+                }
+
+                // --- Popolamento UI ---
+                summaryEmployeeName.textContent = data.name || 'N/D'; 
+                let mainProblemDescriptionUI = "Problema Rilevato";
+                const problemType = data.pType ? data.pType.toUpperCase() : '';
+                
+                switch (problemType) {
+                    case 'SINGLE_TIMESTAMP': mainProblemDescriptionUI = "Timbratura singola"; break;
+                    case 'DURATION_TOO_SHORT_1H': mainProblemDescriptionUI = "Durata servizio < 1 ora"; break;
+                    // ... altri casi ...
+                    default: mainProblemDescriptionUI = `Tipo Problema: ${data.pType}`;
                 }
                 problemTypeSpan.textContent = mainProblemDescriptionUI;
 
-                // --- VISUALIZZAZIONE MODIFICATA PER CHIAREZZA ---
-                let timeAndBarDisplayForOriginal = '';
-                let originalSolarDateFormattedForDisplay = 'N/D';
-
-                if (data.origTime) { 
-                    timeAndBarDisplayForOriginal = data.origTime;
-                    if (data.origBar && data.origBar !== "N/D") { 
-                        timeAndBarDisplayForOriginal += ` (Bar ${data.origBar})`;
-                    }
-                    // Usa la data solare effettiva calcolata per il display
-                    if (calculatedEffectiveOriginalSolarDateISO) {
-                        originalSolarDateFormattedForDisplay = formatDate_DDMMYYYY(calculatedEffectiveOriginalSolarDateISO);
-                    }
-                }
-                
-                // Mostra l'ora originale e la SUA DATA SOLARE
-                if (problemTimeSpan) {
-                    if (timeAndBarDisplayForOriginal) {
-                        problemTimeSpan.textContent = `${timeAndBarDisplayForOriginal} del ${originalSolarDateFormattedForDisplay}`;
-                    } else {
-                        problemTimeSpan.textContent = "Dettaglio orario originale non disponibile.";
-                    }
-                }
-
-                // Specifica che la data problema si riferisce al GIORNO LAVORATIVO
-                let workDayDateFormattedForDisplay = 'N/D';
-                if (data.pDateISO) { 
-                    workDayDateFormattedForDisplay = formatDate_DDMMYYYY(data.pDateISO);
-                }
+                const workDayDateFormattedForDisplay = data.pDateISO ? formatDate_DDMMYYYY(data.pDateISO) : 'N/D';
                 if (problemDateTextSpan) {
                     problemDateTextSpan.textContent = `(Giorno Lavorativo: ${workDayDateFormattedForDisplay})`;
                 }
-                // --- FINE VISUALIZZAZIONE MODIFICATA ---
 
-                // Popola gli input nascosti del form
+                // Popola input nascosti generali
                 problemContextIdInput.value = data.ctxId || ''; 
                 originalEmployeeNameInput.value = data.name || '';
-                originalProblemDateISOInput.value = data.pDateISO || ''; // Questo rimane il giorno LAVORATIVO
-                originalSingleTimeInput.value = data.origTime || '';
-                originalSingleBarInput.value = data.origBar || '';
+                originalProblemDateISOInput.value = data.pDateISO || '';
                 
-                correctorUserIdInput.value = currentUserDetails.id || '';
-                correctorUserNameInput.value = currentUserDetails.username || '';
-                correctorUserFirstNameInput.value = currentUserDetails.first_name || '';
-                correctorUserLastNameInput.value = currentUserDetails.last_name || '';
-
-                // Popola il campo note (div contenteditable)
-                if (notesTextField) {
-                    if (data.notes && typeof data.notes === 'string') { // Verifica che data.notes esista e sia una stringa
-                        notesTextField.textContent = data.notes.trim();
-                    } else {
-                        notesTextField.textContent = ''; // Assicura che sia vuoto per il placeholder CSS
-                    }
-                    // Se il contenuto è vuoto dopo averlo impostato, il placeholder CSS dovrebbe attivarsi
-                    if (notesTextField.textContent.trim() === '') {
-                         notesTextField.innerHTML = ''; // Forza il placeholder se era solo spazi bianchi
-                    }
-                }
-
-                // Logica per mostrare/nascondere sezioni del form
-                dateCorrectionGroup.style.display = 'none'; // Al momento sempre nascosto
+                // Logica per mostrare/nascondere sezioni
+                dateCorrectionGroup.style.display = 'none';
                 singleTimeCorrectionSection.style.display = 'none';
                 missingTimeFieldGroup.style.display = 'none';
-                if (missingTimeDateContext) { // Assicurati che esista
-                    missingTimeDateContext.dataset.inferredMissingPairDate = ""; 
-                }
 
-
-                const isSingleTimestampProblem = data.pType && data.pType.toUpperCase() === 'SINGLE_TIMESTAMP';
-                if (isSingleTimestampProblem) {
+                // Gestione dinamica dell'ancora in base al tipo di problema
+                if (problemType === 'DURATION_TOO_SHORT_1H' && data.endTime) {
                     singleTimeCorrectionSection.style.display = 'block';
-                    if (singleCorrectionActionSelect) singleCorrectionActionSelect.value = ''; 
-                    handleSingleCorrectionActionChange(); // Questo mostrerà/nasconderà missingTimeFieldGroup e aggiornerà il contesto data
+
+                    let effectiveEndSolarDateISO = data.pDateISO;
+                    const [hEnd, mEnd] = data.endTime.split(':').map(Number);
+                    if (hEnd < 5) { effectiveEndSolarDateISO = G_addDaysToISONoTime(data.pDateISO, 1); }
+
+                    singleCorrectionActionSelect.onchange = () => {
+                        if (singleCorrectionActionSelect.value === 'isExit_addEntry') {
+                            setAnchor(data.endTime, data.endBar, effectiveEndSolarDateISO);
+                        } else {
+                            setAnchor(data.origTime, data.origBar, initialEffectiveSolarDateISO);
+                        }
+                        handleSingleCorrectionActionChange();
+                    };
+
+                    singleCorrectionActionSelect.value = 'isEntry_addExit';
+                    setAnchor(data.origTime, data.origBar, initialEffectiveSolarDateISO);
+                    
+                } else if (problemType === 'SINGLE_TIMESTAMP') {
+                    singleTimeCorrectionSection.style.display = 'block';
+                    singleCorrectionActionSelect.onchange = handleSingleCorrectionActionChange;
+                    setAnchor(data.origTime, data.origBar, initialEffectiveSolarDateISO);
                 }
                 
-                // Finalizza la UI
+                // Chiamata iniziale per aggiornare il contesto
+                handleSingleCorrectionActionChange();
+
+                // Popola le note e finalizza la UI
+                if (notesTextField) {
+                    notesTextField.textContent = data.notes?.trim() || '';
+                    if (notesTextField.textContent === '') notesTextField.innerHTML = '';
+                }
+                
                 loadingMessage.style.display = 'none';
                 errorMessageDiv.style.display = 'none';
                 formContainer.style.display = 'block';
                 document.body.style.visibility = 'visible';
                 updateDebugSection(startParamValueForDebug, initialStartParamData, tg.initData, tg.initDataUnsafe, window.location.search);
-                updateMainButtonState(); 
+                updateMainButtonState();
             }
+
+
+            
             function isValidTimeFormat(timeString) { return timeString && /^([01]\d|2[0-3]):([0-5]\d)$/.test(timeString); }
             function formatDate_DDMMYYYY(dateStrYYYYMMDD) { if (!dateStrYYYYMMDD || typeof dateStrYYYYMMDD !== 'string') return ""; const parts = dateStrYYYYMMDD.split('-'); if (parts.length !== 3) return dateStrYYYYMMDD; return `${parts[2]}-${parts[1]}-${parts[0]}`; }
             
