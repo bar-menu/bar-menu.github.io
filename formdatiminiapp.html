@@ -76,44 +76,60 @@
             </div>
         </div>
         <form id="correctionForm">
-            <!-- Input Nascosti -->
             <input type="hidden" id="problemContextIdInput" name="problemContextId">
             <input type="hidden" id="originalEmployeeNameInput" name="originalEmployeeName">
             <input type="hidden" id="originalProblemDateISOInput" name="originalProblemDateISO">
             <input type="hidden" id="originalSingleTimeInput" name="originalSingleTime">
             <input type="hidden" id="originalSingleBarInput" name="originalSingleBar">
+            <!-- notesHiddenInput rimosso -->
             <input type="hidden" id="correctorUserIdInput" name="correctorUserId">
             <input type="hidden" id="correctorUserNameInput" name="correctorUserName">
             <input type="hidden" id="correctorUserFirstNameInput" name="correctorUserFirstName">
             <input type="hidden" id="correctorUserLastNameInput" name="correctorUserLastName">
             <input type="hidden" id="effectiveOriginalSolarDateISOInput" name="effectiveOriginalSolarDateISO">
 
-            <!-- Sezione Correzione -->
+            <div class="field-group" id="dateCorrectionGroup" style="display:none;">
+                <label for="correctedDate">Data Corretta (lascia vuoto per deduzione):</label>
+                <input type="date" id="correctedDate" name="correctedDate">
+                <p class="date-info-text">La data verrà dedotta automaticamente se possibile.</p>
+            </div>
             <div class="field-group" id="singleTimeCorrectionSection" style="display:none;">
                 <label for="singleCorrectionAction">Aggiungere:</label>
                 <select id="singleCorrectionAction" name="singleCorrectionAction">
+                    <option value="">-- Seleziona un'azione --</option>
                     <option value="isEntry_addExit">Uscita Mancante</option>
                     <option value="isExit_addEntry">Entrata Mancante</option>
                 </select>
-                <div id="singleCorrectionActionError" class="error-message" style="display:none;"></div>
+                 <div id="singleCorrectionActionError" class="error-message" style="display:none;"></div>
             </div>
-
             <div class="field-group" id="missingTimeFieldGroup" style="display:none;">
-                 <label for="missingTimeValue" id="missingTimeLabel">Orario Mancante (HH:MM):</label>
-                 <input type="time" id="missingTimeValue" name="missingTimeValue">
-                 <div id="missingTimeError" class="error-message" style="display:none;"></div>
+                <div style="display: flex; align-items: center;">
+                    <div style="flex-grow: 1;">
+                        <label for="missingTimeValue" id="missingTimeLabel">Orario Mancante (HH:MM):</label>
+                        <input type="time" id="missingTimeValue" name="missingTimeValue">
+                        <div id="missingTimeError" class="error-message" style="display:none;"></div>
+                    </div>
+                    <span id="missingTimeDateContext"></span>
+                </div>
             </div>
-            
+            <!-- Nuovo campo note -->
             <div class="field-group">
-                <label for="notesTextField">Note:</label>
-                <div class="input" contenteditable="true" data-placeholder="Aggiungi nota..." id="notesTextField"></div>
+                <label for="text_field">Note:</label>
+                <div
+                    class="input" 
+                    contenteditable="true"
+                    data-placeholder="Aggiungi nota (opzionale)..."
+                    id="text_field"
+                ></div>
             </div>
         </form>
     </div>
-    <div id="loadingMessage">Caricamento...</div>
+    <!-- notesModalOverlay rimosso -->
+    <div id="loadingMessage">Caricamento dati...</div>
     <div id="errorMessage" style="display:none;"></div>
+    <div id="debugSection" style="display: none;"></div>
 
-<script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
             const tg = window.Telegram.WebApp;
             const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzxAMul4wSZO6YVPGrsnhUJmqpUY2jDkgu2-qONZ27SjynWubJyJz_kZrUyBdNm4M9-OA/exec';
