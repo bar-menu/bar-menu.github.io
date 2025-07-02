@@ -640,6 +640,8 @@
                             startParamReceived: startParamValueForDebug
                         };
                         console.log("Invio a GAS:", JSON.stringify(dataToSend, null, 2));
+                        console.log("MINI-APP DEBUG: Invio questo payload al server:", JSON.stringify(dataToSend, null, 2));
+                        tg.showAlert("DEBUG: Sto per inviare: " + dataToSend.problemContextId); // Un alert per essere sicuri
 
                         fetch(GAS_WEB_APP_URL, { method: 'POST', redirect: 'follow', cache: 'no-cache', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ payload: dataToSend }) })
                         .then(response => { 
