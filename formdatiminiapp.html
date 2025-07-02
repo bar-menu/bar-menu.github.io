@@ -460,33 +460,71 @@
                 if (!isValid) return false;
 
                 // --- FASE 3: VALIDAZIONE LOGICA (LA PARTE INTELLIGENTE) ---
+
+                // --- FASE 2: VALIDAZIONE LOGICA AVANZATA ---
                 try {
                     const originalTimeStr = document.getElementById('originalSingleTimeInput').value;
                     const originalSolarDateISO = document.getElementById('effectiveOriginalSolarDateISOInput').value;
                     const inferredDateForMissingPairISO = document.getElementById('missingTimeDateContext').dataset.inferredMissingPairDate || originalSolarDateISO;
 
                     if (!originalTimeStr || !originalSolarDateISO || !inferredDateForMissingPairISO) {
-                        throw new Error("Dati di riferimento mancanti per la validazione.");
+                        throw new Error("Dati di riferimento mancanti. Impossibile validare.");
                     }
-                    
+
                     const originalDateTime = new Date(`${originalSolarDateISO}T${originalTimeStr}:00Z`);
                     const missingPairDateTime = new Date(`${inferredDateForMissingPairISO}T${missingTimeStr}:00Z`);
+                    const originalHour = originalDateTime.getUTCHours();
+                    const missingHour = missingPairDateTime.getUTCHours();
 
-                    if (action === "isEntry_addExit" && missingPairDateTime.getTime() <= originalDateTime.getTime()) {
-                        missingTimeError.textContent = `L'uscita è prima dell'entrata. Forse intendevi "Aggiungi Ingresso Mancante"?`;
-                        isValid = false;
-                    } else if (action === "isExit_addEntry" && missingPairDateTime.getTime() >= originalDateTime.getTime()) {
-                        missingTimeError.textContent = `L'entrata è dopo l'uscita. Forse intendevi "Aggiungi Uscita Mancante"?`;
-                        isValid = false;
-                    }
+                    let entryDateTime, exitDateTime;
 
-                    if (isValid) {
-                        const durationHours = Math.abs(originalDateTime.getTime() - missingPairDateTime.getTime()) / 3600000;
-                        if (durationHours > 16) {
-                            missingTimeError.textContent = `La durata del turno (${durationHours.toFixed(1)}h) supera le 16 ore.`;
-                            isValid = false;
+                    if (action === "isEntry_addExit") {
+                        entryDateTime = originalDateTime;
+                        exitDateTime = missingPairDateTime;
+
+                        // CASO SPECIFICO: Se l'entrata è dopo la mezzanotte (es. 03:06), l'uscita
+                        // NON PUÒ essere dopo le 05:00 dello stesso giorno solare.
+                        if (originalHour < 5 && exitDateTime.getTime() > entryDateTime.getTime()) {
+                            if (missingHour >= 5) {
+                                missingTimeError.textContent = `Un turno che inizia alle ${originalTimeStr} non può finire dopo le 05:00.`;
+                                missingTimeError.style.display = 'block';
+                                return false; // Errore bloccante
+                            }
+                        } else if (exitDateTime.getTime() <= entryDateTime.getTime()) {
+                            missingTimeError.textContent = `L'uscita deve essere successiva all'entrata.`;
+                            missingTimeError.style.display = 'block';
+                            return false;
+                        }
+
+                    } else if (action === "isExit_addEntry") {
+                        entryDateTime = missingPairDateTime;
+                        exitDateTime = originalDateTime;
+
+                        // CASO SPECIFICO: Se l'uscita è dopo la mezzanotte (es. 03:06), l'entrata
+                        // che aggiungi non può essere anch'essa dopo la mezzanotte.
+                        if (originalHour < 5 && entryDateTime.getTime() < exitDateTime.getTime()) {
+                            if (missingHour < 5) {
+                                missingTimeError.textContent = `Un turno che finisce alle ${originalTimeStr} non può iniziare anch'esso dopo mezzanotte.`;
+                                missingTimeError.style.display = 'block';
+                                return false;
+                            }
+                        } else if (entryDateTime.getTime() >= exitDateTime.getTime()) {
+                            missingTimeError.textContent = `L'entrata deve essere precedente all'uscita.`;
+                            missingTimeError.style.display = 'block';
+                            return false;
                         }
                     }
+                    
+                    // Controllo sulla durata massima
+                    const durationHours = Math.abs(exitDateTime.getTime() - entryDateTime.getTime()) / 3600000;
+                    if (durationHours > 16) {
+                        missingTimeError.textContent = `La durata del turno (${durationHours.toFixed(1)}h) supera le 16 ore.`;
+                        missingTimeError.style.display = 'block';
+                        return false;
+                    }
+
+                    return true; // Se tutti i controlli passano
+
                 } catch (e) {
                     if (missingTimeError) { missingTimeError.textContent = `Errore interno di validazione: ${e.message}`; }
                     isValid = false;
@@ -518,73 +556,64 @@
                 }
             }
             
+            // NEL JAVASCRIPT DELLA TUA MINI-APP
+
             function handleFormSubmit() {
-                if (!validateForm()) { 
-                    tg.showAlert("Correggi gli errori nel form.", function() { 
-                        const firstErrorInput = document.querySelector('#correctionForm .input-error'); 
-                        if (firstErrorInput) firstErrorInput.focus();
-                    }); 
-                    return; 
+                // Blocco per evitare doppi click
+                if (tg.MainButton.isProgressVisible) return;
+
+                if (!validateForm()) {
+                    tg.showAlert("Correggi gli errori nel form prima di inviare.");
+                    return;
                 }
 
-                tg.showConfirm("Confermi l'invio della correzione?", function(isConfirmed) {
+                tg.showConfirm("Confermi l'invio della correzione?", (isConfirmed) => {
                     if (isConfirmed) {
-                        if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-                        
-                        tg.MainButton.showProgress();
-                        tg.MainButton.disable(); 
-                        
-                        const inferredMissingPairDate = missingTimeDateContext.dataset.inferredMissingPairDate || originalProblemDateISOInput.value;
-                        
-                        const dataToSend = {
-                            problemContextId: problemContextIdInput.value,
-                            originalEmployeeName: originalEmployeeNameInput.value,
-                            originalProblemDateISO: originalProblemDateISOInput.value,
-                            originalSingleTime: originalSingleTimeInput.value,
-                            originalSingleBar: originalSingleBarInput.value,
-                            singleCorrectionAction: singleCorrectionActionSelect.value,
-                            missingTimeValue: missingTimeValueInput.value,
-                            correctedDate: singleTimeCorrectionSection.style.display !== 'none' ? inferredMissingPairDate : correctedDateInput.value,
-                            notes: notesTextField ? notesTextField.textContent.trim() : "", // Legge dal nuovo campo note
-                            initDataRaw: tg.initData || "",
-                            telegramUserId: currentUserDetails.id,
-                            correctorUserInfo: currentUserDetails,
-                            clientTimestamp: new Date().toISOString(),
-                            startParamReceived: startParamValueForDebug
-                        };
-                        console.log("Invio a GAS:", JSON.stringify(dataToSend, null, 2));
-                        console.log("MINI-APP DEBUG: Invio questo payload al server:", JSON.stringify(dataToSend, null, 2));
-                        tg.showAlert("DEBUG: Sto per inviare: " + dataToSend.problemContextId); // Un alert per essere sicuri
+                        tg.MainButton.showProgress().disable();
 
-                        fetch(GAS_WEB_APP_URL, { method: 'POST', redirect: 'follow', cache: 'no-cache', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ payload: dataToSend }) })
-                        .then(response => { 
-                            if (!response.ok) { 
-                                return response.text().then(text => { 
-                                    try { const errData = JSON.parse(text); throw new Error(errData.message || `Errore HTTP ${response.status} - ${text.substring(0,100)}`); } 
-                                    catch (parseError) { throw new Error(`Errore HTTP ${response.status} - Risposta non JSON: ${text.substring(0,100)}`); }
-                                }); 
-                            } 
-                            return response.json(); 
+                        // *** COSTRUZIONE DEL PAYLOAD CORRETTO E UNICO ***
+                        const dataToSend = {
+                            // ID per trovare il messaggio da modificare
+                            problemContextId: document.getElementById('problemContextIdInput').value,
+                            
+                            // Dati del problema originale
+                            originalEmployeeName: document.getElementById('originalEmployeeNameInput').value,
+                            originalProblemDateISO: document.getElementById('originalProblemDateISOInput').value, // Giorno lavorativo
+                            originalSingleTime: document.getElementById('originalSingleTimeInput').value,     // Orario di riferimento
+                            originalSingleBar: document.getElementById('originalSingleBarInput').value,      // Bar di riferimento
+
+                            // Dati della correzione inserita dall'utente
+                            singleCorrectionAction: document.getElementById('singleCorrectionAction').value, // es. 'isEntry_addExit'
+                            missingTimeValue: document.getElementById('missingTimeValue').value,       // es. '16:00'
+                            
+                            // Dati dell'utente che corregge
+                            correctorUserInfo: currentUserDetails, // Assumendo che `currentUserDetails` sia popolato
+                            
+                            // Dati tecnici
+                            initDataRaw: tg.initData,
+                        };
+
+                        Logger.log("Invio a GAS:", JSON.stringify(dataToSend, null, 2));
+
+                        fetch(GAS_WEB_APP_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                            body: JSON.stringify({ payload: dataToSend })
                         })
-                        .then(data => { 
-                            console.log('GAS OK:', data); 
-                            if (data.status === "successo") { 
-                                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-                                tg.MainButton.setText("INVIATO!"); 
-                                tg.showAlert(data.message || "Correzione inviata!", function() { tg.close(); }); 
-                            } else { 
-                                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
-                                tg.MainButton.hideProgress(); 
-                                updateMainButtonState(); 
-                                tg.showAlert(`Errore App: ${data.message || 'Sconosciuto.'}`); 
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === "successo") {
+                                tg.showAlert("Correzione inviata con successo!", () => {
+                                    tg.close(); // CHIUDE IL FORM DOPO CHE L'UTENTE CLICCA OK SULL'AVVISO
+                                });
+                            } else {
+                                tg.showAlert(`Errore dal server: ${data.message || 'Sconosciuto'}`);
+                                tg.MainButton.hideProgress().enable();
                             }
                         })
-                        .catch((error) => { 
-                            if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
-                            console.error('Errore Fetch GAS:', error); 
-                            tg.MainButton.hideProgress();
-                            updateMainButtonState();
-                            tg.showAlert(`Errore Comunicazione: ${error.message}.`); 
+                        .catch(error => {
+                            tg.showAlert(`Errore di comunicazione: ${error.message}`);
+                            tg.MainButton.hideProgress().enable();
                         });
                     }
                 });
