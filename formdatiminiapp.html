@@ -359,44 +359,53 @@
                 }
             }
 
+
             function updateMissingTimeDateContext() {
+                // Recupera gli elementi e i valori necessari
                 const originalTimeStr = document.getElementById('originalSingleTimeInput').value;
-                const originalSolarDateISO = document.getElementById('effectiveOriginalSolarDateISOInput').value;
+                const effectiveAnchorSolarDateISO = document.getElementById('effectiveOriginalSolarDateISOInput').value;
                 const newTimeValue = document.getElementById('missingTimeValue').value;
                 const action = document.getElementById('singleCorrectionAction').value;
                 const missingTimeDateContext = document.getElementById('missingTimeDateContext');
 
+                // Pulisci lo stato precedente
                 missingTimeDateContext.textContent = '';
                 missingTimeDateContext.dataset.inferredMissingPairDate = '';
 
-                if (!isValidTimeFormat(newTimeValue) || !isValidTimeFormat(originalTimeStr) || !originalSolarDateISO) {
+                // Se non abbiamo i dati base, non facciamo nulla.
+                if (!isValidTimeFormat(newTimeValue) || !isValidTimeFormat(originalTimeStr) || !effectiveAnchorSolarDateISO) {
                     return;
                 }
 
                 try {
-                    const originalDateTime = new Date(`${originalSolarDateISO}T${originalTimeStr}:00Z`);
-                    const [newH, newM] = newTimeValue.split(':').map(Number);
-                    
-                    let newDate = new Date(originalDateTime.getTime());
-                    newDate.setUTCHours(newH, newM, 0, 0);
+                    // 1. CREA LA DATA/ORA DELL'ANCORA, basata sulla sua data SOLARE effettiva.
+                    const anchorDateTime = new Date(`${effectiveAnchorSolarDateISO}T${originalTimeStr}:00Z`);
 
+                    // 2. CREA LA NUOVA DATA/ORA, partendo dalla data solare dell'ancora.
+                    const [newH, newM] = newTimeValue.split(':').map(Number);
+                    let newDateTime = new Date(`${effectiveAnchorSolarDateISO}T00:00:00Z`);
+                    newDateTime.setUTCHours(newH, newM, 0, 0);
+
+                    // 3. APPLICA LO SHIFT DEL GIORNO, se necessario.
                     let dayShift = 0;
-                    if (action === 'isEntry_addExit' && newDate.getTime() <= originalDateTime.getTime()) {
-                        dayShift = 1;
-                    } else if (action === 'isExit_addEntry' && newDate.getTime() >= originalDateTime.getTime()) {
-                        dayShift = -1;
+                    if (action === 'isEntry_addExit' && newDateTime.getTime() <= anchorDateTime.getTime()) {
+                        dayShift = 1; // Uscita è il giorno dopo
+                    } else if (action === 'isExit_addEntry' && newDateTime.getTime() >= anchorDateTime.getTime()) {
+                        dayShift = -1; // Entrata è il giorno prima
                     }
 
                     if (dayShift !== 0) {
-                        newDate.setUTCDate(newDate.getUTCDate() + dayShift);
+                        newDateTime.setUTCDate(newDateTime.getUTCDate() + dayShift);
                     }
                     
-                    const inferredDateISO = newDate.toISOString().split('T')[0];
+                    // 4. AGGIORNA LA UI e i dati nascosti
+                    const inferredDateISO = newDateTime.toISOString().split('T')[0];
                     missingTimeDateContext.dataset.inferredMissingPairDate = inferredDateISO;
                     missingTimeDateContext.textContent = `(del ${formatDate_DDMMYYYY(inferredDateISO)})`;
 
                 } catch (e) {
                     console.error("Errore in updateMissingTimeDateContext:", e);
+                    missingTimeDateContext.textContent = '(Errore Calcolo)';
                 }
             }
 
