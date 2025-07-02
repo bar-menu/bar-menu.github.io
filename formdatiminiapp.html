@@ -418,62 +418,89 @@
 
 // NEL JAVASCRIPT DELLA MINI-APP
 
+// NEL JAVASCRIPT DELLA MINI-APP (SOSTITUZIONE COMPLETA DI validateForm)
+
             function validateForm() {
-                // Pulisci errori precedenti
+                // --- FASE 1: PULIZIA DELLO STATO PRECEDENTE ---
                 const missingTimeError = document.getElementById('missingTimeError');
-                if (missingTimeError) { missingTimeError.style.display = 'none'; }
                 const missingTimeValueInput = document.getElementById('missingTimeValue');
+                const singleCorrectionActionSelect = document.getElementById('singleCorrectionAction');
+                const singleCorrectionActionError = document.getElementById('singleCorrectionActionError');
+                
+                // Resetta tutti i messaggi e gli stili di errore
+                if (missingTimeError) { missingTimeError.style.display = 'none'; }
                 if (missingTimeValueInput) { missingTimeValueInput.classList.remove('input-error'); }
-                // ...
+                if (singleCorrectionActionError) { singleCorrectionActionError.style.display = 'none'; }
+                if (singleCorrectionActionSelect) { singleCorrectionActionSelect.classList.remove('input-error'); }
 
-                const action = document.getElementById('singleCorrectionAction').value;
+                // --- FASE 2: CONTROLLI DI BASE (CAMPI VUOTI O FORMATO ERRATO) ---
+                const action = singleCorrectionActionSelect.value;
                 const missingTimeStr = missingTimeValueInput.value;
+                let isValid = true;
 
-                if (!action || !isValidTimeFormat(missingTimeStr)) {
+                if (!action) {
+                    if (singleCorrectionActionError) {
+                        singleCorrectionActionError.textContent = "Selezionare un'azione.";
+                        singleCorrectionActionError.style.display = 'block';
+                    }
+                    if (singleCorrectionActionSelect) singleCorrectionActionSelect.classList.add('input-error');
+                    isValid = false;
+                }
+                
+                if (!isValidTimeFormat(missingTimeStr)) {
                     if (missingTimeError) {
-                        missingTimeError.textContent = "Azione e orario validi sono obbligatori.";
+                        missingTimeError.textContent = "Orario obbligatorio e in formato HH:MM.";
                         missingTimeError.style.display = 'block';
                     }
-                    return false;
+                    if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                    isValid = false;
                 }
 
+                // Se i controlli di base falliscono, non ha senso continuare.
+                if (!isValid) return false;
+
+                // --- FASE 3: VALIDAZIONE LOGICA (LA PARTE INTELLIGENTE) ---
                 try {
                     const originalTimeStr = document.getElementById('originalSingleTimeInput').value;
                     const originalSolarDateISO = document.getElementById('effectiveOriginalSolarDateISOInput').value;
                     const inferredDateForMissingPairISO = document.getElementById('missingTimeDateContext').dataset.inferredMissingPairDate || originalSolarDateISO;
 
                     if (!originalTimeStr || !originalSolarDateISO || !inferredDateForMissingPairISO) {
-                        throw new Error("Dati di riferimento mancanti. Impossibile validare.");
+                        throw new Error("Dati di riferimento mancanti per la validazione.");
                     }
                     
                     const originalDateTime = new Date(`${originalSolarDateISO}T${originalTimeStr}:00Z`);
                     const missingPairDateTime = new Date(`${inferredDateForMissingPairISO}T${missingTimeStr}:00Z`);
 
                     if (action === "isEntry_addExit" && missingPairDateTime.getTime() <= originalDateTime.getTime()) {
-                        // Suggerimento invece di errore secco
                         missingTimeError.textContent = `L'uscita è prima dell'entrata. Forse intendevi "Aggiungi Ingresso Mancante"?`;
-                        missingTimeError.style.display = 'block';
-                        return false;
-                    }
-
-                    if (action === "isExit_addEntry" && missingPairDateTime.getTime() >= originalDateTime.getTime()) {
-                        // Suggerimento invece di errore secco
+                        isValid = false;
+                    } else if (action === "isExit_addEntry" && missingPairDateTime.getTime() >= originalDateTime.getTime()) {
                         missingTimeError.textContent = `L'entrata è dopo l'uscita. Forse intendevi "Aggiungi Uscita Mancante"?`;
-                        missingTimeError.style.display = 'block';
-                        return false;
+                        isValid = false;
                     }
-                    
-                    // Se tutto ok, nessun messaggio di errore
-                    return true;
 
-                } catch (e) {
-                    if (missingTimeError) {
-                        missingTimeError.textContent = `Errore validazione: ${e.message}`;
-                        missingTimeError.style.display = 'block';
+                    if (isValid) {
+                        const durationHours = Math.abs(originalDateTime.getTime() - missingPairDateTime.getTime()) / 3600000;
+                        if (durationHours > 16) {
+                            missingTimeError.textContent = `La durata del turno (${durationHours.toFixed(1)}h) supera le 16 ore.`;
+                            isValid = false;
+                        }
                     }
-                    return false;
+                } catch (e) {
+                    if (missingTimeError) { missingTimeError.textContent = `Errore interno di validazione: ${e.message}`; }
+                    isValid = false;
                 }
-            }  
+                
+                // Mostra l'errore se la validazione logica è fallita
+                if (!isValid && missingTimeError) {
+                    missingTimeError.style.display = 'block';
+                    if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                }
+
+                return isValid;
+            }
+           
             function updateMainButtonState() {
                 if (!tg || !tg.MainButton) return;
                 const formIsValid = validateForm(); 
