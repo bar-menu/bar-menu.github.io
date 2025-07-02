@@ -218,14 +218,14 @@
             }
             
 // NEL JAVASCRIPT DELLA TUA MINI-APP (SOSTITUISCI LA VECCHIA populateUI)
+// NEL FILE: formdatiminiapp.html
+// Sostituisci la tua funzione populateUI con questa.
 
             function populateUI(data) {
-                console.log("populateUI V3 - Dati Input:", JSON.stringify(data));
-                
-                // Assegnazione iniziale dei dati
+                console.log("populateUI V3.1 - Dati Input:", JSON.stringify(data));
                 initialStartParamData = data;
                 
-                // Recupero degli elementi DOM necessari
+                // Recupero degli elementi DOM
                 const summaryEmployeeName = document.getElementById('summaryEmployeeName');
                 const problemTypeSpan = document.getElementById('problemType');
                 const problemTimeSpan = document.getElementById('problemTime');
@@ -238,89 +238,82 @@
                 const loadingMessage = document.getElementById('loadingMessage');
                 const formContainer = document.getElementById('formContainer');
 
-                // --- FUNZIONE HELPER INTERNA PER IMPOSTARE L'ANCORA ---
-                // Questa funzione è il cuore della logica. Aggiorna sia i dati nascosti che la UI.
-                function setAnchor(time, bar, solarDateISO) {
-                    document.getElementById('originalSingleTimeInput').value = time || '';
-                    document.getElementById('originalSingleBarInput').value = bar || '';
-                    document.getElementById('effectiveOriginalSolarDateISOInput').value = solarDateISO || '';
-                    
-                    const timeAndBarDisplay = (time) ? `${time} (Bar ${bar || 'N/D'})` : "Dettaglio non disponibile.";
-                    const dateForDisplay = (solarDateISO) ? formatDate_DDMMYYYY(solarDateISO) : 'N/D';
-                    
-                    if (problemTimeSpan) {
-                        problemTimeSpan.textContent = `${timeAndBarDisplay} del ${dateForDisplay}`;
-                    }
-                }
-                
-                // --- POPOLAMENTO INFORMAZIONI GENERALI ---
+                // Popolamento informazioni generali
                 summaryEmployeeName.textContent = data.name || 'N/D';
                 problemDateTextSpan.textContent = `(Giorno Lavorativo: ${formatDate_DDMMYYYY(data.pDateISO)})`;
                 problemContextIdInput.value = data.ctxId || '';
                 originalEmployeeNameInput.value = data.name || '';
                 originalProblemDateISOInput.value = data.pDateISO || '';
-                
+
+                // --- LOGICA DI VISUALIZZAZIONE E ANCORAGGIO DINAMICO ---
                 let mainProblemDescriptionUI = "Problema Rilevato";
                 const problemType = data.pType ? data.pType.toUpperCase() : 'GENERIC_ERROR';
-                
-                switch (problemType) {
-                    case 'SINGLE_TIMESTAMP': mainProblemDescriptionUI = "Timbratura singola"; break;
-                    case 'DURATION_TOO_SHORT_1H': mainProblemDescriptionUI = "Durata servizio < 1 ora"; break;
+
+                /**
+                 * Funzione helper interna per impostare l'ancora (la timbratura di riferimento).
+                 * @param {string} time - L'orario dell'ancora (es. "14:34").
+                 * @param {string} bar - Il bar dell'ancora (es. "S").
+                 * @param {string} solarDateISO - La data solare effettiva dell'ancora.
+                 */
+                function setAnchor(time, bar, solarDateISO) {
+                    document.getElementById('originalSingleTimeInput').value = time || '';
+                    document.getElementById('originalSingleBarInput').value = bar || '';
+                    document.getElementById('effectiveOriginalSolarDateISOInput').value = solarDateISO || '';
+                    
+                    const timeAndBarDisplay = time ? `${time} (Bar ${bar || 'N/D'})` : "Dettaglio non disponibile.";
+                    const dateForDisplay = solarDateISO ? formatDate_DDMMYYYY(solarDateISO) : 'N/D';
+                    
+                    if (problemTimeSpan) {
+                        problemTimeSpan.textContent = `Riferimento: ${timeAndBarDisplay} del ${dateForDisplay}`;
+                    }
                 }
+
+                // Gestione UI in base al tipo di problema
+                switch (problemType) {
+                    case 'DURATION_TOO_SHORT_1H':
+                        mainProblemDescriptionUI = "Durata servizio < 1 ora";
+                        
+                        // Attacca il listener per cambiare l'ancora dinamicamente
+                        singleCorrectionActionSelect.onchange = () => {
+                            if (singleCorrectionActionSelect.value === 'isExit_addEntry') {
+                                // Se voglio AGGIUNGERE UN'ENTRATA, l'ancora è l'USCITA (data.endTime)
+                                setAnchor(data.endTime, data.endBar, G_addDaysToISONoTime(data.pDateISO, data.endTime < "05:00" ? 1 : 0));
+                            } else { // 'isEntry_addExit' o vuoto
+                                // Se voglio AGGIUNGERE UN'USCITA, l'ancora è l'ENTRATA (data.origTime)
+                                setAnchor(data.origTime, data.origBar, G_addDaysToISONoTime(data.pDateISO, data.origTime < "05:00" ? 1 : 0));
+                            }
+                            updateMissingTimeDateContext(); // Ricalcola la data della nuova timbratura
+                        };
+
+                        // Imposta lo stato iniziale
+                        singleCorrectionActionSelect.value = 'isEntry_addExit'; // Default: voglio aggiungere un'uscita
+                        setAnchor(data.origTime, data.origBar, G_addDaysToISONoTime(data.pDateISO, data.origTime < "05:00" ? 1 : 0)); // Quindi l'ancora è l'entrata
+
+                        break;
+
+                    case 'SINGLE_TIMESTAMP':
+                    default:
+                        mainProblemDescriptionUI = "Timbratura singola";
+                        singleCorrectionActionSelect.onchange = null; // Nessuna logica dinamica necessaria
+                        
+                        // Per una singola timbratura, l'ancora è sempre quella
+                        setAnchor(data.origTime, data.origBar, G_addDaysToISONoTime(data.pDateISO, data.origTime < "05:00" ? 1 : 0));
+                        break;
+                }
+                
                 problemTypeSpan.textContent = mainProblemDescriptionUI;
 
-                // --- LOGICA DINAMICA PER IMPOSTARE L'ANCORA ---
-                singleTimeCorrectionSection.style.display = 'block'; // La sezione di correzione è sempre visibile se c'è un problema
-
-                if (problemType === 'DURATION_TOO_SHORT_1H' && data.endTime) {
-                    // Calcola le date solari per entrambe le timbrature
-                    let effectiveStartSolarDateISO = data.pDateISO;
-                    if (data.origTime && isValidTimeFormat(data.origTime) && data.origTime.split(':')[0] < 5) {
-                        effectiveStartSolarDateISO = G_addDaysToISONoTime(data.pDateISO, 1);
-                    }
-                    
-                    let effectiveEndSolarDateISO = data.pDateISO;
-                    if (data.endTime && isValidTimeFormat(data.endTime) && data.endTime.split(':')[0] < 5) {
-                        effectiveEndSolarDateISO = G_addDaysToISONoTime(data.pDateISO, 1);
-                    }
-
-                    // Imposta il listener per cambiare l'ancora
-                    singleCorrectionActionSelect.onchange = () => {
-                        if (singleCorrectionActionSelect.value === 'isExit_addEntry') {
-                            // Ancora = Uscita (endTime)
-                            setAnchor(data.endTime, data.endBar, effectiveEndSolarDateISO);
-                        } else {
-                            // Ancora = Entrata (origTime)
-                            setAnchor(data.origTime, data.origBar, effectiveStartSolarDateISO);
-                        }
-                        // Dopo aver cambiato ancora, ricalcola la data della timbratura mancante
-                        updateMissingTimeDateContext();
-                    };
-
-                    // Imposta lo stato iniziale
-                    singleCorrectionActionSelect.value = 'isEntry_addExit';
-                    setAnchor(data.origTime, data.origBar, effectiveStartSolarDateISO);
-
-                } else { // SINGLE_TIMESTAMP o altri casi
-                    // Calcola la data solare per l'unica timbratura
-                    let effectiveSolarDateISO = data.pDateISO;
-                    if (data.origTime && isValidTimeFormat(data.origTime) && data.origTime.split(':')[0] < 5) {
-                        effectiveSolarDateISO = G_addDaysToISONoTime(data.pDateISO, 1);
-                    }
-                    
-                    singleCorrectionActionSelect.onchange = null; // Nessuna logica dinamica necessaria
-                    setAnchor(data.origTime, data.origBar, effectiveSolarDateISO);
-                }
-                
-                // Esegui una prima volta le funzioni che dipendono dalla selezione
+                // Mostra la sezione di correzione e finalizza la UI
+                singleTimeCorrectionSection.style.display = 'block';
                 handleSingleCorrectionActionChange();
                 updateMissingTimeDateContext();
-
-                // Finalizza la UI
                 loadingMessage.style.display = 'none';
                 formContainer.style.display = 'block';
                 document.body.style.visibility = 'visible';
             }
+
+
+
             function isValidTimeFormat(timeString) { return timeString && /^([01]\d|2[0-3]):([0-5]\d)$/.test(timeString); }
             function formatDate_DDMMYYYY(dateStrYYYYMMDD) { if (!dateStrYYYYMMDD || typeof dateStrYYYYMMDD !== 'string') return ""; const parts = dateStrYYYYMMDD.split('-'); if (parts.length !== 3) return dateStrYYYYMMDD; return `${parts[2]}-${parts[1]}-${parts[0]}`; }
             
