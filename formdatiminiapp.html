@@ -360,90 +360,44 @@
             }
 
             function updateMissingTimeDateContext() {
-                // Assicurati che tutti gli elementi DOM necessari siano recuperabili qui
-                // o passati come argomenti se preferisci una funzione più pura.
-                const singleCorrectionActionSelect = document.getElementById('singleCorrectionAction');
+                const originalTimeStr = document.getElementById('originalSingleTimeInput').value;
+                const originalSolarDateISO = document.getElementById('effectiveOriginalSolarDateISOInput').value;
+                const newTimeValue = document.getElementById('missingTimeValue').value;
+                const action = document.getElementById('singleCorrectionAction').value;
                 const missingTimeDateContext = document.getElementById('missingTimeDateContext');
-                const missingTimeValueInput = document.getElementById('missingTimeValue');
-                const originalSingleTimeInput = document.getElementById('originalSingleTimeInput');
-                const originalProblemDateISOInput = document.getElementById('originalProblemDateISOInput');
 
-                // --- DEBUG LOG ---
-                const problemDateISO_val = originalProblemDateISOInput ? originalProblemDateISOInput.value : 'NULL_INPUT_PD';
-                const originalTimeStr_val = originalSingleTimeInput ? originalSingleTimeInput.value : 'NULL_INPUT_OT';
-                const missingTimeStr_val = missingTimeValueInput ? missingTimeValueInput.value : 'NULL_INPUT_MT';
-                const action_val = singleCorrectionActionSelect ? singleCorrectionActionSelect.value : 'NULL_INPUT_ACT';
-                console.log("--- updateMissingTimeDateContext CALLED ---");
-                console.log("Action Selected:", action_val);
-                console.log("Original Problem Date ISO (from input):", problemDateISO_val);
-                console.log("Original Single Time (from input):", originalTimeStr_val);
-                console.log("Missing Time Value (from input):", missingTimeStr_val);
-                // --- FINE DEBUG LOG ---
+                missingTimeDateContext.textContent = '';
+                missingTimeDateContext.dataset.inferredMissingPairDate = '';
 
-                if (!singleCorrectionActionSelect || !missingTimeDateContext || !missingTimeValueInput || !originalSingleTimeInput || !originalProblemDateISOInput) {
-                    console.warn("updateMissingTimeDateContext: Elementi DOM chiave mancanti.");
-                    if(missingTimeDateContext) missingTimeDateContext.textContent = ""; 
-                    return;
-                }
-                
-                const action = singleCorrectionActionSelect.value; // Rileggi dopo il log per essere sicuro
-                missingTimeDateContext.textContent = ""; 
-                missingTimeDateContext.dataset.inferredMissingPairDate = ""; 
-
-                const originalTimeStr = originalSingleTimeInput.value;
-                const missingTimeStr = missingTimeValueInput.value;  
-                const problemDateISO = originalProblemDateISOInput.value; 
-
-                if (!problemDateISO || !action) {
-                    console.log("updateMissingTimeDateContext: problemDateISO o action mancante. Uscita.");
+                if (!isValidTimeFormat(newTimeValue) || !isValidTimeFormat(originalTimeStr) || !originalSolarDateISO) {
                     return;
                 }
 
-                let inferredDateForNewTimestamp = problemDateISO; 
+                try {
+                    const originalDateTime = new Date(`${originalSolarDateISO}T${originalTimeStr}:00Z`);
+                    const [newH, newM] = newTimeValue.split(':').map(Number);
+                    
+                    let newDate = new Date(originalDateTime.getTime());
+                    newDate.setUTCHours(newH, newM, 0, 0);
 
-                if (isValidTimeFormat(originalTimeStr) && isValidTimeFormat(missingTimeStr)) {
-                    // ... (logica di originalTimeTotalMinutes e missingTimeTotalMinutes) ...
-                    const originalTimeHours = parseInt(originalTimeStr.split(':')[0]);
-                    const originalTimeMinutes = parseInt(originalTimeStr.split(':')[1]);
-                    const missingTimeHours = parseInt(missingTimeStr.split(':')[0]);
-                    const missingTimeMinutes = parseInt(missingTimeStr.split(':')[1]);
-
-                    const originalTimeTotalMinutes = originalTimeHours * 60 + originalTimeMinutes;
-                    const missingTimeTotalMinutes = missingTimeHours * 60 + missingTimeMinutes;
-
-
-                    if (action === "isEntry_addExit") { 
-                        if (missingTimeTotalMinutes <= originalTimeTotalMinutes) { 
-                            inferredDateForNewTimestamp = G_addDaysToISONoTime(problemDateISO, 1);
-                        } else {
-                            inferredDateForNewTimestamp = problemDateISO; 
-                        }
-                        missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(inferredDateForNewTimestamp)})`;
-                        console.log(`isEntry_addExit: inferredDate=${inferredDateForNewTimestamp}, textContentSet`);
-
-                    } else if (action === "isExit_addEntry") { 
-                        // LA LOGICA QUI È SEMPLICEMENTE inferredDateForNewTimestamp = problemDateISO;
-                        // quindi non dovrebbe cambiare se problemDateISO è corretto.
-                        inferredDateForNewTimestamp = problemDateISO; // NON CI SONO CONDIZIONI QUI CHE MODIFICANO
-                                    
-                        missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(inferredDateForNewTimestamp)})`;
-                        console.log(`isExit_addEntry: inferredDate=${inferredDateForNewTimestamp}, textContentSet`);
+                    let dayShift = 0;
+                    if (action === 'isEntry_addExit' && newDate.getTime() <= originalDateTime.getTime()) {
+                        dayShift = 1;
+                    } else if (action === 'isExit_addEntry' && newDate.getTime() >= originalDateTime.getTime()) {
+                        dayShift = -1;
                     }
-                } else if (action && isValidTimeFormat(missingTimeStr)) {
-                    inferredDateForNewTimestamp = problemDateISO; 
-                    if (action === "isEntry_addExit") {
-                        missingTimeDateContext.textContent = `(Uscita del ${formatDate_DDMMYYYY(inferredDateForNewTimestamp)})`;
-                    } else if (action === "isExit_addEntry") {
-                        missingTimeDateContext.textContent = `(Entrata del ${formatDate_DDMMYYYY(inferredDateForNewTimestamp)})`;
+
+                    if (dayShift !== 0) {
+                        newDate.setUTCDate(newDate.getUTCDate() + dayShift);
                     }
-                    console.log(`Solo missingTime valido: inferredDate=${inferredDateForNewTimestamp}, textContentSet`);
+                    
+                    const inferredDateISO = newDate.toISOString().split('T')[0];
+                    missingTimeDateContext.dataset.inferredMissingPairDate = inferredDateISO;
+                    missingTimeDateContext.textContent = `(del ${formatDate_DDMMYYYY(inferredDateISO)})`;
+
+                } catch (e) {
+                    console.error("Errore in updateMissingTimeDateContext:", e);
                 }
-                
-                missingTimeDateContext.dataset.inferredMissingPairDate = inferredDateForNewTimestamp;
-                console.log("Final inferredDateForNewTimestamp:", inferredDateForNewTimestamp);
-                console.log("Final dataset.inferredMissingPairDate:", missingTimeDateContext.dataset.inferredMissingPairDate);
-                console.log("Final textContent:", missingTimeDateContext.textContent);
-                console.log("--- updateMissingTimeDateContext END ---");
             }
 
 
