@@ -61,7 +61,7 @@
 </head>
 <body style="visibility: hidden;">
     <div id="formContainer" style="display: none;">
-        <h2>Form Correzione 1.6</h2>
+        <h2>Form Correzione 1.7</h2>
         <div class="info-summary">
             <p><span class="info-label">Dipendente:</span><strong id="summaryEmployeeName" class="info-value">N/D</strong></p>
             <div class="problem-details-container">
@@ -419,6 +419,8 @@
 // NEL JAVASCRIPT DELLA MINI-APP
 
 // NEL JAVASCRIPT DELLA MINI-APP (SOSTITUZIONE COMPLETA DI validateForm)
+// NEL FILE: formdatiminiapp.html
+// Sostituisci la tua funzione validateForm con questa.
 
             function validateForm() {
                 // --- FASE 1: PULIZIA DELLO STATO PRECEDENTE ---
@@ -428,7 +430,7 @@
                 const singleCorrectionActionError = document.getElementById('singleCorrectionActionError');
                 
                 // Resetta tutti i messaggi e gli stili di errore
-                if (missingTimeError) { missingTimeError.style.display = 'none'; }
+                if (missingTimeError) { missingTimeError.style.display = 'none'; missingTimeError.textContent = ''; }
                 if (missingTimeValueInput) { missingTimeValueInput.classList.remove('input-error'); }
                 if (singleCorrectionActionError) { singleCorrectionActionError.style.display = 'none'; }
                 if (singleCorrectionActionSelect) { singleCorrectionActionSelect.classList.remove('input-error'); }
@@ -447,7 +449,7 @@
                     isValid = false;
                 }
                 
-                if (!isValidTimeFormat(missingTimeStr)) {
+                if (!/^\d{2}:\d{2}$/.test(missingTimeStr)) { // Uso una regex più semplice, tanto il type="time" aiuta
                     if (missingTimeError) {
                         missingTimeError.textContent = "Orario obbligatorio e in formato HH:MM.";
                         missingTimeError.style.display = 'block';
@@ -456,12 +458,9 @@
                     isValid = false;
                 }
 
-                // Se i controlli di base falliscono, non ha senso continuare.
                 if (!isValid) return false;
 
-                // --- FASE 3: VALIDAZIONE LOGICA (LA PARTE INTELLIGENTE) ---
-
-                // --- FASE 2: VALIDAZIONE LOGICA AVANZATA ---
+                // --- FASE 3: VALIDAZIONE LOGICA AVANZATA ---
                 try {
                     const originalTimeStr = document.getElementById('originalSingleTimeInput').value;
                     const originalSolarDateISO = document.getElementById('effectiveOriginalSolarDateISOInput').value;
@@ -473,72 +472,64 @@
 
                     const originalDateTime = new Date(`${originalSolarDateISO}T${originalTimeStr}:00Z`);
                     const missingPairDateTime = new Date(`${inferredDateForMissingPairISO}T${missingTimeStr}:00Z`);
+                    
                     const originalHour = originalDateTime.getUTCHours();
                     const missingHour = missingPairDateTime.getUTCHours();
-
+                    
                     let entryDateTime, exitDateTime;
 
                     if (action === "isEntry_addExit") {
                         entryDateTime = originalDateTime;
                         exitDateTime = missingPairDateTime;
-
-                        // CASO SPECIFICO: Se l'entrata è dopo la mezzanotte (es. 03:06), l'uscita
-                        // NON PUÒ essere dopo le 05:00 dello stesso giorno solare.
-                        if (originalHour < 5 && exitDateTime.getTime() > entryDateTime.getTime()) {
-                            if (missingHour >= 5) {
-                                missingTimeError.textContent = `Un turno che inizia alle ${originalTimeStr} non può finire dopo le 05:00.`;
-                                missingTimeError.style.display = 'block';
-                                return false; // Errore bloccante
-                            }
-                        } else if (exitDateTime.getTime() <= entryDateTime.getTime()) {
-                            missingTimeError.textContent = `L'uscita deve essere successiva all'entrata.`;
-                            missingTimeError.style.display = 'block';
-                            return false;
-                        }
-
-                    } else if (action === "isExit_addEntry") {
+                    } else { // action === "isExit_addEntry"
                         entryDateTime = missingPairDateTime;
                         exitDateTime = originalDateTime;
-
-                        // CASO SPECIFICO: Se l'uscita è dopo la mezzanotte (es. 03:06), l'entrata
-                        // che aggiungi non può essere anch'essa dopo la mezzanotte.
-                        if (originalHour < 5 && entryDateTime.getTime() < exitDateTime.getTime()) {
-                            if (missingHour < 5) {
-                                missingTimeError.textContent = `Un turno che finisce alle ${originalTimeStr} non può iniziare anch'esso dopo mezzanotte.`;
-                                missingTimeError.style.display = 'block';
-                                return false;
-                            }
-                        } else if (entryDateTime.getTime() >= exitDateTime.getTime()) {
-                            missingTimeError.textContent = `L'entrata deve essere precedente all'uscita.`;
-                            missingTimeError.style.display = 'block';
-                            return false;
-                        }
                     }
                     
-                    // Controllo sulla durata massima
-                    const durationHours = Math.abs(exitDateTime.getTime() - entryDateTime.getTime()) / 3600000;
-                    if (durationHours > 16) {
-                        missingTimeError.textContent = `La durata del turno (${durationHours.toFixed(1)}h) supera le 16 ore.`;
+                    // --- NUOVO BLOCCO: VALIDAZIONE LOGICA DEL GIORNO LAVORATIVO ---
+                    const entryHour = entryDateTime.getUTCHours();
+                    const exitHour = exitDateTime.getUTCHours();
+
+                    // Regola 1: Se l'uscita è durante il giorno (dopo le 5), l'entrata non può essere nella notte precedente dello stesso giorno lavorativo.
+                    if (exitHour >= 5 && entryHour < 5) {
+                        // Questo crea un turno tipo "Entrata 02:00, Uscita 15:00", che viola la regola del giorno lavorativo.
+                        missingTimeError.textContent = "ATTENZIONE: Stai creando un turno a cavallo della notte in modo non standard (es. Entrata 02:00, Uscita 15:00). Controlla l'azione (Entrata/Uscita).";
                         missingTimeError.style.display = 'block';
+                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                        return false;
+                    }
+                    // --- FINE NUOVO BLOCCO ---
+
+                    // Controllo standard: Entrata deve essere prima dell'Uscita
+                    if (entryDateTime.getTime() >= exitDateTime.getTime()) {
+                        missingTimeError.textContent = "L'orario di entrata deve essere precedente a quello di uscita.";
+                        missingTimeError.style.display = 'block';
+                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
                         return false;
                     }
 
-                    return true; // Se tutti i controlli passano
+                    // Controllo sulla durata massima
+                    const durationHours = Math.abs(exitDateTime.getTime() - entryDateTime.getTime()) / 3600000;
+                    if (durationHours > 16) {
+                        missingTimeError.textContent = `La durata del turno (${durationHours.toFixed(1)}h) supera le 16 ore. Controllare gli orari.`;
+                        missingTimeError.style.display = 'block';
+                        if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                        return false;
+                    }
 
                 } catch (e) {
-                    if (missingTimeError) { missingTimeError.textContent = `Errore interno di validazione: ${e.message}`; }
-                    isValid = false;
-                }
-                
-                // Mostra l'errore se la validazione logica è fallita
-                if (!isValid && missingTimeError) {
-                    missingTimeError.style.display = 'block';
+                    if (missingTimeError) { 
+                        missingTimeError.textContent = `Errore interno di validazione: ${e.message}`;
+                        missingTimeError.style.display = 'block';
+                    }
                     if (missingTimeValueInput) missingTimeValueInput.classList.add('input-error');
+                    return false;
                 }
 
-                return isValid;
+                // Se tutti i controlli sono passati
+                return true;
             }
-           
+
             function updateMainButtonState() {
                 if (!tg || !tg.MainButton) return;
                 const formIsValid = validateForm(); 
