@@ -61,7 +61,7 @@
 </head>
 <body style="visibility: hidden;">
     <div id="formContainer" style="display: none;">
-        <h2>Form Correzione 1.5</h2>
+        <h2>Form Correzione 1.6</h2>
         <div class="info-summary">
             <p><span class="info-label">Dipendente:</span><strong id="summaryEmployeeName" class="info-value">N/D</strong></p>
             <div class="problem-details-container">
@@ -556,64 +556,72 @@
                 }
             }
             
-            // NEL JAVASCRIPT DELLA TUA MINI-APP
-
             function handleFormSubmit() {
-                // Blocco per evitare doppi click
-                if (tg.MainButton.isProgressVisible) return;
-
-                if (!validateForm()) {
-                    tg.showAlert("Correggi gli errori nel form prima di inviare.");
-                    return;
+                if (!validateForm()) { 
+                    tg.showAlert("Correggi gli errori nel form.", function() { 
+                        const firstErrorInput = document.querySelector('#correctionForm .input-error'); 
+                        if (firstErrorInput) firstErrorInput.focus();
+                    }); 
+                    return; 
                 }
 
-                tg.showConfirm("Confermi l'invio della correzione?", (isConfirmed) => {
+                tg.showConfirm("Confermi l'invio della correzione?", function(isConfirmed) {
                     if (isConfirmed) {
-                        tg.MainButton.showProgress().disable();
-
-                        // *** COSTRUZIONE DEL PAYLOAD CORRETTO E UNICO ***
+                        if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+                        
+                        tg.MainButton.showProgress();
+                        tg.MainButton.disable(); 
+                        
+                        const inferredMissingPairDate = missingTimeDateContext.dataset.inferredMissingPairDate || originalProblemDateISOInput.value;
+                        
                         const dataToSend = {
-                            // ID per trovare il messaggio da modificare
-                            problemContextId: document.getElementById('problemContextIdInput').value,
-                            
-                            // Dati del problema originale
-                            originalEmployeeName: document.getElementById('originalEmployeeNameInput').value,
-                            originalProblemDateISO: document.getElementById('originalProblemDateISOInput').value, // Giorno lavorativo
-                            originalSingleTime: document.getElementById('originalSingleTimeInput').value,     // Orario di riferimento
-                            originalSingleBar: document.getElementById('originalSingleBarInput').value,      // Bar di riferimento
-
-                            // Dati della correzione inserita dall'utente
-                            singleCorrectionAction: document.getElementById('singleCorrectionAction').value, // es. 'isEntry_addExit'
-                            missingTimeValue: document.getElementById('missingTimeValue').value,       // es. '16:00'
-                            
-                            // Dati dell'utente che corregge
-                            correctorUserInfo: currentUserDetails, // Assumendo che `currentUserDetails` sia popolato
-                            
-                            // Dati tecnici
-                            initDataRaw: tg.initData,
+                            problemContextId: problemContextIdInput.value,
+                            originalEmployeeName: originalEmployeeNameInput.value,
+                            originalProblemDateISO: originalProblemDateISOInput.value,
+                            originalSingleTime: originalSingleTimeInput.value,
+                            originalSingleBar: originalSingleBarInput.value,
+                            singleCorrectionAction: singleCorrectionActionSelect.value,
+                            missingTimeValue: missingTimeValueInput.value,
+                            correctedDate: singleTimeCorrectionSection.style.display !== 'none' ? inferredMissingPairDate : correctedDateInput.value,
+                            notes: notesTextField ? notesTextField.textContent.trim() : "", // Legge dal nuovo campo note
+                            initDataRaw: tg.initData || "",
+                            telegramUserId: currentUserDetails.id,
+                            correctorUserInfo: currentUserDetails,
+                            clientTimestamp: new Date().toISOString(),
+                            startParamReceived: startParamValueForDebug
                         };
+                        console.log("Invio a GAS:", JSON.stringify(dataToSend, null, 2));
+                        console.log("MINI-APP DEBUG: Invio questo payload al server:", JSON.stringify(dataToSend, null, 2));
 
-                        Logger.log("Invio a GAS:", JSON.stringify(dataToSend, null, 2));
-
-                        fetch(GAS_WEB_APP_URL, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                            body: JSON.stringify({ payload: dataToSend })
+                        fetch(GAS_WEB_APP_URL, { method: 'POST', redirect: 'follow', cache: 'no-cache', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ payload: dataToSend }) })
+                        .then(response => { 
+                            if (!response.ok) { 
+                                return response.text().then(text => { 
+                                    try { const errData = JSON.parse(text); throw new Error(errData.message || `Errore HTTP ${response.status} - ${text.substring(0,100)}`); } 
+                                    catch (parseError) { throw new Error(`Errore HTTP ${response.status} - Risposta non JSON: ${text.substring(0,100)}`); }
+                                }); 
+                            } 
+                            return response.json(); 
                         })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === "successo") {
-                                tg.showAlert("Correzione inviata con successo!", () => {
-                                    tg.close(); // CHIUDE IL FORM DOPO CHE L'UTENTE CLICCA OK SULL'AVVISO
-                                });
-                            } else {
-                                tg.showAlert(`Errore dal server: ${data.message || 'Sconosciuto'}`);
-                                tg.MainButton.hideProgress().enable();
+                        .then(data => { 
+                            console.log('GAS OK:', data); 
+                            if (data.status === "successo") { 
+                                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+                                tg.MainButton.setText("INVIATO!"); 
+                                tg.showAlert(data.message || "Correzione inviata!", function() { tg.close(); }); 
+                            } else { 
+                                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
+                                tg.MainButton.hideProgress(); 
+                                updateMainButtonState(); 
+                                tg.showAlert(`Errore App: ${data.message || 'Sconosciuto.'}`); 
                             }
                         })
-                        .catch(error => {
-                            tg.showAlert(`Errore di comunicazione: ${error.message}`);
-                            tg.MainButton.hideProgress().enable();
+                        .catch((error) => { 
+                            if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
+                            console.error('Errore Fetch GAS:', error); 
+                            tg.MainButton.hideProgress();
+                            updateMainButtonState();
+                            tg.showAlert(`Errore Comunicazione: ${error.message}.`); 
                         });
                     }
                 });
