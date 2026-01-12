@@ -1,140 +1,139 @@
-Categoria,Nome,Prezzo,Descrizione,Ricetta,Tipo
-Caffetteria,Caffè espresso,2.20,,,
-Caffetteria,Caffè decaffeinato,2.30,,,
-Caffetteria,Caffè d'orzo piccolo,2.30,,,
-Caffetteria,Caffè al ginseng,2.30,,,
-Caffetteria,Caffè d'orzo grande,2.70,,,
-Caffetteria,Caffè al ginseng grande,2.70,,,
-Caffetteria,Caffè espresso con panna,2.70,,,
-Caffetteria,Caffè corretto,2.70,,,
-Caffetteria,Caffè freddo shakerato,4.00,,,
-Caffetteria,Caffè marocchino,2.80,,,
-Caffetteria,Cappuccino,2.50,,,
-Caffetteria,Cappuccino con latte soia,2.80,,,
-Caffetteria,Latte macchiato,2.80,,,
-Caffetteria,Cioccolata in tazza,4.00,,,
-Caffetteria,Cioccolata con panna,4.50,,,
-Caffetteria,The / Infusi / Camomilla,3.50,,,
-Bevande,Acqua in bicchiere,0.80,,,
-Bevande,Acqua 0.5l,1.50,,,
-Bevande,Spremuta d'arancia,5.00,,,
-Bevande,Succhi di frutta,4.00,,,
-Bevande,Bibite in lattina,4.00,,,
-Bevande,Red Bull,4.50,,,
-Spritz,Spritz (Aperol / Campari),6.00,"Vino bianco fermo o frizzante, Aperol o Campari, soda, ghiaccio e arancia","INGREDIENTI:\n- Ghiaccio abbondante\n- 3 parti Prosecco (es. 9 cl)\n- 2 parti Aperol o Campari (es. 6 cl)\n- 1 spruzzo Soda\n- 1 fetta arancia\n---\nMETODO:\n1. Riempire un calice grande o tumbler con ghiaccio.\n2. Versare il Prosecco.\n3. Aggiungere l'Aperol o Campari.\n4. Aggiungere uno spruzzo di soda.\n5. Mescolare delicatamente con stirrer.\n6. Guarnire con una fetta d'arancia.",recipe
-Spritz,Hugo,6.00,"Prosecco, sciroppo di sambuco, soda, ghiaccio, foglie di menta","INGREDIENTI:\n- Ghiaccio abbondante\n- 4-5 foglie Menta fresca\n- 2 cl Sciroppo di Sambuco\n- Prosecco (a riempire, circa 10-12 cl)\n- 1 spruzzo Soda\n- Fettina di lime (opzionale)\n---\nMETODO:\n1. Riempire un calice grande con ghiaccio.\n2. Mettere le foglie di menta nel palmo e batterle leggermente per rilasciare aroma, poi aggiungerle nel bicchiere.\n3. Versare lo sciroppo di sambuco.\n4. Aggiungere il Prosecco fino a riempire quasi il bicchiere.\n5. Aggiungere uno spruzzo di soda.\n6. Mescolare delicatamente.\n7. Guarnire con un ciuffo di menta e opzionalmente una fettina di lime.",recipe
-Spritz,Spritz St-Germain,6.00,"Prosecco, St-Germain (liquore sambuco), soda, ghiaccio, lime","INGREDIENTI:\n- Ghiaccio abbondante\n- 3 parti Prosecco (es. 9 cl)\n- 2 parti St-Germain Liquore al Sambuco (es. 6 cl)\n- 1-2 parti Soda (a piacere)\n- Spicchio di lime\n---\nMETODO:\n1. Riempire un calice grande con ghiaccio.\n2. Versare il St-Germain.\n3. Aggiungere il Prosecco.\n4. Aggiungere la soda.\n5. Mescolare delicatamente.\n6. Guarnire con uno spicchio di lime.",recipe
-Spritz,Americano,8.00,"Campari, Vermouth Rosso, Soda","INGREDIENTI:\n- 3 cl Campari\n- 3 cl Vermouth Rosso (dolce)\n- Soda (a colmare)\n- Ghiaccio\n- Fetta d'arancia (o scorza)\n---\nMETODO:\n1. Riempire un tumbler basso (Old Fashioned) con ghiaccio.\n2. Versare Campari e Vermouth Rosso.\n3. Colmare con soda.\n4. Mescolare delicatamente.\n5. Guarnire con mezza fetta d'arancia o scorza.",recipe
-Spritz,Negroni Sbagliato,8.00,"Campari, Vermouth Rosso, Prosecco","INGREDIENTI:\n- 3 cl Campari\n- 3 cl Vermouth Rosso (dolce)\n- Prosecco (a colmare)\n- Ghiaccio\n- Fetta d'arancia\n---\nMETODO:\n1. Riempire un calice grande o tumbler alto con ghiaccio.\n2. Versare Campari e Vermouth Rosso.\n3. Colmare con Prosecco.\n4. Mescolare delicatamente.\n5. Guarnire con mezza fetta d'arancia.",recipe
-Cocktails,NEGRONI,8.00,,"INGREDIENTI:\n- 3 cl Gin\n- 3 cl Campari\n- 3 cl Vermouth Rosso (dolce)\n- Ghiaccio\n- Fetta d'arancia (o scorza)\n---\nMETODO (Build):\n1. Riempire un tumbler basso (Old Fashioned) con ghiaccio.\n2. Versare Gin, Campari e Vermouth Rosso.\n3. Mescolare delicatamente con stirrer per circa 20 sec.\n4. Guarnire con mezza fetta d'arancia o scorza.",recipe
-Cocktails,MOJITO,8.00,,"INGREDIENTI:\n- 5 cl Rum Bianco Cubano\n- 2 cl Succo di Lime fresco\n- 2 cucchiaini Zucchero di Canna bianco (fine)\n- 8-10 foglie Menta fresca\n- Soda (a colmare)\n- Ghiaccio tritato (o a cubetti piccoli)\n- Rametto di menta e spicchio di lime per guarnire\n---\nMETODO (Muddle & Build):\n1. Mettere menta, zucchero e succo di lime in un tumbler alto.\n2. Pestare DELICATAMENTE con muddler (non tritare la menta).\n3. Aggiungere il Rum.\n4. Riempire il bicchiere con ghiaccio tritato.\n5. Colmare con soda.\n6. Mescolare delicatamente dal basso verso l'alto.\n7. Guarnire con rametto di menta e spicchio di lime.",recipe
-Cocktails,CAIPIROSKA / CAIPIRINHA / CAIPIRISSIMA,8.00,,"INGREDIENTI (Base):\n- 5 cl Distillato Base (Vodka per Caipiroska, Cachaça per Caipirinha, Rum bianco per Caipirissima)\n- 1/2 Lime tagliato a spicchi (4-6 pezzi)\n- 2 cucchiaini Zucchero di Canna (bianco o grezzo)\n- Ghiaccio tritato\n---\nMETODO (Muddle & Build):\n1. Mettere gli spicchi di lime e lo zucchero in un tumbler basso (Old Fashioned).\n2. Pestare ENERGICAMENTE con muddler per estrarre succo e oli essenziali.\n3. Riempire il bicchiere con ghiaccio tritato.\n4. Versare il distillato base.\n5. Mescolare bene.",recipe
-Cocktails,DAIQUIRI,8.00,,"INGREDIENTI:\n- 6 cl Rum Bianco\n- 3 cl Succo di Lime fresco\n- 2 cl Sciroppo di Zucchero (1:1)\n- Ghiaccio\n- Fettina di lime (opzionale)\n---\nMETODO (Shake & Strain):\n1. Raffreddare una coppetta da cocktail.\n2. Versare tutti gli ingredienti in uno shaker con ghiaccio.\n3. Shakerare vigorosamente per 15-20 sec.\n4. Filtrare (double strain) nella coppetta raffreddata.\n5. Guarnire opzionalmente con fettina di lime.",recipe
-Cocktails,SEX ON THE BEACH,8.00,,"INGREDIENTI:\n- 4 cl Vodka\n- 2 cl Peach Schnapps (Liquore alla pesca)\n- 6 cl Succo d'Arancia\n- 6 cl Succo di Cranberry (Mirtillo Rosso)\n- Ghiaccio\n- Fetta d'arancia e ciliegina (opzionali)\n---\nMETODO (Build):\n1. Riempire un bicchiere highball con ghiaccio.\n2. Versare Vodka e Peach Schnapps.\n3. Aggiungere il succo d'arancia.\n4. Versare delicatamente il succo di cranberry sopra per creare l'effetto sfumato (opzionale, si può anche mescolare).\n5. Guarnire opzionalmente con fetta d'arancia e ciliegina.",recipe
-Cocktails,LONG ISLAND ICE TEA,8.00,,"INGREDIENTI:\n- 1.5 cl Gin\n- 1.5 cl Vodka\n- 1.5 cl Rum Bianco\n- 1.5 cl Tequila Silver\n- 1.5 cl Triple Sec (o Cointreau)\n- 2.5 cl Succo di Limone fresco\n- 3 cl Sciroppo di Zucchero (o meno, a gusto)\n- Cola (a colmare)\n- Ghiaccio\n- Spicchio di limone\n---\nMETODO (Build & Shake opzionale):\n1. Riempire un bicchiere highball con ghiaccio.\n2. Versare tutti gli alcolici (Gin, Vodka, Rum, Tequila, Triple Sec), succo di limone e sciroppo nello shaker con ghiaccio. (Alternativa Build: versarli direttamente nel bicchiere).\n3. Shakerare brevemente (se usato shaker) o mescolare nel bicchiere.\n4. Colmare con Cola.\n5. Mescolare delicatamente.\n6. Guarnire con spicchio di limone.",recipe
-Cocktails,CUBA LIBRE,8.00,,"INGREDIENTI:\n- 5 cl Rum Scuro (o Ambrato)\n- 10 cl Cola\n- 1 cl Succo di Lime fresco (circa 1/4 di lime spremuto)\n- Ghiaccio\n- Spicchio di lime\n---\nMETODO (Build):\n1. Riempire un bicchiere highball con ghiaccio.\n2. Spremere il succo di lime nel bicchiere.\n3. Aggiungere il Rum.\n4. Colmare con Cola.\n5. Mescolare delicatamente.\n6. Guarnire con uno spicchio di lime.",recipe
-Cocktails,PINA COLADA,8.00,,"INGREDIENTI:\n- 5 cl Rum Bianco\n- 9 cl Succo d'Ananas\n- 3 cl Latte di Cocco (o Crema di cocco)\n- 1-2 cl Succo di Lime (opzionale, bilancia)\n- Ghiaccio (preferibilmente tritato)\n- Fetta d'ananas e ciliegina\n---\nMETODO (Blend or Shake):\n1. (Blend) Mettere tutti gli ingredienti liquidi e una coppa di ghiaccio tritato nel frullatore. Frullare finché liscio. Versare in un bicchiere grande (Hurricane).\n2. (Shake) Versare tutti gli ingredienti liquidi in uno shaker con ghiaccio. Shakerare vigorosamente. Filtrare in un bicchiere grande riempito di ghiaccio tritato.\n3. Guarnire con fetta d'ananas e ciliegina.",recipe
-Cocktails,BLACK RUSSIAN / WHITE RUSSIAN,8.00,,"INGREDIENTI (Black Russian):\n- 5 cl Vodka\n- 2 cl Liquore al Caffè (es. Kahlua)\n- Ghiaccio\nINGREDIENTI (White Russian):\n- Stessi del Black Russian + Panna liquida fresca (circa 3 cl)\n---\nMETODO (Build):\n1. Riempire un tumbler basso (Old Fashioned) con ghiaccio.\n2. Versare Vodka e Liquore al Caffè. Mescolare.\n3. (Solo per White Russian) Versare delicatamente la panna sopra, facendola galleggiare o mescolando leggermente per effetto marmorizzato.",recipe
-Cocktails,MARGARITA,8.00,,"INGREDIENTI:\n- 5 cl Tequila Silver (100% Agave)\n- 2.5 cl Triple Sec (o Cointreau)\n- 2 cl Succo di Lime fresco\n- Sale (per bordatura)\n- Ghiaccio\n- Fettina di lime\n---\nMETODO (Shake & Strain):\n1. Bordare una coppetta Margarita (o Coupe) raffreddata con sale (inumidire bordo con lime, passare su sale).\n2. Versare Tequila, Triple Sec e succo di lime in uno shaker con ghiaccio.\n3. Shakerare vigorosamente.\n4. Filtrare (double strain) nella coppetta bordata.\n5. Guarnire con fettina di lime.",recipe
-Cocktails,TEQUILA SUNRISE,8.00,,"INGREDIENTI:\n- 5 cl Tequila Silver\n- 10 cl Succo d'Arancia\n- 1.5 cl Sciroppo di Granatina\n- Ghiaccio\n- Fetta d'arancia e ciliegina\n---\nMETODO (Build):\n1. Riempire un bicchiere highball con ghiaccio.\n2. Versare Tequila e succo d'arancia. Mescolare.\n3. Versare LENTAMENTE la granatina lungo il bordo del bicchiere, facendola depositare sul fondo per creare l'effetto 'sunrise'. Non mescolare dopo.\n4. Guarnire con mezza fetta d'arancia e ciliegina.",recipe
-Cocktails,ANGELO AZZURRO,8.00,,"INGREDIENTI:\n- 4 cl Gin\n- 2 cl Blue Curaçao\n- 2 cl Succo di Limone fresco\n- Ghiaccio\n- Ciliegina (opzionale)\n---\nMETODO (Shake & Strain):\n1. Raffreddare una coppetta da cocktail.\n2. Versare tutti gli ingredienti in uno shaker con ghiaccio.\n3. Shakerare vigorosamente.\n4. Filtrare (double strain) nella coppetta raffreddata.\n5. Guarnire opzionalmente con ciliegina.",recipe
-Cocktails,GIN TONIC / VODKA TONIC (Base),8.00,,"INGREDIENTI (Gin Tonic):\n- 5 cl Gin (Base/Standard)\n- 12-15 cl Acqua Tonica\n- Ghiaccio abbondante\n- Spicchio di Lime o Limone\nINGREDIENTI (Vodka Tonic):\n- 5 cl Vodka (Base/Standard)\n- 12-15 cl Acqua Tonica\n- Ghiaccio abbondante\n- Spicchio di Lime o Limone\n---\nMETODO (Build):\n1. Riempire un bicchiere highball o balloon con ghiaccio abbondante.\n2. Versare il Gin o la Vodka.\n3. Spremere leggermente lo spicchio di agrume nel bicchiere e poi inserirlo.\n4. Colmare LENTAMENTE con acqua tonica (per preservare bollicine).\n5. Mescolare una sola volta delicatamente.",recipe
-Cocktails,GIN LEMON / VODKA LEMON (Base),8.00,,"INGREDIENTI (Gin Lemon):\n- 5 cl Gin (Base/Standard)\n- Lemonsoda (o altra limonata gassata) a colmare\n- Ghiaccio\n- Fettina di limone\nINGREDIENTI (Vodka Lemon):\n- 5 cl Vodka (Base/Standard)\n- Lemonsoda a colmare\n- Ghiaccio\n- Fettina di limone\n---\nMETODO (Build):\n1. Riempire un bicchiere highball con ghiaccio.\n2. Versare il Gin o la Vodka.\n3. Colmare con Lemonsoda.\n4. Mescolare delicatamente.\n5. Guarnire con fettina di limone.",recipe
-Cocktails,PALOMA,8.00,,"INGREDIENTI:\n- 5 cl Tequila Silver (100% Agave)\n- 1.5 cl Succo di Lime fresco\n- Soda al Pompelmo Rosa (es. Thomas Henry Pink Grapefruit) a colmare\n- Pizzico di Sale (opzionale)\n- Ghiaccio\n- Spicchio di Pompelmo Rosa o Lime\n---\nMETODO (Build):\n1. Eventualmente bordare un highball con sale.\n2. Riempire il bicchiere con ghiaccio.\n3. Versare Tequila e succo di lime.\n4. Aggiungere un pizzico di sale se usato.\n5. Colmare con soda al pompelmo rosa.\n6. Mescolare delicatamente.\n7. Guarnire con spicchio di pompelmo o lime.",recipe
-Cocktails,MANHATTAN,8.00,,"INGREDIENTI:\n- 5 cl Rye Whiskey (o Bourbon)\n- 2 cl Vermouth Rosso (dolce)\n- 2 gocce Angostura Bitters\n- Ghiaccio (per mescolare)\n- Ciliegina al maraschino (o scorza d'arancia)\n---\nMETODO (Stir & Strain):\n1. Raffreddare una coppetta da cocktail.\n2. Versare Whiskey, Vermouth e Angostura in un mixing glass con ghiaccio.\n3. Mescolare con stirrer per 20-30 secondi (finché ben freddo).\n4. Filtrare (strain) nella coppetta raffreddata.\n5. Guarnire con una ciliegina al maraschino o una scorza d'arancia.",recipe
-Cocktails,MOSCOW MULE,8.00,,"INGREDIENTI:\n- 5 cl Vodka\n- 1.5 cl Succo di Lime fresco\n- Ginger Beer (a colmare, circa 10-12 cl)\n- Ghiaccio\n- Spicchio di lime e/o fetta di zenzero (opzionale)\n---\nMETODO (Build):\n1. Riempire una tazza di rame (Mule mug) o highball con ghiaccio.\n2. Versare la Vodka.\n3. Aggiungere il succo di lime.\n4. Colmare con Ginger Beer.\n5. Mescolare delicatamente.\n6. Guarnire con spicchio di lime (e/o zenzero).",recipe
-Cocktails,OLD FASHIONED,8.00,,"INGREDIENTI:\n- 4.5 cl Bourbon (o Rye Whiskey)\n- 1 zolletta di Zucchero (o 1 cucchiaino sciroppo zucchero)\n- 2-3 gocce Angostura Bitters\n- 1 spruzzo Acqua/Soda (opzionale, per sciogliere zucchero)\n- Ghiaccio (1 cubo grande preferibile)\n- Scorza d'arancia\n---\nMETODO (Muddle/Build):\n1. Mettere la zolletta in un tumbler basso (Old Fashioned).\n2. Bagnare la zolletta con Angostura e lo spruzzo d'acqua.\n3. Pestare (muddle) per sciogliere lo zucchero.\n4. Aggiungere il cubo di ghiaccio grande.\n5. Versare il Whiskey.\n6. Mescolare LENTAMENTE per circa 30 secondi.\n7. Spremere la scorza d'arancia sopra il drink per rilasciare oli, poi inserirla nel bicchiere.",recipe
-Cocktails,DRY MARTINI,8.00,,"INGREDIENTI:\n- 6 cl Gin (London Dry preferibile)\n- 1 cl Vermouth Dry\n- Ghiaccio (per mescolare)\n- Oliva verde o scorza di limone\n---\nMETODO (Stir & Strain):\n1. Raffreddare MOLTO bene una coppetta da cocktail (Martini glass).\n2. Riempire un mixing glass con ghiaccio abbondante.\n3. Versare il Vermouth Dry sul ghiaccio, mescolare brevemente e (opzione classica) scolare via il vermouth in eccesso, lasciando solo il ghiaccio 'profumato'. Oppure lasciarlo.\n4. Versare il Gin sul ghiaccio.\n5. Mescolare con stirrer per 30-40 secondi (deve essere freddissimo).\n6. Filtrare (strain) nella coppetta gelata.\n7. Guarnire con un'oliva o una scorza di limone (spremuta sopra prima).",recipe
-Cocktails,ESPRESSO MARTINI,8.00,,"INGREDIENTI:\n- 5 cl Vodka\n- 3 cl Liquore al Caffè (es. Kahlua)\n- 1 Espresso (fresco, circa 2.5-3 cl)\n- 1 cl Sciroppo di Zucchero (opzionale, a gusto)\n- Ghiaccio\n- 3 Chicchi di Caffè\n---\nMETODO (Shake & Strain):\n1. Raffreddare una coppetta da cocktail.\n2. Preparare un caffè espresso e lasciarlo raffreddare leggermente.\n3. Versare Vodka, Liquore al Caffè, Espresso (e sciroppo se usato) in uno shaker con ghiaccio.\n4. Shakerare VIGOROSAMENTE per 15-20 sec (per creare schiuma).\n5. Filtrare (double strain) nella coppetta raffreddata.\n6. Guarnire con 3 chicchi di caffè al centro.",recipe
-Cocktails,WHISKEY SOUR,8.00,,"INGREDIENTI:\n- 4.5 cl Bourbon (o Rye Whiskey)\n- 3 cl Succo di Limone fresco\n- 1.5 cl Sciroppo di Zucchero (1:1)\n- (Opzionale) 1.5 cl Albume d'uovo pastorizzato (o Aquafaba)\n- Ghiaccio\n- Fetta d'arancia e/o ciliegina\n- Goccia Angostura (per guarnire, se usato albume)\n---\nMETODO (Shake & Strain - Dry Shake se con albume):\n1. (Se con albume: Dry Shake) Versare Whiskey, limone, sciroppo e albume nello shaker SENZA ghiaccio. Shakerare vigorosamente per 15 sec.\n2. Aggiungere ghiaccio allo shaker.\n3. (Se senza albume, iniziare da qui) Versare Whiskey, limone, sciroppo nello shaker con ghiaccio.\n4. Shakerare vigorosamente per altri 15-20 sec.\n5. Filtrare (strain, o double strain se con albume) in un tumbler basso (Old Fashioned) riempito di ghiaccio fresco.\n6. Guarnire con mezza fetta d'arancia e/o ciliegina. Se usato albume, aggiungere una goccia di Angostura sulla schiuma.",recipe
-Cocktails,VODKA SOUR,8.00,,"INGREDIENTI:\n- 5 cl Vodka\n- 3 cl Succo di Limone fresco\n- 1.5 cl Sciroppo di Zucchero (1:1)\n- (Opzionale) 1.5 cl Albume d'uovo pastorizzato (o Aquafaba)\n- Ghiaccio\n- Fettina di limone\n- Goccia Angostura (per guarnire, se usato albume)\n---\nMETODO (Shake & Strain - Dry Shake se con albume):\n1. (Se con albume: Dry Shake) Versare Vodka, limone, sciroppo e albume nello shaker SENZA ghiaccio. Shakerare vigorosamente per 15 sec.\n2. Aggiungere ghiaccio allo shaker.\n3. (Se senza albume, iniziare da qui) Versare Vodka, limone, sciroppo nello shaker con ghiaccio.\n4. Shakerare vigorosamente per altri 15-20 sec.\n5. Filtrare (strain, o double strain se con albume) in un tumbler basso (Old Fashioned) riempito di ghiaccio fresco.\n6. Guarnire con fettina di limone. Se usato albume, aggiungere una goccia di Angostura sulla schiuma.",recipe
-Cocktails,AMARETTO SOUR (Disaronno),8.00,,"INGREDIENTI:\n- 5 cl Amaretto Disaronno\n- 3 cl Succo di Limone fresco\n- 1 cl Sciroppo di Zucchero (1:1 - o meno, Disaronno è dolce)\n- (Opzionale) 1.5 cl Albume d'uovo pastorizzato (o Aquafaba)\n- Ghiaccio\n- Ciliegina e/o fettina d'arancia\n- Goccia Angostura (per guarnire, se usato albume)\n---\nMETODO (Shake & Strain - Dry Shake se con albume):\n1. (Se con albume: Dry Shake) Versare Amaretto, limone, sciroppo e albume nello shaker SENZA ghiaccio. Shakerare vigorosamente per 15 sec.\n2. Aggiungere ghiaccio allo shaker.\n3. (Se senza albume, iniziare da qui) Versare Amaretto, limone, sciroppo nello shaker con ghiaccio.\n4. Shakerare vigorosamente per altri 15-20 sec.\n5. Filtrare (strain, o double strain se con albume) in un tumbler basso (Old Fashioned) riempito di ghiaccio fresco.\n6. Guarnire con ciliegina e/o mezza fetta d'arancia. Se usato albume, aggiungere una goccia di Angostura sulla schiuma.",recipe
-Vini,Selezione Vini Rossi,Calice 6 | Bottiglia 25,Chianti - Sangiovese - Merlot - Lambrusco - Cabernet - Morellino - Montepulciano - Valpolicella,,
-Vini,Selezione Vini Bianchi,Calice 6 | Bottiglia 25,Prosecco DOC - Passerina - Vermentino - Müller-Thurgau - Chardonnay - Pecorino - Fiano - Sauvignon - Greco - Falanghina - Pinot Grigio - Etna Bianco,,
-Franciacorta,Contadi Castaldi Brut,Calice 8 | Bottiglia 40,"Franciacorta Brut fresco e vivace. Note di agrumi, fiori bianchi e crosta di pane. Bollicina fine.",,spirit
-Franciacorta,Bellavista Alma Gran Cuvée Brut,Calice 9 | Bottiglia 45,"Iconico Franciacorta Brut. Complesso ed elegante, note di frutta bianca, mandorla, pasticceria. Perlage setoso.",,spirit
-Franciacorta,Bellavista Pas Operé 2015,80.00,Solo Bottiglia - Franciacorta Pas Operé (zero dosaggio) millesimato.,,spirit
-Birre,Birra Bionda Piccola (0.3l),4.00,"La nostra bionda alla spina. Fresca, leggera e dissetante.",,spirit
-Birre,Birra Bionda Media (0.5l),6.00,"La nostra bionda alla spina. Fresca, leggera e dissetante.",,spirit
-Birre,Beck's,4.50,Pilsner tedesca classica.,,spirit
-Birre,Heineken,4.50,Lager olandese iconica.,,spirit
-Birre,Corona,5.00,Lager messicana leggera.,,spirit
-Birre,Ceres Strong Lager,5.00,Lager danese doppio malto.,,spirit
-Birre,Tennent’s Super,5.00,Strong Lager scozzese.,,spirit
-Birre,Bud,5.00,American Lager classica.,,spirit
-Birre,Ichnusa,5.00,Lager sarda.,,spirit
-Birre,Ichnusa Non Filtrata,6.00,Variante non filtrata della Ichnusa.,,spirit
-Birre,Moretti,6.00,Lager italiana tradizionale.,,spirit
-Birre,Franziskaner,6.00,Weissbier (birra di frumento) tedesca.,,spirit
-Birre,Hoegaarden,5.00,Blanche (birra di frumento) belga.,,spirit
-Birre,Leffe Blonde,5.00,Belgian Blonde Ale.,,spirit
-Birre,Leffe Rouge,5.00,Belgian Dubbel (o stile Ale Rossa).,,spirit
-Birre,Moretti Rossa,5.00,Bock italiana (o stile Ale Rossa).,,spirit
-Birre,Bjorne Beer,5.00,Strong Lager danese.,,spirit
-Gin,Bombay Sapphire,9.00,London Dry Gin - UK,,spirit
-Gin,Tanqueray London Dry,10.00,London Dry Gin - UK,,spirit
-Gin,Hendrick's,10.00,"Infused Gin - Scozia (Cetriolo, Rosa)",,spirit
-Gin,Bulldog,10.00,London Dry Gin - UK,,spirit
-Gin,Gin Mare,10.00,Mediterranean Gin - Spagna,,spirit
-Gin,Malfy,10.00,"Italian Gin (Originale, Limone, Arancia, Pompelmo Rosa)",,spirit
-Gin,Marconi 46 - Poli,10.00,Italian Dry Gin,,spirit
-Gin,Portofino Dry Gin,10.00,Italian Dry Gin,,spirit
-Gin,Brockmans,10.00,Botanical Gin - UK (Frutti di bosco),,spirit
-Gin,Plymouth Original Strength,10.00,Plymouth Gin - UK,,spirit
-Gin,No.3 London Dry Gin,10.00,London Dry Gin - UK,,spirit
-Gin,Monkey 47 Schwarzwald,12.00,Dry Gin - Germania,,spirit
-Gin,Amuerte Coca Leaf,12.00,Distilled Gin - Belgio (Coca Leaf),,spirit
-Gin,Gastro Gin ""Gin & Jonnie"",10.00,Olanda,,spirit
-Rum,Ron Havana Club 3 Años,4.00,Cuba (Bianco),,spirit
-Rum,Ron Havana Club 7 Años,5.00,Cuba (Scuro),,spirit
-Rum,Ron Pampero Aniversario,5.50,"Reserva Exclusiva, Venezuela",,spirit
-Rum,Ron Zacapa 23 Solera,9.00,Guatemala,,spirit
-Rum,Don Papa Baroko,9.00,Filippine,,spirit
-Whisky,Jack Daniel's Old No. 7,5.50,Tennessee Whiskey - USA,,spirit
-Whisky,Jim Beam White Label,5.50,Kentucky Bourbon - USA,,spirit
-Whisky,Four Roses Yellow Label,5.50,Kentucky Bourbon - USA,,spirit
-Whisky,Jameson Irish Whiskey,7.00,Irish Whiskey - Irlanda,,spirit
-Whisky,J&B Rare,5.50,Blended Scotch Whisky,,spirit
-Whisky,Talisker Skye,7.50,Single Malt Scotch Whisky (Skye),,spirit
-Whisky,Laphroaig 10 y.o.,7.50,Single Malt Scotch Whisky (Islay),,spirit
-Whisky,Caol Ila 12 y.o.,8.00,Single Malt Scotch Whisky (Islay),,spirit
-Whisky,Oban 14 y.o.,9.00,Single Malt Scotch Whisky (Highland),,spirit
-Whisky,Lagavulin 16 y.o.,10.00,Single Malt Scotch Whisky (Islay),,spirit
-Amari e Liquori,Montenegro,4.00,,,spirit
-Amari e Liquori,Amaro del Capo,4.00,,,spirit
-Amari e Liquori,Averna,4.00,,,spirit
-Amari e Liquori,Fernet-Branca,4.00,,,spirit
-Amari e Liquori,BrancaMenta,4.00,,,spirit
-Amari e Liquori,Lucano,4.00,,,spirit
-Amari e Liquori,Cynar,4.00,,,spirit
-Amari e Liquori,Jägermeister,4.00,,,spirit
-Amari e Liquori,Sambuca Molinari,4.00,,,spirit
-Amari e Liquori,Limoncello,4.00,,,spirit
-Amari e Liquori,Anima Nera,4.00,Liquirizia,,spirit
-Amari e Liquori,Punch,4.00,Mandarin / Rhum,,spirit
-Amari e Liquori,Jefferson Amaro Importante,5.00,,,spirit
-Grappe,903 Bianca Bonaventura,5.00,,,spirit
-Grappe,903 Barrique Bonaventura,5.50,,,spirit
-Grappe,Sarpa di Poli,5.50,,,spirit
-Grappe,Diciotto Lune Marzadro,5.50,,,spirit
-Vermouth,Martini,4.50,Rosso / Bianco / Dry,,spirit
-Vermouth,Carpano Antica Formula,5.00,,,spirit
-Vermouth,Del Professore Rosso,5.00,,,spirit
-Vermouth,Gran Bassano Rosso Poli,5.00,,,spirit
-Vodka,Absolut Vodka,4.00,Svezia,,spirit
-Vodka,Belvedere Pure,6.00,Polonia,,spirit
-Vodka,Grey Goose,6.00,Francia,,spirit
-Brandy,Vecchia Romagna Etichetta Nera,4.00,,,spirit
-Brandy,Stravecchio Branca,4.00,,,spirit
-Brandy,Cardenal Mendoza Clásico,6.00,Brandy de Jerez,,spirit
-Brandy,Cognac Courvoisier VS,6.00,,,spirit
-Spuntini,Toast Classico,3.00,Prosciutto Cotto e Fontina,,
-Spuntini,Focaccia,2.20,Olive / Pomodorini,,
-Spuntini,Pastine Dolci/Salate,1.40,Varietà del giorno,,
-Spuntini,Tramezzino,2.20,Gusti assortiti,,
-Panini & Piadine,Base con 2 ingredienti,6.00,Salume e formaggio,,
-Panini & Piadine,Ogni aggiunta,0.50,"Formaggio extra, salse, verdure",,
-Panini & Piadine,SALUMI:,,Prosciutto Crudo - Cotto - Pancetta - Salame - Porchetta - Speck - Bresaola,,
-Panini & Piadine,FORMAGGI:,,Fontina - Mozzarella - Stracchino - Scamorza,,
-Panini & Piadine,VERDURE:,,Insalata - Rucola - Pomodori,,
-Panini & Piadine,SALSE:,,Maionese - Ketchup - Salsa Rosa - Tartara - Funghi,,
+Categoria,Nome,Nome_EN,Prezzo,Descrizione,Descrizione_EN,Allergeni,Ricetta,Tipo
+Caffetteria,Caffè espresso,Espresso,2.20,,,,,
+Caffetteria,Caffè decaffeinato,Decaf Espresso,2.30,,,,,
+Caffetteria,Caffè d'orzo piccolo,Barley Coffee (Small),2.30,,,G,,
+Caffetteria,Caffè al ginseng,Ginseng Coffee,2.30,,,,,
+Caffetteria,Caffè d'orzo grande,Barley Coffee (Large),2.70,,,G,,
+Caffetteria,Caffè al ginseng grande,Ginseng Coffee (Large),2.70,,,,,
+Caffetteria,Caffè espresso con panna,Espresso with Cream,2.70,,,L,,
+Caffetteria,Caffè corretto,Espresso Corretto (with Liquor),2.70,,,,,
+Caffetteria,Caffè freddo shakerato,Shakerato (Iced Coffee),4.00,,,,,
+Caffetteria,Caffè marocchino,Marocchino,2.80,,,L,,
+Caffetteria,Cappuccino,Cappuccino,2.50,,,L,,
+Caffetteria,Cappuccino con latte soia,Soy Cappuccino,2.80,,,Soia,,
+Caffetteria,Latte macchiato,Latte Macchiato,2.80,,,L,,
+Caffetteria,Cioccolata in tazza,Hot Chocolate,4.00,,,L,,
+Caffetteria,Cioccolata con panna,Hot Chocolate with Cream,4.50,,,L,,
+Caffetteria,The / Infusi / Camomilla,Tea / Infusions / Chamomile,3.50,,,,,
+Bevande,Acqua in bicchiere,Glass of Water,0.80,,,,,
+Bevande,Acqua 0.5l,Water 0.5l,1.50,,,,,
+Bevande,Spremuta d'arancia,Fresh Orange Juice,5.00,,,,,
+Bevande,Succhi di frutta,Fruit Juices,4.00,,,,,
+Bevande,Bibite in lattina,Soda Cans,4.00,,,,,
+Bevande,Red Bull,Red Bull,4.50,,,,,
+Spritz,Spritz (Aperol / Campari),,6.00,"Vino, Aperol o Campari, Soda","Wine, Aperol or Campari, Soda",,"INGREDIENTI:\n- Ghiaccio\n- 3 parti Prosecco\n- 2 parti Aperol/Campari\n- 1 spruzzo Soda\n- Arancia\n---\nMETODO:\nRiempire il calice di ghiaccio. Versare Prosecco, Aperol/Campari e soda. Mescolare e guarnire.",recipe
+Spritz,Hugo,,6.00,"Sambuco, Menta, Prosecco","Elderflower, Mint, Prosecco",,"INGREDIENTI:\n- Ghiaccio\n- Menta fresca\n- Sciroppo Sambuco\n- Prosecco\n- Soda\n---\nMETODO:\nSchiacciare la menta. Aggiungere ghiaccio, sciroppo, Prosecco e soda. Mescolare.",recipe
+Spritz,Spritz St-Germain,,6.50,"Liquore Sambuco St-Germain","St-Germain Elderflower Liqueur",,"INGREDIENTI:\n- Prosecco\n- St-Germain\n- Soda\n- Lime\n---\nMETODO:\nBuild nel bicchiere con ghiaccio.",recipe
+Spritz,Americano,,8.00,"Campari, Vermouth, Soda",,,"INGREDIENTI:\n- 3cl Campari\n- 3cl Vermouth Rosso\n- Soda\n---\nMETODO:\nVersare su ghiaccio in tumbler basso, colmare con soda, mescolare.",recipe
+Spritz,Negroni Sbagliato,,8.00,"Campari, Vermouth, Prosecco",,,"INGREDIENTI:\n- 3cl Campari\n- 3cl Vermouth Rosso\n- Prosecco\n---\nMETODO:\nVersare su ghiaccio, colmare con Prosecco invece del Gin.",recipe
+Cocktails,NEGRONI,,8.00,"Il classico italiano.","The Italian Classic.",,"INGREDIENTI:\n- 3cl Gin\n- 3cl Campari\n- 3cl Vermouth Rosso\n---\nMETODO:\nBuild in tumbler basso con ghiaccio e fetta d'arancia.",recipe
+Cocktails,MOJITO,,8.00,"Fresco e mentolato.","Fresh and minty.",,"INGREDIENTI:\n- 5cl Rum Bianco\n- Lime, Zucchero, Menta\n- Soda\n---\nMETODO:\nPestare lime e menta con zucchero. Ghiaccio tritato, Rum e soda.",recipe
+Cocktails,CAIPIROSKA / CAIPIRINHA / CAIPIRISSIMA,,8.00,"Lime pestato e zucchero.","Muddled lime and sugar.",,"INGREDIENTI:\n- Lime a pezzi\n- Zucchero di canna\n- 5cl Vodka / Cachaça / Rum\n---\nMETODO:\nPestare lime e zucchero nel bicchiere. Aggiungere ghiaccio tritato e distillato.",recipe
+Cocktails,DAIQUIRI,,8.00,"Rum e Lime.","Rum and Lime sour.",,"INGREDIENTI:\n- 6cl Rum Bianco\n- 2cl Lime fresco\n- 1cl Zucchero\n---\nMETODO:\nShakerare e filtrare in coppetta.",recipe
+Cocktails,SEX ON THE BEACH,,8.00,"Fruttato e dolce.","Fruity and sweet.",,"INGREDIENTI:\n- Vodka, Liquore Pesca\n- Succo Arancia, Cranberry\n---\nMETODO:\nBuild su ghiaccio.",recipe
+Cocktails,LONG ISLAND ICE TEA,,8.00,"Forte e deciso.","Strong and complex.",,"INGREDIENTI:\n- Gin, Vodka, Rum, Tequila, Triple Sec\n- Limone, Zucchero, Cola\n---\nMETODO:\nShakerare i bianchi, versare su ghiaccio e colmare con Cola.",recipe
+Cocktails,CUBA LIBRE,,8.00,"Rum e Cola.","Rum and Coke.",,"INGREDIENTI:\n- Rum Scuro\n- Cola\n- Lime\n---\nMETODO:\nBuild in highball con ghiaccio.",recipe
+Cocktails,PINA COLADA,,8.00,"Ananas e Cocco.","Pineapple and Coconut.",,"INGREDIENTI:\n- Rum Bianco\n- Succo Ananas\n- Cocco\n---\nMETODO:\nFrullare o Shakerare con ghiaccio.",recipe
+Cocktails,BLACK RUSSIAN,,8.00,"Vodka e Caffè.","Vodka and Coffee.",,"INGREDIENTI:\n- 5cl Vodka\n- 2cl Liquore Caffè\n---\nMETODO:\nBuild in tumbler basso con ghiaccio.",recipe
+Cocktails,WHITE RUSSIAN,,8.00,"Con panna.","With cream.",L,"INGREDIENTI:\n- 5cl Vodka\n- 2cl Liquore Caffè\n- Panna fresca\n---\nMETODO:\nCome Black Russian, con top di panna.",recipe
+Cocktails,MARGARITA,,8.00,"Tequila e Lime.","Tequila and Lime.",,"INGREDIENTI:\n- Tequila, Triple Sec, Lime\n---\nMETODO:\nShake & Strain in coppetta bordata di sale.",recipe
+Cocktails,TEQUILA SUNRISE,,8.00,,,,"INGREDIENTI:\n- Tequila\n- Succo Arancia\n- Granatina\n---\nMETODO:\nBuild. Granatina sul fondo per effetto alba.",recipe
+Cocktails,ANGELO AZZURRO,,8.00,"Gin e Blue Curacao.",,,"INGREDIENTI:\n- Gin, Blue Curacao, Limone\n---\nMETODO:\nShake & Strain in coppetta.",recipe
+Cocktails,GIN TONIC / VODKA TONIC,,8.00,"Base","Standard",,"INGREDIENTI:\n- 5cl Gin o Vodka\n- Tonica\n---\nMETODO:\nBuild con ghiaccio e limone.",recipe
+Cocktails,GIN LEMON / VODKA LEMON,,8.00,"Base","Standard",,"INGREDIENTI:\n- 5cl Gin o Vodka\n- Lemon Soda\n---\nMETODO:\nBuild con ghiaccio.",recipe
+Cocktails,PALOMA,,8.00,"Tequila e Pompelmo.","Tequila and Grapefruit.",,"INGREDIENTI:\n- Tequila, Lime\n- Soda Pompelmo Rosa\n---\nMETODO:\nBuild con ghiaccio e bordo di sale.",recipe
+Cocktails,MANHATTAN,,8.00,"Whiskey e Vermouth.","Whiskey and Vermouth.",,"INGREDIENTI:\n- Rye Whiskey\n- Vermouth Rosso\n- Angostura\n---\nMETODO:\nStir & Strain in coppetta.",recipe
+Cocktails,MOSCOW MULE,,8.00,"Vodka e Zenzero.","Vodka and Ginger.",,"INGREDIENTI:\n- Vodka\n- Lime\n- Ginger Beer\n---\nMETODO:\nBuild in tazza rame o bicchiere.",recipe
+Cocktails,OLD FASHIONED,,8.00,"Il re dei cocktail.","The king of cocktails.",,"INGREDIENTI:\n- Bourbon\n- Zolletta Zucchero\n- Angostura\n---\nMETODO:\nPestare zucchero e bitter, aggiungere ghiaccio e whiskey, mescolare.",recipe
+Cocktails,DRY MARTINI,,8.00,"Secco ed elegante.","Dry and elegant.",,"INGREDIENTI:\n- Gin\n- Vermouth Dry\n---\nMETODO:\nStir & Strain in coppetta ghiacciata.",recipe
+Cocktails,ESPRESSO MARTINI,,8.00,"Energizzante.","Energizing.",,"INGREDIENTI:\n- Vodka\n- Liquore Caffè\n- Caffè Espresso\n- Zucchero\n---\nMETODO:\nShake vigoroso & Strain.",recipe
+Cocktails,SOURS (Whiskey / Vodka / Midori / Amaretto),,8.00,"Equilibrati dolce-acido.","Sweet & Sour balance.",,"INGREDIENTI:\n- Distillato base\n- Limone\n- Zucchero\n- (Albume opzionale)\n---\nMETODO:\nShake & Strain.",recipe
+Vini,Selezione Vini Rossi,Red Wines Selection,"Calice 6 | Bottiglia 25","Chianti, Sangiovese, Merlot, Lambrusco...","Chianti, Sangiovese, Merlot, Lambrusco...",,,
+Vini,Selezione Vini Bianchi,White Wines Selection,"Calice 6 | Bottiglia 25","Prosecco, Vermentino, Chardonnay...","Prosecco, Vermentino, Chardonnay...",,,
+Franciacorta,Contadi Castaldi Brut,,8.00,"Fresco e vivace.","Fresh and lively.",,spirit
+Franciacorta,Bellavista Alma Gran Cuvée Brut,,9.00,"Complesso ed elegante.","Complex and elegant.",,spirit
+Franciacorta,Bellavista Pas Operé 2015,,80.00,"Solo Bottiglia - Millesimato.","Bottle Only - Vintage.",,spirit
+Birre,Birra Bionda Piccola (0.3l),Draft Beer (Small),4.00,"Alla spina.","Draft.",G,,spirit
+Birre,Birra Bionda Media (0.5l),Draft Beer (Large),6.00,"Alla spina.","Draft.",G,,spirit
+Birre,Beck's,,4.50,Pilsner tedesca.,German Pilsner.,G,,spirit
+Birre,Heineken,,4.50,Lager olandese.,Dutch Lager.,G,,spirit
+Birre,Corona,,5.00,Lager messicana.,Mexican Lager.,G,,spirit
+Birre,Ceres Strong Lager,,5.00,Doppio malto.,Strong Lager.,G,,spirit
+Birre,Tennent’s Super,,5.00,Strong Lager scozzese.,Scottish Strong Lager.,G,,spirit
+Birre,Bud,,5.00,American Lager.,American Lager.,G,,spirit
+Birre,Ichnusa,,5.00,Lager sarda.,Sardinian Lager.,G,,spirit
+Birre,Ichnusa Non Filtrata,,6.00,Non filtrata.,Unfiltered.,G,,spirit
+Birre,Moretti,,6.00,Lager italiana.,Italian Lager.,G,,spirit
+Birre,Franziskaner,,6.00,Weissbier (Grano).,Wheat Beer.,G,,spirit
+Birre,Hoegaarden,,5.00,Blanche.,White Beer.,G,,spirit
+Birre,Leffe Blonde,,5.00,Belgian Blonde.,Belgian Blonde.,G,,spirit
+Birre,Leffe Rouge,,5.00,Belgian Dubbel.,Belgian Dubbel.,G,,spirit
+Birre,Moretti Rossa,,5.00,Bock.,Bock.,G,,spirit
+Birre,Bjorne Beer,,5.00,Strong Lager danese.,Danish Strong Lager.,G,,spirit
+Gin,Bombay Sapphire,,9.00,"London Dry, UK","London Dry, UK",,,spirit
+Gin,Tanqueray London Dry,,10.00,"London Dry, UK","London Dry, UK",,,spirit
+Gin,Hendrick's,,10.00,"Cetriolo e Rosa, Scozia","Cucumber & Rose, Scotland",,,spirit
+Gin,Bulldog,,10.00,"London Dry, UK","London Dry, UK",,,spirit
+Gin,Gin Mare,,10.00,"Mediterraneo, Spagna","Mediterranean, Spain",,,spirit
+Gin,Malfy (Vari Gusti),,10.00,"Limone, Arancia, Pompelmo, Originale","Lemon, Orange, Pink Grapefruit, Original",,,spirit
+Gin,Marconi 46 - Poli,,10.00,"Artigianale italiano","Italian Craft Gin",,,spirit
+Gin,Portofino Dry Gin,,10.00,"Artigianale italiano","Italian Craft Gin",,,spirit
+Gin,Brockmans,,10.00,"Frutti di bosco, UK","Berries, UK",,,spirit
+Gin,Plymouth Original Strength,,10.00,"Plymouth Gin, UK","Plymouth Gin, UK",,,spirit
+Gin,No.3 London Dry Gin,,10.00,"London Dry, UK","London Dry, UK",,,spirit
+Gin,Monkey 47 Schwarzwald,,12.00,"Foresta Nera, Germania","Black Forest, Germany",,,spirit
+Gin,Amuerte Coca Leaf,,12.00,"Foglie di Coca, Belgio","Coca Leaf, Belgium",,,spirit
+Gin,Gastro Gin ""Gin & Jonnie"",,10.00,Olanda,Netherlands,,,spirit
+Rum,Ron Havana Club 3 Años,,4.00,Cuba (Bianco),Cuba (White),,,spirit
+Rum,Ron Havana Club 7 Años,,5.00,Cuba (Scuro),Cuba (Dark),,,spirit
+Rum,Ron Pampero Aniversario,,5.50,Venezuela,Venezuela,,,spirit
+Rum,Ron Zacapa 23 Solera,,9.00,Guatemala,Guatemala,,,spirit
+Rum,Don Papa Baroko,,9.00,Filippine,Philippines,,,spirit
+Whisky,Jack Daniel's Old No. 7,,5.50,Tennessee - USA,Tennessee - USA,,,spirit
+Whisky,Jim Beam White Label,,5.50,Bourbon - USA,Bourbon - USA,,,spirit
+Whisky,Four Roses Yellow Label,,5.50,Bourbon - USA,Bourbon - USA,,,spirit
+Whisky,Jameson Irish Whiskey,,7.00,Irlanda,Ireland,,,spirit
+Whisky,J&B Rare,,5.50,Scozia (Blended),Scotland (Blended),,,spirit
+Whisky,Talisker Skye,,7.50,Scozia (Skye),Scotland (Skye),,,spirit
+Whisky,Laphroaig 10 y.o.,,7.50,Scozia (Islay),Scotland (Islay),,,spirit
+Whisky,Caol Ila 12 y.o.,,8.00,Scozia (Islay),Scotland (Islay),,,spirit
+Whisky,Oban 14 y.o.,,9.00,Scozia (Highland),Scotland (Highland),,,spirit
+Whisky,Lagavulin 16 y.o.,,10.00,Scozia (Islay),Scotland (Islay),,,spirit
+Amari e Liquori,Montenegro,,4.00,,,,,spirit
+Amari e Liquori,Amaro del Capo,,4.00,,,,,spirit
+Amari e Liquori,Averna,,4.00,,,,,spirit
+Amari e Liquori,Fernet-Branca,,4.00,,,,,spirit
+Amari e Liquori,BrancaMenta,,4.00,,,,,spirit
+Amari e Liquori,Lucano,,4.00,,,,,spirit
+Amari e Liquori,Cynar,,4.00,,,,,spirit
+Amari e Liquori,Jägermeister,,4.00,,,,,spirit
+Amari e Liquori,Sambuca Molinari,,4.00,,,,,spirit
+Amari e Liquori,Limoncello,,4.00,,,,,spirit
+Amari e Liquori,Anima Nera,,4.00,Liquirizia,Liquorice,,,spirit
+Amari e Liquori,Punch,,4.00,Mandarino / Rhum,Mandarin / Rum,,,spirit
+Amari e Liquori,Jefferson,,5.00,"Amaro Importante","Important Bitter",,,spirit
+Grappe,903 Bianca Bonaventura,,5.00,,,,,spirit
+Grappe,903 Barrique Bonaventura,,5.50,,,,,spirit
+Grappe,Sarpa di Poli,,5.50,,,,,spirit
+Grappe,Diciotto Lune Marzadro,,5.50,,,,,spirit
+Vermouth,Martini,,4.50,Rosso / Bianco / Dry,Red / White / Dry,,,spirit
+Vermouth,Carpano Antica Formula,,5.00,,,,,spirit
+Vermouth,Del Professore Rosso,,5.00,,,,,spirit
+Vermouth,Gran Bassano Rosso Poli,,5.00,,,,,spirit
+Vodka,Absolut Vodka,,4.00,Svezia,Sweden,,,spirit
+Vodka,Belvedere Pure,,6.00,Polonia,Poland,,,spirit
+Vodka,Grey Goose,,6.00,Francia,France,,,spirit
+Brandy,Vecchia Romagna,,4.00,,,L,,spirit
+Brandy,Stravecchio Branca,,4.00,,,,,spirit
+Brandy,Cardenal Mendoza,,6.00,Spagna,Spain,,,spirit
+Brandy,Cognac Courvoisier VS,,6.00,Francia,France,,,spirit
+Spuntini,Toast Classico,Classic Toast,3.00,"Prosciutto Cotto, Fontina","Ham, Cheese",,,
+Spuntini,Focaccia,Focaccia,2.20,"Olive / Pomodorini","Olives / Cherry Tomatoes",,,
+Spuntini,Pastine Dolci/Salate,Pastries,1.40,"Varietà del giorno","Selection of the day",,,
+Spuntini,Tramezzino,Sandwich,2.20,"Gusti assortiti","Assorted flavors",,,
+Panini & Piadine,Base con 2 ingredienti,Base with 2 ingredients,6.00,"Salume e Formaggio","Cured Meat and Cheese",,,
+Panini & Piadine,Ogni aggiunta,Extra ingredient,0.50,,,,,
+Panini & Piadine,SALUMI:,,,,"Prosciutto Crudo - Cotto - Pancetta - Salame - Porchetta - Speck - Bresaola","Raw Ham - Ham - Bacon - Salami - Pork - Speck - Bresaola",,,
+Panini & Piadine,FORMAGGI:,,,,"Fontina - Mozzarella - Stracchino - Scamorza","Fontina - Mozzarella - Fresh Cheese - Scamorza",,,
+Panini & Piadine,VERDURE:,,,,"Insalata - Rucola - Pomodori","Lettuce - Rocket - Tomatoes",,,
+Panini & Piadine,SALSE:,,,,"Maionese - Ketchup - Salsa Rosa - Tartara - Funghi","Mayo - Ketchup - Cocktail Sauce - Tartar - Mushroom",,,

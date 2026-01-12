@@ -11,60 +11,65 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <h1>MENU TEST</h1>
+        <!-- SELETTORE LINGUA (IT | EN) -->
+        <div id="lang-switch">
+            <button class="lang-btn active" data-lang="it">IT</button>
+            <span class="lang-separator">|</span>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
     </header>
 
-    <!-- Contenitore Menu (Riempito da JS) -->
     <main id="menu-container">
         <div id="loading-message" style="text-align:center; padding:50px; color:#888;">
-            <i class="fas fa-spinner fa-spin"></i> Caricamento menu...
+            <i class="fas fa-spinner fa-spin"></i> Loading...
         </div>
+        <!-- Messaggio Nessun Risultato -->
         <section id="no-results" style="display: none;">
             <h2>Ricerca</h2>
-            <p>Nessun risultato trovato.</p>
-            <p style="margin-top:20px;"><a href="#" id="clear-search-link">Mostra tutto</a></p>
+            <p id="no-results-text">Nessun risultato.</p>
+            <p style="margin-top:20px;"><a href="#" id="clear-search-link">Reset</a></p>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer>
-        <!-- Navigazione Desktop -->
         <nav id="quick-nav"></nav>
-        <p>Bar Nuovo - Piazza Trento Trieste, 50, Ferrara</p>
-        <p>Servizio al tavolo incluso</p>
+        <p>Bar Nuovo - Ferrara</p>
+        <p id="footer-service">Servizio al tavolo incluso</p>
+        <!-- DISCLAIMER LEGALE -->
+        <p id="footer-allergens" style="font-size: 0.75em; color: #777; margin-top: 10px; max-width: 80%; margin-left:auto; margin-right:auto;">
+            Per allergie o intolleranze rivolgersi al personale.
+        </p>
     </footer>
 
-    <!-- NAVBAR MOBILE STICKY (Eccola tornata!) -->
+    <!-- NAVBAR MOBILE -->
     <nav id="quick-nav-mobile-sticky">
         <div id="sticky-search-container">
             <button id="sticky-search-trigger"><i class="fas fa-search"></i></button>
             <input type="text" id="sticky-search-input" placeholder="Cerca...">
         </div>
-        <div class="sticky-nav-links-wrapper">
-            <ul><!-- I link verranno iniettati qui da JS --></ul>
-        </div>
+        <div class="sticky-nav-links-wrapper"><ul></ul></div>
     </nav>
 
-    <!-- POPUP INFO (Stile Originale) -->
+    <!-- POPUP INFO (Per spiriti, birre, vini speciali) -->
     <div id="gin-description-popup">
         <div class="popup-content">
-            <h4 id="popup-product-name">Nome Prodotto</h4>
+            <h4 id="popup-product-name">Nome</h4>
             <p id="popup-product-description">Descrizione...</p>
             
-            <button id="toggle-prep-btn"><i class="fas fa-chevron-down"></i> Dettagli</button>
-            
-            <div id="popup-preparation-container">
-                <div id="popup-pairing-content" style="margin-bottom:10px;"></div>
-                <span id="popup-strength" class="strength-badge"></span>
-            </div>
+            <!-- Qui appariranno gli allergeni (solo se presenti) -->
+            <div id="popup-allergens"></div>
 
+            <button id="toggle-prep-btn"><i class="fas fa-chevron-down"></i> Details</button>
+            <div id="popup-preparation-container">
+                <div id="popup-pairing-content"></div>
+            </div>
             <button id="popup-close-btn">×</button>
         </div>
     </div>
 
-    <!-- MODAL RICETTA -->
+    <!-- MODAL RICETTA (Per cocktail dipendenti) -->
     <div id="recipe-modal">
         <div class="recipe-modal-content">
             <h3 id="modal-recipe-name">Titolo</h3>
