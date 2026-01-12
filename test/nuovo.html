@@ -13,7 +13,6 @@
 
     <header>
         <h1>MENU TEST</h1>
-        <!-- SELETTORE LINGUA (IT | EN) -->
         <div id="lang-switch">
             <button class="lang-btn active" data-lang="it">IT</button>
             <span class="lang-separator">|</span>
@@ -25,7 +24,6 @@
         <div id="loading-message" style="text-align:center; padding:50px; color:#888;">
             <i class="fas fa-spinner fa-spin"></i> Loading...
         </div>
-        <!-- Messaggio Nessun Risultato -->
         <section id="no-results" style="display: none;">
             <h2>Ricerca</h2>
             <p id="no-results-text">Nessun risultato.</p>
@@ -37,30 +35,28 @@
         <nav id="quick-nav"></nav>
         <p>Bar Nuovo - Ferrara</p>
         <p id="footer-service">Servizio al tavolo incluso</p>
-        <!-- DISCLAIMER LEGALE -->
         <p id="footer-allergens" style="font-size: 0.75em; color: #777; margin-top: 10px; max-width: 80%; margin-left:auto; margin-right:auto;">
             Per allergie o intolleranze rivolgersi al personale.
         </p>
     </footer>
 
-    <!-- NAVBAR MOBILE -->
+    <!-- NAVBAR MOBILE CON BOTTONE 'X' -->
     <nav id="quick-nav-mobile-sticky">
         <div id="sticky-search-container">
             <button id="sticky-search-trigger"><i class="fas fa-search"></i></button>
             <input type="text" id="sticky-search-input" placeholder="Cerca...">
+            <!-- NUOVO BOTTONE CLEAR -->
+            <button id="sticky-search-clear"><i class="fas fa-times"></i></button>
         </div>
         <div class="sticky-nav-links-wrapper"><ul></ul></div>
     </nav>
 
-    <!-- POPUP INFO (Per spiriti, birre, vini speciali) -->
+    <!-- POPUP INFO -->
     <div id="gin-description-popup">
         <div class="popup-content">
             <h4 id="popup-product-name">Nome</h4>
             <p id="popup-product-description">Descrizione...</p>
-            
-            <!-- Qui appariranno gli allergeni (solo se presenti) -->
             <div id="popup-allergens"></div>
-
             <button id="toggle-prep-btn"><i class="fas fa-chevron-down"></i> Details</button>
             <div id="popup-preparation-container">
                 <div id="popup-pairing-content"></div>
@@ -69,7 +65,7 @@
         </div>
     </div>
 
-    <!-- MODAL RICETTA (Per cocktail dipendenti) -->
+    <!-- MODAL RICETTA -->
     <div id="recipe-modal">
         <div class="recipe-modal-content">
             <h3 id="modal-recipe-name">Titolo</h3>
