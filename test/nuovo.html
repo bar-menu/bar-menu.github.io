@@ -3,74 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bar Nuovo (TEST)</title>
-    
-    <!-- Fonts e Icone -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Menu - Bar Nuovo</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Merriweather:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Libreria CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    
-    <!--  CSS CORRETTO  -->
     <link rel="stylesheet" href="style_nuovo.css">
 </head>
 <body>
-
-    <!-- Ricerca -->
-    <div id="search-wrapper">
-        <div id="search-icon-trigger"><i class="fas fa-search"></i></div>
-        <div id="search-input-container"><input type="text" id="search-input" placeholder="Cerca..."></div>
-    </div>
 
     <!-- Header -->
     <header>
         <h1>MENU TEST</h1>
     </header>
 
-    <!-- Navigazione Rapida Footer -->
-    <nav id="quick-nav"></nav>
-
+    <!-- Contenitore Menu (Riempito da JS) -->
     <main id="menu-container">
         <div id="loading-message" style="text-align:center; padding:50px; color:#888;">
             <i class="fas fa-spinner fa-spin"></i> Caricamento menu...
         </div>
         <section id="no-results" style="display: none;">
             <h2>Ricerca</h2>
-            <p>Nessun risultato per "<strong id="no-results-term"></strong>".</p>
-            <p style="margin-top: 20px;"><a href="#" id="clear-search-link">Cancella ricerca</a></p>
+            <p>Nessun risultato trovato.</p>
+            <p style="margin-top:20px;"><a href="#" id="clear-search-link">Mostra tutto</a></p>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
-        <p>Bar Nuovo - Ferrara</p>
+        <!-- Navigazione Desktop -->
+        <nav id="quick-nav"></nav>
+        <p>Bar Nuovo - Piazza Trento Trieste, 50, Ferrara</p>
         <p>Servizio al tavolo incluso</p>
     </footer>
 
-    <!-- Popup Descrizione -->
-    <div id="description-popup">
+    <!-- NAVBAR MOBILE STICKY (Eccola tornata!) -->
+    <nav id="quick-nav-mobile-sticky">
+        <div id="sticky-search-container">
+            <button id="sticky-search-trigger"><i class="fas fa-search"></i></button>
+            <input type="text" id="sticky-search-input" placeholder="Cerca...">
+        </div>
+        <div class="sticky-nav-links-wrapper">
+            <ul><!-- I link verranno iniettati qui da JS --></ul>
+        </div>
+    </nav>
+
+    <!-- POPUP INFO (Stile Originale) -->
+    <div id="gin-description-popup">
         <div class="popup-content">
-            <h4 id="popup-product-name">Nome</h4>
-            <p id="popup-product-description">Descrizione</p>
-            <div id="popup-pairing-container" style="display:none;"></div>
+            <h4 id="popup-product-name">Nome Prodotto</h4>
+            <p id="popup-product-description">Descrizione...</p>
+            
+            <button id="toggle-prep-btn"><i class="fas fa-chevron-down"></i> Dettagli</button>
+            
+            <div id="popup-preparation-container">
+                <div id="popup-pairing-content" style="margin-bottom:10px;"></div>
+                <span id="popup-strength" class="strength-badge"></span>
+            </div>
+
             <button id="popup-close-btn">×</button>
         </div>
     </div>
 
-    <!-- Modal Ricetta -->
+    <!-- MODAL RICETTA -->
     <div id="recipe-modal">
         <div class="recipe-modal-content">
-            <h3 id="modal-recipe-name">Nome</h3>
+            <h3 id="modal-recipe-name">Titolo</h3>
             <div id="modal-recipe-ingredients"><ul></ul></div>
             <div id="modal-recipe-method"></div>
             <button id="modal-recipe-close-btn">×</button>
         </div>
     </div>
 
-    <!-- CONFIGURAZIONE CSV E SCRIPT CORRETTO -->
-    <script>const CSV_FILENAME = 'menu_nuovo.csv';</script>
     <script src="script_nuovo.js" defer></script>
 </body>
 </html>

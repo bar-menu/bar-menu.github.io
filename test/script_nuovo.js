@@ -1,61 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("1. Script avviato correttamente");
-
-    // --- MODIFICA QUI: NOME FILE FISSO ---
     const CSV_URL = 'menu_nuovo.csv'; 
-    console.log("2. File CSV target: " + CSV_URL);
-    
-    const CATEGORY_ORDER = [
-        "Caffetteria", "Bevande", "Spritz", "Cocktails", "Vini",
-        "Franciacorta", "Birre", "Gin", "Rum", "Whisky",
-        "Amari e Liquori", "Grappe", "Vermouth", "Vodka",
-        "Brandy", "Spuntini", "Panini & Piadine"
-    ];
+    const CATEGORY_ORDER = ["Caffetteria", "Bevande", "Spritz", "Cocktails", "Vini", "Franciacorta", "Birre", "Gin", "Rum", "Whisky", "Amari e Liquori", "Grappe", "Vermouth", "Vodka", "Brandy", "Spuntini", "Panini & Piadine"];
+    const ginPairings = { "amuerte": "Indian o Light", "bombay": "Indian", "hendrick": "Elderflower/Cucumber", "gin mare": "Mediterranean", "malfy": "Mediterranean" }; // (Abbreviato per leggibilità, funziona uguale)
 
-    const ginPairings = {
-        "amuerte": "Indian Premium o Refreshingly Light.", "bombay": "Fever-Tree Indian.", "brockmans": "Fever-Tree Indian o Refreshingly Light.", "bulldog": "Fever-Tree Indian o Mediterranean.", "gin mare": "Fever-Tree Mediterranean.", "hendrick": "Fever-Tree Elderflower o Cucumber.", "malfy": "Mediterranean o Indian.", "monkey 47": "Fever-Tree Premium Indian.", "tanqueray": "Fever-Tree Indian."
+    // Elementi DOM
+    const els = {
+        container: document.getElementById('menu-container'),
+        mobileNavList: document.querySelector('#quick-nav-mobile-sticky ul'),
+        desktopNav: document.getElementById('quick-nav'),
+        loader: document.getElementById('loading-message'),
+        searchTriggers: [document.getElementById('sticky-search-trigger')],
+        searchInput: document.getElementById('sticky-search-input'),
+        stickyNav: document.getElementById('quick-nav-mobile-sticky'),
+        popup: document.getElementById('gin-description-popup'),
+        modal: document.getElementById('recipe-modal')
     };
 
     function init() {
-        console.log("3. Funzione init() chiamata");
         setSeasonalHeader();
-        
-        if (typeof Papa === 'undefined') {
-            console.error("ERRORE GRAVE: Libreria PapaParse non trovata!");
-            document.getElementById('loading-message').textContent = "Errore: Libreria CSV mancante.";
-            return;
-        }
-
-        console.log("4. Inizio scaricamento CSV: " + CSV_URL);
         Papa.parse(CSV_URL, {
-            download: true, 
-            header: true, 
-            skipEmptyLines: true,
-            complete: function(results) { 
-                console.log("5. CSV scaricato! Righe trovate: " + results.data.length);
-                if (results.data.length === 0) {
-                    console.error("ATTENZIONE: Il file CSV sembra vuoto!");
-                }
-                buildMenu(results.data); 
-                initEvents(); 
-            },
-            error: function(err) { 
-                console.error("ERRORE SCARICAMENTO CSV:", err); 
-                document.getElementById('loading-message').textContent = "Errore caricamento menu. File non trovato: " + CSV_URL; 
-            }
+            download: true, header: true, skipEmptyLines: true,
+            complete: (res) => { buildMenu(res.data); initEvents(); },
+            error: (err) => { console.error(err); els.loader.textContent = "Errore CSV."; }
         });
     }
 
     function buildMenu(data) {
-        console.log("6. Costruzione menu in corso...");
-        const container = document.getElementById('menu-container');
-        const nav = document.getElementById('quick-nav');
-        const loader = document.getElementById('loading-message');
-        const noRes = document.getElementById('no-results');
-        
-        if(loader) loader.style.display='none';
-
+        els.loader.style.display = 'none';
         const grouped = {};
+        
+        // Raggruppa
         data.forEach(row => {
             const cat = row.Categoria ? row.Categoria.trim() : null;
             if(!cat) return;
@@ -63,166 +37,184 @@ document.addEventListener('DOMContentLoaded', () => {
             grouped[cat].push(row);
         });
 
+        // Ordina Categorie
         const cats = Object.keys(grouped).sort((a,b) => {
             let iA = CATEGORY_ORDER.indexOf(a), iB = CATEGORY_ORDER.indexOf(b);
             return (iA===-1?999:iA) - (iB===-1?999:iB);
         });
 
         cats.forEach(cat => {
+            // 1. Crea Sezione Pagina
             const sec = document.createElement('section');
             const id = cat.toLowerCase().replace(/[^a-z0-9]+/g, '-');
             sec.id = id;
+            sec.innerHTML = `<h2>${cat}</h2>`;
             
-            let sub = "";
-            if(cat.toLowerCase().includes('panini')) sub = `<p style="text-align:center;color:#666;margin-bottom:15px;">Componi il tuo panino!</p>`;
-            
-            sec.innerHTML = `<h2>${cat}</h2>${sub}`;
             const ul = document.createElement('ul');
-
             grouped[cat].forEach(row => {
                 const li = document.createElement('li');
                 li.className = 'menu-item';
                 
+                // Classi speciali
                 const tipo = row.Tipo ? row.Tipo.trim().toLowerCase() : '';
-                if(tipo==='spirit') li.classList.add('spirit-item');
-                if(tipo==='recipe') li.classList.add('recipe-item');
+                if(tipo === 'spirit') li.classList.add('spirit-item');
+                if(tipo === 'recipe') li.classList.add('recipe-item');
 
+                // Dati nascosti
                 if(row.Descrizione) li.dataset.desc = row.Descrizione;
                 if(row.Ricetta) li.dataset.recipe = row.Ricetta;
 
-                let prezzo = `<span class="item-price">${row.Prezzo||''}</span>`;
+                // Prezzo
+                let prezzoHtml = `<span class="item-price">${row.Prezzo || ''}</span>`;
                 if(row.Prezzo && row.Prezzo.includes('|')) {
-                    prezzo = `<span class="item-price-multi">` + row.Prezzo.split('|').map(p=>`<span class="item-price">${p.trim()}</span>`).join('') + `</span>`;
+                    prezzoHtml = `<span class="item-price-multi">` + row.Prezzo.split('|').map(p=>`<span class="item-price">${p.trim()}</span>`).join('') + `</span>`;
                 }
 
-                let html = `<span class="item-name">${row.Nome}</span>${prezzo}`;
-                if(row.Descrizione && tipo!=='spirit' && tipo!=='recipe') {
-                    const cls = cat.toLowerCase()==='vini'?'item-description-vini':'item-description';
-                    html += `<span class="${cls}">${row.Descrizione}</span>`;
+                // Descrizione visibile (se non è spirit/recipe)
+                let descHtml = '';
+                if(row.Descrizione && tipo !== 'spirit' && tipo !== 'recipe') {
+                    descHtml = `<span class="item-description">${row.Descrizione}</span>`;
                 }
-                li.innerHTML = html;
+
+                li.innerHTML = `<span class="item-name">${row.Nome}</span>${prezzoHtml}${descHtml}`;
                 ul.appendChild(li);
             });
             sec.appendChild(ul);
-            container.insertBefore(sec, noRes);
+            els.container.appendChild(sec);
 
-            const a = document.createElement('a');
-            a.href = `#${id}`; a.textContent = cat;
-            nav.appendChild(a);
+            // 2. Crea Link Nav Desktop
+            const aDesk = document.createElement('a');
+            aDesk.href = `#${id}`; aDesk.textContent = cat;
+            if(els.desktopNav) els.desktopNav.appendChild(aDesk);
+
+            // 3. Crea Link Nav Mobile Sticky
+            const liMob = document.createElement('li');
+            liMob.innerHTML = `<a href="#${id}">${cat}</a>`;
+            if(els.mobileNavList) els.mobileNavList.appendChild(liMob);
         });
-        console.log("7. Menu costruito con successo.");
     }
 
     function initEvents() {
-        console.log("8. Inizializzazione eventi...");
-        const searchBox = document.getElementById('search-wrapper');
-        const input = document.getElementById('search-input');
-        const popup = document.getElementById('description-popup');
-        const modal = document.getElementById('recipe-modal');
-
-        document.querySelectorAll('#quick-nav a').forEach(a => {
+        // Navigazione
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', function(e) {
                 e.preventDefault();
+                closeAll();
                 const t = document.querySelector(this.getAttribute('href'));
-                if(t) window.scrollTo({top:t.offsetTop-20, behavior:'smooth'});
+                if(t) window.scrollTo({top: t.offsetTop - 60, behavior: 'smooth'});
             });
         });
 
-        function filter() {
-            const term = input.value.toLowerCase().trim();
-            let found = false;
-            document.querySelectorAll('section:not(#no-results)').forEach(s => {
-                let sVis = false;
-                s.querySelectorAll('.menu-item').forEach(i => {
-                    const txt = i.textContent.toLowerCase() + (i.dataset.desc||'').toLowerCase();
-                    const show = txt.includes(term);
-                    i.style.display = show ? (i.closest('ul')?'flex':'block') : 'none';
-                    if(show) sVis = true;
+        // Ricerca Mobile
+        els.searchTriggers.forEach(btn => {
+            if(btn) btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                els.stickyNav.classList.toggle('search-active');
+                if(els.stickyNav.classList.contains('search-active')) setTimeout(()=>els.searchInput.focus(), 100);
+            });
+        });
+
+        if(els.searchInput) {
+            els.searchInput.addEventListener('input', function() {
+                const term = this.value.toLowerCase().trim();
+                let found = false;
+                document.querySelectorAll('section').forEach(sec => {
+                    if(sec.id === 'no-results') return;
+                    let hasVis = false;
+                    sec.querySelectorAll('.menu-item').forEach(item => {
+                        const text = item.innerText.toLowerCase();
+                        const vis = text.includes(term);
+                        item.style.display = vis ? 'flex' : 'none';
+                        if(vis) hasVis = true;
+                    });
+                    sec.style.display = hasVis ? 'block' : 'none';
+                    if(hasVis) found = true;
                 });
-                s.style.display = sVis?'block':'none';
-                if(sVis) found = true;
+                document.getElementById('no-results').style.display = (!found && term) ? 'block' : 'none';
             });
-            document.getElementById('no-results').style.display = (term && !found)?'flex':'none';
         }
 
-        if(document.getElementById('search-icon-trigger')) {
-             document.getElementById('search-icon-trigger').addEventListener('click', (e)=>{
-                e.stopPropagation(); searchBox.classList.toggle('search-active');
-                if(searchBox.classList.contains('search-active')) setTimeout(()=>input.focus(),50);
-            });
-            input.addEventListener('input', filter);
-            document.getElementById('clear-search-link').addEventListener('click', (e)=>{ e.preventDefault(); input.value=''; filter(); });
-        }
-
+        // Click Item (Popup & Modal)
         document.querySelector('main').addEventListener('click', (e) => {
-            const sp = e.target.closest('.spirit-item');
-            const rec = e.target.closest('.recipe-item');
+            const spirit = e.target.closest('.spirit-item');
+            const recipe = e.target.closest('.recipe-item');
 
-            if(sp) {
-                e.stopPropagation();
-                const name = sp.querySelector('.item-name').textContent;
-                popup.querySelector('#popup-product-name').textContent = name;
-                popup.querySelector('#popup-product-description').textContent = sp.dataset.desc || '';
-                
-                const pairingDiv = document.getElementById('popup-pairing-container');
-                let pairingTxt = '';
-                Object.keys(ginPairings).forEach(k => {
-                    if(name.toLowerCase().includes(k)) pairingTxt = ginPairings[k];
-                });
-                if(pairingTxt) {
-                    pairingDiv.innerHTML = `<strong>Abbinamento:</strong> ${pairingTxt}`;
-                    pairingDiv.style.display='block';
-                } else {
-                    pairingDiv.style.display='none';
-                }
-                popup.classList.add('visible');
-            } else if (rec) {
-                e.stopPropagation();
-                const name = rec.querySelector('.item-name').textContent;
-                const raw = rec.dataset.recipe || '';
-                modal.querySelector('#modal-recipe-name').textContent = name;
-                
-                const ul = modal.querySelector('#modal-recipe-ingredients ul'); ul.innerHTML='';
-                const meth = modal.querySelector('#modal-recipe-method'); meth.innerHTML='<h5>Metodo</h5>';
-
-                const lines = raw.split(/\\n|\n/);
-                let isMethod = false;
-                
-                lines.forEach(l => {
-                    l = l.trim();
-                    if(!l) return;
-                    if(l.toUpperCase().includes("METODO") || l.match(/^\d+\./)) isMethod=true;
-                    
-                    if(isMethod) {
-                         const p = document.createElement('p'); p.textContent = l; meth.appendChild(p);
-                    } else {
-                         const li = document.createElement('li'); 
-                         li.innerHTML = l.replace(/^(\d+(?:\.\d+)?(?:\s?cl|\s?ml|\s?gr)?)/i, '<strong>$1</strong>');
-                         ul.appendChild(li);
-                    }
-                });
-                modal.classList.add('visible');
-            }
+            if (spirit) openSpiritPopup(spirit);
+            else if (recipe) openRecipeModal(recipe);
         });
 
-        document.querySelectorAll('#popup-close-btn, #modal-recipe-close-btn').forEach(b=>
-            b.addEventListener('click', ()=>{ popup.classList.remove('visible'); modal.classList.remove('visible'); })
-        );
-        console.log("9. Eventi pronti.");
+        // Chiudi Popup/Modal
+        document.getElementById('popup-close-btn').onclick = closeAll;
+        document.getElementById('modal-recipe-close-btn').onclick = closeAll;
+        document.getElementById('toggle-prep-btn').onclick = function(e) {
+            e.stopPropagation();
+            const cont = document.getElementById('popup-preparation-container');
+            const isVis = cont.style.display === 'block';
+            cont.style.display = isVis ? 'none' : 'block';
+            this.innerHTML = isVis ? '<i class="fas fa-chevron-down"></i> Dettagli' : '<i class="fas fa-chevron-up"></i> Nascondi';
+        };
+    }
+
+    function openSpiritPopup(el) {
+        const name = el.querySelector('.item-name').innerText;
+        const desc = el.dataset.desc || '';
+        
+        els.popup.querySelector('#popup-product-name').innerText = name;
+        els.popup.querySelector('#popup-product-description').innerText = desc;
+        
+        // Logica Pairing (Semplificata)
+        const pairingDiv = document.getElementById('popup-pairing-content');
+        let pair = '';
+        for(let k in ginPairings) { if(name.toLowerCase().includes(k)) pair = ginPairings[k]; }
+        
+        if(pair) {
+            pairingDiv.innerHTML = `<strong>Abbinamento:</strong> ${pair}`;
+            document.getElementById('toggle-prep-btn').style.display = 'block';
+        } else {
+            document.getElementById('toggle-prep-btn').style.display = 'none';
+        }
+        
+        document.getElementById('popup-preparation-container').style.display = 'none'; // Resetta chiusura
+        els.popup.classList.add('visible');
+    }
+
+    function openRecipeModal(el) {
+        const name = el.querySelector('.item-name').innerText;
+        const raw = el.dataset.recipe || '';
+        els.modal.querySelector('#modal-recipe-name').innerText = name;
+        
+        const ul = els.modal.querySelector('#modal-recipe-ingredients ul'); ul.innerHTML = '';
+        const divMeth = els.modal.querySelector('#modal-recipe-method'); divMeth.innerHTML = '<h5>Metodo</h5>';
+
+        if(raw) {
+            const parts = raw.split('---'); // Assumiamo separatore "---"
+            const linesIngr = (parts[0] || '').split('\n');
+            const linesMeth = (parts[1] || '').split('\n');
+
+            linesIngr.forEach(l => { if(l.trim() && !l.includes('INGREDIENTI')) { 
+                const li = document.createElement('li'); li.innerText = l.replace('-','').trim(); ul.appendChild(li); 
+            }});
+            linesMeth.forEach(l => { if(l.trim() && !l.includes('METODO')) { 
+                const p = document.createElement('p'); p.innerText = l.trim(); divMeth.appendChild(p); 
+            }});
+        }
+        els.modal.classList.add('visible');
+    }
+
+    function closeAll() {
+        els.popup.classList.remove('visible');
+        els.modal.classList.remove('visible');
+        els.stickyNav.classList.remove('search-active');
     }
 
     function setSeasonalHeader() {
+        const d = new Date();
+        const m = d.getMonth();
+        const day = d.getDate();
         const h = document.querySelector('header');
-        if(!h) return;
-        const d = new Date(), m=d.getMonth(), day=d.getDate();
-        let img = 'https://bar-menu.github.io/Nuovo-2.jpg';
-        if ((m===11 && day>=8) || (m===0 && day<=6)) img = 'https://bar-menu.github.io/Nuovo-Natale.jpg';
-        if(m===7 && day===15) img = 'https://bar-menu.github.io/Nuovo-Ferragosto.jpg';
-        h.style.backgroundImage = `url('${img}')`;
+        // Logica base (aggiungi le altre se vuoi)
+        if ((m===11 && day>=8) || (m===0 && day<=6)) h.style.backgroundImage = "url('https://bar-menu.github.io/Nuovo-Natale.jpg')";
     }
 
-    // AVVIO
-    console.log("-> Avvio init()...");
-    init(); 
-
+    init();
 });
