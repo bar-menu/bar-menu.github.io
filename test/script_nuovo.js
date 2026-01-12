@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("1. Script avviato correttemente");
 
     // Legge la variabile definita nell'HTML, altrimenti fallback
     const CSV_URL = (typeof CSV_FILENAME !== 'undefined') ? CSV_FILENAME : 'menu.csv';
+    console.log("2. File CSV target: " + CSV_URL);
     
     const CATEGORY_ORDER = [
         "Caffetteria", "Bevande", "Spritz", "Cocktails", "Vini",
@@ -15,19 +17,43 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function init() {
+        console.log("3. Funzione init() chiamata");
         setSeasonalHeader();
+        
+        // Controllo se PapaParse è caricato
+        if (typeof Papa === 'undefined') {
+            console.error("ERRORE GRAVE: Libreria PapaParse non trovata!");
+            document.getElementById('loading-message').textContent = "Errore: Libreria CSV mancante.";
+            return;
+        }
+
+        console.log("4. Inizio scaricamento CSV...");
         Papa.parse(CSV_URL, {
-            download: true, header: true, skipEmptyLines: true,
-            complete: function(results) { buildMenu(results.data); initEvents(); },
-            error: function(err) { console.error(err); document.getElementById('loading-message').textContent = "Errore caricamento menu. Controlla il file CSV."; }
+            download: true, 
+            header: true, 
+            skipEmptyLines: true,
+            complete: function(results) { 
+                console.log("5. CSV scaricato! Righe trovate: " + results.data.length);
+                if (results.data.length === 0) {
+                    console.error("ATTENZIONE: Il file CSV sembra vuoto!");
+                }
+                buildMenu(results.data); 
+                initEvents(); 
+            },
+            error: function(err) { 
+                console.error("ERRORE SCARICAMENTO CSV:", err); 
+                document.getElementById('loading-message').textContent = "Errore caricamento menu. Controlla che il file .csv esista e si chiami correttamente."; 
+            }
         });
     }
 
     function buildMenu(data) {
+        console.log("6. Costruzione menu in corso...");
         const container = document.getElementById('menu-container');
         const nav = document.getElementById('quick-nav');
         const loader = document.getElementById('loading-message');
         const noRes = document.getElementById('no-results');
+        
         if(loader) loader.style.display='none';
 
         const grouped = {};
@@ -85,9 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
             a.href = `#${id}`; a.textContent = cat;
             nav.appendChild(a);
         });
+        console.log("7. Menu costruito con successo.");
     }
 
     function initEvents() {
+        console.log("8. Inizializzazione eventi (click, ricerca)...");
         const searchBox = document.getElementById('search-wrapper');
         const input = document.getElementById('search-input');
         const popup = document.getElementById('description-popup');
@@ -179,14 +207,21 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('#popup-close-btn, #modal-recipe-close-btn').forEach(b=>
             b.addEventListener('click', ()=>{ popup.classList.remove('visible'); modal.classList.remove('visible'); })
         );
+        console.log("9. Eventi caricati. Finito!");
     }
 
     function setSeasonalHeader() {
         const h = document.querySelector('header');
+        if(!h) return;
         const d = new Date(), m=d.getMonth(), day=d.getDate();
         let img = 'https://bar-menu.github.io/Nuovo-2.jpg';
         if ((m===11 && day>=8) || (m===0 && day<=6)) img = 'https://bar-menu.github.io/Nuovo-Natale.jpg';
         if(m===7 && day===15) img = 'https://bar-menu.github.io/Nuovo-Ferragosto.jpg';
         h.style.backgroundImage = `url('${img}')`;
     }
+
+    // --- PUNTO CHIAVE: FACCIAMO PARTIRE TUTTO ---
+    console.log("-> Avvio init()...");
+    init(); 
+
 });
