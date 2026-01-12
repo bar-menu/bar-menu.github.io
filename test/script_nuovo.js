@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const CSV_URL = 'menu_nuovo.csv'; 
     
-    // I18N
+    // I18N (Traduzioni Categorie e UI)
     const I18N = {
         it: {
             cats: { "Caffetteria":"Caffetteria", "Bevande":"Bevande", "Spritz":"Spritz", "Cocktails":"Cocktails", "Vini":"Vini", "Franciacorta":"Franciacorta", "Birre":"Birre", "Gin & Tonic":"Gin & Tonic", "Rum":"Rum", "Whisky":"Whisky", "Amari e Liquori":"Amari", "Grappe":"Grappe", "Vermouth":"Vermouth", "Vodka":"Vodka", "Brandy":"Brandy", "Spuntini":"Spuntini", "Panini & Piadine":"Panini & Piadine" },
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loader: document.getElementById('loading-message'),
         searchTriggers: [document.getElementById('sticky-search-trigger')],
         searchInput: document.getElementById('sticky-search-input'),
-        searchClear: document.getElementById('sticky-search-clear'), // NUOVO
+        searchClear: document.getElementById('sticky-search-clear'),
         stickyNav: document.getElementById('quick-nav-mobile-sticky'),
         popup: document.getElementById('gin-description-popup'),
         modal: document.getElementById('recipe-modal')
@@ -108,12 +108,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const li = document.createElement('li');
                 li.className = 'menu-item';
                 
+                // --- GESTIONE FALLBACK INGLESE ---
+                // Se currentLang è EN ma Nome_EN è vuoto -> usa Nome italiano
                 const nome = (currentLang === 'en' && row.Nome_EN) ? row.Nome_EN : row.Nome;
                 const desc = (currentLang === 'en' && row.Descrizione_EN) ? row.Descrizione_EN : row.Descrizione;
                 const tipo = row.Tipo ? row.Tipo.trim().toLowerCase() : '';
 
                 if(tipo === 'spirit') li.classList.add('spirit-item');
                 if(tipo === 'recipe') li.classList.add('recipe-item');
+                
                 if(tipo === 'info') {
                     li.innerHTML = `<span style="width:100%;text-align:center;font-style:italic;color:#666;font-size:0.9em;">${nome}</span>`;
                     li.style.borderBottom = "none";
@@ -140,7 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sec.appendChild(ul);
             els.container.appendChild(sec);
 
-            // Nav
             const aDesk = document.createElement('a'); aDesk.href = `#${id}`; aDesk.textContent = displayTitle;
             if(els.desktopNav) els.desktopNav.appendChild(aDesk);
             const liMob = document.createElement('li'); liMob.innerHTML = `<a href="#${id}">${displayTitle}</a>`;
@@ -158,17 +160,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // GESTIONE RICERCA E X
         if(els.searchInput) {
             const doFilter = function() {
                 const term = els.searchInput.value.toLowerCase().trim();
+                if (els.searchClear) els.searchClear.classList.toggle('show-x', term.length > 0);
                 
-                // Gestione X Button
-                if (els.searchClear) {
-                    if (term.length > 0) els.searchClear.classList.add('show-x');
-                    else els.searchClear.classList.remove('show-x');
-                }
-
                 let found = false;
                 document.querySelectorAll('section:not(#no-results)').forEach(sec => {
                     let hasVis = false;
@@ -186,14 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             els.searchInput.addEventListener('input', doFilter);
             
-            // Click sulla X
             if(els.searchClear) {
                 els.searchClear.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation(); // Evita di chiudere la barra
-                    els.searchInput.value = '';
-                    doFilter(); // Ripristina menu
-                    els.searchInput.focus(); // Tieni la tastiera su
+                    e.preventDefault(); e.stopPropagation();
+                    els.searchInput.value = ''; doFilter(); els.searchInput.focus();
                 });
             }
             
@@ -231,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const allergensCode = el.dataset.allergens || '';
         
         els.popup.querySelector('#popup-product-name').innerText = name;
-        els.popup.querySelector('#popup-product-description').innerText = desc;
+        els.popup.querySelector('#popup-product-description').innerText = desc; 
         
         const algDiv = document.getElementById('popup-allergens');
         const dict = I18N[currentLang];
@@ -255,6 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = el.querySelector('.item-name').innerText;
         const raw = el.dataset.recipe || '';
         els.modal.querySelector('#modal-recipe-name').innerText = name;
+        
         const ul = els.modal.querySelector('#modal-recipe-ingredients ul'); ul.innerHTML = '';
         const divMeth = els.modal.querySelector('#modal-recipe-method'); divMeth.innerHTML = ''; 
 

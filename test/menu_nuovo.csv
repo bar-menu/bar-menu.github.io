@@ -6,7 +6,7 @@ Caffetteria,Caffè al ginseng,Ginseng Coffee,2.30,,,,,
 Caffetteria,Caffè d'orzo grande,Barley Coffee (Large),2.70,,,G,,
 Caffetteria,Caffè al ginseng grande,Ginseng Coffee (Large),2.70,,,,,
 Caffetteria,Caffè espresso con panna,Espresso with Cream,2.70,,,L,,
-Caffetteria,Caffè corretto,Espresso Corretto (with Liquor),2.70,,,,,
+Caffetteria,Caffè corretto,Espresso Corretto (Liquor),2.70,,,,,
 Caffetteria,Caffè freddo shakerato,Shakerato (Iced Coffee),4.00,,,,,
 Caffetteria,Caffè marocchino,Marocchino,2.80,,,L,,
 Caffetteria,Cappuccino,Cappuccino,2.50,,,L,,
@@ -24,8 +24,8 @@ Bevande,Red Bull,Red Bull,4.50,,,,,
 Spritz,Spritz (Aperol / Campari),,6.00,"Vino, Aperol o Campari, Soda","Wine, Aperol or Campari, Soda",,"INGREDIENTI:\n- Ghiaccio\n- 3 parti Prosecco\n- 2 parti Aperol/Campari\n- 1 spruzzo Soda\n- Arancia\n---\nMETODO:\nRiempire il calice di ghiaccio. Versare Prosecco, Aperol/Campari e soda. Mescolare e guarnire.",recipe
 Spritz,Hugo,,6.00,"Sambuco, Menta, Prosecco","Elderflower, Mint, Prosecco",,"INGREDIENTI:\n- Ghiaccio\n- Menta fresca\n- Sciroppo Sambuco\n- Prosecco\n- Soda\n---\nMETODO:\nSchiacciare la menta. Aggiungere ghiaccio, sciroppo, Prosecco e soda. Mescolare.",recipe
 Spritz,Spritz St-Germain,,6.50,"Liquore Sambuco St-Germain","St-Germain Elderflower Liqueur",,"INGREDIENTI:\n- Prosecco\n- St-Germain\n- Soda\n- Lime\n---\nMETODO:\nBuild nel bicchiere con ghiaccio.",recipe
-Spritz,Americano,,8.00,"Campari, Vermouth, Soda",,,"INGREDIENTI:\n- 3cl Campari\n- 3cl Vermouth Rosso\n- Soda\n---\nMETODO:\nVersare su ghiaccio in tumbler basso, colmare con soda, mescolare.",recipe
-Spritz,Negroni Sbagliato,,8.00,"Campari, Vermouth, Prosecco",,,"INGREDIENTI:\n- 3cl Campari\n- 3cl Vermouth Rosso\n- Prosecco\n---\nMETODO:\nVersare su ghiaccio, colmare con Prosecco invece del Gin.",recipe
+Spritz,Americano,,8.00,"Campari, Vermouth, Soda","Campari, Vermouth, Soda",,"INGREDIENTI:\n- 3cl Campari\n- 3cl Vermouth Rosso\n- Soda\n---\nMETODO:\nVersare su ghiaccio in tumbler basso, colmare con soda, mescolare.",recipe
+Spritz,Negroni Sbagliato,,8.00,"Campari, Vermouth, Prosecco","Campari, Vermouth, Prosecco",,"INGREDIENTI:\n- 3cl Campari\n- 3cl Vermouth Rosso\n- Prosecco\n---\nMETODO:\nVersare su ghiaccio, colmare con Prosecco invece del Gin.",recipe
 Cocktails,NEGRONI,,8.00,Il classico italiano.,The Italian Classic.,,"INGREDIENTI:\n- 3cl Gin\n- 3cl Campari\n- 3cl Vermouth Rosso\n---\nMETODO:\nBuild in tumbler basso con ghiaccio e fetta d'arancia.",recipe
 Cocktails,MOJITO,,8.00,Fresco e mentolato.,Fresh and minty.,,"INGREDIENTI:\n- 5cl Rum Bianco\n- Lime, Zucchero, Menta\n- Soda\n---\nMETODO:\nPestare lime e menta con zucchero. Ghiaccio tritato, Rum e soda.",recipe
 Cocktails,CAIPIROSKA / CAIPIRINHA / CAIPIRISSIMA,,8.00,Lime pestato e zucchero.,Muddled lime and sugar.,,"INGREDIENTI:\n- Lime a pezzi\n- Zucchero di canna\n- 5cl Vodka / Cachaça / Rum\n---\nMETODO:\nPestare lime e zucchero nel bicchiere. Aggiungere ghiaccio tritato e distillato.",recipe
@@ -37,8 +37,8 @@ Cocktails,PINA COLADA,,8.00,Ananas e Cocco.,Pineapple and Coconut.,,"INGREDIENTI
 Cocktails,BLACK RUSSIAN,,8.00,Vodka e Caffè.,Vodka and Coffee.,,"INGREDIENTI:\n- 5cl Vodka\n- 2cl Liquore Caffè\n---\nMETODO:\nBuild in tumbler basso con ghiaccio.",recipe
 Cocktails,WHITE RUSSIAN,,8.00,Con panna.,With cream.,L,"INGREDIENTI:\n- 5cl Vodka\n- 2cl Liquore Caffè\n- Panna fresca\n---\nMETODO:\nCome Black Russian, con top di panna.",recipe
 Cocktails,MARGARITA,,8.00,Tequila e Lime.,Tequila and Lime.,,"INGREDIENTI:\n- Tequila, Triple Sec, Lime\n---\nMETODO:\nShake & Strain in coppetta bordata di sale.",recipe
-Cocktails,TEQUILA SUNRISE,,8.00,,,,"INGREDIENTI:\n- Tequila\n- Succo Arancia\n- Granatina\n---\nMETODO:\nBuild. Granatina sul fondo per effetto alba.",recipe
-Cocktails,ANGELO AZZURRO,,8.00,Gin e Blue Curacao.,,,"INGREDIENTI:\n- Gin, Blue Curacao, Limone\n---\nMETODO:\nShake & Strain in coppetta.",recipe
+Cocktails,TEQUILA SUNRISE,,8.00,Arancia e Granatina.,Orange Juice & Grenadine.,,"INGREDIENTI:\n- Tequila\n- Succo Arancia\n- Granatina\n---\nMETODO:\nBuild. Granatina sul fondo per effetto alba.",recipe
+Cocktails,ANGELO AZZURRO,,8.00,Gin e Blue Curacao.,Gin and Blue Curacao.,,"INGREDIENTI:\n- Gin, Blue Curacao, Limone\n---\nMETODO:\nShake & Strain in coppetta.",recipe
 Cocktails,GIN TONIC / VODKA TONIC,,8.00,Base,Standard,,"INGREDIENTI:\n- 5cl Gin o Vodka\n- Tonica\n---\nMETODO:\nBuild con ghiaccio e limone.",recipe
 Cocktails,GIN LEMON / VODKA LEMON,,8.00,Base,Standard,,"INGREDIENTI:\n- 5cl Gin o Vodka\n- Lemon Soda\n---\nMETODO:\nBuild con ghiaccio.",recipe
 Cocktails,PALOMA,,8.00,Tequila e Pompelmo.,Tequila and Grapefruit.,,"INGREDIENTI:\n- Tequila, Lime\n- Soda Pompelmo Rosa\n---\nMETODO:\nBuild con ghiaccio e bordo di sale.",recipe
@@ -58,7 +58,7 @@ Birre,Birra Bionda Media (0.5l),Draft Beer (Large),6.00,Alla spina.,Draft.,G,,sp
 Birre,Beck's,,4.50,Pilsner tedesca.,German Pilsner.,G,,spirit
 Birre,Heineken,,4.50,Lager olandese.,Dutch Lager.,G,,spirit
 Birre,Corona,,5.00,Lager messicana.,Mexican Lager.,G,,spirit
-Birre,Ceres Strong Lager,,5.00,Lager danese doppio malto.,Strong Lager.,G,,spirit
+Birre,Ceres Strong Lager,,5.00,Doppio malto.,Strong Lager.,G,,spirit
 Birre,Tennent’s Super,,5.00,Strong Lager scozzese.,Scottish Strong Lager.,G,,spirit
 Birre,Bud,,5.00,American Lager.,American Lager.,G,,spirit
 Birre,Ichnusa,,5.00,Lager sarda.,Sardinian Lager.,G,,spirit
@@ -102,8 +102,8 @@ Gin & Tonic,Tanqueray London Dry,,10.00,"London Dry Gin, UK","London Dry Gin, UK
 Gin & Tonic,Tutti i Gin Tonic sono serviti con acqua tonica premium.,All Gin & Tonics are served with premium tonic water.,,,,,info
 Rum,Ron Havana Club 3 Años,,4.00,"Cuba (Bianco)","Cuba (White)",,,spirit
 Rum,Ron Havana Club 7 Años,,5.00,"Cuba (Scuro)","Cuba (Dark)",,,spirit
-Rum,Ron Pampero Aniversario,,5.50,"Reserva Exclusiva, Venezuela",,spirit
-Rum,Ron Zacapa 23 Solera,,9.00,Guatemala,,spirit
+Rum,Ron Pampero Aniversario,,5.50,"Reserva Exclusiva, Venezuela","Reserva Exclusiva, Venezuela",,,spirit
+Rum,Ron Zacapa 23 Solera,,9.00,Guatemala,Guatemala,,,spirit
 Rum,Don Papa,,9.00,"Filippine (7 anni)","Philippines (7 yo)",,,spirit
 Rum,Don Papa Baroko,,9.00,Filippine,Philippines,,,spirit
 Whisky,Jack Daniel's Old No. 7,,5.50,"Tennessee Whiskey, USA","Tennessee Whiskey, USA",,,spirit
@@ -116,34 +116,34 @@ Whisky,Laphroaig 10 y.o.,,7.50,"Single Malt Scotch Whisky (Islay)","Single Malt 
 Whisky,Caol Ila 12 y.o.,,8.00,"Single Malt Scotch Whisky (Islay)","Single Malt Scotch Whisky (Islay)",,,spirit
 Whisky,Oban 14 y.o.,,9.00,"Single Malt Scotch Whisky (Highland)","Single Malt Scotch Whisky (Highland)",,,spirit
 Whisky,Lagavulin 16 y.o.,,10.00,"Single Malt Scotch Whisky (Islay)","Single Malt Scotch Whisky (Islay)",,,spirit
-Amari e Liquori,Montenegro,,4.00,Italia,,spirit
-Amari e Liquori,Amaro del Capo,,4.00,Italia,,spirit
-Amari e Liquori,Averna,,4.00,Sicilia,,spirit
-Amari e Liquori,Fernet-Branca,,4.00,Italia,,spirit
-Amari e Liquori,BrancaMenta,,4.00,Italia,,spirit
-Amari e Liquori,Lucano,,4.00,Italia,,spirit
-Amari e Liquori,Cynar,,4.00,Italia,,spirit
-Amari e Liquori,Jägermeister,,4.00,Germania,,spirit
-Amari e Liquori,Sambuca Molinari,,4.00,Italia,,spirit
-Amari e Liquori,Limoncello,,4.00,Italia,,spirit
-Amari e Liquori,Anima Nera,,4.00,Liquirizia,,spirit
-Amari e Liquori,Punch,,4.00,Mandarino / Rhum,,spirit
-Amari e Liquori,Jefferson,,5.00,"Amaro Importante, Calabria",,spirit
-Grappe,903 Bianca Bonaventura,,5.00,Bianca,,spirit
-Grappe,903 Barrique Bonaventura,,5.50,Barrique,,spirit
-Grappe,Sarpa di Poli,,5.50,Poli,,spirit
-Grappe,Diciotto Lune Marzadro,,5.50,Stravecchia,,spirit
+Amari e Liquori,Montenegro,,4.00,"Amaro aromatico italiano","Aromatic Italian Bitter",,,spirit
+Amari e Liquori,Amaro del Capo,,4.00,"Servito ghiacciato, Calabria","Served ice cold, Calabria",,,spirit
+Amari e Liquori,Averna,,4.00,"Amaro siciliano classico","Classic Sicilian Bitter",,,spirit
+Amari e Liquori,Fernet-Branca,,4.00,"Molto amaro, note di menta","Very bitter, minty notes",,,spirit
+Amari e Liquori,BrancaMenta,,4.00,"Fernet con menta","Fernet with mint",,,spirit
+Amari e Liquori,Lucano,,4.00,"Amaro equilibrato, Basilicata","Balanced bitter, Basilicata",,,spirit
+Amari e Liquori,Cynar,,4.00,"A base di carciofo","Artichoke based bitter",,,spirit
+Amari e Liquori,Jägermeister,,4.00,"Kräuterlikör, Germania","Herbal liqueur, Germany",,,spirit
+Amari e Liquori,Sambuca Molinari,,4.00,"Liquore dolce all'anice","Sweet star anise liqueur",,,spirit
+Amari e Liquori,Limoncello,,4.00,"Liquore dolce di limoni","Sweet lemon liqueur",,,spirit
+Amari e Liquori,Anima Nera,,4.00,"Liquore alla liquirizia","Liquorice liqueur",,,spirit
+Amari e Liquori,Punch,,4.00,"Bevanda calda (Mandarino / Rum)","Hot drink (Mandarin / Rum)",,,spirit
+Amari e Liquori,Jefferson,,5.00,"Amaro Importante, Calabria","Important Bitter, Calabria",,,spirit
+Grappe,903 Bianca Bonaventura,,5.00,"Grappa Bianca giovane","White Grappa (Young)",,,spirit
+Grappe,903 Barrique Bonaventura,,5.50,"Grappa invecchiata","Aged Grappa (Barrique)",,,spirit
+Grappe,Sarpa di Poli,,5.50,"Distillerie Poli","Poli Distillery",,,spirit
+Grappe,Diciotto Lune Marzadro,,5.50,"Stravecchia","Extra Aged",,,spirit
 Vermouth,Martini,,4.50,"Rosso / Bianco / Dry","Red / White / Dry",,,spirit
-Vermouth,Carpano Antica Formula,,5.00,"Vermouth Rosso",,spirit
-Vermouth,Del Professore Rosso,,5.00,"Vermouth di Torino",,spirit
-Vermouth,Gran Bassano Rosso Poli,,5.00,"Poli Distillerie",,spirit
+Vermouth,Carpano Antica Formula,,5.00,"Vermouth Rosso pregiato","Premium Red Vermouth",,,spirit
+Vermouth,Del Professore Rosso,,5.00,"Vermouth di Torino","Vermouth of Turin",,,spirit
+Vermouth,Gran Bassano Rosso Poli,,5.00,"Poli Distillerie","Poli Distillery",,,spirit
 Vodka,Absolut Vodka,,4.00,"Grano, Svezia","Wheat, Sweden",,,spirit
 Vodka,Belvedere Pure,,6.00,"Segale, Polonia","Rye, Poland",,,spirit
 Vodka,Grey Goose,,6.00,"Grano, Francia","Wheat, France",,,spirit
-Brandy,Vecchia Romagna,,4.00,Italia,,,spirit
-Brandy,Stravecchio Branca,,4.00,Italia,,spirit
-Brandy,Cardenal Mendoza,,6.00,"Jerez, Spagna","Jerez, Spain",,,spirit
-Brandy,Cognac Courvoisier VS,,6.00,"Cognac, Francia",,,spirit
+Brandy,Vecchia Romagna,,4.00,"Brandy Italiano","Italian Brandy",,,spirit
+Brandy,Stravecchio Branca,,4.00,"Brandy Italiano","Italian Brandy",,,spirit
+Brandy,Cardenal Mendoza,,6.00,"Brandy di Jerez, Spagna","Sherry Brandy, Spain",,,spirit
+Brandy,Cognac Courvoisier VS,,6.00,"Cognac, Francia","Cognac, France",,,spirit
 Spuntini,Toast Classico,Classic Toast,3.00,"Prosciutto Cotto, Fontina","Ham, Cheese",,,
 Spuntini,Focaccia,Focaccia,2.20,"Olive / Pomodorini","Olives / Cherry Tomatoes",,,
 Spuntini,Pastine Dolci/Salate,Pastries,1.40,"Varietà del giorno","Selection of the day",,,
