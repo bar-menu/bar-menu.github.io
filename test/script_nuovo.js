@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("1. Script avviato correttemente");
+    console.log("1. Script avviato correttamente");
 
-    // Legge la variabile definita nell'HTML, altrimenti fallback
-    const CSV_URL = (typeof CSV_FILENAME !== 'undefined') ? CSV_FILENAME : 'menu.csv';
+    // --- MODIFICA QUI: NOME FILE FISSO ---
+    const CSV_URL = 'menu_nuovo.csv'; 
     console.log("2. File CSV target: " + CSV_URL);
     
     const CATEGORY_ORDER = [
@@ -20,14 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("3. Funzione init() chiamata");
         setSeasonalHeader();
         
-        // Controllo se PapaParse è caricato
         if (typeof Papa === 'undefined') {
             console.error("ERRORE GRAVE: Libreria PapaParse non trovata!");
             document.getElementById('loading-message').textContent = "Errore: Libreria CSV mancante.";
             return;
         }
 
-        console.log("4. Inizio scaricamento CSV...");
+        console.log("4. Inizio scaricamento CSV: " + CSV_URL);
         Papa.parse(CSV_URL, {
             download: true, 
             header: true, 
@@ -42,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             error: function(err) { 
                 console.error("ERRORE SCARICAMENTO CSV:", err); 
-                document.getElementById('loading-message').textContent = "Errore caricamento menu. Controlla che il file .csv esista e si chiami correttamente."; 
+                document.getElementById('loading-message').textContent = "Errore caricamento menu. File non trovato: " + CSV_URL; 
             }
         });
     }
@@ -115,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initEvents() {
-        console.log("8. Inizializzazione eventi (click, ricerca)...");
+        console.log("8. Inizializzazione eventi...");
         const searchBox = document.getElementById('search-wrapper');
         const input = document.getElementById('search-input');
         const popup = document.getElementById('description-popup');
@@ -146,12 +145,14 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('no-results').style.display = (term && !found)?'flex':'none';
         }
 
-        document.getElementById('search-icon-trigger').addEventListener('click', (e)=>{
-            e.stopPropagation(); searchBox.classList.toggle('search-active');
-            if(searchBox.classList.contains('search-active')) setTimeout(()=>input.focus(),50);
-        });
-        input.addEventListener('input', filter);
-        document.getElementById('clear-search-link').addEventListener('click', (e)=>{ e.preventDefault(); input.value=''; filter(); });
+        if(document.getElementById('search-icon-trigger')) {
+             document.getElementById('search-icon-trigger').addEventListener('click', (e)=>{
+                e.stopPropagation(); searchBox.classList.toggle('search-active');
+                if(searchBox.classList.contains('search-active')) setTimeout(()=>input.focus(),50);
+            });
+            input.addEventListener('input', filter);
+            document.getElementById('clear-search-link').addEventListener('click', (e)=>{ e.preventDefault(); input.value=''; filter(); });
+        }
 
         document.querySelector('main').addEventListener('click', (e) => {
             const sp = e.target.closest('.spirit-item');
@@ -207,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('#popup-close-btn, #modal-recipe-close-btn').forEach(b=>
             b.addEventListener('click', ()=>{ popup.classList.remove('visible'); modal.classList.remove('visible'); })
         );
-        console.log("9. Eventi caricati. Finito!");
+        console.log("9. Eventi pronti.");
     }
 
     function setSeasonalHeader() {
@@ -220,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         h.style.backgroundImage = `url('${img}')`;
     }
 
-    // --- PUNTO CHIAVE: FACCIAMO PARTIRE TUTTO ---
+    // AVVIO
     console.log("-> Avvio init()...");
     init(); 
 
