@@ -10,8 +10,8 @@
     --sticky-nav-bg: rgba(40, 40, 40, 0.95);
     --sticky-nav-link-color: #e0e0e0;
     --sticky-nav-bottom-margin: 15px;
-    --popup-bg: rgba(50, 50, 50, 0.96);
-    --popup-text: #e8e8e8;
+    --popup-bg: rgba(40, 40, 40, 0.98); /* Più coprente */
+    --popup-text: #f0f0f0;
     --popup-title-color: #ffffff;
     --popup-border: #666;
 }
@@ -25,7 +25,7 @@ header { text-align: center; margin-bottom: 25px; padding-bottom: 30px; position
 header::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 95%; background: linear-gradient(to bottom, transparent 0%, rgba(26,26,26,0.9) 90%, var(--bg-dark) 99%); }
 header h1 { font-family: 'Poppins', sans-serif; font-size: 1.9em; color: var(--text-light); margin: 0; font-weight: 600; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 1; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); white-space: nowrap; }
 
-/* Sezioni */
+/* Sezioni Menu */
 section { margin-bottom: 40px; background-color: var(--bg-light-section); padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); color: var(--text-dark); }
 section h2 { font-family: 'Merriweather', serif; font-size: 2.0em; color: var(--text-dark); margin-top: 0; margin-bottom: 25px; border-bottom: 1px solid var(--border-light); padding-bottom: 15px; font-weight: 700; display: flex; justify-content: space-between; align-items: baseline; }
 ul { list-style: none; padding: 0; margin: 0; }
@@ -35,7 +35,7 @@ li.menu-item:last-child { border-bottom: none; }
 .item-price { color: var(--text-dark); white-space: nowrap; font-weight: 700; }
 .item-price-multi { display: flex; flex-direction: column; text-align: right; font-weight: 700; font-size: 0.9em; color: var(--text-dark); }
 .item-price-multi span { white-space: nowrap; }
-.item-description { display: block; width: 100%; font-size: 0.88em; color: #666; margin-top: 4px; font-style: italic; }
+.item-description { display: block; width: 100%; font-size: 0.9em; color: #666; margin-top: 4px; font-style: italic; line-height: 1.3; }
 .spirit-item, .recipe-item { cursor: pointer; }
 .spirit-item:hover, .recipe-item:hover { background-color: #ededed; }
 
@@ -51,39 +51,61 @@ footer nav#quick-nav { margin: 0 0 30px 0; padding: 0 10px; display: flex; justi
 footer nav#quick-nav a { display: inline-block; padding: 3px 5px; color: #b0b0b0; text-decoration: none; font-size: 0.9em; font-weight: 400; }
 footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 
-/* Mobile Sticky Nav & Search */
+/* Mobile Sticky Nav */
 #quick-nav-mobile-sticky { position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--sticky-nav-bg); backdrop-filter: blur(8px); box-shadow: 0 -2px 10px rgba(0,0,0,0.2); z-index: 999; display: flex; align-items: stretch; height: var(--sticky-nav-height); }
 #sticky-search-container { display: flex; align-items: center; padding: 0 5px 0 10px; position: relative; }
 #sticky-search-trigger { background: none; border: none; color: var(--sticky-nav-link-color); font-size: 1.2em; padding: 10px; cursor: pointer; }
 #sticky-search-input { width: 0; opacity: 0; visibility: hidden; border: none; background: transparent; color: var(--text-light); transition: width 0.3s ease, opacity 0.3s; font-size: 16px; }
-#sticky-search-clear { background: none; border: none; color: #aaa; font-size: 1.1em; padding: 10px; cursor: pointer; display: none; } /* Stile X */
-
+#sticky-search-clear { background: none; border: none; color: #aaa; font-size: 1.1em; padding: 10px; cursor: pointer; display: none; }
 #quick-nav-mobile-sticky.search-active #sticky-search-input { width: 160px; opacity: 1; visibility: visible; background: rgba(60,60,60,0.8); padding: 5px 10px; border-radius: 15px 0 0 15px; }
 #quick-nav-mobile-sticky.search-active #sticky-search-clear { display: none; background: rgba(60,60,60,0.8); border-radius: 0 15px 15px 0; }
 #quick-nav-mobile-sticky.search-active #sticky-search-clear.show-x { display: block; }
-
 .sticky-nav-links-wrapper { flex-grow: 1; overflow-x: auto; white-space: nowrap; display: flex; align-items: center; }
 .sticky-nav-links-wrapper::-webkit-scrollbar { display: none; }
 #quick-nav-mobile-sticky ul { display: flex; gap: 15px; margin: 0; padding: 0 10px; list-style: none; }
 #quick-nav-mobile-sticky a { color: var(--sticky-nav-link-color); text-decoration: none; font-size: 0.9em; padding: 5px 8px; }
 
-/* Popup & Modals */
-#gin-description-popup { position: fixed; bottom: calc(var(--sticky-nav-height) + 20px); left: 15px; right: 15px; max-width: 450px; margin: auto; background-color: var(--popup-bg); color: var(--popup-text); border-radius: 8px; padding: 22px; padding-right: 48px; z-index: 1100; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s ease; box-shadow: 0 6px 25px rgba(0,0,0,0.45); }
+/* POPUP E MODAL SCURI */
+#gin-description-popup, 
+#recipe-modal { z-index: 1100; }
+
+/* Popup in basso (Spirits) */
+#gin-description-popup { position: fixed; bottom: calc(var(--sticky-nav-height) + 20px); left: 15px; right: 15px; max-width: 450px; margin: auto; background-color: var(--popup-bg); color: var(--popup-text); border-radius: 8px; padding: 22px; padding-right: 48px; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s ease; box-shadow: 0 6px 25px rgba(0,0,0,0.6); }
 #gin-description-popup.visible { opacity: 1; visibility: visible; transform: translateY(0); }
-#popup-product-name { color: var(--popup-title-color); border-bottom: 1px solid var(--popup-border); margin: 0 0 10px 0; padding-bottom: 10px; font-family: 'Poppins', sans-serif; font-size: 1.25em; }
-#popup-allergens { margin-top: 15px; padding-top: 10px; border-top: 1px dashed #666; color: #ccc; font-size: 0.85em; display: none; }
-#popup-close-btn { position: absolute; top: -5px; right: 5px; background: none; border: none; color: #fff; font-size: 2.5em; cursor: pointer; }
-#toggle-prep-btn { background: none; border: none; color: #bdbdbd; cursor: pointer; margin-top: 15px; font-weight: 600; display: none; width: 100%; text-align: left; }
-#popup-preparation-container { display: none; margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 4px; }
 
-/* Modal Ricetta */
-#recipe-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1200; display: none; justify-content: center; align-items: center; }
+/* Modal al centro (Ricette) */
+#recipe-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1200; display: none; justify-content: center; align-items: center; }
 #recipe-modal.visible { display: flex; }
-.recipe-modal-content { background: #fff; color: #333; padding: 25px; border-radius: 8px; width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; position: relative; }
-.recipe-modal-content h3 { font-family: 'Poppins', sans-serif; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 0; text-align: center; }
-#modal-recipe-close-btn { position: absolute; top: 10px; right: 10px; background: #ddd; border-radius: 50%; width: 30px; height: 30px; border: none; cursor: pointer; font-weight: bold; font-size: 1.2em; }
 
-/* No Results */
+.recipe-modal-content { 
+    background-color: #222; /* SCURO */
+    color: #f0f0f0;         /* TESTO CHIARO */
+    padding: 25px; 
+    border-radius: 8px; 
+    width: 90%; 
+    max-width: 500px; 
+    max-height: 85vh; 
+    overflow-y: auto; 
+    position: relative; 
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    border: 1px solid #444;
+}
+
+/* Stili Testo nei Popup/Modal */
+#popup-product-name, .recipe-modal-content h3 { font-family: 'Poppins', sans-serif; font-size: 1.3em; margin: 0 0 15px 0; border-bottom: 1px solid #555; padding-bottom: 10px; color: #fff; }
+#popup-allergens { margin-top: 15px; padding-top: 10px; border-top: 1px dashed #666; color: #ccc; font-size: 0.9em; display: none; }
+.recipe-modal-content h5 { color: #aaa; margin: 15px 0 5px 0; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px; }
+.recipe-modal-content ul { list-style: disc; padding-left: 20px; margin-top: 0; color: #ddd; }
+.recipe-modal-content li { margin-bottom: 5px; }
+.recipe-modal-content p { color: #ddd; line-height: 1.5; }
+
+/* Bottoni */
+#popup-close-btn { position: absolute; top: -5px; right: 5px; background: none; border: none; color: #fff; font-size: 2.5em; cursor: pointer; }
+#modal-recipe-close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; color: #bbb; font-size: 2em; line-height: 0.5; cursor: pointer; }
+#modal-recipe-close-btn:hover { color: #fff; }
+#toggle-prep-btn { background: none; border: none; color: #bdbdbd; cursor: pointer; margin-top: 15px; font-weight: 600; display: none; width: 100%; text-align: left; font-size: 0.9em; }
+
+/* Nessun Risultato */
 #no-results { text-align: center; padding: 40px; display: none; flex-direction: column; align-items: center; }
 #no-results a { color: #007bff; text-decoration: underline; }
 

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const CSV_URL = 'menu_nuovo.csv'; 
     
-    // I18N (Traduzioni Categorie e UI)
+    // I18N
     const I18N = {
         it: {
             cats: { "Caffetteria":"Caffetteria", "Bevande":"Bevande", "Spritz":"Spritz", "Cocktails":"Cocktails", "Vini":"Vini", "Franciacorta":"Franciacorta", "Birre":"Birre", "Gin & Tonic":"Gin & Tonic", "Rum":"Rum", "Whisky":"Whisky", "Amari e Liquori":"Amari", "Grappe":"Grappe", "Vermouth":"Vermouth", "Vodka":"Vodka", "Brandy":"Brandy", "Spuntini":"Spuntini", "Panini & Piadine":"Panini & Piadine" },
@@ -108,15 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const li = document.createElement('li');
                 li.className = 'menu-item';
                 
-                // --- GESTIONE FALLBACK INGLESE ---
-                // Se currentLang è EN ma Nome_EN è vuoto -> usa Nome italiano
                 const nome = (currentLang === 'en' && row.Nome_EN) ? row.Nome_EN : row.Nome;
                 const desc = (currentLang === 'en' && row.Descrizione_EN) ? row.Descrizione_EN : row.Descrizione;
                 const tipo = row.Tipo ? row.Tipo.trim().toLowerCase() : '';
 
                 if(tipo === 'spirit') li.classList.add('spirit-item');
                 if(tipo === 'recipe') li.classList.add('recipe-item');
-                
                 if(tipo === 'info') {
                     li.innerHTML = `<span style="width:100%;text-align:center;font-style:italic;color:#666;font-size:0.9em;">${nome}</span>`;
                     li.style.borderBottom = "none";
@@ -134,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     prezzoHtml = `<span class="item-price-multi">` + row.Prezzo.split('|').map(p=>`<span class="item-price">${p.trim()}</span>`).join('') + `</span>`;
                 }
 
+                // CORREZIONE: Mostra la descrizione SEMPRE se esiste (non nasconderla più per ricette/spirit)
                 let descHtml = '';
                 if(desc) { descHtml = `<span class="item-description">${desc}</span>`; }
 
