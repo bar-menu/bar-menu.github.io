@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Bar Nuovo</title>
-    <!-- FONTS: Aggiunto INTER, mantenuti Merriweather e Poppins -->
+    <!-- Fonts: INTER + Quelli originali -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Parser CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <link rel="stylesheet" href="style_nuovo.css">
 </head>
 <body>
 
     <header>
-        <h1>MENU</h1> <!-- Titolo generico, cambierà se serve -->
-        <!-- Selettore Lingua Minimal -->
+        <h1>MENU</h1> 
         <div id="lang-switch">
             <button class="lang-btn active" data-lang="it">IT</button>
             <span class="lang-separator">|</span>
@@ -28,12 +25,12 @@
 
     <main id="menu-container">
         <div id="loading-message" style="text-align:center; padding:50px; color:#888;">
-            <i class="fas fa-spinner fa-spin"></i> Caricamento...
+            <i class="fas fa-spinner fa-spin"></i> Loading...
         </div>
-        <section id="no-results" style="display: none;">
+        <section id="no-results">
             <h2>Ricerca</h2>
             <p id="no-results-text">Nessun risultato.</p>
-            <p style="margin-top:20px;"><a href="#" id="clear-search-link">Reset</a></p>
+            <p style="margin-top:20px;"><a href="#" id="clear-search-link">Mostra tutto</a></p>
         </section>
     </main>
 
@@ -46,45 +43,33 @@
         </p>
     </footer>
 
-    <!-- NAVBAR MOBILE STICKY (Struttura Originale con aggiunta X) -->
+    <!-- NAVBAR MOBILE STICKY (Come l'originale) -->
     <nav id="quick-nav-mobile-sticky">
         <div id="sticky-search-container">
             <button id="sticky-search-trigger"><i class="fas fa-search"></i></button>
             <input type="text" id="sticky-search-input" placeholder="Cerca...">
-            <button id="sticky-search-clear" style="display:none;"><i class="fas fa-times"></i></button>
         </div>
         <div class="sticky-nav-links-wrapper">
             <ul><!-- JS riempie qui --></ul>
         </div>
     </nav>
 
-    <!-- POPUP INFO (Struttura Originale) -->
+    <!-- POPUP INFO (Stile Santos) -->
     <div id="gin-description-popup">
         <div class="popup-content">
             <h4 id="popup-product-name">Nome</h4>
             <p id="popup-product-description">Descrizione...</p>
             
-            <!-- Zona Dettagli/Allergeni -->
-            <div id="popup-allergens" style="display:none; margin-top:10px; color:#ccc; font-size:0.9em;"></div>
+            <div id="popup-allergens" style="display:none; margin-bottom:15px; color:#ffcc00; font-size:0.85em;"></div>
 
-            <!-- Bottone Pairing/Dettagli -->
-            <button id="toggle-prep-btn" style="display:none;"><i class="fas fa-chevron-down"></i> Pairing</button>
+            <button id="toggle-prep-btn" style="display:none;"><i class="fas fa-chevron-down"></i> Come si fa?</button>
             
-            <div id="popup-preparation-container" style="display:none;">
-                <div id="popup-pairing-content"></div>
+            <div id="popup-preparation-container">
+                <h5>Preparazione / Dettagli:</h5>
+                <p id="popup-preparation-text"></p>
             </div>
 
             <button id="popup-close-btn">×</button>
-        </div>
-    </div>
-
-    <!-- MODAL RICETTA -->
-    <div id="recipe-modal">
-        <div class="recipe-modal-content">
-            <h3 id="modal-recipe-name">Titolo</h3>
-            <div id="modal-recipe-ingredients"><ul></ul></div>
-            <div id="modal-recipe-method"></div>
-            <button id="modal-recipe-close-btn">×</button>
         </div>
     </div>
 

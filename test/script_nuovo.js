@@ -1,31 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
     const CSV_URL = 'menu_nuovo.csv'; 
     
-    // I18N
+    // Configurazione I18N
     const I18N = {
         it: {
-            cats: { "Caffetteria":"Caffetteria", "Bevande":"Bevande", "Spritz":"Spritz", "Cocktails":"Cocktails", "Vini":"Vini", "Franciacorta":"Franciacorta", "Birre":"Birre", "Gin & Tonic":"Gin & Tonic", "Rum":"Rum", "Whisky":"Whisky", "Amari e Liquori":"Amari", "Grappe":"Grappe", "Vermouth":"Vermouth", "Vodka":"Vodka", "Brandy":"Brandy", "Spuntini":"Spuntini", "Panini & Piadine":"Panini & Piadine" },
+            cats: { "Caffetteria":"Caffetteria", "Bevande":"Bevande", "Spritz":"Spritz & Co.", "Cocktails":"Cocktails", "Vini":"Vini", "Franciacorta":"Franciacorta", "Birre":"Birre", "Gin & Tonic":"Gin & Tonic", "Rum":"Rum", "Whisky":"Whisky", "Amari e Liquori":"Amari", "Grappe":"Grappe", "Vermouth":"Vermouth", "Vodka":"Vodka", "Brandy":"Brandy", "Spuntini":"Spuntini", "Panini & Piadine":"Panini & Piadine" },
             paniniSub: "Componi il tuo panino!",
-            detailsBtn: "Dettagli",
+            detailsBtn: "Come si fa?",
             hideBtn: "Nascondi",
             search: "Cerca...",
             noRes: "Nessun risultato.",
             service: "Servizio al tavolo incluso",
             allergenDisclaimer: "Per allergie o intolleranze rivolgersi al personale.",
-            allergenPrefix: "Contiene:",
-            pairingPrefix: "Consiglio:"
+            allergenPrefix: "Allergeni:",
+            reset: "Mostra tutto"
         },
         en: {
             cats: { "Caffetteria":"Coffee", "Bevande":"Soft Drinks", "Spritz":"Spritz & Co.", "Cocktails":"Cocktails", "Vini":"Wines", "Franciacorta":"Sparkling", "Birre":"Beers", "Gin & Tonic":"Gin & Tonic", "Rum":"Rum", "Whisky":"Whisky", "Amari e Liquori":"Bitters & Liqueurs", "Grappe":"Grappa", "Vermouth":"Vermouth", "Vodka":"Vodka", "Brandy":"Brandy", "Spuntini":"Snacks", "Panini & Piadine":"Sandwiches" },
             paniniSub: "Build your own sandwich!",
-            detailsBtn: "Details",
+            detailsBtn: "How is it made?",
             hideBtn: "Hide",
             search: "Search...",
             noRes: "No results found.",
             service: "Table service included",
             allergenDisclaimer: "For allergies and intolerances please ask the staff.",
-            allergenPrefix: "Contains:",
-            pairingPrefix: "Pairing:"
+            allergenPrefix: "Allergens:",
+            reset: "Show all"
         }
     };
 
@@ -40,12 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileNavList: document.querySelector('#quick-nav-mobile-sticky ul'),
         desktopNav: document.getElementById('quick-nav'),
         loader: document.getElementById('loading-message'),
-        searchTriggers: [document.getElementById('sticky-search-trigger')],
+        searchTrigger: document.getElementById('sticky-search-trigger'), // Il bottone lente/X
         searchInput: document.getElementById('sticky-search-input'),
-        searchClear: document.getElementById('sticky-search-clear'),
         stickyNav: document.getElementById('quick-nav-mobile-sticky'),
         popup: document.getElementById('gin-description-popup'),
-        modal: document.getElementById('recipe-modal')
+        clearSearchLink: document.getElementById('clear-search-link')
     };
 
     function init() {
@@ -66,9 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('footer-service').textContent = I18N[lang].service;
         document.getElementById('footer-allergens').textContent = I18N[lang].allergenDisclaimer;
         document.getElementById('no-results-text').textContent = I18N[lang].noRes;
-        document.getElementById('clear-search-link').textContent = (lang === 'en') ? "Show all" : "Mostra tutto";
+        els.clearSearchLink.textContent = I18N[lang].reset;
         els.searchInput.placeholder = I18N[lang].search;
         buildMenu();
+    }
+
+    function cleanText(text) {
+        if (!text) return '';
+        // Toglie il punto finale se c'è
+        return text.trim().replace(/\.$/, '');
     }
 
     function buildMenu() {
@@ -108,12 +113,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const li = document.createElement('li');
                 li.className = 'menu-item';
                 
-                const nome = (currentLang === 'en' && row.Nome_EN) ? row.Nome_EN : row.Nome;
-                const desc = (currentLang === 'en' && row.Descrizione_EN) ? row.Descrizione_EN : row.Descrizione;
+                const nome = cleanText((currentLang === 'en' && row.Nome_EN) ? row.Nome_EN : row.Nome);
+                const desc = cleanText((currentLang === 'en' && row.Descrizione_EN) ? row.Descrizione_EN : row.Descrizione);
                 const tipo = row.Tipo ? row.Tipo.trim().toLowerCase() : '';
+                // Ignora allergeni per i cibi (Spuntini/Panini) come richiesto
+                const ignoreAllergens = (catKey.toLowerCase().includes('panini') || catKey.toLowerCase().includes('spuntini'));
+                const allergeni = ignoreAllergens ? '' : (row.Allergeni || '');
 
-                if(tipo === 'spirit') li.classList.add('spirit-item');
-                if(tipo === 'recipe') li.classList.add('recipe-item');
+                if(tipo === 'spirit' || tipo === 'recipe') li.classList.add('spirit-item');
+                
                 if(tipo === 'info') {
                     li.innerHTML = `<span style="width:100%;text-align:center;font-style:italic;color:#666;font-size:0.9em;">${nome}</span>`;
                     li.style.borderBottom = "none";
@@ -121,17 +129,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
+                // Dati per il popup
                 li.dataset.name = nome; 
-                li.dataset.desc = desc || ''; 
-                li.dataset.recipe = row.Ricetta; 
-                li.dataset.allergens = row.Allergeni || ''; 
+                li.dataset.desc = desc; 
+                li.dataset.recipe = row.Ricetta || ''; 
+                li.dataset.allergens = allergeni; 
 
                 let prezzoHtml = `<span class="item-price">${row.Prezzo || ''}</span>`;
                 if(row.Prezzo && row.Prezzo.includes('|')) {
                     prezzoHtml = `<span class="item-price-multi">` + row.Prezzo.split('|').map(p=>`<span class="item-price">${p.trim()}</span>`).join('') + `</span>`;
                 }
 
-                // MOSTRA SEMPRE LA DESCRIZIONE SE ESISTE (Anche per ricette/spirits)
+                // La descrizione appare sempre, stile "Old" (senza punti finali)
                 let descHtml = '';
                 if(desc) { descHtml = `<span class="item-description">${desc}</span>`; }
 
@@ -141,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sec.appendChild(ul);
             els.container.appendChild(sec);
 
+            // Nav link
             const aDesk = document.createElement('a'); aDesk.href = `#${id}`; aDesk.textContent = displayTitle;
             if(els.desktopNav) els.desktopNav.appendChild(aDesk);
             const liMob = document.createElement('li'); liMob.innerHTML = `<a href="#${id}">${displayTitle}</a>`;
@@ -149,26 +159,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initEvents() {
+        // Link anchor scrolling
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', function(e) {
+                if(this.id === 'clear-search-link') return; // Gestito a parte
                 e.preventDefault();
-                closeAll();
+                deactivateSearch();
+                closePopup();
                 const t = document.querySelector(this.getAttribute('href'));
                 if(t) window.scrollTo({top: t.offsetTop - 60, behavior: 'smooth'});
             });
         });
 
-        if(els.searchInput) {
-            const doFilter = function() {
-                const term = els.searchInput.value.toLowerCase().trim();
-                
-                // Show/Hide X Button
-                if(els.searchClear) {
-                    if(term.length > 0) els.searchClear.classList.add('visible');
-                    else els.searchClear.classList.remove('visible');
+        // Search System - LA LOGICA ORIGINALE
+        if(els.searchTrigger && els.searchInput) {
+            
+            // Click sulla lente (o sulla X quando attivo)
+            els.searchTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if(els.stickyNav.classList.contains('search-active')) {
+                    // Se è attivo (X), chiudi ricerca e resetta
+                    deactivateSearch();
+                } else {
+                    // Se non è attivo (Lente), apri
+                    activateSearch();
                 }
+            });
 
+            // Input typing
+            els.searchInput.addEventListener('input', () => {
+                const term = els.searchInput.value.toLowerCase().trim();
                 let found = false;
+                
                 document.querySelectorAll('section:not(#no-results)').forEach(sec => {
                     let hasVis = false;
                     sec.querySelectorAll('.menu-item').forEach(item => {
@@ -181,37 +203,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     if(hasVis) found = true;
                 });
                 document.getElementById('no-results').style.display = (!found && term) ? 'flex' : 'none';
-            };
-
-            els.searchInput.addEventListener('input', doFilter);
-            
-            if(els.searchClear) {
-                els.searchClear.addEventListener('click', function(e) {
-                    e.preventDefault(); e.stopPropagation();
-                    els.searchInput.value = ''; 
-                    doFilter(); 
-                    els.searchInput.focus();
-                });
-            }
-            
-            els.searchTriggers.forEach(btn => {
-                if(btn) btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    els.stickyNav.classList.toggle('search-active');
-                    if(els.stickyNav.classList.contains('search-active')) setTimeout(()=>els.searchInput.focus(), 100);
-                });
             });
         }
 
+        // Popup Open
         document.querySelector('main').addEventListener('click', (e) => {
-            const spirit = e.target.closest('.spirit-item');
-            const recipe = e.target.closest('.recipe-item');
-            if (spirit) openSpiritPopup(spirit);
-            else if (recipe) openRecipeModal(recipe);
+            const item = e.target.closest('.spirit-item');
+            if(item) openPopup(item);
         });
 
-        document.getElementById('popup-close-btn').onclick = closeAll;
-        document.getElementById('modal-recipe-close-btn').onclick = closeAll;
+        // Popup Actions
+        document.getElementById('popup-close-btn').onclick = closePopup;
         document.getElementById('toggle-prep-btn').onclick = function(e) {
             e.stopPropagation();
             const cont = document.getElementById('popup-preparation-container');
@@ -220,16 +222,41 @@ document.addEventListener('DOMContentLoaded', () => {
             const dict = I18N[currentLang];
             this.innerHTML = isVis ? `<i class="fas fa-chevron-down"></i> ${dict.detailsBtn}` : `<i class="fas fa-chevron-up"></i> ${dict.hideBtn}`;
         };
+
+        // Clear Search Link
+        if(els.clearSearchLink) {
+            els.clearSearchLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                deactivateSearch();
+            });
+        }
     }
 
-    function openSpiritPopup(el) {
-        const name = el.querySelector('.item-name').innerText;
-        const desc = el.dataset.desc || '';
-        const allergensCode = el.dataset.allergens || '';
+    function activateSearch() {
+        els.stickyNav.classList.add('search-active');
+        setTimeout(() => els.searchInput.focus(), 100);
+    }
+
+    function deactivateSearch() {
+        els.stickyNav.classList.remove('search-active');
+        els.searchInput.value = '';
+        els.searchInput.blur();
+        // Resetta visibilità
+        document.querySelectorAll('section').forEach(s => s.style.display = '');
+        document.querySelectorAll('.menu-item').forEach(i => i.style.display = '');
+        document.getElementById('no-results').style.display = 'none';
+    }
+
+    function openPopup(el) {
+        const name = el.dataset.name;
+        const desc = el.dataset.desc;
+        const rawRecipe = el.dataset.recipe;
+        const allergensCode = el.dataset.allergens;
         
         els.popup.querySelector('#popup-product-name').innerText = name;
-        els.popup.querySelector('#popup-product-description').innerText = desc;
+        els.popup.querySelector('#popup-product-description').innerText = desc || '';
         
+        // Allergeni (solo bevande, se presenti)
         const algDiv = document.getElementById('popup-allergens');
         const dict = I18N[currentLang];
         
@@ -239,46 +266,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(ALLERGEN_LABELS[c.trim()]) algText.push(ALLERGEN_LABELS[c.trim()]);
             });
             if(algText.length > 0) {
-                algDiv.innerHTML = `<strong>${dict.allergenPrefix}</strong> ` + algText.join(", ");
+                algDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> <strong>${dict.allergenPrefix}</strong> ` + algText.join(", ");
                 algDiv.style.display = 'block';
             } else { algDiv.style.display = 'none'; }
         } else { algDiv.style.display = 'none'; }
 
-        document.getElementById('toggle-prep-btn').style.display = 'none'; 
+        // Preparazione / Ricetta
+        const prepContainer = document.getElementById('popup-preparation-container');
+        const prepText = document.getElementById('popup-preparation-text');
+        const toggleBtn = document.getElementById('toggle-prep-btn');
+
+        if(rawRecipe) {
+            // Formatta la ricetta (sostituisci a capo con <br>)
+            // Il CSV usa --- per separare ingredienti e metodo, li uniamo per semplicità o li formattiamo
+            const formatted = rawRecipe.replace(/---/g, '<hr style="border:0; border-top:1px dashed #666; margin:10px 0;">').replace(/\n/g, '<br>');
+            prepText.innerHTML = formatted;
+            toggleBtn.style.display = 'block';
+            toggleBtn.innerHTML = `<i class="fas fa-chevron-down"></i> ${dict.detailsBtn}`;
+            prepContainer.style.display = 'none'; // Parte chiuso
+        } else {
+            toggleBtn.style.display = 'none';
+            prepContainer.style.display = 'none';
+        }
+
         els.popup.classList.add('visible');
     }
 
-    function openRecipeModal(el) {
-        const name = el.querySelector('.item-name').innerText;
-        const raw = el.dataset.recipe || '';
-        els.modal.querySelector('#modal-recipe-name').innerText = name;
-        
-        const ul = els.modal.querySelector('#modal-recipe-ingredients ul'); ul.innerHTML = '';
-        const divMeth = els.modal.querySelector('#modal-recipe-method'); divMeth.innerHTML = ''; 
-
-        if(raw) {
-            const parts = raw.split('---');
-            const linesIngr = (parts[0] || '').split('\n');
-            const linesMeth = (parts[1] || '').split('\n');
-            linesIngr.forEach(l => { if(l.trim() && !l.includes('INGREDIENTI')) { 
-                const li = document.createElement('li'); li.innerHTML = l.replace('-','').trim(); ul.appendChild(li); 
-            }});
-            linesMeth.forEach(l => { if(l.trim() && !l.includes('METODO')) { 
-                const p = document.createElement('p'); p.innerText = l.trim(); divMeth.appendChild(p); 
-            }});
-        }
-        els.modal.classList.add('visible');
-    }
-
-    function closeAll() {
+    function closePopup() {
         els.popup.classList.remove('visible');
-        els.modal.classList.remove('visible');
-        els.stickyNav.classList.remove('search-active');
     }
 
     function setSeasonalHeader() {
         const h = document.querySelector('header');
         const d = new Date(), m = d.getMonth(), day = d.getDate();
+        // Logica festività
         if ((m===11 && day>=8) || (m===0 && day<=6)) h.style.backgroundImage = "url('https://bar-menu.github.io/Nuovo-Natale.jpg')";
     }
 
