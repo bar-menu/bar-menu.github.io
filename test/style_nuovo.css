@@ -1,3 +1,4 @@
+
 :root {
     --bg-dark: #1a1a1a;
     --bg-light-section: #fdfdfd;
@@ -58,30 +59,64 @@ header h1 {
     white-space: nowrap; 
 }
 
-/* LINGUA */
+
+/* --- LINGUA (Stile Minimal Invisibile) --- */
 #lang-switch { 
-    position: absolute; top: 20px; right: 20px; z-index: 10; font-size: 0.9em; 
-    background-color: rgba(50, 50, 50, 0.6); 
-    backdrop-filter: blur(5px);
-    padding: 5px 10px;
-    border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: absolute; top: 25px; right: 20px; z-index: 10; 
+    font-size: 0.9em; 
+    /* Niente sfondo, niente bordi, solo testo puro */
+    background: transparent;
+    display: flex; align-items: center; gap: 5px;
 }
-.lang-btn { background: none; border: none; color: #aaa; padding: 0 5px; cursor: pointer; font-weight: 700; transition: color 0.3s; font-family: 'Inter', sans-serif; }
-.lang-btn.active { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
-.lang-separator { color: #888; margin: 0 2px; }
+
+.lang-btn { 
+    background: none; border: none; padding: 0; cursor: pointer; 
+    font-family: 'Inter', sans-serif; font-weight: 500; 
+    color: rgba(255, 255, 255, 0.5); /* Grigio spento per quella non attiva */
+    transition: color 0.3s; 
+}
+
+.lang-btn.active { 
+    color: #fff; /* Bianco sparato per quella attiva */
+    font-weight: 700; 
+    text-decoration: underline; 
+    text-underline-offset: 4px;
+}
+
+.lang-separator { 
+    color: rgba(255, 255, 255, 0.3); 
+    margin: 0 2px; 
+    font-weight: 300; 
+}
 
 section { 
     margin-bottom: 40px; background-color: var(--bg-light-section); 
     padding: 25px; border-radius: 8px; 
     box-shadow: 0 5px 15px rgba(0,0,0,0.15); color: var(--text-dark); 
 }
-section h2 { 
-    font-family: 'Merriweather', serif; font-size: 2.0em; color: var(--text-dark); 
-    margin-top: 0; margin-bottom: 25px; border-bottom: 1px solid var(--border-light); 
-    padding-bottom: 15px; font-weight: 700; 
-    display: flex; justify-content: space-between; align-items: baseline; 
+
+section h2 {
+    font-family: 'Merriweather', serif; 
+    font-size: 2.0em; 
+    color: var(--text-dark); 
+    
+    margin-top: 0; 
+    margin-bottom: 25px; 
+    border-bottom: 1px solid var(--border-light); 
+    padding-bottom: 15px; 
+    font-weight: 700; 
+    
+    /* MODIFICA PER CENTRATURA */
+    display: flex; 
+    align-items: center;      /* Allinea icona e testo verticalmente */
+    justify-content: center;  /* CENTRA tutto il blocco orizzontalmente */
+    gap: 10px;                /* Spazio fisso tra icona e testo */
+    text-align: center;       /* Sicurezza se il testo va a capo */
+    
+    letter-spacing: -0.5px;   /* Quel tocco elegante di prima */
+    text-transform: capitalize; 
 }
+
 
 ul { list-style: none; padding: 0; margin: 0; }
 li.menu-item { 
@@ -117,10 +152,18 @@ li.info-item { border-bottom: none; padding: 10px 0; flex-direction: column; ali
 li.info-item .item-name { font-size: 1.0em; color: #333; margin-bottom: 2px; width: 100%; }
 li.info-item .item-description { font-size: 0.9em; color: #666; margin-top: 0; line-height: 1.4; }
 
-/* --- NAVIGAZIONE STICKY --- */
+
+
+/* --- NAVIGAZIONE STICKY (Versione FIGA: Blur + X Centrata + Link Interi) --- */
 #quick-nav-mobile-sticky { 
     position: fixed; bottom: 0; left: 0; width: 100%; 
-    background-color: var(--sticky-nav-bg); backdrop-filter: blur(8px); 
+    
+    /* IL TOCCO DI CLASSE (BLUR) REINSERITO: */
+    background-color: rgba(40, 40, 40, 0.85); /* Semitrasparente */
+    backdrop-filter: blur(12px);              /* Sfocatura sfondo */
+    -webkit-backdrop-filter: blur(12px);      /* Sfocatura per iPhone */
+    border-top: 1px solid rgba(255,255,255,0.1); /* Righettina sottile sopra */
+    
     box-shadow: 0 -2px 10px rgba(0,0,0,0.2); z-index: 999; 
     display: flex; align-items: center; height: var(--sticky-nav-height); 
     overflow: hidden; padding: 0; 
@@ -128,9 +171,7 @@ li.info-item .item-description { font-size: 0.9em; color: #666; margin-top: 0; l
 
 #sticky-search-container { 
     display: flex; align-items: center; 
-    position: static; 
-    flex-shrink: 0;
-    height: 100%; 
+    position: static; flex-shrink: 0; height: 100%; 
     padding-left: 10px; 
 }
 
@@ -143,57 +184,55 @@ li.info-item .item-description { font-size: 0.9em; color: #666; margin-top: 0; l
     transition: color 0.2s ease; 
 }
 
-#sticky-search-input { 
-    width: 0; 
-    opacity: 0; 
-    visibility: hidden; 
-    border: none; 
-    background: transparent; 
-    color: var(--text-light); 
-    font-size: 16px; font-family: 'Inter', sans-serif; 
-    position: absolute; 
-    left: 20px; 
-    top: 50%; transform: translateY(-50%); 
-    z-index: 10; 
-    border-radius: 20px; 
-    height: 38px; 
-    outline: none;
-    padding: 0;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-/* Stato ATTIVO (Barra Grigia) */
-#quick-nav-mobile-sticky.search-active #sticky-search-input { 
-    width: calc(100vw - 20px); 
-    left: 10px !important; 
-    opacity: 1; 
-    visibility: visible; 
-    background: #333; 
-    padding: 0 15px 0 45px; 
-    box-sizing: border-box; 
-}
-
+/* X rossa centrata perfettamente */
 #quick-nav-mobile-sticky.search-active #sticky-search-trigger { 
     color: #d9534f; 
     position: absolute; 
     left: 10px; 
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 25;
 }
 #quick-nav-mobile-sticky.search-active #sticky-search-trigger i::before { content: "\f00d"; font-weight: 900; } 
+
+#sticky-search-input { 
+    width: 0; opacity: 0; visibility: hidden; border: none; 
+    background: transparent; color: var(--text-light); 
+    font-size: 16px; font-family: 'Inter', sans-serif; 
+    position: absolute; left: 20px; 
+    top: 50%; transform: translateY(-50%); 
+    z-index: 10; border-radius: 20px; height: 38px; outline: none; padding: 0;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#quick-nav-mobile-sticky.search-active #sticky-search-input { 
+    width: calc(100vw - 20px); left: 10px !important; opacity: 1; visibility: visible; 
+    background: #333; padding: 0 15px 0 45px; box-sizing: border-box; 
+}
+
 #quick-nav-mobile-sticky.search-active .sticky-nav-links-wrapper { opacity: 0; pointer-events: none; }
 
 .sticky-nav-links-wrapper { 
     flex-grow: 1; overflow-x: auto; white-space: nowrap; 
-    display: flex; align-items: center; margin-left: 5px; 
-    padding-right: 10px;
+    display: flex; align-items: center; margin-left: 5px; padding-right: 10px;
+    height: 100%; 
 }
 .sticky-nav-links-wrapper::-webkit-scrollbar { display: none; }
-#quick-nav-mobile-sticky ul { display: flex; gap: 15px; margin: 0; padding: 0; list-style: none; }
+
+#quick-nav-mobile-sticky ul { display: flex; gap: 10px; margin: 0; padding: 0; list-style: none; align-items: center; }
+
 #quick-nav-mobile-sticky a { 
     color: var(--sticky-nav-link-color); text-decoration: none; font-size: 0.9em; 
-    padding: 5px 8px; border-radius: 10px; transition: background-color 0.2s, color 0.2s; 
+    padding: 6px 12px; /* Margine interno per non tagliare il testo */
+    border-radius: 15px; 
+    transition: background-color 0.2s, color 0.2s; 
+    display: inline-flex; align-items: center; line-height: 1; 
 }
-#quick-nav-mobile-sticky a:hover { background-color: rgba(255,255,255,0.15); color: #fff; }
+#quick-nav-mobile-sticky a:hover, #quick-nav-mobile-sticky a:focus { 
+    background-color: rgba(255,255,255,0.15); color: #fff; 
+}
+
+
 
 footer { text-align: center; margin-top: 50px; padding: 25px 20px; border-top: 1px solid var(--border-dark); font-size: 0.85em; color: #999; }
 footer nav#quick-nav { margin: 0 0 30px 0; padding: 0 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 15px; }
@@ -285,3 +324,110 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
     -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; cursor: default;
 }
 .spirit-item:active { background-color: rgba(255,255,255,0.05); }
+
+
+
+/* --- ICONE SVG PRO (Tecnica Masking - Nomi Originali) --- */
+section h2::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+    vertical-align: middle;
+    background-color: #d9534f; /* IL TUO ROSSO */
+    
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
+
+/* --- ICONE SVG PRO (Nomi File REALI da Screenshot) --- */
+section h2::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+    vertical-align: middle;
+    background-color: #d9534f; /* IL TUO ROSSO */
+    
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
+
+/* --- ABBINAMENTI FILE --- */
+
+#caffetteria h2::before { 
+    -webkit-mask-image: url('icons/mug-hot.svg'); 
+    mask-image: url('icons/mug-hot.svg'); 
+}
+
+#infusi-cioccolate h2::before { 
+    -webkit-mask-image: url('icons/mug-tea-saucer.svg'); 
+    mask-image: url('icons/mug-tea-saucer.svg'); 
+}
+
+#bevande h2::before { 
+    -webkit-mask-image: url('icons/glass-water.svg'); 
+    mask-image: url('icons/glass-water.svg'); 
+}
+
+/* Spritz, Vini e Vermouth usano il calice di vino */
+#spritz h2::before, #vini h2::before, #vermouth h2::before { 
+    -webkit-mask-image: url('icons/wine-glass.svg'); 
+    mask-image: url('icons/wine-glass.svg'); 
+}
+
+#cocktails h2::before { 
+    -webkit-mask-image: url('icons/martini-glass-citrus.svg'); 
+    mask-image: url('icons/martini-glass-citrus.svg'); 
+}
+
+#franciacorta h2::before { 
+    -webkit-mask-image: url('icons/champagne.svg'); 
+    mask-image: url('icons/champagne.svg'); 
+}
+
+#birre h2::before { 
+    -webkit-mask-image: url('icons/beer-mug-empty.svg'); 
+    mask-image: url('icons/beer-mug-empty.svg'); 
+}
+
+#gin-tonic h2::before { 
+    -webkit-mask-image: url('icons/glass-citrus.svg'); 
+    mask-image: url('icons/glass-citrus.svg'); 
+}
+
+/* Rum, Whisky, Vodka, Amari usano il bicchiere con ghiaccio */
+#rum h2::before, #whisky h2::before, #vodka h2::before, #amari-e-liquori h2::before { 
+    -webkit-mask-image: url('icons/whiskey-glass-ice.svg'); 
+    mask-image: url('icons/whiskey-glass-ice.svg'); 
+}
+
+#brandy h2::before { 
+    -webkit-mask-image: url('icons/brandy.svg'); 
+    mask-image: url('icons/brandy.svg'); 
+}
+
+#grappe h2::before { 
+    -webkit-mask-image: url('icons/flask-round-potion.svg'); 
+    mask-image: url('icons/flask-round-potion.svg'); 
+}
+
+#panini-piadine h2::before { 
+    -webkit-mask-image: url('icons/burger-cheese.svg'); 
+    mask-image: url('icons/burger-cheese.svg'); 
+}
+
+#spuntini h2::before { 
+    -webkit-mask-image: url('icons/croissant.svg'); 
+    mask-image: url('icons/croissant.svg'); 
+}

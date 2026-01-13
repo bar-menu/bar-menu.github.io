@@ -37,11 +37,30 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const CSV_URL = 'menu_nuovo.csv'; 
+    const CSV_URL = 'menu_nuovo.csv?v=1.1'; 
     
     const I18N = {
         it: {
-            cats: { "Caffetteria":"Caffetteria", "Bevande":"Bevande", "Spritz":"Spritz & Co.", "Cocktails":"Cocktails", "Vini":"Vini", "Franciacorta":"Franciacorta", "Birre":"Birre", "Gin & Tonic":"Gin & Tonic", "Rum":"Rum", "Whisky":"Whisky", "Amari e Liquori":"Amari", "Grappe":"Grappe", "Vermouth":"Vermouth", "Vodka":"Vodka", "Brandy":"Brandy", "Spuntini":"Spuntini", "Panini & Piadine":"Panini & Piadine" },
+            cats: { 
+                "Caffetteria":"Caffetteria", 
+                "Infusi & Cioccolate":"Infusi & Cioccolate", 
+                "Bevande":"Bevande", 
+                "Spritz":"Spritz & Co.", 
+                "Cocktails":"Cocktails", 
+                "Vini":"Vini", 
+                "Franciacorta":"Franciacorta", 
+                "Birre":"Birre", 
+                "Gin & Tonic":"Gin & Tonic", 
+                "Rum":"Rum", 
+                "Whisky":"Whisky", 
+                "Amari e Liquori":"Amari", 
+                "Grappe":"Grappe", 
+                "Vermouth":"Vermouth", 
+                "Vodka":"Vodka", 
+                "Brandy":"Brandy", 
+                "Spuntini":"Spuntini", 
+                "Panini & Piadine":"Panini & Piadine" 
+            },
             paniniSub: "Componi il tuo panino o piadina!",
             detailsBtn: "Come si fa?",
             hideBtn: "Nascondi",
@@ -55,7 +74,26 @@ document.addEventListener('DOMContentLoaded', () => {
             prepTitle: "Preparazione / Dettagli:"
         },
         en: {
-            cats: { "Caffetteria":"Coffee", "Bevande":"Soft Drinks", "Spritz":"Spritz & Co.", "Cocktails":"Cocktails", "Vini":"Wines", "Franciacorta":"Sparkling", "Birre":"Beers", "Gin & Tonic":"Gin & Tonic", "Rum":"Rum", "Whisky":"Whisky", "Amari e Liquori":"Bitters & Liqueurs", "Grappe":"Grappa", "Vermouth":"Vermouth", "Vodka":"Vodka", "Brandy":"Brandy", "Spuntini":"Snacks", "Panini & Piadine":"Sandwiches" },
+            cats: { 
+                "Caffetteria":"Coffee", 
+                "Infusi & Cioccolate":"Tea & Chocolate", 
+                "Bevande":"Soft Drinks", 
+                "Spritz":"Spritz & Co.", 
+                "Cocktails":"Cocktails", 
+                "Vini":"Wines", 
+                "Franciacorta":"Sparkling", 
+                "Birre":"Beers", 
+                "Gin & Tonic":"Gin & Tonic", 
+                "Rum":"Rum", 
+                "Whisky":"Whisky", 
+                "Amari e Liquori":"Bitters & Liqueurs", 
+                "Grappe":"Grappa", 
+                "Vermouth":"Vermouth", 
+                "Vodka":"Vodka", 
+                "Brandy":"Brandy", 
+                "Spuntini":"Snacks", 
+                "Panini & Piadine":"Sandwiches" 
+            },
             paniniSub: "Build your own sandwich!",
             detailsBtn: "How is it made?",
             hideBtn: "Hide",
