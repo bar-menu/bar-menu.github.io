@@ -1,321 +1,434 @@
-        /* Stili Globali, Body, Main */
-        :root {
-            /* Variabili Stile Nuovo */
-            --bg-dark: #1a1a1a;
-            --bg-light-section: #fdfdfd;
-            --text-dark: #222;
-            --text-light: #e0e0e0;
-            --accent-color: #ccc; /* Usato per badge, toggle hover, etc */
-            --border-light: #eee;
-            --border-dark: #444;
-            /* Variabili Barra Mobile */
-            --sticky-nav-height: 55px;
-            --sticky-nav-bg: rgba(40, 40, 40, 0.95);
-            --sticky-nav-link-color: #e0e0e0;
-            --sticky-nav-link-hover-color: #ffffff;
-            --sticky-nav-bottom-margin: 15px; /* Margine sopra barra */
-            /* Variabili Popup STILE SANTOS */
-            --popup-bg: rgba(50, 50, 50, 0.96);
-            --popup-text: #e8e8e8;
-            --popup-title-color: #ffffff;
-            --popup-border: #666;
-            --popup-prep-title: #bdbdbd;
-            --popup-prep-text: #d0d0d0;
-            --popup-toggle-btn-color: #bdbdbd;
-            --popup-toggle-btn-hover: #ffffff;
-            --popup-close-btn-color: #e0e0e0;
-        }
 
-        html {
-            /* Scroll padding aggiornato per mobile */
-            scroll-padding-bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin) + 10px);
-            scroll-behavior: smooth;
-        }
+:root {
+    --bg-dark: #1a1a1a;
+    --bg-light-section: #fdfdfd;
+    --text-dark: #222;
+    --text-light: #e0e0e0;
+    --border-light: #eee;
+    --border-dark: #444;
+    
+    /* Barra Mobile */
+    --sticky-nav-height: 55px;
+    --sticky-nav-bg: rgba(50, 50, 50, 0.95);
+    --sticky-nav-link-color: #e0e0e0;
+    --sticky-nav-bottom-margin: 15px;
+    
+    /* Popup */
+    --popup-bg: rgba(50, 50, 50, 0.96);
+    --popup-text: #e8e8e8;
+    --popup-title-color: #ffffff;
+    --popup-border: #666;
+    --popup-prep-title: #bdbdbd;
+    --popup-prep-text: #d0d0d0;
+    --popup-toggle-btn-color: #bdbdbd;
+    --popup-toggle-btn-hover: #ffffff;
+    --popup-close-btn-color: #e0e0e0;
+}
 
-        body {
-            font-family: 'Open Sans', sans-serif;
-            margin: 0;
-            padding-top: 0;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.5;
-            font-size: 16px;
-            /* Padding bottom aggiornato per mobile */
-            padding-bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin));
-        }
+html { 
+    scroll-padding-bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin) + 10px); 
+    scroll-behavior: smooth; 
+}
 
-        main {
-            padding: 0 20px;
-        }
+body { 
+    font-family: 'Inter', sans-serif; 
+    margin: 0; 
+    background-color: var(--bg-dark); 
+    color: var(--text-light); 
+    line-height: 1.5; 
+    font-size: 16px; 
+    padding-bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin)); 
+}
 
-        /* Header e Titolo (Stile Nuovo) */
-        header { text-align: center; margin-bottom: 25px; padding-bottom: 30px; position: relative; width: 100%; border-bottom: none; overflow: hidden; min-height: 190px; z-index: 1; background-image: url('https://bar-menu.github.io/Nuovo-2.jpg'); background-size: cover; background-position: center 0; background-repeat: no-repeat; background-color: var(--bg-dark); }
-        header::after { content: ""; position: absolute; bottom: -1px; left: 0; width: 100%; height: 95%; background: linear-gradient(to bottom, rgba(26, 26, 26, 0.0) 0%, rgba(26, 26, 26, 0.9) 90%, var(--bg-dark) 99%); z-index: 0; }
-        header h1 { font-family: 'Poppins', sans-serif; font-size: 1.9em; color: var(--text-light); margin: 0; font-weight: 600; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 1; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); white-space: nowrap; }
+main { padding: 0 20px; }
 
-        /* Sezioni, Liste, Item (Stile Nuovo) */
-        section { margin-bottom: 40px; background-color: var(--bg-light-section); padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); color: var(--text-dark); display: block; }
-        section h2 {
-            font-family: 'Merriweather', serif;
-            font-size: 2.0em; /* Potrebbe essere necessario ridurre leggermente questo su mobile con media query */
-            color: var(--text-dark);
-            margin-top: 0;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--border-light);
-            padding-bottom: 15px;
-            font-weight: 700;
-            /* display: flex; è già qui */
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 10px; /* Aggiungi un piccolo gap tra titolo e prezzo */
-        }
-        
-        #cocktails h2 .section-title-text {
-            /* Prova ad aggiungere questo per evitare che il titolo si restringa eccessivamente */
-            flex-shrink: 0; /* Impedisce al titolo di restringersi */
-            /* Oppure un valore più basso di 1, es. flex-shrink: 0.5; se vuoi un po' di restringimento */
-            margin-right: auto; /* Spinge il prezzo a destra se il titolo non occupa tutto lo spazio rimanente */
-            /* white-space: nowrap; */ /* Usalo con cautela: se il titolo è troppo lungo per lo schermo, potrebbe strabordare */
-            overflow-wrap: break-word; /* Permette al testo di andare a capo per evitare overflow */
-            word-break: break-word; /* Alternativa per il wrap aggressivo */
-            min-width: 0; /* Importante in alcuni scenari flex per permettere il wrapping corretto */
-        }
-        
-        #cocktails h2 .section-main-price {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 0.7em; /* Considera di ridurlo ulteriormente per mobile se necessario */
-            font-weight: 400;
-            color: var(--text-dark);
-            white-space: nowrap; /* Impedisce al prezzo di andare a capo, solitamente desiderabile per i prezzi */
-            flex-shrink: 0; /* Impedisce al prezzo di restringersi */
-        }
-        ul { list-style: none; padding: 0; margin: 0; }
-        
-        li.menu-item { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--border-light); }
-        li.menu-item:hover:not(.spirit-item) { background-color: #f5f5f5; transition: background-color 0.2s ease-in-out; }
-        li.menu-item.spirit-item { cursor: pointer; }
-        li.menu-item.spirit-item:hover { background-color: #ededed; transition: background-color 0.2s ease-in-out; }
-        ul > li.menu-item:last-child:not(:has(~ *)) { border-bottom: none; }
-        ul > li.menu-item:has(+ h3) { border-bottom: 1px solid var(--border-light) !important; }
-        #panini-piadine ul > li.menu-item:last-child { border-bottom: 1px solid var(--border-light); }
-        .item-name { flex-grow: 1; padding-right: 15px; font-weight: 600; color: var(--text-dark); font-size: 1.1em; }
-        .item-price { color: var(--text-dark); white-space: nowrap; margin-left: auto; font-size: 1.0em; font-weight: 700; flex-shrink: 0; text-align: right; padding-left: 10px; }
-        .item-price-multi { display: flex; flex-direction: column; align-items: flex-end; color: var(--text-dark); font-weight: 700; font-size: 1.0em; white-space: nowrap; flex-shrink: 0; margin-left: auto; padding-left: 10px; }
-        .item-price-multi .item-price { font-weight: 700; margin-left: 0; padding: 2px 0; text-align: right; width: auto; }
-        .item-description, .item-description-vini { font-size: 0.88em; color: #666; flex-basis: 100%; margin-top: 5px; line-height: 1.4; padding-left: 0; }
-        .item-description-vini { font-size: 0.93em; }
-        .item-variations { flex-basis: 100%; margin-top: 6px; font-size: 0.9em; color: #444; font-weight: 600; line-height: 1.4; padding-left: 0; }
-        .item-variations + .item-description { margin-top: 2px; font-size: 0.85em; color: #666; font-weight: 400; }
-        #birre h3, #panini-piadine h3 { font-family: 'Merriweather', serif; font-size: 1.3em; color: #444; margin-top: 25px; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #ddd; font-weight: 700; }
-        #birre h3:first-of-type { margin-top: 0; }
-        #panini-piadine h3 { font-family: 'Open Sans', sans-serif; font-size: 1.1em; margin-bottom: 8px; color: #555; font-weight: 600; border-bottom: none; }
-        #vini ul li .item-name, #franciacorta ul li .item-name { font-weight: 600; font-size: 1.1em; }
-        #vini ul li, #franciacorta ul li { padding: 16px 0; }
-        #franciacorta ul li .item-description { font-size: 0.9em; color: #666; flex-basis: 100%; margin-top: 5px; line-height: 1.4; }
-        #panini-piadine p { font-size: 0.95em; color: #666; margin-bottom: 10px; line-height: 1.4; }
-        #gin-tonic li.item-description-footer { display: block; text-align: center; margin-top: 15px; border-bottom: none; padding: 10px 0 0 0; font-style: italic; flex-basis: 100%; color: #666; font-size: 0.88em; }
-        #gin-tonic li.item-description-footer:hover { background-color: transparent; }
-
-        /* Footer (Stile Nuovo) */
-        footer { text-align: center; margin-top: 50px; padding: 25px 20px; border-top: 1px solid var(--border-dark); font-size: 0.85em; color: #999; }
-        .footer-logo { display: block; max-width: 100px; height: auto; margin: 0 auto 20px auto; }
-        footer p { margin: 5px 0; }
-
-        /* --- Stili Navigazione Sticky Mobile (Stile Nuovo/Santos) --- */
-        #quick-nav-mobile-sticky { position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--sticky-nav-bg); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); z-index: 999; display: flex; align-items: stretch; height: var(--sticky-nav-height); overflow: hidden; }
-        #sticky-search-container { display: flex; align-items: center; flex-shrink: 0; padding: 0 5px 0 10px; position: relative; /* background-color: rgba(30, 30, 30, 0.8); */ }
-        #sticky-search-trigger { background: none; border: none; color: var(--sticky-nav-link-color); font-size: 1.2em; padding: 10px; margin: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; width: 40px; height: 100%; z-index: 2; }
-        #sticky-search-trigger i { transition: transform 0.3s ease; }
-        #sticky-search-input {
-            width: 0;
-            opacity: 0;
-            visibility: hidden;
-            padding: 0;
-            /* margin-left: 10px;  RIMOSSO */
-            border: none;
-            background-color: transparent;
-            height: calc(100% - 16px);
-            border-radius: 15px; /* O il tuo valore, es. 18px */
-            font-size: 1em;
-            color: var(--text-light);
-            outline: none;
-            box-sizing: border-box; /* Buona pratica aggiungerlo */
-            transition: width 0.35s ease, opacity 0.3s ease 0.1s, visibility 0s linear 0.35s,
-                        padding 0.35s ease, background-color 0.35s ease,
-                        left 0.35s ease; /* 'left' è già nella transizione */
-                        /* Rimuovi margin-left dalla transizione se non lo usi più */
-            position: absolute;
-            /* Invece di margin-left, sposta direttamente 'left' */
-            left: 16px!important; /* <<< QUI LA MODIFICA CHIAVE PER LO STATO BASE */
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1; /* Sotto il trigger (lente/X esterna) */
-        }
-        
-        #sticky-search-input::placeholder { color: rgba(224, 224, 224, 0.6); }
-        #quick-nav-mobile-sticky.search-active #sticky-search-input { width: calc(100vw - 32px); opacity: 1; visibility: visible; padding: 0 12px 0 40px; /* Aggiunto padding sinistro quando attivo */ /* margin-left: 0; */ background-color: rgba(60, 60, 60, 0.8); transition-delay: 0s, 0s, 0s, 0s, 0s, 0s; z-index: 1; /* Mantiene sotto icona? No, deve stare sopra */ left: 0; /* Assicura posizione */ }
-        #quick-nav-mobile-sticky.search-active #sticky-search-trigger { color: var(--accent-color); } /* Colore icona attiva */
-        #quick-nav-mobile-sticky.search-active #sticky-search-trigger i::before { content: "\f00d"; font-weight: 900; color: #e74c3c; } /* Cambia icona in X */
-        /* Nascondi links quando cerca */
-        #quick-nav-mobile-sticky.search-active .sticky-nav-links-wrapper { display: none; }
-
-        .sticky-nav-links-wrapper { flex-grow: 1; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; height: 100%; display: flex; align-items: center; }
-        .sticky-nav-links-wrapper::-webkit-scrollbar { display: none; }
-        #quick-nav-mobile-sticky ul { display: flex; gap: 15px; margin: 0; padding: 0 10px; width: max-content; height: 100%; align-items: center; list-style: none; }
-        #quick-nav-mobile-sticky li { display: inline-block; padding: 0; border: none; flex-shrink: 0; }
-        #quick-nav-mobile-sticky li:hover { background: none;}
-        #quick-nav-mobile-sticky a { font-size: 0.9em; color: var(--sticky-nav-link-color); padding: 5px 8px; border-radius: 10px; transition: background-color 0.2s ease, color 0.2s ease; text-decoration: none; display: inline-block; line-height: calc(var(--sticky-nav-height) - 10px); }
-        #quick-nav-mobile-sticky a:hover, #quick-nav-mobile-sticky a:focus { background-color: rgba(255, 255, 255, 0.15); color: #fff; outline: none; }
-
-        /* --- Stili Navigazione Rapida Footer (Stile Nuovo) --- */
-        #quick-nav { margin: 0 0 30px 0; padding: 0 10px; display: none; /* Visibile solo su desktop */ }
-        #quick-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
-        #quick-nav li { padding: 0; border-bottom: none; display: block; flex-grow: 0; flex-shrink: 0; }
-        #quick-nav li:hover { background-color: transparent; }
-        #quick-nav a { display: inline-block; padding: 3px 5px; color: #b0b0b0; text-decoration: none; font-size: 0.85em; font-weight: 400; transition: color 0.2s ease; white-space: nowrap; }
-        #quick-nav a:hover, #quick-nav a:focus { color: #fff; text-decoration: underline; outline: none; }
-
-        /* --- Stili Pop-up Descrizione (STILE SANTOS) --- */
-        #gin-description-popup {
-            position: fixed;
-            bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin)); /* Sopra barra mobile */
-            left: 15px; right: 15px;
-            margin-left: auto; margin-right: auto;
-            max-width: 450px;
-            transform: translateY(20px);
-            background-color: var(--popup-bg); /* Usa variabile */
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            color: var(--popup-text); /* Usa variabile */
-            border-radius: 8px;
-            padding: 22px;
-            padding-right: 48px;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.45);
-            z-index: 1100;
-            opacity: 0; visibility: hidden;
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s ease 0.3s;
-        }
-        #gin-description-popup.visible {
-            opacity: 1; visibility: visible;
-            transform: translateY(0);
-            transition-delay: 0s, 0s, 0s;
-        }
-        .popup-content { position: relative; }
-        #popup-product-name {
-            margin-top: 0; margin-bottom: 12px; /* Incrementato spazio sotto */
-            font-family: 'Poppins', sans-serif; /* O 'Merriweather' se preferito */
-            font-size: 1.25em;
-            color: var(--popup-title-color); /* Usa variabile */
-            border-bottom: 1px solid var(--popup-border); /* Usa variabile */
-            padding-bottom: 10px;
-            font-weight: 600;
-        }
-        #popup-product-description {
-            margin-bottom: 15px;
-            font-size: 0.95em;
-            line-height: 1.55;
-            color: var(--popup-text); /* Usa variabile */
-        }
-
-        /* Bottone Toggle Preparazione (Stile Santos) */
-        #toggle-prep-btn {
-            background: none; border: none; color: var(--popup-toggle-btn-color);
-            cursor: pointer; padding: 8px 0; font-size: 0.9em;
-            margin-top: 12px; margin-bottom: 0; display: none; /* Nascosto */
-            text-align: left; width: 100%; transition: color 0.2s ease;
-            font-weight: 600;
-        }
-        #toggle-prep-btn:hover { color: var(--popup-toggle-btn-hover); }
-        #toggle-prep-btn i { margin-right: 8px; transition: transform 0.3s ease; display: inline-block; width: 12px; text-align: center; }
-        #toggle-prep-btn.prep-shown i { transform: rotate(180deg); }
-
-        /* Contenitore Preparazione (Stile Santos) */
-        #popup-preparation-container {
-            margin-top: 15px; padding-top: 15px;
-            border-top: 1px dashed var(--popup-border); /* Usa variabile */
-            display: none; /* Nascosto */
-            background-color: rgba(0,0,0,0.1); /* Sfondo interno leggermente diverso */
-            padding: 15px;
-             margin-top: 10px; /* Spazio dal bottone */
-             border-radius: 4px;
-        }
-        #popup-preparation-container.prep-visible { display: block; } /* Mostrato */
-
-        #popup-preparation-container h5 {
-            margin-top: 0; margin-bottom: 10px; font-size: 0.85em;
-            color: var(--popup-prep-title); /* Usa variabile */
-            text-transform: uppercase; letter-spacing: 0.6px; display: block;
-            margin-right: 0; font-weight: 600;
-            /* border-bottom: 1px solid #555; padding-bottom: 5px; */ /* Rimosso bordo titolo interno */
-        }
-        #popup-preparation-text {
-            font-size: 0.9em; line-height: 1.5; color: var(--popup-prep-text); /* Usa variabile */
-            margin-bottom: 12px; /* Spazio prima del badge */
-        }
-        /* Badge posizionato alla fine (Stile Santos) */
-        .strength-badge {
-            display: none; /* Nascosto */
-            padding: 3px 8px; font-size: 0.75em; font-weight: 700;
-            border-radius: 4px; color: #fff; text-transform: uppercase;
-            margin-top: 10px; margin-bottom: 0; display: inline-block;
-            letter-spacing: 0.5px;
-        }
-        .strength-badge.strength-medio { background-color: #5cb85c; }
-        .strength-badge.strength-forte { background-color: #f0ad4e; }
-        .strength-badge.strength-molto-forte { background-color: #d9534f; }
-        .strength-badge.strength-medio-forte { background: linear-gradient(to right, #5cb85c 50%, #f0ad4e 50%); }
-
-        /* Bottone Chiusura Popup (Stile Santos) */
-        #popup-close-btn {
-            position: absolute; top: -10px; right: -28px; background: none; border: none;
-            color: var(--popup-close-btn-color); /* Usa variabile */
-            font-size: 2.7em; line-height: 1; cursor: pointer; padding: 5px;
-            opacity: 0.7; transition: opacity 0.2s ease, color 0.2s ease; font-weight: 300;
-        }
-        #popup-close-btn:hover { opacity: 1; color: #fff; }
-
-        /* Stile "Nessun Risultato" (Stile Nuovo) */
-        #no-results { text-align: center; color: var(--text-dark); min-height: 200px; padding: 40px 20px; border-radius: 8px; background-color: var(--bg-light-section); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); margin-bottom: 40px; display: none; flex-direction: column; justify-content: center; align-items: center; }
-        #no-results h2 { margin-bottom: 15px; font-family: 'Merriweather', serif; }
-        #no-results p { font-size: 1.1em; color: #555; max-width: 80%; }
-        #no-results strong { color: #d9534f; }
-        #no-results a { color: #007bff; text-decoration: underline; cursor: pointer; }
+header { 
+    text-align: center; margin-bottom: 25px; padding-bottom: 30px; 
+    position: relative; width: 100%; min-height: 190px; 
+    background-size: cover; background-position: center; background-repeat: no-repeat; 
+    background-image: url('https://bar-menu.github.io/Nuovo-2.jpg'); 
+}
+header::after { 
+    content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 95%; 
+    background: linear-gradient(to bottom, transparent 0%, rgba(26,26,26,0.9) 90%, var(--bg-dark) 99%); 
+}
+header h1 { 
+    font-family: 'Poppins', sans-serif; font-size: 1.9em; color: var(--text-light); 
+    margin: 0; font-weight: 600; position: absolute; bottom: 20px; left: 50%; 
+    transform: translateX(-50%); z-index: 1; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); 
+    white-space: nowrap; 
+}
 
 
-        /* --- MEDIA QUERY --- */
-        @media (min-width: 769px) {
-             /* Desktop: mostra ricerca desktop e nav footer, nascondi nav mobile */
-             #search-wrapper-desktop { display: flex; }
-             footer #quick-nav { display: flex; }
-             #quick-nav-mobile-sticky { display: none; }
+/* --- LINGUA (Stile Minimal Invisibile) --- */
+#lang-switch { 
+    position: absolute; top: 25px; right: 20px; z-index: 10; 
+    font-size: 0.9em; 
+    /* Niente sfondo, niente bordi, solo testo puro */
+    background: transparent;
+    display: flex; align-items: center; gap: 5px;
+}
 
-            /* Adatta padding body e posizione popup per desktop */
-            body {
-                /* Padding per icona ricerca desktop (se usi quella flottante) */
-                 /* padding-bottom: calc(var(--search-icon-size, 48px) + var(--search-bottom-offset, 20px) + 20px); */
-                 padding-bottom: 60px; /* O un padding fisso se non usi ricerca flottante desktop */
-            }
-            #gin-description-popup {
-                 /* Posiziona popup sopra icona ricerca desktop (se usi quella flottante) */
-                 /* bottom: calc(var(--search-icon-size, 48px) + var(--search-bottom-offset, 20px) + 15px); */
-                 bottom: 20px; /* Posizione fissa dal basso su desktop */
-            }
-            html {
-                 /* scroll-padding-bottom: calc(var(--search-icon-size, 48px) + var(--search-bottom-offset, 20px) + 10px); */
-                 scroll-padding-bottom: 80px; /* Padding scroll fisso desktop */
-            }
-        }
-         /* --- FINE MEDIA QUERY --- */
+.lang-btn { 
+    background: none; border: none; padding: 0; cursor: pointer; 
+    font-family: 'Inter', sans-serif; font-weight: 500; 
+    color: rgba(255, 255, 255, 0.5); /* Grigio spento per quella non attiva */
+    transition: color 0.3s; 
+}
+
+.lang-btn.active { 
+    color: #fff; /* Bianco sparato per quella attiva */
+    font-weight: 700; 
+    text-decoration: underline; 
+    text-underline-offset: 4px;
+}
+
+.lang-separator { 
+    color: rgba(255, 255, 255, 0.3); 
+    margin: 0 2px; 
+    font-weight: 300; 
+}
+
+section { 
+    margin-bottom: 40px; background-color: var(--bg-light-section); 
+    padding: 25px; border-radius: 8px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15); color: var(--text-dark); 
+}
+
+section h2 {
+    font-family: 'Merriweather', serif; 
+    font-size: 2.0em; 
+    color: var(--text-dark); 
+    
+    margin-top: 0; 
+    margin-bottom: 25px; 
+    border-bottom: 1px solid var(--border-light); 
+    padding-bottom: 15px; 
+    font-weight: 700; 
+    
+    /* MODIFICA PER CENTRATURA */
+    display: flex; 
+    align-items: center;      /* Allinea icona e testo verticalmente */
+    justify-content: center;  /* CENTRA tutto il blocco orizzontalmente */
+    gap: 10px;                /* Spazio fisso tra icona e testo */
+    text-align: center;       /* Sicurezza se il testo va a capo */
+    
+    letter-spacing: -0.5px;   /* Quel tocco elegante di prima */
+    text-transform: capitalize; 
+}
+
+
+ul { list-style: none; padding: 0; margin: 0; }
+li.menu-item { 
+    display: flex; justify-content: space-between; flex-wrap: wrap; 
+    align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--border-light); 
+    padding-right: 15px; 
+}
+li.menu-item:last-child { border-bottom: none; }
+li.menu-item:hover:not(.spirit-item) { background-color: #f5f5f5; transition: background-color 0.2s; }
+.spirit-item { cursor: pointer; }
+.spirit-item:hover { background-color: #ededed; transition: background-color 0.2s; }
+
+.item-name { flex-grow: 1; padding-right: 15px; font-weight: 600; color: var(--text-dark); font-size: 1.1em; }
+
+.item-price { 
+    color: var(--text-dark); white-space: nowrap; font-weight: 700; 
+    text-align: right; margin-left: auto; 
+}
+
+.item-price-multi { 
+    display: flex; flex-direction: column; align-items: flex-end; 
+    text-align: right; font-weight: 700; font-size: 0.9em; 
+    color: var(--text-dark); margin-left: auto; line-height: 1.3;
+}
+
+.item-description { 
+    display: block; width: 100%; font-size: 0.88em; color: #666; 
+    margin-top: 5px; line-height: 1.4; padding-left: 0;
+}
+
+/* Stile Panini */
+li.info-item { border-bottom: none; padding: 10px 0; flex-direction: column; align-items: flex-start; }
+li.info-item .item-name { font-size: 1.0em; color: #333; margin-bottom: 2px; width: 100%; }
+li.info-item .item-description { font-size: 0.9em; color: #666; margin-top: 0; line-height: 1.4; }
 
 
 
+/* --- NAVIGAZIONE STICKY (Versione FIGA: Blur + X Centrata + Link Interi) --- */
+#quick-nav-mobile-sticky { 
+    position: fixed; bottom: 0; left: 0; width: 100%; 
+    
+    /* IL TOCCO DI CLASSE (BLUR) REINSERITO: */
+    background-color: rgba(40, 40, 40, 0.85); /* Semitrasparente */
+    backdrop-filter: blur(12px);              /* Sfocatura sfondo */
+    -webkit-backdrop-filter: blur(12px);      /* Sfocatura per iPhone */
+    border-top: 1px solid rgba(255,255,255,0.1); /* Righettina sottile sopra */
+    
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.2); z-index: 999; 
+    display: flex; align-items: center; height: var(--sticky-nav-height); 
+    overflow: hidden; padding: 0; 
+}
+
+#sticky-search-container { 
+    display: flex; align-items: center; 
+    position: static; flex-shrink: 0; height: 100%; 
+    padding-left: 10px; 
+}
+
+#sticky-search-trigger { 
+    background: none; border: none; color: var(--sticky-nav-link-color); 
+    font-size: 1.2em; padding: 0; cursor: pointer; 
+    width: 40px; height: 40px; z-index: 20; 
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    transition: color 0.2s ease; 
+}
+
+/* X rossa centrata perfettamente */
+#quick-nav-mobile-sticky.search-active #sticky-search-trigger { 
+    color: #d9534f; 
+    position: absolute; 
+    left: 10px; 
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 25;
+}
+#quick-nav-mobile-sticky.search-active #sticky-search-trigger i::before { content: "\f00d"; font-weight: 900; } 
+
+#sticky-search-input { 
+    width: 0; opacity: 0; visibility: hidden; border: none; 
+    background: transparent; color: var(--text-light); 
+    font-size: 16px; font-family: 'Inter', sans-serif; 
+    position: absolute; left: 20px; 
+    top: 50%; transform: translateY(-50%); 
+    z-index: 10; border-radius: 20px; height: 38px; outline: none; padding: 0;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#quick-nav-mobile-sticky.search-active #sticky-search-input { 
+    width: calc(100vw - 20px); left: 10px !important; opacity: 1; visibility: visible; 
+    background: #333; padding: 0 15px 0 45px; box-sizing: border-box; 
+}
+
+#quick-nav-mobile-sticky.search-active .sticky-nav-links-wrapper { opacity: 0; pointer-events: none; }
+
+.sticky-nav-links-wrapper { 
+    flex-grow: 1; overflow-x: auto; white-space: nowrap; 
+    display: flex; align-items: center; margin-left: 5px; padding-right: 10px;
+    height: 100%; 
+}
+.sticky-nav-links-wrapper::-webkit-scrollbar { display: none; }
+
+#quick-nav-mobile-sticky ul { display: flex; gap: 10px; margin: 0; padding: 0; list-style: none; align-items: center; }
+
+#quick-nav-mobile-sticky a { 
+    color: var(--sticky-nav-link-color); text-decoration: none; font-size: 0.9em; 
+    padding: 6px 12px; /* Margine interno per non tagliare il testo */
+    border-radius: 15px; 
+    transition: background-color 0.2s, color 0.2s; 
+    display: inline-flex; align-items: center; line-height: 1; 
+}
+#quick-nav-mobile-sticky a:hover, #quick-nav-mobile-sticky a:focus { 
+    background-color: rgba(255,255,255,0.15); color: #fff; 
+}
 
 
-/* Aggiungi questo al tuo CSS */
-body.search-input-focused main {
-    /* Prova a forzare un'altezza minima quando l'input di ricerca è attivo.
-       Potrebbe essere necessario aggiustare questo valore.
-       L'idea è dare abbastanza contenuto scrollabile per tenere la barra sopra la tastiera. */
-    min-height: 90vh; /* O un valore più specifico se conosci l'altezza della tastiera */
+
+footer { text-align: center; margin-top: 50px; padding: 25px 20px; border-top: 1px solid var(--border-dark); font-size: 0.85em; color: #999; }
+footer nav#quick-nav { margin: 0 0 30px 0; padding: 0 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 15px; }
+footer nav#quick-nav a { display: inline-block; padding: 3px 5px; color: #b0b0b0; text-decoration: none; font-size: 0.9em; }
+footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
+
+/* POPUP */
+#gin-description-popup { 
+    position: fixed; 
+    bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin)); 
+    left: 15px; right: 15px; max-width: 450px; margin: auto; 
+    background-color: var(--popup-bg); color: var(--popup-text); 
+    border-radius: 8px; padding: 22px; padding-right: 35px;
+    z-index: 1100; opacity: 0; visibility: hidden; 
+    transform: translateY(20px); transition: all 0.3s ease; 
+    box-shadow: 0 6px 25px rgba(0,0,0,0.45); 
+    backdrop-filter: blur(6px);
+}
+#gin-description-popup.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.popup-content { position: relative; }
+
+#popup-product-name { 
+    color: var(--popup-title-color); border-bottom: 1px solid var(--popup-border); 
+    margin: 0 0 12px 0; padding-bottom: 10px; 
+    font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.25em; 
+    padding-right: 45px;
+}
+#popup-product-description { font-size: 0.95em; line-height: 1.55; margin-bottom: 15px; color: var(--popup-text); }
+
+/* X DI CHIUSURA (La tua versione custom) */
+#popup-close-btn { 
+    position: absolute; 
+    top: -24px;      
+    right: -16px; 
+    background: none; border: none; 
+    padding: 16px; 
+    margin: 0;
+    display: block; 
+    color: var(--popup-close-btn-color); 
+    font-family: 'Inter', sans-serif; 
+    font-size: 2.5rem; 
+    font-weight: 400; 
+    line-height: 1; 
+    cursor: pointer; opacity: 0.8; z-index: 100;
+}
+#popup-close-btn:hover { opacity: 1; color: #fff; }
+
+#toggle-prep-btn { 
+    background: none; border: none; color: var(--popup-toggle-btn-color); 
+    cursor: pointer; width: 100%; text-align: left; padding: 8px 0; font-size: 0.9em; font-weight: 600; 
+}
+#toggle-prep-btn:hover { color: var(--popup-toggle-btn-hover); }
+
+#popup-preparation-container {
+    margin-top: 10px; padding: 15px; border-radius: 4px;
+    border-top: 1px dashed var(--popup-border);
+    background-color: rgba(0,0,0,0.1); display: none;
+}
+#popup-preparation-container h5 { margin: 0 0 10px 0; color: var(--popup-prep-title); text-transform: uppercase; font-size: 0.85em; }
+#popup-preparation-text { font-size: 0.9em; color: var(--popup-prep-text); margin-bottom: 10px; }
+
+/* No Results */
+#no-results { display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 20px; min-height: 200px; }
+#no-results h2 { font-family: 'Merriweather', serif; font-size: 2em; margin-bottom: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 15px; width: 100%; text-align: center; display: block; }
+#no-results p { font-size: 1.1em; color: #555; margin: 5px 0; max-width: 80%; }
+#no-results strong { color: #d9534f; }
+#no-results a { color: #007bff; text-decoration: underline; cursor: pointer; }
+
+/* Badge Gradazione */
+.strength-badge {
+    display: inline-block; padding: 4px 10px; border-radius: 4px;
+    color: #fff; text-transform: uppercase; font-size: 0.75em; font-weight: 700;
+    margin-top: 10px; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background-color: #5bc0de;
+}
+.strength-leggero { background-color: #5bc0de; }
+.strength-medio { background-color: #5cb85c; }
+.strength-forte { background-color: #f0ad4e; }
+.strength-molto-forte { background-color: #d9534f; }
+.strength-percent { background-color: #5cb85c; } 
+
+/* Indicatore "i" elegante (Fix iPhone) */
+.spirit-item .item-name { position: static; padding-right: 0; }
+.spirit-item .item-name::after {
+    content: 'i'; font-family: 'Merriweather', serif; font-style: italic;
+    display: inline-block; margin-left: 8px; color: #d9534f;
+    font-size: 0.85em; font-weight: 700; opacity: 0.7; vertical-align: 1px;
+    padding-right: 5px; width: 10px; text-align: left;
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; cursor: default;
+}
+.spirit-item:active { background-color: rgba(255,255,255,0.05); }
+
+
+
+/* --- ICONE SVG PRO (Tecnica Masking - Nomi Originali) --- */
+section h2::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+    vertical-align: middle;
+    background-color: #d9534f; /* IL TUO ROSSO */
+    
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
+
+/* --- ICONE SVG PRO (Nomi File REALI da Screenshot) --- */
+section h2::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+    vertical-align: middle;
+    background-color: #d9534f; /* IL TUO ROSSO */
+    
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
+
+/* --- ABBINAMENTI FILE --- */
+
+#caffetteria h2::before { 
+    -webkit-mask-image: url('icons/mug-hot.svg'); 
+    mask-image: url('icons/mug-hot.svg'); 
+}
+
+/* Tè & Cioccolate diventa id="t-cioccolate" */
+#t-cioccolate h2::before { 
+    -webkit-mask-image: url('icons/mug-tea-saucer.svg'); 
+    mask-image: url('icons/mug-tea-saucer.svg'); 
+}
+
+#bevande h2::before { 
+    -webkit-mask-image: url('icons/glass-water.svg'); 
+    mask-image: url('icons/glass-water.svg'); 
+}
+
+/* Spritz, Vini e Vermouth usano il calice di vino */
+#spritz h2::before, #vini h2::before, #vermouth h2::before { 
+    -webkit-mask-image: url('icons/wine-glass.svg'); 
+    mask-image: url('icons/wine-glass.svg'); 
+}
+
+#cocktails h2::before { 
+    -webkit-mask-image: url('icons/martini-glass-citrus.svg'); 
+    mask-image: url('icons/martini-glass-citrus.svg'); 
+}
+
+#franciacorta h2::before { 
+    -webkit-mask-image: url('icons/champagne.svg'); 
+    mask-image: url('icons/champagne.svg'); 
+}
+
+#birre h2::before { 
+    -webkit-mask-image: url('icons/beer-mug-empty.svg'); 
+    mask-image: url('icons/beer-mug-empty.svg'); 
+}
+
+#gin-tonic h2::before { 
+    -webkit-mask-image: url('icons/glass-citrus.svg'); 
+    mask-image: url('icons/glass-citrus.svg'); 
+}
+
+/* Rum, Whisky, Vodka, Amari usano il bicchiere con ghiaccio */
+#rum h2::before, #whisky h2::before, #vodka h2::before, #amari-e-liquori h2::before { 
+    -webkit-mask-image: url('icons/whiskey-glass-ice.svg'); 
+    mask-image: url('icons/whiskey-glass-ice.svg'); 
+}
+
+#brandy h2::before { 
+    -webkit-mask-image: url('icons/brandy.svg'); 
+    mask-image: url('icons/brandy.svg'); 
+}
+
+#grappe h2::before { 
+    -webkit-mask-image: url('icons/flask-round-potion.svg'); 
+    mask-image: url('icons/flask-round-potion.svg'); 
+}
+
+#panini-piadine h2::before { 
+    -webkit-mask-image: url('icons/burger-cheese.svg'); 
+    mask-image: url('icons/burger-cheese.svg'); 
+}
+
+#spuntini h2::before { 
+    -webkit-mask-image: url('icons/croissant.svg'); 
+    mask-image: url('icons/croissant.svg'); 
 }

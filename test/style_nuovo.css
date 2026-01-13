@@ -370,7 +370,8 @@ section h2::before {
     mask-image: url('icons/mug-hot.svg'); 
 }
 
-#infusi-cioccolate h2::before { 
+/* Tè & Cioccolate diventa id="t-cioccolate" */
+#t-cioccolate h2::before { 
     -webkit-mask-image: url('icons/mug-tea-saucer.svg'); 
     mask-image: url('icons/mug-tea-saucer.svg'); 
 }

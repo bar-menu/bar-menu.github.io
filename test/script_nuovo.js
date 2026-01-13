@@ -37,13 +37,13 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const CSV_URL = 'menu_nuovo.csv?v=1.1'; 
+    const CSV_URL = 'menu_nuovo.csv'; 
     
     const I18N = {
         it: {
             cats: { 
                 "Caffetteria":"Caffetteria", 
-                "Infusi & Cioccolate":"Infusi & Cioccolate", 
+                "Tè & Cioccolate": "Tè & Cioccolate",
                 "Bevande":"Bevande", 
                 "Spritz":"Spritz & Co.", 
                 "Cocktails":"Cocktails", 
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             cats: { 
                 "Caffetteria":"Coffee", 
-                "Infusi & Cioccolate":"Tea & Chocolate", 
+                "Tè & Cioccolate": "Tea & Chocolate",
                 "Bevande":"Soft Drinks", 
                 "Spritz":"Spritz & Co.", 
                 "Cocktails":"Cocktails", 
@@ -269,6 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initEvents() {
+        // --- 1. GESTIONE SCROLL MENU ---
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', function(e) {
                 if(this.id === 'clear-search-link') return;
@@ -280,7 +281,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        // --- 2. GESTIONE RICERCA E TRACKING GOOGLE ---
         if(els.searchTrigger && els.searchInput) {
+            
+            // Attiva/Disattiva barra ricerca
             els.searchTrigger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 if(els.stickyNav.classList.contains('search-active')) {
@@ -290,11 +294,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
+            // Timer per non mandare 1000 eventi a Google mentre scrivi
+            let searchTimer;
+
+            // Logica mentre scrivi
             els.searchInput.addEventListener('input', () => {
                 const term = els.searchInput.value.toLowerCase().trim();
                 const dict = I18N[currentLang];
                 let found = false;
 
+                // Filtra le sezioni e i prodotti
                 document.querySelectorAll('section:not(#no-results)').forEach(sec => {
                     let hasVis = false;
                     sec.querySelectorAll('.menu-item').forEach(item => {
@@ -307,6 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if(hasVis) found = true;
                 });
 
+                // Gestione "Nessun Risultato"
                 if (!found && term.length > 0) {
                     els.noResultsSection.style.display = 'flex'; 
                     if(els.noResultsMsg) {
@@ -315,15 +325,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     els.noResultsSection.style.display = 'none';
                 }
+
+                // --- TRACKING GOOGLE ANALYTICS (DEBOUNCE 2 SECONDI) ---
+                clearTimeout(searchTimer); // Resetta il timer se l'utente sta ancora scrivendo
+                if(term.length > 2) { // Traccia solo se ha scritto almeno 3 lettere
+                    searchTimer = setTimeout(() => {
+                        if (typeof gtag === 'function') {
+                            gtag('event', 'search', { search_term: term });
+                            // console.log("Google Search Tracked: " + term); 
+                        }
+                    }, 2000); // Aspetta 2 secondi di pausa prima di inviare
+                }
+                // -----------------------------------------------------
             });
         }
 
+        // --- 3. GESTIONE CLICK POPUP (APERTURA) ---
         document.querySelector('main').addEventListener('click', (e) => {
             const item = e.target.closest('.spirit-item');
             if(item) openPopup(item);
         });
 
+        // --- 4. GESTIONE TASTI POPUP (CHIUSURA E INFO) ---
         document.getElementById('popup-close-btn').onclick = closePopup;
+        
         document.getElementById('toggle-prep-btn').onclick = function(e) {
             e.stopPropagation();
             const cont = document.getElementById('popup-preparation-container');
@@ -333,6 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.innerHTML = isVis ? `<i class="fas fa-chevron-down"></i> ${dict.detailsBtn}` : `<i class="fas fa-chevron-up"></i> ${dict.hideBtn}`;
         };
 
+        // --- 5. RESET RICERCA ---
         if(els.clearSearchLink) {
             els.clearSearchLink.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -340,7 +366,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-
     function activateSearch() {
         els.stickyNav.classList.add('search-active');
         setTimeout(() => els.searchInput.focus(), 100);
@@ -355,6 +380,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if(els.noResultsSection) els.noResultsSection.style.display = 'none';
     }
 
+
+
     function openPopup(el) {
         const name = el.dataset.name;
         const desc = el.dataset.desc;
@@ -368,6 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
         els.popup.querySelector('#popup-product-name').innerText = name;
         els.popup.querySelector('#popup-product-description').innerText = desc || '';
         
+        // Gestione Allergeni
         const algDiv = document.getElementById('popup-allergens');
         if(allergensCode) {
             let algText = [];
@@ -380,6 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else { algDiv.style.display = 'none'; }
         } else { algDiv.style.display = 'none'; }
 
+        // Gestione Preparazione e Badge
         const prepContainer = document.getElementById('popup-preparation-container');
         const prepText = document.getElementById('popup-preparation-text');
         const toggleBtn = document.getElementById('toggle-prep-btn');
@@ -408,6 +437,17 @@ document.addEventListener('DOMContentLoaded', () => {
             prepText.innerHTML = ''; 
             prepContainer.style.display = 'block'; 
         }
+
+        // --- GOOGLE ANALYTICS TRACKING ---
+        // Spara l'evento "visualizza_prodotto" a Google
+        if (typeof gtag === 'function') {
+            gtag('event', 'visualizza_prodotto', {
+                'event_category': 'Menu Interaction',
+                'event_label': name,
+                'value': 1
+            });
+        }
+        // --------------------------------
 
         els.popup.classList.add('visible');
     }

@@ -1,402 +1,466 @@
-// --- JAVASCRIPT ---
+/* 
+=========================================================================
+⚠️ MANUALE D'USO E REGOLE SACRE - NON MODIFICARE SENZA PERMESSO ⚠️
+=========================================================================
+
+1. STILE & DESIGN (CSS):
+   - Font: Sempre e solo 'Inter' (anche per le icone X).
+   - Barra Ricerca: "Pillola" grigia scura, X interna a sinistra. 
+     USARE `box-sizing: border-box` E padding precisi per non tagliarla a destra.
+   - Popup X: Ora è allineata.
+     Non usare Flexbox per centrarla, usa solo posizionamento assoluto.
+   - Fix iPhone: Le righe `li.menu-item` DEVONO avere `padding-right: 15px` 
+     altrimenti la "i" corsiva viene tagliata dal bordo schermo.
+
+2. CSV & DATI:
+   - "Descrizione_Lista": Testo che appare subito nel menu.
+   - "Descrizione_Popup": Testo lungo che appare solo cliccando.
+   - "Ricetta": Se vuota (es. Birre), il bottone "Come si fa" SPARISCE.
+   - "Titolo_Popup": Decide se scrivere "Preparazione", "Dettagli" o "Info".
+   - "Tipo": Se è 'info', formatta come Panini (titolo + lista grigia).
+   - "Grado": Accetta testo (Forte) o % esatte (5.0% Vol).
+
+3. INTERFACCIA UTENTE (JS):
+   - Indicatore click: La "i" è un pseudo-elemento ::after con `user-select: none`.
+     NON toccare questo parametro o torna l'artefatto blu quando selezioni il testo.
+   - Prezzi: 80 secco (senza .00), allineato a destra con margin-left: auto.
+   - Logica Vini/Franciacorta: Alcuni hanno descrizione in lista, altri no. 
+     Comanda il CSV (se la colonna è vuota, non stampa nulla).
+
+4. MANTENIMENTO:
+   - Quando modifichi il CSS o il JS, cambia sempre il numero di versione 
+     nell'HTML (es. style_nuovo.css?v=667) o l'iPhone non aggiorna un cazzo.
+
+=========================================================================
+*/
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    // Elementi Ricerca Sticky
-    const stickyNavBar = document.getElementById('quick-nav-mobile-sticky');
-    const stickySearchTrigger = document.getElementById('sticky-search-trigger');
-    const stickySearchInput = document.getElementById('sticky-search-input');
-    const stickyNavLinksWrapper = stickyNavBar?.querySelector('.sticky-nav-links-wrapper'); // Aggiornato per sicurezza
-
-    // Elementi Principali Pagina e Contenuto Menu
-    const headerElement = document.querySelector('header');
-    const mainElement = document.querySelector('main');
-    const allSections = mainElement?.querySelectorAll('section:not(#no-results)');
-    const noResultsSection = document.getElementById('no-results');
-    const noResultsTermSpan = document.getElementById('no-results-term');
-
-    // Elementi Popup Descrizione Dettagliata
-    const descriptionPopup = document.getElementById('gin-description-popup');
-    const popupContent = descriptionPopup?.querySelector('.popup-content');
-    const popupProductName = document.getElementById('popup-product-name');
-    const popupStrength = document.getElementById('popup-strength');
-    const popupProductDescription = document.getElementById('popup-product-description');
-    const popupPreparationContainer = document.getElementById('popup-preparation-container');
-    const popupPreparationText = document.getElementById('popup-preparation-text');
-    const togglePrepBtn = document.getElementById('toggle-prep-btn');
-    const popupCloseBtn = document.getElementById('popup-close-btn');
-
-    // Elementi Cliccabili per Aprire il Popup
-    const spiritItems = document.querySelectorAll('.spirit-item');
-
-    // --- URLs Immagini Header Stagionali ---
-    const headerImages = {
-        default: 'https://bar-menu.github.io/Nuovo-2.jpg',
-        christmas: 'https://bar-menu.github.io/Nuovo-Natale.jpg',
-        newYear: 'https://bar-menu.github.io/Nuovo-New-Year.jpg',
-        epiphany: 'https://bar-menu.github.io/Nuovo-Epifania.jpg',
-        valentine: 'https://bar-menu.github.io/Nuovo-Valentino.jpg',
-        ferragosto: 'https://bar-menu.github.io/Nuovo-Ferragosto.jpg'
+    const CSV_URL = 'menu_nuovo.csv'; 
+    
+    const I18N = {
+        it: {
+            cats: { 
+                "Caffetteria":"Caffetteria", 
+                "Tè & Cioccolate": "Tè & Cioccolate",
+                "Bevande":"Bevande", 
+                "Spritz":"Spritz & Co.", 
+                "Cocktails":"Cocktails", 
+                "Vini":"Vini", 
+                "Franciacorta":"Franciacorta", 
+                "Birre":"Birre", 
+                "Gin & Tonic":"Gin & Tonic", 
+                "Rum":"Rum", 
+                "Whisky":"Whisky", 
+                "Amari e Liquori":"Amari", 
+                "Grappe":"Grappe", 
+                "Vermouth":"Vermouth", 
+                "Vodka":"Vodka", 
+                "Brandy":"Brandy", 
+                "Spuntini":"Spuntini", 
+                "Panini & Piadine":"Panini & Piadine" 
+            },
+            paniniSub: "Componi il tuo panino o piadina!",
+            detailsBtn: "Come si fa?",
+            hideBtn: "Nascondi",
+            search: "Cerca...",
+            noResPart1: "Nessun risultato trovato per",
+            tryAgain: "Prova a cercare un altro termine o",
+            resetLink: "cancella la ricerca.",
+            service: "Servizio al tavolo incluso",
+            allergenDisclaimer: "Per allergie o intolleranze rivolgersi al personale.",
+            allergenPrefix: "Allergeni:",
+            prepTitle: "Preparazione / Dettagli:"
+        },
+        en: {
+            cats: { 
+                "Caffetteria":"Coffee", 
+                "Tè & Cioccolate": "Tea & Chocolate",
+                "Bevande":"Soft Drinks", 
+                "Spritz":"Spritz & Co.", 
+                "Cocktails":"Cocktails", 
+                "Vini":"Wines", 
+                "Franciacorta":"Sparkling", 
+                "Birre":"Beers", 
+                "Gin & Tonic":"Gin & Tonic", 
+                "Rum":"Rum", 
+                "Whisky":"Whisky", 
+                "Amari e Liquori":"Bitters & Liqueurs", 
+                "Grappe":"Grappa", 
+                "Vermouth":"Vermouth", 
+                "Vodka":"Vodka", 
+                "Brandy":"Brandy", 
+                "Spuntini":"Snacks", 
+                "Panini & Piadine":"Sandwiches" 
+            },
+            paniniSub: "Build your own sandwich!",
+            detailsBtn: "How is it made?",
+            hideBtn: "Hide",
+            search: "Search...",
+            noResPart1: "No results found for",
+            tryAgain: "Try another term or",
+            resetLink: "clear search.",
+            service: "Table service included",
+            allergenDisclaimer: "For allergies and intolerances please ask the staff.",
+            allergenPrefix: "Allergens:",
+            prepTitle: "Preparation / Details:"
+        }
     };
 
-    // --- INIZIALIZZAZIONE APP ---
-    function initializeApp() {
-        if (!mainElement || !allSections || !descriptionPopup || !popupProductName || !popupStrength || !popupProductDescription || !popupPreparationContainer || !popupPreparationText || !togglePrepBtn || !popupCloseBtn || !stickyNavBar || !stickySearchTrigger || !stickySearchInput || !stickyNavLinksWrapper) {
-            console.error("Errore: Elementi DOM essenziali (inclusi elementi popup e barra di navigazione/ricerca) non trovati. Script interrotto.");
-            if (!popupStrength) console.error("Elemento #popup-strength non trovato!");
-            if (!stickyNavBar) console.error("Elemento #quick-nav-mobile-sticky non trovato!");
-            // ... altri controlli specifici ...
-            return;
-        }
-        const menuIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#888888" d="M14 2.2C22.5-1.7 32.5-.3 39.6 5.8L80 40.4 120.4 5.8c9-7.7 22.3-7.7 31.2 0L192 40.4 232.4 5.8c9-7.7 22.3-7.7 31.2 0L304 40.4 344.4 5.8c7.1-6.1 17.1-7.5 25.6-3.6s14 12.4 14 21.8l0 464c0 9.4-5.5 17.9-14 21.8s-18.5 2.5-25.6-3.6L304 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L192 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L80 471.6 39.6 506.2c-7.1 6.1-17.1 7.5-25.6 3.6S0 497.4 0 488L0 24C0 14.6 5.5 6.1 14 2.2zM96 144c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 144zM80 352c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 336c-8.8 0-16 7.2-16 16zM96 240c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 240z"/></svg>`;
-        setSvgFavicon(menuIconSvg);
-        setSeasonalHeaderImage();
-        // if (searchInputDesktop) searchInputDesktop.value = ''; // Rimosso
-        if (stickySearchInput) stickySearchInput.value = '';
-        resetVisibility();
-        setupEventListeners();
-    }
+    const ALLERGEN_LABELS = { 'G': 'Glutine/Gluten', 'L': 'Lattosio/Lactose', 'V': 'Vegano/Vegan', 'N': 'Nocciole/Nuts', 'Soia': 'Soia/Soy' };
+    const CATEGORY_ORDER = Object.keys(I18N.it.cats);
+    
+    let currentLang = 'it';
+    let globalData = [];
 
-    // --- FUNZIONI UTILITY ---
-    function setSvgFavicon(svgString) {
-        const cleanSvgString = svgString.replace(/<!--.*?-->/gs, '');
-        try {
-            const encodedSvg = btoa(unescape(encodeURIComponent(cleanSvgString)));
-            const dataUri = `data:image/svg+xml;base64,${encodedSvg}`;
-            let faviconLink = document.querySelector("link[rel~='icon']");
-            if (!faviconLink) {
-                faviconLink = document.createElement('link');
-                faviconLink.rel = 'icon';
-                document.head.appendChild(faviconLink);
+    const els = {
+        container: document.getElementById('menu-container'),
+        mobileNavList: document.querySelector('#quick-nav-mobile-sticky ul'),
+        desktopNav: document.getElementById('quick-nav'),
+        loader: document.getElementById('loading-message'),
+        searchTrigger: document.getElementById('sticky-search-trigger'),
+        searchInput: document.getElementById('sticky-search-input'),
+        stickyNav: document.getElementById('quick-nav-mobile-sticky'),
+        popup: document.getElementById('gin-description-popup'),
+        clearSearchLink: document.getElementById('clear-search-link'),
+        noResultsSection: document.getElementById('no-results'),
+        noResultsMsg: document.getElementById('no-results-msg')
+    };
+
+    function init() {
+        setSeasonalHeader();
+        
+        if(els.popup && !document.getElementById('popup-strength')) {
+            const container = document.getElementById('popup-preparation-container');
+            if(container) {
+                const badge = document.createElement('span');
+                badge.id = 'popup-strength';
+                badge.className = 'strength-badge';
+                badge.style.display = 'none';
+                container.appendChild(badge);
             }
-            faviconLink.href = dataUri;
-            faviconLink.type = 'image/svg+xml';
-        } catch (e) {
-            console.error("Errore durante la codifica SVG per favicon:", e);
         }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => switchLanguage(e.target.dataset.lang));
+        });
+        Papa.parse(CSV_URL, {
+            download: true, header: true, skipEmptyLines: true,
+            complete: (res) => { globalData = res.data; buildMenu(); initEvents(); },
+            error: (err) => { console.error(err); els.loader.textContent = "Errore CSV."; }
+        });
     }
 
-    function setSeasonalHeaderImage() {
-        if (!headerElement || !headerImages) return;
-        const today = new Date();
-        const month = today.getMonth();
-        const day = today.getDate();
-        let imageUrl = headerImages.default;
-        if ((month === 11 && day >= 8) || (month === 0 && day <= 6)) {
-             if (month === 0 && day === 1) imageUrl = headerImages.newYear;
-             else if (month === 0 && day === 6) imageUrl = headerImages.epiphany;
-             else imageUrl = headerImages.christmas;
+    function switchLanguage(lang) {
+        currentLang = lang;
+        const dict = I18N[lang];
+        
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+        document.getElementById('footer-service').textContent = dict.service;
+        document.getElementById('footer-allergens').textContent = dict.allergenDisclaimer;
+        els.searchInput.placeholder = dict.search;
+        
+        if(els.clearSearchLink) els.clearSearchLink.textContent = dict.resetLink;
+        if(els.clearSearchLink && els.clearSearchLink.parentElement) {
+            els.clearSearchLink.parentElement.firstChild.textContent = dict.tryAgain + " ";
         }
-        else if (month === 1 && day === 14) { imageUrl = headerImages.valentine; }
-        else if (month === 7 && day === 15) { imageUrl = headerImages.ferragosto; }
-        headerElement.style.backgroundImage = `url('${imageUrl}')`;
+        
+        buildMenu();
     }
 
-    function resetVisibility() {
-         if (!allSections) return;
-         allSections.forEach(section => {
-             section.style.display = 'block';
-             // Includi h3 e p nella ricerca di elementi da mostrare/nascondere
-             const itemsInSection = section.querySelectorAll('.menu-item, .item-description-footer, h3, p');
-             itemsInSection.forEach(item => {
-                let displayStyle = 'flex'; // Default per .menu-item
-                if (item.classList.contains('item-description-footer') ||
-                    item.tagName.toLowerCase() === 'h3' ||
-                    item.tagName.toLowerCase() === 'p' ||
-                    item.closest('.simple-list') /* se hai una classe del genere */) {
-                    displayStyle = 'block';
-                }
-                item.style.display = displayStyle;
-             });
-         });
-         if (noResultsSection) noResultsSection.style.display = 'none';
+    function cleanText(text) {
+        if (!text) return '';
+        let cleaned = text.trim();
+        if (cleaned === '""' || cleaned === '"') return '';
+        return cleaned.replace(/\.$/, '');
     }
 
-    // --- GESTIONE SISTEMA DI RICERCA (Solo per barra sticky) ---
-    function activateSearch() { // Rimosso 'type'
-        hideDescriptionPopup();
-        // Rimuovi la parte desktop
-        // if (type === 'desktop' && searchWrapperDesktop && !searchWrapperDesktop.classList.contains('search-active')) { ... }
-        if (stickyNavBar && !stickyNavBar.classList.contains('search-active')) {
-             // deactivateSearch(false, 'desktop'); // Non più necessario
-             stickyNavBar.classList.add('search-active');
-             if (stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'none';
-             setTimeout(() => { if (stickySearchInput) stickySearchInput.focus(); }, 50);
-        }
-    }
+    function buildMenu() {
+        els.container.querySelectorAll('section:not(#no-results)').forEach(e => e.remove());
+        if(els.desktopNav) els.desktopNav.innerHTML = '';
+        if(els.mobileNavList) els.mobileNavList.innerHTML = '';
+        els.loader.style.display = 'none';
 
-    function deactivateSearch(resetSearch = true) { // Rimosso 'type'
-        let inputToClear = null;
-        let wasActive = false;
-        // Rimuovi la parte desktop
-        // if (type === 'desktop' && searchWrapperDesktop && searchWrapperDesktop.classList.contains('search-active')) { ... }
-        if (stickyNavBar && stickyNavBar.classList.contains('search-active')) {
-            stickyNavBar.classList.remove('search-active');
-            if (stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'flex'; // o 'block' a seconda del layout
-            if (stickySearchInput) stickySearchInput.blur();
-            inputToClear = stickySearchInput;
-            wasActive = true;
-        }
-        if (resetSearch && inputToClear) {
-            inputToClear.value = '';
-        }
-        if (resetSearch && wasActive) {
-             filterItemsAndSections(); // Rimosso 'type'
-        }
-    }
-
-    function filterItemsAndSections() { // Rimosso 'sourceType'
-        // const inputElement = (sourceType === 'desktop') ? searchInputDesktop : stickySearchInput; // Modificato
-        const inputElement = stickySearchInput;
-        if (!inputElement) return;
-
-        const searchTerm = inputElement.value.trim().toLowerCase();
-        const isSearchActive = searchTerm !== '';
-
-        if (!isSearchActive) {
-            resetVisibility();
-            if (stickyNavBar) stickyNavBar.classList.remove('search-active-results'); // Rimuovi classe se la ricerca è vuota
-            if (noResultsSection) noResultsSection.style.display = 'none';
-            return;
-        }
-        if (stickyNavBar) stickyNavBar.classList.add('search-active-results'); // Aggiungi una classe per indicare che ci sono risultati filtrati (opzionale)
-
-
-        let anyItemVisibleGlobal = false;
-        if (!allSections) return;
-
-        allSections.forEach(section => {
-            const sectionTitleElement = section.querySelector('h2');
-            const sectionTitleText = sectionTitleElement ? sectionTitleElement.textContent.trim().toLowerCase() : '';
-            const isSectionTitleMatch = sectionTitleText.includes(searchTerm);
-            let sectionHasVisibleItem = false;
-
-            // Includi h3 e p per il filtraggio del testo e per la loro visibilità
-            const itemsAndTextBlocksInSection = section.querySelectorAll('.menu-item, .item-description-footer, h3, p');
-
-            itemsAndTextBlocksInSection.forEach(element => {
-                let elementText = '';
-                let isMatch = false;
-
-                if (element.classList.contains('menu-item')) {
-                    const itemNameElement = element.querySelector('.item-name');
-                    const itemDescriptionElement = element.querySelector('.item-description:not(.item-description-footer):not(.item-variations), .item-description-vini');
-                    const itemVariationsElement = element.querySelector('.item-variations');
-
-                    if (itemNameElement) elementText += itemNameElement.textContent.toLowerCase() + ' ';
-                    if (itemDescriptionElement) elementText += itemDescriptionElement.textContent.toLowerCase() + ' ';
-                    if (itemVariationsElement) elementText += itemVariationsElement.textContent.toLowerCase() + ' ';
-
-                    const dataDesc = element.dataset.description ? element.dataset.description.toLowerCase() : '';
-                    if (dataDesc) elementText += dataDesc + ' ';
-                    const dataStrength = element.dataset.strength ? element.dataset.strength.toLowerCase() : '';
-                    if (dataStrength) elementText += dataStrength + ' ';
-                } else if (element.classList.contains('item-description-footer') || element.tagName.toLowerCase() === 'h3' || element.tagName.toLowerCase() === 'p') {
-                    elementText += element.textContent.toLowerCase();
-                }
-
-                isMatch = elementText.includes(searchTerm);
-
-                let displayStyle = 'flex'; // Default per .menu-item
-                if (element.classList.contains('item-description-footer') ||
-                    element.tagName.toLowerCase() === 'h3' ||
-                    element.tagName.toLowerCase() === 'p' ||
-                    element.closest('.simple-list')) {
-                    displayStyle = 'block';
-                }
-
-                const targetDisplay = isMatch ? displayStyle : 'none';
-                if (element.style.display !== targetDisplay) element.style.display = targetDisplay;
-
-                if (isMatch) sectionHasVisibleItem = true;
-            });
-
-            const shouldShowSection = isSectionTitleMatch || sectionHasVisibleItem;
-            const targetDisplaySection = shouldShowSection ? 'block' : 'none';
-            if (section.style.display !== targetDisplaySection) section.style.display = targetDisplaySection;
-            if (shouldShowSection) anyItemVisibleGlobal = true;
+        const dict = I18N[currentLang];
+        const grouped = {};
+        
+        globalData.forEach(row => {
+            const cat = row.Categoria ? row.Categoria.trim() : null;
+            if(!cat) return;
+            if(!grouped[cat]) grouped[cat] = [];
+            grouped[cat].push(row);
         });
 
-        const showNoResults = !anyItemVisibleGlobal;
-        if (showNoResults && noResultsSection) {
-            if (noResultsTermSpan) noResultsTermSpan.textContent = inputElement.value.trim();
-            noResultsSection.style.display = 'flex';
-        } else if (noResultsSection) {
-            noResultsSection.style.display = 'none';
-        }
+        const cats = Object.keys(grouped).sort((a,b) => {
+            let iA = CATEGORY_ORDER.indexOf(a), iB = CATEGORY_ORDER.indexOf(b);
+            return (iA===-1?999:iA) - (iB===-1?999:iB);
+        });
+
+        cats.forEach(catKey => {
+            const sec = document.createElement('section');
+            const id = catKey.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            sec.id = id;
+            
+            const displayTitle = dict.cats[catKey] || catKey;
+            let sub = "";
+            if(catKey.toLowerCase().includes('panini')) sub = `<p style="text-align:center;color:#666;margin-bottom:15px;">${dict.paniniSub}</p>`;
+            
+            sec.innerHTML = `<h2>${displayTitle}</h2>${sub}`;
+            const ul = document.createElement('ul');
+
+            grouped[catKey].forEach(row => {
+                const li = document.createElement('li');
+                li.className = 'menu-item';
+                
+                const nome = cleanText((currentLang === 'en' && row.Nome_EN) ? row.Nome_EN : row.Nome);
+                const descList = cleanText(row.Descrizione_Lista);
+                
+                let descContentForInfo = "";
+                if(row.Tipo === 'info') {
+                    descContentForInfo = cleanText((currentLang === 'en' && row.Descrizione_EN) ? row.Descrizione_EN : row.Descrizione_Popup);
+                }
+
+                const descPopup = cleanText((currentLang === 'en' && row.Descrizione_EN) ? row.Descrizione_EN : row.Descrizione_Popup);
+                const tipo = row.Tipo ? row.Tipo.trim().toLowerCase() : '';
+                const grado = row.Grado ? row.Grado.trim() : ''; 
+                const popupTitle = row.Titolo_Popup ? row.Titolo_Popup.trim() : "Dettagli"; 
+
+                const ignoreAllergens = (catKey.toLowerCase().includes('panini') || catKey.toLowerCase().includes('spuntini'));
+                const allergeni = ignoreAllergens ? '' : (row.Allergeni || '');
+
+                if(tipo === 'spirit' || tipo === 'recipe') li.classList.add('spirit-item');
+                
+                if(tipo === 'info') {
+                    li.classList.add('info-item');
+                    li.innerHTML = `<span class="item-name">${nome}</span><span class="item-description">${descContentForInfo}</span>`;
+                    ul.appendChild(li);
+                    return; 
+                }
+
+                li.dataset.name = nome; 
+                li.dataset.desc = descPopup; 
+                li.dataset.recipe = row.Ricetta || ''; 
+                li.dataset.allergens = allergeni; 
+                li.dataset.strength = grado; 
+                li.dataset.popuptitle = popupTitle; 
+
+                let prezzoHtml = `<span class="item-price">${row.Prezzo || ''}</span>`;
+                if(row.Prezzo && row.Prezzo.includes('|')) {
+                    prezzoHtml = `<span class="item-price-multi">` + row.Prezzo.split('|').map(p=>`<span class="item-price">${p.trim()}</span>`).join('') + `</span>`;
+                }
+
+                let descHtml = '';
+                if(descList) { 
+                    descHtml = `<span class="item-description">${descList}</span>`; 
+                }
+
+                li.innerHTML = `<span class="item-name">${nome}</span>${prezzoHtml}${descHtml}`;
+                ul.appendChild(li);
+            });
+            sec.appendChild(ul);
+            els.container.appendChild(sec);
+
+            const aDesk = document.createElement('a'); aDesk.href = `#${id}`; aDesk.textContent = displayTitle;
+            if(els.desktopNav) els.desktopNav.appendChild(aDesk);
+            const liMob = document.createElement('li'); liMob.innerHTML = `<a href="#${id}">${displayTitle}</a>`;
+            if(els.mobileNavList) els.mobileNavList.appendChild(liMob);
+        });
     }
 
-
-    // --- GESTIONE POPUP DETTAGLI PRODOTTO ---
-    function showDescriptionPopup(element) {
-         if (!descriptionPopup || !popupContent || !popupProductName || !popupStrength || !popupProductDescription || !popupPreparationContainer || !popupPreparationText || !togglePrepBtn) {
-             console.error("Elementi popup mancanti in showDescriptionPopup.");
-             return;
-         }
-
-        const name = element.querySelector('.item-name')?.textContent || 'Prodotto';
-        const description = element.dataset.description || 'Nessuna descrizione disponibile.';
-        const strength = element.dataset.strength;
-        const preparation = element.dataset.preparation;
-
-        popupProductName.textContent = name;
-        popupProductDescription.textContent = description;
-
-        if (preparation && popupPreparationContainer && popupPreparationText && togglePrepBtn) {
-            popupPreparationText.innerHTML = preparation.replace(/\n/g, '<br>'); // Usa innerHTML per <br>
-            togglePrepBtn.style.display = 'block';
-
-            if (strength && popupStrength) {
-                popupStrength.textContent = strength;
-                popupStrength.className = 'strength-badge';
-                const strengthClass = `strength-${strength.toLowerCase().replace(/[\s/]+/g, '-')}`;
-                popupStrength.classList.add(strengthClass);
-                popupStrength.style.display = 'inline-block';
-            } else if (popupStrength) {
-                popupStrength.style.display = 'none';
-            }
-
-            popupPreparationContainer.style.display = 'none'; // Nascosto di default
-            descriptionPopup.classList.remove('preparation-visible'); // Rimuovi classe
-            togglePrepBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Come si fa?';
-            togglePrepBtn.title = "Mostra preparazione";
-
-        } else {
-            if (togglePrepBtn) togglePrepBtn.style.display = 'none';
-            if (popupPreparationContainer) popupPreparationContainer.style.display = 'none';
-            if (popupStrength) popupStrength.style.display = 'none';
-            descriptionPopup.classList.remove('preparation-visible');
-        }
-        descriptionPopup.classList.add('visible');
-    }
-
-    function hideDescriptionPopup() {
-        if (!descriptionPopup) { return; }
-        descriptionPopup.classList.remove('visible');
-        descriptionPopup.classList.remove('preparation-visible');
-         if (popupPreparationContainer) popupPreparationContainer.style.display = 'none';
-         if (popupStrength) popupStrength.style.display = 'none';
-         if (togglePrepBtn) {
-             togglePrepBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Come si fa?';
-             togglePrepBtn.title = "Mostra preparazione";
-         }
-    }
-
-    function togglePreparationVisibility() {
-        if (!descriptionPopup || !popupPreparationContainer || !togglePrepBtn) return;
-        const isVisible = descriptionPopup.classList.toggle('preparation-visible');
-        if (isVisible) {
-            popupPreparationContainer.style.display = 'block';
-            togglePrepBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Nascondi preparazione';
-            togglePrepBtn.title = "Nascondi preparazione";
-        } else {
-            popupPreparationContainer.style.display = 'none';
-            togglePrepBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Come si fa?';
-            togglePrepBtn.title = "Mostra preparazione";
-        }
-    }
-
-    // --- COLLEGAMENTO DEGLI EVENT LISTENER ---
-    function setupEventListeners() {
-        // 1. Listener Quick Nav (Scroll)
-        document.querySelectorAll('#quick-nav a, #quick-nav-mobile-sticky ul a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+    function initEvents() {
+        // --- 1. GESTIONE SCROLL MENU ---
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                if(this.id === 'clear-search-link') return;
                 e.preventDefault();
-                // deactivateSearch(true, 'desktop'); // Rimosso
-                deactivateSearch(true); // Modificato
-                hideDescriptionPopup();
-                const targetId = this.getAttribute('href');
-                try {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        // Calcolo offset considerando l'altezza della barra sticky e un margine
-                        const stickyNavHeight = stickyNavBar ? stickyNavBar.offsetHeight : 55; // Prendi altezza reale o default
-                        const offsetMargin = 20; // Margine aggiuntivo
-                        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - stickyNavHeight - offsetMargin;
-                        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-                    } else {
-                         console.warn(`Elemento target non trovato per l'ancora: ${targetId}`);
-                    }
-                } catch (error) {
-                     console.error(`Errore nel selettore CSS per l'ancora ${targetId}:`, error);
-                }
+                deactivateSearch();
+                closePopup();
+                const t = document.querySelector(this.getAttribute('href'));
+                if(t) window.scrollTo({top: t.offsetTop - 60, behavior: 'smooth'});
             });
         });
 
-        // 2. Listener Popup Descrizione (su .spirit-item)
-        if (spiritItems.length > 0 && descriptionPopup && popupCloseBtn && togglePrepBtn && popupStrength) {
-             spiritItems.forEach(item => {
-                 item.addEventListener('click', (event) => {
-                     event.stopPropagation();
-                     showDescriptionPopup(item);
-                 });
-             });
-             popupCloseBtn.addEventListener('click', (event) => {
-                 event.stopPropagation();
-                 hideDescriptionPopup();
-             });
-             togglePrepBtn.addEventListener('click', (event) => {
-                 event.stopPropagation();
-                 togglePreparationVisibility();
-             });
-             descriptionPopup.addEventListener('click', (event) => {
-                 // Permetti click interni senza chiudere, eccetto se è il bottone chiudi o toggle
-                 if (event.target !== popupCloseBtn && event.target !== togglePrepBtn && !togglePrepBtn.contains(event.target)) {
-                    event.stopPropagation();
-                 }
-             });
-        } else {
-            console.warn("Funzionalità popup disabilitata. Verifica elementi essenziali: .spirit-item(s), #gin-description-popup, #popup-close-btn, #toggle-prep-btn, #popup-strength.");
-        }
-
-        // 3. Listener Ricerca Desktop (RIMOSSO o COMMENTATO)
-        // if (searchIconTriggerDesktop && searchWrapperDesktop && searchInputDesktop && searchInputContainerDesktop) { ... }
-
-        // 4. Listener Ricerca Mobile Sticky (ora Globale)
-        if (stickySearchTrigger && stickyNavBar && stickySearchInput) {
-            stickySearchTrigger.addEventListener('click', (event) => {
-                event.stopPropagation();
-                if (stickyNavBar.classList.contains('search-active')) {
-                    deactivateSearch(true); // Modificato
+        // --- 2. GESTIONE RICERCA E TRACKING GOOGLE ---
+        if(els.searchTrigger && els.searchInput) {
+            
+            // Attiva/Disattiva barra ricerca
+            els.searchTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if(els.stickyNav.classList.contains('search-active')) {
+                    deactivateSearch();
                 } else {
-                    activateSearch(); // Modificato
+                    activateSearch();
                 }
             });
-            stickySearchInput.addEventListener('input', () => filterItemsAndSections()); // Modificato
-            stickySearchInput.addEventListener('click', (event) => {
-                 event.stopPropagation();
+
+            // Timer per non mandare 1000 eventi a Google mentre scrivi
+            let searchTimer;
+
+            // Logica mentre scrivi
+            els.searchInput.addEventListener('input', () => {
+                const term = els.searchInput.value.toLowerCase().trim();
+                const dict = I18N[currentLang];
+                let found = false;
+
+                // Filtra le sezioni e i prodotti
+                document.querySelectorAll('section:not(#no-results)').forEach(sec => {
+                    let hasVis = false;
+                    sec.querySelectorAll('.menu-item').forEach(item => {
+                        const text = (item.innerText + " " + (item.dataset.desc||"")).toLowerCase();
+                        const vis = text.includes(term);
+                        item.style.display = vis ? 'flex' : 'none';
+                        if(vis) hasVis = true;
+                    });
+                    sec.style.display = hasVis ? 'block' : 'none';
+                    if(hasVis) found = true;
+                });
+
+                // Gestione "Nessun Risultato"
+                if (!found && term.length > 0) {
+                    els.noResultsSection.style.display = 'flex'; 
+                    if(els.noResultsMsg) {
+                        els.noResultsMsg.innerHTML = `${dict.noResPart1} "<strong style="color:#d9534f;">${els.searchInput.value}</strong>".`;
+                    }
+                } else {
+                    els.noResultsSection.style.display = 'none';
+                }
+
+                // --- TRACKING GOOGLE ANALYTICS (DEBOUNCE 2 SECONDI) ---
+                clearTimeout(searchTimer); // Resetta il timer se l'utente sta ancora scrivendo
+                if(term.length > 2) { // Traccia solo se ha scritto almeno 3 lettere
+                    searchTimer = setTimeout(() => {
+                        if (typeof gtag === 'function') {
+                            gtag('event', 'search', { search_term: term });
+                            // console.log("Google Search Tracked: " + term); 
+                        }
+                    }, 2000); // Aspetta 2 secondi di pausa prima di inviare
+                }
+                // -----------------------------------------------------
             });
         }
 
-         // 5. Listener Globale (Document) per chiudere cliccando fuori
-         document.addEventListener('click', (event) => {
-             // Rimuovi parte desktop
-             // if (searchWrapperDesktop && searchWrapperDesktop.classList.contains('search-active') && !searchWrapperDesktop.contains(event.target)) { ... }
+        // --- 3. GESTIONE CLICK POPUP (APERTURA) ---
+        document.querySelector('main').addEventListener('click', (e) => {
+            const item = e.target.closest('.spirit-item');
+            if(item) openPopup(item);
+        });
 
-             if (stickyNavBar && stickyNavBar.classList.contains('search-active') && !stickyNavBar.contains(event.target)) {
-                 deactivateSearch(false); // Modificato, non resettare il testo della ricerca cliccando fuori
-             }
-             if (descriptionPopup && descriptionPopup.classList.contains('visible') && !descriptionPopup.contains(event.target) && !event.target.closest('.spirit-item')) {
-                 hideDescriptionPopup();
-             }
-         });
+        // --- 4. GESTIONE TASTI POPUP (CHIUSURA E INFO) ---
+        document.getElementById('popup-close-btn').onclick = closePopup;
+        
+        document.getElementById('toggle-prep-btn').onclick = function(e) {
+            e.stopPropagation();
+            const cont = document.getElementById('popup-preparation-container');
+            const isVis = cont.style.display === 'block';
+            cont.style.display = isVis ? 'none' : 'block';
+            const dict = I18N[currentLang];
+            this.innerHTML = isVis ? `<i class="fas fa-chevron-down"></i> ${dict.detailsBtn}` : `<i class="fas fa-chevron-up"></i> ${dict.hideBtn}`;
+        };
 
-        // 6. Listener per il link "cancella ricerca" in #no-results (se lo aggiungi)
-        const clearSearchLink = document.getElementById('clear-search-link'); // Assicurati che esista nell'HTML
-        if (clearSearchLink && noResultsSection) {
-            clearSearchLink.addEventListener('click', (event) => {
-                event.preventDefault();
-                if (stickySearchInput) stickySearchInput.value = '';
-                filterItemsAndSections(); // Riesegui filtro (mostrerà tutto)
-                if(stickyNavBar) stickyNavBar.classList.remove('search-active'); // Chiudi interfaccia ricerca
-                if(stickyNavLinksWrapper) stickyNavLinksWrapper.style.display = 'flex'; // Mostra link nav
-                if (noResultsSection) noResultsSection.style.display = 'none'; // Nascondi "nessun risultato"
+        // --- 5. RESET RICERCA ---
+        if(els.clearSearchLink) {
+            els.clearSearchLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                deactivateSearch();
             });
         }
+    }
+    function activateSearch() {
+        els.stickyNav.classList.add('search-active');
+        setTimeout(() => els.searchInput.focus(), 100);
+    }
 
-    } // Fine setupEventListeners
+    function deactivateSearch() {
+        els.stickyNav.classList.remove('search-active');
+        els.searchInput.value = '';
+        els.searchInput.blur();
+        document.querySelectorAll('section').forEach(s => s.style.display = '');
+        document.querySelectorAll('.menu-item').forEach(i => i.style.display = '');
+        if(els.noResultsSection) els.noResultsSection.style.display = 'none';
+    }
 
-    // --- ESECUZIONE INIZIALE ---
-    initializeApp();
 
-}); // Fine DOMContentLoaded wrapper
+
+    function openPopup(el) {
+        const name = el.dataset.name;
+        const desc = el.dataset.desc;
+        const rawRecipe = el.dataset.recipe; 
+        const allergensCode = el.dataset.allergens;
+        const strength = el.dataset.strength; 
+        const popupTitleText = el.dataset.popuptitle; 
+        
+        const dict = I18N[currentLang];
+
+        els.popup.querySelector('#popup-product-name').innerText = name;
+        els.popup.querySelector('#popup-product-description').innerText = desc || '';
+        
+        // Gestione Allergeni
+        const algDiv = document.getElementById('popup-allergens');
+        if(allergensCode) {
+            let algText = [];
+            allergensCode.split(/[,\s]+/).forEach(c => {
+                if(ALLERGEN_LABELS[c.trim()]) algText.push(ALLERGEN_LABELS[c.trim()]);
+            });
+            if(algText.length > 0) {
+                algDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> <strong>${dict.allergenPrefix}</strong> ` + algText.join(", ");
+                algDiv.style.display = 'block';
+            } else { algDiv.style.display = 'none'; }
+        } else { algDiv.style.display = 'none'; }
+
+        // Gestione Preparazione e Badge
+        const prepContainer = document.getElementById('popup-preparation-container');
+        const prepText = document.getElementById('popup-preparation-text');
+        const toggleBtn = document.getElementById('toggle-prep-btn');
+        const strengthBadge = document.getElementById('popup-strength');
+
+        const prepTitle = prepContainer.querySelector('h5');
+        if(prepTitle) prepTitle.textContent = popupTitleText;
+
+        toggleBtn.style.display = 'none';
+        prepContainer.style.display = 'none';
+
+        if(strength && strengthBadge) {
+            strengthBadge.textContent = strength;
+            const cleanClass = strength.trim().toLowerCase().replace(/[\s%]+/g, '-');
+            strengthBadge.className = `strength-badge strength-${cleanClass}`;
+            strengthBadge.style.display = 'inline-block';
+        } else if(strengthBadge) {
+            strengthBadge.style.display = 'none';
+        }
+
+        if(rawRecipe) {
+            prepText.innerHTML = rawRecipe; 
+            toggleBtn.style.display = 'block';
+            toggleBtn.innerHTML = `<i class="fas fa-chevron-down"></i> ${dict.detailsBtn}`;
+        } else if (strength) {
+            prepText.innerHTML = ''; 
+            prepContainer.style.display = 'block'; 
+        }
+
+        // --- GOOGLE ANALYTICS TRACKING ---
+        // Spara l'evento "visualizza_prodotto" a Google
+        if (typeof gtag === 'function') {
+            gtag('event', 'visualizza_prodotto', {
+                'event_category': 'Menu Interaction',
+                'event_label': name,
+                'value': 1
+            });
+        }
+        // --------------------------------
+
+        els.popup.classList.add('visible');
+    }
+
+    function closePopup() {
+        els.popup.classList.remove('visible');
+    }
+
+    function setSeasonalHeader() {
+        const h = document.querySelector('header');
+        const d = new Date(), m = d.getMonth(), day = d.getDate();
+        if ((m===11 && day>=8) || (m===0 && day<=6)) h.style.backgroundImage = "url('https://bar-menu.github.io/Nuovo-Natale.jpg')";
+    }
+
+    init();
+});
