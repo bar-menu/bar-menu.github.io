@@ -432,3 +432,77 @@ section h2::before {
     -webkit-mask-image: url('icons/croissant.svg'); 
     mask-image: url('icons/croissant.svg'); 
 }
+
+/* =========================================
+   STILE DI STAMPA (Cartaceo)
+   Si attiva solo quando fai Ctrl+P
+   ========================================= */
+@media print {
+    /* Reset generale: Sfondo bianco, testo nero (risparmia cartuccia!) */
+    body {
+        background-color: #fff !important;
+        color: #000 !important;
+        padding-bottom: 0 !important; /* Via lo spazio per la sticky nav */
+    }
+
+    /* NASCONDI COSE INUTILI SU CARTA */
+    #quick-nav-mobile-sticky, /* Barra in basso */
+    #lang-switch,             /* Tasti lingua */
+    #sticky-search-trigger,   /* Lente ricerca */
+    footer nav,               /* Link footer */
+    .lang-btn {               /* Bottoni lingua */
+        display: none !important;
+    }
+
+    /* HEADER: Semplifichiamo per la stampa */
+    header {
+        background-image: none !important; /* Via la foto di sfondo */
+        min-height: auto !important;
+        padding-bottom: 10px !important;
+        margin-bottom: 20px !important;
+        border-bottom: 2px solid #000;
+    }
+    
+    header h1 {
+        position: static !important; /* Non più assoluto */
+        transform: none !important;
+        color: #000 !important;
+        text-shadow: none !important; /* Via l'ombra che sgrana */
+        margin-bottom: 0 !important;
+    }
+
+    /* SEZIONI: Via ombre, Tieni bordi */
+    section {
+        box-shadow: none !important;    /* L'ombra stampata fa schifo */
+        border: 1px solid #000 !important; /* Bordo nero netto */
+        page-break-inside: avoid;       /* Cerca di non tagliare le sezioni a metà pagina */
+        margin-bottom: 15px !important;
+        background-color: #fff !important;
+    }
+
+    /* TESTI: Nero assoluto per leggibilità */
+    h2, .item-name, .item-price, .item-description, p {
+        color: #000 !important;
+    }
+
+    section h2::before {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    
+    /* Se le vuoi NERE per risparmiare colore, togli il commento alla riga sotto: */
+    /* background-color: #000 !important; */
+    }
+
+    /* Titoli sezioni: meno spazio */
+    section h2 {
+        border-bottom: 1px solid #ccc !important;
+        padding-bottom: 10px !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* Link: toglie la sottolineatura blu se c'è */
+    a {
+        text-decoration: none !important;
+        color: #000 !important;
+    }
+}
