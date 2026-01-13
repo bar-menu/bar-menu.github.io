@@ -1,20 +1,18 @@
 :root {
-    /* Colori Base */
     --bg-dark: #1a1a1a;
     --bg-light-section: #fdfdfd;
     --text-dark: #222;
     --text-light: #e0e0e0;
-    --accent-color: #ccc;
     --border-light: #eee;
     --border-dark: #444;
     
-    /* Barra Mobile (Originale) */
+    /* Barra Mobile */
     --sticky-nav-height: 55px;
     --sticky-nav-bg: rgba(40, 40, 40, 0.95);
     --sticky-nav-link-color: #e0e0e0;
     --sticky-nav-bottom-margin: 15px;
     
-    /* Popup (Stile Santos) */
+    /* Popup */
     --popup-bg: rgba(50, 50, 50, 0.96);
     --popup-text: #e8e8e8;
     --popup-title-color: #ffffff;
@@ -32,7 +30,7 @@ html {
 }
 
 body { 
-    font-family: 'Inter', sans-serif; /* L'unica cosa nuova che volevi */
+    font-family: 'Inter', sans-serif; 
     margin: 0; 
     background-color: var(--bg-dark); 
     color: var(--text-light); 
@@ -43,7 +41,6 @@ body {
 
 main { padding: 0 20px; }
 
-/* Header */
 header { 
     text-align: center; margin-bottom: 25px; padding-bottom: 30px; 
     position: relative; width: 100%; min-height: 190px; 
@@ -61,13 +58,11 @@ header h1 {
     white-space: nowrap; 
 }
 
-/* Lingua */
 #lang-switch { position: absolute; top: 20px; right: 20px; z-index: 10; font-size: 0.9em; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
 .lang-btn { background: none; border: none; color: #888; padding: 5px; cursor: pointer; font-weight: 700; transition: color 0.3s; font-family: 'Inter', sans-serif; }
 .lang-btn.active { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 .lang-separator { color: #888; margin: 0 2px; }
 
-/* Sezioni */
 section { 
     margin-bottom: 40px; background-color: var(--bg-light-section); 
     padding: 25px; border-radius: 8px; 
@@ -86,92 +81,194 @@ li.menu-item {
     align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--border-light); 
 }
 li.menu-item:last-child { border-bottom: none; }
-
-/* Hover effects come l'originale */
 li.menu-item:hover:not(.spirit-item) { background-color: #f5f5f5; transition: background-color 0.2s; }
 .spirit-item { cursor: pointer; }
 .spirit-item:hover { background-color: #ededed; transition: background-color 0.2s; }
 
 .item-name { flex-grow: 1; padding-right: 15px; font-weight: 600; color: var(--text-dark); font-size: 1.1em; }
-.item-price { color: var(--text-dark); white-space: nowrap; font-weight: 700; text-align: right; }
-.item-price-multi { display: flex; flex-direction: column; text-align: right; font-weight: 700; font-size: 0.9em; color: var(--text-dark); }
-.item-description { 
-    display: block; width: 100%; font-size: 0.88em; color: #666; 
-    margin-top: 5px; line-height: 1.4; padding-left: 0; font-style: normal; /* Rimesso normale come l'originale */
+
+.item-price { 
+    color: var(--text-dark); white-space: nowrap; font-weight: 700; 
+    text-align: right; margin-left: auto; 
 }
 
-/* Navigazione Sticky Mobile (Logica Originale ripristinata) */
+.item-price-multi { 
+    display: flex; flex-direction: column; align-items: flex-end; 
+    text-align: right; font-weight: 700; font-size: 0.9em; 
+    color: var(--text-dark); margin-left: auto; line-height: 1.3;
+}
+
+.item-description { 
+    display: block; width: 100%; font-size: 0.88em; color: #666; 
+    margin-top: 5px; line-height: 1.4; padding-left: 0;
+}
+
+/* --- STILE SPECIALE PER LISTE INGREDIENTI (Panini/Info) --- */
+li.info-item {
+    border-bottom: none; /* Nessuna riga sotto */
+    padding: 10px 0;
+    flex-direction: column; /* Impila verticale */
+    align-items: flex-start;
+}
+li.info-item .item-name {
+    font-size: 1.0em;
+    color: #333;
+    margin-bottom: 2px;
+    width: 100%;
+}
+li.info-item .item-description {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 0;
+    line-height: 1.4;
+}
+
+/* --- NAVIGAZIONE STICKY (Barra Ricerca Pillola Perfetta) --- */
 #quick-nav-mobile-sticky { 
     position: fixed; bottom: 0; left: 0; width: 100%; 
     background-color: var(--sticky-nav-bg); backdrop-filter: blur(8px); 
     box-shadow: 0 -2px 10px rgba(0,0,0,0.2); z-index: 999; 
-    display: flex; align-items: stretch; height: var(--sticky-nav-height); 
-    overflow: hidden;
+    display: flex; align-items: center; height: var(--sticky-nav-height); 
+    overflow: hidden; padding: 0; /* Padding gestito internamente */
 }
-#sticky-search-container { display: flex; align-items: center; padding: 0 5px 0 10px; position: relative; flex-shrink: 0; }
+
+#sticky-search-container { 
+    display: flex; align-items: center; 
+    position: static; 
+    flex-shrink: 0;
+    height: 100%; 
+    padding-left: 10px; /* Spazio base per la lente */
+}
+
 #sticky-search-trigger { 
     background: none; border: none; color: var(--sticky-nav-link-color); 
-    font-size: 1.2em; padding: 10px; cursor: pointer; 
-    width: 40px; height: 100%; z-index: 2; transition: color 0.3s;
+    font-size: 1.2em; padding: 0; cursor: pointer; 
+    width: 40px; height: 40px; z-index: 20; /* Sempre sopra l'input */
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    transition: color 0.2s ease; 
 }
+
 #sticky-search-input { 
-    width: 0; opacity: 0; visibility: hidden; border: none; 
-    background: transparent; color: var(--text-light); 
-    transition: width 0.35s ease, opacity 0.3s ease 0.1s, visibility 0s linear 0.35s, padding 0.35s ease, background-color 0.35s ease;
+    /* Stato INATTIVO (Invisibile) */
+    width: 0; 
+    opacity: 0; 
+    visibility: hidden; 
+    border: none; 
+    background: transparent; 
+    color: var(--text-light); 
     font-size: 16px; font-family: 'Inter', sans-serif; 
-    position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 1;
-    border-radius: 15px; height: calc(100% - 16px);
+    
+    /* Posizione */
+    position: absolute; 
+    left: 20px; /* Parte da sotto la lente */
+    top: 50%; transform: translateY(-50%); 
+    z-index: 10; 
+    
+    border-radius: 20px; 
+    height: 38px; 
+    outline: none;
+    padding: 0;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Stato Attivo Ricerca (Animazioni Originali) */
+/* Stato ATTIVO (Barra Grigia Espansa) */
 #quick-nav-mobile-sticky.search-active #sticky-search-input { 
-    width: calc(100vw - 32px); opacity: 1; visibility: visible; 
-    background: rgba(60,60,60,0.8); padding: 0 12px 0 40px; 
-    left: 0; 
+    /* Occupa quasi tutto lo schermo con margini laterali */
+    width: calc(100vw - 20px); 
+    left: 10px !important; /* Centrato orizzontalmente */
+    opacity: 1; 
+    visibility: visible; 
+    background: #333; /* Sfondo Grigio Scuro */
+    padding: 0 15px 0 45px; /* Spazio a sinistra per la X */
+    box-sizing: border-box; /* Fondamentale per non tagliare */
 }
-#quick-nav-mobile-sticky.search-active #sticky-search-trigger { color: var(--accent-color); }
-#quick-nav-mobile-sticky.search-active #sticky-search-trigger i::before { content: "\f00d"; color: #e74c3c; font-weight: 900; } /* Diventa X */
-#quick-nav-mobile-sticky.search-active .sticky-nav-links-wrapper { display: none; }
 
-.sticky-nav-links-wrapper { flex-grow: 1; overflow-x: auto; white-space: nowrap; display: flex; align-items: center; }
+/* Icona X quando attivo */
+#quick-nav-mobile-sticky.search-active #sticky-search-trigger { 
+    color: #d9534f; /* Rosso della X */
+    position: absolute; 
+    left: 10px; /* Blocca la X dentro la barra grigia */
+    z-index: 25;
+}
+#quick-nav-mobile-sticky.search-active #sticky-search-trigger i::before { content: "\f00d"; font-weight: 900; } 
+
+/* Nascondi le categorie quando cerchi */
+#quick-nav-mobile-sticky.search-active .sticky-nav-links-wrapper { opacity: 0; pointer-events: none; }
+
+.sticky-nav-links-wrapper { 
+    flex-grow: 1; overflow-x: auto; white-space: nowrap; 
+    display: flex; align-items: center; margin-left: 5px; 
+    padding-right: 10px;
+}
 .sticky-nav-links-wrapper::-webkit-scrollbar { display: none; }
-#quick-nav-mobile-sticky ul { display: flex; gap: 15px; margin: 0; padding: 0 10px; list-style: none; }
+#quick-nav-mobile-sticky ul { display: flex; gap: 15px; margin: 0; padding: 0; list-style: none; }
 #quick-nav-mobile-sticky a { 
     color: var(--sticky-nav-link-color); text-decoration: none; font-size: 0.9em; 
     padding: 5px 8px; border-radius: 10px; transition: background-color 0.2s, color 0.2s; 
 }
 #quick-nav-mobile-sticky a:hover { background-color: rgba(255,255,255,0.15); color: #fff; }
 
-/* Footer */
+
+/* --- INDICATORE ELEMENTO CLICCABILE (La "i" minimale) --- */
+.spirit-item .item-name {
+    position: static; 
+    padding-right: 0;
+}
+
+.spirit-item .item-name::after {
+    content: 'i';                  /* Solo la lettera */
+    font-family: 'Merriweather', serif; /* Font classico elegante */
+    font-style: italic;            /* Corsivo */
+    display: inline-block;
+    
+    margin-left: 6px;              /* Appena staccata dal nome */
+    color: #d9534f;                /* Rosso mattone */
+    font-size: 0.85em;             /* Un po' più piccola del testo */
+    font-weight: 700;              /* Cicciotta si legge meglio */
+    
+    opacity: 0.6;                  /* TRUCCO: la rendo semi-trasparente così non è invadente */
+    vertical-align: 1px;           /* La sollevo di un pixel per eleganza */
+}
+
+/* Feedback al tocco */
+.spirit-item:active {
+    background-color: rgba(255,255,255,0.05);
+}
+
+
 footer { text-align: center; margin-top: 50px; padding: 25px 20px; border-top: 1px solid var(--border-dark); font-size: 0.85em; color: #999; }
 footer nav#quick-nav { margin: 0 0 30px 0; padding: 0 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 15px; }
 footer nav#quick-nav a { display: inline-block; padding: 3px 5px; color: #b0b0b0; text-decoration: none; font-size: 0.9em; }
 footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 
-/* POPUP E MODAL (Stile Santos Originale) */
+/* POPUP */
 #gin-description-popup { 
     position: fixed; 
     bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin)); 
     left: 15px; right: 15px; max-width: 450px; margin: auto; 
     background-color: var(--popup-bg); color: var(--popup-text); 
-    border-radius: 8px; padding: 22px; padding-right: 48px; 
+    border-radius: 8px; padding: 22px; padding-right: 35px;
     z-index: 1100; opacity: 0; visibility: hidden; 
     transform: translateY(20px); transition: all 0.3s ease; 
     box-shadow: 0 6px 25px rgba(0,0,0,0.45); 
     backdrop-filter: blur(6px);
 }
 #gin-description-popup.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.popup-content { position: relative; }
 
 #popup-product-name { 
     color: var(--popup-title-color); border-bottom: 1px solid var(--popup-border); 
     margin: 0 0 12px 0; padding-bottom: 10px; font-family: 'Poppins', sans-serif; font-size: 1.25em; 
+    padding-right: 20px;
 }
 #popup-product-description { font-size: 0.95em; line-height: 1.55; margin-bottom: 15px; color: var(--popup-text); }
 
 #popup-close-btn { 
-    position: absolute; top: -10px; right: -28px; background: none; border: none; 
-    color: var(--popup-close-btn-color); font-size: 2.7em; cursor: pointer; padding: 5px; 
+    position: absolute; top: -15px; right: -15px; background: none; border: none; 
+    color: var(--popup-close-btn-color); font-size: 2.5em; cursor: pointer; padding: 10px; line-height: 1;
 }
+#popup-close-btn:hover { color: #fff; }
 
 #toggle-prep-btn { 
     background: none; border: none; color: var(--popup-toggle-btn-color); 
@@ -187,6 +284,24 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 #popup-preparation-container h5 { margin: 0 0 10px 0; color: var(--popup-prep-title); text-transform: uppercase; font-size: 0.85em; }
 #popup-preparation-text { font-size: 0.9em; color: var(--popup-prep-text); margin-bottom: 10px; }
 
-/* No results */
-#no-results { display: none; text-align: center; padding: 40px; }
-#no-results a { color: #007bff; text-decoration: underline; }
+/* No Results */
+#no-results { display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 20px; min-height: 200px; }
+#no-results h2 { font-family: 'Merriweather', serif; font-size: 2em; margin-bottom: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 15px; width: 100%; text-align: center; display: block; }
+#no-results p { font-size: 1.1em; color: #555; margin: 5px 0; max-width: 80%; }
+#no-results strong { color: #d9534f; }
+#no-results a { color: #007bff; text-decoration: underline; cursor: pointer; }
+
+/* Badge Gradazione con colore personalizzato (verde di default per i %Vol) */
+.strength-badge {
+    display: inline-block; padding: 4px 10px; border-radius: 4px;
+    color: #fff; text-transform: uppercase; font-size: 0.75em; font-weight: 700;
+    margin-top: 10px; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background-color: #5bc0de; /* Default azzurro info */
+}
+/* Classi dinamiche mantenute per compatibilità */
+.strength-leggero { background-color: #5bc0de; }
+.strength-medio { background-color: #5cb85c; }
+.strength-forte { background-color: #f0ad4e; }
+.strength-molto-forte { background-color: #d9534f; }
+/* Per le percentuali usiamo il verde medio come standard o uno specifico */
+.strength-percent { background-color: #5cb85c; }

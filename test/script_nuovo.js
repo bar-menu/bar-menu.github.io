@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     const CSV_URL = 'menu_nuovo.csv'; 
     
-    // Configurazione I18N
     const I18N = {
         it: {
             cats: { "Caffetteria":"Caffetteria", "Bevande":"Bevande", "Spritz":"Spritz & Co.", "Cocktails":"Cocktails", "Vini":"Vini", "Franciacorta":"Franciacorta", "Birre":"Birre", "Gin & Tonic":"Gin & Tonic", "Rum":"Rum", "Whisky":"Whisky", "Amari e Liquori":"Amari", "Grappe":"Grappe", "Vermouth":"Vermouth", "Vodka":"Vodka", "Brandy":"Brandy", "Spuntini":"Spuntini", "Panini & Piadine":"Panini & Piadine" },
-            paniniSub: "Componi il tuo panino!",
-            detailsBtn: "Come si fa?",
+            paniniSub: "Componi il tuo panino o piadina!",
+            detailsBtn: "Come si fa?", 
             hideBtn: "Nascondi",
             search: "Cerca...",
-            noRes: "Nessun risultato.",
+            noResPart1: "Nessun risultato trovato per",
+            tryAgain: "Prova a cercare un altro termine o",
+            resetLink: "cancella la ricerca.",
             service: "Servizio al tavolo incluso",
             allergenDisclaimer: "Per allergie o intolleranze rivolgersi al personale.",
-            allergenPrefix: "Allergeni:",
-            reset: "Mostra tutto"
+            allergenPrefix: "Allergeni:"
         },
         en: {
             cats: { "Caffetteria":"Coffee", "Bevande":"Soft Drinks", "Spritz":"Spritz & Co.", "Cocktails":"Cocktails", "Vini":"Wines", "Franciacorta":"Sparkling", "Birre":"Beers", "Gin & Tonic":"Gin & Tonic", "Rum":"Rum", "Whisky":"Whisky", "Amari e Liquori":"Bitters & Liqueurs", "Grappe":"Grappa", "Vermouth":"Vermouth", "Vodka":"Vodka", "Brandy":"Brandy", "Spuntini":"Snacks", "Panini & Piadine":"Sandwiches" },
@@ -21,11 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
             detailsBtn: "How is it made?",
             hideBtn: "Hide",
             search: "Search...",
-            noRes: "No results found.",
+            noResPart1: "No results found for",
+            tryAgain: "Try another term or",
+            resetLink: "clear search.",
             service: "Table service included",
             allergenDisclaimer: "For allergies and intolerances please ask the staff.",
-            allergenPrefix: "Allergens:",
-            reset: "Show all"
+            allergenPrefix: "Allergens:"
         }
     };
 
@@ -40,15 +41,29 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileNavList: document.querySelector('#quick-nav-mobile-sticky ul'),
         desktopNav: document.getElementById('quick-nav'),
         loader: document.getElementById('loading-message'),
-        searchTrigger: document.getElementById('sticky-search-trigger'), // Il bottone lente/X
+        searchTrigger: document.getElementById('sticky-search-trigger'),
         searchInput: document.getElementById('sticky-search-input'),
         stickyNav: document.getElementById('quick-nav-mobile-sticky'),
         popup: document.getElementById('gin-description-popup'),
-        clearSearchLink: document.getElementById('clear-search-link')
+        clearSearchLink: document.getElementById('clear-search-link'),
+        noResultsSection: document.getElementById('no-results'),
+        noResultsMsg: document.getElementById('no-results-msg')
     };
 
     function init() {
         setSeasonalHeader();
+        
+        if(els.popup && !document.getElementById('popup-strength')) {
+            const container = document.getElementById('popup-preparation-container');
+            if(container) {
+                const badge = document.createElement('span');
+                badge.id = 'popup-strength';
+                badge.className = 'strength-badge';
+                badge.style.display = 'none';
+                container.appendChild(badge);
+            }
+        }
+
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.addEventListener('click', (e) => switchLanguage(e.target.dataset.lang));
         });
@@ -61,18 +76,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function switchLanguage(lang) {
         currentLang = lang;
+        const dict = I18N[lang];
+        
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-        document.getElementById('footer-service').textContent = I18N[lang].service;
-        document.getElementById('footer-allergens').textContent = I18N[lang].allergenDisclaimer;
-        document.getElementById('no-results-text').textContent = I18N[lang].noRes;
-        els.clearSearchLink.textContent = I18N[lang].reset;
-        els.searchInput.placeholder = I18N[lang].search;
+        document.getElementById('footer-service').textContent = dict.service;
+        document.getElementById('footer-allergens').textContent = dict.allergenDisclaimer;
+        els.searchInput.placeholder = dict.search;
+        
+        if(els.clearSearchLink) els.clearSearchLink.textContent = dict.resetLink;
+        if(els.clearSearchLink && els.clearSearchLink.parentElement) {
+            els.clearSearchLink.parentElement.firstChild.textContent = dict.tryAgain + " ";
+        }
+        
         buildMenu();
     }
 
     function cleanText(text) {
         if (!text) return '';
-        // Toglie il punto finale se c'è
         return text.trim().replace(/\.$/, '');
     }
 
@@ -114,35 +134,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 li.className = 'menu-item';
                 
                 const nome = cleanText((currentLang === 'en' && row.Nome_EN) ? row.Nome_EN : row.Nome);
-                const desc = cleanText((currentLang === 'en' && row.Descrizione_EN) ? row.Descrizione_EN : row.Descrizione);
+                const descList = cleanText(row.Descrizione_Lista);
+                
+                let descContentForInfo = "";
+                if(row.Tipo === 'info') {
+                    descContentForInfo = cleanText((currentLang === 'en' && row.Descrizione_EN) ? row.Descrizione_EN : row.Descrizione_Popup);
+                }
+
+                const descPopup = cleanText((currentLang === 'en' && row.Descrizione_EN) ? row.Descrizione_EN : row.Descrizione_Popup);
                 const tipo = row.Tipo ? row.Tipo.trim().toLowerCase() : '';
-                // Ignora allergeni per i cibi (Spuntini/Panini) come richiesto
+                const grado = row.Grado ? row.Grado.trim() : ''; 
+                const popupTitle = row.Titolo_Popup ? row.Titolo_Popup.trim() : "Dettagli"; 
+
                 const ignoreAllergens = (catKey.toLowerCase().includes('panini') || catKey.toLowerCase().includes('spuntini'));
                 const allergeni = ignoreAllergens ? '' : (row.Allergeni || '');
 
                 if(tipo === 'spirit' || tipo === 'recipe') li.classList.add('spirit-item');
                 
                 if(tipo === 'info') {
-                    li.innerHTML = `<span style="width:100%;text-align:center;font-style:italic;color:#666;font-size:0.9em;">${nome}</span>`;
-                    li.style.borderBottom = "none";
+                    li.classList.add('info-item');
+                    li.innerHTML = `<span class="item-name">${nome}</span><span class="item-description">${descContentForInfo}</span>`;
                     ul.appendChild(li);
-                    return;
+                    return; 
                 }
 
-                // Dati per il popup
                 li.dataset.name = nome; 
-                li.dataset.desc = desc; 
+                li.dataset.desc = descPopup; 
                 li.dataset.recipe = row.Ricetta || ''; 
                 li.dataset.allergens = allergeni; 
+                li.dataset.strength = grado; 
+                li.dataset.popuptitle = popupTitle; 
 
                 let prezzoHtml = `<span class="item-price">${row.Prezzo || ''}</span>`;
                 if(row.Prezzo && row.Prezzo.includes('|')) {
                     prezzoHtml = `<span class="item-price-multi">` + row.Prezzo.split('|').map(p=>`<span class="item-price">${p.trim()}</span>`).join('') + `</span>`;
                 }
 
-                // La descrizione appare sempre, stile "Old" (senza punti finali)
                 let descHtml = '';
-                if(desc) { descHtml = `<span class="item-description">${desc}</span>`; }
+                if(descList) { 
+                    descHtml = `<span class="item-description">${descList}</span>`; 
+                }
 
                 li.innerHTML = `<span class="item-name">${nome}</span>${prezzoHtml}${descHtml}`;
                 ul.appendChild(li);
@@ -150,7 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sec.appendChild(ul);
             els.container.appendChild(sec);
 
-            // Nav link
             const aDesk = document.createElement('a'); aDesk.href = `#${id}`; aDesk.textContent = displayTitle;
             if(els.desktopNav) els.desktopNav.appendChild(aDesk);
             const liMob = document.createElement('li'); liMob.innerHTML = `<a href="#${id}">${displayTitle}</a>`;
@@ -159,10 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initEvents() {
-        // Link anchor scrolling
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', function(e) {
-                if(this.id === 'clear-search-link') return; // Gestito a parte
+                if(this.id === 'clear-search-link') return;
                 e.preventDefault();
                 deactivateSearch();
                 closePopup();
@@ -171,30 +200,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Search System - LA LOGICA ORIGINALE
         if(els.searchTrigger && els.searchInput) {
-            
-            // Click sulla lente (o sulla X quando attivo)
             els.searchTrigger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 if(els.stickyNav.classList.contains('search-active')) {
-                    // Se è attivo (X), chiudi ricerca e resetta
                     deactivateSearch();
                 } else {
-                    // Se non è attivo (Lente), apri
                     activateSearch();
                 }
             });
 
-            // Input typing
             els.searchInput.addEventListener('input', () => {
                 const term = els.searchInput.value.toLowerCase().trim();
+                const dict = I18N[currentLang];
                 let found = false;
-                
+
                 document.querySelectorAll('section:not(#no-results)').forEach(sec => {
                     let hasVis = false;
                     sec.querySelectorAll('.menu-item').forEach(item => {
-                        const text = item.innerText.toLowerCase();
+                        const text = (item.innerText + " " + (item.dataset.desc||"")).toLowerCase();
                         const vis = text.includes(term);
                         item.style.display = vis ? 'flex' : 'none';
                         if(vis) hasVis = true;
@@ -202,17 +226,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     sec.style.display = hasVis ? 'block' : 'none';
                     if(hasVis) found = true;
                 });
-                document.getElementById('no-results').style.display = (!found && term) ? 'flex' : 'none';
+
+                if (!found && term.length > 0) {
+                    els.noResultsSection.style.display = 'flex'; 
+                    if(els.noResultsMsg) {
+                        els.noResultsMsg.innerHTML = `${dict.noResPart1} "<strong style="color:#d9534f;">${els.searchInput.value}</strong>".`;
+                    }
+                } else {
+                    els.noResultsSection.style.display = 'none';
+                }
             });
         }
 
-        // Popup Open
         document.querySelector('main').addEventListener('click', (e) => {
             const item = e.target.closest('.spirit-item');
             if(item) openPopup(item);
         });
 
-        // Popup Actions
         document.getElementById('popup-close-btn').onclick = closePopup;
         document.getElementById('toggle-prep-btn').onclick = function(e) {
             e.stopPropagation();
@@ -223,7 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
             this.innerHTML = isVis ? `<i class="fas fa-chevron-down"></i> ${dict.detailsBtn}` : `<i class="fas fa-chevron-up"></i> ${dict.hideBtn}`;
         };
 
-        // Clear Search Link
         if(els.clearSearchLink) {
             els.clearSearchLink.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -241,25 +270,25 @@ document.addEventListener('DOMContentLoaded', () => {
         els.stickyNav.classList.remove('search-active');
         els.searchInput.value = '';
         els.searchInput.blur();
-        // Resetta visibilità
         document.querySelectorAll('section').forEach(s => s.style.display = '');
         document.querySelectorAll('.menu-item').forEach(i => i.style.display = '');
-        document.getElementById('no-results').style.display = 'none';
+        if(els.noResultsSection) els.noResultsSection.style.display = 'none';
     }
 
     function openPopup(el) {
         const name = el.dataset.name;
         const desc = el.dataset.desc;
-        const rawRecipe = el.dataset.recipe;
+        const rawRecipe = el.dataset.recipe; 
         const allergensCode = el.dataset.allergens;
+        const strength = el.dataset.strength; 
+        const popupTitleText = el.dataset.popuptitle; 
         
+        const dict = I18N[currentLang];
+
         els.popup.querySelector('#popup-product-name').innerText = name;
         els.popup.querySelector('#popup-product-description').innerText = desc || '';
         
-        // Allergeni (solo bevande, se presenti)
         const algDiv = document.getElementById('popup-allergens');
-        const dict = I18N[currentLang];
-        
         if(allergensCode) {
             let algText = [];
             allergensCode.split(/[,\s]+/).forEach(c => {
@@ -271,22 +300,33 @@ document.addEventListener('DOMContentLoaded', () => {
             } else { algDiv.style.display = 'none'; }
         } else { algDiv.style.display = 'none'; }
 
-        // Preparazione / Ricetta
         const prepContainer = document.getElementById('popup-preparation-container');
         const prepText = document.getElementById('popup-preparation-text');
         const toggleBtn = document.getElementById('toggle-prep-btn');
+        const strengthBadge = document.getElementById('popup-strength');
+
+        const prepTitle = prepContainer.querySelector('h5');
+        if(prepTitle) prepTitle.textContent = popupTitleText;
+
+        toggleBtn.style.display = 'none';
+        prepContainer.style.display = 'none';
+
+        if(strength && strengthBadge) {
+            strengthBadge.textContent = strength;
+            const cleanClass = strength.trim().toLowerCase().replace(/[\s%]+/g, '-');
+            strengthBadge.className = `strength-badge strength-${cleanClass}`;
+            strengthBadge.style.display = 'inline-block';
+        } else if(strengthBadge) {
+            strengthBadge.style.display = 'none';
+        }
 
         if(rawRecipe) {
-            // Formatta la ricetta (sostituisci a capo con <br>)
-            // Il CSV usa --- per separare ingredienti e metodo, li uniamo per semplicità o li formattiamo
-            const formatted = rawRecipe.replace(/---/g, '<hr style="border:0; border-top:1px dashed #666; margin:10px 0;">').replace(/\n/g, '<br>');
-            prepText.innerHTML = formatted;
+            prepText.innerHTML = rawRecipe; 
             toggleBtn.style.display = 'block';
             toggleBtn.innerHTML = `<i class="fas fa-chevron-down"></i> ${dict.detailsBtn}`;
-            prepContainer.style.display = 'none'; // Parte chiuso
-        } else {
-            toggleBtn.style.display = 'none';
-            prepContainer.style.display = 'none';
+        } else if (strength) {
+            prepText.innerHTML = ''; 
+            prepContainer.style.display = 'block'; 
         }
 
         els.popup.classList.add('visible');
@@ -299,7 +339,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function setSeasonalHeader() {
         const h = document.querySelector('header');
         const d = new Date(), m = d.getMonth(), day = d.getDate();
-        // Logica festività
         if ((m===11 && day>=8) || (m===0 && day<=6)) h.style.backgroundImage = "url('https://bar-menu.github.io/Nuovo-Natale.jpg')";
     }
 

@@ -27,10 +27,14 @@
         <div id="loading-message" style="text-align:center; padding:50px; color:#888;">
             <i class="fas fa-spinner fa-spin"></i> Loading...
         </div>
-        <section id="no-results">
+        <section id="no-results" style="display: none;">
             <h2>Ricerca</h2>
-            <p id="no-results-text">Nessun risultato.</p>
-            <p style="margin-top:20px;"><a href="#" id="clear-search-link">Mostra tutto</a></p>
+            <p id="no-results-msg">
+                Nessun risultato trovato per "<strong id="no-results-term"></strong>".
+            </p>
+            <p style="margin-top: 20px;">
+                Prova a cercare un altro termine o <a href="#" id="clear-search-link">cancella la ricerca</a>.
+            </p>
         </section>
     </main>
 
