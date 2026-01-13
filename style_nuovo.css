@@ -90,6 +90,9 @@ header h1 {
 }
 
 section { 
+    position: relative; /* Serve per posizionare l'icona assoluta dentro */
+    overflow: hidden;   /* Taglia l'icona se esce dai bordi arrotondati */
+    z-index: 1;         /* Assicura che il testo stia sopra */
     margin-bottom: 40px; background-color: var(--bg-light-section); 
     padding: 25px; border-radius: 8px; 
     box-shadow: 0 5px 15px rgba(0,0,0,0.15); color: var(--text-dark); 
@@ -100,23 +103,53 @@ section h2 {
     font-size: 2.0em; 
     color: var(--text-dark); 
     
-    margin-top: 0; 
+    /* Allineamento testo */
+    display: block;
+    text-align: center; 
+    
+    margin-top: 15px; 
     margin-bottom: 25px; 
     border-bottom: 1px solid var(--border-light); 
     padding-bottom: 15px; 
-    font-weight: 700; 
+    font-weight: 700;
     
-    /* MODIFICA PER CENTRATURA */
-    display: flex; 
-    align-items: center;      /* Allinea icona e testo verticalmente */
-    justify-content: center;  /* CENTRA tutto il blocco orizzontalmente */
-    gap: 10px;                /* Spazio fisso tra icona e testo */
-    text-align: center;       /* Sicurezza se il testo va a capo */
-    
-    letter-spacing: -0.5px;   /* Quel tocco elegante di prima */
-    text-transform: capitalize; 
+    position: relative; /* Serve da riferimento, ma l'icona la agganciamo alla sezione */
 }
 
+/* 3. L'ICONA WATERMARK (A Sinistra, grande e storta) */
+section h2::before {
+    content: "";
+    position: absolute;
+    
+    /* POSIZIONAMENTO "STILE RIVISTA" */
+    top: -34px;   /* La tiriamo su, quasi fuori dal bordo */
+    left: -70px;  /* La spostiamo a sinistra, che sbordi un po' */
+    
+    /* DIMENSIONI */
+    width: 136px;    /* Abbastanza grande da fare scena */
+    height: 136px;
+    
+    /* COLORE E TRASPARENZA (Molto leggero come volevi) */
+    background-color: #d9534f; 
+    opacity: 0.05;   /* 5% di visibilità. Leggerissimo. */
+    
+    /* UN TOCCO DI CLASSE: ROTAZIONE */
+    transform: rotate(-0deg); /* La incliniamo un po' per dare dinamismo */
+    
+    z-index: -1;          /* Dietro al testo */
+    pointer-events: none; /* Non cliccabile */
+    
+    /* MASCHERA */
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    
+    /* Reset margini */
+    margin: 0;
+}
 
 ul { list-style: none; padding: 0; margin: 0; }
 li.menu-item { 
@@ -327,47 +360,12 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 
 
 
-/* --- ICONE SVG PRO (Tecnica Masking - Nomi Originali) --- */
-section h2::before {
-    content: "";
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    margin-right: 10px;
-    vertical-align: middle;
-    background-color: #d9534f; /* IL TUO ROSSO */
-    
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-}
-
-/* --- ICONE SVG PRO (Nomi File REALI da Screenshot) --- */
-section h2::before {
-    content: "";
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    margin-right: 10px;
-    vertical-align: middle;
-    background-color: #d9534f; /* IL TUO ROSSO */
-    
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-}
-
 /* --- ABBINAMENTI FILE --- */
 
 #caffetteria h2::before { 
     -webkit-mask-image: url('icons/mug-hot.svg'); 
     mask-image: url('icons/mug-hot.svg'); 
+    display: none !important;
 }
 
 /* Tè & Cioccolate diventa id="t-cioccolate" */
@@ -379,6 +377,7 @@ section h2::before {
 #bevande h2::before { 
     -webkit-mask-image: url('icons/glass-water.svg'); 
     mask-image: url('icons/glass-water.svg'); 
+    display: none !important;
 }
 
 /* Spritz, Vini e Vermouth usano il calice di vino */
@@ -408,9 +407,18 @@ section h2::before {
 }
 
 /* Rum, Whisky, Vodka, Amari usano il bicchiere con ghiaccio */
-#rum h2::before, #whisky h2::before, #vodka h2::before, #amari-e-liquori h2::before { 
+#rum h2::before, #amari-e-liquori h2::before { 
     -webkit-mask-image: url('icons/whiskey-glass-ice.svg'); 
     mask-image: url('icons/whiskey-glass-ice.svg'); 
+}
+
+#whisky h2::before { 
+    display: none !important;
+}
+
+
+#vodka h2::before { 
+    display: none !important;
 }
 
 #brandy h2::before { 
@@ -421,6 +429,7 @@ section h2::before {
 #grappe h2::before { 
     -webkit-mask-image: url('icons/flask-round-potion.svg'); 
     mask-image: url('icons/flask-round-potion.svg'); 
+    display: none !important;
 }
 
 #panini-piadine h2::before { 
@@ -431,6 +440,7 @@ section h2::before {
 #spuntini h2::before { 
     -webkit-mask-image: url('icons/croissant.svg'); 
     mask-image: url('icons/croissant.svg'); 
+    display: none !important;
 }
 
 /* =========================================
