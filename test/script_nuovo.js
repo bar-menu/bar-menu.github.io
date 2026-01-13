@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     prezzoHtml = `<span class="item-price-multi">` + row.Prezzo.split('|').map(p=>`<span class="item-price">${p.trim()}</span>`).join('') + `</span>`;
                 }
 
-                // CORREZIONE: Mostra la descrizione SEMPRE se esiste (non nasconderla più per ricette/spirit)
+                // MOSTRA SEMPRE LA DESCRIZIONE SE ESISTE (Anche per ricette/spirits)
                 let descHtml = '';
                 if(desc) { descHtml = `<span class="item-description">${desc}</span>`; }
 
@@ -161,8 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if(els.searchInput) {
             const doFilter = function() {
                 const term = els.searchInput.value.toLowerCase().trim();
-                if (els.searchClear) els.searchClear.classList.toggle('show-x', term.length > 0);
                 
+                // Show/Hide X Button
+                if(els.searchClear) {
+                    if(term.length > 0) els.searchClear.classList.add('visible');
+                    else els.searchClear.classList.remove('visible');
+                }
+
                 let found = false;
                 document.querySelectorAll('section:not(#no-results)').forEach(sec => {
                     let hasVis = false;
@@ -183,7 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if(els.searchClear) {
                 els.searchClear.addEventListener('click', function(e) {
                     e.preventDefault(); e.stopPropagation();
-                    els.searchInput.value = ''; doFilter(); els.searchInput.focus();
+                    els.searchInput.value = ''; 
+                    doFilter(); 
+                    els.searchInput.focus();
                 });
             }
             
@@ -221,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const allergensCode = el.dataset.allergens || '';
         
         els.popup.querySelector('#popup-product-name').innerText = name;
-        els.popup.querySelector('#popup-product-description').innerText = desc; 
+        els.popup.querySelector('#popup-product-description').innerText = desc;
         
         const algDiv = document.getElementById('popup-allergens');
         const dict = I18N[currentLang];

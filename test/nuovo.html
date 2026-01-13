@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Bar Nuovo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Merriweather:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <!-- FONTS: Aggiunto INTER, mantenuti Merriweather e Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Parser CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <link rel="stylesheet" href="style_nuovo.css">
 </head>
 <body>
 
     <header>
-        <h1>MENU TEST</h1>
+        <h1>MENU</h1> <!-- Titolo generico, cambierà se serve -->
+        <!-- Selettore Lingua Minimal -->
         <div id="lang-switch">
             <button class="lang-btn active" data-lang="it">IT</button>
             <span class="lang-separator">|</span>
@@ -22,7 +28,7 @@
 
     <main id="menu-container">
         <div id="loading-message" style="text-align:center; padding:50px; color:#888;">
-            <i class="fas fa-spinner fa-spin"></i> Loading...
+            <i class="fas fa-spinner fa-spin"></i> Caricamento...
         </div>
         <section id="no-results" style="display: none;">
             <h2>Ricerca</h2>
@@ -35,32 +41,39 @@
         <nav id="quick-nav"></nav>
         <p>Bar Nuovo - Ferrara</p>
         <p id="footer-service">Servizio al tavolo incluso</p>
-        <p id="footer-allergens" style="font-size: 0.75em; color: #777; margin-top: 10px; max-width: 80%; margin-left:auto; margin-right:auto;">
+        <p id="footer-allergens" style="font-size: 0.75em; color: #777; margin-top: 10px;">
             Per allergie o intolleranze rivolgersi al personale.
         </p>
     </footer>
 
-    <!-- NAVBAR MOBILE CON BOTTONE 'X' -->
+    <!-- NAVBAR MOBILE STICKY (Struttura Originale con aggiunta X) -->
     <nav id="quick-nav-mobile-sticky">
         <div id="sticky-search-container">
             <button id="sticky-search-trigger"><i class="fas fa-search"></i></button>
             <input type="text" id="sticky-search-input" placeholder="Cerca...">
-            <!-- NUOVO BOTTONE CLEAR -->
-            <button id="sticky-search-clear"><i class="fas fa-times"></i></button>
+            <button id="sticky-search-clear" style="display:none;"><i class="fas fa-times"></i></button>
         </div>
-        <div class="sticky-nav-links-wrapper"><ul></ul></div>
+        <div class="sticky-nav-links-wrapper">
+            <ul><!-- JS riempie qui --></ul>
+        </div>
     </nav>
 
-    <!-- POPUP INFO -->
+    <!-- POPUP INFO (Struttura Originale) -->
     <div id="gin-description-popup">
         <div class="popup-content">
             <h4 id="popup-product-name">Nome</h4>
             <p id="popup-product-description">Descrizione...</p>
-            <div id="popup-allergens"></div>
-            <button id="toggle-prep-btn"><i class="fas fa-chevron-down"></i> Details</button>
-            <div id="popup-preparation-container">
+            
+            <!-- Zona Dettagli/Allergeni -->
+            <div id="popup-allergens" style="display:none; margin-top:10px; color:#ccc; font-size:0.9em;"></div>
+
+            <!-- Bottone Pairing/Dettagli -->
+            <button id="toggle-prep-btn" style="display:none;"><i class="fas fa-chevron-down"></i> Pairing</button>
+            
+            <div id="popup-preparation-container" style="display:none;">
                 <div id="popup-pairing-content"></div>
             </div>
+
             <button id="popup-close-btn">×</button>
         </div>
     </div>
