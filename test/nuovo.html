@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Bar Nuovo</title>
-    <!-- Fonts: INTER + Quelli originali -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:ital,wght@0,700;1,400&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Parser CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    <link rel="stylesheet" href="style_nuovo.css">
+    <!-- CSS con versione anti-cache -->
+    <link rel="stylesheet" href="style_nuovo.css?v=999">
 </head>
 <body>
 
@@ -27,6 +30,8 @@
         <div id="loading-message" style="text-align:center; padding:50px; color:#888;">
             <i class="fas fa-spinner fa-spin"></i> Loading...
         </div>
+        
+        <!-- Sezione Nessun Risultato (Centrata) -->
         <section id="no-results" style="display: none;">
             <h2>Ricerca</h2>
             <p id="no-results-msg">
@@ -47,7 +52,7 @@
         </p>
     </footer>
 
-    <!-- NAVBAR MOBILE STICKY (Come l'originale) -->
+    <!-- NAVBAR MOBILE STICKY -->
     <nav id="quick-nav-mobile-sticky">
         <div id="sticky-search-container">
             <button id="sticky-search-trigger"><i class="fas fa-search"></i></button>
@@ -58,7 +63,7 @@
         </div>
     </nav>
 
-    <!-- POPUP INFO (Stile Santos) -->
+    <!-- POPUP INFO -->
     <div id="gin-description-popup">
         <div class="popup-content">
             <h4 id="popup-product-name">Nome</h4>
@@ -66,17 +71,19 @@
             
             <div id="popup-allergens" style="display:none; margin-bottom:15px; color:#ffcc00; font-size:0.85em;"></div>
 
-            <button id="toggle-prep-btn" style="display:none;"><i class="fas fa-chevron-down"></i> Come si fa?</button>
-            
-            <div id="popup-preparation-container">
-                <h5>Preparazione / Dettagli:</h5>
+            <!-- Contenitore Preparazione/Dettagli -->
+            <div id="popup-preparation-container" style="display: none;">
+                <h5>Preparazione:</h5>
                 <p id="popup-preparation-text"></p>
+                <span id="popup-strength" class="strength-badge" style="display: none;"></span>
             </div>
 
+            <button id="toggle-prep-btn" style="display:none;"></button>
             <button id="popup-close-btn">×</button>
         </div>
     </div>
 
-    <script src="script_nuovo.js" defer></script>
+    <!-- JS con versione anti-cache -->
+    <script src="script_nuovo.js?v=999" defer></script>
 </body>
 </html>

@@ -1,3 +1,41 @@
+/* 
+=========================================================================
+⚠️ MANUALE D'USO E REGOLE SACRE - NON MODIFICARE SENZA PERMESSO ⚠️
+=========================================================================
+
+1. STILE & DESIGN (CSS):
+   - Font: Sempre e solo 'Inter' (anche per le icone X).
+   - Barra Ricerca: "Pillola" grigia scura, X interna a sinistra. 
+     USARE `box-sizing: border-box` E padding precisi per non tagliarla a destra.
+   - Popup X: Ora è allineata.
+     Non usare Flexbox per centrarla, usa solo posizionamento assoluto.
+   - Fix iPhone: Le righe `li.menu-item` DEVONO avere `padding-right: 15px` 
+     altrimenti la "i" corsiva viene tagliata dal bordo schermo.
+
+2. CSV & DATI:
+   - "Descrizione_Lista": Testo che appare subito nel menu.
+   - "Descrizione_Popup": Testo lungo che appare solo cliccando.
+   - "Ricetta": Se vuota (es. Birre), il bottone "Come si fa" SPARISCE.
+   - "Titolo_Popup": Decide se scrivere "Preparazione", "Dettagli" o "Info".
+   - "Tipo": Se è 'info', formatta come Panini (titolo + lista grigia).
+   - "Grado": Accetta testo (Forte) o % esatte (5.0% Vol).
+
+3. INTERFACCIA UTENTE (JS):
+   - Indicatore click: La "i" è un pseudo-elemento ::after con `user-select: none`.
+     NON toccare questo parametro o torna l'artefatto blu quando selezioni il testo.
+   - Prezzi: 80 secco (senza .00), allineato a destra con margin-left: auto.
+   - Logica Vini/Franciacorta: Alcuni hanno descrizione in lista, altri no. 
+     Comanda il CSV (se la colonna è vuota, non stampa nulla).
+
+4. MANTENIMENTO:
+   - Quando modifichi il CSS o il JS, cambia sempre il numero di versione 
+     nell'HTML (es. style_nuovo.css?v=667) o l'iPhone non aggiorna un cazzo.
+
+=========================================================================
+*/
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const CSV_URL = 'menu_nuovo.csv'; 
     
@@ -5,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         it: {
             cats: { "Caffetteria":"Caffetteria", "Bevande":"Bevande", "Spritz":"Spritz & Co.", "Cocktails":"Cocktails", "Vini":"Vini", "Franciacorta":"Franciacorta", "Birre":"Birre", "Gin & Tonic":"Gin & Tonic", "Rum":"Rum", "Whisky":"Whisky", "Amari e Liquori":"Amari", "Grappe":"Grappe", "Vermouth":"Vermouth", "Vodka":"Vodka", "Brandy":"Brandy", "Spuntini":"Spuntini", "Panini & Piadine":"Panini & Piadine" },
             paniniSub: "Componi il tuo panino o piadina!",
-            detailsBtn: "Come si fa?", 
+            detailsBtn: "Come si fa?",
             hideBtn: "Nascondi",
             search: "Cerca...",
             noResPart1: "Nessun risultato trovato per",
@@ -13,7 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
             resetLink: "cancella la ricerca.",
             service: "Servizio al tavolo incluso",
             allergenDisclaimer: "Per allergie o intolleranze rivolgersi al personale.",
-            allergenPrefix: "Allergeni:"
+            allergenPrefix: "Allergeni:",
+            prepTitle: "Preparazione / Dettagli:"
         },
         en: {
             cats: { "Caffetteria":"Coffee", "Bevande":"Soft Drinks", "Spritz":"Spritz & Co.", "Cocktails":"Cocktails", "Vini":"Wines", "Franciacorta":"Sparkling", "Birre":"Beers", "Gin & Tonic":"Gin & Tonic", "Rum":"Rum", "Whisky":"Whisky", "Amari e Liquori":"Bitters & Liqueurs", "Grappe":"Grappa", "Vermouth":"Vermouth", "Vodka":"Vodka", "Brandy":"Brandy", "Spuntini":"Snacks", "Panini & Piadine":"Sandwiches" },
@@ -26,7 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
             resetLink: "clear search.",
             service: "Table service included",
             allergenDisclaimer: "For allergies and intolerances please ask the staff.",
-            allergenPrefix: "Allergens:"
+            allergenPrefix: "Allergens:",
+            prepTitle: "Preparation / Details:"
         }
     };
 
@@ -93,7 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function cleanText(text) {
         if (!text) return '';
-        return text.trim().replace(/\.$/, '');
+        let cleaned = text.trim();
+        if (cleaned === '""' || cleaned === '"') return '';
+        return cleaned.replace(/\.$/, '');
     }
 
     function buildMenu() {

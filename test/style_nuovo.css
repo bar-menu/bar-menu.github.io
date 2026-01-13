@@ -8,7 +8,7 @@
     
     /* Barra Mobile */
     --sticky-nav-height: 55px;
-    --sticky-nav-bg: rgba(40, 40, 40, 0.95);
+    --sticky-nav-bg: rgba(50, 50, 50, 0.95);
     --sticky-nav-link-color: #e0e0e0;
     --sticky-nav-bottom-margin: 15px;
     
@@ -58,8 +58,16 @@ header h1 {
     white-space: nowrap; 
 }
 
-#lang-switch { position: absolute; top: 20px; right: 20px; z-index: 10; font-size: 0.9em; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
-.lang-btn { background: none; border: none; color: #888; padding: 5px; cursor: pointer; font-weight: 700; transition: color 0.3s; font-family: 'Inter', sans-serif; }
+/* LINGUA */
+#lang-switch { 
+    position: absolute; top: 20px; right: 20px; z-index: 10; font-size: 0.9em; 
+    background-color: rgba(50, 50, 50, 0.6); 
+    backdrop-filter: blur(5px);
+    padding: 5px 10px;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.lang-btn { background: none; border: none; color: #aaa; padding: 0 5px; cursor: pointer; font-weight: 700; transition: color 0.3s; font-family: 'Inter', sans-serif; }
 .lang-btn.active { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 .lang-separator { color: #888; margin: 0 2px; }
 
@@ -79,6 +87,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 li.menu-item { 
     display: flex; justify-content: space-between; flex-wrap: wrap; 
     align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--border-light); 
+    padding-right: 15px; 
 }
 li.menu-item:last-child { border-bottom: none; }
 li.menu-item:hover:not(.spirit-item) { background-color: #f5f5f5; transition: background-color 0.2s; }
@@ -103,33 +112,18 @@ li.menu-item:hover:not(.spirit-item) { background-color: #f5f5f5; transition: ba
     margin-top: 5px; line-height: 1.4; padding-left: 0;
 }
 
-/* --- STILE SPECIALE PER LISTE INGREDIENTI (Panini/Info) --- */
-li.info-item {
-    border-bottom: none; /* Nessuna riga sotto */
-    padding: 10px 0;
-    flex-direction: column; /* Impila verticale */
-    align-items: flex-start;
-}
-li.info-item .item-name {
-    font-size: 1.0em;
-    color: #333;
-    margin-bottom: 2px;
-    width: 100%;
-}
-li.info-item .item-description {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 0;
-    line-height: 1.4;
-}
+/* Stile Panini */
+li.info-item { border-bottom: none; padding: 10px 0; flex-direction: column; align-items: flex-start; }
+li.info-item .item-name { font-size: 1.0em; color: #333; margin-bottom: 2px; width: 100%; }
+li.info-item .item-description { font-size: 0.9em; color: #666; margin-top: 0; line-height: 1.4; }
 
-/* --- NAVIGAZIONE STICKY (Barra Ricerca Pillola Perfetta) --- */
+/* --- NAVIGAZIONE STICKY --- */
 #quick-nav-mobile-sticky { 
     position: fixed; bottom: 0; left: 0; width: 100%; 
     background-color: var(--sticky-nav-bg); backdrop-filter: blur(8px); 
     box-shadow: 0 -2px 10px rgba(0,0,0,0.2); z-index: 999; 
     display: flex; align-items: center; height: var(--sticky-nav-height); 
-    overflow: hidden; padding: 0; /* Padding gestito internamente */
+    overflow: hidden; padding: 0; 
 }
 
 #sticky-search-container { 
@@ -137,20 +131,19 @@ li.info-item .item-description {
     position: static; 
     flex-shrink: 0;
     height: 100%; 
-    padding-left: 10px; /* Spazio base per la lente */
+    padding-left: 10px; 
 }
 
 #sticky-search-trigger { 
     background: none; border: none; color: var(--sticky-nav-link-color); 
     font-size: 1.2em; padding: 0; cursor: pointer; 
-    width: 40px; height: 40px; z-index: 20; /* Sempre sopra l'input */
+    width: 40px; height: 40px; z-index: 20; 
     display: flex; align-items: center; justify-content: center;
     position: relative;
     transition: color 0.2s ease; 
 }
 
 #sticky-search-input { 
-    /* Stato INATTIVO (Invisibile) */
     width: 0; 
     opacity: 0; 
     visibility: hidden; 
@@ -158,13 +151,10 @@ li.info-item .item-description {
     background: transparent; 
     color: var(--text-light); 
     font-size: 16px; font-family: 'Inter', sans-serif; 
-    
-    /* Posizione */
     position: absolute; 
-    left: 20px; /* Parte da sotto la lente */
+    left: 20px; 
     top: 50%; transform: translateY(-50%); 
     z-index: 10; 
-    
     border-radius: 20px; 
     height: 38px; 
     outline: none;
@@ -172,28 +162,24 @@ li.info-item .item-description {
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Stato ATTIVO (Barra Grigia Espansa) */
+/* Stato ATTIVO (Barra Grigia) */
 #quick-nav-mobile-sticky.search-active #sticky-search-input { 
-    /* Occupa quasi tutto lo schermo con margini laterali */
     width: calc(100vw - 20px); 
-    left: 10px !important; /* Centrato orizzontalmente */
+    left: 10px !important; 
     opacity: 1; 
     visibility: visible; 
-    background: #333; /* Sfondo Grigio Scuro */
-    padding: 0 15px 0 45px; /* Spazio a sinistra per la X */
-    box-sizing: border-box; /* Fondamentale per non tagliare */
+    background: #333; 
+    padding: 0 15px 0 45px; 
+    box-sizing: border-box; 
 }
 
-/* Icona X quando attivo */
 #quick-nav-mobile-sticky.search-active #sticky-search-trigger { 
-    color: #d9534f; /* Rosso della X */
+    color: #d9534f; 
     position: absolute; 
-    left: 10px; /* Blocca la X dentro la barra grigia */
+    left: 10px; 
     z-index: 25;
 }
 #quick-nav-mobile-sticky.search-active #sticky-search-trigger i::before { content: "\f00d"; font-weight: 900; } 
-
-/* Nascondi le categorie quando cerchi */
 #quick-nav-mobile-sticky.search-active .sticky-nav-links-wrapper { opacity: 0; pointer-events: none; }
 
 .sticky-nav-links-wrapper { 
@@ -208,34 +194,6 @@ li.info-item .item-description {
     padding: 5px 8px; border-radius: 10px; transition: background-color 0.2s, color 0.2s; 
 }
 #quick-nav-mobile-sticky a:hover { background-color: rgba(255,255,255,0.15); color: #fff; }
-
-
-/* --- INDICATORE ELEMENTO CLICCABILE (La "i" minimale) --- */
-.spirit-item .item-name {
-    position: static; 
-    padding-right: 0;
-}
-
-.spirit-item .item-name::after {
-    content: 'i';                  /* Solo la lettera */
-    font-family: 'Merriweather', serif; /* Font classico elegante */
-    font-style: italic;            /* Corsivo */
-    display: inline-block;
-    
-    margin-left: 6px;              /* Appena staccata dal nome */
-    color: #d9534f;                /* Rosso mattone */
-    font-size: 0.85em;             /* Un po' più piccola del testo */
-    font-weight: 700;              /* Cicciotta si legge meglio */
-    
-    opacity: 0.6;                  /* TRUCCO: la rendo semi-trasparente così non è invadente */
-    vertical-align: 1px;           /* La sollevo di un pixel per eleganza */
-}
-
-/* Feedback al tocco */
-.spirit-item:active {
-    background-color: rgba(255,255,255,0.05);
-}
-
 
 footer { text-align: center; margin-top: 50px; padding: 25px 20px; border-top: 1px solid var(--border-dark); font-size: 0.85em; color: #999; }
 footer nav#quick-nav { margin: 0 0 30px 0; padding: 0 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 15px; }
@@ -259,16 +217,29 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 
 #popup-product-name { 
     color: var(--popup-title-color); border-bottom: 1px solid var(--popup-border); 
-    margin: 0 0 12px 0; padding-bottom: 10px; font-family: 'Poppins', sans-serif; font-size: 1.25em; 
-    padding-right: 20px;
+    margin: 0 0 12px 0; padding-bottom: 10px; 
+    font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.25em; 
+    padding-right: 45px;
 }
 #popup-product-description { font-size: 0.95em; line-height: 1.55; margin-bottom: 15px; color: var(--popup-text); }
 
+/* X DI CHIUSURA (La tua versione custom) */
 #popup-close-btn { 
-    position: absolute; top: -15px; right: -15px; background: none; border: none; 
-    color: var(--popup-close-btn-color); font-size: 2.5em; cursor: pointer; padding: 10px; line-height: 1;
+    position: absolute; 
+    top: -24px;      
+    right: -16px; 
+    background: none; border: none; 
+    padding: 16px; 
+    margin: 0;
+    display: block; 
+    color: var(--popup-close-btn-color); 
+    font-family: 'Inter', sans-serif; 
+    font-size: 2.5rem; 
+    font-weight: 400; 
+    line-height: 1; 
+    cursor: pointer; opacity: 0.8; z-index: 100;
 }
-#popup-close-btn:hover { color: #fff; }
+#popup-close-btn:hover { opacity: 1; color: #fff; }
 
 #toggle-prep-btn { 
     background: none; border: none; color: var(--popup-toggle-btn-color); 
@@ -291,17 +262,26 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 #no-results strong { color: #d9534f; }
 #no-results a { color: #007bff; text-decoration: underline; cursor: pointer; }
 
-/* Badge Gradazione con colore personalizzato (verde di default per i %Vol) */
+/* Badge Gradazione */
 .strength-badge {
     display: inline-block; padding: 4px 10px; border-radius: 4px;
     color: #fff; text-transform: uppercase; font-size: 0.75em; font-weight: 700;
     margin-top: 10px; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    background-color: #5bc0de; /* Default azzurro info */
+    background-color: #5bc0de;
 }
-/* Classi dinamiche mantenute per compatibilità */
 .strength-leggero { background-color: #5bc0de; }
 .strength-medio { background-color: #5cb85c; }
 .strength-forte { background-color: #f0ad4e; }
 .strength-molto-forte { background-color: #d9534f; }
-/* Per le percentuali usiamo il verde medio come standard o uno specifico */
-.strength-percent { background-color: #5cb85c; }
+.strength-percent { background-color: #5cb85c; } 
+
+/* Indicatore "i" elegante (Fix iPhone) */
+.spirit-item .item-name { position: static; padding-right: 0; }
+.spirit-item .item-name::after {
+    content: 'i'; font-family: 'Merriweather', serif; font-style: italic;
+    display: inline-block; margin-left: 8px; color: #d9534f;
+    font-size: 0.85em; font-weight: 700; opacity: 0.7; vertical-align: 1px;
+    padding-right: 5px; width: 10px; text-align: left;
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; cursor: default;
+}
+.spirit-item:active { background-color: rgba(255,255,255,0.05); }
