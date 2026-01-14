@@ -126,11 +126,11 @@ section h2::before {
     
     /* POSIZIONAMENTO "STILE RIVISTA" */
     top: -64px;   /* La tiriamo su, quasi fuori dal bordo */
-    left: -70px;  /* La spostiamo a sinistra, che sbordi un po' */
+    left: -64px;  /* La spostiamo a sinistra, che sbordi un po' */
     
     /* DIMENSIONI */
-    width: 126px;    /* Abbastanza grande da fare scena */
-    height: 126px;
+    width: 124px;    /* Abbastanza grande da fare scena */
+    height: 124px;
     
     /* COLORE E TRASPARENZA (Molto leggero come volevi) */
     background: linear-gradient(160deg, #d9534f 0%, #ff9a3359 100%);
@@ -368,7 +368,7 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 #caffetteria h2::before { 
     -webkit-mask-image: url('icons/coffee.svg'); 
     mask-image: url('icons/coffee.svg'); 
- 
+    left: -68px;
 }
 
 /* Tè & Cioccolate diventa id="t-cioccolate" */
@@ -376,6 +376,7 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 #te-cioccolate h2::before { 
     -webkit-mask-image: url('icons/mug-tea-saucer.svg'); 
     mask-image: url('icons/mug-tea-saucer.svg'); 
+    left: -68px;
 }
 
 #bevande h2::before { 
@@ -393,7 +394,9 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 #cocktails h2::before { 
     -webkit-mask-image: url('icons/martini-glass-citrus.svg'); 
     mask-image: url('icons/martini-glass-citrus.svg'); 
+    left: -55px;
 }
+
 
 #franciacorta h2::before { 
     -webkit-mask-image: url('icons/champagne.svg'); 
