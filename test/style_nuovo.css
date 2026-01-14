@@ -129,8 +129,8 @@ section h2::before {
     left: -70px;  /* La spostiamo a sinistra, che sbordi un po' */
     
     /* DIMENSIONI */
-    width: 132px;    /* Abbastanza grande da fare scena */
-    height: 132px;
+    width: 126px;    /* Abbastanza grande da fare scena */
+    height: 126px;
     
     /* COLORE E TRASPARENZA (Molto leggero come volevi) */
     background: linear-gradient(160deg, #d9534f 0%, #ff9a3359 100%);
