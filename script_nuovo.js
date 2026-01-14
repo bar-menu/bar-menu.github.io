@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // ORARIO PRANZO (11:00 - 16:00): Panini e Spuntini vincono
         if (ora >= 11 && ora < 16) {
-            const priority = ["Panini & Piadine", "Spuntini", "Bevande", "Birre"];
+            const priority = ["Caffetteria", "Bevande", "Panini & Piadine", "Spuntini", "Birre"];
             // Mette i priority all'inizio, il resto segue
             finalOrder = priority.concat(finalOrder.filter(c => !priority.includes(c)));
             // console.log("Modo Pranzo Attivo");
