@@ -366,9 +366,9 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 /* --- ABBINAMENTI FILE --- */
 
 #caffetteria h2::before { 
-    -webkit-mask-image: url('icons/mug-hot.svg'); 
-    mask-image: url('icons/mug-hot.svg'); 
-    display: none !important;
+    -webkit-mask-image: url('icons/coffee.svg'); 
+    mask-image: url('icons/coffee.svg'); 
+ 
 }
 
 /* Tè & Cioccolate diventa id="t-cioccolate" */
@@ -432,7 +432,7 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 #grappe h2::before { 
     -webkit-mask-image: url('icons/flask-round-potion.svg'); 
     mask-image: url('icons/flask-round-potion.svg'); 
-    display: none !important;
+
 }
 
 #panini-piadine h2::before { 
