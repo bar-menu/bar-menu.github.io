@@ -372,7 +372,8 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 }
 
 /* Tè & Cioccolate diventa id="t-cioccolate" */
-#t-cioccolate h2::before { 
+#t-cioccolate h2::before,
+#te-cioccolate h2::before { 
     -webkit-mask-image: url('icons/mug-tea-saucer.svg'); 
     mask-image: url('icons/mug-tea-saucer.svg'); 
 }
