@@ -204,9 +204,24 @@ document.addEventListener('DOMContentLoaded', () => {
             finalOrder = priority.concat(finalOrder.filter(c => !priority.includes(c)));
             // console.log("Modo Pranzo Attivo");
         }
-        // ORARIO APERITIVO/SERA (17:00 in poi): Alcol vince
-        else if (ora >= 17) {
-            const priority = ["Spritz", "Vini", "Franciacorta", "Cocktails", "Birre", "Gin & Tonic"];
+        // ORARIO APERITIVO/SERA (18:00 in poi): Alcol vince
+        else if (ora >= 18) {
+            const priority = [
+                "Bevande", 
+                "Tè & Cioccolate", 
+                "Spritz", 
+                "Vini", 
+                "Franciacorta", 
+                "Birre", 
+                "Gin & Tonic", 
+                "Cocktails" ,
+                "Rum", 
+                "Whisky", 
+                "Amari e Liquori", 
+                "Grappe", 
+                "Vermouth", 
+                "Vodka", 
+                "Brandy" ];
             finalOrder = priority.concat(finalOrder.filter(c => !priority.includes(c)));
             // console.log("Modo Aperitivo Attivo");
         }
