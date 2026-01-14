@@ -185,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dict = I18N[currentLang];
         const grouped = {};
         
+        // Raggruppa i dati dal CSV
         globalData.forEach(row => {
             const cat = row.Categoria ? row.Categoria.trim() : null;
             if(!cat) return;
@@ -192,14 +193,41 @@ document.addEventListener('DOMContentLoaded', () => {
             grouped[cat].push(row);
         });
 
+        // --- LOGICA INTELLIGENTE PER L'ORDINE ---
+        let finalOrder = [...CATEGORY_ORDER]; // Copia l'ordine standard iniziale
+        const ora = new Date().getHours();
+        
+        // ORARIO PRANZO (11:00 - 16:00): Panini e Spuntini vincono
+        if (ora >= 11 && ora < 16) {
+            const priority = ["Panini & Piadine", "Spuntini", "Bevande", "Birre"];
+            // Mette i priority all'inizio, il resto segue
+            finalOrder = priority.concat(finalOrder.filter(c => !priority.includes(c)));
+            // console.log("Modo Pranzo Attivo");
+        }
+        // ORARIO APERITIVO/SERA (17:00 in poi): Alcol vince
+        else if (ora >= 17) {
+            const priority = ["Spritz", "Vini", "Franciacorta", "Cocktails", "Birre", "Gin & Tonic"];
+            finalOrder = priority.concat(finalOrder.filter(c => !priority.includes(c)));
+            // console.log("Modo Aperitivo Attivo");
+        }
+        // ALTRIMENTI (Mattina): Rimane l'ordine standard del CSV/Config
+        // ----------------------------------------
+
+        // Ordina le categorie presenti nel CSV secondo la logica temporale
         const cats = Object.keys(grouped).sort((a,b) => {
-            let iA = CATEGORY_ORDER.indexOf(a), iB = CATEGORY_ORDER.indexOf(b);
+            let iA = finalOrder.indexOf(a), iB = finalOrder.indexOf(b);
+            // Se una categoria non è nella lista, va in fondo (999)
             return (iA===-1?999:iA) - (iB===-1?999:iB);
         });
 
+        // Costruisce l'HTML
         cats.forEach(catKey => {
             const sec = document.createElement('section');
-            const id = catKey.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            // Crea ID pulito (es. "Tè & Cioccolate" -> "t-cioccolate")
+            const id = catKey.toLowerCase()
+                .replace(/[àáâãäå]/g,"a").replace(/[èéêë]/g,"e") // Gestione accenti base
+                .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); // Pulizia caratteri strani
+            
             sec.id = id;
             
             const displayTitle = dict.cats[catKey] || catKey;

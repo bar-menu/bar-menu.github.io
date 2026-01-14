@@ -98,6 +98,7 @@ section {
     box-shadow: 0 5px 15px rgba(0,0,0,0.15); color: var(--text-dark); 
 }
 
+/* 2. Il Titolo (Senza riga, più leggero) */
 section h2 {
     font-family: 'Merriweather', serif; 
     font-size: 2.0em; 
@@ -108,12 +109,14 @@ section h2 {
     text-align: center; 
     
     margin-top: 15px; 
-    margin-bottom: 25px; 
-    border-bottom: 1px solid var(--border-light); 
-    padding-bottom: 15px; 
+    margin-bottom: 20px; /* Un po' meno spazio visto che non c'è la riga */
+    
+    border-bottom: none; /* <--- VIA LA RIGA (Era: 1px solid...) */
+    padding-bottom: 5px;   /* <--- VIA IL PADDING (Era: 15px) */
+    
     font-weight: 700;
     
-    position: relative; /* Serve da riferimento, ma l'icona la agganciamo alla sezione */
+    position: relative; 
 }
 
 /* 3. L'ICONA WATERMARK (A Sinistra, grande e storta) */
@@ -122,16 +125,16 @@ section h2::before {
     position: absolute;
     
     /* POSIZIONAMENTO "STILE RIVISTA" */
-    top: -34px;   /* La tiriamo su, quasi fuori dal bordo */
-    left: -70px;  /* La spostiamo a sinistra, che sbordi un po' */
+    top: -40px;   /* La tiriamo su, quasi fuori dal bordo */
+    left: -64px;  /* La spostiamo a sinistra, che sbordi un po' */
     
     /* DIMENSIONI */
-    width: 136px;    /* Abbastanza grande da fare scena */
-    height: 136px;
+    width: 130px;    /* Abbastanza grande da fare scena */
+    height: 130px;
     
     /* COLORE E TRASPARENZA (Molto leggero come volevi) */
-    background-color: #d9534f; 
-    opacity: 0.05;   /* 5% di visibilità. Leggerissimo. */
+    background: linear-gradient(160deg, #d9534f 0%, #ff9a3359 100%);
+    opacity: 0.18;   /* 5% di visibilità. Leggerissimo. */
     
     /* UN TOCCO DI CLASSE: ROTAZIONE */
     transform: rotate(-0deg); /* La incliniamo un po' per dare dinamismo */
