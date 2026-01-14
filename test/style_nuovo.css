@@ -134,7 +134,7 @@ section h2::before {
     
     /* COLORE E TRASPARENZA (Molto leggero come volevi) */
     background: linear-gradient(160deg, #d9534f 0%, #ff9a3359 100%);
-    opacity: 0.18;   /* 5% di visibilità. Leggerissimo. */
+    opacity: 0.21;   /* 5% di visibilità. Leggerissimo. */
     
     /* UN TOCCO DI CLASSE: ROTAZIONE */
     transform: rotate(-0deg); /* La incliniamo un po' per dare dinamismo */
