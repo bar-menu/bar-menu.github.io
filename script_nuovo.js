@@ -207,13 +207,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // ORARIO APERITIVO/SERA (18:00 in poi): Alcol vince
         else if (ora >= 18) {
             const priority = [
-                "Bevande", 
-                "Tè & Cioccolate", 
                 "Spritz", 
                 "Vini", 
                 "Franciacorta", 
                 "Birre", 
+                "Panini & Piadine",
                 "Gin & Tonic", 
+                "Bevande", 
+                "Tè & Cioccolate", 
                 "Cocktails" ,
                 "Rum", 
                 "Whisky", 
@@ -501,8 +502,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setSeasonalHeader() {
         const h = document.querySelector('header');
-        const d = new Date(), m = d.getMonth(), day = d.getDate();
-        if ((m===11 && day>=8) || (m===0 && day<=6)) h.style.backgroundImage = "url('https://bar-menu.github.io/Nuovo-Natale.jpg')";
+        if (!h) return;
+
+        const d = new Date();
+        const m = d.getMonth(); // 0 = Gennaio, 11 = Dicembre
+        const day = d.getDate();
+        const baseUrl = 'https://bar-menu.github.io/';
+
+        // Immagine di base (Nuovo)
+        let bgImage = 'Nuovo-2.jpg';
+
+        // CAPODANNO (1 Gennaio)
+        if (m === 0 && day === 1) {
+            bgImage = 'Nuovo-New-Year.jpg';
+        }
+        // EPIFANIA (6 Gennaio)
+        else if (m === 0 && day === 6) {
+            bgImage = 'Nuovo-Epifania.jpg';
+        }
+        // SAN VALENTINO (14 Febbraio)
+        else if (m === 1 && day === 14) {
+            bgImage = 'Nuovo-Valentino.jpg';
+        }
+        // FERRAGOSTO (15 Agosto)
+        else if (m === 7 && day === 15) {
+            bgImage = 'Nuovo-Ferragosto.jpg';
+        }
+        // NATALE (dall'8 Dicembre al 6 Gennaio - se non è una delle date sopra)
+        else if ((m === 11 && day >= 8) || (m === 0 && day <= 6)) {
+            bgImage = 'Nuovo-Natale.jpg';
+        }
+
+        // Applica l'immagine
+        h.style.backgroundImage = `url('${baseUrl}${bgImage}')`;
     }
 
     init();

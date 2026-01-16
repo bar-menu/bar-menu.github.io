@@ -1,614 +1,381 @@
-/* Stili Globali, Body, Main */
+/* =========================================
+   STILE BAR SANTOS (Open Sans + Magazine Icons)
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:wght@400;600;700&family=Merriweather:ital,wght@0,700;1,400&display=swap');
+
 :root {
     --bg-dark: #1a1a1a;
     --bg-light-section: #fdfdfd;
     --text-dark: #222;
     --text-light: #e0e0e0;
-    --accent-color: #ccc; /* Usato per popup strength */
     --border-light: #eee;
     --border-dark: #444;
-    /* Variabili Ricerca Desktop */
-    --search-icon-size: 48px;
-    --search-bar-width: 280px;
-    --search-total-width: calc(var(--search-bar-width) + var(--search-icon-size) + 10px);
-    --search-bottom-offset: 20px;
-    --search-right-offset: 20px;
-    /* Variabili Barra Mobile */
-    --sticky-nav-height: 50px;
-    --sticky-search-icon-width: 40px;
-    --sticky-search-input-width-active: 180px; /* Larghezza input ricerca mobile aperto */
-    --sticky-nav-bottom-margin: 15px; /* Margine sopra la barra mobile */
+    
+    /* Barra Mobile */
+    --sticky-nav-height: 55px;
+    --sticky-nav-bg: rgba(50, 50, 50, 0.95);
+    --sticky-nav-link-color: #e0e0e0;
+    --sticky-nav-bottom-margin: 15px;
+    
+    /* Popup */
+    --popup-bg: rgba(50, 50, 50, 0.96);
+    --popup-text: #e8e8e8;
+    --popup-title-color: #ffffff;
+    --popup-border: #666;
+    --popup-prep-title: #bdbdbd;
+    --popup-prep-text: #d0d0d0;
+    --popup-toggle-btn-color: #bdbdbd;
+    --popup-toggle-btn-hover: #ffffff;
+    --popup-close-btn-color: #e0e0e0;
+
+    /* Font */
+    --font-main: 'Open Sans', sans-serif; 
+    --font-title: 'Merriweather', serif;
+    --font-header: 'Kaushan Script', cursive;
 }
 
-html {
-    /* Aggiorna scroll-padding in base a cosa è visibile */
-     scroll-padding-bottom: 80px; /* Spazio generico, verrà affinato da JS/media queries */
-     scroll-behavior: smooth;
+html { 
+    scroll-padding-bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin) + 10px); 
+    scroll-behavior: smooth; 
 }
 
-body {
-    font-family: 'Open Sans', sans-serif;
-    margin: 0;
-    padding-top: 0;
-    background-color: var(--bg-dark);
-    color: var(--text-light); /* Colore testo di default per elementi fuori dalle sezioni */
-    line-height: 1.5;
-    font-size: 16px;
-    /* Padding-bottom gestito dalle media query per nav/ricerca */
+body { 
+    font-family: var(--font-main); 
+    margin: 0; 
+    background-color: var(--bg-dark); 
+    color: var(--text-light); 
+    line-height: 1.5; 
+    font-size: 16px; 
+    padding-bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin)); 
 }
 
 main {
-    padding: 0 20px; /* Padding laterale per il contenuto */
+    padding: 0 15px;      /* Un po' di aria ai lati */
+    position: relative;   /* Serve per lo z-index */
+    z-index: 10;          /* Tira il menu SOPRA la foto dell'header */
+    margin-top: -30px;    /* <--- ECCOLO! Tira su tutto di 50 pixel */
 }
 
-/* Header e Titolo */
+/* --- HEADER SANTOS (190px Originale) --- */
+
+header::after { 
+
+}
+
+/* 1. Impostiamo l'immagine con la scritta incorporata */
 header {
-    text-align: center;
-    margin-bottom: 25px; /* Spazio sotto l'header */
-    padding-bottom: 30px; /* Spazio interno sotto */
-    position: relative;
-    width: 100%;
-    border-bottom: none; /* Nessun bordo visibile */
-    overflow: hidden; /* Nasconde parti immagine che escono */
-    min-height: 190px; /* Altezza minima header desktop */
-    z-index: 1; /* Sopra il gradiente after */
-    background-image: url('https://bar-menu.github.io/Santos-2.jpg'); /* Immagine di default */
-    background-size: cover; /* Copre tutta l'area */
-    background-position: center 0; /* Centrato orizzontalmente, allineato in alto */
-    background-repeat: no-repeat;
-    background-color: var(--bg-dark); /* Colore fallback se immagine non carica */
-}
-/* Gradiente scuro sovrapposto all'immagine header */
+            background-image: url('https://bar-menu.github.io/Bar_Santos.png') !important;
+            min-height: 270px !important; 
+            background-position: center center !important; 
+            background-size: cover !important;
+            border-bottom: none !important;
+            
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* <--- QUESTA FA LA MAGIA */
+            position: relative;
+            z-index: 1; /* Header sta sotto al Main (che è z-index 10) */
+            position: relative;
+        }
+
+/* 2. NASCONDIAMO IL VELO SCURO (Il gradiente) */
+/* Se l'immagine è già perfetta, questo non serve e la rovinerebbe */
 header::after {
-    content: "";
-    position: absolute;
-    bottom: -1px; /* Leggermente sotto per evitare linee strane */
-    left: 0;
-    width: 100%; height: 95%;
-    background: linear-gradient(to bottom, rgba(26, 26, 26, 0.0) 0%, rgba(26, 26, 26, 0.9) 70%, var(--bg-dark) 95%);
-    z-index: 0; /* Sotto il titolo h1 */
-}
-/* Titolo principale "Bar Santos" */
-header h1 {
-    font-family: 'Kaushan Script', cursive;
-    font-weight: 400; /* Kaushan ha solo questo peso */
-    font-size: 2.7em; /* Dimensione font desktop */
-    color: var(--text-light); /* Colore bianco/chiaro */
-    margin: 0;
-    position: absolute;
-    bottom: 40px; /* Distanza dal fondo header desktop */
-    left: 50%;
-    transform: translateX(-50%); /* Centratura orizzontale precisa */
-    z-index: 1; /* Sopra il gradiente */
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9); /* Ombra per leggibilità */
-    white-space: nowrap; /* Evita che vada a capo */
-    text-transform: capitalize; /* Bar Santos */
+    content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; 
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 80%, rgba(0,0,0,0.6) 100%, var(--bg-dark) 100%); 
+    z-index: 0; 
 }
 
-/* Sezioni, Liste, Item */
-section {
-    margin-bottom: 40px; /* Spazio tra sezioni */
-    background-color: var(--bg-light-section); /* Sfondo bianco/chiaro */
-    padding: 25px; /* Padding interno */
-    border-radius: 8px; /* Angoli arrotondati */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Ombra leggera */
-    color: var(--text-dark); /* Testo scuro per le sezioni */
-    display: block; /* Comportamento standard blocco */
+
+
+
+/* --- LINGUA (Stile Classico e Pulito come il Nuovo) --- */
+#lang-switch { 
+    position: absolute; 
+    top: 30px; 
+    right: 20px; 
+    z-index: 1000; 
+    font-size: 1rem; /* Dimensione leggibile */
+    background: transparent;
+    display: flex; align-items: center; gap: 5px;
 }
-/* Titolo H2 delle sezioni */
+
+.lang-btn { 
+    background: none; border: none; padding: 5px; cursor: pointer; 
+    font-family: var(--font-main); 
+    font-weight: 500; 
+    color: rgba(255, 255, 255, 0.5); /* Grigio spento se inattivo */
+    transition: color 0.2s; /* Cambio colore veloce */
+}
+
+.lang-btn.active { 
+    color: #fff; /* Bianco puro se attivo */
+    font-weight: 700; 
+    text-decoration: underline; 
+    text-underline-offset: 4px;
+    opacity: 1;
+    transform: none; /* Nessun effetto zoom */
+}
+
+.lang-btn:hover {
+    color: #fff;
+}
+
+.lang-separator { 
+    color: rgba(255, 255, 255, 0.3); 
+    margin: 0 2px; 
+    font-weight: 300; 
+}
+
+/* --- SEZIONI MENU --- */
+section { 
+    position: relative; overflow: hidden; z-index: 1;
+    margin-bottom: 35px; background-color: var(--bg-light-section); 
+    padding: 20px; border-radius: 8px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15); color: var(--text-dark); 
+}
+
+/* TITOLO (Senza riga, pulito) */
 section h2 {
-    font-family: 'Merriweather', serif;
-    font-size: 2.0em;
-    color: var(--text-dark);
-    margin-top: 0; /* Rimuovi margine sopra */
-    margin-bottom: 25px; /* Spazio sotto il titolo */
-    border-bottom: 1px solid var(--border-light); /* Linea separatrice */
-    padding-bottom: 15px; /* Spazio tra testo e linea */
-    font-weight: 700;
-    text-align: center; /* Titolo centrato */
-}
-/* Stile specifico per il prezzo nell'H2 (es. Cocktails) */
-section h2 .section-price {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.65em; /* Relativo all'H2 */
-    font-weight: 600;
-    color: #555;
-    vertical-align: middle; /* Allinea con il testo H2 */
-    margin-left: 10px; /* Spazio dal titolo */
-    display: inline-block; /* Per padding/bordi */
-    background-color: #f0f0f0; /* Sfondo leggero */
-    padding: 2px 6px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
+    font-family: var(--font-title); 
+    font-size: 2.0em; 
+    color: var(--text-dark); 
+    display: block; text-align: center; 
+    margin-top: 15px; margin-bottom: 20px; 
+    border-bottom: none; padding-bottom: 5px; 
+    font-weight: 700; position: relative; 
 }
 
+/* --- ICONE SFUMATE + RUOTATE (Il Mix Perfetto) --- */
+section h2::before {
+    content: ""; position: absolute;
+    
+    /* POSIZIONAMENTO (Stile Santos/Magazine) */
+    top: -30px; 
+    left: -40px; 
+    
+    /* DIMENSIONI */
+    width: 130px; 
+    height: 130px;
+    
+    /* SFUMATURA (Dal Nuovo) */
+    background: linear-gradient(160deg, #d9534f 0%, #ff9a3359 100%);
+    opacity: 0.15; /* Leggermente più visibile perché ruotata */
+    
+    /* ROTAZIONE (Dal Santos) */
+    transform: rotate(-15deg);
+    
+    z-index: -1; pointer-events: none;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-position: center; mask-position: center;
+    -webkit-mask-size: contain; mask-size: contain;
+    margin: 0;
+}
+
+/* --- LISTA PRODOTTI --- */
 ul { list-style: none; padding: 0; margin: 0; }
-
-/* Stile base per tutti gli item di menu */
-li.menu-item {
-    display: flex; /* Allinea nome e prezzo/info sulla stessa riga */
-    justify-content: space-between; /* Spinge nome a sinistra e prezzo a destra */
-    flex-wrap: wrap; /* Permette alle descrizioni di andare a capo */
-    align-items: flex-start; /* Allinea elementi in alto (utile se nome va a capo) */
-    padding: 15px 0; /* Spazio verticale */
-    border-bottom: 1px solid var(--border-light); /* Linea separatrice item */
+li.menu-item { 
+    display: flex; justify-content: space-between; flex-wrap: wrap; 
+    align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--border-light); 
+    padding-right: 15px; /* FIX PER IPHONE */
 }
-/* Hover per item NON cliccabili (es. caffè) */
-li.menu-item:not(.spirit-item):hover {
-     background-color: #f5f5f5;
-     transition: background-color 0.2s ease-in-out;
-}
-/* Hover per item cliccabili (spirits, cocktails, ecc.) */
-li.menu-item.spirit-item:hover {
-    background-color: #ededed; /* Sfondo leggermente più scuro */
-    transition: background-color 0.2s ease-in-out;
-    cursor: pointer; /* Indica che è cliccabile */
-}
-/* Rimuovi bordo dall'ultimo item di una lista generica */
-ul > li.menu-item:last-of-type:not(:has(~ *)) { border-bottom: none; }
-/* Mantiene il bordo se l'item è seguito da un H3 */
-ul > li.menu-item:has(+ h3) { border-bottom: 1px solid var(--border-light) !important; }
-/* Caso specifico ultimo item panini/piadine se seguito da H3 */
-#panini-piadine ul > li.menu-item:last-child { border-bottom: 1px solid var(--border-light); }
+li.menu-item:last-child { border-bottom: none; }
+li.menu-item:hover:not(.spirit-item) { background-color: #f5f5f5; transition: 0.2s; }
+.spirit-item { cursor: pointer; }
+.spirit-item:hover { background-color: #ededed; transition: 0.2s; }
 
-
-/* Nome dell'item */
-.item-name {
-    flex-grow: 1; /* Occupa lo spazio rimanente */
-    padding-right: 15px; /* Spazio a destra prima del prezzo */
-    font-weight: 600;
-    color: var(--text-dark);
-    font-size: 1.1em;
-    /* align-self: center; */ /* Decommenta se il nome appare troppo in alto rispetto al prezzo */
+.item-name { 
+    flex-grow: 1; padding-right: 15px; 
+    font-weight: 600; color: var(--text-dark); font-size: 1.1em; 
+    position: static; /* FIX FIX FIX */
 }
 
-/* Prezzo singolo (es. Caffè, Birra singola) */
-.item-price {
-    color: var(--text-dark);
-    white-space: nowrap; /* Non mandare a capo il prezzo */
-    font-size: 1.0em;
-    font-weight: 700;
-    flex-shrink: 0; /* Non ridurre la larghezza del prezzo */
-    text-align: right; /* Allinea il testo del prezzo a destra */
-    margin-left: auto; /* Spinge l'elemento all'estrema destra */
-    padding-left: 10px; /* Spazio minimo dal nome */
-    /* align-self: center; */ /* Decommenta se serve allineare al centro verticalmente */
+/* INDICATORE "i" (Fixato) */
+.spirit-item .item-name::after {
+    content: 'i'; font-family: var(--font-title); font-style: italic;
+    display: inline-block; margin-left: 8px; color: #d9534f;
+    font-size: 0.85em; font-weight: 700; opacity: 0.7; vertical-align: 1px;
+    padding-right: 5px; width: 10px; text-align: left;
+    -webkit-user-select: none; user-select: none; cursor: default;
 }
 
-/* Contenitore per prezzi multipli (Calice/Bottiglia) */
-.item-price-multi {
-    display: flex;
-    flex-direction: column; /* Prezzi uno sotto l'altro */
-    align-items: flex-end; /* Allinea i testi a destra */
-    color: var(--text-dark);
-    font-weight: 700;
-    font-size: 1.0em;
-    white-space: nowrap;
-    flex-shrink: 0;
-    margin-left: auto; /* Spinge a destra */
-    padding-left: 10px;
+.item-price { color: var(--text-dark); white-space: nowrap; font-weight: 700; text-align: right; margin-left: auto; }
+.item-price-multi { display: flex; flex-direction: column; align-items: flex-end; text-align: right; font-weight: 700; font-size: 0.9em; color: var(--text-dark); margin-left: auto; line-height: 1.3; }
+.item-description { display: block; width: 100%; font-size: 0.88em; color: #666; margin-top: 5px; line-height: 1.4; padding-left: 0; }
+
+/* PANINI */
+li.info-item { border-bottom: none; padding: 10px 0; flex-direction: column; align-items: flex-start; }
+li.info-item .item-name { font-size: 1.0em; color: #333; margin-bottom: 2px; width: 100%; }
+li.info-item .item-description { font-size: 0.9em; color: #666; margin-top: 0; line-height: 1.4; }
+
+/* --- NAVIGAZIONE STICKY --- */
+#quick-nav-mobile-sticky { 
+    position: fixed; bottom: 0; left: 0; width: 100%; 
+    background-color: rgba(40, 40, 40, 0.85); backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.2); z-index: 999; 
+    display: flex; align-items: center; height: var(--sticky-nav-height); 
+    overflow: hidden; padding: 0; 
 }
-/* Singoli prezzi dentro il contenitore multi */
-.item-price-multi .item-price {
-    margin-left: 0; /* Resetta margine */
-    padding: 2px 0; /* Spazio verticale tra i prezzi multi */
-    text-align: right;
-    width: auto; /* Larghezza automatica */
+#sticky-search-container { display: flex; align-items: center; position: static; flex-shrink: 0; height: 100%; padding-left: 10px; }
+#sticky-search-trigger { 
+    background: none; border: none; color: var(--sticky-nav-link-color); 
+    font-size: 1.2em; padding: 0; cursor: pointer; width: 40px; height: 40px; z-index: 20; 
+    display: flex; align-items: center; justify-content: center; position: relative; transition: color 0.2s ease; 
+}
+#quick-nav-mobile-sticky.search-active #sticky-search-trigger { color: #d9534f; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 25; }
+#quick-nav-mobile-sticky.search-active #sticky-search-trigger i::before { content: "\f00d"; font-weight: 900; } 
+#sticky-search-input { 
+    width: 0; opacity: 0; visibility: hidden; border: none; 
+    background: transparent; color: var(--text-light); font-size: 16px; font-family: var(--font-main);
+    position: absolute; left: 20px; top: 50%; transform: translateY(-50%); 
+    z-index: 10; border-radius: 20px; height: 38px; outline: none; padding: 0;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+#quick-nav-mobile-sticky.search-active #sticky-search-input { width: calc(100vw - 20px); left: 10px !important; opacity: 1; visibility: visible; background: #333; padding: 0 15px 0 45px; box-sizing: border-box; }
+#quick-nav-mobile-sticky.search-active .sticky-nav-links-wrapper { opacity: 0; pointer-events: none; }
+.sticky-nav-links-wrapper { flex-grow: 1; overflow-x: auto; white-space: nowrap; display: flex; align-items: center; margin-left: 5px; padding-right: 10px; height: 100%; }
+.sticky-nav-links-wrapper::-webkit-scrollbar { display: none; }
+#quick-nav-mobile-sticky ul { display: flex; gap: 10px; margin: 0; padding: 0; list-style: none; align-items: center; }
+#quick-nav-mobile-sticky a { 
+    color: var(--sticky-nav-link-color); text-decoration: none; font-size: 0.9em; 
+    padding: 6px 12px; border-radius: 15px; transition: 0.2s; display: inline-flex; align-items: center; line-height: 1; 
+}
+#quick-nav-mobile-sticky a:hover { background-color: rgba(255,255,255,0.15); color: #fff; }
+/* STILE ACTIVE SCROLLSPY */
+#quick-nav-mobile-sticky a.active { background-color: #fff; color: #000; font-weight: 700; box-shadow: 0 0 10px rgba(255,255,255,0.4); transform: scale(1.05); }
+
+/* FOOTER */
+footer { text-align: center; margin-top: 50px; padding: 25px 20px; border-top: 1px solid var(--border-dark); font-size: 0.85em; color: #999; }
+footer nav#quick-nav { margin: 0 0 30px 0; padding: 0 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 15px; }
+footer nav#quick-nav a { display: inline-block; padding: 3px 5px; color: #b0b0b0; text-decoration: none; font-size: 0.9em; }
+footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
+
+/* LOGO FOOTER */
+.footer-logo {
+    display: block;           /* Fondamentale per centrarlo */
+    max-width: 180px;         /* Larghezza massima: giocati questo numero se lo vuoi più grande/piccolo */
+    height: auto;             /* Mantiene le proporzioni, non lo stira */
+    margin: 0 auto 20px auto; /* 0 sopra, Auto (centro) lati, 20px sotto */
+    
+    /* Tocco di classe opzionale: */
+    opacity: 0.8;             /* Leggermente meno "sparato", più elegante */
 }
 
-/* Descrizione generica (sotto nome/prezzo) */
-.item-description, .item-description-vini {
-    font-size: 0.88em;
-    color: #666;
-    flex-basis: 100%; /* Occupa tutta la larghezza per andare a capo */
-    margin-top: 5px; /* Spazio dall'elemento sopra */
-    line-height: 1.4;
-    padding-left: 0; /* Assicura allineamento a sinistra */
+/* POPUP */
+#gin-description-popup { 
+    position: fixed; bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin)); 
+    left: 15px; right: 15px; max-width: 450px; margin: auto; 
+    background-color: var(--popup-bg); color: var(--popup-text); 
+    border-radius: 8px; padding: 22px; padding-right: 35px;
+    z-index: 1100; opacity: 0; visibility: hidden; 
+    transform: translateY(20px); transition: all 0.3s ease; 
+    box-shadow: 0 6px 25px rgba(0,0,0,0.45); backdrop-filter: blur(6px);
 }
-.item-description-vini { font-size: 0.93em; } /* Descrizione vini leggermente più grande */
+#gin-description-popup.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.popup-content { position: relative; }
+#popup-product-name { 
+    color: var(--popup-title-color); border-bottom: 1px solid var(--popup-border); 
+    margin: 0 0 12px 0; padding-bottom: 10px; font-family: var(--font-title); font-weight: 600; font-size: 1.25em; padding-right: 45px;
+}
+#popup-product-description { font-size: 0.95em; line-height: 1.55; margin-bottom: 15px; color: var(--popup-text); }
 
-/* Variazioni (es. Gin Malfy, Martini Rosso/Bianco) */
-.item-variations {
-    flex-basis: 100%;
-    margin-top: 6px;
-    font-size: 0.9em;
-    color: #444;
-    font-weight: 600;
-    line-height: 1.4;
-    padding-left: 0;
+/* POPUP CLOSE BUTTON (FIXATO) */
+#popup-close-btn { 
+    position: absolute; top: -24px; right: -16px; 
+    background: none; border: none; padding: 16px; margin: 0;
+    display: block; color: var(--popup-close-btn-color); 
+    font-family: var(--font-main); font-size: 2.5rem; font-weight: 400; line-height: 1; 
+    cursor: pointer; opacity: 0.8; z-index: 100;
 }
-/* Stile per la descrizione che segue le variazioni */
-.item-variations + .item-description {
-    margin-top: 2px;
-    font-size: 0.85em;
-    color: #666;
-    font-weight: 400;
-}
+#popup-close-btn:hover { opacity: 1; color: #fff; }
 
-/* Stili specifici per sottotitoli (es. Birre, Panini) */
-#birre h3, #panini-piadine h3 {
-     font-family: 'Merriweather', serif;
-     font-size: 1.3em;
-     color: #444;
-     margin-top: 25px; margin-bottom: 15px;
-     padding-bottom: 8px;
-     border-bottom: 1px solid #ddd;
-     font-weight: 700;
-}
-#birre h3:first-of-type { margin-top: 0; } /* Rimuovi margine dal primo h3 */
-#panini-piadine h3 { /* Stile diverso per panini/piadine */
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.1em; margin-bottom: 8px;
-    color: #555; font-weight: 600;
-    border-bottom: none; /* Niente linea sotto */
-}
+#toggle-prep-btn { background: none; border: none; color: var(--popup-toggle-btn-color); cursor: pointer; width: 100%; text-align: left; padding: 8px 0; font-size: 0.9em; font-weight: 600; }
+#toggle-prep-btn:hover { color: var(--popup-toggle-btn-hover); }
+#popup-preparation-container { margin-top: 10px; padding: 15px; border-radius: 4px; border-top: 1px dashed var(--popup-border); background-color: rgba(0,0,0,0.1); display: none; }
+#popup-preparation-container h5 { margin: 0 0 10px 0; color: var(--popup-prep-title); text-transform: uppercase; font-size: 0.85em; }
+#popup-preparation-text { font-size: 0.9em; color: var(--popup-prep-text); margin-bottom: 10px; }
 
-/* Stili specifici Vini / Franciacorta */
-#vini ul li .item-name, #franciacorta ul li .item-name { font-weight: 600; font-size: 1.1em; }
-#vini ul li, #franciacorta ul li { padding: 16px 0; } /* Più spazio verticale */
-#vini ul li .item-description-vini { font-size: 0.9em; }
-#franciacorta ul li .item-description { font-size: 0.9em; color: #666; flex-basis: 100%; margin-top: 5px; line-height: 1.4; }
+/* BADGE */
+.strength-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; color: #fff; text-transform: uppercase; font-size: 0.75em; font-weight: 700; margin-top: 10px; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); background-color: #5bc0de; }
+.strength-forte { background-color: #d9534f; }
+.strength-medio { background-color: #5cb85c; }
+.strength-leggero { background-color: #5bc0de; }
 
-/* Testi per panini/piadine (ingredienti) */
-#panini-piadine p { font-size: 0.95em; color: #666; margin-bottom: 10px; line-height: 1.4; }
+/* NO RESULTS */
+#no-results { display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 20px; min-height: 200px; }
+#no-results h2 { font-family: var(--font-title); font-size: 2em; margin-bottom: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 15px; width: 100%; text-align: center; display: block; }
+#no-results p { font-size: 1.1em; color: #555; }
+#no-results strong { color: #d9534f; }
 
-/* Descrizione in fondo alla sezione Gin Tonic */
-#gin-tonic li.item-description-footer {
-    display: block; text-align: center; margin-top: 15px;
-    border-bottom: none; padding: 10px 0 0 0; font-style: italic;
-    flex-basis: 100%; color: #666; font-size: 0.88em;
-}
-#gin-tonic li.item-description-footer:hover { background-color: transparent; } /* Niente hover per questo */
-
-/* Footer */
-footer {
-    text-align: center; margin-top: 50px;
-    padding: 25px 20px;
-    border-top: 1px solid var(--border-dark); /* Linea sopra footer */
-    font-size: 0.85em; color: #999; /* Testo grigio chiaro */
-}
-.footer-logo { display: block; max-width: 100px; height: auto; margin: 0 auto 20px auto; }
-footer p { margin: 5px 0; }
-
-/* --- Stili Navigazione Rapida Footer (SOLO DESKTOP) --- */
-#quick-nav { margin: 0 0 30px 0; padding: 0 10px; }
-#quick-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
-#quick-nav li { padding: 0; border-bottom: none; display: block; flex-grow: 0; flex-shrink: 0; }
-#quick-nav li:hover { background-color: transparent; }
-#quick-nav a { display: inline-block; padding: 3px 5px; color: #b0b0b0; text-decoration: none; font-size: 0.85em; font-weight: 400; transition: color 0.2s ease; white-space: nowrap; }
-#quick-nav a:hover, #quick-nav a:focus { color: #fff; text-decoration: underline; outline: none; }
-
-/* --- Stili Pop-up Descrizione --- */
-#gin-description-popup { /* ID storico, ora generico per tutti i popup */
-    position: fixed;
-    left: 15px; right: 15px;
-    bottom: 20px; /* Posizione default, sovrascritta da media query */
-    margin-left: auto; margin-right: auto; /* Centra orizzontalmente */
-    max-width: 450px; /* Larghezza massima */
-    transform: translateY(20px); /* Stato iniziale (nascosto in basso) */
-    background-color: rgba(50, 50, 50, 0.95); /* Sfondo scuro semitrasparente */
-    backdrop-filter: blur(6px); /* Effetto vetro smerigliato */
-    color: var(--text-light); /* Testo chiaro */
-    border-radius: 8px;
-    padding: 20px; padding-right: 45px; /* Spazio interno, più a destra per bottone chiusura */
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Ombra */
-    z-index: 1100; /* Sopra altri elementi (es. nav mobile) */
-    opacity: 0; visibility: hidden; /* Nascosto di default */
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s ease 0.3s; /* Animazione entrata/uscita */
-    /* 'bottom' gestito da media query per posizionarsi sopra nav/ricerca */
-}
-#gin-description-popup.visible { /* Stato visibile */
-    opacity: 1; visibility: visible;
-    transform: translateY(0); /* Torna in posizione */
-    transition-delay: 0s, 0s, 0s; /* Rimuovi ritardo visibilità */
-}
-.popup-content { position: relative; } /* Contenitore per posizionare bottone chiusura */
-
-/* Nome prodotto nel popup */
-#popup-product-name {
-    margin-top: 0; margin-bottom: 5px;
-    font-family: 'Poppins', sans-serif; font-size: 1.2em;
-    color: #fff; /* Bianco pieno per il titolo */
-    border-bottom: 1px solid #666; padding-bottom: 8px;
-}
-
-/* Badge Grado Alcolico nel popup */
-#popup-strength {
-    display: inline-block;
-    font-size: 0.8em;
-    font-weight: 600;
-    color: var(--bg-dark); /* Testo scuro per contrasto */
-    background-color: var(--accent-color); /* Colore base badge */
-    padding: 2px 8px;
-    border-radius: 10px; /* Arrotondato */
-    margin-bottom: 10px; /* Spazio sotto */
-    margin-top: 5px; /* Spazio sopra */
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-/* Colori condizionali per grado alcolico */
-#popup-strength.strength-leggero { background-color: #a7d7a7; /* Verde */ }
-#popup-strength.strength-medio { background-color: #f8d775; /* Giallo */ }
-#popup-strength.strength-medio-forte { background-color: #f5b86a; } /* Arancio */
-#popup-strength.strength-forte { background-color: #f0a1a1; /* Rosso chiaro */ }
-#popup-strength.strength-molto-forte { background-color: #e77373; /* Rosso scuro */ }
-
-/* Descrizione prodotto nel popup */
-#popup-product-description {
-    margin-bottom: 15px; /* Spazio prima del bottone/preparazione */
-    font-size: 0.95em; line-height: 1.5;
-    color: var(--text-light);
-}
-
-/* Bottone per mostrare/nascondere preparazione */
-#toggle-prep-btn {
-    display: none; /* Nascosto di default, mostrato da JS se c'è preparazione */
-    width: 100%;
-    margin-top: 10px; margin-bottom: 15px;
-    padding: 8px 12px;
-    background-color: rgba(255, 255, 255, 0.1); /* Sfondo leggero trasparente */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text-light);
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.9em; font-weight: 600;
-    text-align: left; /* Testo allineato a sinistra */
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-#toggle-prep-btn:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-#toggle-prep-btn i { /* Icona freccia */
-    margin-right: 8px;
-    transition: transform 0.3s ease;
-    display: inline-block; /* Permette trasformazione */
-    width: 12px; /* Larghezza fissa */
-    text-align: center;
-}
-/* Icona ruotata quando preparazione è visibile */
-#gin-description-popup.preparation-visible #toggle-prep-btn i {
-    transform: rotate(180deg);
-}
-
-/* Contenitore della preparazione (nascosto di default) */
-#popup-preparation-container {
-    margin-top: -5px; /* Compensa margine bottone */
-    margin-bottom: 15px;
-    padding: 15px;
-    background-color: rgba(0, 0, 0, 0.2); /* Sfondo diverso */
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    display: none; /* Nascosto via CSS, mostrato da JS */
-}
-#popup-preparation-container h5 { /* Titolo "Preparazione Semplice:" */
-    margin-top: 0; margin-bottom: 8px;
-    font-family: 'Poppins', sans-serif; font-size: 0.95em;
-    color: #eee;
-    border-bottom: 1px solid #555; padding-bottom: 5px;
-    font-weight: 600;
-}
-#popup-preparation-container p { /* Testo della preparazione */
-    margin-bottom: 0;
-    font-size: 0.9em; line-height: 1.5;
-    color: #d0d0d0;
-}
-/* Mostra il contenitore quando il popup ha la classe specifica */
-#gin-description-popup.preparation-visible #popup-preparation-container {
-    display: block;
-}
-
-/* Bottone chiusura popup (X) */
-#popup-close-btn {
-    position: absolute; top: -10px; right: -30px; /* Posizionato fuori dal box principale */
-    background: none; border: none;
-    color: var(--text-light); font-size: 2.5em; line-height: 1;
-    cursor: pointer; padding: 5px; opacity: 0.8;
-    transition: opacity 0.2s ease;
-}
-#popup-close-btn:hover { opacity: 1; }
-
-/* Stile "Nessun Risultato" ricerca */
-#no-results {
-    text-align: center; color: var(--text-dark); min-height: 200px;
-    padding: 40px 20px; border-radius: 8px;
-    background-color: var(--bg-light-section);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    margin-bottom: 40px;
-    display: none; /* Nascosto di default */
-    flex-direction: column; justify-content: center; align-items: center;
-}
-#no-results h2 { margin-bottom: 15px; }
-#no-results p { font-size: 1.1em; color: #555; max-width: 80%; }
-#no-results strong { color: #d9534f; } /* Evidenzia termine cercato */
-#no-results a { color: #007bff; text-decoration: underline; cursor: pointer; } /* Link opzionale */
+/* --- ABBINAMENTI FILE ICONE --- */
+#caffetteria h2::before { -webkit-mask-image: url('icons/coffee.svg'); mask-image: url('icons/coffee.svg'); left: -68px; }
+#t-cioccolate h2::before, #te-cioccolate h2::before { -webkit-mask-image: url('icons/mug-tea-saucer.svg'); mask-image: url('icons/mug-tea-saucer.svg'); left: -68px; }
+#bevande h2::before { -webkit-mask-image: url('icons/glass-water.svg'); mask-image: url('icons/glass-water.svg'); display: none !important; }
+#spritz h2::before, #vini h2::before, #vermouth h2::before { -webkit-mask-image: url('icons/wine-glass.svg'); mask-image: url('icons/wine-glass.svg'); }
+#cocktails h2::before { -webkit-mask-image: url('icons/martini-glass-citrus.svg'); mask-image: url('icons/martini-glass-citrus.svg'); left: -55px; }
+#franciacorta h2::before { -webkit-mask-image: url('icons/champagne.svg'); mask-image: url('icons/champagne.svg'); }
+#birre h2::before { -webkit-mask-image: url('icons/beer-mug-empty.svg'); mask-image: url('icons/beer-mug-empty.svg'); }
+#gin-tonic h2::before { -webkit-mask-image: url('icons/glass-citrus.svg'); mask-image: url('icons/glass-citrus.svg'); }
+#rum h2::before, #amari-e-liquori h2::before { -webkit-mask-image: url('icons/whiskey-glass-ice.svg'); mask-image: url('icons/whiskey-glass-ice.svg'); }
+#whisky h2::before { display: none !important; }
+#vodka h2::before { display: none !important; }
+#brandy h2::before { -webkit-mask-image: url('icons/brandy.svg'); mask-image: url('icons/brandy.svg'); }
+#grappe h2::before { -webkit-mask-image: url('icons/flask-round-potion.svg'); mask-image: url('icons/flask-round-potion.svg'); }
+#panini-piadine h2::before { -webkit-mask-image: url('icons/burger-cheese.svg'); mask-image: url('icons/burger-cheese.svg'); }
+#spuntini h2::before { display: none !important; }
 
 
-/* --- STILI NAVIGAZIONE MOBILE STICKY CON RICERCA INTEGRATA --- */
-#quick-nav-mobile-sticky {
-    position: fixed; bottom: 0; left: 0; width: 100%;
-    background-color: rgba(40, 40, 40, 0.9); /* Sfondo scuro trasparente */
-    backdrop-filter: blur(5px); /* Sfocatura sfondo */
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Ombra sopra */
-    z-index: 999; /* Sopra contenuto, sotto popup */
-    padding: 0; display: flex; align-items: stretch; /* Allinea ricerca e link */
-    height: var(--sticky-nav-height); /* Altezza fissa */
-    overflow: hidden; /* Nasconde contenuto extra */
-    display: none; /* Nascosto di default, mostrato da media query mobile */
-}
-/* Contenitore Ricerca (a sinistra nella barra mobile) */
-#sticky-search-container {
-    display: flex; align-items: center; flex-shrink: 0; /* Non restringere */
-    padding: 0 5px 0 10px; /* Padding interno */
-    background-color: rgba(30, 30, 30, 0.8); /* Sfondo leggermente diverso */
-    transition: background-color 0.3s ease;
-}
-#sticky-search-trigger { /* Bottone icona ricerca mobile */
-    background: none; border: none; color: var(--text-light);
-    font-size: 1.2em; padding: 10px; margin: 0; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.3s ease;
-    width: var(--sticky-search-icon-width); height: 100%;
-}
-#sticky-search-trigger i { transition: transform 0.3s ease; } /* Animazione icona (X) */
-#sticky-search-input { /* Campo input ricerca mobile */
-    width: 0; opacity: 0; visibility: hidden; /* Nascosto di default */
-    padding: 0; margin-left: 0; border: none;
-    background-color: transparent; height: calc(100% - 16px); /* Altezza interna */
-    border-radius: 15px; font-size: 1em; color: var(--text-light);
-    outline: none; /* Niente bordo focus */
-    transition: width 0.35s ease, opacity 0.3s ease 0.1s, visibility 0s linear 0.35s, padding 0.35s ease, margin-left 0.35s ease, background-color 0.35s ease; /* Transizioni apertura */
-}
-#sticky-search-input::placeholder { color: rgba(224, 224, 224, 0.6); }
-/* Contenitore Link Navigazione (a destra, scrollabile) */
-.sticky-nav-links-wrapper {
-    flex-grow: 1; /* Occupa spazio rimanente */
-    overflow-x: auto; /* Scroll orizzontale se i link non ci stanno */
-    white-space: nowrap; /* Evita che i link vadano a capo */
-    -webkit-overflow-scrolling: touch; /* Scroll fluido su iOS */
-    scrollbar-width: none; /* Nasconde barra scroll Firefox */
-    height: 100%; display: flex; align-items: center; /* Centra verticalmente i link */
-}
-.sticky-nav-links-wrapper::-webkit-scrollbar { display: none; } /* Nasconde barra scroll Webkit/Blink */
-#quick-nav-mobile-sticky ul { /* Lista link */
-    display: flex; gap: 15px; /* Spazio tra link */
-    margin: 0; padding: 0 10px; /* Padding laterale dentro wrapper */
-    width: max-content; /* Larghezza basata sul contenuto */
-    height: 100%; align-items: center; /* Centra verticalmente */
-}
-#quick-nav-mobile-sticky li { display: inline-block; padding: 0; border: none; flex-shrink: 0; }
-#quick-nav-mobile-sticky li:hover { background: none;}
-#quick-nav-mobile-sticky a { /* Singoli link nav mobile */
-    font-size: 0.9em; color: var(--text-light); padding: 5px 8px;
-    border-radius: 4px; transition: background-color 0.2s ease;
-    text-decoration: none; display: inline-block;
-    line-height: calc(var(--sticky-nav-height) - 10px); /* Allinea testo verticalmente */
-}
-#quick-nav-mobile-sticky a:hover, #quick-nav-mobile-sticky a:focus {
-    background-color: rgba(255, 255, 255, 0.15); /* Sfondo leggero su hover/focus */
-    color: #fff; outline: none;
-}
-/* Stato Attivo Ricerca Mobile */
-#quick-nav-mobile-sticky.search-active #sticky-search-input {
-    width: var(--sticky-search-input-width-active); /* Espande input */
-    opacity: 1; visibility: visible; padding: 0 12px;
-    margin-left: 8px; background-color: rgba(60, 60, 60, 0.8); /* Sfondo input attivo */
-    transition-delay: 0s, 0s, 0s, 0s, 0s, 0s; /* Rimuovi ritardi transizione */
-}
-#quick-nav-mobile-sticky.search-active #sticky-search-trigger i::before {
-     content: "\f00d"; /* Cambia icona in 'X' (FontAwesome) */
-     font-weight: 900; /* Assicura che sia l'icona solid */
-}
-#quick-nav-mobile-sticky.search-active .sticky-nav-links-wrapper {
-    display: none; /* Nasconde i link quando la ricerca è attiva */
-}
 
-
-/* --- STILI RICERCA DESKTOP FLOTTANTE --- */
-#search-wrapper-desktop {
-    position: fixed; bottom: var(--search-bottom-offset); right: var(--search-right-offset);
-    z-index: 1000; /* Sopra quasi tutto, tranne forse popup */
-    display: flex; align-items: center; justify-content: flex-end; /* Allinea icona a destra */
-    width: var(--search-icon-size); height: var(--search-icon-size); /* Dimensioni base (solo icona) */
-    transition: width 0.35s ease-in-out; /* Anima larghezza all'apertura */
-    direction: rtl; /* Trucco per animare da destra a sinistra */
-    display: none; /* Nascosto di default, mostrato da media query desktop */
-}
-#search-icon-trigger-desktop { /* Cerchio icona ricerca desktop */
-    width: var(--search-icon-size); height: var(--search-icon-size); border-radius: 50%;
-    background-color: rgba(40, 40, 40, 0.85); backdrop-filter: blur(5px);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.3); display: flex; align-items: center;
-    justify-content: center; cursor: pointer; flex-shrink: 0; z-index: 2; /* Sopra input */
-    transition: background-color 0.2s ease; direction: ltr; /* Ripristina direzione testo */
-    overflow: hidden; /* Nasconde parte input all'inizio */
-}
-#search-icon-trigger-desktop i { color: var(--text-light); font-size: 1.3em; line-height: 1; transition: transform 0.3s ease; } /* Icona */
-#search-input-container-desktop { /* Contenitore input ricerca desktop */
-    width: 0; /* Nascosto di default */
-    height: calc(var(--search-icon-size) - 8px); /* Altezza leggermente minore icona */
-    overflow: hidden; visibility: hidden;
-    transition: width 0.35s ease-in-out, background-color 0.35s ease-in-out, border-radius 0.35s ease-in-out, visibility 0s ease-in-out 0.35s; /* Transizioni */
-    background-color: transparent; border-radius: 25px; /* Forma arrotondata */
-    margin-right: -24px; /* Sovrappone leggermente icona per effetto arrotondato continuo */
-    padding-right: 24px; /* Compensa margine negativo */
-    direction: ltr; /* Ripristina direzione testo */
-    box-shadow: 0 3px 10px rgba(0,0,0,0.3); /* Ombra */
-}
-#search-input-desktop { /* Input effettivo desktop */
-    width: var(--search-bar-width); height: 100%; padding: 0 15px; margin: 0; border: none;
-    outline: none; font-size: 1.1em; background-color: transparent; color: var(--text-light);
-    opacity: 0; transition: opacity 0.2s ease 0.1s; /* Appare dopo apertura contenitore */
-}
-#search-input-desktop::placeholder { color: rgba(224, 224, 224, 0.6); opacity: 0; transition: opacity 0.2s ease 0.1s; }
-#search-input-desktop:focus-visible { outline: none; }
-/* Stato Attivo Ricerca Desktop */
-#search-wrapper-desktop.search-active { width: min(var(--search-total-width), calc(100vw - 2 * var(--search-right-offset))); } /* Espande wrapper */
-#search-wrapper-desktop.search-active #search-input-container-desktop {
-    width: var(--search-bar-width); background-color: rgba(51, 51, 51, 0.9); backdrop-filter: blur(5px);
-    visibility: visible; transition-delay: 0s, 0s, 0s, 0s; /* Rimuovi ritardi */
-}
-#search-wrapper-desktop.search-active #search-input-desktop,
-#search-wrapper-desktop.search-active #search-input-desktop::placeholder { opacity: 1; } /* Mostra input e placeholder */
-#search-wrapper-desktop.search-active #search-input-desktop { color: var(--text-light); }
-#search-wrapper-desktop.search-active #search-icon-trigger-desktop { background-color: rgba(60, 60, 60, 0.9); } /* Scurisce icona */
-#search-wrapper-desktop.search-active #search-icon-trigger-desktop i { transform: rotate(90deg); } /* Ruota icona (effetto opzionale) */
-
-
-/* --- MEDIA QUERY PER GESTIONE RESPONSIVE --- */
-
-/* Stili Mobile (fino a 768px) */
-@media (max-width: 768px) {
-    /* Mostra barra mobile sticky */
-    #quick-nav-mobile-sticky { display: flex; }
-    /* Nascondi ricerca desktop e nav footer desktop */
-    #search-wrapper-desktop { display: none; }
-    footer #quick-nav { display: none; }
-
-    /* Adatta padding body e posizione popup per barra mobile */
-    body {
-         padding-bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin)); /* Spazio per barra + margine */
-    }
-    html { /* Aggiorna scroll padding per mobile */
-        scroll-padding-bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin) + 10px); /* Barra + margine + piccolo extra */
-    }
-    #gin-description-popup {
-         bottom: calc(var(--sticky-nav-height) + var(--sticky-nav-bottom-margin)); /* Posiziona popup sopra la barra */
-         z-index: 1100; /* Assicura sia sopra la barra nav */
-    }
-
-    /* Riduci leggermente header e titolo su mobile */
-    header { min-height: 170px; padding-bottom: 20px; }
-    header h1 { font-size: 2.2em; bottom: 30px; }
-    header::after { height: 100%; background: linear-gradient(to bottom, rgba(26, 26, 26, 0.0) 0%, rgba(26, 26, 26, 0.85) 65%, var(--bg-dark) 92%); } /* Gradiente più coprente */
-
-     /* Riduci font titoli sezioni e item su mobile? (Opzionale) */
-    section h2 { font-size: 1.8em; }
-    .item-name { font-size: 1.0em; }
-    .item-price, .item-price-multi { font-size: 0.95em; }
-}
-
-/* Stili Desktop (da 769px in su) */
+/* =========================================
+   STILE DESKTOP (Schermi grandi > 769px)
+   ========================================= */
 @media (min-width: 769px) {
-    /* Mostra ricerca desktop e nav footer desktop */
-    #search-wrapper-desktop { display: flex; }
-    footer #quick-nav { display: flex; }
-    /* Nascondi barra mobile sticky */
-    #quick-nav-mobile-sticky { display: none; }
 
-    /* Adatta padding body e posizione popup per ricerca desktop */
-    body {
-         padding-bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 20px); /* Spazio per icona ricerca + offset + extra */
-    }
-    #gin-description-popup {
-         bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 15px); /* Posiziona popup sopra icona ricerca */
-    }
-    html { /* Ripristina scroll padding per ricerca desktop */
-        scroll-padding-bottom: calc(var(--search-icon-size) + var(--search-bottom-offset) + 10px); /* Icona + offset + piccolo extra */
-    }
-}
-/* --- FINE MEDIA QUERY --- */
+    /* 1. NASCONDI LA BARRA MOBILE */
+    #quick-nav-mobile-sticky { display: none !important; }
 
-/* Aggiunta classe helper per badge forza nel popup (già inclusa sopra) */
-.strength-badge {
-    /* Stile base già definito in #popup-strength */
+    /* 2. HEADER PIÙ BASSO */
+    /* Su PC l'immagine deve essere panoramica, non troppo alta */
+    header {
+        min-height: 400px !important; 
+
+        background-position: center center !important;
+    }
+
+    /* 3. IL MENU "A COLONNA CENTRALE" */
+    main {
+        max-width: 800px;        /* Larghezza foglio A4 */
+        margin: 0 auto;          /* Centra il blocco orizzontalmente */
+        position: relative;
+        z-index: 10;             /* Sta sopra l'header */
+        
+        /* EFFETTO SOVRAPPOSIZIONE */
+        margin-top: -80px;       /* Tira su il menu sopra la foto */
+        margin-bottom: 50px;     /* Spazio sotto prima del footer */
+    }
+
+    /* 4. ARROTONDA IL PRIMO BLOCCO */
+    /* Siccome "galleggia" sulla foto, deve avere gli angoli tondi sopra */
+    section:first-of-type {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        /* Un'ombra verso l'alto per staccarlo dalla foto */
+        box-shadow: 0 -10px 30px rgba(0,0,0,0.3); 
+    }
+
+    /* 5. GESTIONE RICERCA DESKTOP (quella col pallino) */
+    #search-wrapper-desktop { 
+        display: flex; 
+        /* Si assicura che stia a destra senza coprire il menu centrale */
+        right: 40px; 
+        bottom: 40px;
+    }
+
+    /* 6. FOOTER PIÙ PULITO */
+    footer {
+        max-width: 800px;
+        margin: 0 auto;
+        background: transparent;
+        border-top: none;
+    }
 }

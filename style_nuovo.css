@@ -99,50 +99,51 @@ section {
 }
 
 /* 2. Il Titolo (Senza riga, più leggero) */
+/* TITOLO DI SEZIONE (Stile Pulito) */
 section h2 {
     font-family: 'Merriweather', serif; 
     font-size: 2.0em; 
     color: var(--text-dark); 
     
-    /* Allineamento testo */
+    /* Allineamento */
     display: block;
     text-align: center; 
     
     margin-top: 15px; 
-    margin-bottom: 20px; /* Un po' meno spazio visto che non c'è la riga */
+    margin-bottom: 20px; 
     
-    border-bottom: none; /* <--- VIA LA RIGA (Era: 1px solid...) */
-    padding-bottom: 5px;   /* <--- VIA IL PADDING (Era: 15px) */
+    /* Nessuna riga sotto, lascia spazio all'icona */
+    border-bottom: none; 
+    padding-bottom: 5px; 
     
     font-weight: 700;
-    
-    position: relative; 
+    position: relative; /* Fondamentale per l'icona */
 }
 
-/* 3. L'ICONA WATERMARK (A Sinistra, grande e storta) */
+/* ICONA SFONDO (Stile Magazine/Watermark) */
 section h2::before {
     content: "";
     position: absolute;
     
-    /* POSIZIONAMENTO "STILE RIVISTA" */
-    top: -64px;   /* La tiriamo su, quasi fuori dal bordo */
-    left: -64px;  /* La spostiamo a sinistra, che sbordi un po' */
+    /* POSIZIONAMENTO (Sborda a sinistra) */
+    top: -30px;
+    left: -40px;
     
-    /* DIMENSIONI */
-    width: 124px;    /* Abbastanza grande da fare scena */
-    height: 124px;
+    /* DIMENSIONI GRANDI */
+    width: 130px;
+    height: 130px;
     
-    /* COLORE E TRASPARENZA (Molto leggero come volevi) */
     background: linear-gradient(160deg, #d9534f 0%, #ff9a3359 100%);
-    opacity: 0.21;   /* 5% di visibilità. Leggerissimo. */
+    opacity: 0.15; /* Leggermente più visibile perché ruotata */
     
-    /* UN TOCCO DI CLASSE: ROTAZIONE */
-    transform: rotate(-0deg); /* La incliniamo un po' per dare dinamismo */
     
-    z-index: -1;          /* Dietro al testo */
-    pointer-events: none; /* Non cliccabile */
+    /* ROTAZIONE */
+    transform: rotate(-15deg);
     
-    /* MASCHERA */
+    z-index: -1;
+    pointer-events: none;
+    
+    /* MASCHERA SVG */
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;
@@ -150,7 +151,6 @@ section h2::before {
     -webkit-mask-size: contain;
     mask-size: contain;
     
-    /* Reset margini */
     margin: 0;
 }
 
@@ -275,6 +275,18 @@ footer nav#quick-nav { margin: 0 0 30px 0; padding: 0 10px; display: flex; justi
 footer nav#quick-nav a { display: inline-block; padding: 3px 5px; color: #b0b0b0; text-decoration: none; font-size: 0.9em; }
 footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 
+/* LOGO FOOTER */
+.footer-logo {
+    display: block;           /* Fondamentale per centrarlo */
+    max-width: 120px;         /* Larghezza massima: giocati questo numero se lo vuoi più grande/piccolo */
+    height: auto;             /* Mantiene le proporzioni, non lo stira */
+    margin: 0 auto 20px auto; /* 0 sopra, Auto (centro) lati, 20px sotto */
+    
+    /* Tocco di classe opzionale: */
+    opacity: 0.8;             /* Leggermente meno "sparato", più elegante */
+}
+
+
 /* POPUP */
 #gin-description-popup { 
     position: fixed; 
@@ -368,87 +380,26 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 #caffetteria h2::before { 
     -webkit-mask-image: url('icons/coffee.svg'); 
     mask-image: url('icons/coffee.svg'); 
-    left: -68px;
-}
-
-/* Tè & Cioccolate diventa id="t-cioccolate" */
-#t-cioccolate h2::before,
-#te-cioccolate h2::before { 
-    -webkit-mask-image: url('icons/mug-tea-saucer.svg'); 
-    mask-image: url('icons/mug-tea-saucer.svg'); 
-    left: -68px;
-}
-
-#bevande h2::before { 
-    -webkit-mask-image: url('icons/glass-water.svg'); 
-    mask-image: url('icons/glass-water.svg'); 
-    display: none !important;
-}
-
-/* Spritz, Vini e Vermouth usano il calice di vino */
-#spritz h2::before, #vini h2::before, #vermouth h2::before { 
-    -webkit-mask-image: url('icons/wine-glass.svg'); 
-    mask-image: url('icons/wine-glass.svg'); 
-}
-
-#cocktails h2::before { 
-    -webkit-mask-image: url('icons/martini-glass-citrus.svg'); 
-    mask-image: url('icons/martini-glass-citrus.svg'); 
-    left: -55px;
-}
-
-
-#franciacorta h2::before { 
-    -webkit-mask-image: url('icons/champagne.svg'); 
-    mask-image: url('icons/champagne.svg'); 
-}
-
-#birre h2::before { 
-    -webkit-mask-image: url('icons/beer-mug-empty.svg'); 
-    mask-image: url('icons/beer-mug-empty.svg'); 
-}
-
-#gin-tonic h2::before { 
-    -webkit-mask-image: url('icons/glass-citrus.svg'); 
-    mask-image: url('icons/glass-citrus.svg'); 
-}
-
-/* Rum, Whisky, Vodka, Amari usano il bicchiere con ghiaccio */
-#rum h2::before, #amari-e-liquori h2::before { 
-    -webkit-mask-image: url('icons/whiskey-glass-ice.svg'); 
-    mask-image: url('icons/whiskey-glass-ice.svg'); 
-}
-
-#whisky h2::before { 
-    display: none !important;
-}
-
-
-#vodka h2::before { 
-    display: none !important;
-}
-
-#brandy h2::before { 
-    -webkit-mask-image: url('icons/brandy.svg'); 
-    mask-image: url('icons/brandy.svg'); 
-}
-
-#grappe h2::before { 
-    -webkit-mask-image: url('icons/flask-round-potion.svg'); 
-    mask-image: url('icons/flask-round-potion.svg'); 
 
 }
 
-#panini-piadine h2::before { 
-    -webkit-mask-image: url('icons/burger-cheese.svg'); 
-    mask-image: url('icons/burger-cheese.svg'); 
-}
 
-#spuntini h2::before { 
-    -webkit-mask-image: url('icons/croissant.svg'); 
-    mask-image: url('icons/croissant.svg'); 
-    display: none !important;
-}
+/* --- ABBINAMENTI FILE ICONE --- */
+#caffetteria h2::before { -webkit-mask-image: url('icons/coffee.svg'); mask-image: url('icons/coffee.svg'); left: -68px; }
+#t-cioccolate h2::before, #te-cioccolate h2::before { -webkit-mask-image: url('icons/mug-tea-saucer.svg'); mask-image: url('icons/mug-tea-saucer.svg'); left: -68px; }
+#bevande h2::before { -webkit-mask-image: url('icons/glass-water.svg'); mask-image: url('icons/glass-water.svg'); display: none !important; }
+#spritz h2::before, #vini h2::before, #vermouth h2::before { -webkit-mask-image: url('icons/wine-glass.svg'); mask-image: url('icons/wine-glass.svg'); }
+#cocktails h2::before { -webkit-mask-image: url('icons/martini-glass-citrus.svg'); mask-image: url('icons/martini-glass-citrus.svg'); left: -55px; }
+#franciacorta h2::before { -webkit-mask-image: url('icons/champagne.svg'); mask-image: url('icons/champagne.svg'); }
+#birre h2::before { -webkit-mask-image: url('icons/beer-mug-empty.svg'); mask-image: url('icons/beer-mug-empty.svg'); }
+#gin-tonic h2::before { -webkit-mask-image: url('icons/glass-citrus.svg'); mask-image: url('icons/glass-citrus.svg'); }
+#rum h2::before, #amari-e-liquori h2::before { -webkit-mask-image: url('icons/whiskey-glass-ice.svg'); mask-image: url('icons/whiskey-glass-ice.svg'); }
+#whisky h2::before { display: none !important; }
+#vodka h2::before { display: none !important; }
+#brandy h2::before { -webkit-mask-image: url('icons/brandy.svg'); mask-image: url('icons/brandy.svg'); }
+#grappe h2::before { -webkit-mask-image: url('icons/flask-round-potion.svg'); mask-image: url('icons/flask-round-potion.svg'); }
+#panini-piadine h2::before { -webkit-mask-image: url('icons/burger-cheese.svg'); mask-image: url('icons/burger-cheese.svg'); }
+#spuntini h2::before { display: none !important; }
 
 /* =========================================
    STILE DI STAMPA (Cartaceo)

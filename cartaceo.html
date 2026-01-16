@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Stampa Menu A3 - Flusso Strategico</title>
+    <link rel="stylesheet" href="cartaceo_style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<!-- ========================================== -->
+    <!-- LATO A: INTERNO (APERTO)                 -->
+    <!-- ========================================== -->
+    <div class="sheet">
+        
+        <!-- COLONNA 1: BLU -->
+        <div class="column col-blu">
+            <div id="print-spritz"></div>
+            <div id="print-franciacorta"></div> 
+            <div id="print-gin-tonic"></div>
+        </div>
+
+        <!-- COLONNA 2: BIANCO -->
+        <div class="column col-bianco">
+            <!-- Box Panini -->
+            <div class="panini-box">
+                <h3 class="panini-title">Panini & Piadine</h3>
+                <p class="panini-sub">Componi il tuo gusto preferito</p>
+                <div style="margin-top:10px; border-top:1px solid #ddd; padding-top:5px;" id="print-panini-piadine"></div>
+            </div>
+
+            <div id="print-vini"></div>
+            <div id="print-birre"></div>
+        </div>
+
+        <!-- COLONNA 3: ORO -->
+        <!-- NOTA: Il Vermouth è stato tolto da qui -->
+        <div class="column col-oro">
+            <div class="cocktail-visual">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=600&auto=format&fit=crop" alt="Cocktails">
+                <div class="price-overlay">Tutti 8.00 €</div>
+            </div>
+
+            <h2 style="text-align:center; border:none; margin:0;">I Classici</h2>
+            <div id="print-cocktails"></div> 
+
+            <div style="margin-top:30px;"></div>
+            <div id="print-rum"></div>
+            <div id="print-whisky"></div>
+            <div id="print-vodka"></div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- LATO B: ESTERNO (CHIUSO)                 -->
+    <!-- ========================================== -->
+    <div class="sheet">
+        
+        <!-- FLAP INTERNO: ORO -->
+        <div class="column col-oro">
+            <div id="print-caffetteria"></div>
+            <div id="print-te-cioccolate"></div>
+            <div id="print-bevande"></div>
+            <div id="print-spuntini"></div>
+        </div>
+
+        <!-- RETRO: BIANCO -->
+        <div class="column col-bianco">
+            <div id="print-amari-e-liquori"></div>
+            <div id="print-grappe"></div>
+            <div id="print-brandy"></div>
+            
+            <!-- VERMOUTH SPOSTATO QUI -->
+            <div id="print-vermouth"></div> 
+
+            <div class="back-content">
+                <h3>Menu Online</h3>
+                <p style="font-size: 9pt; color:#666; margin-bottom: 10px;">Scansiona per allergeni e foto</p>
+                <div class="qr-box">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://bar-menu.github.io/" alt="QR Menu">
+                </div>
+                <p style="font-size: 8pt; color: #888; margin-top:15px;">
+                    Piazza Trento e Trieste, Ferrara
+                </p>
+            </div>
+        </div>
+<!-- COPERTINA: BLU (Nastro Aureo) -->
+        <div class="column col-blu" style="padding: 10mm;"> 
+            <div class="cover-wrapper">
+                <div class="cover-inner-frame">
+                    
+                    <!-- Titolo in alto (Bianco) -->
+                    <div class="cover-top-text">Menu</div>
+
+                    <!-- IL NASTRO (Centrato al 62.8%) -->
+                    <div class="ribbon-band">
+                        <!-- Fantasma Sx -->
+                        <img src="logo_nuovo.svg" class="logo-ghost" alt="">
+                        
+                        <!-- LOGO VERO (Centro) -->
+                        <img src="logo_nuovo.svg" class="logo-main" alt="Bar Nuovo">
+                        
+                        <!-- Fantasma Dx -->
+                        <img src="logo_nuovo.svg" class="logo-ghost" alt="">
+                    </div>
+                    
+                    <!-- Città in basso (Stretto) -->
+                    <div class="cover-bottom-text">Ferrara</div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+            const CSV_URL = 'menu_nuovo.csv'; 
+
+            const mappings = {
+                "Caffetteria": "print-caffetteria",
+                "Tè & Cioccolate": "print-te-cioccolate",
+                "Bevande": "print-bevande",
+                "Spritz": "print-spritz",
+                "Cocktails": "print-cocktails",
+                "Vini": "print-vini",
+                "Franciacorta": "print-franciacorta",
+                "Birre": "print-birre",
+                "Gin & Tonic": "print-gin-tonic",
+                "Rum": "print-rum",
+                "Whisky": "print-whisky",
+                "Amari e Liquori": "print-amari-e-liquori",
+                "Grappe": "print-grappe",
+                "Brandy": "print-brandy",
+                "Vodka": "print-vodka",
+                "Vermouth": "print-vermouth",
+                "Spuntini": "print-spuntini",
+                "Panini & Piadine": "print-panini-piadine"
+            };
+
+            Papa.parse(CSV_URL, {
+                download: true, header: true, skipEmptyLines: true,
+                complete: (res) => {
+                    const data = res.data;
+                    const grouped = {};
+                    
+                    data.forEach(row => {
+                        const cat = row.Categoria ? row.Categoria.trim() : null;
+                        if(!cat) return;
+                        if(!grouped[cat]) grouped[cat] = [];
+                        grouped[cat].push(row);
+                    });
+
+                    for (const [catName, items] of Object.entries(grouped)) {
+                        const targetId = mappings[catName];
+                        const container = document.getElementById(targetId);
+                        
+                        if (container) {
+                            if (catName !== "Cocktails" && !catName.includes("Panini")) {
+                                const h2 = document.createElement('h2');
+                                h2.textContent = catName;
+                                container.appendChild(h2);
+                            }
+
+                            // --- FIX LOGICA PANINI ---
+                            if (catName.includes("Panini")) {
+                                items.forEach(row => {
+                                    const nome = row.Nome.trim();
+                                    const isHeader = nome.endsWith(':') || ["Salumi:", "Formaggi:", "Verdure:", "SALSE:"].includes(nome);
+
+                                    // 1. Stampo il Titolo (es. SALUMI)
+                                    if(isHeader) {
+                                        const header = document.createElement('div');
+                                        header.className = 'panini-list-header';
+                                        header.textContent = nome.replace(':',''); 
+                                        container.appendChild(header);
+                                    } 
+
+                                    // 2. CERCO LA DESCRIZIONE OVUNQUE (Lista o Popup)
+                                    // È qui che falliva prima: prendeva solo Descrizione_Lista
+                                    const descrizione = row.Descrizione_Lista || row.Descrizione_Popup;
+
+                                    if(descrizione) {
+                                        const p = document.createElement('div');
+                                        p.className = 'panini-list-body';
+                                        p.innerHTML = descrizione;
+                                        container.appendChild(p);
+                                    }
+                                    
+                                    // 3. Stampo Prodotto con Prezzo (es. Base)
+                                    if(row.Prezzo) {
+                                        const div = document.createElement('div');
+                                        div.className = 'menu-item';
+                                        if(nome.toLowerCase().includes("base")) div.style.marginBottom = "8px"; 
+                                        else div.style.marginBottom = "4px";
+
+                                        div.innerHTML = `<span class="item-name" style="font-size:9pt;">${row.Nome}</span><span class="dots"></span><span class="item-price" style="font-size:9pt;">${row.Prezzo}</span>`;
+                                        container.appendChild(div);
+                                    }
+                                });
+                                continue;
+                            }
+
+                            // --- LOGICA COCKTAILS ---
+                            if (catName === 'Cocktails') {
+                                const cloudDiv = document.createElement('div');
+                                cloudDiv.className = 'cocktail-cloud';
+                                items.forEach((row) => {
+                                    const spanName = document.createElement('span');
+                                    spanName.className = 'c-name';
+                                    spanName.textContent = row.Nome;
+                                    cloudDiv.appendChild(spanName);
+                                });
+                                container.appendChild(cloudDiv);
+                                continue; 
+                            }
+
+                            // --- LOGICA STANDARD ---
+                            const divGroup = document.createElement('div');
+                            divGroup.className = 'print-group';
+
+                            items.forEach(row => {
+                                const itemDiv = document.createElement('div');
+                                itemDiv.className = 'menu-item';
+                                
+                                const nameSpan = document.createElement('span');
+                                nameSpan.className = 'item-name';
+                                nameSpan.textContent = row.Nome;
+
+                                const dots = document.createElement('span');
+                                dots.className = 'dots';
+
+                                const priceSpan = document.createElement('span');
+                                priceSpan.className = 'item-price';
+                                let priceText = row.Prezzo ? row.Prezzo.replace('Calice', 'Cal').replace('Bottiglia', 'Bot').replace('|', '/') : '';
+                                priceSpan.textContent = priceText;
+
+                                itemDiv.appendChild(nameSpan);
+                                itemDiv.appendChild(dots);
+                                itemDiv.appendChild(priceSpan);
+                                divGroup.appendChild(itemDiv);
+
+                                if (catName === 'Vini' && row.Descrizione_Lista) {
+                                    const descSpan = document.createElement('span');
+                                    descSpan.className = 'wine-list';
+                                    descSpan.textContent = row.Descrizione_Lista;
+                                    divGroup.appendChild(descSpan);
+                                }
+                            });
+                            container.appendChild(divGroup);
+                        }
+                    }
+                },
+                error: (err) => console.error("Errore CSV:", err)
+            });
+        });
+        
+    </script>
+</body>
+</html>

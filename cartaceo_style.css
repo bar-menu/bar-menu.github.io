@@ -1,0 +1,299 @@
+/* ============================================================
+   CARTACEO_STYLE.CSS - VERSIONE "REPUBLIC FRAME"
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:ital,wght@0,700;1,400&family=Oswald:wght@500;700&display=swap');
+
+:root {
+    --print-blue: #1B2631;      
+    --print-gold: #b08d55;       
+    --print-gold-dark: #8a6d3b;  
+    --print-gold-text: #d4af37;  
+    --print-white: #ffffff;     
+    --print-text-dark: #111111; 
+}
+
+@page { size: A3 landscape; margin: 0; }
+
+body {
+    margin: 0; padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: #ccc; 
+    -webkit-print-color-adjust: exact; 
+    print-color-adjust: exact;
+}
+
+.sheet {
+    width: 420mm; height: 297mm;
+    background: white; display: flex;
+    overflow: hidden; page-break-after: always;
+    margin: 0 auto; margin-bottom: 20px;
+}
+
+.column {
+    width: 33.333%; height: 100%;
+    padding: 12mm 15mm; 
+    box-sizing: border-box;
+    display: flex; flex-direction: column;
+}
+
+/* SPAZIATURA SEZIONI (Aumentata come richiesto) */
+.print-group {
+    margin-bottom: 35px; /* Molta più aria tra le categorie */
+}
+
+/* TITOLI */
+h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 18pt; 
+    margin-top: 0; margin-bottom: 12px; padding-bottom: 4px;
+    text-transform: capitalize; 
+}
+
+/* ELEMENTI MENU */
+.menu-item {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 5px; line-height: 1.1;
+}
+
+#print-birre .menu-item { margin-bottom: 3px; }
+
+.item-name { font-size: 10pt; font-weight: 600; flex-shrink: 0; }
+.item-price { font-size: 10pt; font-weight: 700; white-space: nowrap; }
+
+.dots {
+    flex-grow: 1; border-bottom: 1px dotted currentColor; 
+    margin: 0 5px; opacity: 0.5; align-self: baseline; 
+}
+
+/* VINI */
+#print-vini .menu-item { margin-bottom: 12px; }
+.wine-list {
+    display: block; font-size: 8.5pt; font-style: italic;
+    margin-top: 2px; margin-bottom: 8px; line-height: 1.3; 
+    opacity: 0.9; text-align: left;
+}
+
+/* --- COLONNA BLU --- */
+.col-blu {
+    background-color: var(--print-blue);
+    color: var(--print-white);
+    border-right: 1px solid var(--print-gold-text);
+}
+.col-blu h2 { color: var(--print-gold-text); border-bottom: 1px solid var(--print-gold-text); }
+.col-blu .item-name, .col-blu .item-price { color: var(--print-white) !important; }
+.col-blu .dots { border-color: rgba(255,255,255,0.3); }
+.col-blu .wine-list { color: #ccc; }
+
+/* --- COLONNA BIANCO --- */
+.col-bianco {
+    background-color: var(--print-white);
+    color: var(--print-text-dark);
+}
+.col-bianco h2 { color: var(--print-blue); border-bottom: 1px solid #8a6d3b !important; }
+.col-bianco .dots { 
+    border-bottom: 1px dotted #8a6d3b !important; 
+    opacity: 1 !important; color: #8a6d3b !important;
+}
+.col-bianco .item-price { color: var(--print-text-dark); }
+.col-bianco .wine-list { color: #444; }
+/* --- FIX SPAZIATURA RETRO (Colonna Bianca) --- */
+/* Riduciamo il margine solo qui, altrimenti il QR code cade giù */
+.col-bianco .print-group {
+    margin-bottom: 20px !important; /* Era 35px, lo portiamo a 20px */
+}
+
+
+/* --- COLONNA ORO --- */
+.col-oro {
+    background-color: var(--print-gold);
+    color: var(--print-white);
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.25); 
+}
+.col-oro h2 { 
+    color: var(--print-white); 
+    border-bottom: 1px solid rgba(255,255,255,0.6); 
+    text-shadow: 0px 1px 3px rgba(0,0,0,0.4);
+}
+.col-oro .dots { border-color: rgba(255,255,255,0.5); }
+.col-oro .item-price { color: var(--print-white); }
+.col-oro .wine-list { color: #f0f0f0; }
+
+/* --- BOX PANINI --- */
+.panini-box {
+    border: 3px double #8a6d3b !important; 
+    padding: 15px; margin-bottom: 35px; /* Spazio sotto aumentato */
+    text-align: center;
+    background-color: #fdfbf7; 
+}
+.panini-list-header {
+    font-family: 'Oswald', sans-serif;
+    color: #8a6d3b !important;
+    font-size: 10pt; text-transform: uppercase;
+    margin-top: 15px; margin-bottom: 2px;
+    text-align: center; letter-spacing: 1px; font-weight: 700;
+}
+.panini-title {
+    font-family: 'Oswald', sans-serif; text-transform: uppercase;
+    font-size: 18pt; letter-spacing: 2px;
+    color: var(--print-blue); margin: 0; padding: 0; line-height: 1;
+}
+.panini-sub {
+    font-family: 'Merriweather', serif; font-style: italic; 
+    font-size: 9pt; color: #666; margin-top: 5px; margin-bottom: 10px;
+}
+.panini-list-body {
+    font-size: 9pt; color: #444; line-height: 1.3; margin-bottom: 5px;
+}
+
+/* --- COCKTAIL CLOUD --- */
+.cocktail-visual {
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.3);
+    margin-bottom: 15px; height: 130px; 
+    overflow: hidden; background: #000;
+}
+.cocktail-visual img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+.cocktail-cloud {
+    text-align: center; line-height: 1.8; padding: 5px 0;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0 12px; 
+}
+.c-name {
+    font-weight: 700; font-size: 9pt; text-transform: uppercase;
+    color: var(--print-white); letter-spacing: 0.5px; white-space: nowrap; 
+}
+
+
+/* =========================================
+   STILE COPERTINA: AUREA + GHOST BASSI
+   ========================================= */
+
+.cover-wrapper {
+    width: 100%; height: 100%;
+    border: 3px solid var(--print-gold-text);
+    padding: 6px; box-sizing: border-box;
+}
+
+.cover-inner-frame {
+    width: 100%; height: 100%;
+    border: 1px solid var(--print-gold-text);
+    position: relative; 
+    overflow: hidden; 
+    display: flex; flex-direction: column; align-items: center; 
+}
+
+/* =========================================
+   STILE COPERTINA: "IL NASTRO AUREO" (Versione 1 Linea)
+   ========================================= */
+
+.cover-wrapper {
+    width: 100%; height: 100%;
+    /* RIMOSSO IL BORDO ESTERNO GROSSO */
+    border: none; 
+    /* Tolto il padding perché non serve più distanziare le due linee */
+    padding: 0; 
+    box-sizing: border-box;
+    position: relative;
+}
+
+.cover-inner-frame {
+    width: 100%; height: 100%;
+    /* QUESTA È L'UNICA LINEA RIMASTA */
+    /* Ho messo 2px perché 1px è troppo sottile per la copertina */
+    border: 2px solid var(--print-gold-text); 
+    
+    position: relative; 
+    display: flex; flex-direction: column; 
+    align-items: center; 
+}
+
+/* --- IL NASTRO (Ribbon) --- */
+.ribbon-band {
+    position: absolute;
+    top: 42.8%; 
+    left: 0;
+    width: 100%; 
+    transform: translateY(-50%); 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 5px; 
+    z-index: 10;
+}
+
+/* Logo Centrale (Vero) */
+.logo-main {
+    width: 36%; 
+    height: auto;
+    filter: invert(81%) sepia(28%) saturate(674%) hue-rotate(355deg) brightness(89%) contrast(88%); 
+    opacity: 1;
+}
+
+/* Loghi Fantasma (Laterali) */
+.logo-ghost {
+    width: 36%; 
+    height: auto;
+    filter: invert(81%) sepia(28%) saturate(674%) hue-rotate(355deg) brightness(89%) contrast(88%); 
+    opacity: 0.15; 
+}
+
+/* --- LE SCRITTE --- */
+
+/* SCRITTA MENU (Bianca, Font diverso) */
+.cover-top-text {
+    position: absolute;
+    top: 62%;
+    font-family: 'Oswald', sans-serif; 
+    font-weight: 400; 
+    font-size: 36pt; 
+    letter-spacing: 4px; 
+    text-transform: uppercase;
+    color: #ffffff; 
+    z-index: 20;
+}
+
+/* SCRITTA FERRARA (Spaziatura ridotta) */
+.cover-bottom-text { 
+    margin-top: auto; margin-bottom: 40px;
+    font-family: 'Inter', sans-serif; 
+    font-size: 9pt; 
+    font-weight: 300;
+    letter-spacing: 3px; 
+    text-transform: uppercase; 
+    color: rgba(255,255,255,0.6); 
+    z-index: 20;
+}
+
+
+@media print {
+    @page { margin: 0; size: A3 landscape; }
+    body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
+
+
+/* --- RETRO (QR CODE CENTRATO) --- */
+.back-content { 
+    margin-top: auto;      /* Spinge tutto in fondo */
+    padding-top: 20px; 
+    
+    /* LA MAGIA PER CENTRARE: */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;   /* Centra orizzontalmente i blocchi (QR, Titoli) */
+    text-align: center;    /* Centra il testo dentro i paragrafi */
+    width: 100%;           /* Assicura che prenda tutta la larghezza */
+}
+
+.back-content h3 { 
+    font-family:'Oswald', sans-serif; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    color: var(--print-blue); 
+    font-size: 12pt; 
+    margin-top: 10px; margin-bottom: 5px;
+    width: 100%; text-align: center; /* Doppia sicurezza */
+}
+
+/* Assicuriamoci che il box del QR non abbia margini strani */
+.qr-box {
+    margin: 5px auto; /* Auto ai lati aiuta a centrare */
+}
