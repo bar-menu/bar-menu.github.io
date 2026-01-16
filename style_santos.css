@@ -81,7 +81,7 @@ header {
 /* Se l'immagine è già perfetta, questo non serve e la rovinerebbe */
 header::after {
     content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; 
-    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 80%, rgba(0,0,0,0.6) 100%, var(--bg-dark) 100%); 
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 80%, rgba(0,0,0,0.8) 100%, var(--bg-dark) 100%); 
     z-index: 0; 
 }
 
