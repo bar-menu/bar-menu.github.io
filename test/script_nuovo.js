@@ -3,7 +3,7 @@
 ⚠️ MANUALE D'USO E REGOLE SACRE - NON MODIFICARE SENZA PERMESSO ⚠️
 =========================================================================
 
-1. STILE & DESIGN (CSS):
+1. STILE & DESIGN (CSS): 
    - Font: Sempre e solo 'Inter' (anche per le icone X).
    - Barra Ricerca: "Pillola" grigia scura, X interna a sinistra. 
      USARE `box-sizing: border-box` E padding precisi per non tagliarla a destra.

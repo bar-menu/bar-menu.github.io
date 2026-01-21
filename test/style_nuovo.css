@@ -119,7 +119,7 @@ section h2 {
     position: relative; 
 }
 
-/* 3. L'ICONA WATERMARK (A Sinistra, grande e storta) */
+/* 3. L'ICONA WATERMARK (A Sinistra, grande e storta) */ 
 section h2::before {
     content: "";
     position: absolute;
