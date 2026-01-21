@@ -132,12 +132,12 @@ section h2::before {
     width: 124px;    /* Abbastanza grande da fare scena */
     height: 124px;
     
-    /* COLORE E TRASPARENZA (Molto leggero come volevi) */
+    /* SFUMATURA (Dal Nuovo) */
     background: linear-gradient(160deg, #d9534f 0%, #ff9a3359 100%);
-    opacity: 0.21;   /* 5% di visibilità. Leggerissimo. */
+    opacity: 0.15; /* Leggermente più visibile perché ruotata */
     
-    /* UN TOCCO DI CLASSE: ROTAZIONE */
-    transform: rotate(-0deg); /* La incliniamo un po' per dare dinamismo */
+    /* ROTAZIONE (Dal Santos) */
+    transform: rotate(-15deg);
     
     z-index: -1;          /* Dietro al testo */
     pointer-events: none; /* Non cliccabile */
