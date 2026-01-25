@@ -334,12 +334,13 @@ footer nav#quick-nav a:hover { color: #fff; text-decoration: underline; }
 
 
 /* =========================================
-   STILE DESKTOP (Schermi grandi > 769px)
+   STILE DESKTOP (Schermi grandi > 1269px)
    ========================================= */
-@media (min-width: 769px) {
+@media (min-width: 1269px) {
 
-    /* 1. NASCONDI LA BARRA MOBILE */
+    /* 1. NASCONDI LA BARRA MOBILE 
     #quick-nav-mobile-sticky { display: none !important; }
+    */
 
     /* 2. HEADER PIÙ BASSO */
     /* Su PC l'immagine deve essere panoramica, non troppo alta */
