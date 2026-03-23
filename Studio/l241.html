@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L. 241/90 – Procedimento Amministrativo</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
+    --surface2: #222;
+    --border: #2e2e2e;
+    --accent: #bb86fc;
+    --accent2: #03dac6;
+    --warn: #ff9800;
+    --danger: #cf6679;
+    --green: #4caf50;
+    --text: #e0e0e0;
+    --muted: #999;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Georgia', serif;
+    font-size: 17px;
+    line-height: 1.75;
+    padding: 0 0 80px;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #1a0030 0%, #0f0f0f 60%);
+    border-bottom: 2px solid var(--accent);
+    padding: 30px 24px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  header h1 {
+    font-size: 1.5rem;
+    color: var(--accent);
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  header p { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+  .back-link {
+    display: inline-block;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  /* NAV INDICE */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  nav a {
+    color: var(--accent);
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #3a3a3a;
+    border-radius: 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  nav a:hover { background: var(--accent); color: #000; }
+
+  /* MAIN */
+  main { max-width: 900px; margin: 0 auto; padding: 24px 20px; }
+
+  /* SEZIONI */
+  section {
+    margin-bottom: 48px;
+    scroll-margin-top: 160px;
+  }
+  section h2 {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1.35rem;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding-left: 14px;
+    margin-bottom: 20px;
+  }
+
+  /* ARTICOLO CARD */
+  .art {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin-bottom: 18px;
+  }
+  .art h3 {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent2);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .art-num {
+    background: var(--accent2);
+    color: #000;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .art p { margin-bottom: 10px; }
+  .art p:last-child { margin-bottom: 0; }
+
+  /* BOX TIPI */
+  .box {
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 0.93rem;
+    border-left: 4px solid;
+  }
+  .box-exam { background: #1a1200; border-color: var(--warn); }
+  .box-exam::before { content: "📝 ESAME — "; font-weight: 700; color: var(--warn); }
+  .box-note { background: #0d1f0d; border-color: var(--green); }
+  .box-note::before { content: "💡 IN PRATICA — "; font-weight: 700; color: var(--green); }
+  .box-update { background: #1f0010; border-color: var(--danger); }
+  .box-update::before { content: "🔴 AGGIORNAMENTO — "; font-weight: 700; color: var(--danger); }
+  .box-ref { background: #111827; border-color: #4a90d9; font-size: 0.88rem; }
+  .box-ref::before { content: "📚 COSA SIGNIFICA — "; font-weight: 700; color: #4a90d9; }
+
+  /* LISTA */
+  ul.list { padding-left: 22px; margin: 10px 0; }
+  ul.list li { margin-bottom: 6px; }
+
+  /* TABELLA */
+  .table-wrap { overflow-x: auto; margin: 16px 0; border-radius: 8px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th {
+    background: #2a1840;
+    color: var(--accent);
+    padding: 12px 14px;
+    text-align: left;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+  }
+  td { padding: 11px 14px; border-top: 1px solid var(--border); }
+  tr:hover td { background: #1f1f1f; }
+  .t-ok { color: var(--green); font-weight: 600; }
+  .t-warn { color: var(--warn); font-weight: 600; }
+  .t-ko { color: var(--danger); font-weight: 600; }
+
+  /* MINI BADGE */
+  .badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .badge-hot { background: var(--danger); color: #fff; }
+  .badge-new { background: var(--green); color: #000; }
+
+  /* ACCESSO CONFRONTO */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .compare-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .compare-card h4 {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-card ul { padding-left: 18px; font-size: 0.88rem; }
+  .compare-card li { margin-bottom: 5px; }
+  .c1 h4 { color: var(--accent); }
+  .c2 h4 { color: var(--accent2); }
+  .c3 h4 { color: var(--warn); }
+
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    header h1 { font-size: 1.2rem; }
+    main { padding: 16px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index_studio.html" class="back-link">← Hub Concorso</a>
+  <h1>⚙️ L. 241/1990 — Procedimento Amministrativo</h1>
+  <p>Versione semplificata · Aggiornata a L. 182/2025 · Ottimizzata per il concorso Valli e Delizie</p>
+</header>
+
+<nav>
+  <a href="#principi">Principi</a>
+  <a href="#rdp">Resp. Procedimento</a>
+  <a href="#avvio">Avvio e Partecipazione</a>
+  <a href="#cds">Conferenza Servizi</a>
+  <a href="#scia">SCIA e Silenzio</a>
+  <a href="#autotutela">Autotutela</a>
+  <a href="#accesso">Accesso Documenti</a>
+  <a href="#termini">Tabella Termini</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="principi">
+  <h2>📌 Principi generali e struttura (Artt. 1–4)</h2>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 1</span> Principi dell'attività amministrativa</h3>
+    <p>L'attività della PA deve rispettare: <strong>economicità, efficacia, imparzialità, pubblicità e trasparenza</strong>. Quando la PA agisce in modo non autoritativo (per es. stipulando contratti), usa le regole del diritto privato.</p>
+    <div class="box box-exam">I principi sono il "codice genetico" del procedimento. Se all'orale ti chiedono perché la PA deve fare qualcosa in un certo modo, inizia sempre da qui.</div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 2</span> Conclusione del procedimento — I TERMINI</h3>
+    <p>La PA <strong>deve sempre concludere</strong> il procedimento con un provvedimento espresso (non può ignorare la domanda). I termini standard sono:</p>
+    <ul class="list">
+      <li><strong>30 giorni</strong> = termine ordinario se non c'è norma specifica</li>
+      <li><strong>90 giorni max</strong> = termine che può essere fissato per procedimenti più complessi</li>
+      <li><strong>180 giorni max</strong> = solo in casi eccezionali (esclusi cittadinanza e immigrazione)</li>
+    </ul>
+    <p>I termini decorrono dall'avvio d'ufficio o dal ricevimento della domanda. Possono essere <strong>sospesi una sola volta, per max 30 giorni</strong>, per acquisire informazioni.</p>
+    <div class="box box-update">Aggiornamento 2020 (D.L. 76/2020): gli atti adottati <em>dopo</em> la scadenza dei termini previsti per silenzio assenso o CdS sono <strong>inefficaci</strong>.</div>
+    <div class="box box-note">Se la PA non rispetta i termini → il dirigente inadempiente è responsabile disciplinarmente e amministrativo-contabile. C'è anche un soggetto con "potere sostitutivo" che può intervenire su richiesta del privato.</div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 2-bis</span> Risarcimento per ritardo</h3>
+    <p>Se la PA ritarda dolosamente o colposamente, il cittadino ha diritto al <strong>risarcimento del danno</strong>. In alcuni casi può ottenere anche un <em>indennizzo</em> per il semplice ritardo, anche senza dimostrare il danno.</p>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 3</span> Motivazione del provvedimento</h3>
+    <p>Ogni provvedimento amministrativo <strong>deve essere motivato</strong>: deve spiegare i fatti e le ragioni giuridiche che hanno portato alla decisione. Eccezioni: atti normativi e atti a contenuto generale.</p>
+    <div class="box box-exam">Mancanza di motivazione = vizio di legittimità → provvedimento annullabile (art. 21-octies).</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="rdp">
+  <h2>🧑‍💼 Il Responsabile del Procedimento (Artt. 5–6-bis) <span class="badge badge-hot">ESAME</span></h2>
+
+  <div class="art">
+    <h3><span class="art-num">Artt. 5–6</span> Chi è e cosa fa il RdP</h3>
+    <p>Il <strong>Responsabile del Procedimento (RdP)</strong> è il funzionario incaricato di seguire il singolo procedimento dall'inizio alla fine. Lo nomina il dirigente dell'unità organizzativa competente. Se non c'è nomina, è automaticamente il funzionario preposto all'unità.</p>
+    <p><strong>Cosa fa concretamente:</strong></p>
+    <ul class="list">
+      <li>Valuta i requisiti di ammissibilità e legittimazione</li>
+      <li>Accerta i fatti d'ufficio (non aspetta che il cittadino porti tutto)</li>
+      <li>Può chiedere documenti, fare ispezioni, richiedere rettifiche</li>
+      <li>Indice (o propone) la Conferenza di Servizi</li>
+      <li>Cura comunicazioni e notifiche</li>
+      <li>Adotta il provvedimento finale <em>se ha la competenza</em>, altrimenti trasmette agli atti all'organo competente</li>
+    </ul>
+    <div class="box box-exam">Domanda classica all'orale: "Chi è il responsabile del procedimento e cosa fa?" — Collega sempre il RdP con la CdS (è lui che la indice) e con i termini (è lui che risponde del ritardo).</div>
+    <div class="box box-note">Attenzione: l'organo finale che decide <em>non può ignorare</em> le risultanze dell'istruttoria del RdP senza motivare espressamente nel provvedimento finale.</div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 6-bis</span> Conflitto di interessi</h3>
+    <p>Il RdP e tutti i titolari degli uffici coinvolti <strong>devono astenersi</strong> se hanno un conflitto di interessi (anche solo potenziale) e devono segnalarlo. Collegato all'anticorruzione.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="avvio">
+  <h2>📬 Avvio e Partecipazione (Artt. 7–11) <span class="badge badge-hot">ESAME</span></h2>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 7</span> Comunicazione di avvio del procedimento</h3>
+    <p>Prima di adottare un provvedimento, la PA deve avvisare i destinatari dell'avvio del procedimento. Si avvisa:</p>
+    <ul class="list">
+      <li>Chi è destinatario diretto del provvedimento</li>
+      <li>Chi per legge deve intervenire</li>
+      <li>Chi potrebbe subire un pregiudizio (se facilmente individuabile)</li>
+    </ul>
+    <p>Eccezione: se ci sono <strong>ragioni di celerità</strong>, si può omettere (ma va motivato).</p>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 8</span> Cosa deve contenere la comunicazione</h3>
+    <p>La comunicazione di avvio deve indicare obbligatoriamente:</p>
+    <ul class="list">
+      <li>L'amministrazione competente</li>
+      <li>L'oggetto del procedimento</li>
+      <li>L'ufficio e il nome del RdP</li>
+      <li>La data entro cui si deve concludere e i rimedi se la PA è inadempiente</li>
+      <li>La data di presentazione dell'istanza (se è ad iniziativa di parte)</li>
+      <li>L'ufficio dove si possono vedere gli atti</li>
+    </ul>
+    <div class="box box-exam">Domanda uscita all'orale: "Illustri le modalità e i contenuti della comunicazione di avvio del procedimento" — Elenca questi 6 punti e ricorda l'eccezione per celerità.</div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Artt. 9–10</span> Partecipazione al procedimento</h3>
+    <p>Chiunque possa subire un pregiudizio dal provvedimento può intervenire nel procedimento. I partecipanti hanno il diritto di:</p>
+    <ul class="list">
+      <li>Prendere visione degli atti</li>
+      <li>Presentare memorie scritte e documenti (che la PA è obbligata a valutare se pertinenti)</li>
+    </ul>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 10-bis</span> Motivi ostativi <span class="badge badge-hot">RAGIONAMENTO</span></h3>
+    <p>Prima di rifiutare una richiesta, la PA deve comunicare al richiedente i <strong>motivi ostativi</strong> (cioè i motivi per cui pensa di dire no). Il richiedente ha poi <strong>10 giorni</strong> per rispondere e presentare osservazioni.</p>
+    <p>La comunicazione dei motivi ostativi <strong>sospende i termini</strong> del procedimento, che riprendono dopo le osservazioni (o dopo i 10 giorni se non arrivano).</p>
+    <div class="box box-note">Questa norma garantisce il contradditorio prima del diniego. Serve per evitare provvedimenti "a sorpresa". Non si applica ai concorsi pubblici e a procedure previdenziali.</div>
+    <div class="box box-exam">Utile nel ragionamento pratico: se la PA intende rigettare, deve prima "avvisare" e ascoltare il privato. Il mancato rispetto di questa norma può rendere il provvedimento annullabile.</div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 11</span> Accordi integrativi o sostitutivi</h3>
+    <p>La PA può <strong>concludere accordi con i privati</strong> per definire il contenuto del provvedimento (accordi integrativi) o addirittura in sua sostituzione (accordi sostitutivi). Devono essere:</p>
+    <ul class="list">
+      <li>Per atto scritto (a pena di nullità)</li>
+      <li>Motivati</li>
+      <li>Nel perseguimento dell'interesse pubblico</li>
+    </ul>
+    <p>La PA può recedere dall'accordo per sopravvenuti motivi di pubblico interesse, ma deve pagare un indennizzo al privato per i danni subiti.</p>
+    <div class="box box-note">Collegamento con LR 24/2017: l'accordo operativo tra comune e privato per il PUG è un esempio di accordo sostitutivo ex art. 11.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="cds">
+  <h2>🏛️ Conferenza di Servizi (Artt. 14–14-quater) <span class="badge badge-hot">ESAME</span></h2>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 14</span> Cos'è e quando si usa</h3>
+    <p>La <strong>Conferenza di Servizi (CdS)</strong> è il meccanismo con cui più amministrazioni pubbliche decidono insieme su un procedimento, invece di farlo ciascuna per conto suo. Evita l'effetto "ping-pong" tra enti.</p>
+    <p><strong>Quando si usa:</strong></p>
+    <ul class="list">
+      <li><strong>Facoltativa</strong>: quando la PA procedente ritiene opportuno esaminare insieme vari interessi pubblici</li>
+      <li><strong>Obbligatoria</strong>: quando la PA deve acquisire intese, concerti, nulla osta di altre amministrazioni e <em>non li ottiene entro 30 giorni</em> dalla richiesta — oppure c'è stato dissenso</li>
+      <li><strong>Su richiesta del privato</strong>: quando l'attività del privato richiede atti di assenso da più amministrazioni</li>
+    </ul>
+    <div class="box box-exam">Domanda uscita in quasi tutti i concorsi. Distingui sempre le tre tipologie: facoltativa, obbligatoria, su istanza di parte. E collega la CdS ai procedimenti edilizi/paesaggistici concreti.</div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 14-bis</span> Conferenza preliminare</h3>
+    <p>Per progetti molto complessi o insediamenti produttivi, il privato può chiedere una CdS preliminare <em>prima</em> ancora di presentare il progetto definitivo. Serve per capire in anticipo quali sono le condizioni per ottenere i vari assensi. La CdS si pronuncia entro <strong>30 giorni</strong>.</p>
+    <p>Per le opere pubbliche: la CdS si esprime sul progetto preliminare per indicare le condizioni necessarie per il progetto definitivo.</p>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 14-ter</span> Come funziona la CdS — Regole pratiche</h3>
+    <ul class="list">
+      <li>La prima riunione si convoca entro <strong>15 giorni</strong> (o 30 per istruttorie complesse) dall'indizione</li>
+      <li>La convocazione deve arrivare alle PA almeno <strong>5 giorni prima</strong></li>
+      <li>Ogni PA partecipa con <strong>un solo rappresentante</strong> che ha il mandato vincolante di tutta l'amministrazione</li>
+      <li>I lavori non possono superare i <strong>90 giorni</strong> (salvo VIA)</li>
+      <li>Si può svolgere in modalità telematica</li>
+      <li>Nella prima riunione si fissa il termine per la decisione finale</li>
+    </ul>
+    <p><strong>Chi partecipa senza diritto di voto:</strong> i proponenti del progetto, i concessionari di servizi pubblici coinvolti.</p>
+    <p><strong>Assenso silenzioso</strong>: se un rappresentante di un'amministrazione non esprime definitivamente la propria volontà alla fine dei lavori, il suo assenso si considera acquisito. (Eccezione: VIA, VAS, AIA)</p>
+    <div class="box box-note">In pratica: se il Comune manda un funzionario alla CdS ma lui non dice né sì né no, è come se avesse detto sì.</div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 14-quater</span> Cosa succede se una PA dice no</h3>
+    <p>Il <strong>dissenso</strong> in CdS è ammesso ma deve essere:</p>
+    <ul class="list">
+      <li>Espresso durante la conferenza (non dopo)</li>
+      <li>Congruamente motivato</li>
+      <li>Specifico (deve indicare le modifiche progettuali necessarie per arrivare all'assenso)</li>
+    </ul>
+    <p>Se il dissenso viene da un'amministrazione preposta a tutela <strong>ambientale, paesaggistica, beni culturali o salute pubblica</strong>, la questione viene rimessa al <strong>Consiglio dei Ministri</strong>, che decide entro 60 giorni (previa intesa con Regioni/enti locali coinvolti).</p>
+    <div class="box box-exam">Esempio pratico: stai facendo un impianto FER e la Soprintendenza dice no in CdS → non si blocca tutto automaticamente, va al Consiglio dei Ministri che può decidere diversamente dalla Soprintendenza.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="scia">
+  <h2>📋 Silenzio Assenso e SCIA (Artt. 17-bis, 19, 20)</h2>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 17-bis</span> Silenzio assenso tra PA <span class="badge badge-hot">IMPORTANTE</span></h3>
+    <p>Quando una PA deve acquisire l'assenso di un'altra PA (per es. il Comune che chiede parere alla Soprintendenza), l'altra PA deve rispondere entro <strong>30 giorni</strong>. Se non risponde, il suo assenso si considera acquisito per silenzio.</p>
+    <p>Per le amministrazioni che tutelano ambiente, paesaggio, beni culturali, salute → il termine è più lungo: <strong>90 giorni</strong>. Ma anche qui, il silenzio vale assenso.</p>
+    <div class="box box-note">Questo vale nei rapporti tra PA, non tra privato e PA. È una norma potente: "stai zitta o dici sì."</div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 19</span> SCIA — Segnalazione Certificata di Inizio Attività</h3>
+    <p>La SCIA sostituisce una serie di autorizzazioni, licenze e permessi quando il rilascio dipende <em>solo</em> dall'accertamento di requisiti oggettivi (non ci sono valutazioni discrezionali). Il privato dichiara sotto la sua responsabilità di avere tutti i requisiti e può <strong>iniziare subito</strong>.</p>
+    <p><strong>Cosa fa la PA dopo la SCIA:</strong></p>
+    <ul class="list">
+      <li>Ha <strong>60 giorni</strong> per verificare e, se mancano requisiti, emettere ordine di stop e/o rimozione effetti</li>
+      <li>Per la <strong>SCIA edilizia: solo 30 giorni</strong></li>
+      <li>Se può rimediare: invita il privato a conformarsi entro un termine (min. 30 giorni)</li>
+      <li>Dopo i 60 giorni (30 per edilizia): può intervenire solo con annullamento d'ufficio (art. 21-nonies) se ci sono i presupposti</li>
+    </ul>
+    <div class="box box-update">Attenzione: la SCIA <strong>non è un provvedimento tacito</strong> impugnabile. I terzi che si sentono danneggiati non possono fare ricorso direttamente contro la SCIA, ma devono sollecitare la PA a verificare e, se la PA è inerte, agire contro il silenzio-inadempimento.</div>
+    <div class="box box-exam">Collegamento diretto con LR 15/2013 e DPR 380/2001: la SCIA edilizia è il titolo principale in edilizia dopo il Salva Casa 2024.</div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 20</span> Silenzio Assenso nei procedimenti a istanza di parte</h3>
+    <p>Se il privato presenta una domanda e la PA non risponde entro i termini previsti (artt. 2, co. 2-3), il silenzio equivale ad <strong>accoglimento</strong>.</p>
+    <p><strong>Eccezioni importanti</strong> — il silenzio assenso NON vale per:</p>
+    <ul class="list">
+      <li>Patrimonio culturale e paesaggistico</li>
+      <li>Ambiente</li>
+      <li>Difesa nazionale, sicurezza pubblica, immigrazione</li>
+      <li>Salute e incolumità pubblica</li>
+      <li>Cittadinanza</li>
+    </ul>
+    <div class="box box-note">Per un permesso di costruire ordinario il silenzio assenso vale. Per un'autorizzazione paesaggistica no (l'ambiente è escluso).</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="autotutela">
+  <h2>🔧 Validità del Provvedimento e Autotutela (Artt. 21-octies, 21-nonies, 21-quinquies)</h2>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 21-septies</span> Nullità del provvedimento</h3>
+    <p>Un provvedimento è <strong>nullo</strong> (il vizio più grave, non produce effetti) quando:</p>
+    <ul class="list">
+      <li>Manca degli elementi essenziali</li>
+      <li>C'è difetto assoluto di attribuzione (la PA ha fatto qualcosa di cui non ha <em>nessuna</em> competenza)</li>
+      <li>È stato adottato in violazione o elusione di una sentenza passata in giudicato</li>
+      <li>Nei casi espressamente previsti dalla legge</li>
+    </ul>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 21-octies</span> Annullabilità del provvedimento</h3>
+    <p>Un provvedimento è <strong>annullabile</strong> (vizio meno grave, produce effetti finché non è annullato) quando è:</p>
+    <ul class="list">
+      <li>Adottato in <strong>violazione di legge</strong></li>
+      <li>Viziato da <strong>eccesso di potere</strong> (la PA usa il potere in modo distorto o sproporzionato)</li>
+      <li>Adottato in <strong>incompetenza relativa</strong> (organo sbagliato all'interno della PA)</li>
+    </ul>
+    <p><strong>Eccezione importante:</strong> il vizio di forma o di procedura non porta all'annullamento se il contenuto del provvedimento non avrebbe potuto essere diverso (provvedimento vincolato). Stesso vale per la mancata comunicazione di avvio: se il contenuto era obbligato, non si annulla.</p>
+    <div class="box box-exam">Questa eccezione è molto usata nei ragionamenti pratici: "la PA non ha comunicato l'avvio del procedimento, ma il provvedimento era vincolato → non si annulla".</div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 21-nonies</span> Annullamento d'ufficio <span class="badge badge-new">AGGIORNATO 2025</span></h3>
+    <p>La PA può annullare in autotutela un proprio provvedimento illegittimo se:</p>
+    <ul class="list">
+      <li>Ci sono ragioni di interesse pubblico (non basta la semplice illegittimità)</li>
+      <li>Si tiene conto degli interessi dei destinatari e controinteressati</li>
+      <li>Si agisce <strong>entro un termine ragionevole, comunque non superiore a 6 mesi</strong> per autorizzazioni e provvedimenti che attribuiscono vantaggi economici</li>
+    </ul>
+    <div class="box box-update">AGGIORNAMENTO CRUCIALE — L. 182/2025: il termine è passato da 18 mesi (testo del tuo PDF) → a 12 mesi (2021) → a <strong>6 mesi</strong> (dicembre 2025). Se all'esame ti chiedono il termine: <strong>6 mesi</strong>.</div>
+    <p>Eccezione: se il provvedimento è stato ottenuto con false dichiarazioni o documenti falsi (reato accertato con sentenza), la PA può annullare anche <em>dopo</em> i 6 mesi.</p>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 21-quinquies</span> Revoca del provvedimento</h3>
+    <p>La revoca è diversa dall'annullamento: si usa quando il provvedimento era <em>legittimo</em> ma cambia qualcosa che ne rende inopportuno il mantenimento. Si può revocare per:</p>
+    <ul class="list">
+      <li>Sopravvenuti motivi di pubblico interesse</li>
+      <li>Mutamento della situazione di fatto non prevedibile al momento dell'adozione</li>
+      <li>Nuova valutazione dell'interesse pubblico originario (solo per provvedimenti che non attribuiscono vantaggi economici)</li>
+    </ul>
+    <p>La revoca <strong>obbliga la PA a pagare un indennizzo</strong> al privato per i pregiudizi subiti (danno emergente).</p>
+    <div class="box box-exam">La differenza tra revoca e annullamento è fondamentale. Annullamento = era illegittimo. Revoca = era legittimo ma ora non è più opportuno. Solo la revoca dà diritto all'indennizzo.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="accesso">
+  <h2>📂 Accesso ai Documenti (Artt. 22–25) e i tre tipi di accesso <span class="badge badge-hot">ESAME</span></h2>
+
+  <div class="box box-exam" style="margin-bottom: 20px;">Domanda uscita all'orale: "Differenze tra accesso civico semplice e generalizzato". Ma serve capire anche il terzo tipo (documentale). Ecco il confronto completo.</div>
+
+  <div class="compare-grid">
+    <div class="compare-card c1">
+      <h4>1. Accesso Documentale<br>(L. 241/90, artt. 22-25)</h4>
+      <ul>
+        <li>Chi può: solo chi ha un <strong>interesse diretto, concreto e attuale</strong> collegato a una situazione giuridicamente tutelata</li>
+        <li>Cosa: qualsiasi documento amministrativo</li>
+        <li>Può essere limitato per riservatezza terzi</li>
+        <li>Se rifiutato: ricorso al TAR, Difensore Civico, o Commissione Accesso</li>
+        <li>Silenzio 30 gg = diniego tacito</li>
+      </ul>
+    </div>
+    <div class="compare-card c2">
+      <h4>2. Accesso Civico Semplice<br>(D.Lgs. 33/2013)</h4>
+      <ul>
+        <li>Chi può: <strong>chiunque, senza motivazione</strong></li>
+        <li>Cosa: solo documenti che la PA era <em>obbligata a pubblicare</em> ma non ha pubblicato</li>
+        <li>Serve per "forzare" la pubblicazione mancante</li>
+        <li>Esempio: dati sui compensi dei dirigenti non pubblicati sul sito</li>
+      </ul>
+    </div>
+    <div class="compare-card c3">
+      <h4>3. Accesso Civico Generalizzato (FOIA)<br>(D.Lgs. 97/2016)</h4>
+      <ul>
+        <li>Chi può: <strong>chiunque, senza motivazione</strong></li>
+        <li>Cosa: <strong>qualsiasi dato, documento o informazione</strong> detenuto dalla PA</li>
+        <li>Può essere negato solo per interessi pubblici/privati tutelati (sicurezza, privacy, segreto commerciale…)</li>
+        <li>Il più ampio dei tre — modello FOIA anglosassone</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 22</span> Definizioni chiave sull'accesso documentale</h3>
+    <ul class="list">
+      <li><strong>Diritto di accesso</strong>: prendere visione ed estrarre copia di documenti amministrativi</li>
+      <li><strong>Interessati</strong>: chi ha un interesse diretto, concreto e attuale collegato a una situazione giuridicamente tutelata</li>
+      <li><strong>Controinteressati</strong>: chi, se viene accordato l'accesso, vedrebbe compromessa la propria riservatezza</li>
+      <li><strong>Documento amministrativo</strong>: qualsiasi rappresentazione grafica, elettronica ecc. del contenuto di atti detenuti dalla PA, anche interni, concernenti attività di pubblico interesse</li>
+    </ul>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 24</span> Quando l'accesso è escluso</h3>
+    <p>L'accesso è escluso per documenti coperti da:</p>
+    <ul class="list">
+      <li>Segreto di Stato</li>
+      <li>Procedimenti tributari</li>
+      <li>Procedimenti normativi e di pianificazione</li>
+      <li>Documenti con informazioni psico-attitudinali su terzi (es. concorsi pubblici)</li>
+    </ul>
+    <div class="box box-note">Non si possono fare richieste di accesso per fare un "controllo generalizzato" dell'operato della PA (art. 24, co. 3). L'accesso deve essere mirato a un interesse specifico, non usato come ispezione.</div>
+  </div>
+
+  <div class="art">
+    <h3><span class="art-num">Art. 25</span> Come si esercita e cosa fare in caso di rifiuto</h3>
+    <ul class="list">
+      <li>La richiesta va motivata e rivolta alla PA che ha il documento</li>
+      <li>Se la PA non risponde entro <strong>30 giorni</strong>: silenzio = rigetto</li>
+      <li>In caso di diniego espresso o tacito: ricorso al TAR, oppure richiesta di riesame al Difensore Civico (per atti comunali/regionali) o alla Commissione per l'Accesso (per atti statali)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="termini">
+  <h2>⏱️ Tabella Riepilogativa dei Termini</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Istituto</th>
+          <th>Termine</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Termine ordinario conclusione procedimento</td>
+          <td class="t-ok">30 giorni</td>
+          <td>Se non c'è norma specifica</td>
+        </tr>
+        <tr>
+          <td>Termine max ordinario per PA statali</td>
+          <td class="t-warn">90 giorni</td>
+          <td>Fissato con DPCM</td>
+        </tr>
+        <tr>
+          <td>Termine max eccezionale</td>
+          <td class="t-ko">180 giorni</td>
+          <td>Solo in casi straordinari (esclusi cittadinanza/immigrazione)</td>
+        </tr>
+        <tr>
+          <td>Sospensione termini per acquisire info</td>
+          <td class="t-warn">30 giorni (1 sola volta)</td>
+          <td>Art. 2, co. 7</td>
+        </tr>
+        <tr>
+          <td>Risposta ai motivi ostativi</td>
+          <td class="t-ok">10 giorni</td>
+          <td>Dal ricevimento della comunicazione</td>
+        </tr>
+        <tr>
+          <td>Silenzio assenso tra PA</td>
+          <td class="t-ok">30 giorni</td>
+          <td>90 gg per ambiente/paesaggio/salute/cultura (art. 17-bis)</td>
+        </tr>
+        <tr>
+          <td>Silenzio assenso obbligatorio CdS</td>
+          <td class="t-warn">30 giorni</td>
+          <td>Se PA non risponde alla richiesta di assenso (art. 14)</td>
+        </tr>
+        <tr>
+          <td>Prima riunione CdS</td>
+          <td class="t-ok">15 giorni</td>
+          <td>Dalla data di indizione (30 gg per istruttorie complesse)</td>
+        </tr>
+        <tr>
+          <td>Lavori CdS (massimo)</td>
+          <td class="t-warn">90 giorni</td>
+          <td>Salvo VIA</td>
+        </tr>
+        <tr>
+          <td>CdS preliminare</td>
+          <td class="t-ok">30 giorni</td>
+          <td>Dalla richiesta (art. 14-bis)</td>
+        </tr>
+        <tr>
+          <td>Intervento PA su SCIA</td>
+          <td class="t-warn">60 giorni</td>
+          <td>30 giorni per SCIA edilizia</td>
+        </tr>
+        <tr>
+          <td>Silenzio = diniego accesso documentale</td>
+          <td class="t-ko">30 giorni</td>
+          <td>Art. 25</td>
+        </tr>
+        <tr>
+          <td>Annullamento d'ufficio (autotutela) <span class="badge badge-new">2025</span></td>
+          <td class="t-ko">6 mesi</td>
+          <td>Per autorizzazioni/vantaggi economici. L. 182/2025. Il PDF che hai dice 18 mesi: SBAGLIATO</td>
+        </tr>
+        <tr>
+          <td>Consiglio dei Ministri su dissenso qualificato CdS</td>
+          <td class="t-warn">60 giorni</td>
+          <td>Previa intesa con Regioni/enti locali</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box box-ref" style="margin-top: 20px;">
+    <strong>Cosa sono "Conferenza Unificata" e "Conferenza Stato-Regioni"?</strong><br><br>
+    Ogni volta che leggi "previa intesa in sede di Conferenza unificata di cui all'art. 8 del D.Lgs. 281/1997" significa semplicemente che il Governo non può decidere da solo su quel punto: deve mettersi d'accordo con Regioni e Comuni.<br><br>
+    — <strong>Conferenza Stato-Regioni</strong>: tavolo Governo + Presidenti di Regione<br>
+    — <strong>Conferenza Stato-città e autonomie locali</strong>: tavolo Governo + sindaci/presidenti di provincia<br>
+    — <strong>Conferenza Unificata</strong> (art. 8 D.Lgs. 281/1997): le due conferenze riunite insieme → usata per le materie che riguardano sia regioni che comuni<br><br>
+    In pratica: quando una legge dice "intesa in Conferenza unificata", significa che quella regola è frutto di accordo tra tutti i livelli di governo e non può essere cambiata unilateralmente dallo Stato.
+  </div>
+</section>
+
+</main>
+</body>
+</html>
