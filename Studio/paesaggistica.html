@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autorizzazione Paesaggistica — Guida Concorso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F4EF;
+    --bg2: #EDEAE3;
+    --ink: #1C1C1C;
+    --ink2: #4A4A4A;
+    --red: #C0392B;
+    --green: #1A6B3C;
+    --green2: #2E8B57;
+    --blue: #1A3A6B;
+    --blue2: #2C5AA0;
+    --orange: #C9670A;
+    --gold: #B8860B;
+    --border: #D4CFC7;
+    --card: #FFFFFF;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    background: var(--blue);
+    color: white;
+    padding: 2.5rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 10px,
+      rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px
+    );
+  }
+  .header-inner { position: relative; max-width: 900px; margin: auto; }
+  .badge {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-family: var(--mono);
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    padding: .25rem .7rem;
+    border-radius: 2px;
+    margin-bottom: .8rem;
+    text-transform: uppercase;
+  }
+  .site-header h1 {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: .5rem;
+  }
+  .site-header p {
+    font-size: .95rem;
+    opacity: .8;
+    max-width: 600px;
+  }
+
+  /* ===== DOMANDE REALI ===== */
+  .real-questions {
+    background: #FFF8E1;
+    border-left: 5px solid var(--gold);
+    padding: 1.5rem 2rem;
+    max-width: 900px;
+    margin: 2rem auto;
+    border-radius: 4px;
+  }
+  .real-questions h2 {
+    font-family: var(--mono);
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .q-item {
+    display: flex;
+    gap: .8rem;
+    margin-bottom: .7rem;
+    align-items: flex-start;
+  }
+  .q-tag {
+    font-family: var(--mono);
+    font-size: .68rem;
+    background: var(--gold);
+    color: white;
+    padding: .15rem .5rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    margin-top: .2rem;
+    flex-shrink: 0;
+  }
+  .q-text { font-size: .92rem; color: var(--ink); }
+
+  /* ===== LAYOUT ===== */
+  .main { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+  /* ===== SECTION TITLES ===== */
+  .section-title {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--blue);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: .4rem;
+    border-bottom: 2px solid var(--blue);
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+  .section-title .num {
+    font-family: var(--mono);
+    font-size: .8rem;
+    background: var(--blue);
+    color: white;
+    width: 24px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+  .card-title {
+    font-family: var(--mono);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: .8rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ===== FLOW DIAGRAM ===== */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1rem 0;
+  }
+  .flow-step {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+  .flow-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 48px;
+    flex-shrink: 0;
+  }
+  .flow-circle {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-size: .75rem;
+    font-weight: 600;
+    color: white;
+    flex-shrink: 0;
+    margin-top: .5rem;
+  }
+  .flow-line {
+    width: 2px;
+    background: var(--border);
+    flex: 1;
+    min-height: 16px;
+  }
+  .flow-content {
+    flex: 1;
+    padding: .5rem .8rem 1.2rem;
+  }
+  .flow-who {
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .7;
+    margin-bottom: .2rem;
+  }
+  .flow-action {
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: .2rem;
+  }
+  .flow-detail {
+    font-size: .85rem;
+    color: var(--ink2);
+    line-height: 1.5;
+  }
+  .timer {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: .78rem;
+    font-weight: 600;
+    padding: .15rem .5rem;
+    border-radius: 3px;
+    margin-top: .3rem;
+  }
+  .timer-green { background: #E8F5E9; color: var(--green); border: 1px solid #A5D6A7; }
+  .timer-blue  { background: #E3F2FD; color: var(--blue2); border: 1px solid #90CAF9; }
+  .timer-red   { background: #FFEBEE; color: var(--red); border: 1px solid #EF9A9A; }
+  .timer-orange{ background: #FFF3E0; color: var(--orange); border: 1px solid #FFCC80; }
+
+  /* ===== TOTAL BOX ===== */
+  .total-box {
+    background: var(--blue);
+    color: white;
+    border-radius: 6px;
+    padding: 1rem 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: .5rem;
+  }
+  .total-label { font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; opacity: .8; }
+  .total-days { font-family: var(--mono); font-size: 2rem; font-weight: 600; }
+  .total-note { font-size: .82rem; opacity: .85; max-width: 300px; }
+
+  .total-box.green { background: var(--green); }
+  .total-box.orange { background: var(--orange); }
+
+  /* ===== ALERT BOX ===== */
+  .alert {
+    border-radius: 5px;
+    padding: 1rem 1.2rem;
+    margin: .8rem 0;
+    font-size: .9rem;
+    display: flex;
+    gap: .8rem;
+    align-items: flex-start;
+  }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .alert-red { background: #FFF5F5; border: 1px solid #FFC0BB; }
+  .alert-green { background: #F0FFF4; border: 1px solid #9AE6B4; }
+  .alert-blue { background: #EBF8FF; border: 1px solid #90CDF4; }
+  .alert-orange { background: #FFFAF0; border: 1px solid #FBD38D; }
+  .alert strong { color: var(--ink); }
+
+  /* ===== COMPARISON TABLE ===== */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin: 1rem 0;
+  }
+  .compare-col { }
+  .compare-header {
+    padding: .7rem 1rem;
+    border-radius: 5px 5px 0 0;
+    font-family: var(--mono);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: white;
+  }
+  .ord-h { background: var(--blue); }
+  .simp-h { background: var(--green); }
+  .compare-body {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+  }
+  .compare-row {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-label {
+    font-size: .75rem;
+    font-family: var(--mono);
+    color: var(--ink2);
+    padding: .6rem .8rem;
+    background: var(--bg2);
+    min-width: 90px;
+    border-right: 1px solid var(--border);
+  }
+  .compare-val {
+    padding: .6rem .8rem;
+    font-size: .88rem;
+    font-weight: 600;
+  }
+
+  /* ===== GRID TAGS ===== */
+  .tags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: .8rem 0;
+  }
+  .tag {
+    font-size: .82rem;
+    padding: .3rem .7rem;
+    border-radius: 3px;
+    border: 1px solid;
+  }
+  .tag-free { background: #E8F5E9; color: var(--green); border-color: #A5D6A7; }
+  .tag-simp { background: #FFF3E0; color: var(--orange); border-color: #FFCC80; }
+  .tag-ord  { background: #E3F2FD; color: var(--blue2); border-color: #90CAF9; }
+
+  /* ===== ART 167 ===== */
+  .rule-block {
+    border-radius: 6px;
+    padding: 1.2rem 1.4rem;
+    margin: .8rem 0;
+  }
+  .rule-block h4 {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: .7rem;
+  }
+  .rule-list {
+    list-style: none;
+    padding: 0;
+  }
+  .rule-list li {
+    display: flex;
+    gap: .6rem;
+    align-items: flex-start;
+    font-size: .9rem;
+    margin-bottom: .5rem;
+    line-height: 1.5;
+  }
+  .rule-list li::before {
+    content: '✗';
+    font-size: .9rem;
+    flex-shrink: 0;
+    margin-top: .05rem;
+  }
+  .rule-no { background: #FFF5F5; border: 1px solid #FFC0BB; }
+  .rule-no h4 { color: var(--red); }
+  .rule-no li::before { color: var(--red); }
+  .rule-yes { background: #F0FFF4; border: 1px solid #9AE6B4; }
+  .rule-yes h4 { color: var(--green); }
+  .rule-yes li::before { content: '✓'; color: var(--green); }
+
+  /* ===== ART 136 / 142 ===== */
+  .vincolo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: .8rem 0;
+  }
+  .vincolo-box {
+    border-radius: 5px;
+    padding: 1rem 1.2rem;
+    border: 1px solid;
+  }
+  .vincolo-box h4 {
+    font-family: var(--mono);
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: .6rem;
+  }
+  .vincolo-box ul { list-style: none; padding: 0; }
+  .vincolo-box li {
+    font-size: .85rem;
+    padding: .25rem 0;
+    border-bottom: 1px solid;
+    display: flex;
+    gap: .5rem;
+  }
+  .vincolo-box li:last-child { border-bottom: none; }
+  .v136 { background: #F3E8FF; border-color: #D8B4FE; }
+  .v136 h4 { color: #6B21A8; }
+  .v136 li { border-color: #E9D5FF; }
+  .v136 li::before { content: '⬡'; color: #6B21A8; font-size: .7rem; margin-top: .2rem; }
+  .v142 { background: #ECFDF5; border-color: #6EE7B7; }
+  .v142 h4 { color: var(--green); }
+  .v142 li { border-color: #A7F3D0; }
+  .v142 li::before { content: '⬡'; color: var(--green); font-size: .7rem; margin-top: .2rem; }
+
+  /* ===== MNEMONICO ===== */
+  .mnemonic {
+    background: #1C1C1C;
+    color: #E8D44D;
+    border-radius: 6px;
+    padding: 1.2rem 1.5rem;
+    font-family: var(--mono);
+    margin: 1rem 0;
+  }
+  .mnemonic h4 {
+    font-size: .65rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    opacity: .6;
+    margin-bottom: .5rem;
+  }
+  .mnemonic p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+  .mnemonic span { color: white; }
+
+  /* ===== QUIZ BOX ===== */
+  .quiz-area { margin: 2.5rem 0 1rem; }
+  .quiz-title {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1rem;
+    padding-bottom: .4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .quiz-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    margin-bottom: .8rem;
+    overflow: hidden;
+  }
+  .quiz-q {
+    padding: .8rem 1.2rem;
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    user-select: none;
+    transition: background .15s;
+  }
+  .quiz-q:hover { background: var(--bg2); }
+  .quiz-q .arrow { font-size: .8rem; transition: transform .2s; flex-shrink: 0; }
+  .quiz-a {
+    padding: 0 1.2rem;
+    font-size: .88rem;
+    color: var(--ink2);
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease, padding .3s ease;
+  }
+  .quiz-a.open {
+    max-height: 500px;
+    padding: .8rem 1.2rem 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .quiz-q.active .arrow { transform: rotate(180deg); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: var(--ink2);
+    opacity: .6;
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  /* ===== SCROLLTOP ===== */
+  #scrolltop {
+    position: fixed;
+    bottom: 1.5rem; right: 1.5rem;
+    width: 40px; height: 40px;
+    background: var(--blue);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    z-index: 100;
+  }
+  #scrolltop.visible { display: flex; }
+
+  /* ===== NAV PILLS ===== */
+  .nav-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    padding: 1rem 2rem;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .nav-pill {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .06em;
+    padding: .3rem .7rem;
+    border-radius: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--ink2);
+    text-decoration: none;
+    transition: all .15s;
+  }
+  .nav-pill:hover {
+    background: var(--blue);
+    color: white;
+    border-color: var(--blue);
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .compare-grid { grid-template-columns: 1fr; }
+    .vincolo-grid { grid-template-columns: 1fr; }
+    .site-header h1 { font-size: 1.7rem; }
+    .total-box { flex-direction: column; gap: .5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="badge">📚 Guida Concorso — Istruttore Tecnico</div>
+    <h1>Autorizzazione Paesaggistica</h1>
+    <p>D.Lgs. 42/2004 (Codice Beni Culturali) + DPR 31/2017 — spiegazione semplice, senza tecnicismi inutili, pronta per la prova</p>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-pills">
+    <a href="#domande" class="nav-pill">🎯 Domande reali</a>
+    <a href="#cos-e" class="nav-pill">📌 Cos'è</a>
+    <a href="#tre-livelli" class="nav-pill">🔢 I 3 livelli</a>
+    <a href="#ordinaria" class="nav-pill">🔵 Procedura ordinaria</a>
+    <a href="#semplificata" class="nav-pill">🟢 Procedura semplificata</a>
+    <a href="#confronto" class="nav-pill">⚖️ Confronto</a>
+    <a href="#vincoli" class="nav-pill">🏔️ Vincoli (136/142)</a>
+    <a href="#sanatoria" class="nav-pill">🚫 Art. 167 sanatoria</a>
+    <a href="#quiz" class="nav-pill">🧠 Quiz rapido</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- DOMANDE REALI -->
+  <div id="domande" class="real-questions">
+    <h2>⭐ Domande uscite nelle prove reali (tue prove!)</h2>
+    <div class="q-item">
+      <span class="q-tag">ORALE 15/10/24 – Prova 1, q.3</span>
+      <span class="q-text">Indichi gli interventi da sottoporsi ad <strong>autorizzazione paesaggistica semplificata</strong> e descriva l'<strong>iter procedurale</strong> per il rilascio, ai sensi del D.Lgs. 42/2004.</span>
+    </div>
+    <div class="q-item">
+      <span class="q-tag">SCRITTA 08/10/24 – Prova 2, q.2</span>
+      <span class="q-text">Indichi gli interventi da sottoporsi ad <strong>autorizzazione paesaggistica semplificata</strong> e descriva l'iter procedurale per il rilascio, ai sensi del D.Lgs. 42/2004. <em>(domanda identica!)</em></span>
+    </div>
+    <div class="q-item">
+      <span class="q-tag">COLLOQUIO 10/01/22 – B.2, q.2</span>
+      <span class="q-text">Illustri i casi di interventi sottoposti a procedura autorizzatoria paesaggistica e in particolare quello della <strong>procedura ordinaria</strong>.</span>
+    </div>
+    <div class="q-item">
+      <span class="q-tag">COLLOQUIO 10/01/22 – B.8, q.2</span>
+      <span class="q-text">Illustri i casi di interventi sottoposti a procedura autorizzatoria paesaggistica e in particolare quello della <strong>procedura semplificata</strong>.</span>
+    </div>
+    <div class="q-item">
+      <span class="q-tag">COLLOQUIO 10/01/22 – B.9, q.1</span>
+      <span class="q-text">Illustri la casistica delle procedure di <strong>accertamento di compatibilità paesaggistica</strong> e i <strong>limiti imposti per legge</strong>. (= art. 167)</span>
+    </div>
+  </div>
+
+  <!-- 1. COS'E -->
+  <h2 id="cos-e" class="section-title"><span class="num">1</span> Cos'è l'autorizzazione paesaggistica e a cosa serve</h2>
+
+  <div class="card">
+    <p style="font-size:.95rem; line-height:1.7; margin-bottom:.8rem;">
+      In Italia ci sono zone del territorio protette per il loro valore paesaggistico (coste, fiumi, boschi, montagne, ecc.). Se vuoi fare lavori in queste zone, prima di iniziare <strong>devi chiedere e ottenere l'autorizzazione paesaggistica</strong>. Non è facoltativa: senza di essa i lavori sono illegali.
+    </p>
+    <div class="alert alert-blue">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>Regola fondamentale da memorizzare:</strong> L'autorizzazione paesaggistica è un atto <strong>autonomo e presupposto</strong> rispetto al permesso di costruire o agli altri titoli edilizi. Questo significa: prima si chiede l'autorizzazione paesaggistica, poi si chiede il titolo edilizio. Non il contrario. Non possono essere la stessa cosa.
+      </div>
+    </div>
+    <div class="alert alert-red">
+      <span class="alert-icon">⏱️</span>
+      <div>
+        <strong>Validità:</strong> L'autorizzazione vale <strong>5 anni</strong> dal rilascio. Se i lavori iniziano nel quinquennio, possono essere conclusi entro <strong>1 anno in più</strong> dalla scadenza. Scaduta, bisogna chiederne una nuova.
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. TRE LIVELLI -->
+  <h2 id="tre-livelli" class="section-title"><span class="num">2</span> I 3 livelli — libero, semplificato, ordinario</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--green)"></span>Come funziona il sistema (DPR 31/2017 + art. 146 e 149 D.Lgs. 42/2004)</div>
+    <p style="font-size:.9rem; margin-bottom:1rem;">Quando vuoi fare lavori in un'area vincolata, il tuo intervento rientra in uno di questi tre livelli:</p>
+
+    <div style="display:flex; flex-direction:column; gap:.8rem; margin-bottom:.5rem;">
+
+      <div style="border-radius:5px; border:1px solid #A5D6A7; background:#F0FFF4; padding:1rem 1.2rem;">
+        <div style="font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);font-weight:600;margin-bottom:.4rem;">🟢 LIVELLO 1 — LIBERO (nessuna autorizzazione paesaggistica)</div>
+        <p style="font-size:.88rem; margin-bottom:.5rem;">Certi interventi non richiedono autorizzazione paesaggistica. Sono elencati nell'<strong>art. 149 D.Lgs. 42/2004</strong> e nell'<strong>Allegato A del DPR 31/2017</strong> (31 tipologie).</p>
+        <p style="font-size:.85rem; color:var(--ink2);">Esempi: manutenzione ordinaria/straordinaria senza alterare l'aspetto esteriore, miglioramento sismico senza modificare morfologia, eliminazione barriere architettoniche, strutture temporanee amovibili (tende, pedane), occupazioni di suolo temporanee fino a 120 giorni/anno.</p>
+        <p style="font-size:.82rem; font-style:italic; margin-top:.4rem; color:var(--green);">⚠️ Attenzione: libero da autorizzazione paesaggistica, ma possono servire titoli edilizi (CILA, SCIA, ecc.)</p>
+      </div>
+
+      <div style="border-radius:5px; border:1px solid #FFCC80; background:#FFF8E1; padding:1rem 1.2rem;">
+        <div style="font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);font-weight:600;margin-bottom:.4rem;">🟠 LIVELLO 2 — SEMPLIFICATO (Allegato B DPR 31/2017)</div>
+        <p style="font-size:.88rem; margin-bottom:.5rem;">Interventi di <strong>lieve entità</strong>: richiedono autorizzazione, ma con procedura più veloce. Elencati nell'<strong>Allegato B del DPR 31/2017</strong> (42 tipologie). Procedura si chiude in <strong>60 giorni</strong>.</p>
+        <p style="font-size:.85rem; color:var(--ink2);">Esempi: piccoli ampliamenti (max 10% e max 100 m³), modifica aperture/finestre nel rispetto delle caratteristiche, rifacimento facciate/intonaci modificativi, balconi, terrazzi, pergolati, recinzioni, cambio copertura, piccoli manufatti di arredo giardino.</p>
+      </div>
+
+      <div style="border-radius:5px; border:1px solid #90CAF9; background:#EBF8FF; padding:1rem 1.2rem;">
+        <div style="font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue2);font-weight:600;margin-bottom:.4rem;">🔵 LIVELLO 3 — ORDINARIO (art. 146 D.Lgs. 42/2004)</div>
+        <p style="font-size:.88rem; margin-bottom:.5rem;">Tutto il resto: qualsiasi intervento significativo in area vincolata che non rientra nei livelli 1 e 2. Procedura più lunga: <strong>105 giorni</strong>.</p>
+        <p style="font-size:.85rem; color:var(--ink2);">Esempi: nuove costruzioni, ampliamenti importanti, ristrutturazioni pesanti, demolizioni/ricostruzioni.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. PROCEDURA ORDINARIA -->
+  <h2 id="ordinaria" class="section-title"><span class="num">3</span> Procedura ordinaria — art. 146 D.Lgs. 42/2004</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--blue)"></span>Chi rilascia e chi controlla</div>
+    <p style="font-size:.9rem;">
+      Il Comune (o l'ente delegato dalla Regione) riceve la domanda e la istruisce. Ma la Soprintendenza (organo del Ministero della Cultura — MiC) ha potere di veto: esprime un <strong>parere vincolante</strong>. Il Comune non può rilasciare l'autorizzazione contro il parere negativo della Soprintendenza.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--blue)"></span>Le fasi — passo per passo</div>
+
+    <div class="flow">
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--orange)">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Richiedente (proprietario/tecnico)</div>
+          <div class="flow-action">Presenta l'istanza al Comune</div>
+          <div class="flow-detail">Deve allegare: progetto completo + <strong>relazione paesaggistica</strong> redatta da tecnico abilitato (secondo DPCM 12/12/2005). La relazione descrive l'intervento e dimostra la compatibilità con il paesaggio tutelato.</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--blue)">2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Comune / ente delegato</div>
+          <div class="flow-action">Istruttoria e trasmissione alla Soprintendenza</div>
+          <div class="flow-detail">Il Comune esamina la pratica, verifica completezza, eventualmente chiede integrazioni, poi trasmette tutto alla Soprintendenza con una proposta motivata (favorevole o sfavorevole).</div>
+          <span class="timer timer-blue">⏱️ Entro 40 giorni dal ricevimento → trasmette alla Soprintendenza</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--red)">3</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Soprintendenza (MiC)</div>
+          <div class="flow-action">Emette il parere vincolante</div>
+          <div class="flow-detail">Valuta la compatibilità paesaggistica dell'intervento. Il parere è <strong>vincolante</strong>: se è negativo, il Comune non può rilasciare l'autorizzazione. Se è positivo, il Comune deve rilasciarla.</div>
+          <span class="timer timer-red">⏱️ Entro 45 giorni dalla ricezione degli atti</span>
+          <div class="flow-detail" style="margin-top:.5rem;">
+            <strong>Cosa succede se la Soprintendenza non risponde?</strong> Decorsi 60 giorni totali dal ricevimento degli atti senza risposta, il Comune può procedere comunque sul rilascio. Attenzione: <strong>NON è silenzio-assenso pieno</strong> come nel semplificato.
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--green)">4</div>
+          <div class="flow-line" style="background:transparent"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Comune / ente delegato</div>
+          <div class="flow-action">Rilascia o nega l'autorizzazione</div>
+          <div class="flow-detail">Dopo aver ricevuto il parere della Soprintendenza, il Comune adotta il provvedimento finale in conformità.</div>
+          <span class="timer timer-green">⏱️ Entro 20 giorni dal ricevimento del parere della Soprintendenza</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="total-box">
+      <div>
+        <div class="total-label">Termine massimo complessivo</div>
+        <div class="total-days">105 giorni</div>
+      </div>
+      <div class="total-note">40 gg (Comune) + 45 gg (Soprintendenza) + 20 gg (rilascio) = 105 giorni dalla domanda</div>
+    </div>
+
+    <div class="alert alert-orange" style="margin-top:.8rem;">
+      <span class="alert-icon">🔑</span>
+      <div>
+        <strong>Parole chiave da dire in prova:</strong> "Il parere della Soprintendenza è <strong>vincolante</strong>"; "L'amministrazione competente è la <strong>Regione</strong> o l'ente da essa delegato"; "Termine massimo: <strong>105 giorni</strong>"; "L'autorizzazione paesaggistica è <strong>presupposto</strong> del titolo edilizio, non alternativa".
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. PROCEDURA SEMPLIFICATA -->
+  <h2 id="semplificata" class="section-title"><span class="num">4</span> Procedura semplificata — DPR 31/2017</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--green)"></span>Per quali interventi vale? (Allegato B del DPR 31/2017)</div>
+    <p style="font-size:.88rem; color:var(--ink2); margin-bottom:.8rem;">Sono <strong>42 tipologie</strong> di interventi "di lieve entità". Ecco gli esempi più importanti da sapere:</p>
+
+    <div class="tags-grid">
+      <span class="tag tag-simp">Ampliamento ≤10% e ≤100 m³</span>
+      <span class="tag tag-simp">Modifica aperture/finestre</span>
+      <span class="tag tag-simp">Rifacimento facciate / intonaci</span>
+      <span class="tag tag-simp">Cornicioni, ringhiere, parapetti</span>
+      <span class="tag tag-simp">Balconi e terrazzi</span>
+      <span class="tag tag-simp">Modifica/cambio coperture</span>
+      <span class="tag tag-simp">Pergolati e gazebo</span>
+      <span class="tag tag-simp">Recinzioni, muri di cinta</span>
+      <span class="tag tag-simp">Pavimentazioni esterne</span>
+      <span class="tag tag-simp">Pannelli solari non aderenti</span>
+      <span class="tag tag-simp">Piccoli manufatti da giardino</span>
+      <span class="tag tag-simp">Autorimesse e pertinenze</span>
+      <span class="tag tag recinzioni interrate</span>
+      <span class="tag tag-simp">Piscine interrate in pertinenza</span>
+    </div>
+
+    <div class="alert alert-orange" style="margin-top:.8rem;">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Attenzione:</strong> il DPR 31/2017 prevede anche esclusioni dal regime semplificato (Allegato C). Per esempio, se l'area è UNESCO o ha tutela integrale, il semplificato non si applica.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--green)"></span>Come funziona il procedimento semplificato — passo per passo</div>
+
+    <div class="flow">
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--orange)">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Richiedente</div>
+          <div class="flow-action">Presenta istanza al Comune (o ente delegato)</div>
+          <div class="flow-detail">Documentazione semplificata: <strong>modello unificato</strong> (Allegato C del DPR 31/2017) + <strong>relazione paesaggistica semplificata</strong> (Allegato D). Molto meno documentazione rispetto alla procedura ordinaria.</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--blue)">2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Comune</div>
+          <div class="flow-action">Prima verifica: il Comune controlla se serve davvero il semplificato</div>
+          <div class="flow-detail">Il Comune verifica che l'intervento non sia in realtà libero (Allegato A) né che richieda la procedura ordinaria. Se necessario, può chiedere integrazioni documentali <strong>una sola volta</strong>, entro 10 giorni.</div>
+          <span class="timer timer-blue">⏱️ Integrazione documentale: entro 10 gg (il richiedente risponde entro altri 10 gg)</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--blue)">3</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Comune</div>
+          <div class="flow-action">Istruttoria e trasmissione alla Soprintendenza</div>
+          <div class="flow-detail">Il Comune valuta la conformità dell'intervento. Se la valutazione è positiva, trasmette alla Soprintendenza la pratica con proposta motivata di accoglimento.</div>
+          <span class="timer timer-blue">⏱️ Entro 20 giorni trasmette alla Soprintendenza</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--red)">4</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Soprintendenza</div>
+          <div class="flow-action">Esprime il parere vincolante</div>
+          <div class="flow-detail">
+            La Soprintendenza valuta e si esprime. Se non risponde entro il termine, scatta il <strong>silenzio-assenso</strong> (art. 17-bis L. 241/90): il Comune può rilasciare comunque l'autorizzazione senza aspettare ulteriormente.
+          </div>
+          <span class="timer timer-red">⏱️ Entro 20 giorni dal ricevimento degli atti</span>
+          <div class="flow-detail" style="margin-top:.5rem; color:var(--green); font-weight:600;">
+            🔑 DIFFERENZA CHIAVE: nel semplificato il silenzio della Soprintendenza = SILENZIO-ASSENSO. Nell'ordinario NO!
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--green)">5</div>
+          <div class="flow-line" style="background:transparent"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Comune</div>
+          <div class="flow-action">Rilascia l'autorizzazione</div>
+          <div class="flow-detail">Il Comune comunica immediatamente al richiedente l'esito. Può contestualmente rilasciare anche il titolo edilizio se di sua competenza.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="total-box green">
+      <div>
+        <div class="total-label">Termine massimo tassativo</div>
+        <div class="total-days">60 giorni</div>
+      </div>
+      <div class="total-note">Dal ricevimento della domanda. Termine tassativo per legge (art. 10 DPR 31/2017). La sospensione per integrazioni documentali può aggiungere al massimo 10+10 giorni.</div>
+    </div>
+  </div>
+
+  <!-- 5. CONFRONTO -->
+  <h2 id="confronto" class="section-title"><span class="num">5</span> Confronto rapido — ordinaria vs semplificata</h2>
+
+  <div class="card">
+    <div class="compare-grid">
+      <div class="compare-col">
+        <div class="compare-header ord-h">🔵 Ordinaria — art. 146</div>
+        <div class="compare-body">
+          <div class="compare-row"><div class="compare-label">Norma</div><div class="compare-val">Art. 146 D.Lgs. 42/2004</div></div>
+          <div class="compare-row"><div class="compare-label">Per chi</div><div class="compare-val">Qualsiasi intervento significativo in area vincolata</div></div>
+          <div class="compare-row"><div class="compare-label">Termine</div><div class="compare-val" style="color:var(--red)">105 giorni</div></div>
+          <div class="compare-row"><div class="compare-label">Parere Soprint.</div><div class="compare-val">Entro 45 giorni — <strong>VINCOLANTE</strong></div></div>
+          <div class="compare-row"><div class="compare-label">Silenzio Soprint.</div><div class="compare-val" style="color:var(--red)">NON è silenzio-assenso</div></div>
+          <div class="compare-row"><div class="compare-label">Documentaz.</div><div class="compare-val">Completa: relazione paesaggistica piena</div></div>
+          <div class="compare-row"><div class="compare-label">Sanatoria</div><div class="compare-val" style="color:var(--red)">VIETATA (salvo art. 167)</div></div>
+        </div>
+      </div>
+
+      <div class="compare-col">
+        <div class="compare-header simp-h">🟢 Semplificata — DPR 31/2017</div>
+        <div class="compare-body">
+          <div class="compare-row"><div class="compare-label">Norma</div><div class="compare-val">Art. 11 DPR 31/2017 + Allegato B</div></div>
+          <div class="compare-row"><div class="compare-label">Per chi</div><div class="compare-val">Solo interventi di lieve entità (Allegato B, 42 tipologie)</div></div>
+          <div class="compare-row"><div class="compare-label">Termine</div><div class="compare-val" style="color:var(--green)">60 giorni (tassativo)</div></div>
+          <div class="compare-row"><div class="compare-label">Parere Soprint.</div><div class="compare-val">Entro 20 giorni — <strong>VINCOLANTE</strong></div></div>
+          <div class="compare-row"><div class="compare-label">Silenzio Soprint.</div><div class="compare-val" style="color:var(--green)">SÌ = silenzio-assenso art. 17-bis L. 241/90</div></div>
+          <div class="compare-row"><div class="compare-label">Documentaz.</div><div class="compare-val">Semplificata: modello C + relazione D</div></div>
+          <div class="compare-row"><div class="compare-label">Sanatoria</div><div class="compare-val" style="color:var(--red)">VIETATA (salvo art. 167)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Mnemonica per i numeri</h4>
+      <p>
+        <span>Ordinaria:</span> <strong>40 + 45 + 20 = 105 giorni</strong><br>
+        <span style="opacity:.5">— Comune ha 40 giorni; Soprintendenza ha 45 giorni; Comune rilascia in 20 giorni —</span><br><br>
+        <span>Semplificata:</span> <strong>60 giorni totali, Soprint. ha 20 giorni</strong><br>
+        <span style="opacity:.5">— Silenzio Soprintendenza → silenzio-assenso → Comune rilascia —</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- 6. VINCOLI 136 / 142 -->
+  <h2 id="vincoli" class="section-title"><span class="num">6</span> I vincoli paesaggistici — artt. 136 e 142</h2>
+
+  <div class="card">
+    <p style="font-size:.9rem; margin-bottom:1rem;">Per sapere se un'area è vincolata, ci sono due articoli fondamentali. La differenza principale è che l'art. 136 richiede un <em>provvedimento formale</em>, mentre l'art. 142 scatta <em>automaticamente per legge</em>.</p>
+
+    <div class="vincolo-grid">
+      <div class="vincolo-box v136">
+        <h4>Art. 136 — Vincolati per dichiarazione</h4>
+        <p style="font-size:.8rem; color:#6B21A8; margin-bottom:.5rem;">Serve un provvedimento della PA che li individui</p>
+        <ul>
+          <li><div>Ville, giardini e parchi di non comune bellezza</div></li>
+          <li><div>Bellezze panoramiche (vedute)</div></li>
+          <li><div>Centri o nuclei storici di particolare valore estetico e tradizionale</div></li>
+          <li><div>Complessi di cose immobili che formano caratteristico aspetto</div></li>
+        </ul>
+      </div>
+
+      <div class="vincolo-box v142">
+        <h4>Art. 142 — Vincolati automaticamente (ex lege)</h4>
+        <p style="font-size:.8rem; color:var(--green); margin-bottom:.5rem;">Protetti per legge senza bisogno di atti</p>
+        <ul>
+          <li><div>🌊 Territori costieri: <strong>300 m</strong> dalla battigia del mare</div></li>
+          <li><div>🏞️ Territori lacuali: <strong>300 m</strong> dalle sponde dei laghi</div></li>
+          <li><div>🏞️ Fiumi, torrenti, corsi d'acqua: <strong>150 m</strong> dalle sponde</div></li>
+          <li><div>⛰️ Montagne: oltre <strong>1.600 m</strong> (1.200 m al Sud e isole)</div></li>
+          <li><div>🧊 Ghiacciai e circhi glaciali</div></li>
+          <li><div>🌿 Parchi e riserve nazionali/regionali</div></li>
+          <li><div>🌳 Foreste e boschi</div></li>
+          <li><div>🏛️ Zone di interesse archeologico</div></li>
+          <li><div>🌋 Vulcani</div></li>
+          <li><div>🦆 Zone umide (Ramsar)</div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Mnemonica per i numeri dell'art. 142</h4>
+      <p>
+        <span>Mare e laghi:</span> <strong>300 metri</strong>
+        <span style="opacity:.5"> — tre cifre, tre "00" come il codice di area</span><br>
+        <span>Fiumi:</span> <strong>150 metri</strong>
+        <span style="opacity:.5"> — metà rispetto al mare (300 ÷ 2)</span><br>
+        <span>Montagne Nord:</span> <strong>1.600 m</strong>
+        <span style="opacity:.5"> — Sud/isole: 1.200 m (meno calore = più alta)</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- 7. ART. 167 SANATORIA -->
+  <h2 id="sanatoria" class="section-title"><span class="num">7</span> Art. 167 — Accertamento compatibilità paesaggistica (sanatoria)</h2>
+
+  <div class="card">
+    <p style="font-size:.95rem; line-height:1.7; margin-bottom:1rem;">
+      Cosa succede se fai lavori in zona vincolata <strong>senza autorizzazione paesaggistica</strong>? La regola è severa. Vediamo quando si può "sanare" la situazione e quando no.
+    </p>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">🚫</span>
+      <div>
+        <strong>Regola generale:</strong> L'autorizzazione paesaggistica <strong>non può essere rilasciata in sanatoria</strong> dopo che i lavori sono stati eseguiti (art. 146, comma 4). Il paesaggio non si risarcisce a posteriori come un normale abuso edilizio.
+      </div>
+    </div>
+
+    <p style="font-size:.9rem; margin:.8rem 0;">Tuttavia, l'<strong>art. 167 prevede eccezioni tassative</strong>. L'accertamento di compatibilità paesaggistica è ammesso SOLO quando l'intervento abusivo <em>non ha provocato danno permanente al paesaggio</em>, cioè quando:</p>
+
+    <div class="rule-block rule-yes">
+      <h4>✓ ACCERTAMENTO POSSIBILE (art. 167, cc. 4 e 5) — quando si può chiedere</h4>
+      <ul class="rule-list">
+        <li>I lavori eseguiti <strong>non hanno creato nuove superfici utili o nuovi volumi</strong></li>
+        <li>I lavori non hanno <strong>aumentato</strong> le superfici/volumi legittimamente esistenti</li>
+        <li>I lavori non hanno arrecato <strong>pregiudizio ai valori paesaggistici</strong> tutelati</li>
+      </ul>
+      <p style="font-size:.82rem; margin-top:.5rem; color:var(--green);">In pratica: interventi che non cambiano la "massa" dell'edificio e non danneggiano il paesaggio (es: cambio colore facciata, piccole modifiche estetiche reversibili).</p>
+    </div>
+
+    <div class="rule-block rule-no" style="margin-top:.8rem;">
+      <h4>✗ ACCERTAMENTO IMPOSSIBILE — quando si deve demolire</h4>
+      <ul class="rule-list">
+        <li>Abusi con <strong>creazione di volumi o superfici nuove</strong> (ampliamenti non autorizzati)</li>
+        <li>Abusi con <strong>aumento</strong> di quelli preesistenti</li>
+        <li>Qualsiasi intervento che ha <strong>pregiudicato i valori paesaggistici</strong></li>
+      </ul>
+    </div>
+
+    <div class="alert alert-red" style="margin-top:.8rem;">
+      <span class="alert-icon">🔨</span>
+      <div>
+        <strong>Conseguenza se l'accertamento è impossibile:</strong> ordine di <strong>demolizione e ripristino</strong> dello stato originario. In alternativa, può essere applicata una <strong>sanzione pecuniaria</strong>, ma questa non equivale alla sanatoria paesaggistica: il reato rimane.
+      </div>
+    </div>
+
+    <div class="alert alert-orange" style="margin-top:.8rem;">
+      <span class="alert-icon">📋</span>
+      <div>
+        <strong>Procedimento per l'accertamento (art. 167):</strong> Si presenta istanza all'ente competente; la Soprintendenza esprime parere vincolante (come nell'ordinaria); il procedimento si conclude entro 180 giorni. Se positivo: pagamento dell'indennità pecuniaria e chiusura del procedimento sanzionatorio.
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. QUIZ -->
+  <div id="quiz" class="quiz-area">
+    <div class="quiz-title">🧠 Quiz rapido — preparati alle domande della commissione</div>
+
+    <div class="quiz-item">
+      <div class="quiz-q" onclick="toggle(this)">
+        Qual è la differenza principale tra procedura ordinaria e semplificata?
+        <span class="arrow">▼</span>
+      </div>
+      <div class="quiz-a">
+        La procedura <strong>ordinaria</strong> (art. 146 D.Lgs. 42/2004) vale per qualsiasi intervento significativo, dura massimo <strong>105 giorni</strong>, il parere della Soprintendenza è vincolante con termine di 45 giorni, e il silenzio della Soprintendenza <strong>non</strong> equivale ad assenso.<br><br>
+        La procedura <strong>semplificata</strong> (DPR 31/2017, Allegato B) vale solo per i 42 interventi di lieve entità, dura massimo <strong>60 giorni</strong> (termine tassativo), il parere della Soprintendenza è vincolante con termine di 20 giorni, e se la Soprintendenza non risponde si forma il <strong>silenzio-assenso</strong> (art. 17-bis L. 241/90).
+      </div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q" onclick="toggle(this)">
+        Cosa si intende per "parere vincolante" della Soprintendenza?
+        <span class="arrow">▼</span>
+      </div>
+      <div class="quiz-a">
+        Il parere della Soprintendenza è <strong>vincolante</strong> significa che il Comune/ente delegato <strong>deve</strong> conformarsi ad esso: se è positivo deve rilasciare l'autorizzazione, se è negativo non può rilasciarla. Non è un parere consultivo che si può ignorare o superare. La Soprintendenza esercita un vero e proprio potere di co-gestione del vincolo paesaggistico (Cons. Stato n. 3734/2019).
+      </div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q" onclick="toggle(this)">
+        Elenca almeno 5 interventi soggetti ad autorizzazione paesaggistica semplificata (Allegato B DPR 31/2017)
+        <span class="arrow">▼</span>
+      </div>
+      <div class="quiz-a">
+        Esempi dall'Allegato B del DPR 31/2017: <strong>1)</strong> Incrementi di volume non superiori al 10% della volumetria originaria e comunque non oltre 100 m³; <strong>2)</strong> Realizzazione o modifica di aperture esterne (finestre, porte) nel rispetto delle caratteristiche architettoniche; <strong>3)</strong> Modifiche delle facciate mediante realizzazione di cornicioni, ringhiere, parapetti; <strong>4)</strong> Rifacimento di intonaci, tinteggiature o rivestimenti esterni modificativi di quelli preesistenti; <strong>5)</strong> Realizzazione, modifica o chiusura di balconi o terrazzi; <strong>6)</strong> Realizzazione di pergolati e gazebo; <strong>7)</strong> Recinzioni e muri di cinta; <strong>8)</strong> Pavimentazioni di aree esterne pertinenziali; <strong>9)</strong> Realizzazione di piscine interrate.
+      </div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q" onclick="toggle(this)">
+        Quando è ammissibile la sanatoria paesaggistica (art. 167)?
+        <span class="arrow">▼</span>
+      </div>
+      <div class="quiz-a">
+        L'accertamento di compatibilità paesaggistica (cosiddetta "sanatoria paesaggistica") è ammesso <strong>solo nei casi tassativi previsti dall'art. 167 commi 4 e 5</strong>, cioè solo quando l'intervento abusivo <strong>non ha</strong>: 1) creato nuove superfici utili o nuovi volumi; 2) aumentato quelli legittimamente esistenti; 3) arrecato pregiudizio ai valori paesaggistici tutelati.<br><br>
+        In tutti gli altri casi (es: abusi con ampliamenti volumetrici) la sanatoria è <strong>impossibile</strong>: si ordina la demolizione e il ripristino dello stato dei luoghi.
+      </div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q" onclick="toggle(this)">
+        Cosa significa che l'autorizzazione paesaggistica è "presupposto" del titolo edilizio?
+        <span class="arrow">▼</span>
+      </div>
+      <div class="quiz-a">
+        Significa che l'autorizzazione paesaggistica deve essere <strong>ottenuta prima</strong> del titolo edilizio (permesso di costruire, SCIA, ecc.). Non si possono avere i due atti in ordine inverso, né sono la stessa cosa. Il termine di efficacia dell'autorizzazione paesaggistica decorre dal momento in cui il titolo edilizio diventa efficace. Se lavori in zona vincolata senza autorizzazione paesaggistica, il titolo edilizio non è valido da solo.
+      </div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q" onclick="toggle(this)">
+        Qual è la differenza tra art. 136 e art. 142 del D.Lgs. 42/2004?
+        <span class="arrow">▼</span>
+      </div>
+      <div class="quiz-a">
+        L'<strong>art. 136</strong> tutela i beni paesaggistici individuati con <em>apposito provvedimento amministrativo</em> (dichiarazione di notevole interesse pubblico): ville, giardini, parchi, bellezze panoramiche, centri storici. Serve un atto formale della PA.<br><br>
+        L'<strong>art. 142</strong> tutela beni paesaggistici <em>automaticamente per legge</em> (ex lege), senza bisogno di provvedimento: territori costieri (300 m), laghi (300 m), fiumi (150 m), montagne oltre 1.600 m (1.200 m al Sud), ghiacciai, parchi, boschi, zone archeologiche, vulcani, zone umide Ramsar.
+      </div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q" onclick="toggle(this)">
+        Chi è il soggetto competente al rilascio dell'autorizzazione paesaggistica?
+        <span class="arrow">▼</span>
+      </div>
+      <div class="quiz-a">
+        La competenza è della <strong>Regione</strong>, che normalmente la delega agli enti locali (Comune, Città metropolitana, Provincia). Nel caso dell'Unione Valli e Delizie, la funzione è svolta dall'Unione o dai singoli Comuni facenti parte. La Soprintendenza (organo del Ministero della Cultura) non rilascia l'autorizzazione ma esprime il <strong>parere vincolante</strong> obbligatorio, senza il quale l'ente delegato non può procedere al rilascio.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIEPILOGO FINALE -->
+  <div class="card" style="border-left:4px solid var(--blue); margin-top:1rem;">
+    <div class="card-title"><span class="dot" style="background:var(--blue)"></span>Schema riassuntivo finale — da imparare a memoria</div>
+
+    <table style="width:100%; border-collapse:collapse; font-size:.85rem; margin-top:.5rem;">
+      <thead>
+        <tr style="background:var(--blue); color:white;">
+          <th style="padding:.6rem .8rem; text-align:left; font-family:var(--mono); font-size:.7rem; font-weight:600;">Elemento</th>
+          <th style="padding:.6rem .8rem; text-align:left; font-family:var(--mono); font-size:.7rem; font-weight:600;">Libero (All. A)</th>
+          <th style="padding:.6rem .8rem; text-align:left; font-family:var(--mono); font-size:.7rem; font-weight:600;">Semplificato (All. B)</th>
+          <th style="padding:.6rem .8rem; text-align:left; font-family:var(--mono); font-size:.7rem; font-weight:600;">Ordinario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:var(--bg2);">
+          <td style="padding:.5rem .8rem; font-weight:600; border-bottom:1px solid var(--border);">Norma</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border);">Art. 149 + All. A DPR 31/2017</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border);">All. B + art. 11 DPR 31/2017</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border);">Art. 146 D.Lgs. 42/2004</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem .8rem; font-weight:600; border-bottom:1px solid var(--border);">Autorizzazione</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border); color:var(--green);">NON serve</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border); color:var(--orange);">Sì — semplificata</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border); color:var(--blue2);">Sì — ordinaria</td>
+        </tr>
+        <tr style="background:var(--bg2);">
+          <td style="padding:.5rem .8rem; font-weight:600; border-bottom:1px solid var(--border);">Termine massimo</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border);">—</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border); font-weight:700; color:var(--green);">60 giorni (tassativo)</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border); font-weight:700; color:var(--red);">105 giorni</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem .8rem; font-weight:600; border-bottom:1px solid var(--border);">Soprintendenza</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border);">Non interviene</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border);">Parere vincolante: <strong>20 gg</strong></td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border);">Parere vincolante: <strong>45 gg</strong></td>
+        </tr>
+        <tr style="background:var(--bg2);">
+          <td style="padding:.5rem .8rem; font-weight:600; border-bottom:1px solid var(--border);">Silenzio Soprint.</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border);">—</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border); color:var(--green); font-weight:700;">✓ Silenzio-assenso</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border); color:var(--red); font-weight:700;">✗ No silenzio-assenso</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem .8rem; font-weight:600; border-bottom:1px solid var(--border);">N. tipologie</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border);">31</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border);">42</td>
+          <td style="padding:.5rem .8rem; border-bottom:1px solid var(--border);">Tutto il resto</td>
+        </tr>
+        <tr style="background:var(--bg2);">
+          <td style="padding:.5rem .8rem; font-weight:600;">Validità</td>
+          <td style="padding:.5rem .8rem;">—</td>
+          <td style="padding:.5rem .8rem;">5 anni</td>
+          <td style="padding:.5rem .8rem;">5 anni</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer>
+  Guida studio per concorso — Unione Comuni Valli e Delizie — Istruttore Tecnico<br>
+  D.Lgs. 42/2004 · DPR 31/2017 · L. 241/90
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  function toggle(el) {
+    const ans = el.nextElementSibling;
+    const isOpen = ans.classList.contains('open');
+    document.querySelectorAll('.quiz-a.open').forEach(a => {
+      a.classList.remove('open');
+      a.previousElementSibling.classList.remove('active');
+    });
+    if (!isOpen) {
+      ans.classList.add('open');
+      el.classList.add('active');
+    }
+  }
+
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
+</script>
+
+</body>
+</html>
