@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>Studio Concorso - L.R. 15/2013 Semplificazione Edilizia E-R</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --sidebar-bg: #1e1e1e;
+            --accent-color: #bb86fc;
+            --border-color: #333;
+            --warning-bg: #3c2a00;
+            --warning-border: #ffb74d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        nav a {
+            display: block;
+            padding: 15px 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #333;
+            color: var(--accent-color);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 250px;
+            padding: 40px;
+            max-width: 900px;
+        }
+
+        h1, h2, h3 {
+            color: var(--accent-color);
+        }
+
+        h1 { border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; }
+        
+        section {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        /* Buste d'esame styling */
+        .esame-box {
+            background-color: var(--warning-bg);
+            border-left: 5px solid var(--warning-border);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        .esame-box strong { color: var(--warning-border); }
+
+        ul { padding-left: 20px; }
+        code { background: #333; padding: 2px 5px; border-radius: 4px; color: #ffb74d;}
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h3 style="padding-left: 20px;">L.R. 15/2013<br>Sintesi Esame</h3>
+        <a href="#art7">Art. 7 - Edilizia Libera</a>
+        <a href="#cila">La CILA (Art. 7 c.5)</a>
+        <a href="#scia">Art. 13 - SCIA</a>
+        <a href="#pdc">Art. 17 - Permesso di Costruire</a>
+        <a href="#stato-legittimo">Art. 10 bis - Stato Legittimo (e Salva Casa)</a>
+        <a href="#agibilita">Art. 23 - Agibilità / SCCEA</a>
+        <a href="#oneri">Art. 29/30 - Contributo di Costruzione</a>
+        <a href="#qna">🎯 Q&A Buste d'Esame</a>
+    </nav>
+
+    <main>
+        <h1>Disciplina Edilizia - L.R. Emilia-Romagna 15/2013</h1>
+        <p>L'obiettivo di questa legge regionale è uno: <strong>semplificare</strong> (o almeno ci provano). Divide i titoli abilitativi in categorie logiche basate sull'impatto urbanistico-strutturale. Tu pensa sempre a chi stai "chiedendo il permesso" e al "carico urbanistico" che vai ad alterare.</p>
+
+        <!-- ARTICOLO 7: EDILIZIA LIBERA -->
+        <section id="art7">
+            <h2>1. Attività Edilizia Libera (Art. 7, comma 1)</h2>
+            <p>Interventi in cui te ne fotti della burocrazia abilitativa (niente autorizzazioni, solo eventuale Comunicazione Inizio Lavori), a patto che tu rispetti norme sismiche, paesaggistiche ecc.</p>
+            <ul>
+                <li><strong>Manutenzione ordinaria</strong> (es. tinteggiare, riparare tetti senza toccare la struttura).</li>
+                <li>Pompe di calore (aria-aria) < 12 kW.</li>
+                <li>Eliminazione <strong>barriere architettoniche</strong> (se non alteri la struttura o l'aspetto storico-architettonico).</li>
+                <li><strong>VEPA (Vetrate panoramiche)</strong> (introdotte di recente, non devono fare cubatura o mutare la destinazione d'uso creando nuove stanze vivibili).</li>
+                <li>Movimenti terra per attività agricole.</li>
+                <li>Pannelli fotovoltaici fuori dai centri storici.</li>
+            </ul>
+        </section>
+
+        <!-- CILA -->
+        <section id="cila">
+            <h2>2. La CILA (Comunicazione Inizio Lavori Asseverata - Art. 7, comma 5)</h2>
+            <p>Non è un titolo abilitativo, è una <strong>comunicazione accompagnata da un tecnico</strong> che si prende la responsabilità (assevera). Mando la pratica via SUEDE/SUAP e il cantiere può iniziare. Vale per le "vie di mezzo".</p>
+            <ul>
+                <li><strong>Manutenzione straordinaria leggera:</strong> operi sull'interno senza toccare parti strutturali o cambiare l'aspetto esterno (es. abbattere un tramezzo).</li>
+                <li>Restauro e risanamento conservativo (se non tocca la struttura).</li>
+                <li>Frazionamenti o accorpamenti (senza toccare la struttura).</li>
+                <li>Modifiche di destinazione d'uso <strong>SENZA opere</strong> (che non aumentino il carico urbanistico).</li>
+            </ul>
+            <p><strong>Come funziona:</strong> Hai max 3 anni per finirla. Il comune sorteggia a campione il 10% delle pratiche finite per controllarle (Art. 14, comma 8).</p>
+        </section>
+
+        <!-- SCIA -->
+        <section id="scia">
+            <h2>3. SCIA (Segnalazione Certificata Inizio Attività - Art. 13)</h2>
+            <p>Il "salto di livello". Alzi le mani sulla struttura o sui prospetti esterni. Segnali che stai iniziando e il Comune ha 30 giorni di tempo per verificare e casomai bloccarti, ma intanto tu sei già a lavoro se lo ritieni (SCIA immediata) o puoi "differire" l'inizio. Efficacia 1 anno per iniziare, 3 anni per finire (rinnovabili in casi sfigati/legittimi).</p>
+            <ul>
+                <li><strong>Manutenzione straordinaria pesante:</strong> tocchi muri portanti, cordoli, solai o modifichi i prospetti esterni (finestre).</li>
+                <li>Ristrutturazione edilizia "leggera" (che non stravolga l'edificio portandolo ad essere equiparato a nuova costruzione, vedi allegati L.R.).</li>
+                <li>Mutamento di destinazione d'uso che <strong>comporta un aumento</strong> di carico urbanistico.</li>
+                <li>Recupero dei sottotetti a fini abitativi.</li>
+            </ul>
+        </section>
+
+        <!-- PDC -->
+        <section id="pdc">
+            <h2>4. Permesso di Costruire (PdC - Art. 17)</h2>
+            <p>La bestia nera. Chiedi alla PA, preghi, loro istruiscono la pratica in 60 giorni, se va bene emettono un provvedimento. Scatta l'istituto del <strong>Silenzio-Assenso</strong> se tacciono oltre il limite stabilito (previa acquisizione dei vari nullaosta tipo antisismico o paesaggistica). Scade come la SCIA (1 anno per iniziare, 3 anni per finire l'opera da inizio cantieri).</p>
+            <ul>
+                <li><strong>Nuove costruzioni.</strong></li>
+                <li>Ristrutturazione urbanistica (radi al suolo interi lotti/edifici per ricostruirli cambiando faccia alla città).</li>
+                <li>Deroghe speciali (art. 20 - es. per edifici o impianti pubblici previa delibera di consiglio).</li>
+            </ul>
+        </section>
+
+        <!-- STATO LEGITTIMO E SALVA CASA -->
+        <section id="stato-legittimo">
+            <h2>5. Lo Stato Legittimo (Art. 10-bis) ⚠️ DOMANDA QUASI CERTA</h2>
+            <p><strong>Definizione base:</strong> Lo stato legittimo è "fotografato" dal titolo edilizio che ha abilitato la costruzione, integrato da eventuali titoli successivi (per varianti parziali o condoni pagati). Per vecchi immobili (ante 1967 in zone in cui non era obbligatoria la licenza), fa fede l'informazione catastale di primo impianto o documenti probanti storici (es. foto aeree o cartografia).</p>
+            <div class="esame-box">
+                <strong>💡 Collegamento col Decreto "Salva Casa" (L. 105/2024):</strong><br>
+                <em>Domanda 1 delle tue buste "Prove per Esami": Il candidato illustri le principali innovazioni del decreto Salva Casa 2024.</em>
+                <br><br>
+                Ti scrivo un appunto qui, ricordatelo: il Salva Casa agevola la prova dello stato legittimo e risolve le "leggere difformità". Non impariamo a memoria tutto, bastano 3 concetti forti in commissione:
+                <ul>
+                    <li>Ammorbidite le tolleranze costruttive ed esecutive. Se storicamente un muro o l'altezza variano rispetto ai vecchi permessi (es. discordanze di misurazione) ora rientrano nelle tolleranze previste se non pregiudicano i diritti dei terzi.</li>
+                    <li>Semplificati i cambi di destinazione d'uso "senza opere".</li>
+                    <li>Facilita la regolarizzazione (Sanatoria) delle parziali difformità eliminando, in alcuni casi specifici dettati dal nuovo T.U., il requisito stringente della <em>doppia conformità</em> (cioè l'opera doveva rispettare il regolamento edilizio SIA al tempo in cui è stato commesso l'abuso, SIA al tempo in cui viene presentata la sanatoria. Ora per certi gradi minori basta la conformità attuale). <br><em>[Nota mia: la dottrina su questo sta impazzendo, io non darei verità assolute, mi limiterei a dire "la legge tende a superare l'estremo rigore della doppia conformità nei casi non gravi"].</em></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SCCEA E AGIBILITÀ -->
+        <section id="agibilita">
+            <h2>6. Fine Lavori e SCCEA (Art. 23)</h2>
+            <p>Niente più "richiesta di agibilità". Qui ci si affida di nuovo all'asseverazione privata (e poi casomai piangi tu in galera se certifichi falso). Si chiama <strong>SCCEA: Segnalazione Certificata di Conformità Edilizia e Agibilità</strong>. Entro 15 giorni dalla conclusione dei lavori devi presentarla, con in pancia il collaudo statico, impiantistico ecc.</p>
+        </section>
+
+        <!-- CONTRIBUTI -->
+        <section id="oneri">
+            <h2>7. Oneri e Contributo di Costruzione (Art. 29)</h2>
+            <p>Hai la volumetria? E tu paghi.</p>
+            <ul>
+                <li><strong>Oneri di urbanizzazione:</strong> Paghi i servizi che userai (strade, fogne, luce). Si pagano subito. Variano in base alla destinazione e all'impatto sul tessuto urbano. </li>
+                <li><strong>Costo di costruzione:</strong> Tassa pura per l'edificazione dei "nuovi muri", pagabile a stati di avanzamento lavori (rateizzato). Il proprietario può evitarli o dedurli se fa le opere "a scomputo" (se asfalti tu la strada davanti, te lo defalco).</li>
+            </ul>
+        </section>
+
+        <!-- FAQ Esame -->
+        <section id="qna">
+            <h2>🎯 L'Analisi della Commissione - QA Pratiche dalle tue foto</h2>
+
+            <div class="esame-box">
+                <strong>Busta X:</strong> "Illustri i procedimenti attuabili in variante allo strumento urbanistico (PUG)..." (Art 20 LR 15/13 / LR 24/2017)<br><br>
+                <strong>Tuo Ragionamento Veloce:</strong> Le varianti sono rarissime ma necessarie quando si tratta di impiantare capannoni industriali o nuove reti produttive che favoriscono sviluppo ma non ci entrano nelle attuali Z.T.O (Zone Territoriali). La L.R. Emilia lo regola molto con l'istituto del <strong>Permesso di costruire in deroga (Art.20 LR 15/2013)</strong>. Richiede delibera del Consiglio Comunale e deve dimostrare il preminente interesse pubblico o le stringenti finalità (es. di rigenerazione e tutela ambientale).
+            </div>
+
+            <div class="esame-box">
+                <strong>Busta N.9 / 1:</strong> "Modalità di regolarizzazione postuma... in particolare l'art 36 D.P.R. 380/01".<br><br>
+                <strong>Tuo Ragionamento Veloce:</strong> Parla del dannato "Accertamento di Conformità". Funziona così:<br>
+                - Opera realizzata "a ca**o", in assenza di PdC o in difformità.<br>
+                - Regolarizzazione (sanatoria strutturale): Prima del d.l. Salva casa serviva matematicamente la famigerata *Doppia conformità* (conforme alla norma urbanistica vigente alla data in cui hai eretto l'abuso, E pure alla data in cui presenti domanda). Paghi oblazione sostanziosa per fare pace col fisco/ente.<br>
+                Con i recentissimi aggiustamenti (2024), per vizi "minori", c'è la rottura di quel principio granitico per favorire lo sgombero dei milioni di faldoni inevasi negli Uffici Tecnici.  Io ci metterei dei forti "dipende", così passi per un tecnico prudente (come dicevo, le certezze uccidono).
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>HUB Concorso - Unione Valli e Delizie</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --accent-color: #bb86fc;
+            --hover-color: #3700b3;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            margin: 0;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background-color: var(--hover-color);
+            box-shadow: 0 8px 15px rgba(187, 134, 252, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        .card h2 {
+            margin: 0 0 15px 0;
+            color: #fff;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .card:hover p {
+            color: #ddd;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>🧠 Hub Preparazione Concorso<br><span style="font-size: 1.2rem; color: #aaa;">Unione Valli e Delizie - Area Tecnica</span></h1>
+
+    <div class="dashboard">
+        <!-- Paesaggistica che hai già -->
+        <a href="paesaggistica.html" class="card">
+            <h2>🌳 Paesaggistica</h2>
+            <p>D.Lgs. 42/2004 e DPR 31/2017</p>
+        </a>
+
+        <!-- Disciplina Edilizia L.R. 15/2013 -->
+        <a href="lr_15_2013.html" class="card">
+            <h2>🏗️ L.R. 15/2013</h2>
+            <p>Disciplina Edilizia ER (Semplificata)</p>
+        </a>
+
+        <!-- Focus Salva Casa -->
+        <a href="salva_casa.html" class="card">
+            <h2>📜 Salva Casa 2024</h2>
+            <p>Decreto 105/2024 - Difformità e Sanatorie</p>
+        </a>
+
+        <!-- Focus Competenze Trasversali -->
+        <a href="soft_skills.html" class="card">
+            <h2>🤝 Situazionali e RUP</h2>
+            <p>Gestione colleghi rompicoglioni e appalti</p>
+        </a>
+    </div>
+
+</body>
+</html>
