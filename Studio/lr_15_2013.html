@@ -3,206 +3,449 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-width=1.0">
-    <title>Studio Concorso - L.R. 15/2013 Semplificazione Edilizia E-R</title>
+    <title>HUB Concorso - L.R. Emilia-Romagna 15/2013</title>
     <style>
         :root {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --sidebar-bg: #1e1e1e;
-            --accent-color: #bb86fc;
-            --border-color: #333;
-            --warning-bg: #3c2a00;
-            --warning-border: #ffb74d;
+            --bg-base: #0d1117;
+            --bg-surface: #161b22;
+            --bg-panel: #21262d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --border-color: #30363d;
+            --law-text: #e6edf3;
+            --law-comma: #58a6ff;
+            --accent-exam: #ff7b72;
+            --bg-exam: rgba(255, 123, 114, 0.1);
+            --accent-focus: #3fb950;
+            --bg-focus: rgba(63, 185, 80, 0.1);
+            --accent-warning: #d29922;
+            --bg-warning: rgba(210, 153, 34, 0.1);
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
         }
+
+        *, *::before, *::after { box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
+            padding: 0;
+            font-family: var(--font-main);
+            background-color: var(--bg-base);
+            color: var(--text-primary);
             line-height: 1.6;
+            display: flex;
+            font-size: 1.15rem;
         }
 
-        /* Sidebar Navigation */
-        nav {
-            width: 250px;
-            background-color: var(--sidebar-bg);
+        nav.sidebar {
+            width: 320px;
+            background-color: var(--bg-surface);
+            border-right: 1px solid var(--border-color);
             height: 100vh;
             position: fixed;
             overflow-y: auto;
-            border-right: 1px solid var(--border-color);
-            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
         }
 
-        nav a {
-            display: block;
-            padding: 15px 20px;
-            color: var(--text-color);
-            text-decoration: none;
-            border-bottom: 1px solid var(--border-color);
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #333;
-            color: var(--accent-color);
-        }
-
-        /* Main Content */
-        main {
-            margin-left: 250px;
-            padding: 40px;
-            max-width: 900px;
-        }
-
-        h1, h2, h3 {
-            color: var(--accent-color);
-        }
-
-        h1 { border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; }
-        
-        section {
-            background-color: #1e1e1e;
+        nav.sidebar .branding {
             padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-panel);
         }
 
-        /* Buste d'esame styling */
-        .esame-box {
-            background-color: var(--warning-bg);
-            border-left: 5px solid var(--warning-border);
-            padding: 15px;
-            margin-top: 15px;
+        nav.sidebar .branding h2 { margin: 0; font-size: 1.2rem; color: var(--law-comma); }
+        nav.sidebar .branding span { font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+
+        nav.sidebar ul { list-style: none; padding: 0; margin: 0; }
+        
+        nav.sidebar li.titolo-legge {
+            padding: 15px 20px 5px 20px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        nav.sidebar a {
+            display: block;
+            padding: 8px 20px 8px 30px;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        nav.sidebar a:hover {
+            background-color: var(--bg-panel);
+            border-left-color: var(--law-comma);
+            color: #fff;
+        }
+
+        main {
+            margin-left: 320px;
+            padding: 40px 60px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .art-header {
+            margin-top: 50px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+        .art-header h1 { margin: 0; font-size: 2rem; color: var(--law-text); }
+        .art-header .art-num {
+            display: inline-block;
+            background-color: var(--bg-panel);
+            color: var(--law-comma);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .comma { display: flex; margin-bottom: 20px; }
+        .comma-num { flex-shrink: 0; width: 60px; font-family: var(--font-mono); color: var(--law-comma); font-weight: bold; padding-top: 4px; }
+        .comma-text { flex-grow: 1; color: var(--text-primary); }
+        .comma-text ul { margin-top: 10px; padding-left: 20px; }
+        .comma-text li { margin-bottom: 10px; }
+
+        .box {
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0 35px 60px;
+            border: 1px solid var(--border-color);
+        }
+        .box-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .box-exam { background-color: var(--bg-exam); border-left: 4px solid var(--accent-exam); }
+        .box-exam .box-title { color: var(--accent-exam); }
+        
+        .box-focus { background-color: var(--bg-focus); border-left: 4px solid var(--accent-focus); }
+        .box-focus .box-title { color: var(--accent-focus); }
+
+        .box-warning { background-color: var(--bg-warning); border-left: 4px solid var(--accent-warning); }
+        .box-warning .box-title { color: var(--accent-warning); }
+
+        strong { color: var(--law-text); }
+        
+        .esame-must { 
+            color: var(--accent-warning); 
+            font-weight: 600; 
+            background: rgba(210, 153, 34, 0.15);
+            padding: 2px 4px;
             border-radius: 4px;
         }
+        
+        .reference { color: var(--law-comma); font-family: var(--font-mono); font-size: 0.9em; }
 
-        .esame-box strong { color: var(--warning-border); }
-
-        ul { padding-left: 20px; }
-        code { background: #333; padding: 2px 5px; border-radius: 4px; color: #ffb74d;}
+        @media (max-width: 1100px) {
+            nav.sidebar { width: 260px; }
+            main { margin-left: 260px; padding: 30px; }
+            .box { margin-left: 0; }
+        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <h3 style="padding-left: 20px;">L.R. 15/2013<br>Sintesi Esame</h3>
-        <a href="#art7">Art. 7 - Edilizia Libera</a>
-        <a href="#cila">La CILA (Art. 7 c.5)</a>
-        <a href="#scia">Art. 13 - SCIA</a>
-        <a href="#pdc">Art. 17 - Permesso di Costruire</a>
-        <a href="#stato-legittimo">Art. 10 bis - Stato Legittimo (e Salva Casa)</a>
-        <a href="#agibilita">Art. 23 - Agibilità / SCCEA</a>
-        <a href="#oneri">Art. 29/30 - Contributo di Costruzione</a>
-        <a href="#qna">🎯 Q&A Buste d'Esame</a>
+    <nav class="sidebar">
+        <div class="branding">
+            <h2>Area Tecnica</h2>
+            <span>Modulo: L.R. 15/2013</span>
+        </div>
+        <ul>
+            <li class="titolo-legge">Titolo I - Disp. Generali</li>
+            <li><a href="#art1">Art. 1 - Principi generali</a></li>
+            <li><a href="#art4">Art. 4-5 - SUE / SUAP</a></li>
+            <li><a href="#art6">Art. 6 - Commissione (CQAP)</a></li>
+            <li><a href="#art7">Art. 7 - Edilizia Libera & CILA</a></li>
+            <li><a href="#art8">Art. 8 - Aree parz. pianificate</a></li>
+            
+            <li class="titolo-legge">Titolo II - Titoli Abilitativi</li>
+            <li><a href="#art10bis">Art. 10-bis - Stato Legittimo</a></li>
+            <li><a href="#scia">Art. 13/16 - La SCIA</a></li>
+            <li><a href="#pdc">Art. 17/20 - Permesso Costruire</a></li>
+            <li><a href="#varianti">Art. 22 - Varianti in corso</a></li>
+            <li><a href="#sccea">Art. 23 - SCCEA (Fine Lavori)</a></li>
+            <li><a href="#cambio-uso">Art. 28 - Destinazione d'Uso</a></li>
+
+            <li class="titolo-legge">Titolo III - Oneri</li>
+            <li><a href="#oneri">Art. 29/31 - Contributo Costr.</a></li>
+        </ul>
     </nav>
 
     <main>
-        <h1>Disciplina Edilizia - L.R. Emilia-Romagna 15/2013</h1>
-        <p>L'obiettivo di questa legge regionale è uno: <strong>semplificare</strong> (o almeno ci provano). Divide i titoli abilitativi in categorie logiche basate sull'impatto urbanistico-strutturale. Tu pensa sempre a chi stai "chiedendo il permesso" e al "carico urbanistico" che vai ad alterare.</p>
+        
+        <div style="background-color: var(--bg-panel); padding: 30px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 40px;">
+            <h1 style="margin-top:0; border-bottom: none;">LEGGE REGIONALE 30 luglio 2013, n. 15</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0;">Semplificazione della disciplina edilizia Emilia-Romagna.<br>
+            Definizioni esatte per stesura tracce scritte.</p>
+            <p style="color: #fff; background-color: #333; padding: 10px; border-radius: 5px; margin-top: 15px;">
+                👉 <strong>Ascolta bene:</strong> I termini evidenziati in <span class="esame-must">arancione</span> sono i termini tecnici perfetti che devi imparare e usare all'esame scritto o dire all'orale per prendere il massimo. Dimostrano che conosci la terminologia esatta e non parli per frasi fatte.
+            </p>
+        </div>
 
-        <!-- ARTICOLO 7: EDILIZIA LIBERA -->
-        <section id="art7">
-            <h2>1. Attività Edilizia Libera (Art. 7, comma 1)</h2>
-            <p>Interventi in cui te ne fotti della burocrazia abilitativa (niente autorizzazioni, solo eventuale Comunicazione Inizio Lavori), a patto che tu rispetti norme sismiche, paesaggistiche ecc.</p>
-            <ul>
-                <li><strong>Manutenzione ordinaria</strong> (es. tinteggiare, riparare tetti senza toccare la struttura).</li>
-                <li>Pompe di calore (aria-aria) < 12 kW.</li>
-                <li>Eliminazione <strong>barriere architettoniche</strong> (se non alteri la struttura o l'aspetto storico-architettonico).</li>
-                <li><strong>VEPA (Vetrate panoramiche)</strong> (introdotte di recente, non devono fare cubatura o mutare la destinazione d'uso creando nuove stanze vivibili).</li>
-                <li>Movimenti terra per attività agricole.</li>
-                <li>Pannelli fotovoltaici fuori dai centri storici.</li>
-            </ul>
-        </section>
+        <div class="art-header" id="art1">
+            <span class="art-num">Articolo 1</span>
+            <h1>Principi generali</h1>
+        </div>
+        
+        <div class="comma">
+            <div class="comma-num">1.</div>
+            <div class="comma-text">
+                In attuazione dei principi del Testo Unico dell'Edilizia statale (<span class="reference">D.P.R. 380/01</span>), regola l'attività edilizia, intesa come <span class="esame-must">ogni attività che produce una trasformazione del territorio, attraverso la modifica dello stato dei suoli o dei manufatti edilizi esistenti</span>.
+            </div>
+        </div>
 
-        <!-- CILA -->
-        <section id="cila">
-            <h2>2. La CILA (Comunicazione Inizio Lavori Asseverata - Art. 7, comma 5)</h2>
-            <p>Non è un titolo abilitativo, è una <strong>comunicazione accompagnata da un tecnico</strong> che si prende la responsabilità (assevera). Mando la pratica via SUEDE/SUAP e il cantiere può iniziare. Vale per le "vie di mezzo".</p>
-            <ul>
-                <li><strong>Manutenzione straordinaria leggera:</strong> operi sull'interno senza toccare parti strutturali o cambiare l'aspetto esterno (es. abbattere un tramezzo).</li>
-                <li>Restauro e risanamento conservativo (se non tocca la struttura).</li>
-                <li>Frazionamenti o accorpamenti (senza toccare la struttura).</li>
-                <li>Modifiche di destinazione d'uso <strong>SENZA opere</strong> (che non aumentino il carico urbanistico).</li>
-            </ul>
-            <p><strong>Come funziona:</strong> Hai max 3 anni per finirla. Il comune sorteggia a campione il 10% delle pratiche finite per controllarle (Art. 14, comma 8).</p>
-        </section>
+        <div class="comma">
+            <div class="comma-num">3.</div>
+            <div class="comma-text">
+                Riconosce la funzione di <span class="esame-must">certificazione e di accertamento di conformità svolta nell'interesse generale dai professionisti abilitati</span> (il comune scarica la responsabilità sui tecnici privati che asseverano le pratiche).
+            </div>
+        </div>
 
-        <!-- SCIA -->
-        <section id="scia">
-            <h2>3. SCIA (Segnalazione Certificata Inizio Attività - Art. 13)</h2>
-            <p>Il "salto di livello". Alzi le mani sulla struttura o sui prospetti esterni. Segnali che stai iniziando e il Comune ha 30 giorni di tempo per verificare e casomai bloccarti, ma intanto tu sei già a lavoro se lo ritieni (SCIA immediata) o puoi "differire" l'inizio. Efficacia 1 anno per iniziare, 3 anni per finire (rinnovabili in casi sfigati/legittimi).</p>
-            <ul>
-                <li><strong>Manutenzione straordinaria pesante:</strong> tocchi muri portanti, cordoli, solai o modifichi i prospetti esterni (finestre).</li>
-                <li>Ristrutturazione edilizia "leggera" (che non stravolga l'edificio portandolo ad essere equiparato a nuova costruzione, vedi allegati L.R.).</li>
-                <li>Mutamento di destinazione d'uso che <strong>comporta un aumento</strong> di carico urbanistico.</li>
-                <li>Recupero dei sottotetti a fini abitativi.</li>
-            </ul>
-        </section>
+        <div class="art-header" id="art4">
+            <span class="art-num">Articolo 4 - 5</span>
+            <h1>Sportello Unico (SUE / SUAP)</h1>
+        </div>
 
-        <!-- PDC -->
-        <section id="pdc">
-            <h2>4. Permesso di Costruire (PdC - Art. 17)</h2>
-            <p>La bestia nera. Chiedi alla PA, preghi, loro istruiscono la pratica in 60 giorni, se va bene emettono un provvedimento. Scatta l'istituto del <strong>Silenzio-Assenso</strong> se tacciono oltre il limite stabilito (previa acquisizione dei vari nullaosta tipo antisismico o paesaggistica). Scade come la SCIA (1 anno per iniziare, 3 anni per finire l'opera da inizio cantieri).</p>
-            <ul>
-                <li><strong>Nuove costruzioni.</strong></li>
-                <li>Ristrutturazione urbanistica (radi al suolo interi lotti/edifici per ricostruirli cambiando faccia alla città).</li>
-                <li>Deroghe speciali (art. 20 - es. per edifici o impianti pubblici previa delibera di consiglio).</li>
-            </ul>
-        </section>
-
-        <!-- STATO LEGITTIMO E SALVA CASA -->
-        <section id="stato-legittimo">
-            <h2>5. Lo Stato Legittimo (Art. 10-bis) ⚠️ DOMANDA QUASI CERTA</h2>
-            <p><strong>Definizione base:</strong> Lo stato legittimo è "fotografato" dal titolo edilizio che ha abilitato la costruzione, integrato da eventuali titoli successivi (per varianti parziali o condoni pagati). Per vecchi immobili (ante 1967 in zone in cui non era obbligatoria la licenza), fa fede l'informazione catastale di primo impianto o documenti probanti storici (es. foto aeree o cartografia).</p>
-            <div class="esame-box">
-                <strong>💡 Collegamento col Decreto "Salva Casa" (L. 105/2024):</strong><br>
-                <em>Domanda 1 delle tue buste "Prove per Esami": Il candidato illustri le principali innovazioni del decreto Salva Casa 2024.</em>
+        <div class="comma">
+            <div class="comma-num">Art.4</div>
+            <div class="comma-text">
+                Lo Sportello unico (SUE) costituisce, per l'edilizia residenziale, <strong>l'unico punto di accesso per il privato</strong>, per le CILA, SCIA e PdC.
                 <br><br>
-                Ti scrivo un appunto qui, ricordatelo: il Salva Casa agevola la prova dello stato legittimo e risolve le "leggere difformità". Non impariamo a memoria tutto, bastano 3 concetti forti in commissione:
+                Se serve l'assenso di altri enti (es. nulla osta ambientale o Soprintendenza), lo SUE <span class="esame-must">indice, entro il termine perentorio di 5 giorni lavorativi, una conferenza di servizi semplificata</span> (strumento regolato dalla <span class="reference">Legge 241/90</span>, non devi studiarti tutti i commi, ma se scrivi "Conferenza di Servizi ex L. 241/90" fai un figurone).
+            </div>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">Art.5</div>
+            <div class="comma-text">
+                Nel caso di immobili usati per attività aziendali, capannoni e negozi, il punto unico di accesso è il <span class="esame-must">SUAP (Sportello Unico Attività Produttive)</span>. È regolato a livello nazionale dal <span class="reference">DPR 160/2010</span> (da citare per prendere punti sull'orale se ti chiedono la differenza tra SUAP e SUE).
+            </div>
+        </div>
+
+        <div class="art-header" id="art6">
+            <span class="art-num">Articolo 6</span>
+            <h1>Commissione per la qualità architettonica e il paesaggio</h1>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">1-2</div>
+            <div class="comma-text">
+                I Comuni istituiscono la CQAP, <span class="esame-must">organo consultivo cui spetta l'emanazione di pareri, obbligatori e non vincolanti</span>, in merito ai provvedimenti sui beni paesaggistici e sugli edifici di valore storico-culturale individuati dal piano regolatore.
+            </div>
+        </div>
+
+        <div class="art-header" id="art7">
+            <span class="art-num">Articolo 7</span>
+            <h1>Attività edilizia libera e interventi soggetti a comunicazione</h1>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">1.</div>
+            <div class="comma-text">
+                Sono eseguiti liberamente, <span class="esame-must">senza titolo abilitativo edilizio</span>:
                 <ul>
-                    <li>Ammorbidite le tolleranze costruttive ed esecutive. Se storicamente un muro o l'altezza variano rispetto ai vecchi permessi (es. discordanze di misurazione) ora rientrano nelle tolleranze previste se non pregiudicano i diritti dei terzi.</li>
-                    <li>Semplificati i cambi di destinazione d'uso "senza opere".</li>
-                    <li>Facilita la regolarizzazione (Sanatoria) delle parziali difformità eliminando, in alcuni casi specifici dettati dal nuovo T.U., il requisito stringente della <em>doppia conformità</em> (cioè l'opera doveva rispettare il regolamento edilizio SIA al tempo in cui è stato commesso l'abuso, SIA al tempo in cui viene presentata la sanatoria. Ora per certi gradi minori basta la conformità attuale). <br><em>[Nota mia: la dottrina su questo sta impazzendo, io non darei verità assolute, mi limiterei a dire "la legge tende a superare l'estremo rigore della doppia conformità nei casi non gravi"].</em></li>
+                    <li><span class="esame-must">Manutenzione ordinaria</span>.</li>
+                    <li>Eliminazione delle barriere architettoniche (salvo deroghe a sagoma o distanze).</li>
+                    <li>Installazione di <span class="esame-must">vetrate panoramiche amovibili (VEPA)</span>. Condizione vitale: non devono configurare spazi stabilmente chiusi con variazione di volumi.</li>
+                    <li>Tende da sole, pergole bioclimatiche.</li>
                 </ul>
             </div>
-        </section>
+        </div>
 
-        <!-- SCCEA E AGIBILITÀ -->
-        <section id="agibilita">
-            <h2>6. Fine Lavori e SCCEA (Art. 23)</h2>
-            <p>Niente più "richiesta di agibilità". Qui ci si affida di nuovo all'asseverazione privata (e poi casomai piangi tu in galera se certifichi falso). Si chiama <strong>SCCEA: Segnalazione Certificata di Conformità Edilizia e Agibilità</strong>. Entro 15 giorni dalla conclusione dei lavori devi presentarla, con in pancia il collaudo statico, impiantistico ecc.</p>
-        </section>
-
-        <!-- CONTRIBUTI -->
-        <section id="oneri">
-            <h2>7. Oneri e Contributo di Costruzione (Art. 29)</h2>
-            <p>Hai la volumetria? E tu paghi.</p>
-            <ul>
-                <li><strong>Oneri di urbanizzazione:</strong> Paghi i servizi che userai (strade, fogne, luce). Si pagano subito. Variano in base alla destinazione e all'impatto sul tessuto urbano. </li>
-                <li><strong>Costo di costruzione:</strong> Tassa pura per l'edificazione dei "nuovi muri", pagabile a stati di avanzamento lavori (rateizzato). Il proprietario può evitarli o dedurli se fa le opere "a scomputo" (se asfalti tu la strada davanti, te lo defalco).</li>
-            </ul>
-        </section>
-
-        <!-- FAQ Esame -->
-        <section id="qna">
-            <h2>🎯 L'Analisi della Commissione - QA Pratiche dalle tue foto</h2>
-
-            <div class="esame-box">
-                <strong>Busta X:</strong> "Illustri i procedimenti attuabili in variante allo strumento urbanistico (PUG)..." (Art 20 LR 15/13 / LR 24/2017)<br><br>
-                <strong>Tuo Ragionamento Veloce:</strong> Le varianti sono rarissime ma necessarie quando si tratta di impiantare capannoni industriali o nuove reti produttive che favoriscono sviluppo ma non ci entrano nelle attuali Z.T.O (Zone Territoriali). La L.R. Emilia lo regola molto con l'istituto del <strong>Permesso di costruire in deroga (Art.20 LR 15/2013)</strong>. Richiede delibera del Consiglio Comunale e deve dimostrare il preminente interesse pubblico o le stringenti finalità (es. di rigenerazione e tutela ambientale).
+        <div class="comma">
+            <div class="comma-num">5.</div>
+            <div class="comma-text">
+                Sono eseguiti previa <span class="esame-must">CILA (Comunicazione Inizio Lavori Asseverata)</span>:
+                <ul>
+                    <li>Opere di <span class="esame-must">manutenzione straordinaria e le opere interne</span>, qualora NON riguardino parti portanti dell'edificio, NON rechino pregiudizio alla statica e NON modifichino le facciate/prospetti.</li>
+                    <li>Restauro e risanamento conservativo leggero.</li>
+                    <li><span class="esame-must">Modifiche della destinazione d'uso senza opere</span> che NON comportino un maggiore peso o traffico sul quartiere (carico urbanistico).</li>
+                </ul>
             </div>
+        </div>
 
-            <div class="esame-box">
-                <strong>Busta N.9 / 1:</strong> "Modalità di regolarizzazione postuma... in particolare l'art 36 D.P.R. 380/01".<br><br>
-                <strong>Tuo Ragionamento Veloce:</strong> Parla del dannato "Accertamento di Conformità". Funziona così:<br>
-                - Opera realizzata "a ca**o", in assenza di PdC o in difformità.<br>
-                - Regolarizzazione (sanatoria strutturale): Prima del d.l. Salva casa serviva matematicamente la famigerata *Doppia conformità* (conforme alla norma urbanistica vigente alla data in cui hai eretto l'abuso, E pure alla data in cui presenti domanda). Paghi oblazione sostanziosa per fare pace col fisco/ente.<br>
-                Con i recentissimi aggiustamenti (2024), per vizi "minori", c'è la rottura di quel principio granitico per favorire lo sgombero dei milioni di faldoni inevasi negli Uffici Tecnici.  Io ci metterei dei forti "dipende", così passi per un tecnico prudente (come dicevo, le certezze uccidono).
+        <div class="comma">
+            <div class="comma-num">6-8</div>
+            <div class="comma-text">
+                Il professionista nominato dal privato redige la pratica e <span class="esame-must">assevera sotto la propria responsabilità</span> che il progetto rispetta i piani urbanistici. Entro 3 anni devi finire i lavori. Il Comune (SUE) ha l'obbligo di verificare a campione almeno il 10% delle CILA presentate per scovare eventuali illeciti o difformità.
             </div>
-        </section>
+        </div>
+
+        <div class="art-header" id="art8">
+            <span class="art-num">Articolo 8</span>
+            <h1>Attività in aree parzialmente pianificate</h1>
+        </div>
+        
+        <div class="comma">
+            <div class="comma-num">1.</div>
+            <div class="comma-text">
+                Se il Comune ha le aree ancora non sbloccate dal piano urbanistico, lì dentro il privato può solo riparare ciò che esiste (manutenzione e restauro) o, al massimo, <span class="esame-must">demolire senza ricostruzione</span>. Finché non passa il piano attuativo, lì non si costruisce nuovo volume.
+            </div>
+        </div>
+
+        <div class="art-header" id="art10bis">
+            <span class="art-num">Articolo 10-bis</span>
+            <h1>Stato Legittimo degli immobili</h1>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">1.</div>
+            <div class="comma-text">
+                Cos'è lo stato di base da cui partono i ragionamenti di ogni progetto? <br>Lo stato legittimo dell'immobile è <span class="esame-must">quello stabilito dal titolo abilitativo che ne ha previsto la costruzione</span> (la vecchia "licenza"), integrato dagli eventuali titoli che negli anni successivi hanno abilitato modifiche, varianti o sanatorie pagate.
+            </div>
+        </div>
+
+        <div class="box box-exam">
+            <div class="box-title">🎓 Integrazione "Salva Casa 2024" (Busta n. 1)</div>
+            <p>Se devi rispondere allo scritto al tema "Decreto Salva Casa 105/2024", ricorda che lo stato legittimo dell'edificio si può formare anche includendo la nuova norma statale sulle <strong>"tolleranze costruttive ed esecutive"</strong>. Cioè, le vecchie case che hanno differenze millimetriche o di qualche centimetro in altezza e larghezza rispetto al progetto originale, ora, rientrando nelle nuove percentuali stabilite dallo Stato, sono considerate legittime per legge senza farti spendere migliaia di euro in sanatorie d'ufficio.</p>
+        </div>
+
+        <div class="art-header" id="scia">
+            <span class="art-num">Articoli 13 - 16</span>
+            <h1>La S.C.I.A. (Segnalazione Certificata Inizio Attività)</h1>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">Art.13</div>
+            <div class="comma-text">
+                Sempre accompagnati dall'asseverazione del tecnico, la SCIA si usa quando la roba da costruire diventa pesante (serve per evitare i mesi di burocrazia del permesso puro):
+                <ul>
+                    <li><span class="esame-must">Manutenzione straordinaria qualora riguardi parti strutturali o modifichi i prospetti (muri portanti, tetti, nuove finestre)</span>.</li>
+                    <li>Restauro scientifico/conservativo su elementi strutturali.</li>
+                    <li><span class="esame-must">Ristrutturazione edilizia</span>.</li>
+                    <li>Mutamento destinazione d'uso (anche senza toccare nulla, fare opere) che comporti un <span class="esame-must">aumento del carico urbanistico</span>.</li>
+                    <li>Varianti in corso d'opera a un permesso o una SCIA in vita.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">Art.14</div>
+            <div class="comma-text">
+                Tu presenti la SCIA in via telematica e il Comune cosa fa?<br>
+                Verifica se i documenti ci sono tutti entro 5 giorni. Dopodiché, ha un <span class="esame-must">termine perentorio di 30 giorni per il controllo formale e di merito</span>.<br>Se il funzionario tecnico comunale si accorge che il tuo progetto vìola il regolamento del Comune e la violazione NON si può salvare in alcun modo, emette l'ordinanza con cui <span class="esame-must">vieta la prosecuzione dei lavori, ordinando il ripristino dello stato dei luoghi</span>.
+            </div>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">Art.16</div>
+            <div class="comma-text">
+                I lavori che hai dichiarato nella SCIA vanno iniziati entro <span class="esame-must">1 anno</span> e devono tassativamente concludersi entro <span class="esame-must">3 anni</span>. Se scade il tempo, le opere che non hai ancora tirato su perdono l'abilitazione e ti servirà presentare una nuova pratica.
+            </div>
+        </div>
+
+        <div class="art-header" id="pdc">
+            <span class="art-num">Articoli 17 - 20</span>
+            <h1>Il Permesso di Costruire (Il Titolo Primario)</h1>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">Art.17</div>
+            <div class="comma-text">
+                Mentre SCIA e CILA sono segnalazioni in cui si prende il rischio il privato, per il Permesso di Costruire è lo Stato (tramite il Comune) che "concede" il permesso esplicito. Quando serve?
+                <ul>
+                    <li>Interventi di <span class="esame-must">nuova costruzione</span> (palazzine dal nulla, grossi supermercati).</li>
+                    <li>Interventi di <span class="esame-must">ristrutturazione urbanistica</span> (ruspi via mezza strada o intero quartiere vecchio e lo rifai nuovo con altre volumetrie).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">Art.18</div>
+            <div class="comma-text">
+                Chi gestisce la pratica e i controlli (Responsabile del Procedimento) ha 60 giorni. Dopo le dovute conferenze e i pareri della Commissione qualità (se richiesta), il Dirigente tira le fila e adotta il Permesso nei 15 giorni successivi. Se i tecnici comunali perdessero la pratica e scadono i giorni legali senza divieti palesi e se il progetto non vìola paesaggio o antisismica, scatta la tacita autorizzazione del <span class="esame-must">silenzio-assenso</span>.
+            </div>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">Art.19/20</div>
+            <div class="comma-text">
+                <strong>PdC Convenzionato (Art 19-bis):</strong> Si stipula un contratto, una <span class="esame-must">convenzione pubblica</span> dove il privato non paga solo il muro che costruisce, ma si obbliga col Comune a farsi carico di parcheggi o dotazioni ecologiche. È usato per risparmiare tutto il tempo di un Piano Urbanistico Attuativo vero e proprio, a patto che il regolamento del PUG già dia confini sicuri.
+                <br><br>
+                <strong>PdC in Deroga (Art. 20):</strong> Rilasciabile solo per <span class="esame-must">edifici o impianti pubblici / di interesse pubblico</span>. Significa che il Consiglio Comunale dice "Sì ok, il piano prevede tetto massimo a 15 metri d'altezza e volumetria X, ma ci serve troppo questo impianto pubblico quindi deroghiamo". Ma non si deroga MAI alle distanze previste dalle leggi sanitarie e dalle norme stradali statali.
+            </div>
+        </div>
+
+        <div class="art-header" id="varianti">
+            <span class="art-num">Articolo 22</span>
+            <h1>Varianti in corso d'opera</h1>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">1-2-3</div>
+            <div class="comma-text">
+                A volte inizi il cantiere e vedi che non torna qualcosa nel disegno iniziale. Le "Varianti in corso d'opera" le autorizzi sbattendoci sopra una semplice SCIA. Ma attenzione al divieto mortale: le varianti non possono e NON devono trasformarsi in <span class="esame-must">interventi totalmente diversi dal progetto iniziale per forma, volumetria o che aggiungano organismi edilizi autonomamente utilizzabili in più rispetto all'originale</span>. Se aggiungi cubature enormi ti serve una fottuta nuova pratica base da zero.
+            </div>
+        </div>
+
+        <div class="art-header" id="sccea">
+            <span class="art-num">Articoli 23 / 23-bis</span>
+            <h1>Fine Lavori e Agibilità (SCCEA)</h1>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">Art.23</div>
+            <div class="comma-text">
+                Una volta finito di dipingere e incollare tubi, l'agibilità ti permette di usare i locali legalmente (e venderli). Hai <span class="esame-must">15 giorni</span> per inviare dal computer la <strong>Segnalazione Certificata di Conformità Edilizia e Agibilità (SCCEA)</strong> in cui confermi il collaudo del cemento armato (sismica) e l'efficienza degli allacciamenti/isolamento e dell'accatastamento. Niente scartoffie timbrate a mano, se dichiari il falso ti vengono a sanzionare col <span class="esame-must">controllo sistematico al 100% sui permessi grossi, o a campione 20% su pratiche piccole</span>.
+            </div>
+        </div>
+
+        <div class="box box-warning">
+            <div class="box-title">🔥 ART. 23-bis / AGGANCIATO A SALVA CASA (Integrazione 2025/2026)</div>
+            <p>Se te lo chiedono (e te lo chiedono sulle novità) ricordati questo. In materia sanitaria, i medici e lo stato dicevano da sempre: un appartamento non abitabile non può diventarlo magicamente se non fa le misure igieniche previste dal DM 1975.<br>Oggi il progettista privato può dichiarare la conformità <strong>in deroga a quella vecchia legge di Roma</strong> per 2 casi:<br>
+            - <span class="esame-must">Locali con l'altezza ridotta al di sotto dei 2,70m ma solo fino alla soglia limite di 2,40m.</span><br>
+            - <span class="esame-must">Piccoli monolocali che abbiano anche solo 20 metri quadri di pavimentazione per abitarci in solitaria, oppure minimo 28mq per una coppia (prima era 28/38).</span><br>
+            Questo salva mezza speculazione nei vecchi seminterrati urbani e rilancia il mercato degli studentati, basta che si garantisca o luce pulita da fuori o impianti di areazione chimica e tecnica validi.
+            </p>
+        </div>
+
+        <div class="art-header" id="cambio-uso">
+            <span class="art-num">Articolo 28</span>
+            <h1>Mutamento di destinazione d'uso</h1>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">1.</div>
+            <div class="comma-text">
+                L'immobile non è che passi da fare poltrone industriali (produttivo) a B&B bed and breakfast (turistico ricettiva) solo schioccando le dita. Le categorie previste da questa legge e dai piani operativi impongono un passaggio tracciato urbanisticamente.
+                Se con questo passaggio produci un impatto e un <span class="esame-must">aumento di carico urbanistico</span> ti viene chiesta la corresponsione della parcella Oneri al Comune, per adeguare gli impianti vicini ai futuri ospiti e macchine in arrivo o al limite devi procedere con la <span class="esame-must">monetizzazione</span> (cioè paghi per riequilibrare al bilancio pubblico le quote delle aree pubbliche a parcheggio o al verde mancanti nel quartiere del tuo fabbricato).
+            </div>
+        </div>
+
+        <div class="art-header" id="oneri">
+            <span class="art-num">Articoli 29 - 31</span>
+            <h1>Oneri e Contributo di Costruzione</h1>
+        </div>
+
+        <div class="comma">
+            <div class="comma-num">Art.29-31</div>
+            <div class="comma-text">
+                Chiunque realizza permessi (nuove opere o forti ristrutturazioni edilizie colme di volumi) scuce soldi pubblici calcolati sui parametri dettati da Istat e Assemblea dell'Emilia-Romagna, suddiviso in 2 comparti inesorabili:
+                <br><strong>Oneri di urbanizzazione:</strong> Versati e saldati subito o differiti in base agli statuti <em>all'atto del rilascio</em> del provvedimento da parte del Dirigente Comunale. Formano il portafoglio base della politica d'amministrazione che va poi a tappare o rinfrescare strade comunali e mense primarie/scuole, asili).
+                <br><strong>Costo di costruzione:</strong> Tassazione spalmata sul solo puro costo preventivo di tirare su calce. Questa va coperta entro fine scadenze del cartello opere ed erogata <span class="esame-must">in corso d'opera</span> in varie rate supportata al burocrate del fisco tramite idonea garanzia del titolare costruttore, onde non fallire sotto gli avvisi di recupero accertativo al comune.
+            </div>
+        </div>
+
+        <div class="box box-exam">
+            <div class="box-title">🎓 Traccia Busta 12: Opere di Urbanizzazione a "Scomputo"</div>
+            <p>Torniamo allo scritto pesante: il cittadino, per riqualificare bene un quadrante urbanistico con la sua ditta senza aspettare la lagnanza o i prelievi economici dei tempi pubblici, può scegliere e vincolarsi davanti alla pubblica amm., alla <span class="esame-must">realizzazione diretta o in appalto della totalità o stralcio opere funzionali</span> d'infrastruttura d'intorno: fa asfalti, rete wifi, gas, piste bici e quant'altro concesso da regolamento preventivo concordato all'Ufficio Tecnico.<br><br>Il monte spese approvate a preventivi regionali viene scontrato con fattura reale di realizzo ed interamente <span class="esame-must">scomputato dalle quote d'Oneri calcolati di base dal software dei bollettini preposti del T.U</span>.
+            </p>
+        </div>
 
     </main>
 
