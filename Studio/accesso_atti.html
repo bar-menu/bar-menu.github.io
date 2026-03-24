@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accesso agli atti — Guida Concorso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F4EF;
+    --bg2: #EDEAE3;
+    --ink: #1C1C1C;
+    --ink2: #4A4A4A;
+    --red: #C0392B;
+    --green: #1A6B3C;
+    --blue: #1A3A6B;
+    --blue2: #2C5AA0;
+    --orange: #C9670A;
+    --purple: #6B21A8;
+    --purple2: #7C3AED;
+    --teal: #0F766E;
+    --gold: #B8860B;
+    --border: #D4CFC7;
+    --card: #FFFFFF;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; }
+
+  /* HEADER */
+  .site-header { background: var(--teal); color: white; padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+  .site-header::before { content:''; position:absolute; top:0;left:0;right:0;bottom:0; background: repeating-linear-gradient(-45deg,transparent,transparent 10px,rgba(255,255,255,.03) 10px,rgba(255,255,255,.03) 20px); }
+  .header-inner { position:relative; max-width:940px; margin:auto; }
+  .badge { display:inline-block; background:var(--orange); color:white; font-family:var(--mono); font-size:.7rem; font-weight:600; letter-spacing:.1em; padding:.25rem .7rem; border-radius:2px; margin-bottom:.8rem; text-transform:uppercase; }
+  .site-header h1 { font-family:var(--serif); font-size:2.3rem; font-weight:700; line-height:1.2; margin-bottom:.5rem; }
+  .site-header p { font-size:.95rem; opacity:.85; max-width:640px; }
+
+  /* DOMANDA REALE */
+  .real-q { background:#FFF8E1; border-left:5px solid var(--gold); padding:1.2rem 1.6rem; max-width:940px; margin:1.5rem auto; border-radius:4px; }
+  .real-q .label { font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-bottom:.5rem; }
+  .real-q p { font-size:.95rem; }
+
+  /* NAV */
+  .nav-pills { display:flex; flex-wrap:wrap; gap:.5rem; padding:1rem 1.5rem; background:var(--bg2); border-bottom:1px solid var(--border); max-width:940px; margin:0 auto; }
+  .nav-pill { font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; padding:.3rem .7rem; border-radius:20px; background:var(--card); border:1px solid var(--border); color:var(--ink2); text-decoration:none; transition:all .15s; }
+  .nav-pill:hover { background:var(--teal); color:white; border-color:var(--teal); }
+
+  /* LAYOUT */
+  .main { max-width:940px; margin:0 auto; padding:0 1.5rem 4rem; }
+
+  /* SECTION TITLE */
+  .section-title { font-family:var(--serif); font-size:1.5rem; font-weight:700; color:var(--teal); margin:2.5rem 0 1rem; padding-bottom:.4rem; border-bottom:2px solid var(--teal); display:flex; align-items:center; gap:.6rem; }
+  .section-title .num { font-family:var(--mono); font-size:.78rem; background:var(--teal); color:white; width:26px; height:26px; display:flex; align-items:center; justify-content:center; border-radius:50%; flex-shrink:0; }
+
+  /* CARDS */
+  .card { background:var(--card); border:1px solid var(--border); border-radius:6px; padding:1.4rem 1.6rem; margin-bottom:1.2rem; }
+  .card-title { font-family:var(--mono); font-size:.7rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; margin-bottom:.8rem; display:flex; align-items:center; gap:.5rem; }
+  .dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+  /* ALERT */
+  .alert { border-radius:5px; padding:1rem 1.2rem; margin:.8rem 0; font-size:.9rem; display:flex; gap:.8rem; align-items:flex-start; }
+  .alert-icon { font-size:1.1rem; flex-shrink:0; margin-top:.05rem; }
+  .alert-red { background:#FFF5F5; border:1px solid #FFC0BB; }
+  .alert-green { background:#F0FFF4; border:1px solid #9AE6B4; }
+  .alert-blue { background:#EBF8FF; border:1px solid #90CDF4; }
+  .alert-orange { background:#FFFAF0; border:1px solid #FBD38D; }
+  .alert-purple { background:#F5F3FF; border:1px solid #C4B5FD; }
+  .alert-teal { background:#F0FDFA; border:1px solid #5EEAD4; }
+
+  /* 3-COL CARDS */
+  .three-cols { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:1rem 0; }
+  .col-card { border-radius:6px; border:1px solid; overflow:hidden; }
+  .col-head { padding:.8rem 1rem; color:white; font-family:var(--mono); font-size:.7rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+  .col-body { padding:1rem; font-size:.88rem; line-height:1.6; }
+  .col-row { padding:.4rem 0; border-bottom:1px solid; }
+  .col-row:last-child { border-bottom:none; }
+  .col-lbl { font-family:var(--mono); font-size:.65rem; letter-spacing:.06em; text-transform:uppercase; opacity:.65; margin-bottom:.15rem; }
+  .col-val { font-size:.88rem; }
+
+  .c-doc  .col-head { background:var(--blue); }
+  .c-doc  { border-color:#90CAF9; }
+  .c-doc  .col-body { background:#EBF8FF; }
+  .c-doc  .col-row { border-color:#BEE3F8; }
+
+  .c-smp  .col-head { background:var(--green); }
+  .c-smp  { border-color:#9AE6B4; }
+  .c-smp  .col-body { background:#F0FFF4; }
+  .c-smp  .col-row { border-color:#C6F6D5; }
+
+  .c-gen  .col-head { background:var(--purple); }
+  .c-gen  { border-color:#C4B5FD; }
+  .c-gen  .col-body { background:#F5F3FF; }
+  .c-gen  .col-row { border-color:#DDD6FE; }
+
+  /* DEEP DIVE CARDS */
+  .deep { border-radius:6px; border:2px solid; padding:1.4rem 1.6rem; margin-bottom:1.2rem; }
+  .deep-title { font-family:var(--serif); font-size:1.2rem; font-weight:700; margin-bottom:.3rem; }
+  .deep-sub { font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; opacity:.7; margin-bottom:1rem; }
+  .deep-blue { border-color:#90CAF9; background:#F5FAFF; }
+  .deep-blue .deep-title { color:var(--blue); }
+  .deep-green { border-color:#9AE6B4; background:#F5FFFB; }
+  .deep-green .deep-title { color:var(--green); }
+  .deep-purple { border-color:#C4B5FD; background:#FDFCFF; }
+  .deep-purple .deep-title { color:var(--purple); }
+
+  .prop-grid { display:grid; grid-template-columns:140px 1fr; gap:.4rem 1rem; margin:.8rem 0; align-items:start; }
+  .prop-lbl { font-family:var(--mono); font-size:.68rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink2); padding-top:.1rem; }
+  .prop-val { font-size:.9rem; }
+
+  /* LIMITI */
+  .limiti-list { list-style:none; padding:0; display:flex; flex-direction:column; gap:.4rem; margin:.5rem 0; }
+  .limiti-list li { display:flex; gap:.6rem; align-items:flex-start; font-size:.88rem; line-height:1.5; }
+  .limiti-list li .ic { flex-shrink:0; margin-top:.05rem; }
+
+  /* MNEMONICA */
+  .mnemonic { background:#1C1C1C; color:#E8D44D; border-radius:6px; padding:1.2rem 1.5rem; font-family:var(--mono); margin:1rem 0; }
+  .mnemonic h4 { font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; opacity:.6; margin-bottom:.5rem; }
+  .mnemonic p { font-size:.95rem; line-height:1.8; }
+  .mnemonic span { color:white; }
+
+  /* RISPOSTA MODELLO */
+  .risposta { background:#1A3A6B; color:white; border-radius:8px; padding:1.8rem 2rem; margin:2rem 0 1rem; }
+  .risposta-label { font-family:var(--mono); font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; opacity:.6; margin-bottom:1rem; }
+  .risposta h3 { font-family:var(--serif); font-size:1.3rem; font-weight:700; margin-bottom:1rem; color:#93C5FD; }
+  .risposta p { font-size:.92rem; line-height:1.75; margin-bottom:.9rem; opacity:.93; }
+  .risposta strong { color:#FCD34D; }
+  .risposta em { color:#86EFAC; font-style:normal; }
+  .risposta .par-title { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:#FCD34D; margin:.9rem 0 .3rem; }
+
+  /* QUIZ */
+  .quiz-area { margin:2.5rem 0 1rem; }
+  .quiz-title { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); margin-bottom:1rem; padding-bottom:.4rem; border-bottom:1px solid var(--border); }
+  .quiz-item { background:var(--card); border:1px solid var(--border); border-radius:5px; margin-bottom:.8rem; overflow:hidden; }
+  .quiz-q { padding:.8rem 1.2rem; font-size:.9rem; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem; user-select:none; transition:background .15s; }
+  .quiz-q:hover { background:var(--bg2); }
+  .quiz-q .arrow { font-size:.8rem; transition:transform .2s; flex-shrink:0; }
+  .quiz-a { padding:0 1.2rem; font-size:.88rem; color:var(--ink2); line-height:1.6; max-height:0; overflow:hidden; transition:max-height .3s ease, padding .3s ease; }
+  .quiz-a.open { max-height:600px; padding:.8rem 1.2rem 1rem; border-top:1px solid var(--border); }
+  .quiz-q.active .arrow { transform:rotate(180deg); }
+
+  /* FOOTER */
+  footer { text-align:center; padding:2rem; font-family:var(--mono); font-size:.7rem; color:var(--ink2); opacity:.6; border-top:1px solid var(--border); margin-top:3rem; }
+
+  /* SCROLLTOP */
+  #scrolltop { position:fixed; bottom:1.5rem; right:1.5rem; width:40px; height:40px; background:var(--teal); color:white; border:none; border-radius:50%; cursor:pointer; font-size:1.1rem; display:none; align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(0,0,0,.2); z-index:100; }
+  #scrolltop.visible { display:flex; }
+
+  /* TABLE */
+  .vtable { width:100%; border-collapse:collapse; font-size:.83rem; margin-top:.5rem; }
+  .vtable th { background:var(--teal); color:white; padding:.6rem .8rem; text-align:left; font-family:var(--mono); font-size:.68rem; font-weight:600; letter-spacing:.06em; }
+  .vtable td { padding:.55rem .8rem; border-bottom:1px solid var(--border); vertical-align:top; }
+  .vtable tr:nth-child(even) td { background:var(--bg2); }
+  .vtable tr:last-child td { border-bottom:none; }
+  .tag-blue { display:inline-block; background:#DBEAFE; color:var(--blue); font-family:var(--mono); font-size:.68rem; padding:.1rem .45rem; border-radius:3px; }
+  .tag-green { display:inline-block; background:#DCFCE7; color:var(--green); font-family:var(--mono); font-size:.68rem; padding:.1rem .45rem; border-radius:3px; }
+  .tag-purple { display:inline-block; background:#EDE9FE; color:var(--purple); font-family:var(--mono); font-size:.68rem; padding:.1rem .45rem; border-radius:3px; }
+
+  @media (max-width:660px) {
+    .three-cols { grid-template-columns:1fr; }
+    .prop-grid { grid-template-columns:1fr; }
+    .site-header h1 { font-size:1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="badge">📚 Guida Concorso — Istruttore Tecnico</div>
+    <h1>Accesso agli atti della PA</h1>
+    <p>Le 3 forme a confronto: Accesso documentale (L. 241/90) · Accesso civico semplice · Accesso civico generalizzato FOIA (D.Lgs. 33/2013)</p>
+  </div>
+</header>
+
+<!-- DOMANDA REALE -->
+<div class="real-q" style="margin-top:1.5rem;">
+  <div class="label">⭐ Domanda uscita nella prova scritta — 08/10/2024, Prova 3, q.3</div>
+  <p><strong>«Il candidato indichi i presupposti e i limiti dell'accesso documentale ai sensi dell'art. 22 del D.Lgs. 241/1990 e le principali differenze con l'accesso civico di cui al D.Lgs. 33/2013»</strong></p>
+</div>
+<div class="real-q" style="margin-top:.5rem; border-left-color:#7C3AED;">
+  <div class="label" style="color:#7C3AED;">⭐ Domanda simile — Colloquio 10/01/2022, Busta 3, q.3</div>
+  <p>«Il candidato descriva l'istituto dell'accesso documentale ai sensi della L. 241/90 e dell'accesso civico ai sensi del D.Lgs. n. 33/2013»</p>
+</div>
+
+<!-- NAV -->
+<nav><div class="nav-pills">
+  <a href="#capire" class="nav-pill">💡 Il concetto in 30 sec</a>
+  <a href="#tre" class="nav-pill">🔢 Le 3 forme</a>
+  <a href="#documentale" class="nav-pill">🔵 Documentale</a>
+  <a href="#civico-semplice" class="nav-pill">🟢 Civico semplice</a>
+  <a href="#civico-gen" class="nav-pill">🟣 Civico generalizzato</a>
+  <a href="#confronto" class="nav-pill">⚖️ Confronto</a>
+  <a href="#risposta" class="nav-pill">✍️ Risposta modello</a>
+  <a href="#quiz" class="nav-pill">🧠 Quiz</a>
+</div></nav>
+
+<main class="main">
+
+<!-- 1. CAPIRE -->
+<h2 id="capire" class="section-title"><span class="num">1</span> Il concetto in 30 secondi</h2>
+
+<div class="card">
+  <p style="font-size:.95rem; line-height:1.75; margin-bottom:.9rem;">
+    La Pubblica Amministrazione produce documenti. I cittadini a volte vogliono <strong>vedere quei documenti</strong>. Ma non è un diritto illimitato: dipende da <em>chi sei</em>, <em>cosa chiedi</em> e <em>perché lo chiedi</em>.
+  </p>
+  <p style="font-size:.95rem; line-height:1.75; margin-bottom:.9rem;">
+    Nel tempo il legislatore ha creato <strong>tre strumenti diversi</strong>, con logiche sempre più aperte: si è passati da un diritto riservato a chi ha un interesse preciso, fino a un diritto (quasi) universale ispirato al modello americano del <em>Freedom of Information Act</em>.
+  </p>
+
+  <div class="three-cols" style="margin-top:1rem;">
+    <div style="background:#EBF8FF; border:1px solid #90CAF9; border-radius:6px; padding:1rem; text-align:center;">
+      <div style="font-size:1.8rem; margin-bottom:.3rem;">🔵</div>
+      <div style="font-family:var(--mono); font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--blue); margin-bottom:.3rem;">Documentale</div>
+      <div style="font-size:.82rem; color:var(--ink2);">Solo se hai un <strong>interesse diretto</strong> e documentato. Legge 241/1990, art. 22.</div>
+    </div>
+    <div style="background:#F0FFF4; border:1px solid #9AE6B4; border-radius:6px; padding:1rem; text-align:center;">
+      <div style="font-size:1.8rem; margin-bottom:.3rem;">🟢</div>
+      <div style="font-family:var(--mono); font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--green); margin-bottom:.3rem;">Civico semplice</div>
+      <div style="font-size:.82rem; color:var(--ink2);">Solo per documenti che la PA doveva <strong>già pubblicare</strong>. D.Lgs. 33/2013, art. 5 c.1.</div>
+    </div>
+    <div style="background:#F5F3FF; border:1px solid #C4B5FD; border-radius:6px; padding:1rem; text-align:center;">
+      <div style="font-size:1.8rem; margin-bottom:.3rem;">🟣</div>
+      <div style="font-family:var(--mono); font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--purple); margin-bottom:.3rem;">Civico generalizzato</div>
+      <div style="font-size:.82rem; color:var(--ink2);"><strong>Chiunque</strong>, qualsiasi documento, senza motivare. FOIA italiano. D.Lgs. 33/2013, art. 5 c.2.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. LE TRE FORME IN SINTESI -->
+<h2 id="tre" class="section-title"><span class="num">2</span> Le 3 forme — confronto rapido</h2>
+<div class="card">
+  <table class="vtable">
+    <thead>
+      <tr>
+        <th>Elemento</th>
+        <th>🔵 Documentale (241/90)</th>
+        <th>🟢 Civico semplice (33/2013 c.1)</th>
+        <th>🟣 Civico generalizzato (33/2013 c.2)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Chi può chiederlo</strong></td>
+        <td>Solo chi ha <strong>interesse diretto, concreto e attuale</strong></td>
+        <td><strong>Chiunque</strong> — nessun interesse richiesto</td>
+        <td><strong>Chiunque</strong> — nessun interesse richiesto</td>
+      </tr>
+      <tr>
+        <td><strong>Cosa si può chiedere</strong></td>
+        <td>Qualsiasi documento amministrativo, purché correlato al proprio interesse</td>
+        <td>Solo documenti che la PA aveva <strong>obbligo di pubblicare</strong> sul sito e non ha pubblicato</td>
+        <td><strong>Qualsiasi dato, informazione o documento</strong> detenuto dalla PA (salvo eccezioni)</td>
+      </tr>
+      <tr>
+        <td><strong>Serve motivare?</strong></td>
+        <td><strong>Sì</strong> — bisogna indicare l'interesse e il motivo</td>
+        <td>No</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td><strong>Termine risposta PA</strong></td>
+        <td>30 giorni</td>
+        <td>30 giorni</td>
+        <td>30 giorni (proroga a 60 se ci sono terzi coinvolti)</td>
+      </tr>
+      <tr>
+        <td><strong>Silenzio PA</strong></td>
+        <td>Silenzio = <strong>diniego</strong> impugnabile</td>
+        <td>Silenzio = inadempimento</td>
+        <td>Silenzio = <strong>diniego</strong> impugnabile</td>
+      </tr>
+      <tr>
+        <td><strong>Limiti e esclusioni</strong></td>
+        <td>Segreto di Stato, ordine pubblico, privacy terzi, procedimenti tributari, ecc.</td>
+        <td>Limitato all'obbligo di pubblicazione: fuori da esso non opera</td>
+        <td>Eccezioni tassative (sicurezza, privacy, interessi economici, ecc.) — bilanciamento</td>
+      </tr>
+      <tr>
+        <td><strong>Tutela in caso di diniego</strong></td>
+        <td>Ricorso TAR o difensore civico / commissione accesso</td>
+        <td>Ricorso al responsabile prevenzione corruzione (RPCT) o TAR</td>
+        <td>Ricorso al RPCT (riesame) o TAR</td>
+      </tr>
+      <tr>
+        <td><strong>Riferimento normativo</strong></td>
+        <td><span class="tag-blue">L. 241/1990, artt. 22-28</span></td>
+        <td><span class="tag-green">D.Lgs. 33/2013, art. 5 c.1</span></td>
+        <td><span class="tag-purple">D.Lgs. 33/2013, art. 5 c.2 (introd. D.Lgs. 97/2016)</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 3. DOCUMENTALE -->
+<h2 id="documentale" class="section-title"><span class="num">3</span> Accesso documentale — L. 241/1990, art. 22</h2>
+
+<div class="deep deep-blue">
+  <div class="deep-title">🔵 Accesso documentale (o "tradizionale")</div>
+  <div class="deep-sub">L. 7 agosto 1990 n. 241 — artt. 22–28</div>
+
+  <div class="prop-grid">
+    <div class="prop-lbl">Cos'è</div>
+    <div class="prop-val">Il diritto di prendere visione e ottenere copia dei <strong>documenti amministrativi</strong> detenuti dalla PA, riconosciuto a chi ha un interesse qualificato.</div>
+    <div class="prop-lbl">Chi è legittimato</div>
+    <div class="prop-val">Tutti i soggetti privati (persone fisiche, imprese, associazioni) che abbiano un <strong>interesse diretto, concreto e attuale</strong> corrispondente ad una situazione giuridicamente tutelata e collegata al documento richiesto (art. 22 c.1 lett. b).</div>
+    <div class="prop-lbl">Cosa si chiede</div>
+    <div class="prop-val">Qualsiasi <strong>documento amministrativo</strong>: atti, elaborati tecnici, pareri, perizie, contratti, corrispondenza interna. La PA non può rifiutare solo perché il documento è "interno".</div>
+    <div class="prop-lbl">Come si esercita</div>
+    <div class="prop-val">Istanza scritta motivata all'amministrazione che detiene il documento, con indicazione dell'interesse. La PA risponde entro <strong>30 giorni</strong>. Il silenzio equivale a <strong>diniego tacito</strong>.</div>
+    <div class="prop-lbl">Modalità</div>
+    <div class="prop-val">Visione (gratuita) o rilascio di copia (a spese del richiedente).</div>
+    <div class="prop-lbl">Natura del diritto</div>
+    <div class="prop-val">Principio generale dell'attività amministrativa, strumento a tutela di posizioni soggettive qualificate. <strong>Non è un diritto popolare</strong>: serve un interesse specifico.</div>
+  </div>
+
+  <div style="margin-top:1rem;">
+    <div class="card-title"><span class="dot" style="background:var(--red)"></span>I limiti e le esclusioni (art. 24)</div>
+    <div class="alert alert-red" style="margin-top:.3rem;">
+      <span class="alert-icon">🚫</span>
+      <div><strong>L'accesso è escluso o differito quando riguarda:</strong></div>
+    </div>
+    <ul class="limiti-list">
+      <li><span class="ic">🔒</span><span><strong>Segreto di Stato</strong> e altri segreti previsti dalla legge</span></li>
+      <li><span class="ic">🔒</span><span><strong>Ordine pubblico e sicurezza pubblica</strong></span></li>
+      <li><span class="ic">🔒</span><span><strong>Procedimenti penali</strong> in corso (non pregiudicare le indagini)</span></li>
+      <li><span class="ic">🔒</span><span><strong>Privacy di terzi</strong>: dati sensibili (salute, vita sessuale, religione) non accessibili se non strettamente necessario — in questo caso prevale la riservatezza</span></li>
+      <li><span class="ic">🔒</span><span><strong>Procedimenti tributari</strong>: la normativa fiscale prevale</span></li>
+      <li><span class="ic">🔒</span><span><strong>Attività di controllo, ispezione e vigilanza</strong> della PA (se l'accesso pregiudica l'attività)</span></li>
+      <li><span class="ic">🔒</span><span><strong>Segreto industriale e commerciale</strong></span></li>
+      <li><span class="ic">🔒</span><span><strong>Concorsi pubblici</strong>: non si accede alle prove degli altri candidati</span></li>
+    </ul>
+    <div class="alert alert-blue" style="margin-top:.5rem;">
+      <span class="alert-icon">⚖️</span>
+      <div><strong>Regola del bilanciamento (art. 24 c.7):</strong> Anche quando i documenti riguardano dati sensibili o sensibilissimi, l'accesso è ammesso se è necessario per curare o difendere i propri interessi giuridici — ma deve essere <em>strettamente indispensabile</em>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. CIVICO SEMPLICE -->
+<h2 id="civico-semplice" class="section-title"><span class="num">4</span> Accesso civico semplice — D.Lgs. 33/2013, art. 5 c.1</h2>
+
+<div class="deep deep-green">
+  <div class="deep-title">🟢 Accesso civico semplice</div>
+  <div class="deep-sub">D.Lgs. 14 marzo 2013 n. 33 — art. 5, comma 1 (D.Lgs. "trasparenza")</div>
+
+  <div class="alert alert-green" style="margin-bottom:1rem;">
+    <span class="alert-icon">💡</span>
+    <div><strong>La logica in una frase:</strong> Se la PA aveva l'<em>obbligo di pubblicare</em> un documento sul suo sito e non lo ha fatto, chiunque può obbligarla a pubblicarlo. È un meccanismo di controllo della <em>trasparenza obbligatoria</em>.</div>
+  </div>
+
+  <div class="prop-grid">
+    <div class="prop-lbl">Chi può chiederlo</div>
+    <div class="prop-val"><strong>Chiunque</strong> — nessuna legittimazione particolare, nessun interesse da dimostrare, nessuna motivazione richiesta.</div>
+    <div class="prop-lbl">Cosa si può chiedere</div>
+    <div class="prop-val"><strong>Solo</strong> documenti, informazioni e dati che la PA aveva obbligo di pubblicare (es: bilanci, stipendi dirigenti, bandi di gara, organigrammi, contratti, ecc.). Al di fuori di questo perimetro, l'accesso civico semplice non funziona.</div>
+    <div class="prop-lbl">Scopo</div>
+    <div class="prop-val">Garantire il rispetto degli obblighi di pubblicazione. Rimedio per il cittadino quando la PA è inadempiente rispetto ai suoi obblighi di trasparenza sul sito istituzionale.</div>
+    <div class="prop-lbl">Procedura</div>
+    <div class="prop-val">Istanza al <strong>Responsabile della Trasparenza</strong> (che spesso coincide con il RPCT). La PA risponde entro <strong>30 giorni</strong>, provvedendo alla pubblicazione e comunicando il link al richiedente.</div>
+    <div class="prop-lbl">Limiti</div>
+    <div class="prop-val">Il limite principale è intrinseco: funziona <em>solo</em> entro i confini degli obblighi di pubblicazione. Non è usabile per qualsiasi documento.</div>
+  </div>
+</div>
+
+<!-- 5. CIVICO GENERALIZZATO / FOIA -->
+<h2 id="civico-gen" class="section-title"><span class="num">5</span> Accesso civico generalizzato (FOIA) — D.Lgs. 33/2013, art. 5 c.2</h2>
+
+<div class="deep deep-purple">
+  <div class="deep-title">🟣 Accesso civico generalizzato — il FOIA italiano</div>
+  <div class="deep-sub">D.Lgs. 33/2013, art. 5 c.2 — introdotto dalla riforma D.Lgs. 97/2016</div>
+
+  <div class="alert alert-purple" style="margin-bottom:1rem;">
+    <span class="alert-icon">🌐</span>
+    <div><strong>La rivoluzione:</strong> Introdotto nel 2016 con la riforma "Madia" (D.Lgs. 97/2016), si ispira al <em>Freedom of Information Act</em> americano. Il principio è ribaltato: la PA <em>deve</em> rendere accessibili i suoi dati, e il segreto è l'eccezione da motivare — non il contrario.</div>
+  </div>
+
+  <div class="prop-grid">
+    <div class="prop-lbl">Chi può chiederlo</div>
+    <div class="prop-val"><strong>Chiunque</strong> — cittadini italiani, stranieri, imprese, associazioni. Nessun interesse da dimostrare, nessuna motivazione.</div>
+    <div class="prop-lbl">Cosa si può chiedere</div>
+    <div class="prop-val"><strong>Qualsiasi dato, documento o informazione detenuta dalla PA</strong>, a prescindere dall'esistenza di un obbligo di pubblicazione. È l'accesso più ampio possibile.</div>
+    <div class="prop-lbl">Scopo</div>
+    <div class="prop-val">Favorire la <strong>partecipazione al dibattito pubblico</strong> e il controllo democratico della PA. Non è un rimedio individuale (come il documentale), ma uno strumento collettivo di trasparenza.</div>
+    <div class="prop-lbl">Procedura</div>
+    <div class="prop-val">Istanza all'ufficio che detiene i dati (o all'URP). La PA risponde entro <strong>30 giorni</strong>. Se ci sono <strong>controinteressati</strong> (terzi i cui dati vengono richiesti), la PA li deve notificare e il termine sale a <strong>60 giorni</strong>. Il silenzio equivale a diniego.</div>
+    <div class="prop-lbl">Riesame</div>
+    <div class="prop-val">In caso di diniego, prima del TAR è possibile presentare istanza di <strong>riesame al RPCT</strong> (Responsabile Prevenzione Corruzione e Trasparenza), che decide entro 20 giorni.</div>
+  </div>
+
+  <div style="margin-top:1rem;">
+    <div class="card-title"><span class="dot" style="background:var(--purple)"></span>Le eccezioni tassative (art. 5-bis D.Lgs. 33/2013)</div>
+    <p style="font-size:.88rem; margin-bottom:.7rem; color:var(--ink2);">L'accesso generalizzato può essere rifiutato solo per queste ragioni — e la PA deve sempre motivare il rifiuto:</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:.6rem;">
+      <div style="background:#F5F3FF; border:1px solid #C4B5FD; border-radius:4px; padding:.7rem 1rem;">
+        <div style="font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--purple); margin-bottom:.4rem;">Eccezioni assolute</div>
+        <ul class="limiti-list">
+          <li><span class="ic">🔒</span><span>Segreto di Stato</span></li>
+          <li><span class="ic">🔒</span><span>Segreti previsti da altre leggi speciali</span></li>
+          <li><span class="ic">🔒</span><span>Procedimenti penali in corso</span></li>
+          <li><span class="ic">🔒</span><span>Dati coperti da segreto statistico</span></li>
+        </ul>
+      </div>
+      <div style="background:#F5F3FF; border:1px solid #C4B5FD; border-radius:4px; padding:.7rem 1rem;">
+        <div style="font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--purple); margin-bottom:.4rem;">Eccezioni relative (bilanciamento)</div>
+        <ul class="limiti-list">
+          <li><span class="ic">⚖️</span><span>Sicurezza pubblica e ordine pubblico</span></li>
+          <li><span class="ic">⚖️</span><span>Difesa nazionale</span></li>
+          <li><span class="ic">⚖️</span><span>Relazioni internazionali</span></li>
+          <li><span class="ic">⚖️</span><span>Politica monetaria e finanziaria</span></li>
+          <li><span class="ic">⚖️</span><span><strong>Protezione dei dati personali</strong></span></li>
+          <li><span class="ic">⚖️</span><span>Interessi economici e commerciali (segreto industriale)</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert alert-purple" style="margin-top:.8rem;">
+      <span class="alert-icon">⚖️</span>
+      <div><strong>Principio del "minore pregiudizio":</strong> Anche quando esiste un'eccezione, la PA deve valutare se è possibile fornire comunque un <em>accesso parziale</em> al documento (oscurando le parti riservate) invece di negarlo del tutto.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. CONFRONTO -->
+<h2 id="confronto" class="section-title"><span class="num">6</span> Le differenze chiave in un colpo d'occhio</h2>
+
+<div class="card">
+  <div class="mnemonic">
+    <h4>🧠 Come ricordare la differenza fondamentale</h4>
+    <p>
+      <span>Documentale:</span> "Devo dimostrare che MI INTERESSA quel documento"<br>
+      <span>Civico semplice:</span> "La PA doveva pubblicarlo e non lo ha fatto — PUBBLICALO"<br>
+      <span>Civico generalizzato:</span> "Voglio quel documento — BASTA, non devo spiegare perché"
+    </p>
+  </div>
+
+  <table class="vtable" style="margin-top:1rem;">
+    <thead>
+      <tr>
+        <th>Domanda</th>
+        <th>🔵 Documentale</th>
+        <th>🟢 Civico semplice</th>
+        <th>🟣 Civico generalizzato</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Posso chiederlo senza motivare?</td>
+        <td style="color:var(--red); font-weight:700;">No</td>
+        <td style="color:var(--green); font-weight:700;">Sì</td>
+        <td style="color:var(--green); font-weight:700;">Sì</td>
+      </tr>
+      <tr>
+        <td>Vale per qualsiasi documento?</td>
+        <td style="color:var(--blue2); font-weight:700;">Sì (se ho interesse)</td>
+        <td style="color:var(--red); font-weight:700;">No (solo obbligo pubbl.)</td>
+        <td style="color:var(--green); font-weight:700;">Sì (salvo eccezioni)</td>
+      </tr>
+      <tr>
+        <td>Serve un interesse giuridico?</td>
+        <td style="color:var(--red); font-weight:700;">Sì — obbligatorio</td>
+        <td style="color:var(--green); font-weight:700;">No</td>
+        <td style="color:var(--green); font-weight:700;">No</td>
+      </tr>
+      <tr>
+        <td>Silenzio della PA</td>
+        <td>= Diniego tacito</td>
+        <td>= Inadempimento</td>
+        <td>= Diniego tacito</td>
+      </tr>
+      <tr>
+        <td>Tutela stragiudiziale</td>
+        <td>Difensore civico / Commissione accesso</td>
+        <td>RPCT</td>
+        <td>Riesame al RPCT (obbligatorio prima del TAR)</td>
+      </tr>
+      <tr>
+        <td>Introdotto quando</td>
+        <td>1990</td>
+        <td>2013</td>
+        <td>2016 (riforma D.Lgs. 97/2016)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-orange" style="margin-top:1rem;">
+    <span class="alert-icon">🔑</span>
+    <div>
+      <strong>La frase da dire in prova:</strong> "La differenza fondamentale tra accesso documentale e accesso civico generalizzato sta nella legittimazione soggettiva: il primo richiede un <em>interesse diretto, concreto e attuale</em> collegato a una situazione giuridicamente tutelata; il secondo è esercitabile da chiunque, indipendentemente da qualsiasi interesse, configurando un vero e proprio <em>diritto popolare all'informazione</em>."
+    </div>
+  </div>
+</div>
+
+<!-- 7. RISPOSTA MODELLO -->
+<h2 id="risposta" class="section-title"><span class="num">7</span> Risposta modello per la prova scritta</h2>
+
+<div class="risposta">
+  <div class="risposta-label">✍️ Risposta modello — circa 3 minuti di lettura / da adattare alla lunghezza richiesta</div>
+
+  <div class="par-title">1 — Inquadramento generale</div>
+  <p>L'ordinamento giuridico italiano prevede <strong>tre distinte forme di accesso</strong> ai documenti della Pubblica Amministrazione, caratterizzate da presupposti, oggetto e finalità diverse: l'accesso documentale (L. 241/1990), l'accesso civico semplice e l'accesso civico generalizzato (D.Lgs. 33/2013).</p>
+
+  <div class="par-title">2 — L'accesso documentale (art. 22 L. 241/1990)</div>
+  <p>L'accesso documentale è disciplinato dagli artt. 22-28 della L. 241/1990 e costituisce il diritto di prendere visione e ottenere copia dei documenti amministrativi. <strong>Presupposto indispensabile</strong> è che il richiedente dimostri di avere un <em>interesse diretto, concreto e attuale</em>, corrispondente a una situazione giuridicamente tutelata e collegata al documento richiesto (art. 22, c.1 lett. b). Non è un diritto popolare: chi richiede deve indicare la propria legittimazione e motivare la richiesta.</p>
+  <p>Il termine per la risposta è di <strong>30 giorni</strong>; il silenzio equivale a <strong>diniego tacito</strong> impugnabile. <strong>I limiti</strong> sono fissati dall'art. 24: sono esclusi i documenti coperti da segreto di Stato, quelli relativi a procedimenti penali in corso, i dati sensibili di terzi (salvo necessità di difesa in giudizio), i procedimenti tributari, i segreti industriali e commerciali, nonché i documenti la cui divulgazione pregiudichi l'attività di vigilanza e controllo. In caso di diniego è ammessa tutela davanti al TAR, al Difensore civico o alla Commissione per l'accesso.</p>
+
+  <div class="par-title">3 — L'accesso civico semplice (art. 5 c.1 D.Lgs. 33/2013)</div>
+  <p>L'accesso civico semplice, introdotto con il D.Lgs. 33/2013 (c.d. decreto trasparenza), consente a <strong>chiunque</strong> — senza necessità di dimostrare alcun interesse — di richiedere la pubblicazione di documenti, dati e informazioni che la PA aveva <em>obbligo di pubblicare</em> sul proprio sito istituzionale e che risultano mancanti. È quindi uno strumento di <strong>trasparenza reattiva</strong>: non serve a conoscere qualsiasi documento, ma a far rispettare gli obblighi di pubblicazione già previsti dalla legge.</p>
+
+  <div class="par-title">4 — L'accesso civico generalizzato / FOIA (art. 5 c.2 D.Lgs. 33/2013)</div>
+  <p>Introdotto dalla riforma Madia (D.Lgs. 97/2016), l'accesso civico generalizzato si ispira al modello del <em>Freedom of Information Act</em> e rappresenta la forma di accesso più ampia. <strong>Chiunque</strong> può richiedere <em>qualsiasi dato, documento o informazione detenuta dalla PA</em>, senza motivare la richiesta. Il principio è che la trasparenza è la regola; il segreto è l'eccezione, che deve essere espressamente giustificata. I limiti sono le eccezioni tassative dell'art. 5-bis: sicurezza pubblica, difesa, dati personali di terzi, segreti commerciali, relazioni internazionali, ecc. In caso di diniego è previsto il <strong>riesame al RPCT</strong> prima del ricorso al TAR.</p>
+
+  <div class="par-title">5 — Differenze principali</div>
+  <p>Le differenze tra accesso documentale e accesso civico generalizzato risiedono in tre elementi: (a) la <strong>legittimazione soggettiva</strong>: il documentale richiede un interesse qualificato, il generalizzato è esercitabile da chiunque; (b) l'<strong>oggetto</strong>: il documentale è limitato dai documenti connessi all'interesse del richiedente, il generalizzato è tendenzialmente universale; (c) la <strong>finalità</strong>: tutela di posizioni giuridiche soggettive nel primo caso, controllo democratico sull'operato della PA nel secondo.</p>
+</div>
+
+<!-- 8. QUIZ -->
+<div id="quiz" class="quiz-area">
+  <div class="quiz-title">🧠 Quiz — domande stile commissione</div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Chi può presentare istanza di accesso documentale? Qual è il presupposto fondamentale?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Può presentare istanza di accesso documentale chiunque abbia un <strong>interesse diretto, concreto e attuale</strong> corrispondente ad una situazione giuridicamente tutelata e collegata al documento (art. 22, c.1 lett. b, L. 241/1990). Non è sufficiente un interesse generico o di fatto: serve un collegamento specifico tra il documento richiesto e la posizione giuridica del richiedente. È la differenza principale rispetto all'accesso civico generalizzato, che invece non richiede alcuna legittimazione.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Qual è la differenza tra accesso civico semplice e generalizzato?<span class="arrow">▼</span></div>
+    <div class="quiz-a">L'<strong>accesso civico semplice</strong> (art. 5 c.1 D.Lgs. 33/2013) riguarda <em>solo</em> i documenti che la PA aveva già obbligo di pubblicare: è un rimedio per far rispettare la trasparenza obbligatoria. L'<strong>accesso civico generalizzato</strong> (art. 5 c.2) invece è molto più ampio: consente di chiedere qualsiasi documento, dato o informazione detenuta dalla PA, indipendentemente da obblighi di pubblicazione. Entrambi sono esercitabili da chiunque senza motivare la richiesta, ma l'ambito di applicazione è radicalmente diverso.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Cosa succede se la PA non risponde entro 30 giorni a un'istanza di accesso documentale?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il silenzio equivale a <strong>diniego tacito</strong>, che è impugnabile. Il richiedente può: (1) ricorrere al <strong>TAR</strong> entro 30 giorni dalla formazione del silenzio; (2) richiedere un riesame al <strong>Difensore civico</strong> o alla <strong>Commissione per l'accesso ai documenti amministrativi</strong>. In caso di accesso civico generalizzato, prima del TAR è previsto il riesame al <strong>RPCT</strong> (Responsabile Prevenzione Corruzione e Trasparenza).</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Elenca 4 ipotesi in cui l'accesso documentale può essere negato (art. 24 L. 241/90)<span class="arrow">▼</span></div>
+    <div class="quiz-a">L'art. 24 L. 241/1990 esclude o limita l'accesso nei seguenti casi: (1) <strong>Segreto di Stato</strong> e altri segreti di legge; (2) <strong>Procedimenti penali in corso</strong>, per non pregiudicare le indagini; (3) <strong>Dati sensibili o sensibilissimi di terzi</strong> (salute, vita sessuale, ecc.), quando non strettamente necessari per la tutela degli interessi del richiedente; (4) <strong>Segreto industriale e commerciale</strong>; (5) <strong>Procedimenti tributari</strong>; (6) Attività di <strong>vigilanza e ispezione</strong> della PA. Anche nei casi sensibili vale il bilanciamento: se il documento è indispensabile per difendere i propri diritti in giudizio, l'accesso può essere concesso.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Cosa si intende per "interesse diretto, concreto e attuale" nell'accesso documentale?<span class="arrow">▼</span></div>
+    <div class="quiz-a"><strong>Diretto:</strong> il richiedente deve essere personalmente coinvolto, non può agire nell'interesse di altri o in via generica. <strong>Concreto:</strong> l'interesse non è ipotetico o futuro, ma riguarda una situazione reale già esistente. <strong>Attuale:</strong> l'interesse sussiste al momento della richiesta, non è passato o eventuale. Esempio tipico: il confinante che chiede di vedere il permesso di costruire del vicino perché teme violazioni delle distanze ha un interesse diretto (è il confinante), concreto (c'è un intervento in corso) e attuale (i lavori stanno avvenendo ora).</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Quando è stato introdotto il FOIA italiano (accesso civico generalizzato) e con quale norma?<span class="arrow">▼</span></div>
+    <div class="quiz-a">L'accesso civico generalizzato (FOIA italiano) è stato introdotto dal <strong>D.Lgs. 25 maggio 2016 n. 97</strong>, che ha modificato il D.Lgs. 33/2013 inserendo il comma 2 all'art. 5. Si tratta della cosiddetta "riforma Madia" (L. 124/2015 delega). Prima del 2016 esisteva solo l'accesso civico semplice (art. 5 c.1 nella versione originaria del 2013) e l'accesso documentale del 1990. Il 2016 segna il passaggio al modello FOIA.</div>
+  </div>
+
+</div>
+
+</main>
+
+<footer>
+  Guida studio per concorso — Unione Comuni Valli e Delizie — Istruttore Tecnico<br>
+  L. 241/1990 · D.Lgs. 33/2013 · D.Lgs. 97/2016
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  function toggle(el) {
+    const ans = el.nextElementSibling;
+    const isOpen = ans.classList.contains('open');
+    document.querySelectorAll('.quiz-a.open').forEach(a => {
+      a.classList.remove('open');
+      a.previousElementSibling.classList.remove('active');
+    });
+    if (!isOpen) { ans.classList.add('open'); el.classList.add('active'); }
+  }
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => { btn.classList.toggle('visible', window.scrollY > 400); });
+</script>
+</body>
+</html>
