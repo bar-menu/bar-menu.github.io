@@ -52,7 +52,12 @@
         .esame-must { color: var(--accent-warning); font-weight: 600; background: rgba(210, 153, 34, 0.15); padding: 2px 4px; border-radius: 4px; }
 
         /* Contenitore flessibile per il PDF in modo che riempia lo schermo rimanente */
+        
+        
+        
         .pdf-container { flex-grow: 1; margin-top: 20px; border: 2px solid var(--border-color); border-radius: 8px; overflow: hidden; background-color: #fff;}
+        
+        
         .pdf-container iframe { width: 100%; height: 100%; border: none; display: block; }
 
         @media (max-width: 1100px) { nav.sidebar { width: 260px; } main { margin-left: 260px; padding: 30px; } }
@@ -116,11 +121,11 @@
             <h2>Lettura: L. 241/90 (Artt. 1-13)</h2>
         </div>
         
-        <div class="pdf-container">
-            <!-- SOSTITUISCI "L241_1990_Artt1-13.pdf" CON IL NOME ESATTO DEL TUO FILE SE È DIVERSO -->
-            <iframe src="L241_1990_Artt1-13.pdf" title="Legge 241 del 1990">
-                Il tuo browser non supporta la visualizzazione diretta dei PDF. <a href="L241_1990_Artt1-13.pdf">Scarica il file qui</a>.
-            </iframe>
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="L241_1990_Artt1-13.pdf" target="_blank" style="background-color: var(--accent-warning); color: #000; padding: 15px 30px; text-decoration: none; font-weight: bold; border-radius: 8px; display: inline-block; font-size: 1.2rem;">
+                📄 APRI IL PDF DELLA LEGGE 241
+            </a>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary);">Si aprirà comodamente in una nuova scheda.</p>
         </div>
 
     </main>
