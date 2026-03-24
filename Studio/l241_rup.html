@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>HUB Concorso - L. 241/90 & Appalti</title>
+    <style>
+        :root {
+            --bg-base: #0d1117;
+            --bg-surface: #161b22;
+            --bg-panel: #21262d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --border-color: #30363d;
+            --law-text: #e6edf3;
+            --law-comma: #58a6ff;
+            --accent-exam: #ff7b72;
+            --bg-exam: rgba(255, 123, 114, 0.1);
+            --accent-warning: #d29922;
+            --bg-warning: rgba(210, 153, 34, 0.1);
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body { margin: 0; padding: 0; font-family: var(--font-main); background-color: var(--bg-base); color: var(--text-primary); line-height: 1.6; display: flex; font-size: 1.15rem; }
+
+        nav.sidebar { width: 320px; background-color: var(--bg-surface); border-right: 1px solid var(--border-color); height: 100vh; position: fixed; overflow-y: auto; display: flex; flex-direction: column; z-index: 100; }
+        nav.sidebar .branding { padding: 20px; border-bottom: 1px solid var(--border-color); background-color: var(--bg-panel); }
+        nav.sidebar .branding h2 { margin: 0; font-size: 1.2rem; color: var(--law-comma); }
+        nav.sidebar .branding span { font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+
+        nav.sidebar ul { list-style: none; padding: 0; margin: 0; }
+        nav.sidebar li.titolo-legge { padding: 15px 20px 5px 20px; font-weight: 700; color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase; }
+        nav.sidebar a { display: block; padding: 8px 20px 8px 30px; color: var(--text-primary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.2s ease; font-size: 1rem; }
+        nav.sidebar a:hover { background-color: var(--bg-panel); border-left-color: var(--law-comma); color: #fff; }
+
+        main { margin-left: 320px; padding: 40px 60px; max-width: 1200px; width: 100%; display: flex; flex-direction: column; height: 100vh; }
+
+        .header-title { margin-top: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 30px; }
+        .header-title h1 { margin: 0; font-size: 2.2rem; color: var(--law-text); }
+        
+        .box { border-radius: 8px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border-color); }
+        .box-title { font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.95rem; margin-bottom: 10px; }
+        
+        .box-exam { background-color: var(--bg-exam); border-left: 4px solid var(--accent-exam); }
+        .box-exam .box-title { color: var(--accent-exam); }
+
+        .box-warning { background-color: var(--bg-warning); border-left: 4px solid var(--accent-warning); }
+        .box-warning .box-title { color: var(--accent-warning); }
+
+        .esame-must { color: var(--accent-warning); font-weight: 600; background: rgba(210, 153, 34, 0.15); padding: 2px 4px; border-radius: 4px; }
+
+        /* Contenitore flessibile per il PDF in modo che riempia lo schermo rimanente */
+        .pdf-container { flex-grow: 1; margin-top: 20px; border: 2px solid var(--border-color); border-radius: 8px; overflow: hidden; background-color: #fff;}
+        .pdf-container iframe { width: 100%; height: 100%; border: none; display: block; }
+
+        @media (max-width: 1100px) { nav.sidebar { width: 260px; } main { margin-left: 260px; padding: 30px; } }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="branding">
+            <h2>L. 241/90 & RUP</h2>
+            <span>Modulo Pratico + PDF</span>
+        </div>
+        <ul>
+            <li class="titolo-legge">Appunti Strategici</li>
+            <li><a href="#rup">Il tranello: RUP vs RUP</a></li>
+            <li><a href="#dl-sal">D.L. e S.A.L. (Appalti)</a></li>
+            <li><a href="#art10">Art. 10-bis (Il Preavviso)</a></li>
+            
+            <li class="titolo-legge">Il Tuo Materiale</li>
+            <li><a href="#pdf-viewer">Visualizza PDF Artt. 1-13</a></li>
+            
+            <li class="titolo-legge">Torna alla Home</li>
+            <li><a href="index_studio.html">🏠 Home Studio</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="header-title">
+            <h1>Appunti Esame & Legge 241/90</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 0;">Inquadramento dei ruoli e principi chiave da accompagnare alla lettura del tuo PDF.</p>
+        </div>
+
+        <!-- APPUNTI STRATEGICI -->
+        <div id="rup" class="box box-warning">
+            <div class="box-title">⚖️ IL TRANELLO DEL "RUP" (Busta n.2 - Prove Interne)</div>
+            <p>Se all'esame ti chiedono "il RUP", devi specificare in che ambito sei. La sigla è la stessa, ma il significato giuridico è cambiato:</p>
+            <ul>
+                <li><strong>Nel Diritto Amministrativo (L. 241/90, Artt. 4-6):</strong> È il <span class="esame-must">Responsabile del PROCEDIMENTO</span>. È il funzionario comunale che istruisce la pratica (es. un permesso di costruire di un cittadino), valuta i documenti, chiede le integrazioni e cura l'iter fino al provvedimento finale.</li>
+                <li><strong>Nei Lavori Pubblici (Codice Appalti D.Lgs 36/2023):</strong> Dal 2023 si chiama <span class="esame-must">Responsabile Unico del PROGETTO</span>. È il Project Manager dell'ente. Fa molto di più di un iter: gestisce tutto il ciclo di vita dell'opera pubblica, dalla fase di progettazione alla gara d'appalto, fino all'ultimo collaudo tecnico.</li>
+            </ul>
+        </div>
+
+        <div id="dl-sal" class="box box-exam">
+            <div class="box-title">🚜 IL DIRETTORE DEI LAVORI E IL S.A.L. (Busta 2 e 3 - Prove Interne)</div>
+            <p>Mentre il RUP è in Comune a gestire la burocrazia/pagamenti, il <strong>D.L. (Direttore dei Lavori)</strong> è l'uomo di fiducia dell'ente in cantiere. Deve garantire il <span class="esame-must">controllo tecnico, contabile e amministrativo dell'esecuzione</span>.</p>
+            <p><strong>Come si fa un S.A.L. (Stato Avanzamento Lavori) in un'opera pubblica? (Traccia n.3):</strong>
+            Il Direttore Lavori contabilizza cosa la ditta ha effettivamente costruito usando due documenti sacri: il <em>Libretto delle Misure</em> (prende le misure di ferri/calcestruzzo) e il <em>Registro di Contabilità</em>. Raggiunto l'importo previsto dal contratto per il pagamento a rate, il DL redige il SAL e lo manda al RUP. Il RUP verifica e infine emette il <strong>Certificato di Pagamento</strong> per saldare la fattura dell'impresa.</p>
+        </div>
+
+        <div id="art10" class="box box-focus">
+            <div class="box-title">🎯 FOCUS SUL TUO PDF (Art. 10-bis e Art. 2)</div>
+            <p>Mentre leggi il PDF sotto, fissati bene su due articoli fondamentali per chi sta in Area Tecnica:</p>
+            <ul>
+                <li><strong>Articolo 2 (I Tempi):</strong> Se apri una pratica, il Comune ha il fottuto obbligo di chiuderla con un <span class="esame-must">provvedimento espresso e motivato</span> (di norma entro 30 gg). </li>
+                <li><strong>Articolo 10-bis (Preavviso di Rigetto):</strong> La regola d'oro del contraddittorio. Se il Comune vuole bocciare un'istanza, <strong>PRIMA di emettere il rifiuto</strong> deve mandare una comunicazione all'istante con i <em>motivi che ostano all'accoglimento</em>. L'istante ha 10 giorni per difendersi presentando osservazioni.</li>
+            </ul>
+        </div>
+
+        <!-- VISUALIZZATORE DEL TUO PDF -->
+        <div class="header-title" id="pdf-viewer" style="margin-top: 30px; margin-bottom: 10px;">
+            <h2>Lettura: L. 241/90 (Artt. 1-13)</h2>
+        </div>
+        
+        <div class="pdf-container">
+            <!-- SOSTITUISCI "L241_1990_Artt1-13.pdf" CON IL NOME ESATTO DEL TUO FILE SE È DIVERSO -->
+            <iframe src="L241_1990_Artt1-13.pdf" title="Legge 241 del 1990">
+                Il tuo browser non supporta la visualizzazione diretta dei PDF. <a href="L241_1990_Artt1-13.pdf">Scarica il file qui</a>.
+            </iframe>
+        </div>
+
+    </main>
+
+</body>
+</html>
