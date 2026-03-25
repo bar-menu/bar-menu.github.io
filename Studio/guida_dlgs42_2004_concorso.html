@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D.Lgs. 42/2004 — Guida per il Concorso | Specialista Attività Tecniche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bordeaux: #6b1f2a;
+    --bordeaux-dark: #4a1219;
+    --bordeaux-light: #8d2d3c;
+    --gold: #c9a84c;
+    --gold-light: #e4c87e;
+    --cream: #faf6ef;
+    --cream-dark: #f0e9dc;
+    --ink: #1a1410;
+    --ink-muted: #4a3f35;
+    --ink-light: #7a6e64;
+    --green-ok: #2d6a4f;
+    --green-bg: #eaf4ef;
+    --red-no: #8b2219;
+    --red-bg: #fdf0ee;
+    --blue-note: #1a3a5c;
+    --blue-bg: #edf3f9;
+    --orange-warn: #8b5e1a;
+    --orange-bg: #fdf5e8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--bordeaux-dark);
+    color: var(--cream);
+    padding: 0;
+    border-bottom: 3px solid var(--gold);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  }
+
+  .header-top {
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .badge {
+    background: var(--gold);
+    color: var(--bordeaux-dark);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .header-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    flex: 1;
+  }
+
+  .header-sub {
+    font-size: 11px;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* NAV TABS */
+  nav {
+    background: var(--bordeaux);
+    display: flex;
+    overflow-x: auto;
+    padding: 0 16px;
+    gap: 2px;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+
+  nav button {
+    background: none;
+    border: none;
+    color: rgba(250,246,239,0.65);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 10px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  nav button:hover { color: var(--cream); }
+  nav button.active {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
+  }
+
+  /* MAIN */
+  main { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* INTRO BANNER */
+  .intro-banner {
+    background: linear-gradient(135deg, var(--bordeaux-dark), var(--bordeaux));
+    color: var(--cream);
+    border-radius: 8px;
+    padding: 32px;
+    margin-bottom: 32px;
+    border-left: 5px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .intro-banner::before {
+    content: '42';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 200px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.04);
+    position: absolute;
+    right: -10px;
+    top: -40px;
+    line-height: 1;
+  }
+  .intro-banner h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .intro-banner p { color: rgba(250,246,239,0.8); font-size: 14px; position: relative; }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .stat-card {
+    background: white;
+    border: 1px solid var(--cream-dark);
+    border-radius: 6px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--bordeaux);
+    line-height: 1;
+  }
+  .stat-card .lbl { font-size: 11px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 4px; }
+
+  /* CARDS */
+  .card {
+    background: white;
+    border: 1px solid var(--cream-dark);
+    border-radius: 8px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .card-header {
+    background: var(--bordeaux);
+    color: var(--cream);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .card-header:hover { background: var(--bordeaux-light); }
+
+  .art-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    background: rgba(201,168,76,0.25);
+    color: var(--gold-light);
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  .card-header h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    flex: 1;
+  }
+
+  .chevron {
+    color: var(--gold-light);
+    font-size: 14px;
+    transition: transform 0.2s;
+  }
+  .card.open .chevron { transform: rotate(180deg); }
+
+  .card-body {
+    padding: 22px;
+    display: none;
+    border-top: 2px solid var(--gold);
+  }
+  .card.open .card-body { display: block; }
+
+  /* TEXT ELEMENTS */
+  h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--bordeaux);
+    margin: 20px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  h4:first-child { margin-top: 0; }
+
+  p { margin-bottom: 12px; color: var(--ink-muted); }
+  p:last-child { margin-bottom: 0; }
+
+  strong { color: var(--ink); font-weight: 600; }
+
+  ul { margin: 8px 0 12px 0; padding-left: 0; list-style: none; }
+  ul li {
+    padding: 5px 0 5px 20px;
+    color: var(--ink-muted);
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  ul li::before {
+    content: '›';
+    color: var(--bordeaux);
+    font-weight: 700;
+    position: absolute;
+    left: 6px;
+  }
+  ul li:last-child { border-bottom: none; }
+
+  ol { margin: 8px 0 12px 18px; }
+  ol li { padding: 4px 0; color: var(--ink-muted); }
+
+  /* CALLOUT BOXES */
+  .callout {
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .callout strong { display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.07em; }
+
+  .callout-ok { background: var(--green-bg); border-left: 4px solid var(--green-ok); color: var(--green-ok); }
+  .callout-no { background: var(--red-bg); border-left: 4px solid var(--red-no); color: var(--red-no); }
+  .callout-note { background: var(--blue-bg); border-left: 4px solid var(--blue-note); color: var(--blue-note); }
+  .callout-warn { background: var(--orange-bg); border-left: 4px solid var(--orange-warn); color: var(--orange-warn); }
+  .callout-gold { background: #fdf9ec; border-left: 4px solid var(--gold); color: var(--orange-warn); }
+
+  /* PROCEDURE FLOW */
+  .flow {
+    margin: 20px 0;
+    position: relative;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 4px;
+    position: relative;
+  }
+  .flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 40px;
+    width: 2px;
+    height: calc(100% - 8px);
+    background: var(--cream-dark);
+    z-index: 0;
+  }
+
+  .step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bordeaux);
+    color: var(--cream);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-content {
+    background: var(--cream);
+    border: 1px solid var(--cream-dark);
+    border-radius: 6px;
+    padding: 12px 16px;
+    flex: 1;
+    margin-bottom: 12px;
+  }
+
+  .step-title { font-weight: 600; color: var(--ink); margin-bottom: 4px; font-size: 14px; }
+  .step-timing {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--bordeaux);
+    background: rgba(107,31,42,0.08);
+    padding: 2px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 6px;
+  }
+  .step-note { font-size: 13px; color: var(--ink-muted); margin-top: 6px; }
+
+  /* TABLE */
+  .table-container { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th {
+    background: var(--bordeaux);
+    color: var(--cream);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--cream-dark); vertical-align: top; color: var(--ink-muted); }
+  tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+  tr:hover td { background: rgba(107,31,42,0.04); }
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 3px; font-weight: 500; }
+  .tag-ok { background: var(--green-bg); color: var(--green-ok); }
+  .tag-semi { background: var(--orange-bg); color: var(--orange-warn); }
+  .tag-no { background: var(--red-bg); color: var(--red-no); }
+
+  /* CASE STUDY */
+  .case-study {
+    background: linear-gradient(135deg, #fdf9ec, #faf6ef);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+  }
+  .case-study-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .case-icon {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    background: var(--gold);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .case-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--bordeaux-dark);
+  }
+  .case-location {
+    font-size: 11px;
+    color: var(--orange-warn);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+  .case-q { font-weight: 600; color: var(--ink); margin-bottom: 6px; font-size: 14px; }
+  .case-a { color: var(--ink-muted); font-size: 14px; }
+  .case-a .answer { 
+    background: white; 
+    border-radius: 6px; 
+    padding: 12px 16px; 
+    margin-top: 8px; 
+    border-left: 3px solid var(--gold);
+    font-size: 14px;
+  }
+
+  /* QUIZ */
+  .quiz-card {
+    background: white;
+    border: 1px solid var(--cream-dark);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .quiz-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .quiz-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--bordeaux);
+    background: rgba(107,31,42,0.08);
+    padding: 2px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt {
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--ink-muted);
+    transition: all 0.2s;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .opt:hover { border-color: var(--bordeaux); background: rgba(107,31,42,0.03); }
+  .opt.correct { border-color: var(--green-ok); background: var(--green-bg); color: var(--green-ok); }
+  .opt.wrong { border-color: var(--red-no); background: var(--red-bg); color: var(--red-no); }
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--cream-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--bordeaux);
+  }
+  .opt.correct .opt-letter { background: var(--green-ok); color: white; }
+  .opt.wrong .opt-letter { background: var(--red-no); color: white; }
+  .quiz-expl {
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: var(--blue-bg);
+    border-radius: 6px;
+    font-size: 13.5px;
+    color: var(--blue-note);
+    display: none;
+    border-left: 3px solid var(--blue-note);
+  }
+  .quiz-expl.show { display: block; }
+  .quiz-score {
+    background: var(--bordeaux);
+    color: var(--cream);
+    border-radius: 8px;
+    padding: 20px 24px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .quiz-score .big { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 700; color: var(--gold); line-height: 1; }
+  .quiz-score .lbl { color: rgba(250,246,239,0.8); font-size: 14px; margin-top: 4px; }
+
+  /* OPEN QUESTIONS */
+  .oq-card {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--cream-dark);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .oq-header {
+    padding: 14px 20px;
+    background: var(--cream);
+    border-bottom: 1px solid var(--cream-dark);
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .oq-header:hover { background: rgba(107,31,42,0.04); }
+  .oq-n {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--bordeaux);
+    background: rgba(107,31,42,0.1);
+    padding: 3px 8px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .oq-question { font-weight: 600; color: var(--ink); font-size: 14px; flex: 1; }
+  .oq-body {
+    padding: 18px 20px;
+    display: none;
+    border-top: 2px solid var(--gold);
+    color: var(--ink-muted);
+    font-size: 14px;
+  }
+  .oq-body.show { display: block; }
+  .oq-body .key-pts { margin-top: 12px; }
+  .oq-body .key-pts strong { color: var(--bordeaux); }
+
+  /* SCHEMA RIASSUNTIVO */
+  .schema-box {
+    background: var(--bordeaux-dark);
+    color: var(--cream);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .schema-box h4 { color: var(--gold-light); border-color: rgba(255,255,255,0.1); margin-bottom: 12px; }
+  .schema-box ul li { color: rgba(250,246,239,0.85); border-color: rgba(255,255,255,0.05); }
+  .schema-box ul li::before { color: var(--gold); }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .mini-card {
+    background: var(--cream);
+    border: 1px solid var(--cream-dark);
+    border-radius: 6px;
+    padding: 14px;
+    font-size: 13.5px;
+  }
+  .mini-card strong { color: var(--bordeaux); display: block; margin-bottom: 6px; }
+
+  /* HIGHLIGHT PILL */
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+    margin: 2px;
+  }
+  .pill-red { background: var(--red-bg); color: var(--red-no); }
+  .pill-green { background: var(--green-bg); color: var(--green-ok); }
+  .pill-blue { background: var(--blue-bg); color: var(--blue-note); }
+  .pill-gold { background: #fdf9ec; color: var(--orange-warn); border: 1px solid var(--gold); }
+
+  /* TIMELINE */
+  .timeline { margin: 20px 0; }
+  .tl-row {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 8px;
+    gap: 12px;
+    font-size: 13.5px;
+  }
+  .tl-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--bordeaux);
+    background: rgba(107,31,42,0.08);
+    padding: 8px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    min-width: 80px;
+    text-align: center;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tl-desc { padding: 8px 14px; background: white; border: 1px solid var(--cream-dark); border-radius: 4px; flex: 1; color: var(--ink-muted); display: flex; align-items: center; }
+  .tl-who {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+  }
+  .tl-com { background: var(--blue-bg); color: var(--blue-note); }
+  .tl-sopr { background: var(--orange-bg); color: var(--orange-warn); }
+  .tl-rich { background: var(--green-bg); color: var(--green-ok); }
+
+  /* FOOTER NOTE */
+  .foot-note {
+    font-size: 11px;
+    color: var(--ink-light);
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--cream-dark);
+    letter-spacing: 0.04em;
+  }
+
+  /* Section title */
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--bordeaux-dark);
+    margin-bottom: 6px;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-sub { color: var(--ink-muted); font-size: 13.5px; margin-bottom: 28px; }
+  
+  .quiz-controls { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .btn {
+    padding: 8px 18px;
+    border-radius: 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary { background: var(--bordeaux); color: var(--cream); }
+  .btn-primary:hover { background: var(--bordeaux-light); }
+  .btn-ghost { background: white; color: var(--bordeaux); border: 1.5px solid var(--bordeaux); }
+  .btn-ghost:hover { background: rgba(107,31,42,0.06); }
+
+  .answered { pointer-events: none; }
+
+  code {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    background: rgba(107,31,42,0.08);
+    color: var(--bordeaux);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--cream-dark);
+    border-radius: 2px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  .section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--bordeaux);
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div>
+      <span class="badge">Concorso Tecnico</span>
+      <div class="header-title">D.Lgs. 42/2004 — Codice dei Beni Culturali e del Paesaggio</div>
+      <div class="header-sub">Guida per Specialista in Attività Tecniche · Unione Valli e Delizie</div>
+    </div>
+  </div>
+  <nav id="mainNav">
+    <button class="active" onclick="showSection('intro',this)">Panoramica</button>
+    <button onclick="showSection('beni',this)">Beni Paesaggistici</button>
+    <button onclick="showSection('procedura-ord',this)">Procedura Ordinaria</button>
+    <button onclick="showSection('procedura-semp',this)">Procedura Semplificata</button>
+    <button onclick="showSection('sanzioni',this)">Sanatoria e Sanzioni</button>
+    <button onclick="showSection('locale',this)">Casi Locali</button>
+    <button onclick="showSection('quiz',this)">Quiz</button>
+    <button onclick="showSection('domande-aperte',this)">Domande d'esame</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- =============================== INTRO =============================== -->
+<section id="intro" class="section active">
+  <div class="intro-banner">
+    <h1>Codice dei Beni Culturali e del Paesaggio</h1>
+    <p>D.Lgs. 22 gennaio 2004, n. 42 — Parte Terza: Beni Paesaggistici<br>
+    Integrato con DPR 13 febbraio 2017, n. 31 sull'autorizzazione semplificata</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="num">184</div>
+      <div class="lbl">articoli totali</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">31</div>
+      <div class="lbl">interventi esclusi (All. A DPR 31/17)</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">42</div>
+      <div class="lbl">interventi semplificati (All. B)</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">45</div>
+      <div class="lbl">giorni parere Soprintendenza</div>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 2</span>
+      <h3>Struttura del Codice — Cosa ti serve sapere</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Il Codice si articola in <strong>quattro Parti</strong>. Per il concorso da Specialista Tecnico (Settore Programmazione Territoriale), la Parte rilevante è la <strong>Parte Terza — Beni Paesaggistici</strong>. La Parte Seconda (Beni Culturali) riguarda prevalentemente i beni mobili (opere d'arte, archivi, biblioteche) e non è oggetto di approfondimento specifico per questo ruolo.</p>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>✅ Devi sapere bene</strong>
+          Parte Terza artt. 131–159 (tutela paesaggio)<br>
+          DPR 31/2017 (procedura semplificata)<br>
+          Art. 167 (accertamento compatibilità)<br>
+          Art. 181 (sanzioni penali)
+        </div>
+        <div class="mini-card">
+          <strong>⚠️ Solo principi generali</strong>
+          Parte Prima artt. 1–9 (disposizioni generali)<br>
+          Parte Seconda (beni culturali mobili/immobili)<br>
+          Parte Quarta (sanzioni amministrative)
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <strong>📍 Rilevanza locale — Unione Valli e Delizie</strong>
+        Il territorio di Argenta, Ostellato e Portomaggiore è caratterizzato da <strong>fiumi e canali</strong> (Po di Volano, Reno, Canale Boicelli), <strong>zone umide</strong> (Valli di Argenta, Valle del Mezzano, aree del Parco del Delta del Po) e <strong>boschi di pianura</strong>. Tutti soggetti a vincolo ex art. 142. Aspettati domande su casi pratici ambientati in questo contesto.
+      </div>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 131–135</span>
+      <h3>Definizioni fondamentali — Paesaggio e Tutela</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <h4>Art. 131 — Cosa è il Paesaggio</h4>
+      <p>Il paesaggio è il <strong>territorio espressivo di identità</strong>, il cui carattere deriva dall'azione di fattori naturali, umani e dalle loro interazioni. La tutela è finalizzata a riconoscere, salvaguardare e (ove compromessa) recuperare i valori culturali che esso esprime.</p>
+
+      <h4>Art. 134 — Beni Paesaggistici (i 3 tipi)</h4>
+      <p>Sono beni paesaggistici e costituiscono oggetto di tutela:</p>
+      <ul>
+        <li><strong>Gli immobili e le aree di notevole interesse pubblico</strong> → individuati con apposito provvedimento ex art. 136</li>
+        <li><strong>Le aree tutelate per legge</strong> → categorie elencate all'art. 142 (c.d. «ex Galasso»)</li>
+        <li><strong>Gli immobili e le aree individuati dai piani paesaggistici</strong> → ex art. 143, comma 1, lettera d)</li>
+      </ul>
+
+      <h4>Art. 133 — Chi fa cosa</h4>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Stato (MIC)</strong>
+          Definisce gli indirizzi generali<br>
+          Approva i piani paesaggistici con le Regioni<br>
+          Esprime parere vincolante tramite Soprintendenza
+        </div>
+        <div class="mini-card">
+          <strong>Regione (e delegati)</strong>
+          Adotta il Piano Paesaggistico (PTPR)<br>
+          Delega ai Comuni il rilascio autorizzazioni<br>
+          In Emilia-Romagna: Comuni sono competenti
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <strong>In Emilia-Romagna</strong>
+        La Regione ha delegato ai Comuni la funzione di rilascio dell'autorizzazione paesaggistica già con la L.R. 31/2002. Il Comune (SUE/SUAP) istruisce la pratica e acquisisce il parere vincolante della Soprintendenza. Il PTPR regionale è in corso di adeguamento al Codice (intesa Stato-Regione 2015).
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== BENI PAESAGGISTICI =============================== -->
+<section id="beni" class="section">
+  <div class="section-title">📍 Beni Paesaggistici</div>
+  <div class="section-sub">Artt. 136, 142 — Le due grandi categorie di vincolo paesaggistico rilevanti per l'edilizia</div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 136</span>
+      <h3>Immobili e Aree di Notevole Interesse Pubblico</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Sono soggetti alle disposizioni del Codice per il loro <strong>notevole interesse pubblico</strong> i seguenti beni, individuati con apposito <strong>provvedimento ministeriale o regionale</strong> (dichiarazione ex DPR 31 dicembre 2010, n. 233 o procedure precedenti):</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr><th>Lettera</th><th>Categoria</th><th>Esempi concreti</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>a)</code></td>
+              <td><strong>Cose immobili con cospicui caratteri di bellezza naturale o singolarità geologica</strong></td>
+              <td>Grotte, falesie, promontori, formazioni rocciose particolari</td>
+            </tr>
+            <tr>
+              <td><code>b)</code></td>
+              <td><strong>Ville, giardini e parchi non tutelati come beni culturali</strong>, che si distinguono per non comune bellezza</td>
+              <td>Giardini storici privati, parchi urbani di pregio storico-estetico</td>
+            </tr>
+            <tr>
+              <td><code>c)</code></td>
+              <td><strong>Complessi di cose immobili</strong> che compongono un caratteristico aspetto avente valore estetico e tradizionale, incluse le zone di interesse archaeologico</td>
+              <td>Centri storici, complessi rurali tradizionali, borghi, zone archeologiche</td>
+            </tr>
+            <tr>
+              <td><code>d)</code></td>
+              <td><strong>Bellezze panoramiche</strong> e punti di vista o belvedere accessibili al pubblico</td>
+              <td>Colline panoramiche, terrazze naturali, viali alberati con vista</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-warn">
+        <strong>⚡ Procedura di dichiarazione</strong>
+        Il vincolo ex art. 136 nasce da un <strong>provvedimento formale</strong> (non è automatico). Il procedimento prevede: proposta della Commissione regionale per il paesaggio → comunicazione ai Comuni interessati → pubblicazione per osservazioni 90 giorni → adozione del provvedimento. I provvedimenti emessi ante 2004 mantengono validità ex art. 157.
+      </div>
+
+      <div class="callout callout-note">
+        <strong>Rilievo per il DPR 31/2017</strong>
+        Il DPR 31/2017 distingue spesso tra beni vincolati ex art. 136 lett. a) e b) e lett. c) e d). Per i beni a) e b) la procedura semplificata ha spesso più restrizioni o non si applica affatto. Memorizza questa distinzione — è frequente nelle domande.
+      </div>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 142</span>
+      <h3>Aree Tutelate per Legge — «Ex Galasso»</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Sono tutelati per legge (il vincolo opera automaticamente, senza bisogno di provvedimento formale) i seguenti territori:</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr><th>Lett.</th><th>Categoria</th><th>Fascia/Estensione</th><th>Rilevanza locale</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>a)</code></td>
+              <td>Territori costieri</td>
+              <td>Fascia 300 m dalla linea di battigia</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><code>b)</code></td>
+              <td>Territori contermini ai laghi</td>
+              <td>Fascia 300 m dalla riva</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><code>c)</code></td>
+              <td>Fiumi, torrenti, corsi d'acqua iscritti negli elenchi acque pubbliche (RD 1775/1933) e relative sponde</td>
+              <td><strong>150 m</strong> dalla sponda o piede dell'argine</td>
+              <td>⭐ <strong>Po di Volano, Reno, Canale Boicelli, Fosso Navigabile</strong> — vincolo su tutto il territorio dell'Unione</td>
+            </tr>
+            <tr>
+              <td><code>d)</code></td>
+              <td>Montagne > 1.600 m s.l.m. (Appennino) o 1.200 m s.l.m. (Alpi)</td>
+              <td>Tutto il territorio sopra quella quota</td>
+              <td>— (non applicabile)</td>
+            </tr>
+            <tr>
+              <td><code>e)</code></td>
+              <td>Ghiacciai e circhi glaciali</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><code>f)</code></td>
+              <td>Parchi e riserve nazionali e regionali e territori di protezione esterna</td>
+              <td>Perimetro del parco</td>
+              <td>⭐ <strong>Parco Regionale del Delta del Po</strong> — aree in Ostellato e Argenta</td>
+            </tr>
+            <tr>
+              <td><code>g)</code></td>
+              <td>Territori coperti da foreste e boschi, anche percorsi da incendi</td>
+              <td>Tutto il territorio boscato</td>
+              <td>⭐ Boschi di pianura residui (Bosco della Mesola area, rimboschimenti)</td>
+            </tr>
+            <tr>
+              <td><code>h)</code></td>
+              <td>Università agrarie e zone gravate da usi civici</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><code>i)</code></td>
+              <td><strong>Zone umide incluse nell'elenco di cui al DPR 448/1976</strong> (Convenzione Ramsar)</td>
+              <td>—</td>
+              <td>⭐ <strong>Valli di Comacchio, Valli di Argenta</strong> — zona Ramsar "Valli del Mezzano"</td>
+            </tr>
+            <tr>
+              <td><code>l)</code></td>
+              <td>Vulcani</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><code>m)</code></td>
+              <td>Zone di interesse archeologico</td>
+              <td>Con provvedimento regionale</td>
+              <td>Possibili siti in area centuriazione romana</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-gold">
+        <strong>⭐ Domanda frequente — Fascia fluviale</strong>
+        «I fiumi, i torrenti e i corsi d'acqua iscritti negli elenchi acque pubbliche sono tutelati per una fascia di <strong>150 metri</strong> dalla sponda o dal piede dell'argine». 
+        Questo vincolo interessa praticamente ogni intervento edilizio vicino ai corsi d'acqua nel ferrarese. È la categoria più comune nelle pratiche quotidiane del Comune di Portomaggiore.
+      </div>
+
+      <h4>Eccezioni al vincolo art. 142</h4>
+      <p>Non sono soggetti a tutela i territori a) e b) già compromessi dalle costruzioni, esclusi dall'applicazione del vincolo con apposita disposizione regionale, e le aree che alla data del 6 settembre 1985 erano classificate come <strong>zone A e B</strong> dei PRG o assimilate — esenzione che però vale solo per i beni tutelati ai sensi dell'art. 142, <strong>non per quelli ex art. 136</strong>.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 143</span>
+      <h3>Piano Paesaggistico Regionale (PTPR)</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Le Regioni sottopongono a specifica normativa d'uso il territorio mediante <strong>piani paesaggistici</strong>, ovvero piani urbanistico-territoriali con specifica considerazione dei valori paesaggistici. Il piano paesaggistico ha <strong>efficacia conformativa</strong> rispetto ai piani urbanistici comunali e provinciali.</p>
+      <h4>Contenuti obbligatori del Piano Paesaggistico</h4>
+      <ul>
+        <li>Ricognizione di immobili e aree ex artt. 136, 142, 157</li>
+        <li>Analisi delle dinamiche di trasformazione e individuazione delle aree degradate</li>
+        <li>Individuazione delle linee di sviluppo urbanistico ed edilizio compatibili con i diversi livelli di valore paesaggistico</li>
+        <li>Determinazione di misure necessarie per il corretto inserimento dei nuovi interventi</li>
+        <li>Individuazione delle aree soggette a tutela ex lett. d) del comma 1</li>
+      </ul>
+      <div class="callout callout-warn">
+        <strong>Emilia-Romagna: stato attuale</strong>
+        Il PTPR regionale (approvato nel 2002) è in corso di adeguamento al D.Lgs. 42/2004 sulla base dell'intesa Stato-Regione del 2015. Fino all'approvazione del piano adeguato, si applica la disciplina transitoria. La L.R. 24/2017 (IPTR) ha modificato il quadro della pianificazione regionale.
+      </div>
+      <h4>Prevalenza del Piano Paesaggistico</h4>
+      <p>Il <strong>Consiglio di Stato</strong> ha chiarito che la prevalenza del piano paesaggistico rispetto agli altri strumenti urbanistici opera <strong>limitatamente alla tutela del paesaggio</strong>: il piano paesaggistico non sovrasta integralmente il PRG/PUG ma prevale laddove vi siano valori paesaggistici da tutelare.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== PROCEDURA ORDINARIA =============================== -->
+<section id="procedura-ord" class="section">
+  <div class="section-title">⚖️ Procedura Ordinaria</div>
+  <div class="section-sub">Art. 146 D.Lgs. 42/2004 — Il procedimento principale di autorizzazione paesaggistica</div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 146</span>
+      <h3>Autorizzazione Paesaggistica Ordinaria — Struttura</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <h4>Chi deve presentare domanda (comma 1)</h4>
+      <p>I <strong>proprietari, possessori o detentori a qualsiasi titolo</strong> di immobili ed aree di interesse paesaggistico tutelati ex artt. 142, 136, 143 c.1 lett. d) e 157, non possono distruggerli né <strong>introdurvi modificazioni che rechino pregiudizio ai valori paesaggistici</strong> oggetto di protezione.</p>
+
+      <h4>Obbligo di preventività (comma 2)</h4>
+      <p>L'autorizzazione paesaggistica deve essere ottenuta <strong>PRIMA</strong> dell'inizio dei lavori. Il richiedente ha l'obbligo di presentare il progetto e astenersi dall'avviare i lavori fino all'ottenimento dell'autorizzazione.</p>
+
+      <div class="callout callout-no">
+        <strong>🚫 Divieto assoluto di sanatoria (comma 4)</strong>
+        L'autorizzazione paesaggistica <strong>non può essere rilasciata in sanatoria</strong> successivamente alla realizzazione, anche parziale, degli interventi. Unica eccezione: le limitatissime ipotesi dell'art. 167 comma 4 (nessun aumento di volume/superficie; materiali diversi; manutenzione ordinaria o straordinaria).
+      </div>
+
+      <h4>Efficacia (comma 4)</h4>
+      <p>L'autorizzazione paesaggistica è efficace per un periodo di <strong>cinque anni</strong>, scaduto il quale l'esecuzione dei progettati lavori deve essere sottoposta a nuova autorizzazione. Il termine decorre dal giorno in cui acquista efficacia il titolo edilizio eventualmente necessario.</p>
+
+      <h4>Autonomia rispetto al titolo edilizio (comma 4)</h4>
+      <p>L'autorizzazione paesaggistica costituisce <strong>atto autonomo e presupposto</strong> rispetto al permesso di costruire o agli altri titoli legittimanti l'intervento. Il titolo edilizio <strong>non può essere rilasciato prima</strong> che sia stata ottenuta l'autorizzazione paesaggistica. La giurisprudenza del Consiglio di Stato ha confermato: «il procedimento paesaggistico è autonomo e presupposto giuridico rispetto al procedimento edilizio».</p>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 146 c.5-9</span>
+      <h3>Il Procedimento Passo per Passo</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="flow">
+        <div class="flow-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Presentazione istanza al SUE del Comune</div>
+            <div class="step-note">Il richiedente presenta il progetto corredato da relazione paesaggistica (redatta da tecnico abilitato) conforme al DPCM 12/12/2005 e dalla documentazione fotografica, planimetrica e descrittiva idonea a verificare la compatibilità paesaggistica dell'intervento.</div>
+            <span class="step-timing">Giorno 0 — il richiedente</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Verifica completezza documentazione</div>
+            <div class="step-note">Il Comune verifica la completezza della documentazione. Se incompleta, richiede integrazioni (il procedimento si sospende). Se completa, procede all'istruttoria. La verifica della conformità urbanistica è separata e non può bloccare il procedimento paesaggistico.</div>
+            <span class="step-timing">Entro 10 giorni dalla ricezione</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Istruttoria del Comune e trasmissione alla Soprintendenza</div>
+            <div class="step-note">Il Comune (o ente delegato) esamina l'istanza e la documentazione, verifica la conformità alle prescrizioni del piano paesaggistico, formula la propria proposta di provvedimento (favorevole, favorevole con prescrizioni, o contrario) e trasmette il fascicolo alla Soprintendenza competente. <br><strong>In Ferrara: Soprintendenza ABAP per la città metropolitana di Bologna e le province di Modena, Reggio Emilia e Ferrara.</strong></div>
+            <span class="step-timing">Entro 40 giorni dalla ricezione istanza</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">Parere vincolante della Soprintendenza</div>
+            <div class="step-note">La Soprintendenza rende il proprio parere di compatibilità paesaggistica — <strong>vincolante</strong> — entro 45 giorni dalla ricezione degli atti. Il parere riguarda «la compatibilità paesaggistica del progettato intervento nel suo complesso ed alla conformità dello stesso alle disposizioni contenute nel piano paesaggistico». Se negativo, la Soprintendenza invia all'interessato il preavviso di diniego ex art. 10-bis L. 241/90 (previo contraddittorio). Il Consiglio di Stato ha chiarito che la Soprintendenza non esercita un mero sindacato di legittimità, ma una <strong>valutazione di merito</strong> (co-gestione del vincolo).</div>
+            <span class="step-timing">45 giorni dalla ricezione atti da parte Soprintendenza</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">Adozione del provvedimento da parte del Comune</div>
+            <div class="step-note">Il Comune, ricevuto il parere della Soprintendenza, adotta il provvedimento in <strong>conformità</strong> al parere stesso (non può discostarsene se negativo). Il provvedimento è motivato e viene comunicato al richiedente.</div>
+            <span class="step-timing">Entro 20 giorni dalla ricezione del parere Soprintendenza</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">⚠</div>
+          <div class="step-content">
+            <div class="step-title">Silenzio della Soprintendenza dopo 45 giorni</div>
+            <div class="step-note">Decorsi 45 giorni senza che la Soprintendenza abbia reso il parere, <strong>in Emilia-Romagna si forma il silenzio-assenso</strong> ai sensi dell'art. 16 L. 241/1990 (così dichiarato dalla SABAP-BO). Decorsi comunque <strong>60 giorni</strong> dalla ricezione degli atti (art. 146 comma 9), l'amministrazione procedente può provvedere comunque sulla domanda, anche in assenza del parere soprintendenziale.</div>
+            <span class="step-timing">Dopo 45-60 giorni senza risposta</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <h4>Riepilogo Tempi — Procedura Ordinaria</h4>
+        <div class="tl-row">
+          <div class="tl-time">Giorno 0</div>
+          <div class="tl-desc">Presentazione istanza al SUE</div>
+          <div class="tl-who tl-rich">Richiedente</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">Gg 0-10</div>
+          <div class="tl-desc">Verifica documentazione + eventuale richiesta integrazioni</div>
+          <div class="tl-who tl-com">Comune</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">Gg 10-40</div>
+          <div class="tl-desc">Istruttoria e trasmissione alla Soprintendenza</div>
+          <div class="tl-who tl-com">Comune</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">+45 gg</div>
+          <div class="tl-desc">Parere vincolante della Soprintendenza</div>
+          <div class="tl-who tl-sopr">Soprintendenza</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">+20 gg</div>
+          <div class="tl-desc">Provvedimento del Comune (in conformità al parere)</div>
+          <div class="tl-who tl-com">Comune</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">Totale</div>
+          <div class="tl-desc" style="font-weight:600; color: var(--ink)">≈ 90-120 giorni dall'istanza all'autorizzazione</div>
+          <div class="tl-who tl-com">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 149</span>
+      <h3>Interventi NON soggetti ad autorizzazione paesaggistica</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Non è richiesta l'autorizzazione paesaggistica per:</p>
+      <div class="callout callout-ok">
+        <strong>✅ Liberi — art. 149 (non serve autorizzazione)</strong>
+        <ul style="margin-top:6px;">
+          <li><strong>a)</strong> Interventi di <strong>manutenzione ordinaria, straordinaria, di consolidamento statico e restauro conservativo</strong> che <em>non alterino lo stato dei luoghi e l'aspetto esteriore degli edifici</em></li>
+          <li><strong>b)</strong> Interventi inerenti l'esercizio dell'attività agro-silvo-pastorale che non comportino alterazione permanente dello stato dei luoghi con costruzioni edilizie, e che non alterino l'assetto idrogeologico</li>
+          <li><strong>c)</strong> Taglio colturale, forestazione, riforestazione, opere di bonifica, antincendio nei boschi e foreste di cui all'art. 142 c.1 lett. g), <em>purché previsti ed autorizzati in base alla normativa di settore</em></li>
+        </ul>
+      </div>
+      <div class="callout callout-warn">
+        <strong>⚠️ Attenzione alla lett. a)</strong>
+        La manutenzione straordinaria è libera SOLO se non altera «lo stato dei luoghi e l'aspetto esteriore degli edifici». Se c'è alterazione dell'esterno (colore diverso, apertura nuova, sostituzione manto di copertura con materiale diverso), si esce dall'esenzione e si rientra nell'Allegato A o B del DPR 31/2017, oppure nella procedura ordinaria. Questo confine è frequente nelle domande d'esame.
+      </div>
+      <p>Oltre agli interventi ex art. 149, sono esclusi dall'autorizzazione anche tutti gli interventi elencati nell'<strong>Allegato A del DPR 31/2017</strong> (31 fattispecie — vedi sezione Procedura Semplificata).</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 152–155</span>
+      <h3>Altre disposizioni di controllo</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <h4>Art. 152 — Prescrizioni speciali per particolari interventi</h4>
+      <p>Il Soprintendente, ove ritenga che determinati interventi nell'area vincolata possano comprometterne i valori paesaggistici, ha il potere di imporre <strong>prescrizioni di ordine e modo di esecuzione</strong> dei lavori o anche il <strong>divieto assoluto</strong> di talune opere.</p>
+
+      <h4>Art. 153 — Cartelli pubblicitari</h4>
+      <p>È vietata l'apposizione di cartelli o altri mezzi pubblicitari <strong>sulle aree vincolate ex art. 136</strong>, salvo autorizzazione dell'autorità preposta alla tutela del vincolo. Importante per il territorio: è applicabile alle zone lungo i corsi d'acqua vincolati ex art. 142.</p>
+
+      <h4>Art. 155 — Vigilanza</h4>
+      <p>Alla <strong>vigilanza</strong> sull'osservanza delle disposizioni si provvede dal Ministero (Soprintendenza), dalle Regioni e dagli altri enti pubblici territoriali. Il personale a ciò adibito può procedere all'accesso ai luoghi, rilevazione e ispezione. Per il Comune di Portomaggiore/Unione: la polizia locale e l'ufficio tecnico collaborano alla vigilanza sul territorio vincolato.</p>
+
+      <h4>Art. 150 — Inibizione o sospensione dei lavori</h4>
+      <p>Qualora vengano eseguiti lavori in area vincolata in difformità dall'autorizzazione o senza autorizzazione, il Soprintendente ordina la <strong>sospensione immediata dei lavori</strong>. La sospensione dura fino all'adozione del provvedimento definitivo. Il Comune può (e deve) anch'esso procedere all'ordine di sospensione e alla segnalazione alla Soprintendenza.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== PROCEDURA SEMPLIFICATA =============================== -->
+<section id="procedura-semp" class="section">
+  <div class="section-title">⚡ Procedura Semplificata</div>
+  <div class="section-sub">DPR 13 febbraio 2017, n. 31 — Interventi esclusi (All. A) e di lieve entità (All. B)</div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">DPR 31/2017</span>
+      <h3>Struttura e logica del Decreto</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Il DPR 31/2017 (in vigore dal 6 aprile 2017, sostituisce il DPR 139/2010) introduce tre regimi:</p>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>🟢 Allegato A — ESCLUSI</strong>
+          31 tipologie di interventi che, pur realizzati in aree vincolate, <strong>non necessitano di alcuna autorizzazione paesaggistica</strong>. Ricadono qui lavori di piccola entità per l'efficienza energetica, eliminazione barriere architettoniche, ecc.
+        </div>
+        <div class="mini-card">
+          <strong>🟡 Allegato B — SEMPLIFICATA</strong>
+          42 tipologie di interventi di lieve entità soggetti alla <strong>procedura autorizzatoria semplificata</strong>: documentazione ridotta, tempi più brevi, Soprintendenza con ruolo diverso.
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <strong>Regola d'oro per distinguere i regimi</strong>
+        Allegato A → nessuna autorizzazione (libero in aree vincolate) | Allegato B → autorizzazione semplificata | Né A né B → procedura ordinaria ex art. 146
+      </div>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ALL. A DPR 31/2017</span>
+      <h3>Interventi Esclusi — I più importanti per l'edilizia</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Selezione degli interventi esclusi dall'autorizzazione paesaggistica, più rilevanti per il ruolo tecnico comunale:</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr><th>Rif.</th><th>Intervento</th><th>Note/Limitazioni</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>A.1</code></td><td>Interventi di manutenzione ordinaria e straordinaria, restauro e risanamento conservativo, opere interne che non alterino i prospetti, il volume e non comportino mutamento della destinazione d'uso</td><td>Senza alterazione dell'aspetto esteriore</td></tr>
+            <tr><td><code>A.2</code></td><td>Opere di miglioramento o adeguamento ai fini antisismici, purché non modifichino caratteristiche morfotipologiche, materiali di finitura o rivestimento degli edifici esistenti</td><td>Eccetto se interessano beni vincolati ex art. 136 lett. a) e b): in quel caso procedura semplificata</td></tr>
+            <tr><td><code>A.5</code></td><td>Installazione di impianti solari termici o fotovoltaici <em>non integrati</em> sulle coperture, in zone non soggette a vincolo di immobile specifico, piani inclinati non visibili da spazio pubblico</td><td>Se visibili da spazio pubblico su beni 136: procedura semplificata</td></tr>
+            <tr><td><code>A.6</code></td><td>Rifacimento di manto di copertura, senza alterazione della pendenza, della quota e dei materiali preesistenti</td><td>—</td></tr>
+            <tr><td><code>A.9</code></td><td>Opere di abbattimento delle barriere architettoniche</td><td>Purché non incidano sull'aspetto dei prospetti su spazi pubblici di edifici vincolati</td></tr>
+            <tr><td><code>A.10</code></td><td>Installazione o sostituzione di impianti tecnici interni (ascensori, scale, impianti elettrici, idraulici)</td><td>Se non comportano modificazioni dei prospetti o delle coperture</td></tr>
+            <tr><td><code>A.12</code></td><td>Realizzazione e manutenzione di recinzioni, cancellate, muri di cinta nel rispetto delle caratteristiche morfologiche di quelle preesistenti</td><td>Eccetto per beni 136 lett. b): semplificata</td></tr>
+            <tr><td><code>A.13</code></td><td>Realizzazione di parcheggi interrati</td><td>Se non alterano la topografia del suolo e non comportano nuove aperture su prospetti</td></tr>
+            <tr><td><code>A.14</code></td><td>Occupazione temporanea del suolo per attività economiche (dehors, strutture stagionali), purché amovibili e non comportanti modifiche permanenti al suolo, fino a 120 giorni/anno</td><td>—</td></tr>
+            <tr><td><code>A.29</code></td><td>Fedele ricostruzione di edifici crollati o demoliti per calamità naturali</td><td>Entro 10 anni; stessa collocazione e ingombro planivolumetrico</td></tr>
+            <tr><td><code>A.30</code></td><td>Demolizioni e rimessione in pristino conseguenti a provvedimenti repressivi di abusi</td><td>—</td></tr>
+            <tr><td><code>A.31</code></td><td>Varianti a progetti già autorizzati paesaggisticamente che non eccedano il 2% delle misure progettuali (altezza, distacchi, cubatura)</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ALL. B DPR 31/2017</span>
+      <h3>Interventi di Lieve Entità — Procedura Semplificata</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>I più rilevanti per la pratica comunale:</p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr><th>Rif.</th><th>Intervento</th><th>Limite/Note</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>B.1</code></td><td>Incrementi di volume</td><td><strong>Max 10%</strong> della volumetria originaria e comunque <strong>max 100 mc</strong>, nel rispetto delle caratteristiche architettoniche e morfotipologiche. Ulteriori incrementi nei 5 anni successivi: procedura ordinaria</td></tr>
+            <tr><td><code>B.2</code></td><td>Realizzazione o modifica di aperture esterne o finestre a tetto</td><td>Beni vincolati ex art. 136, purché nel rispetto delle caratteristiche esistenti</td></tr>
+            <tr><td><code>B.3</code></td><td>Modifiche delle facciate (aperture esterne, cornicioni, ringhiere, parapetti)</td><td>—</td></tr>
+            <tr><td><code>B.4</code></td><td>Interventi sulle finiture esterne (intonaci, tinteggiature, rivestimenti) modificativi dei preesistenti</td><td>—</td></tr>
+            <tr><td><code>B.5</code></td><td>Realizzazione, modifica o chiusura di balconi o terrazze</td><td>—</td></tr>
+            <tr><td><code>B.6</code></td><td>Realizzazione di tettoie, pergolati e simili di pertinenza delle abitazioni</td><td>Non su immobili vincolati 136 lett. a) e b)</td></tr>
+            <tr><td><code>B.7</code></td><td>Realizzazione di accessori (box, rimesse) pertinenziali di edifici residenziali</td><td><strong>Max 30 mc</strong></td></tr>
+            <tr><td><code>B.8</code></td><td>Installazione di pannelli solari su coperture inclinate con falda visibile da spazio pubblico, o su coperture piane</td><td>Per beni vincolati 136 lett. b) e c); pannelli su coperture piane visibili da spazio pubblico</td></tr>
+            <tr><td><code>B.11</code></td><td>Interventi puntuali di adeguamento della viabilità esistente (rotatorie, incroci, banchine, marciapiedi, percorsi ciclabili, parcheggi a raso con fondo drenante)</td><td>—</td></tr>
+            <tr><td><code>B.12</code></td><td>Interventi sistematici di arredo urbano (impianti di pubblica illuminazione)</td><td>—</td></tr>
+            <tr><td><code>B.13</code></td><td>Opere di urbanizzazione primaria previste in piani attuativi già valutati ai fini paesaggistici</td><td>—</td></tr>
+            <tr><td><code>B.15</code></td><td>Demolizione senza ricostruzione di edifici privi di interesse architettonico o storico</td><td>—</td></tr>
+            <tr><td><code>B.16</code></td><td>Autorimesse fuori terra o parzialmente interrate</td><td><strong>Max 50 mc</strong> emergente fuori terra</td></tr>
+            <tr><td><code>B.41</code></td><td>Demolizione e ricostruzione con volumetria, sagoma ed area di sedime corrispondenti</td><td>Esclusi beni 136 lett. a) e b)</td></tr>
+            <tr><td><code>B.42</code></td><td>Ripascimento circoscritto di tratti di arenile, manutenzione dune artificiali, ripristino opere difesa costiera</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 8-15 DPR 31/2017</span>
+      <h3>Il Procedimento Semplificato Passo per Passo</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <h4>Documentazione richiesta (art. 8)</h4>
+      <p>La richiesta si compone di:</p>
+      <ul>
+        <li><strong>Modello unificato</strong> di istanza (Allegato C al DPR)</li>
+        <li><strong>Relazione paesaggistica semplificata</strong> (Allegato D), redatta da tecnico abilitato</li>
+        <li>Documentazione fotografica dello stato attuale e simulazione dell'intervento</li>
+      </ul>
+
+      <div class="flow">
+        <h4>Iter semplificato — Art. 11</h4>
+        <div class="flow-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Verifica preliminare dell'amministrazione</div>
+            <div class="step-note">L'amministrazione verifica se l'intervento non ricade nell'Allegato A (→ libero) o se non richiede procedura ordinaria. Se ricade in All. A → comunicazione di non necessità autorizzazione. Se procedura ordinaria → comunicazione al richiedente. Se All. B → si procede.</div>
+            <span class="step-timing">Immediata alla ricezione</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Richiesta integrazioni documentali</div>
+            <div class="step-note">Se necessario, l'amministrazione richiede ulteriori documenti. Il richiedente risponde entro 10 giorni. Il procedimento è sospeso fino alla ricezione delle integrazioni.</div>
+            <span class="step-timing">Entro 10 giorni dalla ricezione</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Comunicazione alla Soprintendenza</div>
+            <div class="step-note">L'amministrazione comunica l'avvio del procedimento alla Soprintendenza e agli altri soggetti interessati, trasmettendo la documentazione ricevuta.</div>
+            <span class="step-timing">Entro 10 giorni dalla ricezione dell'istanza</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">La Soprintendenza può richiedere gli atti</div>
+            <div class="step-note">La Soprintendenza, entro 25 giorni dalla comunicazione, può richiedere la trasmissione degli atti per effettuare una valutazione. Se non richiede gli atti entro 25 giorni → l'amministrazione procede autonomamente senza parere soprintendenziale.</div>
+            <span class="step-timing">Entro 25 giorni dalla comunicazione</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">5a</div>
+          <div class="step-content">
+            <div class="step-title">Se la Soprintendenza richiede gli atti → parere</div>
+            <div class="step-note">Se la Soprintendenza ha richiesto gli atti, rende il proprio parere entro 25 giorni dalla ricezione. Il silenzio dopo 25 giorni equivale a nessuna obiezione: l'amministrazione provvede.</div>
+            <span class="step-timing">+25 giorni dalla trasmissione atti</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">Provvedimento dell'amministrazione</div>
+            <div class="step-note">L'amministrazione adotta il provvedimento finale. Il termine <strong>massimo complessivo</strong> è di <strong>60 giorni</strong> dalla ricezione dell'istanza completa. La comunicazione al richiedente è immediata.</div>
+            <span class="step-timing">⏱ Max 60 giorni totali dall'istanza</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warn">
+        <strong>⚡ Differenza chiave: Ordinaria vs Semplificata</strong>
+        <table style="margin-top:8px; font-size:13px; width:100%">
+          <thead><tr><th style="background:#4a3f35">Aspetto</th><th style="background:#4a3f35">Ordinaria (art. 146)</th><th style="background:#4a3f35">Semplificata (DPR 31/17)</th></tr></thead>
+          <tbody>
+            <tr><td>Documenti</td><td>Relazione paesaggistica completa + elaborati</td><td>Relazione semplificata (All. D)</td></tr>
+            <tr><td>Parere Sopr.</td><td>Vincolante, obbligatorio</td><td>Solo se richiesto entro 25 gg; non vincolante?</td></tr>
+            <tr><td>Tempi</td><td>~90-120 giorni</td><td>Max 60 giorni</td></tr>
+            <tr><td>Sanatoria</td><td>Impossibile</td><td>Impossibile</td></tr>
+            <tr><td>Durata</td><td>5 anni</td><td>5 anni</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-note">
+        <strong>Art. 7 — Rinnovo autorizzazione scaduta</strong>
+        Anche le <strong>istanze di rinnovo</strong> di autorizzazioni paesaggistiche scadute da non più di un anno, relative a interventi in tutto o in parte non eseguiti, sono assoggettate a procedimento semplificato, se il progetto è conforme a quanto precedentemente autorizzato.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== SANATORIA E SANZIONI =============================== -->
+<section id="sanzioni" class="section">
+  <div class="section-title">⚠️ Sanatoria, Sanzioni e Abusi</div>
+  <div class="section-sub">Artt. 167 e 181 D.Lgs. 42/2004 — Regime sanzionatorio e accertamento compatibilità</div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 167</span>
+      <h3>Accertamento di Compatibilità Paesaggistica (Sanatoria Limitata)</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="callout callout-no">
+        <strong>🚫 Regola generale: NO sanatoria paesaggistica</strong>
+        Il divieto di sanatoria è assoluto per gli interventi realizzati in area vincolata senza autorizzazione o in difformità da essa. L'autorizzazione postuma NON è ammessa. La Cassazione penale ha confermato: «il rilascio postumo dell'autorizzazione paesistica non estingue il reato paesaggistico» (Cass. pen. n. 30403/2019).
+      </div>
+
+      <h4>Eccezioni — Le sole 3 ipotesi sanabili (art. 167 comma 4)</h4>
+      <p>Il proprietario, possessore o detentore può chiedere l'<strong>accertamento di compatibilità paesaggistica</strong> (che non equivale alla sanatoria ordinaria) nelle sole seguenti ipotesi:</p>
+
+      <ul>
+        <li><strong>a) Nessun aumento di superficie utile o volume</strong>: lavori realizzati in assenza/difformità dall'autorizzazione che non hanno creato superfici utili o volumi ovvero non ne hanno aumentato quelli esistenti. La Circolare MiBAC 33/2009 chiarisce che per «superfici utili» si intende qualsiasi superficie utile, qualunque sia la destinazione</li>
+        <li><strong>b) Impiego di materiali diversi</strong>: lavori nell'ambito dei quali siano stati impiegati materiali diversi da quelli indicati nell'autorizzazione paesaggistica</li>
+        <li><strong>c) Manutenzione ordinaria o straordinaria</strong>: lavori configurabili come manutenzione (ordinaria o straordinaria ai sensi dell'art. 3 DPR 380/2001) che abbiano però alterato lo stato dei luoghi o l'aspetto esteriore degli edifici</li>
+      </ul>
+
+      <h4>Procedura di accertamento (art. 167 commi 5-7)</h4>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Istanza del proprietario all'autorità competente (Comune/SUE)</div>
+            <span class="step-timing">Giorno 0</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Parere vincolante della Soprintendenza</div>
+            <div class="step-note">Entro il termine perentorio di <strong>90 giorni</strong> dalla ricezione degli atti da parte della Soprintendenza</div>
+            <span class="step-timing">Entro 90 giorni (termine perentorio)</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Pronuncia dell'autorità competente</div>
+            <div class="step-note">Entro il termine perentorio di <strong>180 giorni</strong> dalla presentazione dell'istanza. Termine perentorio.</div>
+            <span class="step-timing">Entro 180 giorni dall'istanza</span>
+          </div>
+        </div>
+      </div>
+
+      <h4>Effetti dell'accertamento positivo</h4>
+      <p>Se l'autorità accerta la <strong>compatibilità paesaggistica</strong>, il trasgressore è tenuto al pagamento di una <strong>sanzione pecuniaria pari al maggiore importo</strong> tra il danno arrecato e il profitto conseguito mediante la trasgressione. L'accertamento della compatibilità non estingue il reato penale (art. 181).</p>
+
+      <h4>Effetti dell'accertamento negativo</h4>
+      <p>Se la compatibilità non può essere accertata, l'autorità ordina la <strong>rimessione in pristino</strong> a spese del responsabile. In caso di inottemperanza, provvede d'ufficio con recupero delle spese.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">ART. 181</span>
+      <h3>Sanzioni Penali</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <h4>Fattispecie di base (comma 1)</h4>
+      <p>Chiunque, senza la prescritta autorizzazione o in difformità da essa, esegue lavori di qualsiasi genere su beni paesaggistici è punito con:</p>
+      <ul>
+        <li>L'<strong>arresto fino a due anni</strong> e l'<strong>ammenda da 31.000 a 165.000 euro</strong></li>
+      </ul>
+
+      <h4>Fattispecie aggravata (comma 1-bis)</h4>
+      <p>La pena è della <strong>reclusione da uno a quattro anni</strong> qualora i lavori abbiano arrecato un danno al paesaggio e ricorra una delle seguenti condizioni:</p>
+      <ul>
+        <li>lett. <strong>a)</strong>: i lavori abbiano comportato un aumento dei manufatti edilizi superiore al 30% della volumetria preesistente o, in alternativa, l'interessamento di una superficie superiore a 750 mq, o l'esecuzione di scavi superiori a 3 ha</li>
+        <li>lett. <strong>b)</strong>: i lavori abbiano interessato immobili o aree soggetti a <strong>specifici vincoli di tutela ex art. 136 c.1 lett. b) o c)</strong> (ville, giardini, complessi storici) o le aree tutelate per legge ex art. 142 e abbiano comportato nuova costruzione o ampliamento superiore al 30% ovvero interessato una superficie superiore a 1.000 mq</li>
+      </ul>
+
+      <div class="callout callout-warn">
+        <strong>Concorso di reati</strong>
+        In area vincolata ex art. 142 (es. fascia 150 m dal corso d'acqua), un abuso edilizio con aumento di volume può configurare il concorso formale di: <strong>(1) reato di condotta</strong> ex art. 181 comma 1-bis (reato paesaggistico) + <strong>(2) reato edilizio</strong> ex art. 44 DPR 380/2001 + eventualmente <strong>(3) reato ambientale</strong> ex art. 734 c.p. (distruzione bellezze naturali). Frequente nelle domande che riguardano l'area deltaizia.
+      </div>
+
+      <h4>Estinzione del reato (comma 1-ter)</h4>
+      <p>Il reato di cui al comma 1 è estinto qualora l'autorità amministrativa competente accerti la <strong>compatibilità paesaggistica</strong> dell'intervento ai sensi dell'art. 167 commi 4, 5 e 6. Questa estinzione opera <strong>SOLO per la fattispecie base del comma 1</strong>, NON per la fattispecie aggravata del comma 1-bis.</p>
+
+      <div class="callout callout-no">
+        <strong>Riepilogo</strong>
+        Abuso senza aumento volume/sup. + compatibilità accertata → reato estinto (comma 1) |
+        Abuso con aumento volume/sup. rilevante su area vincolata 142/136 → reato non estinguibile (comma 1-bis), ordine demolizione obbligatorio
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== CASI LOCALI =============================== -->
+<section id="locale" class="section">
+  <div class="section-title">📍 Casi Pratici — Territorio dell'Unione</div>
+  <div class="section-sub">Portomaggiore · Argenta · Ostellato — Territorio del Ferrarese e del Delta del Po</div>
+
+  <div class="callout callout-note" style="margin-bottom:24px">
+    <strong>Il territorio in sintesi</strong>
+    L'Unione Valli e Delizie opera in un territorio di pianura deltaizia caratterizzato da una fitta rete di canali e corsi d'acqua storici, aree umide protette e il Parco del Delta del Po. Quasi ogni intervento edilizio in prossimità dell'acqua o in aree naturali cade all'interno di vincoli ex art. 142. È essenziale saper applicare la normativa paesaggistica a questo contesto specifico.
+  </div>
+
+  <div class="case-study">
+    <div class="case-study-header">
+      <div class="case-icon">🌊</div>
+      <div>
+        <div class="case-title">Caso 1 — Ampliamento agriturismo sul Canale Boicelli</div>
+        <div class="case-location">Portomaggiore (FE) — Fascia 150m ex art. 142 lett. c)</div>
+      </div>
+    </div>
+    <div class="case-q">Un agriturismo situato a 80 m dal Canale Boicelli (corso d'acqua pubblico) chiede di ampliare il fabbricato principale di 80 mc. Quale regime si applica?</div>
+    <div class="case-a">
+      <div class="answer">
+        <strong>Analisi:</strong> Il Canale Boicelli è iscritto negli elenchi delle acque pubbliche. Il fabbricato è nella fascia di 150 m dalla sponda → è soggetto a tutela ex <strong>art. 142 comma 1 lett. c)</strong>.<br><br>
+        <strong>Intervento richiesto:</strong> Ampliamento di 80 mc. Rientra nell'<strong>Allegato B, voce B.1</strong> del DPR 31/2017 (incremento ≤10% e ≤100 mc)? Dipende: se la volumetria preesistente è, es., 1.000 mc → l'10% è 100 mc → 80 mc ≤ 100 mc → SÌ rientra in B.1. Se volume preesistente è 600 mc → 10% = 60 mc → 80 mc > 60 mc → NON rientra in B.1 → procedura ORDINARIA ex art. 146.<br><br>
+        <strong>Conclusione (caso B.1 applicabile):</strong> 
+        <ol style="margin-top:6px; padding-left:16px;">
+          <li>Presentare istanza al SUE del Comune di Portomaggiore (Allegato C + relazione paesaggistica semplificata Allegato D)</li>
+          <li>Pagamento bollo (€16 per istanza + €16 per provvedimento)</li>
+          <li>Il Comune comunica alla Soprintendenza ABAP Bologna-Ferrara entro 10 gg</li>
+          <li>Soprintendenza può richiedere atti entro 25 gg</li>
+          <li>Provvedimento entro 60 giorni totali</li>
+          <li>Parallelo: DIA/SCIA o Permesso di Costruire presso il SUE per il titolo edilizio</li>
+        </ol>
+        <strong>Attenzione:</strong> l'autorizzazione paesaggistica deve essere ottenuta PRIMA del titolo edilizio.
+      </div>
+    </div>
+  </div>
+
+  <div class="case-study">
+    <div class="case-study-header">
+      <div class="case-icon">🦆</div>
+      <div>
+        <div class="case-title">Caso 2 — Capanno da pesca nelle Valli di Argenta</div>
+        <div class="case-location">Argenta (FE) — Zona umida Ramsar + Parco Delta del Po</div>
+      </div>
+    </div>
+    <div class="case-q">Un privato chiede di costruire un nuovo capanno da pesca di 25 mq nelle valli argintane, all'interno del Parco Regionale del Delta del Po. Quale iter deve seguire?</div>
+    <div class="case-a">
+      <div class="answer">
+        <strong>Vincoli presenti:</strong>
+        <ul style="margin-top:6px;">
+          <li>Art. 142 lett. f): <strong>Parco Regionale del Delta del Po</strong> → vincolo paesaggistico</li>
+          <li>Art. 142 lett. i): <strong>Zona umida Ramsar</strong> → ulteriore vincolo paesaggistico</li>
+          <li>Possibile vincolo idraulico (fascia golenale R4/R3 PAI Po)</li>
+          <li>Norme del Piano del Parco (autorizzazione Ente Parco separata)</li>
+        </ul>
+        <strong>Regime paesaggistico:</strong> Costruzione nuova → non rientra in Allegato A né nella maggior parte dei B specifici per aree parco. Si applica la <strong>procedura ordinaria ex art. 146</strong> con parere vincolante della Soprintendenza.<br><br>
+        <strong>Iter completo:</strong>
+        <ol style="margin-top:6px; padding-left:16px;">
+          <li><strong>Autorizzazione Ente Parco</strong> (preventiva, autonoma)</li>
+          <li><strong>Autorizzazione paesaggistica ordinaria</strong> presso Comune/SUE (Argenta)</li>
+          <li>Parere Soprintendenza ABAP (vincolante, 45 gg)</li>
+          <li>Nulla osta idraulico (AIPO/Autorità di Bacino) se in zona golenale</li>
+          <li><strong>Solo dopo tutte le autorizzazioni</strong>: titolo edilizio (Permesso di Costruire, trattandosi di nuova costruzione)</li>
+        </ol>
+        <strong>Conclusione pratica:</strong> In zona parco con zone umide, la complessità autorizzatoria è massima. La conferenza di servizi (art. 14 L. 241/1990) può essere attivata per acquisire tutti i pareri simultaneamente.
+      </div>
+    </div>
+  </div>
+
+  <div class="case-study">
+    <div class="case-study-header">
+      <div class="case-icon">🏗️</div>
+      <div>
+        <div class="case-title">Caso 3 — Abuso edilizio scoperto in fascia fluviale</div>
+        <div class="case-location">Ostellato (FE) — Po di Volano, art. 142 lett. c)</div>
+      </div>
+    </div>
+    <div class="case-q">Durante un sopralluogo, la polizia locale accerta che un privato ha realizzato un manufatto di 120 mc a 60 m dal Po di Volano senza alcuna autorizzazione. Quali provvedimenti adottare?</div>
+    <div class="case-a">
+      <div class="answer">
+        <strong>Analisi del caso:</strong>
+        <ul style="margin-top:6px;">
+          <li>Il Po di Volano è iscritto nelle acque pubbliche → fascia 150 m vincolata ex art. 142 c.1 lett. c)</li>
+          <li>Realizzazione di 120 mc senza autorizzazione paesaggistica → reato art. 181</li>
+          <li>Valutare se supera il 30% del volume preesistente o 1.000 mq → possibile art. 181 comma 1-bis</li>
+        </ul>
+        <strong>Azioni immediate del Comune:</strong>
+        <ol style="margin-top:6px; padding-left:16px;">
+          <li><strong>Sospensione immediata lavori</strong> (art. 150) se i lavori sono in corso</li>
+          <li><strong>Accertamento e verifica</strong> documentazione urbanistica ed edilizia</li>
+          <li><strong>Segnalazione alla Soprintendenza</strong> (art. 155) e all'autorità giudiziaria</li>
+          <li><strong>Ordine di demolizione e rimessione in pristino</strong> ex art. 167 (se compatibilità non accertabile) o DPR 380/2001</li>
+        </ol>
+        <strong>Possibilità di sanatoria:</strong> Il manufatto ha creato 120 mc di volume nuovo. Rientra in art. 167 c.4 lett. a)? NO (perché ha creato volume). Rientra in lett. c)? NO (non è manutenzione). → <strong>Nessuna possibilità di accertamento di compatibilità paesaggistica</strong>. Ordine di demolizione obbligatorio.
+        <br><br>
+        <strong>Sanzioni penali:</strong> Art. 181 c.1 base; verificare se ricorra c.1-bis lett. b) (area 142 lett. c + nuova costruzione). In tal caso: reclusione 1-4 anni, non estinguibile.
+      </div>
+    </div>
+  </div>
+
+  <div class="case-study">
+    <div class="case-study-header">
+      <div class="case-icon">☀️</div>
+      <div>
+        <div class="case-title">Caso 4 — Pannelli fotovoltaici su cascina storica</div>
+        <div class="case-location">Argenta (FE) — Cascinale di interesse storico-testimoniale</div>
+      </div>
+    </div>
+    <div class="case-q">Il proprietario di una cascina tradizionale in area vincolata ex art. 136 lett. c) (interesse storico-testimoniale) vuole installare 12 pannelli fotovoltaici in falda sulla copertura. Quale autorizzazione serve?</div>
+    <div class="case-a">
+      <div class="answer">
+        <strong>Analisi:</strong> Bene vincolato ex art. 136 c.1 lett. c) — immobile di interesse storico-testimoniale.<br><br>
+        <strong>Voce di riferimento:</strong> DPR 31/2017 All. A, voce A.5: pannelli fotovoltaici su copertura non visibile da spazio pubblico → liberi. MA: se la copertura è visibile da spazio pubblico E si tratta di bene 136 lett. b) o c) → <strong>Allegato B voce B.8 → procedura SEMPLIFICATA</strong>.<br><br>
+        <strong>In questo caso:</strong> Cascinale con vincolo ex art. 136 lett. c), copertura potenzialmente visibile → <strong>procedura autorizzatoria SEMPLIFICATA</strong> (All. B, B.8).<br><br>
+        <strong>Iter:</strong> Istanza (All. C) + relazione paesaggistica semplificata (All. D) → SUE Comune di Argenta → comunicazione a Soprintendenza ABAP entro 10 gg → eventuale parere entro 25 gg → provvedimento entro 60 gg.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== QUIZ =============================== -->
+<section id="quiz" class="section">
+  <div class="section-title">🎯 Quiz a Risposta Multipla</div>
+  <div class="section-sub">Domande tipiche da prova scritta — Seleziona la risposta e scopri la spiegazione</div>
+
+  <div class="quiz-score">
+    <div class="big" id="scoreDisplay">0/0</div>
+    <div class="lbl">Risposte corrette | Clicca sulle risposte per iniziare</div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+  <div id="quizContainer"></div>
+
+  <div class="quiz-controls">
+    <button class="btn btn-ghost" onclick="resetQuiz()">↺ Ricomincia</button>
+  </div>
+</section>
+
+<!-- =============================== DOMANDE APERTE =============================== -->
+<section id="domande-aperte" class="section">
+  <div class="section-title">📝 Domande Tipiche d'Esame</div>
+  <div class="section-sub">Domande orali e scritte da concorsi analoghi — Clicca per vedere la risposta guidata</div>
+
+  <span class="section-label">🗂 Da concorsi reali analizzati (Marche D/TS, Emilia-Romagna funzionario tecnico, Soprintendenze)</span>
+
+  <div id="oqContainer"></div>
+
+  <div class="callout callout-note" style="margin-top:24px">
+    <strong>💡 Strategia per la prova orale</strong>
+    Per le domande sull'art. 146, struttura sempre la risposta in: (1) chi è soggetto all'obbligo, (2) la preventività dell'autorizzazione, (3) l'autonomia rispetto al titolo edilizio, (4) i tempi e il ruolo della Soprintendenza, (5) il divieto di sanatoria. Per le domande sul DPR 31/2017: parti dalla distinzione Allegato A / B / procedura ordinaria. Cita sempre la giurisprudenza del Consiglio di Stato quando possibile.
+  </div>
+</section>
+
+</main>
+
+<div class="foot-note">
+  Guida di studio per concorso · Specialista in Attività Tecniche · Unione Valli e Delizie (FE) · D.Lgs. 42/2004 + DPR 31/2017 aggiornato 2025 · Non costituisce parere legale
+</div>
+
+<script>
+// ==================== NAVIGATION ====================
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ==================== CARD TOGGLE ====================
+function toggleCard(header) {
+  const card = header.parentElement;
+  card.classList.toggle('open');
+}
+
+// ==================== QUIZ ====================
+const quizData = [
+  {
+    q: "Ai sensi dell'art. 142 comma 1 del D.Lgs. 42/2004, la fascia di rispetto per i fiumi, torrenti e corsi d'acqua iscritti negli elenchi delle acque pubbliche è pari a:",
+    opts: ["100 metri dalla sponda o dal piede dell'argine", "150 metri dalla sponda o dal piede dell'argine", "200 metri dalla sponda o dal piede dell'argine", "300 metri dalla linea di mezzeria del corso d'acqua"],
+    correct: 1,
+    expl: "Art. 142, comma 1, lettera c): «i fiumi, i torrenti, i corsi d'acqua iscritti negli elenchi previsti dal testo unico delle disposizioni di legge sulle acque (...) e le relative sponde o piedi degli argini per una fascia di 150 metri ciascuna». Nel ferrarese, questa norma interessa sistematicamente Po di Volano, Reno, Canale Boicelli e numerosi canali di bonifica iscritti negli elenchi."
+  },
+  {
+    q: "L'autorizzazione paesaggistica ex art. 146 D.Lgs. 42/2004 può essere rilasciata in sanatoria, dopo la realizzazione dell'intervento?",
+    opts: ["Sì, sempre, su richiesta del proprietario", "Sì, ma solo per interventi di manutenzione ordinaria", "No, mai; salvo le limitate ipotesi di accertamento di compatibilità ex art. 167", "No, mai, in nessun caso e per nessun intervento"],
+    correct: 2,
+    expl: "Art. 146 comma 4 vieta l'autorizzazione in sanatoria. Tuttavia l'art. 167 comma 4 prevede l'accertamento di compatibilità paesaggistica per tre sole ipotesi: a) nessun aumento di volume/superficie; b) materiali diversi da quelli autorizzati; c) interventi di manutenzione che abbiano però alterato l'esterno. Non si tratta di vera sanatoria: il reato penale ex art. 181 c.1-bis non si estingue."
+  },
+  {
+    q: "Nel procedimento ordinario ex art. 146, il parere della Soprintendenza è:",
+    opts: ["Obbligatorio ma non vincolante; l'amministrazione può discostarsene con motivazione", "Facoltativo e richiesto solo su richiesta dell'amministrazione procedente", "Vincolante; l'amministrazione provvede in conformità ad esso", "Vincolante solo in caso di parere negativo; se positivo, l'amministrazione è libera"],
+    correct: 2,
+    expl: "Art. 146 comma 8: la Soprintendenza rende il parere «vincolante». Il Consiglio di Stato (n. 2262/2017 e n. 3734/2019) ha confermato che dal 2010 la Soprintendenza esercita una valutazione di merito in co-gestione del vincolo paesaggistico, non più un mero sindacato di legittimità. L'amministrazione non può discostarsi dal parere negativo."
+  },
+  {
+    q: "Per un intervento che rientra nell'Allegato B del DPR 31/2017, il termine massimo complessivo per il rilascio dell'autorizzazione semplificata è:",
+    opts: ["30 giorni dalla ricezione dell'istanza completa", "45 giorni dalla comunicazione alla Soprintendenza", "60 giorni dalla ricezione dell'istanza completa", "90 giorni, pari al termine della procedura ordinaria ridotto della metà"],
+    correct: 2,
+    expl: "Art. 11 comma 5 DPR 31/2017: il termine massimo complessivo per il rilascio dell'autorizzazione semplificata è di 60 giorni dalla ricezione dell'istanza. Entro questo termine l'amministrazione deve adottare il provvedimento finale. Il silenzio dopo i 60 giorni ha regime diverso dalla procedura ordinaria."
+  },
+  {
+    q: "Un privato vuole installare pannelli solari su una copertura piana di un edificio non vincolato specificamente (solo area vincolata ex art. 142), non visibile da spazio pubblico. Quale regime si applica?",
+    opts: ["Procedura ordinaria art. 146, con parere vincolante Soprintendenza", "Procedura semplificata ex Allegato B DPR 31/2017", "L'intervento è escluso dall'autorizzazione paesaggistica (Allegato A)", "Nessuna autorizzazione richiesta, trattandosi di rinnovabili"],
+    correct: 2,
+    expl: "DPR 31/2017, Allegato A, voce A.5: l'installazione di pannelli solari termici o fotovoltaici su edifici in area vincolata, su copertura piana NON visibile da spazio pubblico, è esclusa dall'autorizzazione paesaggistica. L'esclusione è condizionata alla non visibilità da spazio pubblico e all'assenza di vincolo specifico 136 lett. a) o b)."
+  },
+  {
+    q: "Nell'ipotesi di abuso paesaggistico con costruzione di un nuovo volume di 130 mc in area tutelata ex art. 142, il reato ex art. 181 D.Lgs. 42/2004:",
+    opts: ["Si estingue se il proprietario ottiene l'accertamento di compatibilità paesaggistica ex art. 167", "Non è estinguibile con l'accertamento di compatibilità; rimane il reato ex art. 181 comma 1-bis", "Si prescrive in 5 anni dalla realizzazione dell'abuso", "È depenalizzato se l'intervento è stato successivamente regolarizzato urbanisticamente"],
+    correct: 1,
+    expl: "Art. 181 comma 1-bis: quando i lavori abbiano comportato un aumento di manufatti superiore al 30% della volumetria preesistente o interessato area > 1000 mq in zona vincolata 142, il reato è aggravato (reclusione 1-4 anni). La Cassazione penale (n. 30403/2019) ha confermato che il rilascio dell'autorizzazione postuma e l'accertamento di compatibilità non estinguono il reato aggravato. L'estinzione opera SOLO per la fattispecie base del comma 1."
+  },
+  {
+    q: "L'autorizzazione paesaggistica ordinaria ex art. 146 ha efficacia di:",
+    opts: ["2 anni dalla sua emissione", "3 anni, rinnovabili su richiesta", "5 anni, decorrenti dal giorno in cui acquista efficacia il titolo edilizio", "10 anni per gli interventi di manutenzione straordinaria"],
+    correct: 2,
+    expl: "Art. 146 comma 4, secondo periodo: «L'autorizzazione è efficace per un periodo di cinque anni, scaduto il quale l'esecuzione dei progettati lavori deve essere sottoposta a nuova autorizzazione». Il termine di efficacia inizia a decorrere dal giorno in cui acquista efficacia il titolo edilizio eventualmente necessario. Dopo 5 anni, anche se i lavori non sono stati eseguiti, occorre una nuova autorizzazione."
+  },
+  {
+    q: "Nel territorio dell'Unione Valli e Delizie, un edificio si trova a 90 m dal Po di Volano. Il proprietario vuole rifarlo il manto di copertura con tegole dello stesso tipo e colore. Quale iter paesaggistico si applica?",
+    opts: ["Procedura ordinaria ex art. 146, con parere Soprintendenza", "Procedura semplificata Allegato B DPR 31/2017", "L'intervento è escluso dall'autorizzazione (Allegato A DPR 31/2017, voce A.6)", "Nessuna autorizzazione paesaggistica, trattandosi di manutenzione ordinaria ex art. 149"],
+    correct: 2,
+    expl: "L'edificio è nella fascia 150 m dal Po di Volano (vincolato ex art. 142 lett. c). Il rifacimento del manto di copertura senza alterazione della pendenza, quota e materiali rientra nell'Allegato A, voce A.6 del DPR 31/2017: «Rifacimento di manto di copertura, senza alterazione della pendenza, della quota e dei materiali preesistenti». È escluso dall'autorizzazione paesaggistica. Si distingue però dalla sostituzione con materiali diversi, che richiederebbe la semplificata."
+  },
+  {
+    q: "Chi è competente al rilascio dell'autorizzazione paesaggistica nei Comuni dell'Emilia-Romagna?",
+    opts: ["La Regione Emilia-Romagna, tramite le proprie sedi territoriali", "La Soprintendenza ABAP competente per territorio", "I Comuni, ai quali la Regione ha delegato la funzione, con parere vincolante della Soprintendenza", "Il Ministero della Cultura, attraverso le Commissioni regionali per il paesaggio"],
+    correct: 2,
+    expl: "La Regione Emilia-Romagna ha delegato ai Comuni la funzione di rilascio dell'autorizzazione paesaggistica già con la L.R. 31/2002. Il Comune (SUE/Sportello Unico Edilizia) è dunque l'amministrazione procedente. Il rilascio avviene previo parere vincolante della Soprintendenza ABAP competente. In provincia di Ferrara: Soprintendenza ABAP per la città metropolitana di Bologna e le province di Modena, Reggio Emilia e Ferrara."
+  },
+  {
+    q: "Un incremento volumetrico di 80 mc su un edificio di 600 mc in area vincolata ex art. 142 può seguire la procedura semplificata dell'Allegato B?",
+    opts: ["Sì, perché non supera i 100 mc massimi previsti dall'Allegato B", "No, perché supera il 10% della volumetria preesistente (60 mc) e non rientra in B.1", "Sì, sempre, per tutti gli edifici in zona 142 indipendentemente dalla volumetria", "No, perché in zona 142 la procedura semplificata non è mai applicabile"],
+    correct: 1,
+    expl: "L'Allegato B voce B.1 prevede un doppio limite: l'incremento deve essere ≤10% della volumetria preesistente E comunque ≤100 mc. In questo caso 10% di 600 mc = 60 mc. L'incremento richiesto è 80 mc > 60 mc → NON rientra in B.1 → si applica la procedura ordinaria ex art. 146. Entrambi i limiti devono essere rispettati congiuntamente."
+  },
+  {
+    q: "L'accertamento di compatibilità paesaggistica ex art. 167 può essere chiesto per un ampliamento abusivo di 200 mc in area vincolata ex art. 136?",
+    opts: ["Sì, qualunque abuso paesaggistico può essere sanato con l'accertamento", "No, perché l'accertamento è possibile solo per le tre ipotesi del comma 4 art. 167, e la creazione di nuovo volume non vi rientra", "Sì, ma solo se il proprietario paga una sanzione doppia rispetto al danno arrecato", "Dipende dall'entità del vincolo: per art. 136 lett. d) sì, per 136 lett. a) no"],
+    correct: 1,
+    expl: "Art. 167 comma 4: l'accertamento di compatibilità paesaggistica è possibile SOLO per: a) nessun aumento di superficie utile o volume; b) materiali diversi da quelli indicati nell'autorizzazione; c) lavori configurabili come manutenzione. Un ampliamento di 200 mc costituisce creazione di nuovo volume → non rientra in nessuna delle tre ipotesi → IMPOSSIBILE l'accertamento → ordine di demolizione obbligatorio."
+  },
+  {
+    q: "Il DPR 31/2017 ha abrogato quale precedente normativa sull'autorizzazione paesaggistica semplificata?",
+    opts: ["Il D.Lgs. 42/2004 nella sua formulazione originaria", "Il DPR 9 luglio 2010, n. 139", "La L. 431/1985 (Legge Galasso)", "Il DPR 380/2001 (Testo Unico Edilizia) nelle parti paesaggistiche"],
+    correct: 1,
+    expl: "Il DPR 31/2017, entrato in vigore il 6 aprile 2017, ha espressamente abrogato il DPR 9 luglio 2010, n. 139, che era il precedente regolamento sull'autorizzazione paesaggistica semplificata. Il DPR 31/2017 ha ampliato significativamente le fattispecie escluse (31 nell'All. A contro le precedenti) e quelle semplificate (42 nell'All. B)."
+  }
+];
+
+const oqData = [
+  {
+    q: "Descrivere brevemente la procedura per il rilascio dell'Autorizzazione Paesaggistica ordinaria ex art. 146 D.Lgs. 42/2004 e le sue finalità.",
+    area: "Procedura ordinaria",
+    resp: `L'autorizzazione paesaggistica ordinaria ex art. 146 è il procedimento mediante il quale l'autorità competente accerta la <strong>compatibilità tra l'intervento proposto e i valori paesaggistici tutelati</strong>.
+
+<strong>Finalità:</strong> Garantire che le trasformazioni del territorio vincolato non pregiudichino i valori paesaggistici, culturali e naturali protetti dal Codice.
+
+<strong>Soggetti obbligati (comma 1):</strong> Proprietari, possessori o detentori a qualsiasi titolo di immobili ed aree vincolate ex artt. 142, 136, 143 e 157.
+
+<strong>Preventività obbligatoria (comma 2):</strong> I lavori non possono iniziare senza autorizzazione.
+
+<strong>Procedimento (commi 5-9):</strong>
+1. Presentazione istanza + relazione paesaggistica al SUE del Comune
+2. Istruttoria comunale + trasmissione alla Soprintendenza entro 40 giorni
+3. Parere vincolante Soprintendenza entro 45 giorni (valutazione di merito, co-gestione del vincolo — Cons. Stato n. 3734/2019)
+4. Provvedimento del Comune in conformità al parere entro 20 giorni
+
+<strong>Autonomia rispetto al titolo edilizio:</strong> L'autorizzazione è atto presupposto e autonomo; il titolo edilizio non può essere rilasciato prima di essa.
+
+<strong>Durata:</strong> 5 anni dalla data in cui acquista efficacia il titolo edilizio.
+
+<strong>Divieto di sanatoria (comma 4):</strong> Non può essere rilasciata successivamente alla realizzazione. Eccezione limitata: art. 167 c.4 (solo per tre ipotesi tassative: nessun aumento volume; materiali diversi; manutenzione).`,
+    pts: ["Soggetti obbligati", "Preventività", "Iter con tempi precisi", "Ruolo vincolante Soprintendenza", "Autonomia rispetto al titolo edilizio", "Durata 5 anni", "Divieto sanatoria"]
+  },
+  {
+    q: "Quali sono le aree tutelate per legge ai sensi dell'art. 142 D.Lgs. 42/2004? Citi le categorie più rilevanti e descriva la loro applicazione nel territorio ferrarese.",
+    area: "Art. 142 — Aree tutelate",
+    resp: `L'art. 142 individua le c.d. «aree tutelate per legge» (ex lege Galasso 431/1985), la cui protezione paesaggistica opera automaticamente senza necessità di un provvedimento formale di vincolo.
+
+<strong>Categorie principali:</strong>
+- <strong>Lett. a)</strong> Territori costieri: 300 m dalla battigia
+- <strong>Lett. b)</strong> Laghi: 300 m dalla riva
+- <strong>Lett. c)</strong> Fiumi, torrenti, corsi d'acqua pubblici: <strong>150 m</strong> dalla sponda o piede argine
+- <strong>Lett. f)</strong> Parchi e riserve nazionali e regionali
+- <strong>Lett. g)</strong> Boschi e foreste
+- <strong>Lett. i)</strong> Zone umide di importanza internazionale (Ramsar)
+
+<strong>Rilevanza nel territorio ferrarese — Unione Valli e Delizie:</strong>
+1. <em>Lett. c)</em>: Po di Volano, Reno, Canale Boicelli e tutti i corsi d'acqua iscritti negli elenchi delle acque pubbliche → vincolo 150 m che interessa praticamente l'intero territorio agricolo e insediativo prossimo all'acqua
+2. <em>Lett. f)</em>: Parco Regionale del Delta del Po → tutto il territorio del parco in Ostellato e Argenta
+3. <em>Lett. i)</em>: Valli di Argenta e Mezzano → zone umide Ramsar
+
+<strong>Eccezioni:</strong> Non sono soggetti a tutela i territori dei commi a) e b) classificati come zone A e B del PRG al 6 settembre 1985 (c.d. «esenzione aree urbanizzate»), ma tale esenzione NON vale per i beni ex art. 136.`,
+    pts: ["Lista completa delle categorie", "Fascia 150 m lett. c)", "Applicazione locale con fiumi specifici", "Parco Delta del Po", "Zone umide Ramsar", "Eccezione zone A e B PRG 1985"]
+  },
+  {
+    q: "Illustrare la differenza tra procedura ordinaria (art. 146) e procedura semplificata (DPR 31/2017) per l'autorizzazione paesaggistica, con particolare attenzione ai tempi e al ruolo della Soprintendenza.",
+    area: "Procedura ordinaria vs semplificata",
+    resp: `<strong>Procedura ordinaria (art. 146 D.Lgs. 42/2004):</strong>
+- Si applica a tutti gli interventi che modificano lo stato dei luoghi o l'aspetto esteriore degli edifici in area vincolata, NON rientranti in All. A o B DPR 31/2017
+- Documentazione: relazione paesaggistica completa (ex DPCM 12/12/2005) + elaborati tecnici completi
+- Iter: istanza → istruttoria Comune (entro 40 gg) → trasmissione Soprintendenza → parere VINCOLANTE Soprintendenza entro 45 gg → provvedimento Comune entro 20 gg dal parere
+- Soprintendenza: ruolo di co-gestione del vincolo con valutazione di merito (Cons. Stato 3734/2019); parere VINCOLANTE
+- Tempi totali: ≈ 90-120 giorni
+- Silenzio Soprintendenza dopo 45 gg → dopo 60 gg l'amministrazione può procedere (art. 146 c.9)
+
+<strong>Procedura semplificata (DPR 31/2017 All. B):</strong>
+- Si applica a 42 tipologie tassative di interventi di «lieve entità»
+- Documentazione: modello unificato (All. C) + relazione paesaggistica semplificata (All. D)
+- Iter: istanza → verifica preliminare → comunicazione a Soprintendenza entro 10 gg → Soprintendenza PUÒ richiedere atti entro 25 gg → se richiede: parere entro 25 gg; se non richiede: amministrazione provvede autonomamente → provvedimento
+- Soprintendenza: ruolo eventuale e non obbligatorio; interviene solo se richiede gli atti entro 25 gg
+- Tempi totali: MAX 60 giorni dall'istanza
+
+<strong>Tabella di sintesi:</strong>
+Aspetto / Ordinaria / Semplificata
+Documentazione: Complessa / Semplificata (All. D)
+Parere Sopr.: Obbligatorio e vincolante / Solo se Sopr. richiede atti entro 25 gg
+Tempi: 90-120 gg / Max 60 gg
+Interventi: Tutti quelli non in A o B / Solo 42 tipologie All. B
+Sanatoria: Impossibile / Impossibile`,
+    pts: ["Distinzione chiara tra i due regimi", "Tempi precisi per entrambe", "Ruolo diverso della Soprintendenza", "Documentazione richiesta", "Impossibilità di sanatoria in entrambi i casi"]
+  },
+  {
+    q: "Cosa sono gli 'immobili e aree di notevole interesse pubblico' ex art. 136 D.Lgs. 42/2004? Come si distinguono dai beni tutelati ex art. 142?",
+    area: "Art. 136 vs Art. 142",
+    resp: `<strong>Art. 136 — Immobili e aree di notevole interesse pubblico:</strong>
+Il vincolo nasce da un <strong>provvedimento formale</strong> (dichiarativo), emesso dal Ministero o dalla Regione a seguito di apposito procedimento (Commissione regionale → osservazioni → decreto). 
+Le quattro categorie: a) bellezze naturali individuali; b) ville, giardini e parchi di non comune bellezza; c) complessi immobiliari (compresi complessi di interesse archaeologico); d) bellezze panoramiche e punti di belvedere.
+
+<strong>Art. 142 — Aree tutelate per legge (ex Galasso):</strong>
+Il vincolo opera <strong>automaticamente</strong>, ex lege, senza necessità di alcun provvedimento formale. È sufficiente che l'area ricada nella categoria prevista dalla norma. Alcune categorie sono geograficamente delimitabili (es. 150 m dai fiumi), altre richiedono ricognizione catastale (boschi, zone umide).
+
+<strong>Differenze chiave:</strong>
+- <em>Fonte del vincolo:</em> Art. 136 = provvedimento discrezionale | Art. 142 = automatica, ex lege
+- <em>Conoscibilità:</em> Art. 136 = pubblicazione GU + albo pretorio | Art. 142 = qualunque carta dei corpi idrici, boschi, parchi
+- <em>Applicazione DPR 31/2017:</em> Il DPR 31/2017 distingue spesso tra beni 136 lett. a)-b) e lett. c)-d); per i beni a) e b) la semplificata ha più restrizioni. I beni 142 generalmente hanno accesso alla semplificata.
+- <em>Regime di sanatoria:</em> Identico per entrambi — impossibile, con le sole limitate eccezioni art. 167 c.4.`,
+    pts: ["Provvedimento formale 136 vs automatismo 142", "Quattro categorie 136", "Categorie principali 142", "Rilievo pratico nella distinzione DPR 31/2017", "Identico regime di sanatoria"]
+  },
+  {
+    q: "Un cittadino ha realizzato, senza autorizzazione paesaggistica, un gazebo di 20 mq con struttura in legno nel proprio giardino posto a 100 m da un fiume. Quali provvedimenti deve adottare il Comune? Può essere sanato?",
+    area: "Abuso e sanatoria",
+    resp: `<strong>Analisi del caso:</strong>
+Il giardino si trova a 100 m dal fiume → è nella fascia 150 m tutelata ex art. 142 c.1 lett. c). Il gazebo è stato realizzato senza autorizzazione paesaggistica → abuso paesaggistico.
+
+<strong>Provvedimenti del Comune:</strong>
+1. <em>Sospensione lavori</em> (art. 150) se i lavori sono in corso; accertamento dello stato dei luoghi
+2. <em>Segnalazione alla Soprintendenza</em> (art. 155) e all'autorità giudiziaria per il reato ex art. 181
+3. <em>Accertamento dell'abuso:</em> verbale della polizia locale o ufficio tecnico
+4. <em>Verifica della sanabilità:</em> il gazebo ha creato un nuovo «manufatto» → verifica se ha creato superficie utile o volume
+
+<strong>Possibilità di sanatoria — art. 167 c.4:</strong>
+Il gazebo da 20 mq integra una superficie utile e/o un volume. L'accertamento di compatibilità paesaggistica è possibile solo se NON ha creato superfici utili né volumi (lett. a). In base alla giurisprudenza e alla circolare MiBAC 33/2009, il gazebo crea superficie utile → NON sanabile ex art. 167 lett. a).
+
+<strong>Conclusione:</strong>
+- Ordine di <strong>demolizione e rimessione in pristino</strong> a cura e spese del responsabile ex art. 167
+- Reato penale ex art. 181 comma 1 (in assenza di aggravanti) — si valuta se compatibilità accertabile (in questo caso NO per il nuovo volume/superficie)
+- Ordine ex DPR 380/2001 per il profilo edilizio
+
+<strong>Alternativa (se il gazebo fosse completamente amovibile e senza struttura che occupa suolo permanentemente):</strong> potrebbe non essere «costruzione» → discussione sulla qualificazione dell'abuso.`,
+    pts: ["Identificazione del vincolo art. 142 lett. c)", "Provvedimenti da adottare", "Analisi delle ipotesi di sanabilità art. 167 c.4", "Conclusione: impossibilità di sanatoria per nuovo volume/superficie", "Reato penale art. 181"]
+  },
+  {
+    q: "In quale modo il DPR 31/2017 ha modificato il quadro autorizzatorio paesaggistico rispetto al precedente DPR 139/2010? Quali sono i principali vantaggi per i cittadini e le PA?",
+    area: "DPR 31/2017 — Novità",
+    resp: `<strong>Contesto:</strong> Il DPR 31/2017 ha sostituito il DPR 139/2010 e rappresenta la principale semplificazione normativa in materia di autorizzazione paesaggistica degli ultimi anni. È in vigore dal 6 aprile 2017.
+
+<strong>Novità principali rispetto al DPR 139/2010:</strong>
+1. <em>Ampliamento degli interventi esclusi:</em> da circa 22 a <strong>31 fattispecie</strong> di interventi liberi in aree vincolate (Allegato A) — incluse nuove categorie per l'efficienza energetica, gli impianti tecnici e la riqualificazione
+2. <em>Ampliamento degli interventi semplificati:</em> da circa 28 a <strong>42 fattispecie</strong> nell'Allegato B, con soglie più alte (es. B.1: incremento 10% e max 100 mc, vs soglie inferiori del 2010)
+3. <em>Semplificazione documentale:</em> Modello unificato (All. C) + relazione semplificata standardizzata (All. D), vs documentazione precedente più variabile
+4. <em>Tempi certi:</em> Termine massimo di 60 giorni vs tempi indefiniti della procedura precedente
+5. <em>Ruolo ridotto della Soprintendenza nella semplificata:</em> La Soprintendenza interviene SOLO se richiede gli atti entro 25 giorni; il silenzio equivale a non obiezione
+6. <em>Rinnovo semplificato:</em> Le autorizzazioni scadute da meno di un anno relative a interventi non eseguiti possono essere rinnovate con procedura semplificata
+
+<strong>Vantaggi per i cittadini:</strong>
+- Minor burocrazia per interventi di lieve entità
+- Tempi certi e più brevi
+- Documentazione standardizzata e semplificata
+
+<strong>Vantaggi per le PA:</strong>
+- Procedimenti più snelli e standardizzabili
+- Riduzione del contenzioso su casi di lieve entità
+- Migliore allocazione delle risorse verso i casi di maggiore impatto`,
+    pts: ["Confronto numerico interventi esclusi/semplificati", "Semplificazione documentale", "Tempi certi 60 giorni", "Ruolo ridotto Soprintendenza", "Rinnovo semplificato", "Vantaggi pratici"]
+  }
+];
+
+let scores = { right: 0, total: 0, answered: new Set() };
+
+function buildQuiz() {
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '';
+  quizData.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+    card.innerHTML = `
+      <div class="quiz-num">Domanda ${qi + 1} / ${quizData.length}</div>
+      <div class="quiz-q">${q.q}</div>
+      <div class="options">
+        ${q.opts.map((o, oi) => `
+          <div class="opt" onclick="answerQuiz(${qi}, ${oi}, this)" data-qi="${qi}" data-oi="${oi}">
+            <div class="opt-letter">${['A','B','C','D'][oi]}</div>
+            <div>${o}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="quiz-expl" id="expl-${qi}">${q.expl}</div>
+    `;
+    container.appendChild(card);
+  });
+  updateScore();
+}
+
+function answerQuiz(qi, oi, el) {
+  if (scores.answered.has(qi)) return;
+  scores.answered.add(qi);
+  scores.total++;
+
+  const opts = el.parentElement.querySelectorAll('.opt');
+  opts.forEach(o => o.classList.add('answered'));
+
+  if (oi === quizData[qi].correct) {
+    el.classList.add('correct');
+    scores.right++;
+  } else {
+    el.classList.add('wrong');
+    opts[quizData[qi].correct].classList.add('correct');
+  }
+
+  document.getElementById(`expl-${qi}`).classList.add('show');
+  updateScore();
+}
+
+function updateScore() {
+  document.getElementById('scoreDisplay').textContent = `${scores.right}/${scores.total}`;
+  const pct = quizData.length > 0 ? (scores.answered.size / quizData.length) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function resetQuiz() {
+  scores = { right: 0, total: 0, answered: new Set() };
+  buildQuiz();
+}
+
+function buildOQ() {
+  const container = document.getElementById('oqContainer');
+  container.innerHTML = '';
+  oqData.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'oq-card';
+    card.innerHTML = `
+      <div class="oq-header" onclick="toggleOQ(this)">
+        <div class="oq-n">${q.area}</div>
+        <div class="oq-question">${q.q}</div>
+        <span style="color:var(--bordeaux); flex-shrink:0; margin-left:8px">▼</span>
+      </div>
+      <div class="oq-body">
+        <p>${q.resp.replace(/\n/g,'<br>')}</p>
+        <div class="key-pts">
+          <strong>📌 Punti chiave da non dimenticare:</strong>
+          <ul style="margin-top:8px">
+            ${q.pts.map(p => `<li>${p}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function toggleOQ(header) {
+  const body = header.nextElementSibling;
+  body.classList.toggle('show');
+  const arrow = header.querySelector('span');
+  if (body.classList.contains('show')) arrow.style.transform = 'rotate(180deg)';
+  else arrow.style.transform = '';
+}
+
+// Init
+buildQuiz();
+buildOQ();
+</script>
+</body>
+</html>

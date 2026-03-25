@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guida al Concorso – DPR 31/2017 e Legge 241/1990</title>
+<style>
+  :root {
+    --blue: #1F4E79;
+    --dark-blue: #2E75B6;
+    --light-blue: #D6E4F0;
+    --grey: #F2F2F2;
+    --text: #222222;
+    --sidebar-w: 290px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; font-size: 15px; color: var(--text); background: #F7F9FC; }
+
+  /* ── LAYOUT ── */
+  #sidebar {
+    position: fixed; top: 0; left: 0; width: var(--sidebar-w);
+    height: 100vh; background: var(--blue); color: #fff;
+    overflow-y: auto; z-index: 100; display: flex; flex-direction: column;
+  }
+  #sidebar-header { padding: 20px 16px 12px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+  #sidebar-header h1 { font-size: 14px; font-weight: bold; line-height: 1.4; }
+  #sidebar-header p { font-size: 11px; opacity: 0.7; margin-top: 4px; }
+  #search-box { padding: 10px 12px; }
+  #search-box input { width: 100%; padding: 7px 10px; border-radius: 6px; border: none;
+    font-size: 13px; background: rgba(255,255,255,0.15); color: #fff; outline: none; }
+  #search-box input::placeholder { color: rgba(255,255,255,0.5); }
+  #nav { flex: 1; overflow-y: auto; padding: 4px 0 20px; }
+
+  .nav-group-title { padding: 10px 16px; font-size: 12px; font-weight: bold;
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    background: rgba(255,255,255,0.08); border-top: 1px solid rgba(255,255,255,0.1); }
+  .nav-group-title:hover { background: rgba(255,255,255,0.15); }
+  .nav-group-title .arrow { transition: transform 0.2s; }
+  .nav-group-title.collapsed .arrow { transform: rotate(-90deg); }
+  .nav-items { list-style: none; overflow: hidden; transition: max-height 0.3s ease; max-height: 2000px; }
+  .nav-items.collapsed { max-height: 0; }
+  .nav-items li a { display: block; padding: 7px 16px 7px 24px; font-size: 12px;
+    color: rgba(255,255,255,0.75); text-decoration: none; line-height: 1.4; }
+  .nav-items li a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+  .nav-items li a.active { color: #fff; background: rgba(255,255,255,0.2); border-left: 3px solid #7EC8E3; }
+
+  #main { margin-left: var(--sidebar-w); padding: 32px 36px 60px; max-width: 1000px; }
+
+  /* ── LAW SECTION ── */
+  .law-header { background: var(--blue); color: #fff; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+  .law-header h2 { font-size: 22px; }
+  .law-header .law-sub { font-size: 14px; opacity: 0.8; margin-top: 6px; }
+
+  /* ── CHAPTER ── */
+  .chapter { margin-bottom: 16px; }
+  .chapter-header { background: var(--dark-blue); color: #fff; padding: 11px 18px; border-radius: 7px 7px 0 0;
+    font-size: 14px; font-weight: bold; }
+
+  /* ── ARTICLE ── */
+  .article-block { background: #fff; border: 1px solid #dde3ec; border-top: none;
+    padding: 22px 24px; border-radius: 0; margin-top: 0; }
+  .article-block:last-child { border-radius: 0 0 7px 7px; }
+  .art-title { font-size: 16px; font-weight: bold; color: var(--blue); margin-bottom: 14px;
+    padding-bottom: 10px; border-bottom: 2px solid var(--light-blue); display: flex; align-items: baseline; gap: 8px; }
+  .art-num { background: var(--dark-blue); color: #fff; padding: 2px 8px; border-radius: 4px;
+    font-size: 13px; white-space: nowrap; flex-shrink: 0; }
+  .art-body p { margin-bottom: 10px; line-height: 1.65; }
+  .art-body ul { margin: 8px 0 12px 20px; }
+  .art-body ul li { margin-bottom: 6px; line-height: 1.6; }
+
+  /* ── SECTION LABEL ── */
+  .sec-label { font-weight: bold; color: #333; margin: 16px 0 6px; font-size: 14px; }
+
+  /* ── TABLES ── */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 16px; font-size: 13.5px; }
+  th { background: var(--dark-blue); color: #fff; padding: 9px 12px; text-align: left; font-size: 13px; }
+  td { padding: 8px 12px; border-bottom: 1px solid #e0e8f0; vertical-align: top; line-height: 1.55; }
+  tr:nth-child(even) td { background: #F7FAFF; }
+  tr:nth-child(odd) td { background: #fff; }
+  td.td-label { font-weight: bold; color: var(--dark-blue); white-space: nowrap; }
+
+  /* ── BOXES ── */
+  .note-box, .warn-box, .ex-box, .green-box {
+    display: flex; gap: 10px; padding: 11px 14px; border-radius: 6px;
+    margin: 12px 0; font-size: 13.5px; line-height: 1.6; align-items: flex-start; }
+  .note-box { background: #EAF3FB; border-left: 4px solid var(--dark-blue); }
+  .warn-box { background: #FDEDEC; border-left: 4px solid #C0392B; }
+  .ex-box { background: #F5EEF8; border-left: 4px solid #8E44AD; }
+  .green-box { background: #EAFAF1; border-left: 4px solid #27AE60; }
+  .note-ico { color: var(--dark-blue); font-weight: bold; white-space: nowrap; }
+  .warn-ico { color: #C0392B; font-weight: bold; white-space: nowrap; }
+  .ex-ico { color: #8E44AD; font-weight: bold; white-space: nowrap; }
+  .green-ico { color: #27AE60; font-weight: bold; white-space: nowrap; }
+
+  /* ── SEARCH HIGHLIGHT ── */
+  mark { background: #FFE066; border-radius: 2px; padding: 0 1px; }
+
+  /* ── SEARCH RESULTS ── */
+  #search-results { display: none; padding: 12px; }
+  #search-results .sr-item { padding: 8px 12px; border-radius: 5px; cursor: pointer;
+    font-size: 12px; color: rgba(255,255,255,0.85); margin-bottom: 4px; }
+  #search-results .sr-item:hover { background: rgba(255,255,255,0.15); }
+  #search-results .sr-item strong { color: #fff; display: block; font-size: 13px; }
+
+  /* ── BACK TO TOP ── */
+  #back-top { position: fixed; bottom: 28px; right: 28px; background: var(--dark-blue);
+    color: #fff; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 20px;
+    cursor: pointer; opacity: 0; transition: opacity 0.3s; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  #back-top.visible { opacity: 1; }
+
+  /* ── PRINT ── */
+  @media print {
+    #sidebar { display: none; }
+    #main { margin-left: 0; }
+    #back-top { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    #sidebar { width: 100%; height: auto; position: relative; }
+    #main { margin-left: 0; padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1>Guida al Concorso</h1>
+    <p>DPR 31/2017 · Legge 241/1990</p>
+  </div>
+  <div id="search-box">
+    <input type="text" id="search-input" placeholder="🔍 Cerca..." oninput="doSearch(this.value)">
+  </div>
+  <div id="search-results"></div>
+  <nav id="nav">
+  <div class="nav-group">
+    <div class="nav-group-title" onclick="toggleGroup(this)">📋 DPR 31/2017 <span class="arrow">▾</span></div>
+    <ul class="nav-items">
+      <li><a href="#dpr-c1" onclick="setActive(this)">Capo I – Definizioni e regimi (Artt. 1-6)</a></li><li><a href="#dpr-c2" onclick="setActive(this)">Capo II – Procedimento semplificato (Artt. 7-12)</a></li><li><a href="#dpr-c3" onclick="setActive(this)">Capo III – Norme finali (Artt. 13-20)</a></li><li><a href="#dpr-all" onclick="setActive(this)">Allegato A – 31 interventi liberi</a></li><li><a href="#dpr-allb" onclick="setActive(this)">Allegato B – 42 interventi semplificati</a></li>
+    </ul>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title" onclick="toggleGroup(this)">⚖️ Legge 241/1990 <span class="arrow">▾</span></div>
+    <ul class="nav-items">
+      <li><a href="#l241-c1" onclick="setActive(this)">Capo I – Principi generali (Artt. 1-3bis)</a></li><li><a href="#l241-c2" onclick="setActive(this)">Capo II – Responsabile del procedimento (Artt. 4-6bis)</a></li><li><a href="#l241-c3" onclick="setActive(this)">Capo III – Partecipazione (Artt. 7-13)</a></li><li><a href="#l241-c4" onclick="setActive(this)">Capo IV – Conferenza di servizi (Artt. 14-17bis)</a></li><li><a href="#l241-c4bis" onclick="setActive(this)">SCIA, Silenzio-assenso, Autocertificazione (Artt. 18-21)</a></li><li><a href="#l241-vizi" onclick="setActive(this)">Capo IV-bis – Efficacia e invalidità (Artt. 21bis-21nonies)</a></li><li><a href="#l241-c5" onclick="setActive(this)">Capo V – Diritto di accesso (Artt. 22-27)</a></li><li><a href="#l241-final" onclick="setActive(this)">Disposizioni finali (Artt. 28-30)</a></li>
+    </ul>
+  </div>
+</nav>
+</div>
+
+<main id="main">
+
+  
+<div id="sec-dpr" class="law-section">
+  <div class="law-header">
+    <h2>DPR 13 febbraio 2017, n. 31</h2>
+    <p class="law-sub">Autorizzazione Paesaggistica Semplificata – Articoli 1-20 e Allegati A e B</p>
+  </div>
+  
+<section id="dpr-c1" class="chapter">
+  <div class="chapter-header">CAPO I – Disposizioni generali</div>
+  
+<article id="dpr-1" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 1</span>Definizioni</h3>
+  <div class="art-body"><p>Prima di tutto il decreto chiarisce il significato preciso dei termini usati nel testo e negli allegati.</p><table><thead><tr><th>Termine</th><th>Definizione in parole semplici</th></tr></thead><tbody><tr><td class="td-label">Codice</td><td>Il Codice dei Beni Culturali e del Paesaggio (D.Lgs. 42/2004): la legge principale che tutela il patrimonio storico-artistico e i paesaggi di pregio. È il testo di riferimento per capire quando un'area è protetta e cosa si può o non si può fare.</td></tr><tr><td class="td-label">Ministero</td><td>Il Ministero della Cultura (MiC): l'organo statale che tutela il paesaggio a livello nazionale.</td></tr><tr><td class="td-label">Amministrazione procedente</td><td>Chi gestisce la pratica e può rilasciare l'autorizzazione paesaggistica: di solito la Regione, spesso delegata a un ente locale.</td></tr><tr><td class="td-label">Soprintendenza</td><td>L'ufficio territoriale del Ministero della Cultura presente in ciascuna provincia. Esprime pareri tecnici vincolanti sulla compatibilità paesaggistica degli interventi.</td></tr><tr><td class="td-label">Accordi di collaborazione</td><td>Intese formali tra Ministero, Regioni e enti locali che semplificano ulteriormente le procedure in certi territori.</td></tr><tr><td class="td-label">Vincolo paesaggistico</td><td>Un limite giuridico che protegge un'area o un bene per il suo valore paesaggistico. Esistono due tipi: <strong>vincoli da provvedimento</strong> (su beni specifici: ville storiche, centri storici, belvedere) e <strong>vincoli ope legis</strong> (automatici per legge: fiumi e laghi fascia 150 m, coste 300 m, montagne sopra 1.600/1.200 m, parchi, boschi, zone umide, vulcani).</td></tr></tbody></table><div class="note-box"><span class="note-ico">💡 Concorso:</span> Il DPR 31/2017 ha abrogato il DPR 139/2010, ampliando le categorie di interventi liberi (Allegato A, prima inesistente) e riformando la procedura semplificata.</div></div>
+</article>
+<article id="dpr-2" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 2</span>Interventi liberi – senza alcuna autorizzazione paesaggistica</h3>
+  <div class="art-body"><p>L'Allegato A elenca 31 tipologie di interventi che, pur in aree vincolate, non richiedono autorizzazione paesaggistica. La logica comune: non alterano l'aspetto del paesaggio in modo significativo.</p><ul><li>Lavori interni che non cambiano l'esterno dell'edificio (A.1)</li><li>Tinteggiature, intonaci, rifacimento coperture con gli stessi materiali (A.2)</li><li>Consolidamento strutturale e interventi antisismici senza cambi di forma (A.3)</li><li>Rampe per disabili fino a 60 cm di dislivello, ascensori in cortili interni non visibili (A.4)</li><li>Pannelli solari non visibili dalla strada o integrati nella falda (A.6)</li><li>Impianti tecnologici su prospetti secondari o non visibili dalla strada (A.5)</li><li>Occupazione temporanea di suolo per eventi, max 120 giorni/anno (A.16)</li><li>Dehors e tende amovibili senza muratura per bar e ristoranti (A.17)</li><li>Ricostruzione fedele post-calamità entro 10 anni, stessa sagoma (A.29)</li></ul><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> L'esonero dall'autorizzazione paesaggistica NON elimina gli altri titoli edilizi (CILA, SCIA, permesso di costruire). Sono procedimenti separati.</div></div>
+</article>
+<article id="dpr-3" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 3</span>Interventi di lieve entità – procedura semplificata</h3>
+  <div class="art-body"><p>L'Allegato B elenca 42 tipologie di interventi che incidono sull'aspetto esteriore in modo contenuto. Per questi si usa la procedura semplificata (60 giorni tassativi) invece della procedura ordinaria (art. 146 del Codice).</p><ul><li>Piccoli ampliamenti di volume: max 10% e comunque max 100 mc (B.1)</li><li>Modifiche di facciata con cambio di materiali rispetto all'esistente (B.3)</li><li>Rifacimento copertura con materiali diversi dagli originali (B.4)</li><li>Piccole tettoie e porticati fino a 30 mq (B.17)</li><li>Autorimesse con volume emergente non superiore a 50 mc (B.16)</li><li>Recinzioni con materiali diversi da quelli preesistenti (B.21)</li><li>Verande e dehors chiusi per attività commerciali (B.26)</li><li>Cartelli pubblicitari non temporanei fino a 18 mq (B.36)</li></ul><div class="note-box"><span class="note-ico">💡 Concorso:</span> La differenza Allegato A / Allegato B: l'A raccoglie interventi che non alterano l'aspetto o sono invisibili; il B quelli che cambiano qualcosa di visibile ma in modo contenuto.</div></div>
+</article>
+<article id="dpr-4" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 4</span>Ulteriori esoneri quando il piano paesaggistico è dettagliato</h3>
+  <div class="art-body"><p>Se il piano paesaggistico contiene già prescrizioni d'uso specifiche per un'area, alcune categorie di interventi del'Allegato B diventano completamente libere (le prescrizioni del piano "pre-approvano" certi modi di intervenire).</p><p>Regione e Ministero devono pubblicare l'avviso sui rispettivi siti: l'esonero decorre dalla data di pubblicazione. Nelle Regioni con accordi di collaborazione attivi, le voci B.6, B.13, B.26 e B.36 sono già libere nell'ambito degli accordi.</p></div>
+</article>
+<article id="dpr-5" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 5</span>Disposizioni specificative degli interventi</h3>
+  <div class="art-body"><p>I piani paesaggistici regionali possono specificare le modalità di esecuzione degli interventi dell'Allegato A (materiali da usare, tecniche costruttive). Le specifiche vengono recepite dagli strumenti urbanistici comunali in sede di adeguamento al piano regionale.</p><div class="note-box"><span class="note-ico">💡 Concorso:</span> Il DPR si applica immediatamente dall'entrata in vigore (6 aprile 2017), indipendentemente dall'adeguamento dei piani locali.</div></div>
+</article>
+<article id="dpr-6" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 6</span>Come si stipulano gli accordi di collaborazione</h3>
+  <div class="art-body"><p>Gli accordi sono intese formali tra Ministero, Regioni e enti locali che semplificano ulteriormente le procedure.</p><p>Iter: entro 180 giorni dal DPR il Ministro approva le regole tecniche generali (con intesa in Conferenza Unificata). La bozza dell'accordo viene preparata insieme da Ministero, Regione e ANCI regionale. Prima della firma è richiesto il parere obbligatorio dell'Osservatorio Nazionale del Paesaggio.</p></div>
+</article>
+</section>
+<section id="dpr-c2" class="chapter">
+  <div class="chapter-header">CAPO II – Procedimento autorizzatorio semplificato</div>
+  
+<article id="dpr-7" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 7</span>Rinnovo di autorizzazioni già scadute</h3>
+  <div class="art-body"><p>La procedura semplificata vale anche per rinnovare autorizzazioni già rilasciate e scadute di recente.</p><div class="sec-label">Quando si può rinnovare con procedura semplificata:</div><ul><li>L'autorizzazione è scaduta da non più di 1 anno</li><li>I lavori non sono stati eseguiti, o solo in parte</li><li>Il progetto non è cambiato rispetto a quello autorizzato</li><li>È compatibile con eventuali nuove prescrizioni di tutela</li></ul><div class="sec-label">Quando serve la procedura ordinaria:</div><p>Se con il rinnovo si richiedono variazioni significative al progetto originario.</p><p><strong>Semplificazione documentale:</strong> se il progetto non è cambiato per nulla e non ci sono nuove prescrizioni → non serve la relazione paesaggistica semplificata.</p><p><strong>Scadenza dopo il rinnovo:</strong> i lavori devono concludersi entro 1 anno dalla scadenza del quinquennio di efficacia della nuova autorizzazione.</p></div>
+</article>
+<article id="dpr-8" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 8</span>Documenti da presentare</h3>
+  <div class="art-body"><p>Per la procedura semplificata la documentazione è ridotta e standardizzata:</p><ul><li>Modulo di domanda compilato secondo il modello ufficiale <strong>Allegato C</strong> (anche online)</li><li><strong>Relazione paesaggistica semplificata (Allegato D)</strong>, redatta e firmata da un tecnico abilitato, contenente: contenuti della disciplina paesaggistica vigente; descrizione dello stato attuale; conformità alle prescrizioni d'uso; compatibilità con i valori paesaggistici; misure di inserimento paesaggistico</li></ul><p><strong>Cosa NON serve:</strong> il DPCM 12 dicembre 2005 sulla documentazione estesa per la compatibilità paesaggistica è escluso.</p><p><strong>Caso speciale:</strong> per beni vincolati singolarmente come immobili di interesse storico-architettonico o centri storici, la relazione deve aggiungere riferimenti specifici ai valori storico-culturali ed estetico-percettivi dell'area.</p></div>
+</article>
+<article id="dpr-9" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 9</span>A chi si presenta la domanda</h3>
+  <div class="art-body"><p>Dipende dal tipo di intervento:</p><table><thead><tr><th>Tipo di intervento</th><th>Sportello competente</th></tr></thead><tbody><tr><td class="td-label">Lavori edilizi</td><td>SUE – Sportello Unico per l'Edilizia del Comune</td></tr><tr><td class="td-label">Attività produttive</td><td>SUAP – Sportello Unico Attività Produttive del Comune</td></tr><tr><td class="td-label">Tutti gli altri casi</td><td>Direttamente all'Amministrazione procedente (Regione o ente delegato)</td></tr></tbody></table><div class="note-box"><span class="note-ico">💡 Concorso:</span> Il SUE garantisce la concentrazione procedimentale: con un'unica istanza si avvia sia il procedimento edilizio sia quello paesaggistico.</div></div>
+</article>
+<article id="dpr-10" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 10</span>Il termine tassativo: 60 giorni</h3>
+  <div class="art-body"><p>Il procedimento autorizzatorio semplificato deve concludersi entro <strong>60 giorni tassativi</strong> dal ricevimento della domanda completa. Il provvedimento finale (autorizzazione o diniego) viene immediatamente comunicato al richiedente.</p><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> 60 giorni è un termine tassativo, non ordinatorio: non può essere prorogato. Se l'amministrazione non risponde nei termini scatta il silenzio-assenso (art. 11, co. 9).</div></div>
+</article>
+<article id="dpr-11" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 11</span>Come si svolge il procedimento – tutte le fasi</h3>
+  <div class="art-body"><p>Questo è l'articolo operativo più importante del decreto.</p><div class="sec-label">Fase 1 – Verifica preliminare:</div><p>L'amministrazione procedente verifica se l'intervento è libero (Allegato A) → comunica che non serve autorizzazione; oppure se richiede la procedura ordinaria → comunica che serve un'istanza diversa; oppure se tutto è in ordine → si procede.</p><div class="sec-label">Fase 2 – Se servono altri permessi:</div><p>Si convoca la conferenza di servizi (L. 241, artt. 14 ss.). I termini per le amministrazioni di tutela paesaggistica e dei beni culturali sono dimezzati.</p><div class="sec-label">Fase 3 – Procedimento normale (schema dei termini):</div><table><thead><tr><th>Azione</th><th>Termine</th><th>Chi agisce</th></tr></thead><tbody><tr><td class="td-label">Richiesta integrazioni documenti (una sola volta)</td><td>10 giorni</td><td>Amm. procedente</td></tr><tr><td class="td-label">Risposta del richiedente con integrazioni</td><td>10 giorni</td><td>Richiedente (procedimento sospeso)</td></tr><tr><td class="td-label">Proposta di accoglimento alla Soprintendenza</td><td>20 giorni</td><td>Amm. procedente</td></tr><tr><td class="td-label">Parere vincolante</td><td>20 giorni</td><td>Soprintendenza</td></tr><tr><td class="td-label">Adozione provvedimento finale</td><td>10 giorni</td><td>Amm. procedente</td></tr></tbody></table><div class="sec-label">Se la valutazione è NEGATIVA:</div><ul><li>L'amm. comunica i motivi ostativi e le modifiche necessarie (entro 10 gg)</li><li>Il richiedente ha 15 giorni per osservazioni e progetto adeguato</li><li>Se i problemi persistono → diniego motivato entro 20 giorni</li></ul><div class="sec-label">Se la Soprintendenza è NEGATIVA:</div><ul><li>Spiega nel dettaglio i motivi (entro 10 gg dalla proposta)</li><li>Il richiedente ha 15 giorni per osservazioni</li><li>Se i problemi persistono → diniego motivato entro 20 giorni</li></ul><div class="sec-label">Regole speciali:</div><ul><li><strong>Silenzio-assenso:</strong> se la Soprintendenza non risponde entro 20 giorni → parere favorevole automatico e l'amministrazione rilascia l'autorizzazione.</li><li><strong>Commissioni locali per il paesaggio:</strong> nel procedimento semplificato il loro parere NON è obbligatorio (salvo leggi regionali diverse).</li><li><strong>Efficacia quinquennale:</strong> l'autorizzazione semplificata dura 5 anni come quella ordinaria.</li></ul><div class="note-box"><span class="note-ico">💡 Concorso:</span> Schema sintetico: 10+10 gg per integrazioni → 20 gg proposta alla Soprintendenza → 20 gg parere → 10 gg provvedimento = 60 gg totali tassativi.</div></div>
+</article>
+<article id="dpr-12" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 12</span>Semplificazione organizzativa</h3>
+  <div class="art-body"><p><strong>Soprintendenze:</strong> ogni Soprintendenza deve individuare uno o più funzionari responsabili dedicati all'esame delle pratiche di autorizzazione semplificata.</p><p><strong>Regioni:</strong> con propri atti normativi o di indirizzo, indicano agli enti locali come organizzarsi e devono prevedere un responsabile del procedimento identificato per ciascuna amministrazione.</p></div>
+</article>
+</section>
+<section id="dpr-c3" class="chapter">
+  <div class="chapter-header">CAPO III – Norme finali (Artt. 13-20)</div>
+  
+<article id="dpr-13" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 13</span>Quando e dove si applica subito il decreto</h3>
+  <div class="art-body"><p><strong>Regioni a statuto ordinario:</strong> si applica immediatamente e direttamente dal 6 aprile 2017.</p><p><strong>Regioni a statuto speciale e Province autonome:</strong> devono adeguare la propria legislazione secondo i rispettivi statuti. Fino ad allora continuano ad applicarsi le disposizioni regionali vigenti.</p><p><strong>Allegato A ovunque:</strong> l'esonero per gli interventi liberi si applica immediatamente su tutto il territorio nazionale, comprese le Regioni speciali.</p></div>
+</article>
+<article id="dpr-14" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 14</span>Il decreto prevale sui piani paesaggistici in caso di contrasto</h3>
+  <div class="art-body"><p>L'esonero dall'autorizzazione paesaggistica per i lavori dell'Allegato A <strong>prevale</strong> su qualsiasi disposizione contraria contenuta nei piani paesaggistici o negli strumenti urbanistici.</p><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> Eccezione: le <strong>prescrizioni d'uso specifiche</strong> dei beni paesaggistici (regole precise su materiali, tecniche, modalità) restano valide e vanno rispettate anche per gli interventi dell'Allegato A. L'esonero dall'autorizzazione e il rispetto delle prescrizioni sono cose distinte.</div></div>
+</article>
+<article id="dpr-15" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 15</span>L'esonero paesaggistico non elimina gli altri obblighi</h3>
+  <div class="art-body"><p>Restano comunque obbligatori:</p><ul><li>I titoli abilitativi edilizi (CILA, SCIA, permesso di costruire)</li><li>I provvedimenti per l'occupazione di suolo pubblico</li><li>Le autorizzazioni per le attività commerciali in area pubblica</li><li>Le autorizzazioni per la tutela dei beni culturali (se il bene è vincolato anche come bene culturale)</li></ul></div>
+</article>
+<article id="dpr-16" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 16</span>Un edificio vincolato sia come paesaggio sia come bene culturale</h3>
+  <div class="art-body"><p>Quando un intervento riguarda un edificio vincolato sia paesaggisticamente sia come bene culturale (interesse storico-artistico), il richiedente presenta <strong>una sola istanza</strong> per entrambi i titoli. La Soprintendenza risponde con <strong>un unico provvedimento</strong> che vale per entrambe le tutele.</p><div class="note-box"><span class="note-ico">💡 Concorso:</span> Principio del "one stop shop": una sola istanza, un solo ufficio, un solo provvedimento.</div></div>
+</article>
+<article id="dpr-17" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 17</span>Sanzioni e rimessa in pristino</h3>
+  <div class="art-body"><p>Chi viola le regole del DPR incorre nelle sanzioni del Codice dei Beni Culturali (sanzioni pecuniarie, penali, obbligo di rimessa in pristino).</p><p><strong>La rimessa in pristino</strong> viene ordinata solo se non è possibile trovare soluzioni che rendano l'intervento compatibile con il paesaggio.</p><p><strong>Regola di favore per il passato:</strong> chi aveva realizzato un intervento ora nell'Allegato A (quindi ora libero) prima dell'entrata in vigore del DPR, senza l'autorizzazione allora necessaria, NON può essere obbligato alla rimessa in pristino (se non richiedeva altri titoli).</p></div>
+</article>
+<article id="dpr-18" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 18</span>Come si aggiornano gli elenchi</h3>
+  <div class="art-body"><p>Il Ministro, con proprio decreto e previa intesa della Conferenza Unificata, può aggiornare gli Allegati A e B e la documentazione richiesta, sulla base dell'esperienza applicativa. Gli elenchi non sono immutabili.</p><div class="note-box"><span class="note-ico">💡 Concorso:</span> Per il concorso: studiare sempre la versione aggiornata degli allegati, non solo quella originale del 2017.</div></div>
+</article>
+<article id="dpr-19" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 19</span>Abrogazioni</h3>
+  <div class="art-body"><p>Dal 6 aprile 2017 il DPR 139/2010 (vecchio regolamento sulla procedura semplificata) è abrogato e sostituito integralmente dal DPR 31/2017. La novità principale: l'introduzione dell'Allegato A (interventi completamente liberi), che non esisteva nel regime precedente.</p></div>
+</article>
+<article id="dpr-20" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 20</span>Invarianza finanziaria</h3>
+  <div class="art-body"><p>L'applicazione del DPR non comporta nuovi costi per lo Stato. Tutte le amministrazioni coinvolte mettono in pratica le nuove disposizioni con le risorse già disponibili, senza nuove assunzioni o investimenti.</p></div>
+</article>
+</section>
+<section id="dpr-all" class="chapter">
+  <div class="chapter-header">Allegato A – Interventi completamente liberi (31 tipologie)</div>
+  <p>L'Allegato A raccoglie gli interventi che, pur in aree vincolate, non richiedono autorizzazione paesaggistica. Si possono raggruppare in 6 aree tematiche:</p><table><thead><tr><th>Codice</th><th>Titolo</th><th>Spiegazione pratica</th></tr></thead><tbody><tr><td>A.1</td><td>Opere interne</td><td>Qualsiasi lavoro interno che non cambia l'esterno, anche con cambio di destinazione d'uso.</td></tr><tr><td>A.2</td><td>Facciate e coperture con stessi materiali</td><td>Tinteggiature, intonaci, manti di copertura, infissi, cornici: liberi se si usano gli stessi materiali e colori già presenti. Anche la coibentazione termica (cappotto) è libera se non crea sporgenze.</td></tr><tr><td>A.3</td><td>Consolidamento strutturale/antisismico</td><td>Libero se non cambia forma, materiali, volume o altezza dell'edificio.</td></tr><tr><td>A.4</td><td>Barriere architettoniche minori</td><td>Rampe fino a 60 cm di dislivello, ascensori in cortili interni non visibili dalla strada.</td></tr><tr><td>A.5</td><td>Impianti tecnologici non visibili</td><td>Condizionatori, caldaie, parabole, antenne su prospetti secondari o non visibili dalla strada. Non vale per beni vincolati singolarmente (monumenti, centri storici).</td></tr><tr><td>A.6</td><td>Pannelli solari non visibili o integrati</td><td>Su tetti piani non visti dalla strada, o integrati nella falda con stessa inclinazione. Non vale per beni vincolati da decreto.</td></tr><tr><td>A.7</td><td>Micro-eolico piccolo</td><td>Altezza max 1,50 m, diametro max 1 m. Non su monumenti o borghi storici.</td></tr><tr><td>A.8</td><td>Cabine tecnologiche e reti veloci</td><td>Adeguamento cabine per reti tecnologiche, interventi per la banda ultralarga (incrementi di altezza fino a 50 cm).</td></tr><tr><td>A.9</td><td>Anticaduta sui tetti</td><td>Sistemi di sicurezza anticaduta sulle coperture degli edifici: liberi.</td></tr><tr><td>A.10</td><td>Manutenzione spazi esterni</td><td>Marciapiedi, aiuole, arredo urbano: libero con gli stessi materiali e stile preesistente.</td></tr><tr><td>A.11</td><td>Urbanizzazione in piani già valutati (con accordi)</td><td>Opere di urbanizzazione in piani attuativi già valutati paesaggisticamente, se oggetto di accordi di collaborazione.</td></tr><tr><td>A.12</td><td>Sistemazioni pertinenze degli edifici</td><td>Camminamenti, pavimentazioni, serre domestiche fino a 20 mq, demolizione di piccoli manufatti privi di valore: liberi se non modificano significativamente la morfologia del terreno.</td></tr><tr><td>A.13</td><td>Recinzioni e cancelli con stessi materiali</td><td>Manutenzione o sostituzione con gli stessi materiali e finiture esistenti. Non su monumenti o centri storici.</td></tr><tr><td>A.14</td><td>Sostituzione alberi e arbusti</td><td>Con la stessa specie o specie autoctone tipiche. Non su ville o parchi di interesse pubblico.</td></tr><tr><td>A.15</td><td>Interventi nel sottosuolo</td><td>Volumi interrati, pozzi, reti idriche, cisterne, canalizzazioni: liberi se non modificano permanentemente la morfologia. Pozzetti a raso fino a 40 cm ammessi.</td></tr><tr><td>A.16</td><td>Occupazione temporanea di suolo</td><td>Strutture senza fondamenta per fiere, eventi, spettacoli: max 120 giorni/anno.</td></tr><tr><td>A.17</td><td>Dehors amovibili per attività commerciali</td><td>Tende, pedane, paratie frangivento, elementi ombreggianti: liberi se facilmente smontabili e senza muratura stabile.</td></tr><tr><td>A.18</td><td>Monitoraggio ambientale</td><td>Strutture di supporto per monitoraggio ambientale o prospezioni geognostiche (escl. ricerca idrocarburi).</td></tr><tr><td>A.19</td><td>Attività agricole minori</td><td>Serre stagionali smontabili, pergolati in legno per attrezzi fino a 5 mq, manutenzione impianti irrigui, muretti a secco tradizionali, pannelli informativi in legno.</td></tr><tr><td>A.20</td><td>Attività forestali autorizzate</td><td>Pratiche selvicolturali autorizzate, taglio vegetazione per mantenere strade ed elettrodotti, strade forestali sterrate secondo piani approvati con parere Soprintendenza.</td></tr><tr><td>A.21</td><td>Cimiteri</td><td>Monumenti, lapidi, edicole funerarie e arredo all'interno dei cimiteri.</td></tr><tr><td>A.22</td><td>Tende parasole private</td><td>Installazione di tende parasole su terrazze, balconi o spazi pertinenziali privati.</td></tr><tr><td>A.23</td><td>Insegne in vetrina</td><td>Insegne di negozi collocate all'interno dello spazio vetrina o in posizioni equivalenti. Non per insegne luminose a messaggio variabile.</td></tr><tr><td>A.24</td><td>Reti di comunicazione elettronica</td><td>Installazione o modifica di impianti di reti di comunicazione e radioelettrici ammessi dalla normativa, compreso smantellamento reti aeree.</td></tr><tr><td>A.25</td><td>Manutenzione di fiumi e canali</td><td>Pulizia alvei, sponde, argini e vegetazione ripariale per garantire il deflusso dell'acqua. Non deve alterare permanentemente la visione d'insieme del corso d'acqua.</td></tr><tr><td>A.26</td><td>Ingegneria naturalistica puntuale</td><td>Interventi per il controllo delle acque e stabilizzazione del suolo con piante autoctone e materiali biodegradabili.</td></tr><tr><td>A.27</td><td>Strutture amovibili in campeggi</td><td>Manutenzione o sostituzione (senza ampliamento) di strutture amovibili in strutture ricettive all'aperto già autorizzate.</td></tr><tr><td>A.28</td><td>Smontaggio/rimontaggio stagionale</td><td>Strutture stagionali già autorizzate che vengono smontate e rimontate ogni anno.</td></tr><tr><td>A.29</td><td>Ricostruzione fedele post-calamità</td><td>Ricostruzione entro 10 anni da terremoto/alluvione, stessa sagoma e posizione originarie, documentate. Ammesse solo modifiche per norme antisismiche.</td></tr><tr><td>A.30</td><td>Demolizioni per abusi</td><td>Demolizioni ordinate dall'autorità per rimuovere costruzioni abusive: libere.</td></tr><tr><td>A.31</td><td>Varianti minime a progetti già autorizzati</td><td>Piccole modifiche in corso d'opera: libere se non superano il 2% delle misure progettuali (altezza, distanze, volume, superficie coperta, posizione).</td></tr></tbody></table><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> Anche per tutti gli interventi dell'Allegato A rimangono obbligatori gli eventuali titoli edilizi (CILA, SCIA, permesso di costruire). L'esonero riguarda solo l'autorizzazione paesaggistica.</div>
+</section>
+<section id="dpr-allb" class="chapter">
+  <div class="chapter-header">Allegato B – Procedura semplificata (42 tipologie)</div>
+  <p>L'Allegato B raccoglie gli interventi che richiedono la procedura semplificata (60 giorni tassativi). Ecco le principali tipologie raggruppate per tema:</p><table><thead><tr><th>Codice</th><th>Titolo</th><th>Spiegazione pratica</th></tr></thead><tbody><tr><td>B.1</td><td>Piccoli ampliamenti di volume</td><td>Max 10% del volume originario e comunque max 100 mc. Rispettare materiali e caratteristiche architettoniche. Un ulteriore ampliamento entro 5 anni richiede procedura ordinaria.</td></tr><tr><td>B.2</td><td>Aperture su beni vincolati singolarmente</td><td>Modifica di aperture esterne o finestre su edifici monumentali o centri storici: semplificata se si rispettano i materiali esistenti.</td></tr><tr><td>B.3</td><td>Modifiche di facciata con cambio materiali</td><td>Rifacimento intonaci con colori diversi, riconfigurazione aperture, modifica cornicioni, ringhiere, parapetti, realizzazione o chiusura di balconi.</td></tr><tr><td>B.4</td><td>Rifacimento copertura con materiali diversi</td><td>Sostituzione manto del tetto con materiali diversi, modifiche all'inclinazione delle falde, realizzazione di terrazze a tasca, abbaini, lucernari.</td></tr><tr><td>B.5</td><td>Adeguamento sismico/energetico con cambi materiali</td><td>Interventi per sicurezza sismica o risparmio energetico che comportano cambiamenti nelle caratteristiche morfologiche o nei materiali di finitura.</td></tr><tr><td>B.6</td><td>Barriere architettoniche rilevanti visivamente</td><td>Rampe per dislivelli >60 cm, ascensori esterni visibili dalla strada che alterano la sagoma.</td></tr><tr><td>B.7</td><td>Impianti tecnologici visibili dalla strada</td><td>Condizionatori, caldaie, parabole, antenne su prospetti che danno sulla via pubblica o su beni vincolati singolarmente.</td></tr><tr><td>B.8</td><td>Pannelli solari visibili o su beni vincolati</td><td>Pannelli fotovoltaici/termici su coperture piane visibili dalla strada, o su edifici vincolati singolarmente.</td></tr><tr><td>B.9</td><td>Micro-eolico su beni vincolati</td><td>Stesse dimensioni dell'A.7, ma quando interessano beni vincolati singolarmente come monumenti o centri storici.</td></tr><tr><td>B.10</td><td>Nuove cabine tecnologiche diverse dalle esistenti</td><td>Installazione o sostituzione di cabine tecnologiche con altre diverse per tipo, dimensioni o posizione.</td></tr><tr><td>B.11</td><td>Adeguamento viabilità esistente</td><td>Rotatorie, riconfigurazione incroci, banchine, pensiline, marciapiedi, piste ciclabili, parcheggi a raso con fondo drenante.</td></tr><tr><td>B.12</td><td>Arredo urbano sistematico</td><td>Installazione coordinata di manufatti e componenti, compresi impianti di pubblica illuminazione.</td></tr><tr><td>B.13</td><td>Urbanizzazione in piani già valutati (senza accordi)</td><td>Stessa situazione di A.11 ma senza accordi di collaborazione attivi.</td></tr><tr><td>B.14</td><td>Sistemazioni pertinenze su beni vincolati (ville/parchi)</td><td>Gli stessi interventi dell'A.12 ma quando riguardano beni vincolati singolarmente come ville o parchi di interesse pubblico.</td></tr><tr><td>B.15</td><td>Demolizione senza ricostruzione</td><td>Abbattimento di edifici privi di interesse architettonico, storico o testimoniale, senza ricostruire.</td></tr><tr><td>B.16</td><td>Autorimesse piccole</td><td>Garage fuori terra o seminterrati con volume emergente max 50 mc, inclusi accessi e rampe.</td></tr><tr><td>B.17</td><td>Tettoie, porticati, chioschi da giardino</td><td>Strutture permanenti aperte su più lati max 30 mq, o volumi tecnici max 30 mc.</td></tr><tr><td>B.18</td><td>Sistemazioni esterne alle pertinenze</td><td>Nuove pavimentazioni, accessi pedonali e carrabili, modellazioni del suolo, rampe, opere fisse di arredo.</td></tr><tr><td>B.19</td><td>Tettoie aperte per capannoni produttivi</td><td>Coperture aperte di servizio annesse a capannoni: entro il 10% della superficie coperta esistente.</td></tr><tr><td>B.20</td><td>Impianti tecnici per edifici produttivi</td><td>Strutture per stoccaggio prodotti o canalizzazione fluidi (tubazioni esterne) al servizio di edifici produttivi.</td></tr><tr><td>B.21</td><td>Recinzioni con materiali diversi o su beni vincolati</td><td>Recinzioni, muri di cinta, cancelli con materiali diversi dai preesistenti, o su beni vincolati singolarmente.</td></tr><tr><td>B.22</td><td>Taglio alberi e sostituzione in aree vincolate</td><td>Taglio senza sostituzione (con autorizzazione forestale), o sostituzione in aree vincolate da decreto come ville/parchi.</td></tr><tr><td>B.23</td><td>Reti di servizi pubblici in soprasuolo</td><td>Opere accessorie fuori terra collegate a reti di distribuzione (elettricità, acqua, gas, fognatura) o allacciamenti.</td></tr><tr><td>B.24</td><td>Serbatoi e cisterne</td><td>Serbatoi interrati che modificano la morfologia del terreno, o manufatti in soprasuolo max 15 mc.</td></tr><tr><td>B.25</td><td>Occupazione temporanea prolungata</td><td>Come A.16 ma tra 120 e 180 giorni nell'anno solare.</td></tr><tr><td>B.26</td><td>Verande e dehors chiusi</td><td>Strutture chiuse per bar, ristoranti, strutture turistiche; strutture amovibili non stagionali per la balneazione (chioschi, cabine).</td></tr><tr><td>B.27</td><td>Manufatti per pozzi domestici</td><td>Strutture fuori terra collegate alla realizzazione di pozzi per uso domestico.</td></tr><tr><td>B.28</td><td>Ponticelli e tombinamenti puntuali</td><td>Attraversamenti di corsi d'acqua o tombinamenti parziali per accedere a edifici esistenti o fondi interclusi.</td></tr><tr><td>B.29</td><td>Ricovero attrezzi agricoli con muratura</td><td>Manufatti con fondamenta o muratura per attrezzi agricoli, max 10 mq.</td></tr><tr><td>B.30</td><td>Strutture per attività ittica</td><td>Nuove strutture per allevamento del pesce e attività ittiche, max 30 mq.</td></tr><tr><td>B.31</td><td>Adeguamento viabilità vicinale e poderale</td><td>Strade vicinali e poderali nel rispetto della normativa forestale.</td></tr><tr><td>B.32</td><td>Ripristino attività agricole (senza piano paesaggistico)</td><td>Riconversione di aree invase da vegetazione spontanea al precedente uso agricolo, in assenza di piano paesaggistico regionale.</td></tr><tr><td>B.33</td><td>Diradamento boschivo con colture agricole</td><td>Apertura di radure nel bosco per l'inserimento di colture agricole.</td></tr><tr><td>B.34</td><td>Riduzione superfici boscate</td><td>In pertinenze di edifici esistenti, max 2.000 mq, con autorizzazione forestale.</td></tr><tr><td>B.35</td><td>Viabilità forestale senza piani approvati</td><td>Realizzazione o adeguamento di strade forestali in assenza di piani di gestione approvati.</td></tr><tr><td>B.36</td><td>Cartelli pubblicitari non temporanei</td><td>Insegne e cartelli non temporanei sotto 18 mq, inclusi quelli luminosi, e insegne fuori dalle vetrine.</td></tr><tr><td>B.37</td><td>Linee elettriche e telefoniche su palo</td><td>Linee elettriche su palo max 10 m o telefoniche max 6,30 m al servizio di singole utenze.</td></tr><tr><td>B.38</td><td>Antenne e ripetitori</td><td>Supporti di antenne max 6 m su edifici, sopralzi di pali/tralicci max 6 m, apparati tecnici max 3 m su edifici o 4 m a terra.</td></tr><tr><td>B.39</td><td>Interventi sulle difese spondali</td><td>Modifica di manufatti di difesa delle sponde di fiumi e laghi per adeguamento funzionale.</td></tr><tr><td>B.40</td><td>Ingegneria naturalistica sistematica</td><td>Interventi sistematici per il controllo delle acque, conservazione del suolo o difesa da frane.</td></tr><tr><td>B.41</td><td>Demolizione e ricostruzione fedele</td><td>Stessa volumetria, sagoma e sedime. Esclusi beni vincolati singolarmente come ville e parchi di interesse pubblico.</td></tr><tr><td>B.42</td><td>Ripascimento costiero</td><td>Apporto di sabbia su tratti di costa in erosione, manutenzione dune artificiali, ripristino opere di difesa costiera.</td></tr></tbody></table><p></p><table><thead><tr><th>Regime</th><th>Quando si applica</th></tr></thead><tbody><tr><td class="td-label">🟢 Libero (Allegato A)</td><td>Nessun impatto visivo o impatto minimo non percepibile. Nessuna autorizzazione paesaggistica. Solo eventuale titolo edilizio.</td></tr><tr><td class="td-label">🟡 Semplificato (Allegato B)</td><td>Impatto visivo contenuto. 60 giorni tassativi. Modello Allegato C + relazione Allegato D.</td></tr><tr><td class="td-label">🔴 Ordinario (art. 146 Codice)</td><td>Tutti gli altri interventi di maggiore impatto. Procedura piena. Nessun termine tassativo.</td></tr></tbody></table>
+</section>
+</div>
+
+  
+<div id="sec-l241" class="law-section">
+  <div class="law-header">
+    <h2>Legge 7 agosto 1990, n. 241</h2>
+    <p class="law-sub">Procedimento Amministrativo e Diritto di Accesso – Articoli 1-30</p>
+  </div>
+  
+<section id="l241-c1" class="chapter">
+  <div class="chapter-header">CAPO I – Principi generali (Artt. 1-3-bis)</div>
+  
+<article id="l241-1" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 1</span>I princìpi che guidano tutta l'azione amministrativa</h3>
+  <div class="art-body"><p>L'art. 1 fissa i valori-guida che la pubblica amministrazione deve rispettare in tutto ciò che fa. Non sono raccomandazioni: sono criteri giuridicamente vincolanti.</p><table><thead><tr><th>Principio</th><th>Significato in parole semplici</th></tr></thead><tbody><tr><td class="td-label">Economicità</td><td>Raggiungere gli obiettivi usando le risorse nel modo più efficiente possibile. Non si può spendere più del necessario né allungare i tempi senza motivo.</td></tr><tr><td class="td-label">Efficacia</td><td>I risultati devono essere concreti e raggiungere davvero gli obiettivi fissati dalla legge. Non basta seguire le procedure.</td></tr><tr><td class="td-label">Imparzialità</td><td>Non favorire né penalizzare nessuno per ragioni personali, politiche o di altro genere. Trattare tutti allo stesso modo in situazioni uguali.</td></tr><tr><td class="td-label">Pubblicità</td><td>L'attività amministrativa deve essere conoscibile: gli atti devono essere resi pubblici o accessibili a chi ne ha diritto.</td></tr><tr><td class="td-label">Trasparenza</td><td>Non basta che gli atti esistano: il cittadino deve poter capire come e perché l'amministrazione ha deciso.</td></tr><tr><td class="td-label">Principi UE</td><td>Rispettare i principi dell'ordinamento europeo: proporzionalità, non discriminazione, legittimo affidamento, certezza del diritto.</td></tr><tr><td class="td-label">Collaborazione e buona fede</td><td>Dal 2020: il rapporto tra cittadino e PA deve essere improntato alla collaborazione reciproca e alla buona fede. L'amministrazione non è una "trincea" contro il cittadino.</td></tr></tbody></table><div class="sec-label">Regole speciali:</div><ul><li><strong>Atti non autoritativi:</strong> quando la PA non impone obblighi ma compra servizi, stipula contratti o eroga contributi, può comportarsi come un privato e applicare il diritto privato.</li><li><strong>Soggetti privati con funzioni pubbliche:</strong> (es. gestori di servizi pubblici in concessione) devono garantire gli stessi principi della PA.</li><li><strong>Divieto di aggravamento:</strong> la PA non può complicare inutilmente le procedure. Se lo fa, deve motivare con ragioni straordinarie.</li></ul><div class="note-box"><span class="note-ico">💡 Concorso:</span> I principi dell'art. 1 ricorrono come criteri di valutazione in moltissime domande di concorso. Vanno conosciuti uno per uno con la loro definizione sostanziale.</div></div>
+</article>
+<article id="l241-2" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 2</span>Ogni procedimento deve concludersi: il dovere di provvedere e i termini</h3>
+  <div class="art-body"><p>Principio fondamentale: la PA non può tacere. Se riceve una domanda o avvia un procedimento d'ufficio, deve sempre concluderlo con un provvedimento scritto ed espresso.</p><div class="sec-label">I termini per concludere il procedimento:</div><table><thead><tr><th>Termine</th><th>Quando si applica</th></tr></thead><tbody><tr><td class="td-label">30 giorni</td><td>Regola generale: se nessuna legge o regolamento prevede un termine diverso.</td></tr><tr><td class="td-label">Fino a 90 giorni</td><td>Termine normale per procedimenti più complessi, fissato con DPCM.</td></tr><tr><td class="td-label">Fino a 180 giorni</td><td>Solo per procedimenti molto complessi: richiede deliberazione del Consiglio dei Ministri. Eccezioni: cittadinanza e immigrazione (possono superarlo).</td></tr></tbody></table><div class="sec-label">Sospensione dei termini:</div><p>Una sola volta, per non più di 30 giorni, se la PA ha bisogno di acquisire informazioni che non ha e non può ottenere da sola da altre PA.</p><div class="sec-label">Trasparenza sui tempi:</div><p>Le amministrazioni devono misurare i tempi reali e pubblicarli nella sezione "Amministrazione Trasparente" del proprio sito, confrontandoli con i termini di legge.</p><div class="sec-label">Conseguenze del ritardo:</div><ul><li>Valutazione negativa della performance individuale del dirigente</li><li>Responsabilità disciplinare e amministrativo-contabile</li><li>Provvedimenti tardivi = inefficaci (quando il termine è tassativo)</li><li>Il cittadino ha diritto a un indennizzo automatico per il solo ritardo</li></ul><div class="sec-label">Il potere sostitutivo:</div><p>Ogni PA deve individuare un soggetto apicale con il potere di intervenire quando il responsabile è in ritardo. Ha a disposizione la <strong>metà del tempo originariamente previsto</strong> per concludere il procedimento al posto del responsabile. L'elenco dei sostituti deve essere pubblicato sul sito in modo ben visibile.</p><div class="ex-box"><span class="ex-ico">📌 Esempio:</span> Un Comune ha 60 giorni per un'autorizzazione commerciale. Il responsabile non risponde. Il cittadino si rivolge al sostituto, che ha altri 30 giorni per concludere.</div><div class="note-box"><span class="note-ico">💡 Concorso:</span> Da ricordare: 30 gg regola generale – 90 gg limite normale – 180 gg limite massimo assoluto (salvo cittadinanza e immigrazione).</div></div>
+</article>
+<article id="l241-2bis" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 2-bis</span>Il danno da ritardo: il cittadino può chiedere i soldi</h3>
+  <div class="art-body"><p>Due livelli di tutela per chi subisce un ritardo:</p><table><thead><tr><th>Livello</th><th>Come funziona</th></tr></thead><tbody><tr><td class="td-label">1° – Risarcimento del danno</td><td>Se il ritardo ha causato un danno reale e dimostrabile, il cittadino può chiedere il risarcimento completo. Deve dimostrare: il danno, il nesso causale con il ritardo, il dolo o la colpa dell'amministrazione.</td></tr><tr><td class="td-label">2° – Indennizzo per il mero ritardo</td><td>Anche senza dimostrare un danno specifico, il cittadino ha diritto a ricevere una somma per il solo fatto che l'amministrazione ha risposto in ritardo. È automatico. Se poi ottiene anche il risarcimento, l'indennizzo viene detratto.</td></tr></tbody></table><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> L'indennizzo per il mero ritardo NON si applica nei concorsi pubblici e nei procedimenti previdenziali e assistenziali gestiti da INPS, INAIL, ecc.</div></div>
+</article>
+<article id="l241-3" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 3</span>Ogni provvedimento deve essere motivato</h3>
+  <div class="art-body"><p>La motivazione è la spiegazione scritta del perché l'amministrazione ha preso quella decisione. È una garanzia fondamentale: il cittadino deve poter capire le ragioni e, se del caso, impugnare il provvedimento.</p><div class="sec-label">Cosa deve contenere:</div><ul><li>I presupposti di fatto: la situazione concreta che ha determinato la decisione</li><li>Le ragioni giuridiche: le norme applicate e perché portano a quella conclusione</li><li>Il collegamento con l'istruttoria: coerenza con quanto emerso dall'analisi degli atti</li></ul><div class="sec-label">Quando la motivazione NON è obbligatoria:</div><ul><li>Atti normativi (leggi regionali, regolamenti)</li><li>Atti a contenuto generale (circolari, indirizzi, direttive)</li></ul><div class="sec-label">Motivazione per rinvio:</div><p>Se le ragioni sono già spiegate in un atto precedente (parere tecnico, perizia), l'amministrazione può rinviarvi, ma deve indicarlo espressamente e rendere disponibile quell'atto insieme al provvedimento.</p><div class="sec-label">Obbligo di indicare i rimedi:</div><p>Ogni atto notificato deve indicare: il termine entro cui si può ricorrere e l'autorità a cui presentare il ricorso. Senza questa indicazione, i termini per impugnare non decorrono.</p><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> La motivazione insufficiente o assente è uno dei vizi più frequenti che portano all'annullamento di un provvedimento davanti al TAR.</div></div>
+</article>
+<article id="l241-3bis" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 3-bis</span>L'amministrazione deve usare gli strumenti digitali</h3>
+  <div class="art-body"><p>La PA usa strumenti informatici e telematici nei rapporti interni, tra amministrazioni diverse e con i privati. Principio del <strong>"digital first"</strong>: il digitale è la modalità ordinaria, la carta è l'eccezione.</p></div>
+</article>
+</section>
+<section id="l241-c2" class="chapter">
+  <div class="chapter-header">CAPO II – Il responsabile del procedimento (Artt. 4-6-bis)</div>
+  
+<article id="l241-4" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 4</span>L'unità organizzativa responsabile</h3>
+  <div class="art-body"><p>Per ogni tipo di procedimento di propria competenza, la PA deve stabilire esplicitamente quale ufficio interno è responsabile: dell'istruttoria, degli adempimenti procedimentali e dell'adozione del provvedimento finale. Queste informazioni devono essere pubblicate (oggi principalmente nella sezione "Amministrazione Trasparente" del sito).</p></div>
+</article>
+<article id="l241-5" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 5</span>Il responsabile del procedimento: la persona fisica di riferimento</h3>
+  <div class="art-body"><p>Ogni singolo procedimento deve avere una persona fisica identificata come responsabile: non un ufficio generico, ma un funzionario preciso.</p><p><strong>Come viene individuato:</strong> il dirigente dell'unità organizzativa competente assegna la responsabilità a sé stesso o a un dipendente dell'ufficio. Se non lo fa, è automaticamente responsabile il funzionario preposto all'unità.</p><p><strong>Il cittadino deve sapere chi è:</strong> l'unità organizzativa competente, il domicilio digitale (PEC) e il nome del responsabile devono essere comunicati a chi ha avviato il procedimento e, su richiesta, a chiunque.</p></div>
+</article>
+<article id="l241-6" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 6</span>Cosa fa concretamente il responsabile</h3>
+  <div class="art-body"><p>Il responsabile del procedimento ha 5 compiti precisi:</p><ul><li><strong>Verifica preliminare:</strong> valuta ammissibilità, legittimazione del richiedente, presupposti di legge.</li><li><strong>Accertamento dei fatti:</strong> raccoglie d'ufficio le informazioni, può richiedere dichiarazioni, chiedere rettifiche, disporre accertamenti tecnici e ispezioni.</li><li><strong>Conferenza di servizi:</strong> propone o, se ne ha la competenza, indice direttamente la conferenza di servizi.</li><li><strong>Comunicazioni:</strong> gestisce tutte le comunicazioni, pubblicazioni e notifiche previste dalla legge.</li><li><strong>Provvedimento finale:</strong> se ne ha la competenza, lo adotta. Altrimenti trasmette gli atti all'organo competente, che non può discostarsi dall'istruttoria senza spiegare perché nella motivazione.</li></ul><div class="note-box"><span class="note-ico">💡 Concorso:</span> Chi istruisce e chi decide devono essere coerenti. Se chi decide vuole scostarsidall'istruttoria, deve motivare il perché.</div></div>
+</article>
+<article id="l241-6bis" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 6-bis</span>Il conflitto di interessi</h3>
+  <div class="art-body"><p>Il responsabile del procedimento e tutti i titolari degli uffici che intervengono (pareri, valutazioni tecniche, provvedimento finale) devono <strong>astenersi in caso di conflitto di interessi</strong>, anche potenziale, segnalando ogni situazione al superiore gerarchico.</p><p><strong>Cos'è il conflitto:</strong> un interesse personale (economico, familiare, relazionale) nell'esito del procedimento che potrebbe compromettere l'imparzialità.</p><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> L'obbligo si estende anche al conflitto potenziale: meglio segnalare e farsi sostituire che rischiare di viziare l'intero procedimento.</div></div>
+</article>
+</section>
+<section id="l241-c3" class="chapter">
+  <div class="chapter-header">CAPO III – Partecipazione al procedimento (Artt. 7-13)</div>
+  
+<article id="l241-7" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 7</span>La comunicazione di avvio del procedimento</h3>
+  <div class="art-body"><p>Prima di adottare un provvedimento che riguarda un cittadino, la PA deve avvisarlo che il procedimento è iniziato.</p><div class="sec-label">A chi va inviata:</div><ul><li>Ai destinatari diretti del provvedimento</li><li>A chi è obbligato per legge a intervenire</li><li>Ai controinteressati individuabili che potrebbero subire un pregiudizio</li></ul><div class="sec-label">Quando NON è obbligatoria:</div><p>Se ci sono ragioni di urgenza che impongono di agire immediatamente, o se il provvedimento è cautelare.</p><div class="note-box"><span class="note-ico">💡 Concorso:</span> L'omissione della comunicazione di avvio non porta sempre all'annullamento: se il cittadino ha potuto comunque partecipare o se il provvedimento non avrebbe potuto avere contenuto diverso, il vizio può non essere invalidante.</div></div>
+</article>
+<article id="l241-8" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 8</span>Contenuto obbligatorio della comunicazione di avvio</h3>
+  <div class="art-body"><p>La comunicazione deve indicare:</p><ul><li>L'amministrazione competente</li><li>L'oggetto del procedimento</li><li>Il nome del responsabile e il suo domicilio digitale (PEC)</li><li>Il termine entro cui il procedimento deve concludersi e i rimedi in caso di inerzia</li><li>La data di presentazione dell'istanza (nei procedimenti ad iniziativa di parte)</li><li>Come accedere agli atti del procedimento in digitale</li><li>L'indirizzo fisico per accedere agli atti non disponibili digitalmente</li></ul><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> L'omissione può essere fatta valere solo dal soggetto nel cui interesse la comunicazione era prevista.</div></div>
+</article>
+<article id="l241-9" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 9</span>Chiunque abbia un interesse può intervenire</h3>
+  <div class="art-body"><p>La partecipazione non è riservata a chi ha ricevuto la comunicazione di avvio. Chiunque possa subire un pregiudizio può intervenire volontariamente: soggetti privati con un interesse (anche solo di fatto), associazioni e comitati portatori di interessi collettivi o diffusi.</p><div class="ex-box"><span class="ex-ico">📌 Esempio:</span> Un'associazione ambientalista può intervenire in un procedimento per la realizzazione di un impianto industriale vicino a un parco naturale.</div></div>
+</article>
+<article id="l241-10" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 10</span>I diritti di chi partecipa al procedimento</h3>
+  <div class="art-body"><p>Chi ha ricevuto la comunicazione di avvio o è intervenuto volontariamente ha due diritti fondamentali:</p><table><thead><tr><th>Diritto</th><th>In cosa consiste</th></tr></thead><tbody><tr><td class="td-label">Accesso agli atti</td><td>Prendere visione di tutti i documenti del procedimento (salvo le eccezioni dell'art. 24).</td></tr><tr><td class="td-label">Presentare memorie e documenti</td><td>Inviare osservazioni, controdeduzioni, nuovi documenti. La PA ha l'obbligo di valutarli se pertinenti (non di accoglierli, ma di considerarli).</td></tr></tbody></table></div>
+</article>
+<article id="l241-10bis" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 10-bis</span>Il preavviso di rigetto: prima di dire no, la PA deve avvisare</h3>
+  <div class="art-body"><p>Prima di adottare un provvedimento di diniego in un procedimento ad istanza di parte, la PA deve comunicare al richiedente i motivi per cui sta per rigettare la domanda.</p><div class="sec-label">Come funziona:</div><ul><li>PA comunica tempestivamente i motivi ostativi</li><li>Il richiedente ha <strong>10 giorni</strong> per presentare osservazioni scritte (con eventuali documenti)</li><li>Durante questi 10 giorni i termini del procedimento si sospendono</li><li>Se le osservazioni non vengono accolte, il diniego finale deve spiegare perché</li></ul><div class="sec-label">Regola anti "dinieghi a rate":</div><p>Se il provvedimento di diniego viene annullato dal giudice, nell'esercitare nuovamente il proprio potere la PA non può tirare fuori nuovi motivi ostativi che erano già emersi dall'istruttoria originale ma non erano stati comunicati.</p><div class="sec-label">Quando NON si applica:</div><ul><li>Procedure concorsuali (concorsi pubblici)</li><li>Procedimenti previdenziali e assistenziali gestiti da INPS, INAIL, ecc.</li><li>La PA non può mai usare come motivo ostativo un suo stesso inadempimento o ritardo</li></ul><div class="note-box"><span class="note-ico">💡 Concorso:</span> Il preavviso di rigetto (comunicazione dei motivi ostativi) è una delle novità più importanti della riforma del 2005. Prima, la PA poteva emettere un diniego senza preavviso.</div></div>
+</article>
+<article id="l241-11" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 11</span>Gli accordi tra PA e cittadino</h3>
+  <div class="art-body"><p>La PA può concludere accordi con il cittadino invece di imporre unilateralmente la propria decisione.</p><table><thead><tr><th>Tipo di accordo</th><th>In cosa consiste</th></tr></thead><tbody><tr><td class="td-label">Integrativo del provvedimento</td><td>L'accordo definisce il contenuto discrezionale del provvedimento che la PA emetterà comunque. Il provvedimento rimane, ma il suo contenuto viene concordato.</td></tr><tr><td class="td-label">Sostitutivo del provvedimento</td><td>L'accordo sostituisce completamente il provvedimento: al posto dell'atto amministrativo unilaterale, c'è un accordo bilaterale.</td></tr></tbody></table><div class="sec-label">Regole comuni:</div><ul><li>Devono essere scritti, a pena di nullità</li><li>Devono essere motivati</li><li>Non possono pregiudicare i diritti dei terzi</li><li>Devono perseguire il pubblico interesse</li><li>Prima di stipulare, l'organo competente adotta una determinazione interna di approvazione</li></ul><div class="sec-label">Recesso unilaterale della PA:</div><p>La PA può uscire dall'accordo per sopravvenuti motivi di pubblico interesse. Deve però riconoscere al privato un <strong>indennizzo</strong> per i danni subiti.</p><div class="note-box"><span class="note-ico">💡 Concorso:</span> Gli accordi ex art. 11 sono la base giuridica di molti strumenti urbanistici: convenzioni urbanistiche, accordi di programma, accordi bonari in materia edilizia.</div></div>
+</article>
+<article id="l241-12" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 12</span>I contributi e i finanziamenti pubblici: regole chiare prima di dare i soldi</h3>
+  <div class="art-body"><p>Prima di erogare qualsiasi beneficio economico (contributi, sovvenzioni, sussidi, ausili finanziari), la PA deve definire e rendere pubblici i criteri e le modalità che seguirà per decidere a chi dare, quanto dare e a quali condizioni.</p><p>Ogni singolo provvedimento di concessione del beneficio deve dimostrare che quei criteri sono stati effettivamente rispettati nel caso specifico.</p><div class="note-box"><span class="note-ico">💡 Concorso:</span> Questo articolo è il fondamento normativo dei bandi pubblici per l'erogazione di contributi. La predeterminazione dei criteri è la garanzia minima di imparzialità e trasparenza.</div></div>
+</article>
+<article id="l241-13" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 13</span>Quando le norme sulla partecipazione NON si applicano</h3>
+  <div class="art-body"><p>Le norme del Capo III non si applicano a:</p><ul><li><strong>Atti normativi</strong> (regolamenti): hanno le proprie procedure di formazione</li><li><strong>Atti amministrativi generali</strong> (circolari, indirizzi): si rivolgono a categorie indistinte</li><li><strong>Atti di pianificazione e programmazione</strong> (piani regolatori, piani di sviluppo): hanno procedure partecipative proprie</li><li><strong>Procedimenti tributari:</strong> hanno le proprie regole speciali</li></ul><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> Le esclusioni dell'art. 13 non significano che questi atti non debbano rispettare i principi di imparzialità, pubblicità e trasparenza (art. 1 si applica sempre). Significa solo che il meccanismo specifico di comunicazione individuale e preavviso di rigetto non si applica.</div></div>
+</article>
+</section>
+<section id="l241-c4" class="chapter">
+  <div class="chapter-header">CAPO IV – Conferenza di servizi (Artt. 14-17-bis)</div>
+  
+<article id="l241-14" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 14</span>La conferenza di servizi: i tre tipi</h3>
+  <div class="art-body"><p>Strumento per decidere insieme quando servono pareri/assensi di più enti diversi.</p><table><thead><tr><th>Tipo</th><th>Obbligatorietà</th><th>Scopo</th></tr></thead><tbody><tr><td>🔵 Istruttoria</td><td>Facoltativa</td><td>Solo per analizzare insieme gli interessi coinvolti: non decide.</td></tr><tr><td>🟡 Decisoria</td><td>Obbligatoria se servono più assensi di enti diversi</td><td>Sostituisce tutti i singoli atti di assenso (pareri, nulla osta, autorizzazioni).</td></tr><tr><td>🟢 Preliminare</td><td>Facoltativa, per progetti complessi</td><td>Dice al richiedente in anticipo quali sono le condizioni per ottenere i permessi.</td></tr></tbody></table><div class="note-box"><span class="note-ico">💡 Concorso:</span> La conferenza decisoria è SEMPRE obbligatoria quando servono assensi di più enti diversi. Non è una scelta: è un obbligo di legge per evitare che il cittadino rincorra dieci uffici.</div></div>
+</article>
+<article id="l241-14bis" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 14-bis</span>Conferenza semplificata (asincrona): la modalità normale</h3>
+  <div class="art-body"><p>La conferenza decisoria si svolge di default in forma semplificata e asincrona: le amministrazioni comunicano le proprie posizioni per iscritto entro i termini stabiliti, senza riunirsi fisicamente.</p><div class="sec-label">Schema dei termini:</div><table><thead><tr><th>Azione</th><th>Termine</th></tr></thead><tbody><tr><td class="td-label">Indizione della conferenza dall'amm. procedente</td><td>Entro 5 giorni lavorativi dall'avvio del procedimento o ricezione della domanda</td></tr><tr><td class="td-label">Richiesta integrazioni documentali (una sola volta)</td><td>Entro 15 giorni (termine perentorio)</td></tr><tr><td class="td-label">Espressione delle posizioni</td><td>Entro 45 giorni (90 giorni per tutele ambientali, paesaggistiche, beni culturali, salute)</td></tr><tr><td class="td-label">Eventuale riunione sincrona (se necessaria)</td><td>Entro 10 giorni dalla scadenza del termine per le posizioni</td></tr><tr><td class="td-label">Determinazione finale dell'amm. procedente</td><td>Entro 5 giorni lavorativi dalla scadenza del termine per le posizioni</td></tr></tbody></table><div class="sec-label">Il silenzio vale come assenso:</div><p>Se un'amministrazione non risponde entro il termine assegnato, o risponde in modo generico, il suo silenzio equivale ad assenso incondizionato. L'amministrazione che ha "dormito" non può poi bloccare il procedimento.</p><div class="sec-label">Esito della conferenza:</div><ul><li>Tutti assensi (anche impliciti) o condizioni accoglibili → determinazione positiva entro 5 gg lavorativi</li><li>Dissenso non superabile → determinazione negativa (equivale al rigetto della domanda, con le garanzie del preavviso di rigetto art. 10-bis)</li><li>Situazione complessa → si convoca la riunione sincrona (art. 14-ter)</li></ul></div>
+</article>
+<article id="l241-14ter" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 14-ter</span>Conferenza simultanea (sincrona): quando ci si riunisce davvero</h3>
+  <div class="art-body"><p>Quando la modalità asincrona non basta, le amministrazioni si riuniscono (fisicamente o in videoconferenza). Ogni ente è rappresentato da <strong>un solo soggetto</strong> con il potere di esprimere la posizione definitiva, univoca e vincolante dell'ente su tutta la materia.</p><p><strong>Durata:</strong> i lavori si concludono entro 45 giorni dalla prima riunione (90 giorni se coinvolge tutele ambientali, paesaggistiche, beni culturali o salute).</p><p><strong>La decisione:</strong> basata sulle posizioni prevalenti (non serve l'unanimità). Chi non si presenta, chi non esprime una posizione chiara, o chi esprime dissenso non motivato: assenso automatico.</p><div class="note-box"><span class="note-ico">💡 Concorso:</span> Il principio della "posizione prevalente" è cruciale: non serve l'unanimità per decidere. Se 4 amministrazioni su 5 sono favorevoli, la conferenza approva anche con il dissenso di una (salvo tutele qualificate, art. 14-quinquies).</div></div>
+</article>
+<article id="l241-14quater" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 14-quater</span>La decisione finale della conferenza</h3>
+  <div class="art-body"><p>La determinazione motivata di conclusione della conferenza <strong>sostituisce a tutti gli effetti</strong> ogni singolo atto di assenso (pareri, nulla osta, autorizzazioni) di tutte le amministrazioni coinvolte.</p><p><strong>Efficacia:</strong> immediata se approvazione unanime; sospesa se ci sono dissensi qualificati (art. 14-quinquies) per il tempo dell'eventuale opposizione.</p><p><strong>Decorrenza dei termini degli atti sostituiti:</strong> dalla data di comunicazione della determinazione finale, non dalla data in cui ogni singolo ente si era espresso.</p></div>
+</article>
+<article id="l241-14quinquies" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 14-quinquies</span>L'opposizione al Consiglio dei Ministri</h3>
+  <div class="art-body"><p>Anche se la conferenza ha deciso a maggioranza, le amministrazioni che tutelano interessi particolarmente sensibili (ambiente, paesaggio, beni culturali, salute, pubblica incolumità) e le Regioni/Province autonome possono fare <strong>opposizione alla Presidenza del Consiglio dei Ministri</strong>.</p><div class="sec-label">Condizioni:</div><ul><li>Devono aver espresso il proprio dissenso motivato prima della conclusione dei lavori</li><li>Termine: entro 10 giorni dalla comunicazione della determinazione finale</li><li>La proposizione dell'opposizione sospende immediatamente l'efficacia della determinazione</li></ul><div class="sec-label">Come si risolve il conflitto:</div><ul><li>Entro 15 giorni: la Presidenza del Consiglio convoca una riunione con tutte le parti per trovare una soluzione condivisa</li><li>Se c'è una Regione coinvolta e non si trova l'intesa: si può convocare una seconda riunione entro i successivi 15 giorni</li><li>Se neanche la seconda riunione produce un'intesa → la questione va al <strong>Consiglio dei Ministri</strong>, che decide definitivamente</li></ul></div>
+</article>
+<article id="l241-15" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 15</span>Gli accordi tra pubbliche amministrazioni</h3>
+  <div class="art-body"><p>Le PA possono fare accordi tra di loro per gestire insieme attività di interesse comune, anche al di fuori della conferenza di servizi. Devono essere sottoscritti con <strong>firma digitale o elettronica qualificata</strong>, pena la nullità.</p></div>
+</article>
+<article id="l241-16" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 16</span>I pareri degli organi consultivi: tempi certi</h3>
+  <div class="art-body"><p><strong>Termine:</strong> gli organi consultivi devono rendere i pareri obbligatori entro <strong>20 giorni</strong> dal ricevimento della richiesta. Per i pareri facoltativi devono comunicare il termine (max 20 giorni).</p><p><strong>Silenzio oltre i 20 giorni:</strong> l'amministrazione procedente va avanti comunque, senza aspettare. Il responsabile del procedimento non può essere ritenuto responsabile per la mancanza del parere.</p><p><strong>Sospensione una sola volta:</strong> se l'organo ha bisogno di ulteriori informazioni, il termine si interrompe una sola volta; il parere definitivo deve arrivare entro 15 giorni dalla ricezione degli elementi richiesti.</p><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> Eccezione: le amministrazioni preposte alla tutela ambientale, paesaggistica, territoriale e della salute hanno termini propri. Non si applica il meccanismo del "silenzio = si va avanti" per questi pareri.</div></div>
+</article>
+<article id="l241-17" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 17</span>Le valutazioni tecniche</h3>
+  <div class="art-body"><p>Se l'ente tecnico preposto non fornisce la valutazione entro il termine (o, in mancanza, entro 90 giorni), il responsabile del procedimento deve rivolgersi ad un altro organismo pubblico o ente con capacità tecnica equivalente, oppure a un istituto universitario.</p><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> Questa norma NON si applica alle valutazioni tecniche delle amministrazioni preposte alla tutela ambientale, paesaggistica e della salute. Il loro parere tecnico non può essere sostituito.</div></div>
+</article>
+<article id="l241-17bis" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 17-bis</span>Il silenzio-assenso tra amministrazioni</h3>
+  <div class="art-body"><p>Quando una PA ha bisogno dell'assenso di un'altra PA (o di un gestore di servizi pubblici) per adottare un proprio provvedimento, anche qui valgono termini certi:</p><ul><li>La PA riceve lo schema del provvedimento con la documentazione necessaria</li><li>Ha <strong>30 giorni</strong> per rispondere (90 giorni per tutele ambientali, paesaggistiche, beni culturali, salute)</li><li>Se non risponde entro il termine: l'assenso si intende acquisito (silenzio-assenso)</li><li>Il termine può essere interrotto <strong>una sola volta</strong> per esigenze istruttorie. Dopo la ricezione delle informazioni richieste, altri 30 giorni. Non sono ammesse ulteriori interruzioni.</li></ul><div class="note-box"><span class="note-ico">💡 Concorso:</span> Introdotto nel 2015 per combattere i ritardi nei procedimenti causati non dai cittadini, ma dalle stesse amministrazioni che non si rispondevano tra loro.</div></div>
+</article>
+</section>
+<section id="l241-c4bis" class="chapter">
+  <div class="chapter-header">CAPO IV – SCIA, Silenzio-assenso, Autocertificazione (Artt. 18-21)</div>
+  
+<article id="l241-18" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 18</span>L'autocertificazione</h3>
+  <div class="art-body"><p>La PA non può chiedere documenti che già ha o che può ottenere da sola da altre PA:</p><ul><li>Se il documento è già in possesso dell'amm. procedente → lo usa direttamente</li><li>Se è detenuto da un'altra PA → lo acquisisce d'ufficio (può chiedere al cittadino solo gli elementi per trovarlo)</li><li>Fatti, stati e qualità che la stessa PA è tenuta a certificare → li accerta d'ufficio il responsabile del procedimento</li></ul><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> L'obbligo di acquisire d'ufficio i documenti in possesso di altre PA è un pilastro della semplificazione. Se l'amministrazione chiede documenti che potrebbe ottenere da sola, viola questo principio.</div></div>
+</article>
+<article id="l241-18bis" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 18-bis</span>La ricevuta immediata</h3>
+  <div class="art-body"><p>Ogni volta che un cittadino presenta una domanda, segnalazione o comunicazione, deve ricevere <strong>immediatamente</strong> una ricevuta con: conferma della presentazione, termini entro cui la PA risponderà, e l'indicazione se il silenzio vale come accoglimento.</p><p>Se la ricevuta contiene le informazioni dell'art. 8, vale già come comunicazione di avvio del procedimento.</p></div>
+</article>
+<article id="l241-19" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 19</span>La SCIA – Segnalazione Certificata di Inizio Attività</h3>
+  <div class="art-body"><p>Ribalta la logica tradizionale: invece di aspettare un'autorizzazione, il cittadino comunica di voler iniziare e parte subito, assumendosi la responsabilità di rispettare i requisiti di legge.</p><div class="sec-label">Quando si usa la SCIA:</div><p>Sostituisce autorizzazioni, licenze, permessi e nulla osta quando: il rilascio dipende solo dall'accertamento di requisiti oggettivi; non ci sono limiti numerici (contingenti); non ci sono strumenti di programmazione settoriale.</p><div class="sec-label">La SCIA NON si usa per:</div><ul><li>Attività con vincoli ambientali, paesaggistici o culturali</li><li>Difesa nazionale, pubblica sicurezza, immigrazione, cittadinanza, giustizia</li><li>Costruzioni in zone sismiche</li><li>Attività finanziarie e bancarie</li></ul><div class="sec-label">Quando si può iniziare l'attività:</div><p><strong>Immediatamente</strong> dalla presentazione della SCIA. Non bisogna aspettare nessun via libera.</p><div class="sec-label">Cosa può fare la PA dopo aver ricevuto la SCIA:</div><table><thead><tr><th>Azione</th><th>Termine</th></tr></thead><tbody><tr><td class="td-label">Vietare la prosecuzione e ordinare la rimozione degli effetti dannosi</td><td>Entro 60 giorni (30 per SCIA edilizia)</td></tr><tr><td class="td-label">Invitare il privato a regolarizzare se l'irregolarità è sanabile</td><td>Entro 60 giorni, con termine minimo di 30 giorni per adeguarsi</td></tr><tr><td class="td-label">Sospendere immediatamente l'attività (pericolo per ambiente, paesaggio, salute, sicurezza)</td><td>In qualsiasi momento</td></tr><tr><td class="td-label">Intervento in autotutela dopo i 60 giorni</td><td>Solo in presenza dei presupposti per l'annullamento d'ufficio (art. 21-nonies)</td></tr></tbody></table><div class="sec-label">La SCIA non è impugnabile:</div><p>Chi si sente danneggiato da un'attività iniziata con SCIA può solo sollecitare la PA a fare i controlli. Se la PA non interviene, può fare ricorso contro il suo silenzio.</p><div class="sec-label">Sanzioni per chi mente:</div><p>Reclusione da 1 a 3 anni. Non è ammessa la sanatoria: l'attività viene vietata senza possibilità di regolarizzazione.</p><div class="note-box"><span class="note-ico">💡 Concorso:</span> La SCIA vale per una vastissima gamma di attività: commerciali, artigianali, produttive, edilizie. Per la SCIA edilizia il termine di verifica è dimezzato a 30 giorni.</div></div>
+</article>
+<article id="l241-20" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 20</span>Il silenzio-assenso</h3>
+  <div class="art-body"><p>Nei procedimenti ad istanza di parte, se la PA non risponde entro il termine di legge, il silenzio equivale ad <strong>accoglimento</strong> della domanda.</p><p>Il cittadino può chiedere all'amministrazione un'attestazione scritta dell'avvenuto accoglimento per silenzio. Se la PA non la rilascia entro 10 giorni, il cittadino può fare una propria dichiarazione sostitutiva.</p><p><strong>Autotutela:</strong> anche dopo il silenzio-assenso, la PA può intervenire per annullare o revocare l'atto tacito.</p><div class="sec-label">Quando il silenzio-assenso NON si applica:</div><ul><li>Beni culturali e paesaggio</li><li>Ambiente e rischio idrogeologico</li><li>Difesa nazionale e pubblica sicurezza</li><li>Immigrazione, asilo, cittadinanza</li><li>Salute e pubblica incolumità</li><li>Normativa europea che richiede atti espressi</li><li>Casi in cui la legge qualifica il silenzio come rigetto</li></ul></div>
+</article>
+<article id="l241-21" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 21</span>Sanzioni per le false dichiarazioni</h3>
+  <div class="art-body"><p>Chi dichiara il falso nella SCIA o nella domanda per il silenzio-assenso è punito penalmente (art. 483 c.p.). Non è ammessa la sanatoria: l'attività viene vietata.</p><p>Il decorso del termine di verifica (60 giorni) non cancella la responsabilità del funzionario che non ha controllato tempestivamente.</p></div>
+</article>
+</section>
+<section id="l241-vizi" class="chapter">
+  <div class="chapter-header">CAPO IV-bis – Efficacia, invalidità e autotutela del provvedimento (Artt. 21-bis/21-nonies)</div>
+  <p>Questa sezione risponde alle domande fondamentali: quando un provvedimento produce effetti? Quando è illegittimo? Può la PA tornare sui propri passi?</p>
+<article id="l241-21bis" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 21-bis</span>Quando il provvedimento diventa efficace</h3>
+  <div class="art-body"><p>Un provvedimento che limita i diritti del privato non produce effetti finché il destinatario non ne è a conoscenza. Deve essere comunicato.</p><ul><li>Regola generale: efficacia con la comunicazione personale al destinatario (notifica o consegna diretta)</li><li>Se i destinatari sono troppi: forme di pubblicità adeguate</li><li>Provvedimenti cautelari e urgenti: immediatamente efficaci senza aspettare la notifica formale</li></ul></div>
+</article>
+<article id="l241-21ter" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 21-ter</span>Esecutorietà: la PA può agire senza passare dal giudice</h3>
+  <div class="art-body"><p>In certi casi la PA può eseguire coattivamente i propri provvedimenti senza sentenza del giudice. Il provvedimento deve indicare il termine e le modalità di adempimento spontaneo. Se il soggetto non adempie: la PA, previa diffida, può eseguire coattivamente.</p><div class="ex-box"><span class="ex-ico">📌 Esempio:</span> Il Comune intima di abbattere un muro abusivo entro 90 giorni. Se il privato non lo fa, il Comune lo fa eseguire d'ufficio e addebita le spese, senza un processo.</div></div>
+</article>
+<article id="l241-21quater" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 21-quater</span>Efficacia ed esecutività</h3>
+  <div class="art-body"><p>I provvedimenti amministrativi efficaci sono eseguiti immediatamente. L'organo che ha emanato il provvedimento può sospenderne l'efficacia per gravi ragioni, per il tempo strettamente necessario. La sospensione può essere prorogata una sola volta e non può comunque durare oltre il termine per l'annullamento d'ufficio (art. 21-nonies).</p></div>
+</article>
+<article id="l241-21quinquies" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 21-quinquies</span>La revoca: quando la PA cambia idea legittimamente</h3>
+  <div class="art-body"><p>La PA può revocare un provvedimento che era legittimo quando adottato, ma che non è più opportuno mantenere per ragioni sopravvenute.</p><div class="sec-label">Quando si può revocare:</div><ul><li><strong>Sopravvenuti motivi di pubblico interesse:</strong> emerge un nuovo interesse pubblico che contrasta con il mantenimento del provvedimento.</li><li><strong>Mutamento imprevedibile della situazione di fatto:</strong> le circostanze concrete sono cambiate in modo non prevedibile.</li><li><strong>Nuova valutazione dell'interesse pubblico originario:</strong> la PA rivaluta la propria scelta iniziale. ATTENZIONE: questo motivo NON vale per autorizzazioni o attribuzioni di vantaggi economici.</li></ul><p><strong>L'obbligo di indennizzo:</strong> la revoca è legittima ma la PA deve indennizzare il privato per i danni subiti (danno emergente, non mancato guadagno).</p><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> Revoca ≠ Annullamento. La revoca riguarda atti legittimi che diventano inopportuni (dà diritto all'indennizzo). L'annullamento riguarda atti illegittimi ab origine (in linea di principio non dà diritto all'indennizzo).</div></div>
+</article>
+<article id="l241-21septies" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 21-septies</span>La nullità: i vizi più gravi</h3>
+  <div class="art-body"><p>Un atto nullo è come se non fosse mai stato adottato: non produce effetti giuridici e può essere disapplicato in qualsiasi momento da chiunque.</p><table><thead><tr><th>Causa di nullità</th><th>Spiegazione pratica</th></tr></thead><tbody><tr><td class="td-label">Mancanza degli elementi essenziali</td><td>Il provvedimento è privo di elementi indispensabili: manca la firma, non ha un oggetto identificabile, non indica chi lo ha adottato.</td></tr><tr><td class="td-label">Difetto assoluto di attribuzione</td><td>Adottato da un'amministrazione che non ha nessuna competenza in quella materia (es. un Comune che emette un decreto ministeriale).</td></tr><tr><td class="td-label">Violazione o elusione del giudicato</td><td>L'atto viola o aggira una sentenza definitiva del giudice. È la sanzione più grave.</td></tr><tr><td class="td-label">Altri casi previsti espressamente dalla legge</td><td>Solo la legge può prevedere ulteriori ipotesi di nullità.</td></tr></tbody></table><div class="note-box"><span class="note-ico">💡 Concorso:</span> Nullità vs Annullabilità: la nullità può essere fatta valere in qualunque momento e da chiunque; l'annullabilità ha termini di decadenza (60 giorni per il ricorso) e può essere eccepita solo da chi ha interesse.</div></div>
+</article>
+<article id="l241-21octies" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 21-octies</span>L'annullabilità: i vizi ordinari del provvedimento</h3>
+  <div class="art-body"><p>Un atto annullabile è valido ed efficace finché non viene annullato (dall'amministrazione in autotutela o dal giudice su ricorso entro i termini).</p><div class="sec-label">Le tre cause di annullabilità:</div><ul><li><strong>Violazione di legge:</strong> il provvedimento viola una norma di legge o di regolamento.</li><li><strong>Eccesso di potere:</strong> la PA ha usato i propri poteri in modo distorto o contrario alla loro finalità. È il vizio più complesso: comprende contraddittorietà, travisamento dei fatti, sproporzione, disparità di trattamento.</li><li><strong>Incompetenza:</strong> adottato da un soggetto/organo che non aveva la competenza specifica (diversa dalla nullità per difetto assoluto di attribuzione).</li></ul><div class="sec-label">Il principio del raggiungimento dello scopo (vizio formale non invalidante):</div><ul><li>Se il provvedimento è vincolato e il suo contenuto non avrebbe potuto essere diverso → il vizio formale non porta all'annullamento.</li><li>Mancata comunicazione di avvio: se la PA dimostra che il contenuto non sarebbe cambiato anche con la partecipazione del cittadino → non porta all'annullamento. Eccezione: questa sanatoria NON si applica se è stata violata anche la norma sul preavviso di rigetto (art. 10-bis).</li></ul></div>
+</article>
+<article id="l241-21nonies" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 21-nonies</span>L'annullamento d'ufficio: quando la PA corregge i propri errori</h3>
+  <div class="art-body"><p>La PA può annullare un proprio provvedimento illegittimo senza aspettare che lo faccia il giudice. Condizioni:</p><ul><li>Il provvedimento deve essere illegittimo (vizi dell'art. 21-octies)</li><li>Devono esserci ragioni di interesse pubblico concreto all'annullamento</li><li>Termine: entro <strong>6 mesi</strong> dall'adozione (per autorizzazioni e vantaggi economici)</li></ul><div class="sec-label">Eccezione – atti ottenuti con il falso:</div><p>Se il provvedimento è stato ottenuto tramite false dichiarazioni accertate con sentenza penale definitiva, la PA può annullarlo anche oltre i 6 mesi.</p><div class="sec-label">La convalida come alternativa:</div><p>Se il vizio è sanabile, la PA può convalidare l'atto (correggere il vizio) invece di annullarlo.</p><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> Il termine di 6 mesi per l'annullamento d'ufficio di autorizzazioni e vantaggi economici dà certezza ai privati: dopo 6 mesi l'atto diventa (salvo il caso del falso) stabile.</div></div>
+</article>
+</section>
+<section id="l241-c5" class="chapter">
+  <div class="chapter-header">CAPO V – Il diritto di accesso ai documenti amministrativi (Artt. 22-27)</div>
+  <p>Il diritto di accesso è il diritto del cittadino di prendere visione e ottenere copia dei documenti della PA. È uno strumento di trasparenza e tutela. <strong>ATTENZIONE:</strong> non confonderlo con l'accesso civico generalizzato (FOIA, D.Lgs. 33/2013): quello è aperto a chiunque senza interesse qualificato; l'accesso documentale richiede un interesse personale qualificato.</p>
+<article id="l241-22" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 22</span>Le definizioni fondamentali del diritto di accesso</h3>
+  <div class="art-body"><table><thead><tr><th>Termine</th><th>Definizione in parole semplici</th></tr></thead><tbody><tr><td class="td-label">Diritto di accesso</td><td>Il diritto di prendere visione di un documento e/o di ottenerne una copia. Non è solo "guardare".</td></tr><tr><td class="td-label">Interessati</td><td>Chi può esercitare l'accesso. Non chiunque: solo chi ha un interesse diretto, concreto e attuale collegato a una situazione giuridica tutelata.</td></tr><tr><td class="td-label">Controinteressati</td><td>Chi potrebbe essere danneggiato dall'accesso: di solito un terzo la cui riservatezza potrebbe essere compromessa.</td></tr><tr><td class="td-label">Documento amministrativo</td><td>Qualsiasi rappresentazione (scritta, fotografica, informatica, sonora) di un atto detenuto da una PA e riguardante attività di pubblico interesse. Include anche gli atti interni non destinati all'esterno.</td></tr><tr><td class="td-label">Pubblica amministrazione (ai fini dell'accesso)</td><td>Tutti gli enti pubblici E i soggetti privati quando svolgono attività di pubblico interesse disciplinata dal diritto pubblico.</td></tr></tbody></table><p><strong>Principi:</strong> tutti i documenti sono accessibili, salvo le eccezioni tassative dell'art. 24. Il diritto è esercitabile finché la PA ha l'obbligo di conservare i documenti. Non sono accessibili le semplici "informazioni" senza forma di documento.</p></div>
+</article>
+<article id="l241-23" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 23</span>Chi è obbligato a dare accesso</h3>
+  <div class="art-body"><p>Il diritto di accesso si esercita nei confronti di: PA in senso stretto, aziende autonome e speciali, enti pubblici, gestori di servizi pubblici (anche se soggetti privati, come concessionari di autostrade, acquedotti, reti energetiche). Per le Autorità indipendenti (AGCM, Banca d'Italia, ecc.) valgono le modalità dei rispettivi ordinamenti specifici.</p></div>
+</article>
+<article id="l241-24" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 24</span>Quando l'accesso può essere negato: le eccezioni tassative</h3>
+  <div class="art-body"><p>L'accesso è la regola; il diniego è l'eccezione. Cause di esclusione:</p><div class="sec-label">Esclusioni assolute (stabilite direttamente dalla legge):</div><ul><li>Documenti coperti da segreto di Stato o da altri segreti previsti dalla legge</li><li>Documenti dei procedimenti tributari</li><li>Documenti relativi alla formazione di atti normativi, generali, di pianificazione</li><li>Documenti dei procedimenti selettivi (concorsi) contenenti informazioni psico-attitudinali su terzi</li></ul><div class="sec-label">Esclusioni regolamentari (con regolamento governativo):</div><ul><li>Sicurezza e difesa nazionale, relazioni internazionali</li><li>Politica monetaria e valutaria</li><li>Ordine pubblico, indagini di polizia giudiziaria, identità delle fonti informative</li><li>Vita privata e riservatezza di persone fisiche e giuridiche (dati sanitari, finanziari, commerciali, professionali)</li><li>Contrattazione collettiva in corso</li></ul><div class="sec-label">Regole per applicare le esclusioni:</div><ul><li>I documenti sono segreti solo nella parte che riguarda l'interesse protetto: si oscura la parte riservata e si concede l'accesso al resto</li><li>Prima di negare l'accesso, valutare se è possibile differirlo (rimandarlo)</li><li>Non si possono opporre richieste finalizzate solo a "controllare in generale" come la PA lavora</li></ul><div class="sec-label">Tutela rafforzata in caso di necessità difensiva:</div><p>Se il cittadino ha bisogno di accedere a un documento per difendere i propri interessi giuridici in un procedimento o in giudizio, l'accesso deve essere garantito, anche se il documento contiene dati sensibili di terzi. L'accesso è limitato a quanto strettamente indispensabile.</p></div>
+</article>
+<article id="l241-25" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 25</span>Come si chiede l'accesso e come si tutela in caso di diniego</h3>
+  <div class="art-body"><p><strong>Come si chiede:</strong> la richiesta deve essere motivata (spiegare l'interesse qualificato) e indirizzata all'amministrazione che ha prodotto o detiene stabilmente il documento. La visione è gratuita; la copia si paga solo il costo di riproduzione.</p><p><strong>Silenzio = diniego:</strong> se trascorrono 30 giorni senza risposta, il silenzio vale come diniego. Non è silenzio-assenso.</p><div class="sec-label">Le due strade in caso di diniego (espresso o tacito):</div><table><thead><tr><th>Via</th><th>Come funziona</th></tr></thead><tbody><tr><td class="td-label">🟢 Via amministrativa (gratuita, più rapida)</td><td>Per atti di Comuni, Province e Regioni: Difensore Civico territorialmente competente. Per atti di amministrazioni statali: Commissione per l'accesso (art. 27). Termine: 30 giorni per pronunciarsi. Se il Difensore/Commissione dà ragione al richiedente e la PA non conferma il diniego con provvedimento motivato entro 30 giorni: accesso automaticamente consentito.</td></tr><tr><td class="td-label">🔵 Via giurisdizionale</td><td>Ricorso al TAR con rito accelerato.</td></tr></tbody></table><div class="warn-box"><span class="warn-ico">⚠ Attenzione:</span> Le due strade sono alternative, non cumulative. Ma se si usa prima la via amministrativa, il termine per il TAR decorre dalla risposta del Difensore/Commissione.</div><table><thead><tr><th>Situazione</th><th>Termine per agire</th></tr></thead><tbody><tr><td class="td-label">Silenzio dell'amm. (30 gg senza risposta)</td><td>Entro 30 gg dal silenzio</td></tr><tr><td class="td-label">Diniego espresso motivato</td><td>Entro 30 gg dal diniego</td></tr><tr><td class="td-label">Differimento dell'accesso</td><td>Entro 30 gg dal differimento</td></tr></tbody></table></div>
+</article>
+<article id="l241-27" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 27</span>La Commissione per l'accesso ai documenti amministrativi</h3>
+  <div class="art-body"><p>Organo centrale di garanzia del diritto di accesso alle amministrazioni statali. Istituita presso la Presidenza del Consiglio dei Ministri.</p><div class="sec-label">Composizione:</div><ul><li>Presidente: il Sottosegretario di Stato alla Presidenza del Consiglio</li><li>10 membri: 2 senatori + 2 deputati + 4 magistrati/avvocati dello Stato (anche in pensione) + 1 professore universitario di materie giuridiche</li><li>Membro di diritto: capo della struttura di supporto organizzativo</li><li>Fino a 5 esperti esterni</li><li>Durata triennale; delibera a maggioranza dei presenti</li></ul><div class="sec-label">I 4 compiti principali:</div><ul><li><strong>Riesame dei dinieghi:</strong> esamina le richieste dei cittadini che si sono visti negare l'accesso a documenti statali.</li><li><strong>Vigilanza sulla trasparenza:</strong> controlla che le PA rispettino il principio di piena conoscibilità.</li><li><strong>Relazione annuale al Parlamento:</strong> redige ogni anno un rapporto sulla trasparenza della PA.</li><li><strong>Proposte di riforma al Governo:</strong> propone modifiche legislative e regolamentari per migliorare il diritto di accesso.</li></ul><p><strong>Tutte le PA</strong> sono obbligate a fornire alla Commissione le informazioni e i documenti richiesti (tranne quelli coperti da segreto di Stato).</p><div class="note-box"><span class="note-ico">💡 Concorso:</span> La Commissione per l'accesso è diversa dal Garante per la Privacy: la prima tutela il diritto di accesso ai documenti; il secondo tutela il diritto alla protezione dei dati personali. Si consultano reciprocamente quando i due diritti si intrecciano.</div></div>
+</article>
+</section>
+<section id="l241-final" class="chapter">
+  <div class="chapter-header">Disposizioni finali (Artt. 28-30)</div>
+  
+<article id="l241-28" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 28</span>Il segreto d'ufficio</h3>
+  <div class="art-body"><p>Il dipendente pubblico deve mantenere il segreto sulle informazioni di cui viene a conoscenza nell'esercizio delle sue funzioni. Non può trasmettere a chi non ne ha diritto notizie su provvedimenti o operazioni amministrative.</p><p><strong>Il confine con il diritto di accesso:</strong> il segreto d'ufficio non si applica quando si forniscono documenti in risposta a una legittima richiesta di accesso ai sensi della legge 241. Il segreto protegge le informazioni riservate; non è un alibi per negare accesso a documenti legittimamente richiedibili.</p></div>
+</article>
+<article id="l241-29" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 29</span>A chi si applica la legge 241: il campo di applicazione</h3>
+  <div class="art-body"><table><thead><tr><th>Soggetto destinatario</th><th>Quali norme si applicano</th></tr></thead><tbody><tr><td class="td-label">Amministrazioni statali ed enti pubblici nazionali</td><td>Si applica l'intera legge 241/1990.</td></tr><tr><td class="td-label">Società a totale o prevalente capitale pubblico</td><td>Si applica la legge 241, ma solo per le funzioni amministrative. Non per le attività commerciali.</td></tr><tr><td class="td-label">Tutte le PA in senso lato</td><td>Obbligatoriamente: art. 2-bis (danno da ritardo), art. 11 (accordi), art. 15 (accordi tra PA), art. 25 (ricorsi sull'accesso), Capo IV-bis (efficacia e invalidità).</td></tr><tr><td class="td-label">Regioni ed enti locali</td><td>Disciplinano autonomamente nel rispetto dei principi costituzionali e delle garanzie fondamentali.</td></tr></tbody></table><div class="sec-label">I Livelli Essenziali delle Prestazioni (LEP):</div><p>Alcune garanzie della legge 241 sono LEP (art. 117, comma 2, lett. m) Cost.): nessuna Regione può ridurle. Le Regioni possono solo ampliarle, mai ridurle.</p><table><thead><tr><th>Sono LEP (nessuna Regione può ridurle)</th><th>Non sono LEP (le Regioni hanno margine)</th></tr></thead><tbody><tr><td class="td-label">Partecipazione al procedimento (comunicazione avvio, memorie); Individuazione del responsabile; Conclusione del procedimento entro il termine; Misurazione e pubblicazione dei tempi effettivi; Accesso alla documentazione; Durata massima dei procedimenti; Presentazione di istanze, SCIA, silenzio-assenso; Conferenza di servizi (struttura essenziale)</td><td>Le modalità organizzative interne, i dettagli procedurali specifici. Le Regioni possono sempre garantire più diritti, mai meno.</td></tr></tbody></table></div>
+</article>
+<article id="l241-30" class="article-block">
+  <h3 class="art-title"><span class="art-num">Art. 30</span>Gli atti di notorietà</h3>
+  <div class="art-body"><p>Il numero di testimoni richiesti per gli atti di notorietà è ridotto a <strong>due</strong>. Le PA e le aziende di pubblica utilità non possono pretendere un atto di notorietà quando si tratta di provare qualità personali, stati o fatti che il cittadino conosce direttamente: in questi casi è sufficiente la dichiarazione sostitutiva (autocertificazione).</p></div>
+</article>
+</section>
+</div>
+
+</main>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ── NAV TOGGLE ──
+function toggleGroup(el) {
+  el.classList.toggle('collapsed');
+  el.nextElementSibling.classList.toggle('collapsed');
+}
+function setActive(a) {
+  document.querySelectorAll('.nav-items li a').forEach(x => x.classList.remove('active'));
+  a.classList.add('active');
+}
+
+// ── SCROLL SPY ──
+const sections = document.querySelectorAll('.chapter, .law-section');
+const navLinks = document.querySelectorAll('.nav-items li a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => {
+    if (s.getBoundingClientRect().top < 120) cur = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+  });
+  document.getElementById('back-top').classList.toggle('visible', window.scrollY > 400);
+});
+
+// ── SEARCH ──
+function doSearch(q) {
+  const sr = document.getElementById('search-results');
+  const nav = document.getElementById('nav');
+  // clear highlights
+  document.querySelectorAll('mark').forEach(m => {
+    m.outerHTML = m.innerHTML;
+  });
+  if (q.length < 2) { sr.style.display = 'none'; nav.style.display = ''; return; }
+  const qlc = q.toLowerCase();
+  const arts = document.querySelectorAll('.article-block');
+  const results = [];
+  arts.forEach(a => {
+    const title = a.querySelector('.art-title');
+    const body = a.querySelector('.art-body');
+    if (!title || !body) return;
+    const titleText = title.textContent;
+    const bodyText = body.textContent;
+    if (titleText.toLowerCase().includes(qlc) || bodyText.toLowerCase().includes(qlc)) {
+      results.push({ id: a.id, title: titleText.trim().substring(0, 60) });
+      // highlight
+      highlightText(body, q);
+    }
+  });
+  if (results.length === 0) {
+    sr.innerHTML = '<div style="padding:10px 12px;font-size:12px;color:rgba(255,255,255,0.5)">Nessun risultato</div>';
+  } else {
+    sr.innerHTML = results.map(r =>
+      '<div class="sr-item" onclick="goTo(\''+r.id+'\')"><strong>'+r.title+'</strong></div>'
+    ).join('');
+  }
+  sr.style.display = 'block';
+  nav.style.display = 'none';
+}
+
+function goTo(id) {
+  const el = document.getElementById(id);
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  document.getElementById('search-results').style.display = 'none';
+  document.getElementById('nav').style.display = '';
+  document.getElementById('search-input').value = '';
+}
+
+function highlightText(el, q) {
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const val = node.nodeValue;
+    const idx = val.toLowerCase().indexOf(q.toLowerCase());
+    if (idx === -1) return;
+    const span = document.createElement('span');
+    span.innerHTML =
+      esc(val.substring(0, idx)) +
+      '<mark>' + esc(val.substring(idx, idx + q.length)) + '</mark>' +
+      esc(val.substring(idx + q.length));
+    node.parentNode.replaceChild(span, node);
+  });
+}
+
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// close search on click outside
+document.addEventListener('click', e => {
+  if (!e.target.closest('#search-box') && !e.target.closest('#search-results')) {
+    document.getElementById('search-results').style.display = 'none';
+    document.getElementById('nav').style.display = '';
+  }
+});
+</script>
+</body>
+</html>
