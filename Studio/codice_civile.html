@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codice Civile — Elementi per il Concorso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F4EF;
+    --bg2: #EDEAE3;
+    --ink: #1C1C1C;
+    --ink2: #4A4A4A;
+    --red: #C0392B;
+    --green: #1A6B3C;
+    --blue: #1A3A6B;
+    --blue2: #2C5AA0;
+    --orange: #C9670A;
+    --brown: #7B4F2E;
+    --brown2: #A0522D;
+    --gold: #B8860B;
+    --border: #D4CFC7;
+    --card: #FFFFFF;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; }
+
+  /* HEADER */
+  .site-header { background: var(--brown); color: white; padding: 2.5rem 1.5rem 2rem; position: relative; overflow: hidden; }
+  .site-header::before { content:''; position:absolute; top:0;left:0;right:0;bottom:0; background:repeating-linear-gradient(-45deg,transparent,transparent 10px,rgba(255,255,255,.03) 10px,rgba(255,255,255,.03) 20px); }
+  .header-inner { position:relative; max-width:900px; margin:auto; }
+  .badge { display:inline-block; background:var(--orange); color:white; font-family:var(--mono); font-size:.7rem; font-weight:600; letter-spacing:.1em; padding:.25rem .7rem; border-radius:2px; margin-bottom:.8rem; text-transform:uppercase; }
+  .site-header h1 { font-family:var(--serif); font-size:2.3rem; font-weight:700; line-height:1.2; margin-bottom:.5rem; }
+  .site-header p { font-size:.95rem; opacity:.85; max-width:640px; }
+
+  /* NAV */
+  .nav-pills { display:flex; flex-wrap:wrap; gap:.5rem; padding:1rem 1.5rem; background:var(--bg2); border-bottom:1px solid var(--border); max-width:900px; margin:0 auto; }
+  .nav-pill { font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; padding:.35rem .8rem; border-radius:20px; background:var(--card); border:1px solid var(--border); color:var(--ink2); text-decoration:none; transition:all .15s; white-space:nowrap; }
+  .nav-pill:hover { background:var(--brown); color:white; border-color:var(--brown); }
+
+  /* LAYOUT */
+  .main { max-width:900px; margin:0 auto; padding:0 1.2rem 4rem; }
+
+  /* SECTION */
+  .section-title { font-family:var(--serif); font-size:1.5rem; font-weight:700; color:var(--brown); margin:2.5rem 0 1rem; padding-bottom:.4rem; border-bottom:2px solid var(--brown2); display:flex; align-items:center; gap:.7rem; }
+  .section-title .num { font-family:var(--mono); font-size:.75rem; background:var(--brown); color:white; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border-radius:50%; flex-shrink:0; }
+
+  /* PRIORITY BADGE */
+  .prio { display:inline-flex; align-items:center; gap:.3rem; font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:.2rem .6rem; border-radius:3px; margin-bottom:.8rem; }
+  .prio-red { background:#FEE2E2; color:var(--red); border:1px solid #FECACA; }
+  .prio-orange { background:#FFF3E0; color:var(--orange); border:1px solid #FFCC80; }
+
+  /* ARTICLE CARD */
+  .art-card { background:var(--card); border:1px solid var(--border); border-radius:8px; margin-bottom:1.2rem; overflow:hidden; }
+  .art-header { padding:1rem 1.4rem .8rem; border-bottom:1px solid var(--border); display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+  .art-num { font-family:var(--mono); font-size:.75rem; font-weight:600; color:var(--brown2); margin-bottom:.2rem; }
+  .art-title { font-family:var(--serif); font-size:1.15rem; font-weight:700; color:var(--ink); }
+  .art-body { padding:1.2rem 1.4rem; }
+  .art-body p { font-size:.92rem; line-height:1.75; margin-bottom:.8rem; }
+  .art-body p:last-child { margin-bottom:0; }
+
+  /* CONCEPT BOX */
+  .concept { background:var(--bg2); border-radius:5px; padding:.9rem 1.1rem; margin:.7rem 0; font-size:.9rem; line-height:1.7; }
+  .concept-title { font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--brown2); margin-bottom:.4rem; }
+
+  /* ALERT */
+  .alert { border-radius:5px; padding:.9rem 1.1rem; margin:.7rem 0; font-size:.9rem; display:flex; gap:.7rem; align-items:flex-start; line-height:1.6; }
+  .alert-icon { font-size:1rem; flex-shrink:0; margin-top:.1rem; }
+  .alert-red { background:#FFF5F5; border:1px solid #FFC0BB; }
+  .alert-green { background:#F0FFF4; border:1px solid #9AE6B4; }
+  .alert-blue { background:#EBF8FF; border:1px solid #90CDF4; }
+  .alert-orange { background:#FFFAF0; border:1px solid #FBD38D; }
+  .alert-brown { background:#FDF6EE; border:1px solid #D4A574; }
+
+  /* DISTANZE TABLE */
+  .dist-table { width:100%; border-collapse:collapse; font-size:.88rem; margin:.8rem 0; }
+  .dist-table th { background:var(--brown); color:white; padding:.6rem .9rem; text-align:left; font-family:var(--mono); font-size:.68rem; font-weight:600; letter-spacing:.06em; }
+  .dist-table td { padding:.55rem .9rem; border-bottom:1px solid var(--border); vertical-align:top; }
+  .dist-table tr:nth-child(even) td { background:var(--bg2); }
+  .dist-table tr:last-child td { border-bottom:none; }
+  .dist-table td strong { color:var(--brown); }
+
+  /* EXAMPLE BOX */
+  .example { border-left:3px solid var(--brown2); padding:.7rem 1rem; margin:.7rem 0; background:#FDF6EE; border-radius:0 5px 5px 0; }
+  .example-lbl { font-family:var(--mono); font-size:.63rem; letter-spacing:.1em; text-transform:uppercase; color:var(--brown2); margin-bottom:.3rem; }
+  .example p { font-size:.88rem; line-height:1.6; color:var(--ink2); }
+
+  /* GRID 2 COL */
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.8rem 0; }
+  .grid2-item { border-radius:5px; border:1px solid var(--border); padding:.9rem 1rem; background:var(--bg2); }
+  .grid2-item h4 { font-family:var(--mono); font-size:.68rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--brown2); margin-bottom:.5rem; }
+  .grid2-item ul { list-style:none; padding:0; }
+  .grid2-item li { font-size:.87rem; padding:.25rem 0; border-bottom:1px solid var(--border); display:flex; gap:.5rem; }
+  .grid2-item li:last-child { border-bottom:none; }
+  .grid2-item li::before { content:'·'; color:var(--brown2); font-weight:700; flex-shrink:0; }
+
+  /* MNEMONICA */
+  .mnemonic { background:#1C1C1C; color:#E8D44D; border-radius:6px; padding:1.1rem 1.4rem; font-family:var(--mono); margin:1rem 0; }
+  .mnemonic h4 { font-size:.63rem; letter-spacing:.15em; text-transform:uppercase; opacity:.6; margin-bottom:.5rem; }
+  .mnemonic p { font-size:.92rem; line-height:1.8; }
+  .mnemonic span { color:white; }
+
+  /* RISPOSTA MODELLO */
+  .risposta { background:var(--brown); color:white; border-radius:8px; padding:1.6rem 1.8rem; margin:2rem 0 1rem; }
+  .risposta-label { font-family:var(--mono); font-size:.63rem; letter-spacing:.15em; text-transform:uppercase; opacity:.6; margin-bottom:1rem; }
+  .risposta h3 { font-family:var(--serif); font-size:1.2rem; font-weight:700; margin-bottom:1rem; color:#FCD34D; }
+  .risposta p { font-size:.92rem; line-height:1.75; margin-bottom:.8rem; opacity:.93; }
+  .risposta strong { color:#FCD34D; }
+  .risposta .par-title { font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:#FCD34D; margin:.8rem 0 .3rem; }
+
+  /* QUIZ */
+  .quiz-area { margin:2.5rem 0 1rem; }
+  .quiz-title { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--brown); margin-bottom:1rem; padding-bottom:.4rem; border-bottom:1px solid var(--border); }
+  .quiz-item { background:var(--card); border:1px solid var(--border); border-radius:5px; margin-bottom:.8rem; overflow:hidden; }
+  .quiz-q { padding:.85rem 1.2rem; font-size:.92rem; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem; user-select:none; transition:background .15s; }
+  .quiz-q:hover { background:var(--bg2); }
+  .quiz-q .arrow { font-size:.8rem; transition:transform .2s; flex-shrink:0; color:var(--brown2); }
+  .quiz-a { padding:0 1.2rem; font-size:.9rem; color:var(--ink2); line-height:1.65; max-height:0; overflow:hidden; transition:max-height .3s ease, padding .3s ease; }
+  .quiz-a.open { max-height:600px; padding:.85rem 1.2rem 1rem; border-top:1px solid var(--border); }
+  .quiz-q.active .arrow { transform:rotate(180deg); }
+
+  /* SCROLLTOP */
+  #scrolltop { position:fixed; bottom:1.5rem; right:1.5rem; width:42px; height:42px; background:var(--brown); color:white; border:none; border-radius:50%; cursor:pointer; font-size:1.1rem; display:none; align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(0,0,0,.25); z-index:100; }
+  #scrolltop.visible { display:flex; }
+
+  footer { text-align:center; padding:2rem; font-family:var(--mono); font-size:.68rem; color:var(--ink2); opacity:.6; border-top:1px solid var(--border); margin-top:3rem; }
+
+  /* TABLET ottimizzazione */
+  @media (max-width:700px) {
+    .grid2 { grid-template-columns:1fr; }
+    .site-header h1 { font-size:1.7rem; }
+    .art-header { flex-direction:column; gap:.4rem; }
+    .dist-table { font-size:.82rem; }
+    .dist-table td, .dist-table th { padding:.5rem .6rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="badge">📚 Guida Concorso — Istruttore Tecnico</div>
+    <h1>Elementi di Codice Civile</h1>
+    <p>Solo le parti che toccano edilizia e urbanistica — proprietà, distanze, servitù, condominio, trascrizioni. Tutto il resto puoi ignorarlo.</p>
+  </div>
+</header>
+
+<nav><div class="nav-pills">
+  <a href="#proprieta" class="nav-pill">🏠 Proprietà (832)</a>
+  <a href="#distanze" class="nav-pill">📐 Distanze (873)</a>
+  <a href="#accessione" class="nav-pill">🧱 Accessione (934)</a>
+  <a href="#servitu" class="nav-pill">🛤️ Servitù (1027)</a>
+  <a href="#condominio" class="nav-pill">🏢 Condominio (1117)</a>
+  <a href="#trascrizione" class="nav-pill">📄 Trascrizione (2643)</a>
+  <a href="#risposta" class="nav-pill">✍️ Risposta modello</a>
+  <a href="#quiz" class="nav-pill">🧠 Quiz</a>
+</div></nav>
+
+<main class="main">
+
+<!-- INTRO -->
+<div class="alert alert-brown" style="margin-top:1.5rem;">
+  <span class="alert-icon">🎯</span>
+  <div>
+    <strong>Come usare questa pagina:</strong> "Elementi" di Codice Civile = non serve saper citare ogni comma. Serve capire il <em>concetto</em>, conoscere il <em>numero dell'articolo</em> e saper fare un <em>esempio concreto</em>. Per ogni sezione trovi esattamente questo.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 1. PROPRIETA -->
+<!-- ============================================================ -->
+<h2 id="proprieta" class="section-title"><span class="num">1</span> La Proprietà — artt. 832–921 c.c.</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Art. 832 c.c.</div>
+      <div class="art-title">Contenuto del diritto di proprietà</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità</span>
+  </div>
+  <div class="art-body">
+    <div class="concept">
+      <div class="concept-title">Il concetto in una frase</div>
+      Il proprietario ha il diritto di <strong>godere e disporre delle cose in modo pieno ed esclusivo</strong>, entro i limiti e con l'osservanza degli obblighi stabiliti dall'ordinamento giuridico.
+    </div>
+
+    <p>Il diritto di proprietà ha <strong>tre caratteri fondamentali</strong>:</p>
+
+    <div class="grid2" style="margin:.5rem 0 1rem;">
+      <div class="grid2-item">
+        <h4>I 3 caratteri</h4>
+        <ul>
+          <li><strong>Pienezza</strong> — il proprietario può fare tutto ciò che la legge non vieta</li>
+          <li><strong>Esclusività</strong> — può escludere chiunque altro dal suo bene</li>
+          <li><strong>Elasticità</strong> — compressa da vincoli, si espande al venir meno di questi</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>I limiti (importanti per il concorso)</h4>
+        <ul>
+          <li>Limiti urbanistici (destinazioni d'uso, indici edilizi)</li>
+          <li>Vincoli paesaggistici (D.Lgs. 42/2004)</li>
+          <li>Distanze legali dai confini e dai fabbricati</li>
+          <li>Espropriazione per pubblica utilità</li>
+          <li>Divieto di atti emulativi (art. 833)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="art-body" style="padding:0;">
+      <div class="art-num" style="margin-top:.5rem;">Art. 833 c.c. — Atti emulativi</div>
+    </div>
+    <div class="concept">
+      Il proprietario <strong>non può fare atti che abbiano il solo scopo di nuocere o recare molestia ad altri</strong>. Esempio classico: costruire un muro altissimo solo per togliere la luce al vicino, senza alcuna utilità propria.
+    </div>
+
+    <div class="alert alert-orange" style="margin-top:.5rem;">
+      <span class="alert-icon">💡</span>
+      <div><strong>Collegamento con il diritto edilizio:</strong> i vincoli urbanistici (zonizzazione, indici di fabbricabilità, destinazioni d'uso) sono <em>limiti legali alla proprietà</em> pienamente legittimi. La Corte Cost. ha confermato che non configurano esproprio indiretto se non privano il proprietario di qualsiasi utilità economica.</div>
+    </div>
+
+    <div class="mnemonic" style="margin-top:.8rem;">
+      <h4>🧠 Da ricordare</h4>
+      <p><span>Art. 832</span> = "pieno ed esclusivo ma nei limiti di legge"<br>
+      <span>Art. 833</span> = divieto atti emulativi = non puoi fare danni al vicino per il gusto di farlo</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 2. DISTANZE -->
+<!-- ============================================================ -->
+<h2 id="distanze" class="section-title"><span class="num">2</span> Distanze, Luci e Vedute — artt. 873–907 c.c.</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 873–907 c.c.</div>
+      <div class="art-title">Distanze nelle costruzioni, luci e vedute</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità — classicissimo</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Perché è importante per il concorso</div>
+      Le distanze legali tra costruzioni sono uno degli argomenti più frequenti nelle domande tecniche. Devi sapere i numeri a memoria e capire quando si applica il Codice Civile e quando invece prevale il regolamento edilizio o il DM 1444/1968.
+    </div>
+
+    <table class="dist-table">
+      <thead>
+        <tr>
+          <th>Regola</th>
+          <th>Distanza minima</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Art. 873</strong> — tra costruzioni su fondi diversi</td>
+          <td><strong>3 metri</strong> (o distanza maggiore da regolamenti locali)</td>
+          <td>Vale se le costruzioni non sono in aderenza. I regolamenti edilizi possono aumentare ma non diminuire questa distanza.</td>
+        </tr>
+        <tr>
+          <td><strong>Art. 873</strong> — in aderenza</td>
+          <td><strong>0 metri</strong> — costruzione sul confine</td>
+          <td>Si può costruire sul confine (in aderenza) se il vicino ha già costruito sul confine o se entrambi accordano.</td>
+        </tr>
+        <tr>
+          <td><strong>Art. 905</strong> — vedute dirette</td>
+          <td><strong>1,5 metri</strong> dal confine</td>
+          <td>Se hai una finestra che permette di vedere direttamente nel fondo del vicino, devi stare a 1,5 m dal confine.</td>
+        </tr>
+        <tr>
+          <td><strong>Art. 906</strong> — vedute oblique</td>
+          <td><strong>0,75 metri</strong> dal confine</td>
+          <td>Se la veduta è laterale (obliqua), la distanza minima si riduce a 75 cm.</td>
+        </tr>
+        <tr>
+          <td><strong>Art. 907</strong> — distanza delle vedute da costruzioni</td>
+          <td><strong>3 metri</strong> dalla costruzione altrui</td>
+          <td>Se costruisci in modo da poter vedere nella proprietà del vicino, devi stare almeno a 3 m dalla sua costruzione.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-blue" style="margin-top:.5rem;">
+      <span class="alert-icon">⚖️</span>
+      <div>
+        <strong>Rapporto con il DM 1444/1968 (distanze tra fabbricati in zona urbanizzata):</strong> Il DM 1444/68 prevede distanze maggiori (10 m tra pareti finestrate), che prevalgono sul Codice Civile nelle zone regolamentate dai piani urbanistici. La regola è: si applica la norma più restrittiva.
+      </div>
+    </div>
+
+    <div class="art-body" style="padding:0; margin-top:1rem;">
+      <div class="art-num">Art. 900–901 c.c. — Luci vs Vedute: la differenza</div>
+    </div>
+
+    <div class="grid2" style="margin-top:.6rem;">
+      <div class="grid2-item">
+        <h4>💡 Luci (art. 900)</h4>
+        <ul>
+          <li>Aperture che danno <strong>solo luce e aria</strong>, non permettono di vedere nel fondo del vicino</li>
+          <li>Devono avere inferriate e grate (non si può affacciarsi)</li>
+          <li>Possono essere aperte <strong>senza rispettare distanze</strong> dal confine</li>
+          <li>Il vicino può costruire anche addossandosi alla parete con le luci</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>👁️ Vedute (art. 905)</h4>
+        <ul>
+          <li>Aperture che permettono di <strong>affacciarsi e vedere</strong> nel fondo altrui</li>
+          <li>Soggette alle distanze (1,5 m o 0,75 m)</li>
+          <li>Il vicino non può costruire in modo da impedire la veduta già legittimamente aperta</li>
+          <li>Possono diventare servitù di veduta per usucapione (20 anni)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="example" style="margin-top:.8rem;">
+      <div class="example-lbl">Esempio pratico tipico da prova</div>
+      <p>Un proprietario apre una finestra sul confine. Se è una <em>luce</em> (con grata, non ci si può affacciare) è legittima senza distanze. Se è una <em>veduta</em> (finestra normale da cui si vede nel giardino del vicino) deve stare a 1,5 m dal confine — altrimenti il vicino può chiederne la chiusura al giudice.</p>
+    </div>
+
+    <div class="mnemonic" style="margin-top:.8rem;">
+      <h4>🧠 Numeri da memorizzare</h4>
+      <p>
+        <span>Distanza tra edifici:</span> min. <strong>3 m</strong> (art. 873)<br>
+        <span>Veduta diretta dal confine:</span> min. <strong>1,5 m</strong> (art. 905)<br>
+        <span>Veduta obliqua dal confine:</span> min. <strong>0,75 m</strong> (art. 906)<br>
+        <span>Veduta dalla costruzione altrui:</span> min. <strong>3 m</strong> (art. 907)
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 3. ACCESSIONE -->
+<!-- ============================================================ -->
+<h2 id="accessione" class="section-title"><span class="num">3</span> Accessione — artt. 934–938 c.c.</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Art. 934 c.c. e seguenti</div>
+      <div class="art-title">Accessione — chi costruisce sul suolo altrui</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Il principio fondamentale — art. 934</div>
+      <strong>Tutto ciò che viene costruito, piantato o incorporato nel suolo appartiene al proprietario del suolo</strong>, salvo diversa disposizione di legge o convenzione. Il suolo "attrae" tutto ciò che vi si edifica sopra.
+    </div>
+
+    <p>Il principio di accessione risponde a una domanda semplice: <em>se Tizio costruisce una casa sul suolo di Caio, di chi è la casa?</em></p>
+
+    <table class="dist-table" style="margin:.8rem 0;">
+      <thead>
+        <tr><th>Situazione</th><th>Regola</th><th>Articolo</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Costruzione sul proprio suolo con materiali altrui</td>
+          <td>La costruzione è del proprietario del suolo; deve pagare i materiali al terzo</td>
+          <td>Art. 935</td>
+        </tr>
+        <tr>
+          <td>Costruzione sul suolo altrui con materiali propri</td>
+          <td>Il proprietario del suolo acquista la costruzione, pagando un'indennità al costruttore</td>
+          <td>Art. 936</td>
+        </tr>
+        <tr>
+          <td>Costruzione in buona fede che occupa parte del fondo del vicino</td>
+          <td>Il proprietario del suolo occupato può chiedere: (a) acquisto della parte occupata pagando il doppio del valore, oppure (b) demolizione</td>
+          <td>Art. 938</td>
+        </tr>
+        <tr>
+          <td>Costruzione in mala fede sul suolo altrui</td>
+          <td>Il proprietario del suolo può chiedere la demolizione a spese del costruttore in malafede</td>
+          <td>Art. 936 c.3</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">💡</span>
+      <div><strong>Collegamento con l'edilizia:</strong> Il principio di accessione è alla base del fatto che il titolo edilizio (permesso di costruire) viene rilasciato al <em>proprietario del suolo</em> o a chi ha titolo per costruire. Chi costruisce senza essere proprietario (es. l'usufruttuario, il superficiario) deve avere un diritto reale specifico. Il <strong>diritto di superficie</strong> (art. 952 c.c.) è la principale deroga all'accessione: permette a un soggetto di costruire e mantenere la proprietà della costruzione su suolo altrui.</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p><span>Art. 934</span> = "il suolo assorbe tutto" — chi è proprietario del suolo diventa proprietario di tutto ciò che vi è costruito sopra, salvo accordo contrario (es. diritto di superficie).</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 4. SERVITU -->
+<!-- ============================================================ -->
+<h2 id="servitu" class="section-title"><span class="num">4</span> Servitù Prediali — artt. 1027–1099 c.c.</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 1027–1099 c.c.</div>
+      <div class="art-title">Servitù prediali</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Il concetto in una frase — art. 1027</div>
+      La servitù prediale è un <strong>peso imposto su un fondo (fondo servente) a vantaggio di un altro fondo (fondo dominante)</strong> appartenente a proprietario diverso. Non è un diritto della persona, ma del fondo: segue il fondo anche se cambia proprietario.
+    </div>
+
+    <div class="grid2" style="margin:.7rem 0;">
+      <div class="grid2-item">
+        <h4>🏠 Fondo dominante</h4>
+        <ul>
+          <li>Quello che <strong>beneficia</strong> della servitù</li>
+          <li>Il suo proprietario ha il diritto di usare il fondo del vicino in un certo modo</li>
+          <li>Esempio: il fondo che ha diritto di passare sul fondo altrui</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>🏗️ Fondo servente</h4>
+        <ul>
+          <li>Quello che <strong>subisce</strong> il peso della servitù</li>
+          <li>Il suo proprietario deve tollerare o non fare qualcosa</li>
+          <li>Esempio: il fondo sul quale si passa</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="margin-top:.5rem; font-weight:600; font-size:.92rem; color:var(--brown);">Le servitù più importanti per il concorso:</p>
+
+    <table class="dist-table" style="margin:.6rem 0 1rem;">
+      <thead>
+        <tr><th>Tipo di servitù</th><th>In cosa consiste</th><th>Rilevanza edilizio/urbanistica</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Servitù di passaggio</strong> (art. 1051)</td>
+          <td>Il proprietario del fondo dominante ha diritto di passare attraverso il fondo servente</td>
+          <td>Frequente nelle pratiche edilizie: chi ha fondo intercluso può ottenere servitù coattiva di passaggio</td>
+        </tr>
+        <tr>
+          <td><strong>Fondo intercluso</strong> (art. 1051)</td>
+          <td>Il proprietario del fondo senza uscita sulla strada pubblica può esigere il passaggio sul fondo vicino</td>
+          <td>Richiesto spesso nelle pratiche di agibilità e accesso ai cantieri</td>
+        </tr>
+        <tr>
+          <td><strong>Servitù di acquedotto</strong> (art. 1033)</td>
+          <td>Diritto di far passare acque proprie attraverso il fondo altrui</td>
+          <td>Rilevante per infrastrutture, fognature, reti idriche in fondi privati</td>
+        </tr>
+        <tr>
+          <td><strong>Servitù di veduta</strong> (art. 905)</td>
+          <td>Diritto di mantenere finestre/aperture che permettono di vedere nel fondo altrui</td>
+          <td>Collegata alle distanze — se esiste servitù di veduta, il vicino non può costruire ostruendola</td>
+        </tr>
+        <tr>
+          <td><strong>Servitù non aedificandi</strong></td>
+          <td>Obbligo di non costruire (o costruire entro certi limiti) su un fondo</td>
+          <td>Molto frequente nei lottizzazioni e negli atti di vendita di aree edificabili</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="art-body" style="padding:0; margin-bottom:.6rem;">
+      <div class="art-num">Come si costituisce una servitù (art. 1031)</div>
+    </div>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Per contratto o testamento</h4>
+        <ul>
+          <li>Accordo scritto tra i proprietari (atto notarile)</li>
+          <li>Deve essere <strong>trascritto</strong> nei registri immobiliari per essere opponibile ai terzi</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Per usucapione (art. 1061)</h4>
+        <ul>
+          <li>Solo per servitù <strong>apparenti</strong> (con segni visibili: strade, canali, ecc.)</li>
+          <li>Dopo <strong>20 anni</strong> di esercizio continuato</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-green" style="margin-top:.7rem;">
+      <span class="alert-icon">⚖️</span>
+      <div><strong>Servitù coattiva (art. 1032):</strong> Quando la legge prevede che una servitù possa essere imposta anche contro la volontà del proprietario del fondo servente (dietro indennizzo). Esempio principale: fondo intercluso senza accesso alla strada pubblica → il proprietario ha diritto di ottenere la servitù di passaggio coattiva.</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p>
+        <span>Servitù</span> = peso su un fondo a favore di un altro fondo (non di una persona)<br>
+        <span>Fondo dominante</span> = quello che gode · <span>Fondo servente</span> = quello che sopporta<br>
+        <span>Fondo intercluso</span> → servitù di passaggio coattiva (art. 1051)
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 5. CONDOMINIO -->
+<!-- ============================================================ -->
+<h2 id="condominio" class="section-title"><span class="num">5</span> Condominio — artt. 1117–1139 c.c.</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 1117–1139 c.c. (+ L. 220/2012 riforma condominio)</div>
+      <div class="art-title">Condominio negli edifici</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Il concetto in una frase</div>
+      Il condominio è una forma di <strong>comproprietà forzosa</strong>: i proprietari delle singole unità immobiliari sono automaticamente comproprietari delle parti comuni dell'edificio, in proporzione ai millesimi di proprietà.
+    </div>
+
+    <div class="art-body" style="padding:0; margin:.7rem 0 .4rem;">
+      <div class="art-num">Art. 1117 — Le parti comuni (elenco esemplificativo)</div>
+    </div>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Struttura dell'edificio</h4>
+        <ul>
+          <li>Suolo su cui sorge l'edificio</li>
+          <li>Fondazioni, muri maestri, pilastri, travi portanti</li>
+          <li>Tetto e lastrici solari (salvo uso esclusivo)</li>
+          <li>Scale, portoni, androni, vestiboli</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Impianti e servizi</h4>
+        <ul>
+          <li>Impianti idrici, fognari, gas, elettrici (fino al contatore)</li>
+          <li>Impianto centralizzato di riscaldamento</li>
+          <li>Ascensori</li>
+          <li>Locali portineria, lavanderia, stenditoi</li>
+          <li>Parcheggi comuni</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-blue" style="margin-top:.8rem;">
+      <span class="alert-icon">💡</span>
+      <div><strong>Importante per le pratiche edilizie:</strong> Qualsiasi intervento sulle parti comuni (es: rifacimento facciata, sostituzione tetto, installazione ascensore, apertura di nuove finestre su muri condominiali) richiede <em>delibera assembleare</em> con le maggioranze previste dalla legge. Senza delibera, l'intervento è irregolare anche se il singolo condomino ha il permesso edilizio.</div>
+    </div>
+
+    <div class="art-body" style="padding:0; margin:.7rem 0 .4rem;">
+      <div class="art-num">Organi del condominio e delibere</div>
+    </div>
+
+    <table class="dist-table">
+      <thead>
+        <tr><th>Organo</th><th>Funzione</th><th>Note</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Assemblea</strong></td>
+          <td>Organo deliberante — prende le decisioni sulle parti comuni</td>
+          <td>Maggioranze diverse a seconda del tipo di delibera (ordinaria/straordinaria)</td>
+        </tr>
+        <tr>
+          <td><strong>Amministratore</strong></td>
+          <td>Esegue le delibere, gestisce le parti comuni, riscuote le spese</td>
+          <td>Obbligatorio se ci sono più di 8 condomini (L. 220/2012)</td>
+        </tr>
+        <tr>
+          <td><strong>Regolamento condominiale</strong></td>
+          <td>Fissa le regole d'uso delle parti comuni e la ripartizione delle spese</td>
+          <td>Obbligatorio se ci sono più di 10 condomini</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="art-body" style="padding:0; margin:.7rem 0 .4rem;">
+      <div class="art-num">Art. 1120 — Innovazioni (lavori importanti sulle parti comuni)</div>
+    </div>
+    <div class="concept">
+      Le <strong>innovazioni</strong> (es: installare ascensore, pannelli solari su tetto comune, sistemi domotici) richiedono la maggioranza qualificata: <strong>metà del valore dell'edificio + maggioranza dei partecipanti</strong>. Alcune innovazioni vietate per legge: quelle che rendono parti dell'edificio inservibili all'uso o al godimento di un condomino.
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p>
+        <span>Art. 1117</span> = elenco parti comuni (tetto, scale, fondazioni, impianti fino al contatore)<br>
+        <span>Art. 1120</span> = innovazioni → servono maggioranze qualificate<br>
+        <span>Amministratore obbligatorio</span> da 9 condomini · <span>Regolamento obbligatorio</span> da 11
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 6. CONTRATTI FORMA SCRITTA -->
+<!-- ============================================================ -->
+<h2 id="trascrizione" class="section-title"><span class="num">6</span> Contratti e Trascrizione — artt. 1350 e 2643 c.c.</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 1350–1351 c.c.</div>
+      <div class="art-title">Contratti immobiliari — obbligo di forma scritta</div>
+    </div>
+    <span class="prio prio-orange">🟠 Priorità media</span>
+  </div>
+  <div class="art-body">
+    <div class="concept">
+      <div class="concept-title">Il principio</div>
+      Determinati atti che riguardano <strong>diritti reali su immobili</strong> devono essere redatti per atto pubblico o scrittura privata autenticata — pena la nullità dell'atto (forma ad substantiam).
+    </div>
+
+    <p style="margin-bottom:.5rem;">Gli atti che richiedono la <strong>forma scritta obbligatoria</strong> (art. 1350) sono:</p>
+    <ul class="grid2-item" style="list-style:none; padding:.8rem 1rem; border-radius:5px; border:1px solid var(--border); background:var(--bg2); margin:.3rem 0 .8rem;">
+      <li style="display:flex; gap:.5rem; padding:.2rem 0;"><span>·</span> Contratti di <strong>compravendita</strong> di immobili</li>
+      <li style="display:flex; gap:.5rem; padding:.2rem 0;"><span>·</span> Costituzione, trasferimento e rinuncia di <strong>diritti reali su immobili</strong> (usufrutto, servitù, superficie, ecc.)</li>
+      <li style="display:flex; gap:.5rem; padding:.2rem 0;"><span>·</span> <strong>Contratti di locazione</strong> ultranovennali</li>
+      <li style="display:flex; gap:.5rem; padding:.2rem 0;"><span>·</span> <strong>Atti di divisione</strong> di beni immobili</li>
+      <li style="display:flex; gap:.5rem; padding:.2rem 0;"><span>·</span> <strong>Transazioni</strong> che riguardano immobili</li>
+    </ul>
+
+    <div class="alert alert-brown">
+      <span class="alert-icon">📋</span>
+      <div><strong>Collegamento con il certificato di destinazione urbanistica:</strong> La compravendita di terreni richiede sempre il <em>certificato di destinazione urbanistica</em> (art. 30 DPR 380/2001). Senza di esso l'atto è <strong>nullo</strong>. È uno dei punti di contatto più frequenti tra Codice Civile e normativa urbanistica nelle domande di concorso.</div>
+    </div>
+  </div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Art. 2643 c.c. e seguenti</div>
+      <div class="art-title">Trascrizione degli atti immobiliari</div>
+    </div>
+    <span class="prio prio-orange">🟠 Priorità media</span>
+  </div>
+  <div class="art-body">
+    <div class="concept">
+      <div class="concept-title">A cosa serve la trascrizione</div>
+      La trascrizione rende l'atto <strong>opponibile ai terzi</strong>: tra due acquirenti dello stesso immobile (doppia vendita), prevale chi ha trascritto per primo, anche se ha comprato dopo.
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div><strong>Collegamento urbanistico diretto:</strong> Nei piani attuativi (lottizzazioni, accordi operativi) le convenzioni urbanistiche devono essere <strong>trascritte</strong> per essere opponibili anche ai successivi acquirenti dei lotti. Questo è fondamentale: chi compra un lotto in una lottizzazione è vincolato alle obbligazioni della convenzione anche se non era il firmatario originale, proprio perché la trascrizione rende il vincolo reale.</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p>
+        <span>Compravendita immobile</span> → forma scritta obbligatoria (art. 1350) + trascrizione (art. 2643)<br>
+        <span>Senza CDU</span> (certificato destinazione urbanistica) → vendita di terreni NULLA (art. 30 DPR 380)<br>
+        <span>Convenzione lottizzazione</span> → va trascritta → vincola anche i successivi acquirenti
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- RISPOSTA MODELLO -->
+<!-- ============================================================ -->
+<h2 id="risposta" class="section-title"><span class="num">7</span> Risposta modello se chiedono "Elementi di Codice Civile"</h2>
+
+<div class="risposta">
+  <div class="risposta-label">✍️ Risposta modulare — usa i blocchi che servono a seconda della domanda</div>
+
+  <div class="par-title">Proprietà (art. 832)</div>
+  <p>Il diritto di proprietà, disciplinato dall'art. 832 c.c., attribuisce al titolare il diritto di <strong>godere e disporre della cosa in modo pieno ed esclusivo</strong>, nei limiti dell'ordinamento. Nel diritto edilizio assume fondamentale rilievo perché i titoli abilitativi edilizi vengono rilasciati al proprietario o a chi ha titolo sul bene; i vincoli urbanistici costituiscono limiti legali alla proprietà pienamente legittimi.</p>
+
+  <div class="par-title">Distanze (artt. 873-907)</div>
+  <p>In materia di distanze tra costruzioni, l'art. 873 c.c. fissa la distanza minima di <strong>3 metri</strong> tra edifici su fondi confinanti, salvo che regolamenti edilizi prevedano distanze maggiori. La giurisprudenza costante ha affermato che tali regolamenti possono aumentare ma non diminuire la distanza minima codicistica. Le vedute dirette richiedono il rispetto di <strong>1,5 metri dal confine</strong> (art. 905), le oblique di <strong>0,75 metri</strong> (art. 906). Le <em>luci</em> (aperture con grata che non consentono affaccio) non soggiacciono a distanze, a differenza delle <em>vedute</em>.</p>
+
+  <div class="par-title">Accessione (art. 934)</div>
+  <p>Il principio di accessione (art. 934 c.c.) stabilisce che <strong>tutto ciò che è incorporato nel suolo appartiene al proprietario del suolo</strong>. La principale deroga è il diritto di superficie (art. 952 c.c.), che consente di costruire e mantenere la proprietà dell'opera su suolo altrui: istituto rilevante anche in diritto pubblico per le concessioni su aree demaniali.</p>
+
+  <div class="par-title">Servitù (art. 1027)</div>
+  <p>La servitù prediale (art. 1027 c.c.) è il peso imposto su un fondo (servente) a vantaggio di un altro fondo (dominante). Nell'attività del SUE rilevano frequentemente la <strong>servitù di passaggio</strong> (art. 1051), specie per i fondi interclusi che non hanno accesso diretto alla via pubblica, e la <strong>servitù non aedificandi</strong>, che limita l'edificabilità del fondo servente e può risultare dalle convenzioni di lottizzazione.</p>
+
+  <div class="par-title">Condominio (art. 1117)</div>
+  <p>Il condominio (artt. 1117-1139 c.c., riformato dalla L. 220/2012) interessa l'attività edilizia perché qualsiasi intervento sulle <strong>parti comuni</strong> — tetto, facciate, scale, impianti — richiede delibera assembleare con le maggioranze di legge. Le innovazioni (art. 1120) richiedono la maggioranza qualificata. Il titolo edilizio non sostituisce la delibera condominiale: entrambi sono necessari.</p>
+
+  <div class="par-title">Forma scritta e trascrizione (artt. 1350, 2643)</div>
+  <p>I contratti aventi ad oggetto diritti reali immobiliari richiedono la <strong>forma scritta a pena di nullità</strong> (art. 1350 c.c.). La trascrizione (art. 2643 c.c.) rende l'atto opponibile ai terzi ed è fondamentale nelle convenzioni urbanistiche, che devono essere trascritte per vincolare anche i successivi acquirenti dei lotti oggetto di piano attuativo.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- QUIZ -->
+<!-- ============================================================ -->
+<div id="quiz" class="quiz-area">
+  <div class="quiz-title">🧠 Quiz — 6 domande stile commissione</div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Qual è la distanza minima tra due costruzioni su fondi confinanti secondo il Codice Civile? E quando si può costruire a distanza zero?<span class="arrow">▼</span></div>
+    <div class="quiz-a">L'art. 873 c.c. fissa la distanza minima di <strong>3 metri</strong> tra costruzioni su fondi diversi. Si può costruire a distanza zero (in aderenza o sul confine) quando: (a) il vicino ha già costruito sul confine — si ha diritto di costruire in aderenza; (b) entrambi i vicini si accordano per costruire sul confine. I regolamenti edilizi possono prevedere distanze maggiori (es: il DM 1444/1968 fissa 10 m tra pareti finestrate nelle zone B) ma non possono scendere sotto i 3 m del c.c.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Qual è la differenza tra una "luce" e una "veduta"?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Le <strong>luci</strong> (art. 900 c.c.) sono aperture che danno luce e aria ma non permettono di affacciarsi e vedere nel fondo altrui: devono avere inferriate e grate. Possono essere aperte senza rispettare distanze dal confine, e il vicino può costruire addossandosi alla parete con le luci. Le <strong>vedute</strong> (art. 905 c.c.) sono aperture da cui ci si può affacciare e vedere nel fondo del vicino: richiedono il rispetto di distanze (1,5 m dal confine per vedute dirette, 0,75 m per le oblique). Se il vicino costruisce e ostruisce una veduta legittimamente aperta, il titolare può agire in giudizio.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Cosa succede se Tizio costruisce una casa sul suolo di Caio? (principio di accessione)<span class="arrow">▼</span></div>
+    <div class="quiz-a">Si applica il principio di accessione (art. 934 c.c.): <strong>la costruzione diventa automaticamente di Caio</strong> (proprietario del suolo). Caio dovrà però corrispondere a Tizio un'indennità pari al valore dei materiali e della mano d'opera (art. 936 c.c.). Se Tizio ha costruito in malafede, Caio può invece chiedere la demolizione a spese di Tizio. La principale deroga è il <strong>diritto di superficie</strong> (art. 952 c.c.), che permette di costruire e mantenere la proprietà dell'opera su suolo altrui — usato frequentemente per le concessioni su aree pubbliche.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Cos'è un fondo intercluso e quale diritto ha il suo proprietario?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il fondo intercluso è un fondo che <strong>non ha accesso diretto alla via pubblica</strong>. Il suo proprietario ha diritto di ottenere una <strong>servitù coattiva di passaggio</strong> attraverso il fondo confinante (art. 1051 c.c.), pagando però un'indennità al proprietario del fondo servente. La servitù deve essere stabilita nel luogo che arrechi il minor danno al fondo servente garantendo però il passaggio utile al fondo dominante. Questo ha rilievo pratico nelle istruttorie edilizie: un fondo intercluso non può ottenere il permesso di costruire senza prima risolvere il problema dell'accesso.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Un condomino vuole installare un ascensore sulle parti comuni. Cosa serve oltre al titolo edilizio?<span class="arrow">▼</span></div>
+    <div class="quiz-a">L'installazione di un ascensore è un'<strong>innovazione</strong> ai sensi dell'art. 1120 c.c. Oltre al titolo edilizio (normalmente SCIA o comunicazione), è necessaria la <strong>delibera dell'assemblea condominiale</strong> con la maggioranza qualificata: voto favorevole della maggioranza dei partecipanti che rappresentino almeno metà del valore dell'edificio (500 millesimi). Il titolo edilizio da solo non legittima l'intervento sulle parti comuni: entrambi gli atti sono necessari e distinti.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Perché la convenzione di lottizzazione deve essere trascritta nei registri immobiliari?<span class="arrow">▼</span></div>
+    <div class="quiz-a">La convenzione di lottizzazione (oggi "accordo attuativo" nella LR 24/2017 ER) deve essere <strong>trascritta</strong> ai sensi dell'art. 2643 c.c. per renderla <em>opponibile ai terzi</em>. Questo significa che chi acquista successivamente un lotto nell'area oggetto di lottizzazione è vincolato agli obblighi della convenzione (cessioni di aree, realizzazione di opere di urbanizzazione, vincoli d'uso) anche se non era parte dell'accordo originale. Senza trascrizione, il successivo acquirente potrebbe sostenere di non essere vincolato, rendendo inapplicabili gli obblighi urbanistici concordati con il Comune.</div>
+  </div>
+
+</div>
+
+</main>
+
+<footer>
+  Guida studio per concorso — Unione Comuni Valli e Delizie — Istruttore Tecnico<br>
+  Codice Civile artt. 832, 873, 934, 1027, 1117, 1350, 2643 · DM 1444/1968 · DPR 380/2001 art. 30
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  function toggle(el) {
+    const ans = el.nextElementSibling;
+    const isOpen = ans.classList.contains('open');
+    document.querySelectorAll('.quiz-a.open').forEach(a => {
+      a.classList.remove('open');
+      a.previousElementSibling.classList.remove('active');
+    });
+    if (!isOpen) { ans.classList.add('open'); el.classList.add('active'); }
+  }
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => { btn.classList.toggle('visible', window.scrollY > 400); });
+</script>
+</body>
+</html>
