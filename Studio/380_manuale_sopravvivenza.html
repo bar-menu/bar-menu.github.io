@@ -3,201 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DPR 380/2001 - Manuale di Sopravvivenza per Funzionari</title>
+    <title>DPR 380/2001 - Il Malloppo Definitivo per Funzionari</title>
     <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #2980b9;
+            --bg-light: #f8f9fa;
+            --border: #ced4da;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            max-width: 900px;
+            color: var(--primary);
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #f0f2f5;
         }
         h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-top: 40px;
+            color: var(--primary);
+            border-bottom: 4px solid var(--secondary);
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            font-size: 2.2em;
+            text-align: center;
         }
         h2 {
-            color: #2980b9;
-            margin-top: 30px;
+            color: var(--accent);
+            margin-top: 40px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 5px;
+            font-size: 1.5em;
         }
         p {
-            margin-bottom: 15px;
             font-size: 1.1em;
+            margin-bottom: 15px;
         }
-        .box {
+        details {
             background-color: #fff;
-            border-left: 5px solid #3498db;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        summary {
+            font-weight: bold;
+            font-size: 1.2em;
             padding: 15px 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: #e9ecef;
+            cursor: pointer;
+            outline: none;
+            color: var(--primary);
+            transition: background-color 0.2s ease;
+        }
+        summary:hover {
+            background-color: #dee2e6;
+        }
+        .content {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+        }
+        .definition {
+            background-color: #e8f4f8;
+            border-left: 5px solid var(--accent);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .example {
+            background-color: #e8f8f5;
+            border-left: 5px solid #1abc9c;
+            padding: 15px;
+            margin-top: 15px;
+            font-style: italic;
         }
         .alert {
-            background-color: #fff3cd;
-            border-left: 5px solid #ffc107;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: #fdedec;
+            border-left: 5px solid var(--secondary);
+            padding: 15px;
+            margin-top: 15px;
+            font-weight: bold;
         }
-        .box-red {
-            background-color: #fff;
-            border-left: 5px solid #e74c3c;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        ul, ol {
+            font-size: 1.1em;
+            margin-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
         }
         .qa-box {
-            background-color: #e8f4f8;
-            border: 1px solid #bce8f1;
+            background-color: #fff;
+            border: 2px solid var(--accent);
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-bottom: 20px;
         }
         .question {
             font-weight: bold;
-            color: #31708f;
+            color: var(--secondary);
             font-size: 1.2em;
-        }
-        .answer {
-            margin-top: 10px;
-        }
-        strong {
-            color: #2c3e50;
-        }
-        ul {
-            font-size: 1.1em;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
-    <h1>PARTE 1: I Pilastri Nazionali (Definizioni e Salva Casa)</h1>
-    <p>Questo è ciò che detta lo Stato e che la Regione Emilia-Romagna non può contraddire. Usalo per padroneggiare i concetti e rispondere con proprietà di linguaggio ai quesiti scritti e orali.</p>
+    <h1>Il Malloppo DPR 380/2001</h1>
+    <p>Questo documento contiene <strong>esclusivamente ciò che devi sapere della normativa statale</strong>. Tutto quello che riguarda moduli, tempistiche, silenzio-assenso e CILA/SCIA nello specifico lo lasci alla LR 15/2013 dell'Emilia-Romagna. Qui ci sono i pilastri inviolabili: cosa cazzo stai costruendo, le distanze legali, i reati penali, come si calcolano i soldi e come si abbattono gli abusi.</p>
 
     <h2>1. Le Definizioni degli Interventi (Art. 3)</h2>
-    <div class="box">
-        <p>L'articolo 3 è il dizionario dell'urbanistica. Sbagliare la classificazione di un intervento significa sbagliare il titolo edilizio, gli oneri e incappare in sanzioni.</p>
-        
-        <ul>
-            <li><strong>Manutenzione Ordinaria (Lett. A):</strong> Opere di riparazione, rinnovamento e sostituzione delle finiture degli edifici. Include l'efficienza degli impianti tecnologici esistenti. <em>In sintesi: non cambi l'involucro, non cambi i volumi, tieni tutto in salute.</em></li>
+    <p>La base di tutto. Se inquadri male l'intervento, applichi il titolo sbagliato e fai un disastro. Ecco le definizioni complete e i confini pratici.</p>
+
+    <details>
+        <summary>A. Manutenzione Ordinaria & B. Manutenzione Straordinaria</summary>
+        <div class="content">
+            <div class="definition">
+                <strong>Manutenzione Ordinaria (Lett. A):</strong> Opere dirette a riparare, rinnovare o sostituire le finiture degli edifici e quelle necessarie a mantenere in efficienza gli impianti tecnologici esistenti. 
+                <br><em>Pratica:</em> Non alteri nulla di sostanziale. Vernici, cambi le piastrelle, ripari un tubo rotto, cambi le tegole. È sempre Edilizia Libera.
+            </div>
             
-            <li><strong>Manutenzione Straordinaria (Lett. B):</strong> Opere per rinnovare o sostituire parti anche strutturali degli edifici, oppure per frazionare o accorpare unità immobiliari. <strong>Limiti fondamentali:</strong> non deve alterare la volumetria complessiva e non deve comportare mutamenti urbanisticamente rilevanti delle destinazioni d'uso. Include rifacimento scale, spostamento tramezzi, consolidamento statico.</li>
+            <div class="definition">
+                <strong>Manutenzione Straordinaria (Lett. B):</strong> Opere e modifiche necessarie per rinnovare e sostituire parti anche strutturali degli edifici, nonché per realizzare ed integrare i servizi igienico-sanitari e tecnologici. Rientra qui anche il frazionamento o l'accorpamento di unità immobiliari.
+            </div>
             
-            <li><strong>Restauro e Risanamento Conservativo (Lett. C):</strong> Interventi mirati a conservare l'organismo edilizio e assicurarne la funzionalità. Si rispettano gli elementi tipologici, formali e strutturali (c'è un elemento storico-architettonico da tutelare).</li>
+            <div class="alert">
+                I LIMITI DELLA MANUTENZIONE STRAORDINARIA:
+                <ul>
+                    <li>NON deve alterare la volumetria complessiva dell'edificio.</li>
+                    <li>NON deve comportare mutamenti urbanisticamente rilevanti della destinazione d'uso (con le recenti modifiche normative il cambio d'uso è tollerato se avviene senza opere pesanti e non stravolge il carico urbanistico, ma la volumetria resta sacra).</li>
+                    <li>Puoi toccare le strutture (es. cerchiature, consolidamento solai), puoi spostare tramezzi interni per fare un open space, puoi unire due appartamenti in uno.</li>
+                </ul>
+            </div>
+            <div class="example">
+                Esempio: Tizio vuole abbattere un muro di spina portante nel suo salotto per fare un ambiente unico. Mette una putrella d'acciaio (cerchiatura). È Manutenzione Straordinaria (strutturale). Presenterà una SCIA (o titolo equivalente regionale) con progetto sismico.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>C. Restauro e Risanamento Conservativo</summary>
+        <div class="content">
+            <div class="definition">
+                <strong>Restauro e Risanamento Conservativo (Lett. C):</strong> Interventi edilizi rivolti a conservare l'organismo edilizio e ad assicurarne la funzionalità mediante un insieme sistematico di opere che, nel rispetto degli elementi tipologici, formali e strutturali dell'organismo stesso, ne consentano anche il mutamento delle destinazioni d'uso (purché compatibili).
+            </div>
+            <p><strong>La differenza pratica con la MS:</strong> Nella MS tu puoi anche stravolgere la distribuzione interna perché l'edificio non ha pregi particolari. Nel Restauro, l'edificio ha un valore storico, architettonico o testimoniale. Devi conservare l'anima dell'edificio (es. non puoi sostituire un tetto in legno antico con uno in cemento armato, devi risanare il legno). Rientrano qui il consolidamento, il ripristino di elementi storici e l'inserimento di impianti che non deturpino la struttura.</p>
+        </div>
+    </details>
+
+    <details>
+        <summary>D. Ristrutturazione Edilizia vs E. Nuova Costruzione (La Trappola del Volume)</summary>
+        <div class="content">
+            <div class="definition">
+                <strong>Ristrutturazione Edilizia (Lett. D):</strong> Interventi rivolti a trasformare gli organismi edilizi mediante un insieme sistematico di opere che possono portare a un organismo edilizio in tutto o in parte <strong>diverso dal precedente</strong>. Comprende ripristino, sostituzione, eliminazione di nuovi elementi.
+            </div>
+            <p><strong>Cosa ci rientra:</strong> Rientra persino la <em>demolizione e successiva ricostruzione</em>. Il legislatore oggi permette di ricostruire anche con sagoma, prospetti, sedime e caratteristiche planivolumetriche DIVERSI da quelli preesistenti.</p>
             
-            <li><strong>Ristrutturazione Edilizia (Lett. D):</strong> Qui si fa sul serio. Interventi che portano a un organismo edilizio in tutto o in parte <em>diverso dal precedente</em>. <br>
-            <strong>Attenzione:</strong> Comprende anche la demolizione e fedele ricostruzione (o con diversa sagoma/sedime), purché si rispetti la volumetria preesistente. Se aumenti il volume, sconfini nella Nuova Costruzione (salvo bonus volumetrici specifici).</li>
+            <div class="alert">
+                IL CONFINE ASSOLUTO: IL VOLUME.<br>
+                Affinché sia "Ristrutturazione" (e paghi meno oneri), l'intervento deve prevedere il mantenimento della volumetria preesistente. Se il volume aumenta, si sconfina nella Nuova Costruzione (salvo specifici bonus volumetrici legiferati, es. piano casa, eco-sismabonus, ecc.).
+            </div>
+
+            <div class="definition">
+                <strong>Nuova Costruzione (Lett. E):</strong> Tutto ciò che crea nuova volumetria o trasforma il territorio in modo permanente.
+            </div>
+            <p>Include la costruzione di manufatti fuori terra o interrati, l'ampliamento all'esterno della sagoma esistente (che crea volume), l'installazione di torri, tralicci, manufatti prefabbricati leggeri (se non temporanei) e la realizzazione di infrastrutture.</p>
             
-            <li><strong>Nuova Costruzione (Lett. E):</strong> Tutto ciò che non rientra nelle categorie precedenti. Qualsiasi manufatto fuori terra o interrato, incluse le pertinenze che superano il 20% del volume dell'edificio principale.</li>
-        </ul>
-    </div>
+            <div class="example">
+                Esempio Pratico: Il Sig. Rossi ha un cascinale di 800 mc. Lo rade al suolo e lo ricostruisce a 10 metri di distanza nel suo lotto, facendolo di forma quadrata invece che rettangolare, ma restando di 800 mc. = <strong>Ristrutturazione Edilizia</strong>.<br>
+                Il Sig. Bianchi fa la stessa cosa, ma ne approfitta per fare un piano in più, portando il volume a 1100 mc. = <strong>Nuova Costruzione</strong> (quantomeno per la parte in ampliamento, con pesanti ricadute su permessi e oneri).
+            </div>
+        </div>
+    </details>
 
-    <h2>2. Il Sistema Sanzionatorio Penale (Art. 44)</h2>
-    <div class="box">
-        <p>Gli abusi edilizi possono costituire reato. L'articolo 44 stabilisce le sanzioni penali, divise in tre livelli. Da sapere per capire quando l'ufficio tecnico deve segnalare in Procura.</p>
-        <ul>
-            <li><strong>Lettera a) - L'inosservanza di base:</strong> Ammenda per mancato rispetto di norme o regolamenti edilizi.</li>
-            <li><strong>Lettera b) - L'assenza di Permesso:</strong> Arresto fino a due anni e ammenda. Per lavori in totale difformità o assenza del Permesso di Costruire, o se continui a lavorare dopo un ordine di sospensione.</li>
-            <li><strong>Lettera c) - Il disastro ambientale/vincoli:</strong> Arresto fino a due anni e ammenda massima. Per lottizzazione abusiva o abusi totali in zone sottoposte a vincolo (storico, paesaggistico, ecc.).</li>
-        </ul>
-    </div>
+    <h2>2. Il Rebus delle Distanze (Codice Civile vs DM 1444/68)</h2>
+    <p>Non confondere le norme di vicinato con le norme di igiene pubblica. Qui si sbroglia la matassa dei 3 metri o 10 metri.</p>
 
-    <h2>3. Distanze tra Edifici (DM 1444/68)</h2>
-    <div class="box">
-        <p><strong>La regola aurea (Art. 9):</strong> Distanza minima assoluta di <strong>10 metri</strong> tra pareti finestrate e pareti di edifici antistanti. È cogente e inderogabile (tutela l'igiene pubblica, non i rapporti di vicinato). Derogabile solo all'interno di specifici piani urbanistici attuativi, non nei singoli permessi.</p>
-    </div>
+    <details>
+        <summary>Perché 3 metri? E perché 10 metri? La regola delle finestre.</summary>
+        <div class="content">
+            <p><strong>I 3 Metri (Art. 873 Codice Civile):</strong> È una norma di diritto privato. Stabilisce che tra le costruzioni su fondi finitimi ci devono essere almeno 3 metri. Perché? Per evitare che si creino "intercapedini dannose" dove non passa luce o aria tra due muri. I regolamenti locali possono permettere di costruire in aderenza (attaccati) o sul confine, se i vicini sono d'accordo o in base a chi costruisce per primo (prevenzione).</p>
+            
+            <p><strong>I 10 Metri (Art. 9, DM 1444/1968):</strong> Questa è norma di ordine pubblico, urbanistica dura e pura. Stabilisce la distanza minima assoluta di 10 metri tra <strong>pareti finestrate e pareti di edifici antistanti</strong>.</p>
+            
+            <div class="alert">
+                COME FUNZIONA NELLA PRATICA:<br>
+                Se due muri sono completamente ciechi (zero finestre, zero vedute), la distanza minima è 3 metri (Codice Civile). MA se anche solo UNO dei due muri ha una finestra (veduta), scatta istantaneamente il DM 1444/68: devi arretrare a 10 metri. E attenzione: non puoi fare un accordo privato col vicino per derogare ai 10 metri. Essendo norma di igiene pubblica (per garantire luce e privacy alla collettività), ogni patto in deroga è nullo.
+            </div>
+        </div>
+    </details>
 
-    <h2>4. Tolleranze e Sanatorie (La Rivoluzione "Salva Casa" 2024)</h2>
-    <div class="alert">
-        <p><strong>ATTENZIONE CONCORSI:</strong> La L. 105/2024 ha ribaltato le regole storiche sulle difformità.</p>
-        
-        <ul>
-            <li><strong>Art. 34-bis (Tolleranze Costruttive):</strong> Non sono abusi gli scostamenti minimi. Per il post-2024 resta il limite del <strong>2%</strong>. Per gli interventi ante 24 maggio 2024, la tolleranza arriva fino al <strong>5%</strong> per immobili sotto i 60 mq. Ammesse anche "tolleranze esecutive" (es. diverso posizionamento impianti o irregolarità geometriche).</li>
-            <li><strong>Art. 36 (Abusi totali):</strong> Per sanare case costruite da zero senza permesso serve ancora la <strong>"Doppia Conformità Assoluta"</strong> (conforme alle norme di quando hai costruito + alle norme di oggi).</li>
-            <li><strong>Art. 36-bis (Parziali difformità - LA VERA NOVITÀ):</strong> Supera la regola precedente. Introduce la <strong>"Doppia Conformità Asimmetrica"</strong>: basta dimostrare che l'opera è conforme alle norme <em>urbanistiche</em> di oggi e a quelle <em>tecnico/edilizie</em> del momento della realizzazione.</li>
-        </ul>
-    </div>
+    <h2>3. Oneri, Scomputo e Contributo Straordinario (Artt. 16 e 17)</h2>
+    <p>Costruire ha un impatto sulla città. Il Permesso di Costruire (o la SCIA che lo sostituisce) è oneroso.</p>
 
-    <h1 style="border-bottom-color: #e74c3c; color: #c0392b;">PARTE 2: I Soldi, Le Ruspe e lo Stato Legittimo</h1>
-    <p>Le disposizioni "pesanti" del Testo Unico. Chi paga cosa e come si espropria un abuso edilizio.</p>
+    <details>
+        <summary>Cos'è il Carico Urbanistico e come si dividono gli Oneri</summary>
+        <div class="content">
+            <p>Non si paga il pezzo di carta. Si paga il fatto che la nuova costruzione (o il cambio d'uso) porterà nuove persone in quella zona, che useranno le fogne, le strade e le scuole. Questo è il "carico urbanistico". Il <strong>Contributo di Costruzione</strong> si divide in:</p>
+            <ul>
+                <li><strong>Oneri di Urbanizzazione Primaria:</strong> Servono per le infrastrutture essenziali fisicamente vicine all'edificio: strade, fognature, rete idrica, illuminazione, parcheggi pubblici.</li>
+                <li><strong>Oneri di Urbanizzazione Secondaria:</strong> Servono per i servizi alla comunità: asili, scuole, mercati, chiese, parchi pubblici, impianti sportivi di quartiere.</li>
+                <li><strong>Costo di Costruzione:</strong> È una "tassa" ulteriore basata sul valore e sul pregio dell'edificio. Si applica alle nuove costruzioni residenziali/direzionali o alle ristrutturazioni che modificano la destinazione d'uso. (Le attività produttive/artigianali di solito non lo pagano o pagano quote standardizzate).</li>
+            </ul>
+        </div>
+    </details>
 
-    <h2>5. Oneri, Scomputo e Contributo Straordinario (Artt. 16 e 17)</h2>
-    <div class="box-red">
-        <p>Il Permesso di Costruire è oneroso. Si paga il <strong>Contributo di Costruzione</strong>, formato da:</p>
-        <ul>
-            <li><strong>Oneri di Urbanizzazione:</strong> Primaria (strade, fognature) e Secondaria (scuole, asili).</li>
-            <li><strong>Costo di Costruzione:</strong> Quota legata al valore dell'opera.</li>
-        </ul>
-        <p><strong>Lo Scomputo:</strong> Il privato realizza direttamente le opere (strade, fognature) a sue spese e le cede al Comune, scalando il costo dagli oneri di urbanizzazione dovuti.</p>
-        <p><strong>Il Contributo Straordinario (Art. 16, c. 4):</strong> Se un'area acquista enorme valore per una variante urbanistica, il costruttore versa al Comune almeno il 50% del maggior valore generato (per restituire alla collettività il vantaggio ottenuto).</p>
-    </div>
+    <details>
+        <summary>Lo Scomputo (Faccio io la strada) e il Contributo Straordinario</summary>
+        <div class="content">
+            <div class="definition">
+                <strong>Scomputo degli Oneri:</strong> Il privato dice al Comune: "Invece di darvi 50.000 euro di oneri primari, la strada e la rotonda me le costruisco io a spese mie seguendo il vostro progetto". Il privato realizza l'opera, la collauda e la cede al Comune, scomputando il costo dagli oneri dovuti. (Il Costo di Costruzione, invece, va sempre pagato in moneta sonante).
+            </div>
+            <div class="definition">
+                <strong>Contributo Straordinario (Art. 16, c. 4, lett. d-ter):</strong> Se il Comune approva una variante urbanistica (es. trasforma un campo agricolo in area edificabile) e il terreno schizza di valore, il privato deve versare al Comune un contributo extra pari ad almeno il <strong>50% del maggior valore generato</strong>. Serve a redistribuire alla collettività la ricchezza creata dalla penna del pianificatore.
+            </div>
+        </div>
+    </details>
 
-    <h2>6. Repressione degli Abusi (Artt. 27 e 31)</h2>
-    <div class="box-red">
-        <ul>
-            <li><strong>Sospensione (Art. 27):</strong> Stop immediato ai cantieri irregolari.</li>
-            <li><strong>Ordinanza di Demolizione (Art. 31):</strong> Se l'opera è abusiva (assenza permesso, totale difformità), ingiunzione di demolire entro <strong>90 giorni</strong>.</li>
-            <li><strong>Acquisizione Gratuita:</strong> Se non demolisci in 90 giorni, il bene e l'area passano automaticamente di proprietà al Comune. Scatta pure una multa da 2.000 a 20.000 euro.</li>
-        </ul>
-    </div>
+    <h2>4. La Repressione: Ruspe e Sanzioni Penali (Artt. 27, 31, 44)</h2>
+    <p>Per le multe e le sanatorie usi la legge regionale (LR 15). Ma per il penale e per gli espropri, comanda lo Stato col DPR 380.</p>
 
-    <h2>7. Lo Stato Legittimo (Art. 9-bis)</h2>
-    <div class="box-red">
-        <p>Dimostrare che l'edificio è in regola prima di fare lavori. Oggi è stabilito da:</p>
-        <ul>
-            <li>L'ultimo titolo abilitativo che ha interessato l'intero immobile.</li>
-            <li>Per immobili storici (ante obbligo di permesso): planimetrie catastali di primo impianto, foto storiche, ecc.</li>
-            <li><strong>Novità:</strong> Anche il pagamento delle sanzioni per micro-difformità sanate fa "stato legittimo".</li>
-        </ul>
-    </div>
+    <details>
+        <summary>L'iter della repressione (Dal verbale all'esproprio - Artt. 27 e 31)</summary>
+        <div class="content">
+            <p>Il Dirigente (o il funzionario delegato) non ha discrezionalità. Se scopre un abuso totalmente difforme o fatto senza permesso, l'iter è vincolato:</p>
+            <ol>
+                <li><strong>Sospensione Lavori (Art. 27):</strong> Ordinanza cautelare immediata. Ferma il cantiere.</li>
+                <li><strong>Ordinanza di Demolizione (Art. 31):</strong> Ingiunzione al responsabile dell'abuso e al proprietario di demolire e ripristinare i luoghi entro <strong>90 giorni</strong>.</li>
+                <li><strong>L'Acquisizione Gratuita:</strong> Se passano 91 giorni e l'abuso è ancora lì, il bene e l'area di sedime (più un'area perimetrale) <strong>passano di diritto e gratuitamente al patrimonio del Comune</strong>. Diventano roba pubblica.</li>
+                <li><strong>La Multa Finale:</strong> Oltre ad aver perso la casa, il privato si becca una sanzione amministrativa pecuniaria che va da 2.000 a 20.000 euro.</li>
+            </ol>
+        </div>
+    </details>
 
-    <h1>SEZIONE Q&A - Domande da Concorso</h1>
+    <details>
+        <summary>I Reati Edilizi (Art. 44 - Roba Penale)</summary>
+        <div class="content">
+            <p>La LR 15 ti fa pagare i soldini. Il DPR 380 ti manda davanti a un giudice penale. Le sanzioni penali sono divise in gravità crescente:</p>
+            <ul>
+                <li><strong>Lett. a) Lieve:</strong> Ammenda per mancato rispetto dei regolamenti edilizi.</li>
+                <li><strong>Lett. b) Medio-Grave:</strong> Arresto fino a 2 anni e ammenda sostanziosa per chi costruisce in totale difformità o assenza di permesso, o se continua i lavori dopo l'ordinanza di sospensione.</li>
+                <li><strong>Lett. c) Gravissimo:</strong> Arresto fino a 2 anni e ammenda massima per lottizzazione abusiva o abusi gravi in zone coperte da vincolo (storico, paesaggistico, ambientale). Qui lo Stato non perdona.</li>
+            </ul>
+        </div>
+    </details>
+
+    <h2>5. Tolleranze, Sanatorie e Stato Legittimo (Novità Salva Casa 2024)</h2>
+    <p>Questo è l'argomento su cui bocceranno un sacco di gente. Il Salva Casa (L. 105/2024) ha stravolto decenni di rigidità mentale.</p>
+
+    <details>
+        <summary>Tolleranze Costruttive ed Esecutive (Art. 34-bis)</summary>
+        <div class="content">
+            <p>Non tutto ciò che differisce dal progetto è un abuso. Le difformità minuscole sono "tollerate".</p>
+            <ul>
+                <li><strong>Costruzioni post-24 maggio 2024:</strong> Vale la regola storica. Scostamenti fino al <strong>2%</strong> delle misure (altezza, cubatura, ecc.) non sono abusi.</li>
+                <li><strong>Costruzioni ante-24 maggio 2024 (La Novità):</strong> Le percentuali aumentano per sbloccare le vendite dei vecchi immobili. Fino al <strong>5%</strong> per case sotto i 60 mq, 4% tra 60 e 100 mq, 3% tra 100 e 300 mq, e resta il 2% sopra i 300 mq.</li>
+                <li><strong>Tolleranze esecutive:</strong> Regolarizzate anche le irregolarità geometriche minime, i diversi posizionamenti degli impianti, le minori dimensioni dell'edificio rispetto al progetto.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details>
+        <summary>Doppia Conformità: Assoluta (Art. 36) vs Asimmetrica (Art. 36-bis)</summary>
+        <div class="content">
+            <div class="alert">Questo è il cuore del nuovo diritto urbanistico. Imparalo bene.</div>
+            <p><strong>Per Abusi Totali (Art. 36):</strong> Hai costruito una casa da zero senza permesso. Per sanarla devi dimostrare la <em>Doppia Conformità Assoluta</em>: il progetto deve essere in regola SIA con le norme vigenti quando l'hai costruito (anni fa), SIA con le norme in vigore oggi. Praticamente impossibile.</p>
+            <p><strong>Per Parziali Difformità (Art. 36-bis - LA RIVOLUZIONE):</strong> Hai spostato una finestra e cambiato un tetto senza dire niente. Superata la rigidità del passato! Ora si applica la <em>Doppia Conformità Asimmetrica</em>: per sanare basta che l'opera sia conforme alla disciplina urbanistica <strong>di oggi</strong> (quando fai la domanda) e alla disciplina tecnico-edilizia (strutture, materiali) in vigore <strong>al momento della realizzazione</strong>.</p>
+        </div>
+    </details>
+
+    <details>
+        <summary>Lo Stato Legittimo e la CILA (Art. 9-bis)</summary>
+        <div class="content">
+            <p>Lo Stato Legittimo è il "certificato di nascita" dell'immobile, indispensabile per fare qualsiasi nuovo lavoro. Da cosa è stabilito?</p>
+            <ul>
+                <li>Dall'ultimo titolo abilitativo che ha disciplinato l'intero immobile (es. un vecchio Permesso di Costruire).</li>
+                <li>Per le vecchie case senza progetto, contano le planimetrie catastali di primo impianto o vecchie foto aeree.</li>
+                <li><strong>LA RISPOSTA ALLA TUA DOMANDA SULLA CILA:</strong> La norma dice che l'ultimo titolo globale è <em>"integrato con gli eventuali titoli successivi che hanno abilitato interventi parziali"</em>. Anche se la CILA è una "comunicazione" e non un'autorizzazione pura, i suoi elaborati progettuali asseverati dal tecnico fanno fede e concorrono formalmente a determinare lo stato legittimo per quella porzione di casa modificata. Punto.</li>
+                <li><strong>Novità:</strong> Anche il pagamento delle sanzioni per le vecchie micro-difformità contribuisce a blindare lo stato legittimo.</li>
+            </ul>
+        </div>
+    </details>
+
+    <h2>SEZIONE Q&A: Preparazione Scritto e Orale</h2>
+    <p>Ecco come un funzionario deve rispondere alle domande d'esame (basate sui tuoi PDF).</p>
 
     <div class="qa-box">
         <div class="question">Quesito 1: Il candidato illustri le principali innovazioni apportate dal Decreto "Salva Casa" (L. 105/2024).</div>
-        <div class="answer">
-            <p><strong>Risposta Consigliata:</strong></p>
-            <p>La L. 105/2024 mira a sbloccare la regolarizzazione delle micro-difformità storiche. Le innovazioni si basano su tre pilastri:</p>
-            <ol>
-                <li><strong>Tolleranze Costruttive (Art. 34-bis):</strong> Per lavori ante 24 maggio 2024, il limite del 2% è rimodulato (fino al 5% per unità sotto i 60 mq). Riconosciute ampie tolleranze esecutive.</li>
-                <li><strong>Parziali difformità (Art. 36-bis):</strong> Abbandono della doppia conformità assoluta in favore della "doppia conformità asimmetrica": l'opera deve essere conforme all'urbanistica attuale e alle norme tecniche dell'epoca di realizzazione.</li>
-                <li><strong>Stato Legittimo (Art. 9-bis):</strong> Semplificazioni probatorie usando i dati catastali o titoli edilizi recenti, integrando le sanatorie minori a pieno titolo nello stato legittimo dell'immobile.</li>
-            </ol>
-        </div>
+        <p><strong>Risposta Consigliata:</strong><br>
+        La L. 105/2024 mira a favorire la regolarizzazione del patrimonio edilizio superando precedenti rigidità normative che paralizzavano il mercato immobiliare. I pilastri sono tre:
+        <br>1. <strong>Rimoludazione delle Tolleranze (Art. 34-bis):</strong> Per immobili realizzati entro il 24/05/2024, il rigido limite del 2% è stato sostituito da un criterio inversamente proporzionale alla metratura (fino al 5% per piccole unità).
+        <br>2. <strong>Superamento della Doppia Conformità Assoluta (Art. 36-bis):</strong> Per difformità parziali e variazioni essenziali, si applica ora una "doppia conformità asimmetrica" (conforme all'urbanistica vigente al momento della domanda, e alle norme tecniche vigenti al momento della realizzazione).
+        <br>3. <strong>Semplificazione dello Stato Legittimo (Art. 9-bis):</strong> Si rafforza il valore probatorio dei titoli edilizi recenti (anche per interventi parziali) e del pagamento delle sanzioni per storiche difformità, snellendo l'onere probatorio in capo ai professionisti.</p>
     </div>
 
     <div class="qa-box">
         <div class="question">Quesito 2: Differenza tra Manutenzione Straordinaria e Ristrutturazione Edilizia (Art. 3).</div>
-        <div class="answer">
-            <p><strong>Risposta Consigliata:</strong></p>
-            <p>Il discrimine è l'impatto sul volume e sull'organismo edilizio. La manutenzione straordinaria (lett. b) rinnova o sostituisce parti strutturali, o fraziona unità, imponendo tassativamente di non alterare volumetria complessiva e destinazione d'uso rilevante.</p>
-            <p>La ristrutturazione edilizia (lett. d) trasforma l'organismo edilizio in qualcosa di "diverso". Include demolizione e ricostruzione, ma sempre nel rispetto del volume preesistente. Se l'intervento aumenta la volumetria, si sfocia nella "Nuova Costruzione", richiedendo il Permesso di Costruire e relativi oneri.</p>
-        </div>
+        <p><strong>Risposta Consigliata:</strong><br>
+        Il confine giuridico e tecnico risiede nell'impatto strutturale e volumetrico. <br>
+        La <strong>Manutenzione Straordinaria</strong> (Art. 3, lett. b) permette rinnovi strutturali e frazionamenti/accorpamenti a patto che non vi sia alcun incremento della volumetria complessiva e non vi siano mutamenti rilevanti di destinazione d'uso. Non crea un organismo "diverso".<br>
+        La <strong>Ristrutturazione Edilizia</strong> (Art. 3, lett. d), invece, trasforma l'organismo edilizio creandone uno in tutto o in parte diverso dal preesistente. Ammette la demolizione e la ricostruzione anche con diversa sagoma e sedime, <strong>ma sempre col limite inderogabile del mantenimento del volume originario</strong>. Qualora si superi tale volume, l'intervento ricade inevitabilmente nella Nuova Costruzione (lett. e).</p>
     </div>
 
     <div class="qa-box">
         <div class="question">Quesito 3: Opere di urbanizzazione a scomputo e contributo straordinario (Art. 16).</div>
-        <div class="answer">
-            <p><strong>Risposta Consigliata:</strong></p>
-            <p>Lo scomputo permette al titolare del Permesso di Costruire di eseguire direttamente le opere di urbanizzazione (primaria/secondaria) invece di versare la relativa quota al Comune. L'opera viene collaudata e ceduta al patrimonio comunale (il costo di costruzione va invece pagato in denaro).</p>
-            <p>Il <strong>Contributo Straordinario</strong> (Art. 16, c. 4) è una compartecipazione al plusvalore generato da varianti urbanistiche o deroghe. È pari ad almeno il 50% del maggior valore immobiliare acquisito dall'area e serve al Comune per finanziare opere pubbliche, compensando l'impatto sul territorio.</p>
-        </div>
+        <p><strong>Risposta Consigliata:</strong><br>
+        Il <strong>Contributo di Costruzione</strong> si articola in Oneri di Urbanizzazione e Costo di Costruzione. L'istituto dello <strong>scomputo</strong> (Art. 16) permette al privato di non versare monetariamente la quota relativa agli oneri di urbanizzazione (primaria e/o secondaria), realizzando direttamente le relative infrastrutture pubbliche a proprie spese (es. strade, reti), per poi collaudarle e cederle al Comune.<br>
+        Il <strong>Contributo Straordinario</strong> (Art. 16, c. 4) è invece un prelievo a carico del privato in caso di varianti urbanistiche, deroghe o cambi d'uso che generino un notevole incremento di valore dell'area. Esso è quantificato in misura non inferiore al 50% del "plusvalore" generato, garantendo un ristoro economico alla collettività per l'impatto dell'intervento sul territorio.</p>
     </div>
 
     <div class="qa-box">
-        <div class="question">Quesito 4: Adempimenti del SUE in caso di accertamento di opere abusive.</div>
-        <div class="answer">
-            <p><strong>Risposta Consigliata:</strong></p>
-            <p>Il SUE esercita un potere vincolato (nessuna discrezionalità) in tre fasi ex Artt. 27 e 31:</p>
-            <ol>
-                <li><strong>Sospensione:</strong> Ordinanza cautelare immediata per fermare i lavori.</li>
-                <li><strong>Ordinanza di Demolizione:</strong> Ingiunzione al proprietario per il ripristino dei luoghi entro 90 giorni (per abusi totali/assenza di titolo).</li>
-                <li><strong>Acquisizione:</strong> Accertata l'inottemperanza ai 90 giorni, il bene e l'area di sedime passano di diritto e gratuitamente al patrimonio comunale, con l'irrogazione di sanzione pecuniaria (da 2k a 20k euro).</li>
-            </ol>
-        </div>
+        <div class="question">Quesito 4: Adempimenti del SUE nel caso di accertamento di opere abusive.</div>
+        <p><strong>Risposta Consigliata:</strong><br>
+        A fronte di opere abusive non sanabili o in caso di assenza di titolo/totale difformità, il Dirigente SUE esercita un potere rigorosamente vincolato, procedendo per fasi ex artt. 27 e 31 del DPR 380/01:<br>
+        1. Emette ordinanza cautelare di <strong>sospensione dei lavori</strong>.<br>
+        2. Ingiunge al proprietario/responsabile la <strong>demolizione e il ripristino</strong> dello stato dei luoghi entro il termine perentorio di 90 giorni.<br>
+        3. Accertata l'inottemperanza oltre il novantesimo giorno, dichiara l'<strong>acquisizione gratuita di diritto</strong> dell'immobile abusivo e dell'area di sedime al patrimonio indisponibile del Comune, provvedendo all'irrogazione della contestuale sanzione pecuniaria amministrativa (da 2.000 a 20.000 euro).</p>
     </div>
 
 </body>
