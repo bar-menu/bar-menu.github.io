@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anticorruzione e Trasparenza — Guida Concorso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F4EF;
+    --bg2: #EDEAE3;
+    --ink: #1C1C1C;
+    --ink2: #4A4A4A;
+    --red: #C0392B;
+    --green: #1A6B3C;
+    --blue: #1A3A6B;
+    --blue2: #2C5AA0;
+    --orange: #C9670A;
+    --purple: #6B21A8;
+    --teal: #0F5460;
+    --gold: #B8860B;
+    --slate: #334155;
+    --border: #D4CFC7;
+    --card: #FFFFFF;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; }
+
+  /* HEADER */
+  .site-header { background: var(--slate); color: white; padding: 2.5rem 1.5rem 2rem; position: relative; overflow: hidden; }
+  .site-header::before { content:''; position:absolute; top:0;left:0;right:0;bottom:0; background:repeating-linear-gradient(-45deg,transparent,transparent 10px,rgba(255,255,255,.03) 10px,rgba(255,255,255,.03) 20px); }
+  .header-inner { position:relative; max-width:920px; margin:auto; }
+  .badge { display:inline-block; background:var(--red); color:white; font-family:var(--mono); font-size:.7rem; font-weight:600; letter-spacing:.1em; padding:.25rem .7rem; border-radius:2px; margin-bottom:.8rem; text-transform:uppercase; }
+  .site-header h1 { font-family:var(--serif); font-size:2.3rem; font-weight:700; line-height:1.2; margin-bottom:.5rem; }
+  .site-header p { font-size:.95rem; opacity:.85; max-width:640px; }
+
+  /* NAV */
+  .nav-pills { display:flex; flex-wrap:wrap; gap:.5rem; padding:1rem 1.5rem; background:var(--bg2); border-bottom:1px solid var(--border); max-width:920px; margin:0 auto; }
+  .nav-pill { font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; padding:.35rem .8rem; border-radius:20px; background:var(--card); border:1px solid var(--border); color:var(--ink2); text-decoration:none; transition:all .15s; white-space:nowrap; }
+  .nav-pill:hover { background:var(--slate); color:white; border-color:var(--slate); }
+
+  /* LAYOUT */
+  .main { max-width:920px; margin:0 auto; padding:0 1.2rem 4rem; }
+
+  /* REAL Q */
+  .real-q { background:#FFF8E1; border-left:5px solid var(--gold); padding:1.1rem 1.5rem; max-width:920px; margin:1.5rem auto .5rem; border-radius:4px; }
+  .real-q .label { font-family:var(--mono); font-size:.67rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-bottom:.4rem; }
+  .real-q p { font-size:.93rem; }
+
+  /* SECTION */
+  .section-title { font-family:var(--serif); font-size:1.5rem; font-weight:700; color:var(--slate); margin:2.5rem 0 1rem; padding-bottom:.4rem; border-bottom:2px solid var(--slate); display:flex; align-items:center; gap:.7rem; }
+  .section-title .num { font-family:var(--mono); font-size:.75rem; background:var(--slate); color:white; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border-radius:50%; flex-shrink:0; }
+
+  /* PRIORITY */
+  .prio { display:inline-flex; align-items:center; gap:.3rem; font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:.2rem .6rem; border-radius:3px; }
+  .prio-red { background:#FEE2E2; color:var(--red); border:1px solid #FECACA; }
+  .prio-orange { background:#FFF3E0; color:var(--orange); border:1px solid #FFCC80; }
+
+  /* CARDS */
+  .art-card { background:var(--card); border:1px solid var(--border); border-radius:8px; margin-bottom:1.3rem; overflow:hidden; }
+  .art-header { padding:1rem 1.4rem .8rem; border-bottom:1px solid var(--border); display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+  .art-num { font-family:var(--mono); font-size:.73rem; font-weight:600; color:var(--slate); margin-bottom:.2rem; }
+  .art-title { font-family:var(--serif); font-size:1.15rem; font-weight:700; }
+  .art-body { padding:1.2rem 1.4rem; }
+  .art-body p { font-size:.92rem; line-height:1.75; margin-bottom:.8rem; }
+  .art-body p:last-child { margin-bottom:0; }
+
+  /* CONCEPT */
+  .concept { background:var(--bg2); border-radius:5px; padding:.9rem 1.1rem; margin:.6rem 0; font-size:.9rem; line-height:1.7; }
+  .concept-title { font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--slate); margin-bottom:.4rem; }
+
+  /* ALERT */
+  .alert { border-radius:5px; padding:.9rem 1.1rem; margin:.7rem 0; font-size:.9rem; display:flex; gap:.7rem; align-items:flex-start; line-height:1.6; }
+  .alert-icon { font-size:1rem; flex-shrink:0; margin-top:.1rem; }
+  .alert-red { background:#FFF5F5; border:1px solid #FFC0BB; }
+  .alert-green { background:#F0FFF4; border:1px solid #9AE6B4; }
+  .alert-blue { background:#EBF8FF; border:1px solid #90CDF4; }
+  .alert-orange { background:#FFFAF0; border:1px solid #FBD38D; }
+  .alert-slate { background:#F1F5F9; border:1px solid #CBD5E1; }
+
+  /* GRID 2 */
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.8rem 0; }
+  .grid2-item { border-radius:5px; border:1px solid var(--border); padding:.9rem 1rem; background:var(--bg2); }
+  .grid2-item h4 { font-family:var(--mono); font-size:.67rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--slate); margin-bottom:.5rem; }
+  .grid2-item ul { list-style:none; padding:0; }
+  .grid2-item li { font-size:.87rem; padding:.25rem 0; border-bottom:1px solid var(--border); display:flex; gap:.5rem; line-height:1.5; }
+  .grid2-item li:last-child { border-bottom:none; }
+  .grid2-item li::before { content:'·'; color:var(--slate); font-weight:700; flex-shrink:0; }
+
+  /* TABLE */
+  .vtable { width:100%; border-collapse:collapse; font-size:.86rem; margin:.8rem 0; }
+  .vtable th { background:var(--slate); color:white; padding:.6rem .9rem; text-align:left; font-family:var(--mono); font-size:.67rem; font-weight:600; letter-spacing:.06em; }
+  .vtable td { padding:.55rem .9rem; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.55; }
+  .vtable tr:nth-child(even) td { background:var(--bg2); }
+  .vtable tr:last-child td { border-bottom:none; }
+
+  /* FLOW */
+  .flow { display:flex; flex-direction:column; }
+  .flow-step { display:flex; align-items:stretch; gap:0; }
+  .flow-left { display:flex; flex-direction:column; align-items:center; width:44px; flex-shrink:0; }
+  .flow-circle { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:.73rem; font-weight:600; color:white; flex-shrink:0; margin-top:.55rem; }
+  .flow-line { width:2px; background:var(--border); flex:1; min-height:14px; }
+  .flow-content { flex:1; padding:.4rem .8rem 1.1rem; }
+  .flow-who { font-family:var(--mono); font-size:.63rem; letter-spacing:.07em; text-transform:uppercase; opacity:.65; margin-bottom:.15rem; }
+  .flow-action { font-size:.95rem; font-weight:600; margin-bottom:.2rem; }
+  .flow-detail { font-size:.87rem; color:var(--ink2); line-height:1.55; }
+  .timer { display:inline-block; font-family:var(--mono); font-size:.76rem; font-weight:600; padding:.15rem .5rem; border-radius:3px; margin-top:.3rem; }
+  .t-red { background:#FFEBEE; color:var(--red); border:1px solid #EF9A9A; }
+  .t-blue { background:#E3F2FD; color:var(--blue2); border:1px solid #90CAF9; }
+  .t-green { background:#E8F5E9; color:var(--green); border:1px solid #A5D6A7; }
+  .t-orange { background:#FFF3E0; color:var(--orange); border:1px solid #FFCC80; }
+
+  /* MNEMONICA */
+  .mnemonic { background:#1C1C1C; color:#E8D44D; border-radius:6px; padding:1.1rem 1.4rem; font-family:var(--mono); margin:1rem 0; }
+  .mnemonic h4 { font-size:.63rem; letter-spacing:.15em; text-transform:uppercase; opacity:.6; margin-bottom:.5rem; }
+  .mnemonic p { font-size:.92rem; line-height:1.85; }
+  .mnemonic span { color:white; }
+
+  /* RISPOSTA */
+  .risposta { background:var(--slate); color:white; border-radius:8px; padding:1.6rem 1.8rem; margin:2rem 0 1rem; }
+  .risposta-label { font-family:var(--mono); font-size:.63rem; letter-spacing:.15em; text-transform:uppercase; opacity:.6; margin-bottom:1rem; }
+  .risposta h3 { font-family:var(--serif); font-size:1.2rem; font-weight:700; margin-bottom:1rem; color:#93C5FD; }
+  .risposta p { font-size:.92rem; line-height:1.78; margin-bottom:.85rem; opacity:.93; }
+  .risposta strong { color:#FCD34D; }
+  .risposta .par-title { font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:#FCD34D; margin:.9rem 0 .3rem; }
+
+  /* QUIZ */
+  .quiz-area { margin:2.5rem 0 1rem; }
+  .quiz-title { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--slate); margin-bottom:1rem; padding-bottom:.4rem; border-bottom:1px solid var(--border); }
+  .quiz-item { background:var(--card); border:1px solid var(--border); border-radius:5px; margin-bottom:.8rem; overflow:hidden; }
+  .quiz-q { padding:.85rem 1.2rem; font-size:.92rem; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem; user-select:none; transition:background .15s; }
+  .quiz-q:hover { background:var(--bg2); }
+  .quiz-q .arrow { font-size:.8rem; transition:transform .2s; flex-shrink:0; color:var(--slate); }
+  .quiz-a { padding:0 1.2rem; font-size:.9rem; color:var(--ink2); line-height:1.65; max-height:0; overflow:hidden; transition:max-height .35s ease, padding .3s ease; }
+  .quiz-a.open { max-height:700px; padding:.85rem 1.2rem 1rem; border-top:1px solid var(--border); }
+  .quiz-q.active .arrow { transform:rotate(180deg); }
+
+  /* SCROLLTOP */
+  #scrolltop { position:fixed; bottom:1.5rem; right:1.5rem; width:42px; height:42px; background:var(--slate); color:white; border:none; border-radius:50%; cursor:pointer; font-size:1.1rem; display:none; align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(0,0,0,.25); z-index:100; }
+  #scrolltop.visible { display:flex; }
+
+  footer { text-align:center; padding:2rem; font-family:var(--mono); font-size:.68rem; color:var(--ink2); opacity:.6; border-top:1px solid var(--border); margin-top:3rem; }
+
+  @media (max-width:680px) {
+    .grid2 { grid-template-columns:1fr; }
+    .site-header h1 { font-size:1.7rem; }
+    .vtable { font-size:.8rem; }
+    .vtable td, .vtable th { padding:.45rem .6rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="badge">📚 Guida Concorso — Istruttore Tecnico</div>
+    <h1>Anticorruzione e Trasparenza</h1>
+    <p>L. 190/2012 · D.Lgs. 33/2013 · D.Lgs. 39/2013 · D.Lgs. 24/2023 (Whistleblowing) — tutto quello che esce in prova, spiegato senza perdersi nella legge.</p>
+  </div>
+</header>
+
+<!-- DOMANDE REALI -->
+<div class="real-q">
+  <div class="label">⭐ Già uscito — Colloquio 10/01/2022, Busta 4, q.3</div>
+  <p><strong>«I principali contenuti del Piano Triennale di Prevenzione della Corruzione e della Trasparenza»</strong></p>
+</div>
+<div class="real-q" style="border-left-color:var(--slate);">
+  <div class="label" style="color:var(--slate);">⭐ Già uscito — Colloquio 10/01/2022, Busta 4, q.3 (variante)</div>
+  <p>«Il Documento Unico di Programmazione e il PEG/Piano delle Performance: contenuti e relazioni tra i due documenti» — il PTPCT si cita sempre in questo contesto come strumento di programmazione correlato.</p>
+</div>
+
+<nav><div class="nav-pills">
+  <a href="#quadro" class="nav-pill">📌 Quadro generale</a>
+  <a href="#rpct" class="nav-pill">👤 RPCT</a>
+  <a href="#ptpct" class="nav-pill">📋 PTPCT (già uscito!)</a>
+  <a href="#whistle" class="nav-pill">🔔 Whistleblowing</a>
+  <a href="#inconferibilita" class="nav-pill">🚫 Inconferibilità</a>
+  <a href="#risposta" class="nav-pill">✍️ Risposta modello</a>
+  <a href="#quiz" class="nav-pill">🧠 Quiz</a>
+</div></nav>
+
+<main class="main">
+
+<!-- QUADRO GENERALE -->
+<h2 id="quadro" class="section-title"><span class="num">0</span> Il quadro in 60 secondi</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>La normativa anticorruzione italiana nasce con la <strong>L. 190/2012</strong> (cosiddetta "Legge Severino") che ha creato un sistema integrato di prevenzione della corruzione nella PA. Non si tratta solo di reprimere i reati: l'obiettivo è <em>prevenire</em> le situazioni a rischio prima che si verifichino.</p>
+
+    <table class="vtable">
+      <thead><tr><th>Norma</th><th>Cosa introduce</th><th>Da sapere</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>L. 190/2012</strong></td>
+          <td>Il sistema di prevenzione della corruzione: RPCT, PTPCT, misure organizzative</td>
+          <td>La norma madre — tutto il sistema parte da qui</td>
+        </tr>
+        <tr>
+          <td><strong>D.Lgs. 33/2013</strong></td>
+          <td>Trasparenza, obblighi di pubblicazione, accesso civico</td>
+          <td>Collegato all'accesso civico (già studiato)</td>
+        </tr>
+        <tr>
+          <td><strong>D.Lgs. 39/2013</strong></td>
+          <td>Inconferibilità e incompatibilità degli incarichi dirigenziali</td>
+          <td>Chi non può essere nominato e quando si decade</td>
+        </tr>
+        <tr>
+          <td><strong>D.Lgs. 24/2023</strong></td>
+          <td>Tutela del whistleblower (segnalante di illeciti)</td>
+          <td>Norma nuova — recepisce direttiva UE 2019/1937</td>
+        </tr>
+        <tr>
+          <td><strong>DPR 62/2013</strong></td>
+          <td>Codice di comportamento dei dipendenti pubblici</td>
+          <td>Materia separata nel bando — ma collegata all'anticorruzione</td>
+        </tr>
+        <tr>
+          <td><strong>ANAC</strong></td>
+          <td>Autorità Nazionale Anticorruzione — organo di indirizzo e vigilanza</td>
+          <td>Emana le Linee Guida e il PNA (Piano Nazionale Anticorruzione)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mnemonic">
+      <h4>🧠 La logica del sistema in una frase</h4>
+      <p>
+        <span>L. 190</span> crea il sistema →
+        <span>RPCT</span> lo gestisce nell'ente →
+        <span>PTPCT</span> è il documento che pianifica le misure →
+        <span>D.Lgs. 33</span> garantisce trasparenza →
+        <span>D.Lgs. 39</span> blocca le nomine a rischio →
+        <span>D.Lgs. 24</span> protegge chi segnala
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 1. RPCT -->
+<!-- ============================================================ -->
+<h2 id="rpct" class="section-title"><span class="num">1</span> Il RPCT — Responsabile Prevenzione Corruzione e Trasparenza</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Art. 1 c.7 L. 190/2012 + art. 43 D.Lgs. 33/2013</div>
+      <div class="art-title">Chi è, come viene nominato, cosa fa</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Chi è il RPCT</div>
+      Il RPCT (un tempo due figure separate: RPC + RT, ora unificate dal D.Lgs. 97/2016) è il soggetto interno all'ente che <strong>coordina e sovrintende l'attuazione delle misure anticorruzione e degli obblighi di trasparenza</strong>. Non è un controllore esterno: è un dipendente dell'ente con responsabilità specifiche.
+    </div>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>🏛️ Chi viene nominato RPCT</h4>
+        <ul>
+          <li>Di norma il <strong>Segretario Comunale</strong> negli enti locali</li>
+          <li>In alternativa, un dirigente di ruolo in servizio</li>
+          <li>Nominato dall'organo di indirizzo politico (Giunta/Sindaco)</li>
+          <li>Non può essere nominato chi ha subito condanne penali</li>
+          <li>Non può essere nominato chi è in posizione di inconferibilità (D.Lgs. 39/2013)</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>🛡️ Cosa fa il RPCT</h4>
+        <ul>
+          <li>Elabora e propone il <strong>PTPCT</strong></li>
+          <li>Verifica l'efficace attuazione del Piano</li>
+          <li>Propone misure di adeguamento</li>
+          <li>Verifica la rotazione degli incarichi</li>
+          <li>Gestisce le segnalazioni di whistleblowing</li>
+          <li>Pubblica la <strong>relazione annuale</strong> sull'attività svolta</li>
+          <li>Risponde alle istanze di accesso civico generalizzato (riesame)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-red" style="margin-top:.7rem;">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Responsabilità del RPCT:</strong> Se nell'ente si verificano fenomeni corruttivi e il RPCT non ha adottato le misure previste dal Piano o non ha vigilato, risponde per <strong>responsabilità dirigenziale</strong> e <strong>responsabilità erariale</strong> — salvo che dimostri di aver fatto tutto il possibile e che il reato sia dipeso da comportamento autonomo del dipendente.
+      </div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>Tutele del RPCT:</strong> Il RPCT non può essere rimosso, trasferito o sottoposto a misure discriminatorie senza il previo assenso dell'ANAC. È una protezione pensata per garantirne l'indipendenza operativa.
+      </div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p>
+        <span>Nominato da:</span> organo di indirizzo politico (Sindaco/Giunta)<br>
+        <span>Di norma è:</span> il Segretario Comunale negli enti locali<br>
+        <span>Risponde se:</span> non adotta misure e si verifica corruzione<br>
+        <span>Non può essere rimosso</span> senza assenso ANAC
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 2. PTPCT -->
+<!-- ============================================================ -->
+<h2 id="ptpct" class="section-title"><span class="num">2</span> Il PTPCT — Piano Triennale Prevenzione Corruzione e Trasparenza</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Art. 1 cc. 5-14 L. 190/2012 + Linee Guida ANAC</div>
+      <div class="art-title">Contenuti, procedura di adozione, scadenze</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità — GIÀ USCITO</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Cos'è il PTPCT</div>
+      Il PTPCT è il <strong>documento di programmazione triennale</strong> con cui ogni pubblica amministrazione identifica i rischi di corruzione nelle proprie attività e stabilisce le misure per prevenirli. Non è un adempimento burocratico generico: deve essere <em>specifico per quell'ente</em>, basato su una reale analisi del contesto.
+    </div>
+
+    <p style="font-weight:600; font-size:.92rem; margin-bottom:.5rem;">📋 I contenuti obbligatori del PTPCT:</p>
+
+    <table class="vtable">
+      <thead><tr><th>#</th><th>Contenuto</th><th>In cosa consiste</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>Analisi del contesto</strong> (esterno e interno)</td>
+          <td>Esterno: caratteristiche del territorio, presenza di criminalità organizzata, ecc. Interno: organigramma, processi, risorse umane, precedenti episodi.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>Mappatura dei processi</strong> a rischio</td>
+          <td>Identificazione di tutte le attività dell'ente che potrebbero essere esposte a rischi corruttivi (es: appalti, concessioni, autorizzazioni, assunzioni, ecc.)</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>Valutazione del rischio</strong></td>
+          <td>Per ogni processo: probabilità che si verifichi un evento corruttivo × impatto. Determina la priorità delle misure.</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>Misure di prevenzione</strong> (obbligatorie e ulteriori)</td>
+          <td>Misure obbligatorie per legge (rotazione, incompatibilità, trasparenza) + misure specifiche dell'ente per i processi ad alto rischio.</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Sezione Trasparenza</strong></td>
+          <td>Elenco degli obblighi di pubblicazione, responsabili della pubblicazione, tempi e modalità. Integra il vecchio Programma Triennale per la Trasparenza.</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><strong>Formazione</strong></td>
+          <td>Piano di formazione per i dipendenti, con priorità per coloro che operano nelle aree a rischio.</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><strong>Monitoraggio</strong></td>
+          <td>Come il RPCT verifica l'attuazione delle misure nel corso dell'anno.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-weight:600; font-size:.92rem; margin:.9rem 0 .5rem;">⚙️ Come si adotta il PTPCT — la procedura:</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--orange)">1</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-who">RPCT</div>
+          <div class="flow-action">Elabora la proposta di PTPCT</div>
+          <div class="flow-detail">Analizza il contesto, mappa i rischi, individua le misure. Coinvolge i dirigenti e i responsabili degli uffici.</div>
+          <span class="timer t-blue">⏱️ Entro il 31 gennaio di ogni anno</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--blue)">2</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-who">Organo di indirizzo politico (Giunta Comunale)</div>
+          <div class="flow-action">Adotta il PTPCT con delibera</div>
+          <div class="flow-detail">La Giunta approva formalmente il Piano. Non è il RPCT che lo approva — lo propone. È la Giunta che lo adotta.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--green)">3</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-who">RPCT</div>
+          <div class="flow-action">Pubblicazione sul sito e trasmissione ad ANAC</div>
+          <div class="flow-detail">Il PTPCT deve essere pubblicato sul sito istituzionale nella sezione "Amministrazione Trasparente".</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--slate)">4</div><div class="flow-line" style="background:transparent"></div></div>
+        <div class="flow-content">
+          <div class="flow-who">RPCT</div>
+          <div class="flow-action">Relazione annuale di monitoraggio</div>
+          <div class="flow-detail">Il RPCT pubblica ogni anno la relazione sull'efficacia delle misure adottate.</div>
+          <span class="timer t-orange">⏱️ Entro il 15 dicembre dell'anno di riferimento</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-orange" style="margin-top:.5rem;">
+      <span class="alert-icon">🔑</span>
+      <div>
+        <strong>Le misure obbligatorie che il PTPCT deve sempre contenere:</strong> rotazione del personale nelle aree a rischio · obbligo di astensione in caso di conflitto di interessi · regolazione dei rapporti con i lobbisti · tutela del dipendente che segnala illeciti · formazione obbligatoria · monitoraggio dei termini procedimentali.
+      </div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p>
+        <span>Chi elabora:</span> RPCT &nbsp;·&nbsp; <span>Chi adotta:</span> Giunta (organo di indirizzo)<br>
+        <span>Scadenza adozione:</span> 31 gennaio · <span>Relazione monitoraggio:</span> 15 dicembre<br>
+        <span>Si pubblica su:</span> "Amministrazione Trasparente" del sito istituzionale<br>
+        <span>Vale per:</span> 3 anni (aggiornato annualmente con scorrimento)
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 3. WHISTLEBLOWING -->
+<!-- ============================================================ -->
+<h2 id="whistle" class="section-title"><span class="num">3</span> Whistleblowing — D.Lgs. 10 marzo 2023 n. 24</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">D.Lgs. 24/2023 (recepisce Direttiva UE 2019/1937)</div>
+      <div class="art-title">Tutela delle persone che segnalano violazioni</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità — norma nuova nel bando 2026</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Cos'è il whistleblowing</div>
+      Il <em>whistleblower</em> (letteralmente "chi soffia nel fischietto") è il <strong>dipendente che segnala violazioni di legge, irregolarità o comportamenti illeciti</strong> appresi nell'ambito del proprio lavoro. Il D.Lgs. 24/2023 garantisce che chi segnala in buona fede non subisca ritorsioni.
+    </div>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>👥 Chi può segnalare</h4>
+        <ul>
+          <li>Dipendenti pubblici e privati</li>
+          <li>Lavoratori autonomi e consulenti</li>
+          <li>Volontari e tirocinanti</li>
+          <li>Azionisti e amministratori</li>
+          <li>Chi ha già cessato il rapporto di lavoro</li>
+          <li>Chi non ha ancora iniziato (durante iter di selezione)</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>📢 Cosa si può segnalare</h4>
+        <ul>
+          <li>Violazioni del diritto UE (elenco tassativo nell'allegato)</li>
+          <li>Illeciti amministrativi, contabili, civili, penali</li>
+          <li>Condotte illecite rilevanti per il d.lgs. 231/2001</li>
+          <li>Violazioni del PTPCT o del Codice di comportamento</li>
+          <li>Abuso di potere, corruzione, conflitto di interessi</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="font-weight:600; font-size:.92rem; margin:.9rem 0 .5rem;">📡 I canali di segnalazione (art. 4 D.Lgs. 24/2023):</p>
+
+    <table class="vtable">
+      <thead><tr><th>Canale</th><th>A chi si rivolge</th><th>Quando si usa</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Canale interno</strong></td>
+          <td>RPCT dell'ente (nel settore pubblico)</td>
+          <td>Preferibile come prima scelta. L'ente deve attivare un canale sicuro e riservato (anche informatico).</td>
+        </tr>
+        <tr>
+          <td><strong>2. Canale esterno</strong></td>
+          <td>ANAC</td>
+          <td>Se il canale interno non è attivo, non ha risposto, o la segnalazione interna potrebbe essere inefficace o pericolosa per il segnalante.</td>
+        </tr>
+        <tr>
+          <td><strong>3. Divulgazione pubblica</strong></td>
+          <td>Stampa, social media, ecc.</td>
+          <td>Solo come ultima ratio: se gli altri canali non hanno funzionato o c'è rischio imminente per il pubblico interesse.</td>
+        </tr>
+        <tr>
+          <td><strong>4. Denuncia all'AG</strong></td>
+          <td>Autorità giudiziaria o contabile</td>
+          <td>Sempre possibile se si tratta di fatti penalmente rilevanti.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-green" style="margin-top:.7rem;">
+      <span class="alert-icon">🛡️</span>
+      <div>
+        <strong>Le tutele del segnalante (art. 17 D.Lgs. 24/2023):</strong> Chi segnala non può essere licenziato, demansionato, trasferito, sospeso, molestato o discriminato in qualsiasi modo. Se subisce ritorsioni, può rivolgersi all'ANAC. Il <strong>onere della prova si inverte</strong>: è il datore di lavoro a dover dimostrare che il provvedimento adottato non è una ritorsione.
+      </div>
+    </div>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Quando le tutele NON si applicano:</strong> se il segnalante è in malafede (sa che le informazioni sono false) o ha commesso il reato insieme a chi segnala. La segnalazione deve riguardare fatti appresi nell'ambito lavorativo, non vicende personali.
+      </div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">📋</span>
+      <div>
+        <strong>Obblighi dell'ente:</strong> Accusare ricezione della segnalazione entro <strong>7 giorni</strong>. Dare riscontro al segnalante entro <strong>3 mesi</strong>. Garantire la riservatezza dell'identità del segnalante (la violazione della riservatezza è sanzionata dall'ANAC fino a 50.000 €).
+      </div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p>
+        <span>D.Lgs. 24/2023</span> = recepisce Direttiva UE 2019/1937<br>
+        <span>Canali:</span> interno (RPCT) → esterno (ANAC) → pubblico (ultima ratio)<br>
+        <span>Riscontro:</span> ricevuta entro 7 gg · risposta entro 3 mesi<br>
+        <span>Onere della prova invertito:</span> è il datore che deve dimostrare la non ritorsione
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 4. INCONFERIBILITA -->
+<!-- ============================================================ -->
+<h2 id="inconferibilita" class="section-title"><span class="num">4</span> Inconferibilità e Incompatibilità — D.Lgs. 39/2013</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">D.Lgs. 8 aprile 2013 n. 39</div>
+      <div class="art-title">Inconferibilità e incompatibilità degli incarichi nella PA</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">La differenza fondamentale da sapere a memoria</div>
+      <strong>Inconferibilità</strong> = l'incarico <em>non può essere conferito</em> fin dall'inizio (impedimento originario).<br><br>
+      <strong>Incompatibilità</strong> = l'incarico è stato conferito legittimamente, ma sopravviene una situazione che impone di <em>scegliere entro un termine</em>: o si rinuncia all'incarico o si cessa dall'altra attività.
+    </div>
+
+    <div class="grid2" style="margin:.8rem 0;">
+      <div class="grid2-item" style="border-color:#FFC0BB; background:#FFF5F5;">
+        <h4 style="color:var(--red);">🚫 INCONFERIBILITÀ — quando l'incarico non si può dare</h4>
+        <ul>
+          <li>Chi ha subito <strong>condanne penali</strong> per reati contro la PA (corruzione, concussione, peculato, ecc.) — anche non definitive in certi casi</li>
+          <li>Chi negli ultimi <strong>2 anni</strong> ha fatto parte di organismi politici o ha ricoperto cariche politiche</li>
+          <li>Chi negli ultimi <strong>2 anni</strong> ha lavorato per soggetti privati destinatari di provvedimenti dell'ente che conferisce l'incarico (<em>pantouflage</em> al contrario)</li>
+          <li>Chi è stato <strong>destituito o licenziato</strong> dalla PA</li>
+        </ul>
+      </div>
+      <div class="grid2-item" style="border-color:#FFCC80; background:#FFFAF0;">
+        <h4 style="color:var(--orange);">⚠️ INCOMPATIBILITÀ — quando bisogna scegliere</h4>
+        <ul>
+          <li>Dirigente PA che assume <strong>incarico in ente privato</strong> che ha rapporti con la sua amministrazione</li>
+          <li>Dirigente che svolge <strong>attività professionale</strong> incompatibile con il ruolo pubblico</li>
+          <li>Chi ricopre incarico dirigenziale e contemporaneamente ha <strong>cariche politiche</strong></li>
+          <li>Incompatibilità tra incarichi nella stessa PA (cumulo di incarichi)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">⚖️</span>
+      <div>
+        <strong>Conseguenze:</strong><br>
+        — Inconferibilità violata → l'atto di conferimento è <strong>nullo</strong>; il soggetto che lo ha conferito risponde disciplinarmente e penalmente.<br>
+        — Incompatibilità non risolta entro il termine → <strong>decadenza automatica</strong> dall'incarico.
+      </div>
+    </div>
+
+    <div class="art-body" style="padding:0; margin:.8rem 0 .4rem;">
+      <div class="art-num">Il "pantouflage" — art. 53 c.16-ter D.Lgs. 165/2001 (collegato)</div>
+    </div>
+
+    <div class="concept">
+      Il <em>pantouflage</em> (dalla pantofola — il funzionario che si "mette comodo" nel privato dopo aver gestito rapporti con esso) vieta ai dipendenti pubblici che negli ultimi 3 anni di servizio hanno esercitato <strong>poteri autoritativi o negoziali</strong> per conto della PA di essere assunti o svolgere attività retribuita presso i soggetti privati destinatari di quei provvedimenti, per i <strong>3 anni successivi alla cessazione</strong> del rapporto di lavoro. Violazione: contratto nullo + sanzione pecuniaria.
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p>
+        <span>Inconferibilità</span> = impedimento originario → atto nullo se si viola<br>
+        <span>Incompatibilità</span> = sopravvenuta → decadenza se non si sceglie<br>
+        <span>Pantouflage</span> = 3 anni di divieto di lavoro nel privato che hai "favorito"<br>
+        <span>Norma di riferimento:</span> D.Lgs. 39/2013
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- RISPOSTA MODELLO -->
+<!-- ============================================================ -->
+<h2 id="risposta" class="section-title"><span class="num">5</span> Risposta modello — PTPCT (domanda già uscita)</h2>
+
+<div class="risposta">
+  <div class="risposta-label">✍️ Risposta modello per "principali contenuti del Piano Triennale di Prevenzione della Corruzione e della Trasparenza"</div>
+
+  <div class="par-title">1 — Inquadramento normativo</div>
+  <p>Il Piano Triennale di Prevenzione della Corruzione e della Trasparenza (PTPCT) è lo strumento di programmazione introdotto dall'<strong>art. 1, comma 5, della L. 190/2012</strong>, con cui ogni pubblica amministrazione definisce le strategie di prevenzione della corruzione adeguate al proprio contesto. A seguito del D.Lgs. 97/2016, la sezione trasparenza — già prevista dal D.Lgs. 33/2013 — è stata integrata nel PTPCT, che oggi costituisce un documento unitario.</p>
+
+  <div class="par-title">2 — Chi elabora e chi adotta</div>
+  <p>Il Piano viene <strong>elaborato dal RPCT</strong> (Responsabile della Prevenzione della Corruzione e della Trasparenza), di norma il Segretario Comunale negli enti locali. La <strong>Giunta Comunale</strong> (organo di indirizzo politico) lo adotta con delibera <strong>entro il 31 gennaio</strong> di ogni anno. Il Piano ha durata triennale ed è aggiornato annualmente con scorrimento.</p>
+
+  <div class="par-title">3 — Contenuti principali</div>
+  <p>Il PTPCT deve contenere: (a) l'<strong>analisi del contesto</strong> esterno (caratteristiche del territorio, esposizione a rischi) e interno (organizzazione, processi, risorse); (b) la <strong>mappatura dei processi</strong> a rischio corruttivo, con particolare attenzione alle aree sensibili (appalti, concessioni, autorizzazioni, assunzioni, gestione del patrimonio); (c) la <strong>valutazione del rischio</strong>, che misura probabilità e impatto per ciascun processo; (d) le <strong>misure di prevenzione</strong>, sia obbligatorie per legge (rotazione del personale, obblighi di astensione, formazione, tutela del whistleblower) che specifiche per le aree ad alto rischio dell'ente; (e) la <strong>sezione Trasparenza</strong>, con l'elenco degli obblighi di pubblicazione e i responsabili; (f) il <strong>piano di formazione</strong> per i dipendenti esposti a rischi; (g) il sistema di <strong>monitoraggio</strong> dell'attuazione.</p>
+
+  <div class="par-title">4 — Pubblicazione e monitoraggio</div>
+  <p>Il PTPCT è pubblicato sul sito istituzionale nella sezione "Amministrazione Trasparente". Il RPCT pubblica entro il <strong>15 dicembre</strong> di ogni anno la relazione sull'efficacia delle misure adottate, che viene trasmessa all'organo di indirizzo e resa pubblica. In caso di gravi violazioni o mancata adozione del Piano, il RPCT risponde per responsabilità dirigenziale, salvo che dimostri di aver adottato tutte le misure dovute.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- QUIZ -->
+<!-- ============================================================ -->
+<div id="quiz" class="quiz-area">
+  <div class="quiz-title">🧠 Quiz — 6 domande stile commissione</div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Chi è il RPCT, chi lo nomina e quali sono le sue principali responsabilità?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il RPCT (Responsabile Prevenzione Corruzione e Trasparenza) è il soggetto che coordina l'attuazione delle misure anticorruzione e degli obblighi di trasparenza nell'ente. Negli enti locali è di norma il <strong>Segretario Comunale</strong>. Viene nominato dall'<strong>organo di indirizzo politico</strong> (Sindaco/Giunta). I suoi compiti principali sono: elaborare il PTPCT, vigilarne l'attuazione, gestire le segnalazioni di whistleblowing, proporre la rotazione del personale, pubblicare la relazione annuale. Risponde per responsabilità dirigenziale ed erariale se nell'ente si verificano fenomeni corruttivi e lui non ha adottato le misure dovute. Non può essere rimosso senza il previo assenso dell'ANAC.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Qual è la differenza tra inconferibilità e incompatibilità?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Sono due istituti del D.Lgs. 39/2013 con natura diversa. L'<strong>inconferibilità</strong> è un impedimento <em>originario</em>: l'incarico non può essere conferito fin dall'inizio (es: chi ha subito condanne per reati contro la PA, o chi ha ricoperto cariche politiche negli ultimi 2 anni). Se si viola l'inconferibilità, l'atto di conferimento è <strong>nullo</strong>. L'<strong>incompatibilità</strong> è invece una situazione <em>sopravvenuta</em>: l'incarico è stato conferito legittimamente, ma successivamente emerge una situazione incompatibile (es: il dirigente acquisisce un incarico privato incompatibile). L'interessato deve scegliere entro un termine: se non sceglie, decade automaticamente dall'incarico pubblico.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Quali sono i canali di segnalazione del whistleblowing e in quale ordine si usano?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il D.Lgs. 24/2023 prevede tre canali principali in ordine di preferenza: (1) <strong>Canale interno</strong> all'ente (RPCT nel settore pubblico) — è la prima scelta; l'ente deve attivare un canale sicuro e riservato. (2) <strong>Canale esterno</strong> all'ANAC — si usa se il canale interno non funziona, non esiste o se la segnalazione interna potrebbe essere inefficace o pericolosa per il segnalante. (3) <strong>Divulgazione pubblica</strong> (stampa, social) — solo come ultima ratio, se gli altri canali non hanno funzionato o c'è un rischio imminente per il pubblico interesse. È sempre possibile la denuncia all'autorità giudiziaria. L'ente deve accusare ricevuta entro 7 giorni e dare riscontro entro 3 mesi.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Entro quando deve essere adottato il PTPCT e chi lo approva?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il PTPCT deve essere adottato dall'<strong>organo di indirizzo politico</strong> (Giunta Comunale negli enti locali) entro il <strong>31 gennaio</strong> di ogni anno. Viene elaborato dal RPCT, che ne propone il contenuto sulla base della mappatura dei rischi e del confronto con i dirigenti. Il Piano ha durata triennale ma viene aggiornato annualmente con scorrimento. Una volta adottato, va pubblicato nella sezione "Amministrazione Trasparente" del sito istituzionale. Il RPCT pubblica poi la relazione di monitoraggio entro il 15 dicembre.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Cos'è il pantouflage e come è disciplinato?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il pantouflage (art. 53 c.16-ter D.Lgs. 165/2001, collegato al D.Lgs. 39/2013) vieta ai dipendenti pubblici che negli ultimi 3 anni di servizio hanno esercitato <strong>poteri autoritativi o negoziali</strong> per conto della PA (firmato contratti, rilasciato autorizzazioni, adottato provvedimenti) di essere assunti o svolgere attività retribuita presso i soggetti privati che hanno beneficiato di quei provvedimenti. Il divieto dura <strong>3 anni dalla cessazione del rapporto</strong>. Se violato: il contratto di lavoro con il privato è nullo e si applica una sanzione pecuniaria pari al compenso ricevuto (restituito allo Stato).</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Quali sono le aree di rischio tipiche che il PTPCT deve sempre esaminare?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Le Linee Guida ANAC e la L. 190/2012 individuano alcune <strong>aree di rischio obbligatorie</strong> che ogni PTPCT deve sempre analizzare: (1) <strong>Acquisizione e progressione del personale</strong> (concorsi, assunzioni, progressioni di carriera); (2) <strong>Affidamento di lavori, servizi e forniture</strong> (appalti, gare, trattative private); (3) <strong>Concessione ed erogazione di sovvenzioni, contributi, sussidi</strong>; (4) <strong>Autorizzazioni e concessioni</strong> (permessi di costruire, autorizzazioni commerciali, ecc.); (5) <strong>Gestione delle entrate, delle spese e del patrimonio</strong>. Oltre a queste aree comuni, ogni ente deve identificare le proprie aree specifiche in base alla propria attività istituzionale.</div>
+  </div>
+
+</div>
+
+</main>
+
+<footer>
+  Guida studio per concorso — Unione Comuni Valli e Delizie — Istruttore Tecnico<br>
+  L. 190/2012 · D.Lgs. 33/2013 · D.Lgs. 39/2013 · D.Lgs. 24/2023 · DPR 62/2013
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  function toggle(el) {
+    const ans = el.nextElementSibling;
+    const isOpen = ans.classList.contains('open');
+    document.querySelectorAll('.quiz-a.open').forEach(a => {
+      a.classList.remove('open');
+      a.previousElementSibling.classList.remove('active');
+    });
+    if (!isOpen) { ans.classList.add('open'); el.classList.add('active'); }
+  }
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => { btn.classList.toggle('visible', window.scrollY > 400); });
+</script>
+</body>
+</html>

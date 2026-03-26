@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TUEL + DM 1444 — Guida Concorso</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f4f0;
+  --white: #ffffff;
+  --ink: #1c1b18;
+  --muted: #5a5850;
+  --light: #9a9890;
+  --border: #e2dfd8;
+  --blue: #1e4d8c;
+  --blue-bg: #edf3fb;
+  --blue-mid: #3a72c4;
+  --green: #1a5c3a;
+  --green-bg: #e8f5ee;
+  --orange: #7a3d0a;
+  --orange-bg: #fdf0e3;
+  --red: #7a1a1a;
+  --red-bg: #fdf0f0;
+  --purple: #4a1a7a;
+  --purple-bg: #f3eefb;
+  --accent: #1e4d8c;
+  --gold: #b8860b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* NAV */
+header {
+  background: var(--ink);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.header-inner::-webkit-scrollbar { display: none; }
+.logo {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  white-space: nowrap;
+  padding: 14px 20px 14px 0;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  margin-right: 8px;
+  letter-spacing: 0.04em;
+}
+nav button {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 14px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+nav button:hover { color: white; }
+nav button.active { color: white; border-bottom-color: #60a5fa; }
+
+main { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+
+.section { display: none; }
+.section.active { display: block; }
+
+/* HERO */
+.hero {
+  background: var(--ink);
+  color: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 40px,
+    rgba(255,255,255,0.015) 40px,
+    rgba(255,255,255,0.015) 80px
+  );
+}
+.hero-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #60a5fa;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+.hero h1 {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.25;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+.hero p {
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ANALOGY BOX — il cuore della guida */
+.analogy {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 22px;
+  margin-bottom: 20px;
+}
+.analogy-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.analogy-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.analogy-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.analogy-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* CARD */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.card-head {
+  padding: 14px 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.15s;
+  border-bottom: 1px solid transparent;
+}
+.card-head:hover { background: var(--bg); }
+.card.open .card-head { border-bottom-color: var(--border); }
+.art-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--blue-bg);
+  color: var(--blue);
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+}
+.card-head h3 {
+  font-size: 15px;
+  font-weight: 600;
+  flex: 1;
+  color: var(--ink);
+}
+.chevron { color: var(--light); font-size: 12px; transition: transform 0.2s; }
+.card.open .chevron { transform: rotate(180deg); }
+.card-body { display: none; padding: 20px; }
+.card.open .card-body { display: block; }
+
+/* TESTO */
+p { color: var(--muted); margin-bottom: 12px; font-size: 14.5px; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--ink); font-weight: 600; }
+
+h4 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--blue);
+  margin: 20px 0 10px;
+}
+h4:first-child { margin-top: 0; }
+
+ul { list-style: none; margin: 0 0 12px; }
+ul li {
+  padding: 5px 0 5px 18px;
+  color: var(--muted);
+  font-size: 14px;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+ul li:last-child { border-bottom: none; }
+ul li::before { content: '›'; color: var(--blue-mid); position: absolute; left: 4px; font-weight: 700; }
+
+/* CALLOUT */
+.box {
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 14px;
+}
+.box b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; margin-bottom: 5px; }
+.box-blue { background: var(--blue-bg); border-left: 3px solid var(--blue-mid); color: var(--blue); }
+.box-green { background: var(--green-bg); border-left: 3px solid var(--green); color: var(--green); }
+.box-orange { background: var(--orange-bg); border-left: 3px solid var(--orange); color: var(--orange); }
+.box-red { background: var(--red-bg); border-left: 3px solid var(--red); color: var(--red); }
+.box-purple { background: var(--purple-bg); border-left: 3px solid var(--purple); color: var(--purple); }
+
+/* ZONA CARD */
+.zone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.zone-card {
+  border-radius: 8px;
+  padding: 16px;
+  border: 1.5px solid;
+}
+.zone-letter {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.zone-name { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.zone-desc { font-size: 12px; line-height: 1.5; }
+.zone-ex { font-size: 11px; margin-top: 8px; font-style: italic; }
+
+.za { background: #fdf8ee; border-color: #d4a017; color: #5a3d00; }
+.za .zone-letter { color: #b8860b; }
+.zb { background: #edf3fb; border-color: #3a72c4; color: #1e3a6e; }
+.zb .zone-letter { color: #1e4d8c; }
+.zc { background: #e8f5ee; border-color: #2e7d52; color: #1a3d25; }
+.zc .zone-letter { color: #1a5c3a; }
+.zd { background: #fdf0f8; border-color: #9b3a72; color: #4a1a3a; }
+.zd .zone-letter { color: #7a2a5a; }
+.ze { background: #f3fdf0; border-color: #4a8a2a; color: #1a3a0a; }
+.ze .zone-letter { color: #3a6a1a; }
+.zf { background: #f3eefb; border-color: #6a3a9b; color: #2a1a4a; }
+.zf .zone-letter { color: #4a1a7a; }
+
+/* TABLE */
+.table-wrap { overflow-x: auto; margin: 14px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th { background: var(--ink); color: white; padding: 10px 14px; text-align: left; font-weight: 500; font-size: 12px; letter-spacing: 0.05em; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+tr:hover td { background: var(--bg); }
+.tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 100px; font-weight: 500; }
+.tag-blue { background: var(--blue-bg); color: var(--blue); }
+.tag-green { background: var(--green-bg); color: var(--green); }
+.tag-orange { background: var(--orange-bg); color: var(--orange); }
+.tag-red { background: var(--red-bg); color: var(--red); }
+
+/* ORGANIGRAMMA */
+.org {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0;
+}
+.org-row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+.org-who {
+  min-width: 130px;
+  background: var(--ink);
+  color: white;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.org-what {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--muted);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* QUIZ */
+.quiz-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.qnum { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--blue); background: var(--blue-bg); padding: 2px 8px; border-radius: 3px; display: inline-block; margin-bottom: 10px; letter-spacing: 0.07em; }
+.qtext { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 14px; line-height: 1.4; }
+.opts { display: flex; flex-direction: column; gap: 8px; }
+.opt {
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--muted);
+  transition: all 0.15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.opt:hover { border-color: var(--blue-mid); background: var(--blue-bg); }
+.opt.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+.opt.wrong { border-color: var(--red); background: var(--red-bg); color: var(--red); }
+.opt-l {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--muted);
+  font-weight: 500;
+}
+.opt.correct .opt-l { background: var(--green); color: white; }
+.opt.wrong .opt-l { background: var(--red); color: white; }
+.qexpl { margin-top: 12px; padding: 12px 14px; background: var(--blue-bg); border-radius: 7px; font-size: 13.5px; color: var(--blue); display: none; border-left: 3px solid var(--blue-mid); line-height: 1.6; }
+.qexpl.show { display: block; }
+.answered { pointer-events: none; }
+.score-box { background: var(--ink); color: white; border-radius: 10px; padding: 20px 24px; text-align: center; margin-bottom: 20px; }
+.score-box .big { font-size: 48px; font-weight: 700; color: #60a5fa; line-height: 1; }
+.score-box .lbl { color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 4px; }
+.progress { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 20px; overflow: hidden; }
+.progress-fill { height: 100%; background: #60a5fa; border-radius: 2px; transition: width 0.3s; }
+
+/* DISTANZA BOX */
+.dist-box {
+  background: var(--ink);
+  color: white;
+  border-radius: 10px;
+  padding: 24px;
+  margin: 16px 0;
+  text-align: center;
+}
+.dist-num { font-size: 64px; font-weight: 700; color: #f87171; line-height: 1; }
+.dist-unit { font-size: 18px; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+.dist-label { font-size: 14px; color: rgba(255,255,255,0.8); }
+
+/* STANDARD TABLE */
+.std-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.std-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+}
+.std-num { font-size: 28px; font-weight: 700; color: var(--blue); line-height: 1; }
+.std-unit { font-size: 12px; color: var(--muted); }
+.std-what { font-size: 12px; font-weight: 600; color: var(--ink); margin-top: 6px; }
+
+/* BTN */
+.btn { padding: 8px 18px; border-radius: 6px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; }
+.btn-dark { background: var(--ink); color: white; }
+.btn-dark:hover { background: #333; }
+.btn-outline { background: white; color: var(--ink); border: 1.5px solid var(--border); }
+.btn-outline:hover { background: var(--bg); }
+
+/* SECTION TITLE */
+.sec-title { font-size: 24px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.sec-sub { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+/* GRID 2 */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+@media(max-width:580px) { .g2 { grid-template-columns: 1fr; } }
+.mini { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; font-size: 13.5px; }
+.mini strong { color: var(--blue); display: block; margin-bottom: 6px; font-size: 13px; }
+
+/* FLOW STEP */
+.flow { margin: 16px 0; }
+.fstep { display: flex; gap: 14px; margin-bottom: 4px; align-items: flex-start; position: relative; }
+.fstep:not(:last-child)::after { content: ''; position: absolute; left: 15px; top: 32px; width: 2px; height: calc(100% - 0px); background: var(--border); }
+.fnum { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); color: white; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1; }
+.fcontent { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; flex: 1; margin-bottom: 10px; }
+.ftitle { font-weight: 600; font-size: 14px; color: var(--ink); }
+.fnote { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+code { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: var(--bg); border: 1px solid var(--border); padding: 1px 6px; border-radius: 3px; color: var(--blue); }
+
+.foot { font-size: 11px; color: var(--light); text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Concorso Tecnico</div>
+    <nav id="nav">
+      <button class="active" onclick="go('intro',this)">Intro</button>
+      <button onclick="go('tuel',this)">TUEL — Chi fa cosa</button>
+      <button onclick="go('1444',this)">DM 1444 — Zone e Distanze</button>
+      <button onclick="go('standard',this)">Standard Urbanistici</button>
+      <button onclick="go('quiz',this)">Quiz</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== INTRO ===== -->
+<section id="intro" class="section active">
+  <div class="hero">
+    <div class="hero-tag">Guida base · Concorso Specialista Tecnico</div>
+    <h1>TUEL + DM 1444/1968<br>Le fondamenta dell'urbanistica</h1>
+    <p>D.Lgs. 267/2000 (chi comanda nel Comune) · DM 2 aprile 1968 n. 1444 (dove si costruisce e quanto)</p>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-header">
+      <div class="analogy-icon" style="background:#edf3fb; font-size:22px">🏛️</div>
+      <div>
+        <div class="analogy-title">Come funziona un Comune — l'analogia semplice</div>
+        <div class="analogy-sub">Prima di studiare le norme, capisci chi è chi</div>
+      </div>
+    </div>
+    <p>Pensa al Comune come a un'azienda. Il <strong>Consiglio Comunale</strong> è il consiglio di amministrazione — decide le grandi strategie e approva i bilanci. La <strong>Giunta</strong> è il board esecutivo — attua le decisioni e gestisce l'ordinario. Il <strong>Sindaco</strong> è l'amministratore delegato — guida e rappresenta. I <strong>Dirigenti</strong> sono i manager operativi — firmano i provvedimenti e gestiscono i servizi quotidiani. Tu, come <strong>funzionario tecnico</strong>, sei un quadro che lavora per il dirigente del Settore Programmazione Territoriale.</p>
+    <div class="box box-blue">
+      <b>📌 Regola pratica</b>
+      Il TUEL stabilisce chi può firmare cosa. Un atto firmato dall'organo sbagliato è illegittimo anche se il contenuto è corretto. Questa è la ragione per cui esiste.
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-header">
+      <div class="analogy-icon" style="background:#fdf0e3; font-size:22px">🗺️</div>
+      <div>
+        <div class="analogy-title">Il DM 1444 — il codice della strada dell'urbanistica</div>
+        <div class="analogy-sub">Senza questo non esiste nessun PRG o PUG legittimo</div>
+      </div>
+    </div>
+    <p>Il DM 1444/1968 è come il codice della strada: non ti dice dove andare, ma ti dice le regole minime che tutti devono rispettare. Nessun Comune può approvare un piano urbanistico che violi i limiti del DM 1444 — se lo fa, il piano è illegittimo anche se lo vuole tutta la giunta. È un decreto ministeriale ma ha forza di legge nei confronti dei Comuni.</p>
+    <p>Stabilisce due cose fondamentali: le <strong>zone omogenee</strong> (A, B, C, D, E, F) e i <strong>limiti inderogabili</strong> di distanze, altezze e standard urbanistici.</p>
+  </div>
+</section>
+
+<!-- ===== TUEL ===== -->
+<section id="tuel" class="section">
+  <div class="sec-title">TUEL — D.Lgs. 18 agosto 2000, n. 267</div>
+  <div class="sec-sub">Chi fa cosa nel Comune — gli organi e le competenze</div>
+
+  <div class="card open">
+    <div class="card-head" onclick="tog(this)">
+      <span class="art-badge">ART. 36-54</span>
+      <h3>Gli organi del Comune — chi sono e cosa fanno</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="org">
+        <div class="org-row">
+          <div class="org-who" style="background:#1e4d8c">Sindaco</div>
+          <div class="org-what">
+            Rappresenta il Comune. Nomina e revoca gli assessori. Emette ordinanze. Responsabile della protezione civile locale. Adotta misure d'urgenza.
+            <span class="tag tag-orange">Art. 50</span>
+          </div>
+        </div>
+        <div class="org-row">
+          <div class="org-who" style="background:#2e5e2e">Consiglio Comunale</div>
+          <div class="org-what">
+            Organo di indirizzo e controllo politico. Approva statuto, bilancio, PRG/PUG, regolamenti. Le sue delibere sono gli atti più «pesanti».
+            <span class="tag tag-green">Art. 42</span>
+          </div>
+        </div>
+        <div class="org-row">
+          <div class="org-who" style="background:#6a3a00">Giunta Comunale</div>
+          <div class="org-what">
+            Organo esecutivo. Adotta delibere di attuazione degli indirizzi consiliari. Approva il bilancio provvisorio, i piani esecutivi. Competenza residuale.
+            <span class="tag tag-orange">Art. 48</span>
+          </div>
+        </div>
+        <div class="org-row">
+          <div class="org-who" style="background:#4a1a7a">Dirigenti</div>
+          <div class="org-what">
+            Adottano tutti gli atti di gestione (determinazioni, permessi di costruire, autorizzazioni). Responsabili dei procedimenti. <strong>Tu lavori per loro.</strong>
+            <span class="tag tag-blue">Art. 107</span>
+          </div>
+        </div>
+        <div class="org-row">
+          <div class="org-who" style="background:#444">Segretario Comunale</div>
+          <div class="org-what">
+            Funzionario di garanzia. Partecipa alle riunioni, redige verbali, esprime pareri di legittimità, esercita funzioni di rogante.
+            <span class="tag tag-blue">Art. 97</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="box box-orange">
+        <b>⚠️ La distinzione fondamentale — art. 107</b>
+        Il TUEL separa nettamente <strong>indirizzo politico</strong> (Consiglio, Giunta, Sindaco) da <strong>gestione amministrativa</strong> (Dirigenti). I dirigenti non possono essere esautorati dagli organi politici nelle loro competenze gestionali. Se il Sindaco firma un permesso di costruire al posto del dirigente, quell'atto è viziato.
+      </div>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-head" onclick="tog(this)">
+      <span class="art-badge">ART. 42</span>
+      <h3>Cosa approva il Consiglio Comunale — la lista che devi sapere</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Il Consiglio approva con delibera (a maggioranza assoluta o semplice a seconda dei casi):</p>
+      <ul>
+        <li>Lo <strong>Statuto comunale</strong> — la «costituzione» del Comune</li>
+        <li>I <strong>regolamenti</strong> (edilizio, urbanistico, di polizia locale)</li>
+        <li>I <strong>programmi, piani finanziari e bilancio</strong></li>
+        <li>Gli <strong>strumenti urbanistici generali</strong> — PRG, PUG, varianti generali</li>
+        <li>Le <strong>convenzioni</strong> con altri enti (come quella dell'Unione Valli e Delizie)</li>
+        <li>L'istituzione di <strong>aziende e istituzioni</strong></li>
+        <li>Le <strong>imposte e tariffe locali</strong></li>
+        <li>Gli <strong>acquisti e alienazioni immobiliari</strong> sopra soglia</li>
+      </ul>
+      <div class="box box-blue">
+        <b>💡 Regola pratica</b>
+        Tutto ciò che «pesa» — che cambia le regole del gioco o impegna risorse rilevanti — passa dal Consiglio. Tutto ciò che «esegue» le regole già stabilite passa dalla Giunta o dai Dirigenti.
+      </div>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-head" onclick="tog(this)">
+      <span class="art-badge">ART. 107</span>
+      <h3>I Dirigenti — i veri protagonisti della gestione quotidiana</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>L'art. 107 attribuisce ai dirigenti <strong>tutte le funzioni di attuazione</strong> degli obiettivi e dei programmi definiti dagli organi politici. In concreto:</p>
+      <ul>
+        <li>Presiedono le commissioni di gara e concorso</li>
+        <li><strong>Rilasciano permessi di costruire</strong>, autorizzazioni, concessioni</li>
+        <li>Emettono determinazioni (atti di spesa, affidamenti)</li>
+        <li>Firmano contratti nella misura stabilita dallo statuto</li>
+        <li>Sono responsabili dei procedimenti del loro settore</li>
+        <li>Adottano atti di accertamento di illeciti edilizi e ordinanze di demolizione</li>
+        <li>Hanno la responsabilità disciplinare del personale del proprio ufficio</li>
+      </ul>
+      <div class="box box-green">
+        <b>✅ Per il tuo ruolo</b>
+        Come Specialista Tecnico lavori in staff al Dirigente del Settore Programmazione Territoriale. Istruisci le pratiche, redigi pareri, predisponi atti — il dirigente firma. La tua firma compare come «istruttore» o «responsabile del procedimento» se delegato.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <span class="art-badge">ART. 97</span>
+      <h3>Il Responsabile del Procedimento — L. 241/1990 nel TUEL</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Ogni procedimento amministrativo ha un <strong>Responsabile del Procedimento (RUP)</strong> designato dal dirigente. Per le pratiche edilizie, spesso sei tu.</p>
+      <h4>Cosa fa il RUP</h4>
+      <ul>
+        <li>Valuta la completezza della documentazione presentata</li>
+        <li>Chiede integrazioni se mancano elementi</li>
+        <li>Acquisisce i pareri degli altri enti (Soprintendenza, ARPAE, Genio Civile)</li>
+        <li>Propone il provvedimento finale al dirigente</li>
+        <li>Comunica all'interessato l'esito</li>
+      </ul>
+      <div class="box box-blue">
+        <b>⏱️ I termini del procedimento</b>
+        La L. 241/1990 fissa il termine massimo in 30 giorni salvo leggi speciali. Per il permesso di costruire (DPR 380, art. 20): 60 giorni dall'istanza + ulteriori 30 se richieste integrazioni. Per l'autorizzazione paesaggistica: vedi procedura art. 146 D.Lgs. 42/2004.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <span class="art-badge">ART. 30-35</span>
+      <h3>L'Unione di Comuni — come funziona la vostra</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>L'art. 30 TUEL consente ai Comuni di svolgere <strong>in forma associata</strong> funzioni e servizi mediante convenzione o Unione. L'Unione dei Comuni è un ente locale autonomo con propri organi, statuto e bilancio.</p>
+      <h4>L'Unione Valli e Delizie in concreto</h4>
+      <p>Argenta, Ostellato e Portomaggiore hanno conferito all'Unione le funzioni di <strong>gestione delle risorse umane</strong> (convenzione 2013) e quelle di <strong>pianificazione territoriale</strong>. Il Settore Programmazione Territoriale dell'Unione esercita le funzioni urbanistiche per tutti e tre i Comuni — ecco perché il tuo ruolo è nell'Unione e non in un singolo Comune.</p>
+      <div class="box box-orange">
+        <b>⚠️ Attenzione all'esame</b>
+        Il PUG dell'Unione (approvato 2022) è stato elaborato e approvato dagli organi dell'Unione — non dai singoli Consigli Comunali. Questo è possibile perché la funzione urbanistica è stata conferita all'Unione. È un punto tecnico che può uscire in una domanda.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DM 1444 ===== -->
+<section id="1444" class="section">
+  <div class="sec-title">DM 2 aprile 1968, n. 1444</div>
+  <div class="sec-sub">Zone omogenee, distanze e densità — i limiti che nessun Comune può ignorare</div>
+
+  <div class="card open">
+    <div class="card-head" onclick="tog(this)">
+      <span class="art-badge">ART. 2</span>
+      <h3>Le 6 Zone Omogenee — A B C D E F</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Ogni PRG o PUG deve classificare il territorio in zone. Il DM 1444 stabilisce le definizioni minime — i Comuni possono articolarle ulteriormente (A1, B2, ecc.) ma non possono ignorarle.</p>
+      <div class="zone-grid">
+        <div class="zone-card za">
+          <div class="zone-letter">A</div>
+          <div class="zone-name">Centro storico</div>
+          <div class="zone-desc">Parti del territorio con agglomerati urbani di carattere storico, artistico, di particolare pregio ambientale.</div>
+          <div class="zone-ex">→ Centri storici di Argenta, Portomaggiore, borghi rurali storici</div>
+        </div>
+        <div class="zone-card zb">
+          <div class="zone-letter">B</div>
+          <div class="zone-name">Completamento</div>
+          <div class="zone-desc">Parti del territorio totalmente o parzialmente edificate (almeno 12,5 mc/mq). Si completa il tessuto esistente.</div>
+          <div class="zone-ex">→ Quartieri residenziali consolidati degli anni '60-'80</div>
+        </div>
+        <div class="zone-card zc">
+          <div class="zone-letter">C</div>
+          <div class="zone-name">Espansione</div>
+          <div class="zone-desc">Parti del territorio destinate a nuovi insediamenti residenziali. Richiedono piano attuativo (lottizzazione).</div>
+          <div class="zone-ex">→ Aree di nuova urbanizzazione ai margini del centro</div>
+        </div>
+        <div class="zone-card zd">
+          <div class="zone-letter">D</div>
+          <div class="zone-name">Produttivo</div>
+          <div class="zone-desc">Insediamenti industriali, artigianali, commerciali, agricoli. Destinazione non residenziale primaria.</div>
+          <div class="zone-ex">→ Zone industriali e artigianali lungo la SS16 e la Via Emilia</div>
+        </div>
+        <div class="zone-card ze">
+          <div class="zone-letter">E</div>
+          <div class="zone-name">Agricola</div>
+          <div class="zone-desc">Territorio aperto agricolo. Fortemente limitata la nuova edificazione. Solo residenza rurale e annessi agricoli.</div>
+          <div class="zone-ex">→ La gran parte del territorio dell'Unione (pianura ferrarese)</div>
+        </div>
+        <div class="zone-card zf">
+          <div class="zone-letter">F</div>
+          <div class="zone-name">Attrezzature</div>
+          <div class="zone-desc">Aree per attrezzature e impianti di interesse generale: parchi urbani, ospedali, scuole, cimiteri, impianti sportivi.</div>
+          <div class="zone-ex">→ Parco del Delta del Po (aree pubbliche), ospedale di Argenta</div>
+        </div>
+      </div>
+      <div class="box box-orange">
+        <b>⚠️ Zona E e il ferrarese</b>
+        Nel territorio dell'Unione, la zona E è dominante — siamo in pianura agricola. In zona E la regola è che si costruisce quasi solo per le esigenze dell'agricoltura (abitazione del conduttore, annessi). La L.R. 24/2017 ha ulteriormente limitato il consumo di suolo in zona agricola. È un tema che può uscire in esame.
+      </div>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-head" onclick="tog(this)">
+      <span class="art-badge">ART. 9</span>
+      <h3>Le Distanze tra Fabbricati — il famoso «10 metri»</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+
+      <div class="dist-box">
+        <div class="dist-num">10</div>
+        <div class="dist-unit">metri</div>
+        <div class="dist-label">Distanza minima inderogabile tra pareti finestrate di edifici diversi</div>
+      </div>
+
+      <p>L'art. 9 del DM 1444 stabilisce distanze minime tra fabbricati che i Comuni <strong>non possono derogare</strong> nei loro regolamenti edilizi o piani. La norma è cogente e prevalente sullo strumento urbanistico locale.</p>
+
+      <h4>La regola precisa</h4>
+      <ul>
+        <li><strong>Tra pareti finestrate</strong> di edifici antistanti: minimo <strong>10 metri</strong> — inderogabile in assoluto</li>
+        <li>Tra pareti non finestrate e pareti di qualsiasi tipo: il Comune può stabilire distanze inferiori</li>
+        <li>In zona A (centro storico): sono ammesse distanze inferiori per interventi di risanamento conservativo e ristrutturazione, purché non creino condizioni igieniche peggiori</li>
+        <li>Per gruppi di edifici con piano attuativo: sono ammesse distanze inferiori se previste nel piano stesso</li>
+      </ul>
+
+      <div class="box box-red">
+        <b>🚨 Norma blindatissima — giurisprudenza unanime</b>
+        Il Consiglio di Stato ha ribadito decine di volte che i 10 metri tra pareti finestrate sono <strong>inderogabili anche da parte dei regolamenti edilizi comunali</strong>. Un regolamento che prevede 8 metri è illegittimo anche se il Consiglio Comunale lo ha approvato all'unanimità. È una delle norme più litigate nel diritto edilizio italiano.
+      </div>
+
+      <h4>Come si misura</h4>
+      <p>La distanza si misura <strong>in proiezione orizzontale</strong>, perpendicolarmente alle pareti, nel punto più vicino. Non si misura tra gli spigoli. Una «parete finestrata» è qualsiasi parete che abbia aperture (finestre, porte-finestre, anche se piccole) — non importa la dimensione dell'apertura.</p>
+
+      <div class="g2">
+        <div class="mini">
+          <strong>✅ Distanza rispettata</strong>
+          Edificio A con finestra in sala → parete est. Edificio B con parete cieca a ovest. Distanza tra le due pareti: 8 m. OK — la parete di B non è finestrata, non si applica il limite dei 10 m.
+        </div>
+        <div class="mini">
+          <strong>❌ Distanza violata</strong>
+          Edificio A con finestra in cucina → parete sud. Edificio B con finestra in camera → parete nord. Distanza: 8 m. ILLECITO — entrambe le pareti sono finestrate, servono almeno 10 m.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <span class="art-badge">ART. 7-8</span>
+      <h3>Densità edilizia — quanto si costruisce per zona</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Il DM 1444 fissa i limiti massimi di <strong>densità fondiaria</strong> (mc per ogni mq del lotto) per zona omogenea. I Comuni non possono superarli.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Zona</th><th>Densità fondiaria max</th><th>Logica</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Zona A</strong></td><td>Non può superare il doppio di quella fondiaria media del nucleo storico</td><td>Si consolida senza esplodere</td></tr>
+            <tr><td><strong>Zona B</strong></td><td>Max <strong>7 mc/mq</strong> se non già classificato con densità maggiore</td><td>Si completa il tessuto esistente</td></tr>
+            <tr><td><strong>Zona C</strong></td><td>Max <strong>7 mc/mq</strong> (subzone C1) o meno per insediamenti minori</td><td>Nuova espansione controllata</td></tr>
+            <tr><td><strong>Zona D</strong></td><td>Il piano stabilisce liberamente (attività produttive)</td><td>Logica industriale, non abitativa</td></tr>
+            <tr><td><strong>Zona E</strong></td><td>Max <strong>0,03 mc/mq</strong> per insediamenti abitativi</td><td>Tutela del suolo agricolo</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="box box-blue">
+        <b>💡 La differenza tra densità fondiaria e territoriale</b>
+        <strong>Densità fondiaria</strong> = mc costruibili per mq del tuo lotto (solo la tua proprietà). <strong>Densità territoriale</strong> = mc costruibili per mq di una zona intera (comprende strade, piazze, verde pubblico). La densità territoriale è sempre più bassa di quella fondiaria. Il DM 1444 lavora con entrambe.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STANDARD ===== -->
+<section id="standard" class="section">
+  <div class="sec-title">Standard Urbanistici</div>
+  <div class="sec-sub">DM 1444/1968 artt. 3-5 — I metri quadri minimi di servizi che ogni Comune deve garantire</div>
+
+  <div class="card open">
+    <div class="card-head" onclick="tog(this)">
+      <span class="art-badge">ART. 3-5</span>
+      <h3>Cosa sono gli standard urbanistici</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>Per ogni abitante insediato o insediabile in un piano urbanistico, il Comune deve garantire una <strong>quantità minima di spazi pubblici</strong>: verde, parcheggi, scuole, attrezzature. Questi minimi si chiamano «standard urbanistici» e sono il cuore del DM 1444.</p>
+      <p>Se il piano non rispetta gli standard, il piano è illegittimo — anche se piace a tutti. È la garanzia che le città abbiano i servizi minimi per chi ci abita.</p>
+
+      <h4>Lo standard totale minimo per zona residenziale</h4>
+      <div class="std-grid">
+        <div class="std-card">
+          <div class="std-num">18</div>
+          <div class="std-unit">mq per abitante</div>
+          <div class="std-what">Standard totale minimo zone residenziali</div>
+        </div>
+        <div class="std-card">
+          <div class="std-num">4,5</div>
+          <div class="std-unit">mq per abitante</div>
+          <div class="std-what">Istruzione (asili, scuole dell'obbligo)</div>
+        </div>
+        <div class="std-card">
+          <div class="std-num">2</div>
+          <div class="std-unit">mq per abitante</div>
+          <div class="std-what">Attrezzature di interesse comune</div>
+        </div>
+        <div class="std-card">
+          <div class="std-num">9</div>
+          <div class="std-unit">mq per abitante</div>
+          <div class="std-what">Spazi pubblici attrezzati a verde e sport</div>
+        </div>
+        <div class="std-card">
+          <div class="std-num">2,5</div>
+          <div class="std-unit">mq per abitante</div>
+          <div class="std-what">Parcheggi pubblici</div>
+        </div>
+      </div>
+
+      <div class="box box-green">
+        <b>✅ Come funziona in pratica</b>
+        Se approvi un piano attuativo (lottizzazione) per 100 nuove abitazioni stimate in 250 abitanti, devi garantire almeno 250 × 18 = 4.500 mq di aree standard. Il Comune li acquisisce gratuitamente come cessione obbligatoria del lottizzante, oppure accetta una monetizzazione se non servono fisicamente in loco.
+      </div>
+    </div>
+  </div>
+
+  <div class="card open">
+    <div class="card-head" onclick="tog(this)">
+      <span class="art-badge">ART. 18</span>
+      <h3>I parcheggi — Legge Tognoli e DM 1444 insieme</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p>I parcheggi hanno due fonti normative distinte che si sovrappongono:</p>
+      <div class="g2">
+        <div class="mini">
+          <strong>DM 1444 — standard pubblici</strong>
+          2,5 mq/abitante di parcheggi <strong>pubblici</strong> nelle zone residenziali. Sono le aree che il lottizzante cede al Comune — restano di uso pubblico.
+        </div>
+        <div class="mini">
+          <strong>Legge 122/1989 (Tognoli)</strong>
+          1 mq di parcheggio <strong>privato</strong> ogni 10 mc di costruzione. Sono i box, i posti auto pertinenziali obbligatori per ogni nuovo edificio residenziale. Non sono cedibili separatamente dall'abitazione.
+        </div>
+      </div>
+      <div class="box box-orange">
+        <b>⚠️ Distinzione esame</b>
+        Standard DM 1444 = parcheggi pubblici, a carico del piano. Legge Tognoli = parcheggi privati pertinenziali, a carico del costruttore. Sono due obblighi separati che si sommano, non si sostituiscono.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <span class="art-badge">PRATICA</span>
+      <h3>Caso pratico — Lottizzazione a Portomaggiore</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="box box-blue">
+        <b>📋 Il caso</b>
+        Un privato presenta al SUE di Portomaggiore un piano di lottizzazione per la realizzazione di 20 villette in zona C. Il progetto prevede una superficie fondiaria di 8.000 mq, volumetria totale di 10.000 mc. Come calcoli gli standard dovuti?
+      </div>
+      <div class="flow">
+        <div class="fstep">
+          <div class="fnum">1</div>
+          <div class="fcontent">
+            <div class="ftitle">Calcola gli abitanti insediabili</div>
+            <div class="fnote">Il DM 1444 usa il parametro di 100 mc/abitante. 10.000 mc ÷ 100 = <strong>100 abitanti insediabili</strong></div>
+          </div>
+        </div>
+        <div class="fstep">
+          <div class="fnum">2</div>
+          <div class="fcontent">
+            <div class="ftitle">Calcola lo standard minimo totale</div>
+            <div class="fnote">100 abitanti × 18 mq/ab = <strong>1.800 mq</strong> di aree standard da cedere o monetizzare</div>
+          </div>
+        </div>
+        <div class="fstep">
+          <div class="fnum">3</div>
+          <div class="fcontent">
+            <div class="ftitle">Verifica la densità fondiaria</div>
+            <div class="fnote">10.000 mc ÷ 8.000 mq = 1,25 mc/mq. Zona C max 7 mc/mq → <strong>OK, rispettata</strong></div>
+          </div>
+        </div>
+        <div class="fstep">
+          <div class="fnum">4</div>
+          <div class="fcontent">
+            <div class="ftitle">Calcola parcheggi privati (Legge Tognoli)</div>
+            <div class="fnote">10.000 mc ÷ 10 = <strong>1.000 mq</strong> di parcheggi privati pertinenziali obbligatori (box o posti auto)</div>
+          </div>
+        </div>
+        <div class="fstep">
+          <div class="fnum">5</div>
+          <div class="fcontent">
+            <div class="ftitle">Verifica distanze tra fabbricati</div>
+            <div class="fnote">Tra le villette con pareti finestrate contrapposte: minimo <strong>10 metri</strong> inderogabili (art. 9 DM 1444)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUIZ ===== -->
+<section id="quiz" class="section">
+  <div class="sec-title">Quiz</div>
+  <div class="sec-sub">TUEL e DM 1444 — domande tipiche da prova scritta</div>
+
+  <div class="score-box">
+    <div class="big" id="score">0/0</div>
+    <div class="lbl">Risposte corrette — clicca per iniziare</div>
+  </div>
+  <div class="progress"><div class="progress-fill" id="pbar" style="width:0%"></div></div>
+  <div id="qbox"></div>
+  <div style="margin-top:16px; display:flex; gap:10px">
+    <button class="btn btn-outline" onclick="resetQ()">↺ Ricomincia</button>
+  </div>
+</section>
+
+</main>
+
+<div class="foot">
+  TUEL D.Lgs. 267/2000 · DM 2 aprile 1968 n. 1444 · Guida per concorso Specialista Tecnico · Unione Valli e Delizie (FE)
+</div>
+
+<script>
+function go(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function tog(head) {
+  head.parentElement.classList.toggle('open');
+}
+
+const qdata = [
+  {
+    q: "Secondo l'art. 107 del TUEL, il rilascio del permesso di costruire è di competenza:",
+    opts: ["Del Sindaco, in quanto capo dell'amministrazione", "Del Consiglio Comunale, che approva gli strumenti urbanistici", "Del Dirigente del Settore competente (es. edilizia/urbanistica)", "Dell'Assessore all'urbanistica"],
+    c: 2,
+    e: "Art. 107 TUEL: ai dirigenti spettano tutti gli atti di gestione, compresi i provvedimenti che impegnano l'amministrazione verso l'esterno. Il permesso di costruire è un atto gestionale, non politico. Il Sindaco, la Giunta e il Consiglio non possono avocare a sé queste competenze — se lo fanno, l'atto è viziato da incompetenza."
+  },
+  {
+    q: "Il DM 1444/1968 prevede che la distanza minima tra pareti finestrate di edifici antistanti sia:",
+    opts: ["5 metri in tutte le zone omogenee", "10 metri, in modo inderogabile", "6 metri nelle zone A, 10 nelle zone B e C", "Stabilita liberamente dal regolamento edilizio comunale"],
+    c: 1,
+    e: "Art. 9 DM 1444/1968: «è prescritta in tutti i casi la distanza minima assoluta di m 10 tra pareti finestrate e pareti di edifici antistanti». Il Consiglio di Stato ha confermato ripetutamente che questa norma è inderogabile anche da parte dei regolamenti comunali. Unica eccezione: zone A e piani attuativi con disciplina planivolumetrica complessiva."
+  },
+  {
+    q: "In un piano urbanistico, la zona omogenea E corrisponde a:",
+    opts: ["Aree di espansione residenziale", "Parti del territorio a destinazione produttiva e industriale", "Territorio aperto agricolo", "Aree per attrezzature e impianti di interesse generale"],
+    c: 2,
+    e: "Art. 2 DM 1444: zona E = «le parti del territorio destinato ad usi agricoli». In zona E la costruzione è fortemente limitata: in linea generale si ammette solo la residenza del conduttore del fondo e gli annessi agricoli strettamente necessari. Nel ferrarese, la zona E copre la grande maggioranza del territorio agricolo di pianura."
+  },
+  {
+    q: "Lo standard urbanistico minimo totale per le zone residenziali, previsto dal DM 1444/1968, è pari a:",
+    opts: ["9 mq per abitante", "12 mq per abitante", "18 mq per abitante", "25 mq per abitante"],
+    c: 2,
+    e: "Art. 3 DM 1444: lo standard minimo totale nelle zone residenziali è 18 mq per abitante insediabile, così ripartiti: 4,5 mq istruzione + 2 mq attrezzature d'interesse comune + 9 mq verde e sport + 2,5 mq parcheggi pubblici = 18 mq totali. Questo standard si applica ai nuovi insediamenti residenziali — i piani che non lo rispettano sono illegittimi."
+  },
+  {
+    q: "Il Consiglio Comunale ha competenza esclusiva nell'approvazione di:",
+    opts: ["I permessi di costruire in deroga", "Gli strumenti urbanistici generali (PRG, PUG) e le varianti generali", "Le singole concessioni edilizie convenzionate", "Le determine di affidamento di servizi sotto soglia"],
+    c: 1,
+    e: "Art. 42 TUEL: spettano al Consiglio Comunale gli atti fondamentali dell'ente, tra cui gli strumenti urbanistici generali e le relative varianti. I permessi di costruire (anche in deroga, salvo casi specifici) e le determine di affidamento spettano ai dirigenti. Le concessioni edilizie convenzionate in genere vengono deliberate dalla Giunta quando richiedono convenzioni."
+  },
+  {
+    q: "Un piano di lottizzazione per 200 abitanti prevede la realizzazione di nuovi edifici residenziali. Quanti mq di aree da destinare a verde pubblico e sport deve garantire come standard minimo?",
+    opts: ["200 mq", "900 mq", "1.800 mq", "400 mq"],
+    c: 1,
+    e: "Art. 3 DM 1444: lo standard per verde e sport è 9 mq per abitante. 200 abitanti × 9 mq = 1.800 mq. Attenzione: la domanda chiede solo lo standard verde/sport (9 mq/ab), non lo standard totale (18 mq/ab). 200 × 9 = 1.800 mq. Se la domanda chiedesse lo standard totale sarebbero 200 × 18 = 3.600 mq."
+  },
+  {
+    q: "L'art. 30 del TUEL disciplina le Unioni di Comuni. Quale affermazione è corretta?",
+    opts: ["L'Unione è priva di personalità giuridica e dipende dai Comuni fondatori", "I Comuni dell'Unione perdono la propria autonomia e vengono assorbiti dall'Unione", "L'Unione è un ente locale con propria personalità giuridica, statuto, organi e bilancio autonomi", "L'Unione può essere costituita solo tra Comuni con meno di 5.000 abitanti"],
+    c: 2,
+    e: "Art. 32 TUEL: l'Unione di Comuni è un ente locale dotato di personalità giuridica propria. Ha propri organi (Presidente, Giunta, Consiglio dell'Unione), proprio statuto e bilancio autonomo. I Comuni fondatori mantengono la propria autonomia e personalità — conferiscono alcune funzioni all'Unione ma non si fondono con essa. L'Unione Valli e Delizie è esattamente questo."
+  },
+  {
+    q: "Secondo il DM 1444/1968, la zona omogenea B è definita come:",
+    opts: ["Parti del territorio destinate a nuovi insediamenti residenziali da pianificare", "Parti del territorio totalmente o parzialmente edificate, con indice > 12,5 mc/mq", "Agglomerati urbani di carattere storico, artistico o ambientale", "Aree destinate a insediamenti industriali e artigianali"],
+    c: 1,
+    e: "Art. 2 DM 1444: zona B = «le parti del territorio totalmente o parzialmente edificate, diverse dalle zone A: si considerano parzialmente edificate le zone in cui la superficie coperta degli edifici esistenti non sia inferiore al 12,5% (un ottavo) della superficie fondiaria della zona». Sono i quartieri consolidati dove si completa il tessuto urbanistico esistente senza grandi stravolgimenti."
+  }
+];
+
+let state = { right: 0, total: 0, done: new Set() };
+
+function buildQ() {
+  const c = document.getElementById('qbox');
+  c.innerHTML = '';
+  qdata.forEach((q, i) => {
+    const d = document.createElement('div');
+    d.className = 'quiz-card';
+    d.innerHTML = `
+      <div class="qnum">Domanda ${i+1}/${qdata.length}</div>
+      <div class="qtext">${q.q}</div>
+      <div class="opts">
+        ${q.opts.map((o,j) => `
+          <div class="opt" onclick="ans(${i},${j},this)">
+            <div class="opt-l">${['A','B','C','D'][j]}</div>
+            <div>${o}</div>
+          </div>`).join('')}
+      </div>
+      <div class="qexpl" id="e${i}">${q.e}</div>`;
+    c.appendChild(d);
+  });
+  upd();
+}
+
+function ans(qi, oi, el) {
+  if (state.done.has(qi)) return;
+  state.done.add(qi);
+  state.total++;
+  const opts = el.parentElement.querySelectorAll('.opt');
+  opts.forEach(o => o.classList.add('answered'));
+  if (oi === qdata[qi].c) { el.classList.add('correct'); state.right++; }
+  else { el.classList.add('wrong'); opts[qdata[qi].c].classList.add('correct'); }
+  document.getElementById('e'+qi).classList.add('show');
+  upd();
+}
+
+function upd() {
+  document.getElementById('score').textContent = `${state.right}/${state.total}`;
+  document.getElementById('pbar').style.width = (qdata.length > 0 ? state.done.size/qdata.length*100 : 0)+'%';
+}
+
+function resetQ() {
+  state = { right:0, total:0, done: new Set() };
+  buildQ();
+}
+
+buildQ();
+</script>
+</body>
+</html>
