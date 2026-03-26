@@ -815,6 +815,132 @@
       </div>
     </div>
   </div>
+
+  <div class="card open">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="art-num">SCHEMA</span>
+      <h3>I due tipi di tutela — Bene Culturale vs Bene Paesaggistico</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body" style="padding:16px">
+      <style>
+        .sv-root{font-size:13px;line-height:1.5}
+        .sv-top{display:flex;justify-content:center;margin-bottom:10px}
+        .sv-chip{background:var(--cream);border:1px solid var(--cream-dark);border-radius:8px;padding:8px 24px;font-size:14px;font-weight:500;color:var(--ink)}
+        .sv-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        @media(max-width:600px){.sv-cols{grid-template-columns:1fr}}
+        .sv-col{border-radius:10px;border:1.5px solid;overflow:hidden}
+        .sv-col.cult{border-color:#1D9E75}
+        .sv-col.paes{border-color:#BA7517}
+        .sv-hd{padding:9px 14px;font-weight:500;font-size:13px}
+        .sv-hd.cult{background:#E1F5EE;color:#085041}
+        .sv-hd.paes{background:#FAEEDA;color:#633806}
+        .sv-body-s{padding:10px 12px;display:flex;flex-direction:column;gap:8px;background:white}
+        .sv-sub{border-radius:6px;border:1px solid var(--cream-dark);overflow:hidden}
+        .sv-sub-hd{padding:6px 10px;font-weight:500;font-size:12px;display:flex;align-items:center;gap:6px;background:var(--cream);color:var(--ink-muted)}
+        .sv-sub-body{padding:7px 10px;font-size:12px;color:var(--ink-muted)}
+        .sv-tag-s{display:inline-block;padding:2px 7px;border-radius:100px;font-size:11px;font-weight:500;margin:2px 2px 2px 0}
+        .st-green{background:#E1F5EE;color:#085041}
+        .st-amber{background:#FAEEDA;color:#633806}
+        .st-purple{background:#EEEDFE;color:#26215C}
+        .st-gray{background:var(--cream);color:var(--ink-muted);border:1px solid var(--cream-dark)}
+        .sv-flow2{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:4px}
+        .sv-arr2{color:var(--ink-light);font-size:12px}
+        .sv-rule2{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:12px;border-left:3px solid;background:var(--cream)}
+        .sv-rule2.cult{border-color:#1D9E75;color:var(--ink-muted)}
+        .sv-rule2.paes{border-color:#BA7517;color:var(--ink-muted)}
+        .sv-rule2 strong{display:block;font-weight:600;margin-bottom:2px;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
+        .sv-rule2.cult strong{color:#085041}
+        .sv-rule2.paes strong{color:#633806}
+        .sv-note2{margin-top:4px;font-size:11px;font-style:italic;color:var(--ink-light)}
+        .sv-badge2{font-size:10px;padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace;font-weight:500;background:rgba(107,31,42,0.08);color:var(--bordeaux);border:1px solid rgba(107,31,42,0.15)}
+        .sv-bottom{margin-top:10px;padding:10px 14px;background:var(--cream);border-radius:8px;border:1px solid var(--cream-dark);font-size:12px;color:var(--ink-muted)}
+      </style>
+      <div class="sv-root">
+        <div class="sv-top">
+          <div class="sv-chip">D.Lgs. 42/2004 — Due tipi di tutela distinti e indipendenti</div>
+        </div>
+        <div class="sv-cols">
+          <div class="sv-col cult">
+            <div class="sv-hd cult">⬤ Bene Culturale &nbsp;<span class="sv-badge2">Parte II — artt. 10–130</span></div>
+            <div class="sv-body-s">
+              <div class="sv-sub">
+                <div class="sv-sub-hd">Proprietà <strong>pubblica</strong> &gt; 70 anni</div>
+                <div class="sv-sub-body">
+                  Tutela <strong>automatica</strong> per legge (art. 10 c.1). Nessun decreto necessario. La Soprintendenza cataloga e avvia la verifica.
+                  <div class="sv-flow2">
+                    <span class="sv-badge2">art. 12 — verifica interesse</span>
+                    <span class="sv-arr2">→</span>
+                    <span class="st-green sv-tag-s">Dichiarato ✓</span>
+                    <span class="st-purple sv-tag-s">In corso ⏳</span>
+                    <span class="st-gray sv-tag-s">Escluso</span>
+                  </div>
+                  <div class="sv-note2">«In corso» = tutela cautelare provvisoria (anche anni)</div>
+                </div>
+              </div>
+              <div class="sv-sub">
+                <div class="sv-sub-hd">Proprietà <strong>privata</strong></div>
+                <div class="sv-sub-body">
+                  Tutela <strong>solo su dichiarazione formale</strong> (art. 13). Senza dichiarazione, nessun vincolo — anche per palazzi storici.
+                  <div class="sv-flow2">
+                    <span class="sv-badge2">art. 13 — dichiarazione</span>
+                    <span class="sv-arr2">→</span>
+                    <span class="st-green sv-tag-s">Dichiarato ✓</span>
+                    <span class="st-gray sv-tag-s">Non avviato = libero</span>
+                  </div>
+                </div>
+              </div>
+              <div class="sv-rule2 cult">
+                <strong>Effetto del vincolo</strong>
+                Qualsiasi intervento richiede autorizzazione della <strong>Soprintendenza</strong> ex art. 21 — non il Comune.
+              </div>
+            </div>
+          </div>
+          <div class="sv-col paes">
+            <div class="sv-hd paes">⬤ Bene Paesaggistico &nbsp;<span class="sv-badge2">Parte III — artt. 131–159</span></div>
+            <div class="sv-body-s">
+              <div class="sv-sub">
+                <div class="sv-sub-hd"><span class="sv-badge2">art. 136</span>&nbsp; Decreto di notevole interesse</div>
+                <div class="sv-sub-body">
+                  Vincolo <strong>da provvedimento formale</strong> su immobili/aree con valore paesaggistico. Quattro categorie:
+                  <div style="margin-top:5px">
+                    <span class="st-amber sv-tag-s">a) bellezze naturali</span>
+                    <span class="st-amber sv-tag-s">b) ville e parchi</span>
+                    <span class="st-amber sv-tag-s">c) complessi storici</span>
+                    <span class="st-amber sv-tag-s">d) belvedere</span>
+                  </div>
+                  <div class="sv-note2">Centri storici vincolati solo se dichiarati con decreto</div>
+                </div>
+              </div>
+              <div class="sv-sub">
+                <div class="sv-sub-hd"><span class="sv-badge2">art. 142</span>&nbsp; Aree tutelate ex lege (Galasso)</div>
+                <div class="sv-sub-body">
+                  Vincolo <strong>automatico</strong>, senza decreto. Qualunque proprietà.
+                  <div style="margin-top:5px">
+                    <span class="st-amber sv-tag-s">150 m fiumi</span>
+                    <span class="st-amber sv-tag-s">parchi</span>
+                    <span class="st-amber sv-tag-s">boschi</span>
+                    <span class="st-amber sv-tag-s">zone umide Ramsar</span>
+                    <span class="st-amber sv-tag-s">300 m coste/laghi</span>
+                  </div>
+                  <div class="sv-note2">Nel ferrarese: Po di Volano, Reno, Parco Delta, Valli di Argenta</div>
+                </div>
+              </div>
+              <div class="sv-rule2 paes">
+                <strong>Effetto del vincolo</strong>
+                Prima di qualsiasi intervento: <strong>autorizzazione paesaggistica</strong> (art. 146) dal Comune con parere vincolante Soprintendenza.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sv-bottom">
+          <strong style="color:var(--ink)">Un edificio può avere entrambi i vincoli, uno solo, o nessuno — si verificano indipendentemente.</strong>
+          &nbsp;Es.: palazzo pubblico anni '50 a 90 m dal Po di Volano → bene culturale in verifica (art. 12) + vincolo paesaggistico automatico (art. 142 c.1 lett. c). Due autorizzazioni separate, due uffici diversi.
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- =============================== BENI PAESAGGISTICI =============================== -->
