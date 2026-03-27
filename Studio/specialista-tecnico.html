@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Specialista in Attività Tecniche — Studio Concorso</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Sora:wght@300;400;600;700&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --bg2: #141720;
+    --bg3: #1b1f2e;
+    --border: #2a2f45;
+    --accent: #5b8dee;
+    --accent2: #e87d3e;
+    --accent3: #4fc08d;
+    --accent4: #c678dd;
+    --text: #cdd6f4;
+    --text-dim: #7a8099;
+    --text-bright: #e8eaf6;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Sora', sans-serif;
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 0 60px 0;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: linear-gradient(160deg, #111525 0%, #0d1020 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 24px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .site-header .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .site-header h1 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-bright);
+    line-height: 1.3;
+  }
+
+  .site-header .meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 6px;
+  }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 14px 24px 0;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-tabs a {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid transparent;
+    border-bottom: none;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .nav-tabs a:hover {
+    color: var(--text);
+    background: var(--bg3);
+    border-color: var(--border);
+  }
+
+  .nav-tabs a.active {
+    color: var(--accent);
+    background: var(--bg);
+    border-color: var(--border);
+  }
+
+  /* ── MAIN CONTENT ── */
+  main { padding: 28px 24px; }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 14px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .card-header:hover { background: var(--bg3); }
+
+  .card-header .chevron {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 3px;
+    flex-shrink: 0;
+    transition: transform 0.25s;
+  }
+
+  .card-header.open .chevron { transform: rotate(90deg); }
+
+  .card-header .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-bright);
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .card-header .card-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .badge-blue { background: rgba(91,141,238,0.15); color: var(--accent); border: 1px solid rgba(91,141,238,0.3); }
+  .badge-orange { background: rgba(232,125,62,0.15); color: var(--accent2); border: 1px solid rgba(232,125,62,0.3); }
+  .badge-green { background: rgba(79,192,141,0.15); color: var(--accent3); border: 1px solid rgba(79,192,141,0.3); }
+  .badge-purple { background: rgba(198,120,221,0.15); color: var(--accent4); border: 1px solid rgba(198,120,221,0.3); }
+
+  .card-body {
+    display: none;
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-body.open { display: block; }
+
+  /* ── BANDO TEXT ── */
+  .bando-block {
+    background: var(--bg3);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 14px 16px;
+    margin: 12px 0;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  .bando-block strong { color: var(--text-bright); font-weight: 600; }
+
+  .bando-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 18px 0 8px;
+    font-weight: 600;
+  }
+
+  /* ── MATERIE LIST ── */
+  .materie-list {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0;
+  }
+
+  .materie-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 14px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin-bottom: 3px;
+    background: var(--bg3);
+    border: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+
+  .materie-list li:hover { border-color: var(--border); }
+
+  .materie-list li::before {
+    content: '▸';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 11px;
+  }
+
+  .materie-list li span.norm {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent2);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── DOMANDE ── */
+  .domanda-set {
+    margin-bottom: 20px;
+  }
+
+  .domanda-set-header {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    padding: 8px 0 6px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .domanda-set-header span { color: var(--text-dim); }
+
+  .domanda-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 15px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text);
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+  }
+
+  .domanda-item .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(91,141,238,0.1);
+    border: 1px solid rgba(91,141,238,0.25);
+    border-radius: 4px;
+    padding: 1px 7px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    min-width: 28px;
+    text-align: center;
+  }
+
+  .domanda-item.comportamentale .num {
+    color: var(--accent4);
+    background: rgba(198,120,221,0.1);
+    border-color: rgba(198,120,221,0.25);
+  }
+
+  .domanda-item.tecnica .num {
+    color: var(--accent3);
+    background: rgba(79,192,141,0.1);
+    border-color: rgba(79,192,141,0.25);
+  }
+
+  .domanda-text { flex: 1; }
+
+  /* ── PROVE CHIP ── */
+  .prove-info {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+  }
+
+  .prove-chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  /* ── PROFILO ATTIVITÀ ── */
+  .attivita-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    columns: 1;
+  }
+
+  .attivita-list li {
+    padding: 7px 12px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    border-left: 2px solid var(--border);
+    margin-bottom: 5px;
+    color: var(--text);
+  }
+
+  .attivita-list li:hover { border-left-color: var(--accent); }
+
+  /* ── COMPETENZE TRASVERSALI ── */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  .comp-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 13px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .comp-item::before {
+    content: '◆';
+    font-size: 8px;
+    color: var(--accent3);
+    flex-shrink: 0;
+  }
+
+  /* ── VALUTAZIONE BOX ── */
+  .valutazione-box {
+    background: rgba(91,141,238,0.05);
+    border: 1px solid rgba(91,141,238,0.2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+
+  .valutazione-box h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .valutazione-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .valutazione-box ul li {
+    font-size: 13.5px;
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .valutazione-box ul li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── PROVE ESAME BOX ── */
+  .esame-box {
+    background: rgba(232,125,62,0.06);
+    border: 1px solid rgba(232,125,62,0.25);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 14px 0;
+  }
+
+  .esame-box h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .esame-box p { font-size: 14px; line-height: 1.7; }
+
+  /* ── PUNTEGGI ── */
+  .punteggi-row {
+    display: flex;
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .punteggio-card {
+    flex: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .punteggio-card .val {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .punteggio-card .label-p {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .nota-ammissione {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--accent3);
+    background: rgba(79,192,141,0.08);
+    border: 1px solid rgba(79,192,141,0.2);
+    border-radius: 6px;
+    padding: 8px 14px;
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  /* ── TIPO LEGENDA ── */
+  .legenda {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .legenda-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  /* ── ANIMATIONS ── */
+  .card-body { transition: none; }
+
+  @media (max-width: 600px) {
+    .comp-grid { grid-template-columns: 1fr; }
+    .punteggi-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="label">Concorso Pubblico — Unione Valli e Delizie</div>
+  <h1>Specialista in Attività Tecniche<br>Area Funzionari ed EQ</h1>
+  <div class="meta">Det. n. 95 del 18/02/2026 · Settore Programmazione Territoriale · Tempo pieno e indeterminato</div>
+</header>
+
+<nav class="nav-tabs">
+  <a href="#bando" class="active" onclick="setActive(this)">Bando</a>
+  <a href="#materie" onclick="setActive(this)">Materie</a>
+  <a href="#domande-scritte" onclick="setActive(this)">Prove Scritte</a>
+  <a href="#domande-orali" onclick="setActive(this)">Prove Orali</a>
+  <a href="#progressioni" onclick="setActive(this)">Progressioni</a>
+  <a href="#dirigente" onclick="setActive(this)">Dirigente</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════ BANDO ═══════════════════════════════ -->
+<section class="section" id="bando">
+  <div class="section-title">Bando — Profilo Ricercato</div>
+
+  <!-- PROFILO -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Art. 1 — Profilo professionale</span>
+      <span class="card-badge badge-blue">Requisiti</span>
+    </div>
+    <div class="card-body">
+      <div class="bando-title">Ambito e scopo</div>
+      <div class="bando-block">
+        <strong>Profilo:</strong> Specialista in attività tecniche<br>
+        <strong>Ambito:</strong> Tecnico<br><br>
+        Definisce le procedure e garantisce la corretta attuazione delle attività richiedenti competenze tecniche. Realizza la progettazione e la gestione di progetti/servizi/attività aventi natura prevalentemente tecnica.
+      </div>
+
+      <div class="bando-title">Attività caratterizzanti (esempi non esaustivi)</div>
+      <ul class="attivita-list">
+        <li>Progettazione e gestione delle fasi preparatorie per la presentazione di iniziative/progetti a valere su finanziamenti regionali, nazionali ed internazionali</li>
+        <li>Definizione degli strumenti per la gestione di progetti/attività complesse in collaborazione con i diversi settori dell'ente</li>
+        <li>Pianificazione esecutiva: tempi, risorse, attività, risultati, ruoli e responsabilità</li>
+        <li>Gestione delle fasi attuative: prevenzione scostamenti e azioni correttive</li>
+        <li>Integrazione con stakeholder e destinatari finali</li>
+        <li>Monitoraggio costante dello stato di avanzamento dei progetti</li>
+        <li>Verifica del raggiungimento dei risultati</li>
+        <li>Gestione, monitoraggio e controllo dell'implementazione di progetti su infrastrutture (costruzione/manutenzione/abbattimento)</li>
+        <li>Supervisione delle ditte appaltatrici: regolare esecuzione contratti e conformità agli standard</li>
+        <li>Cura degli studi tecnici di fattibilità delle infrastrutture</li>
+        <li>Gestione del patrimonio: verifica periodica, conservazione, manutenzione, riqualificazione</li>
+        <li>Predisposizione della pianificazione urbanistica e cura del procedimento di approvazione</li>
+        <li>Cura dei procedimenti per il rilascio di autorizzazioni, certificazioni e pareri in ambito urbanistica ed edilizia</li>
+        <li>Aggiornamento dei sistemi informativi statistici territoriali</li>
+        <li>Collaborazione per l'elaborazione di accordi e/o convenzioni in materia urbanistica ed edilizia</li>
+        <li>Elaborazione dei contenuti dei documenti prestazionali per acquisizione servizi/forniture/lavori</li>
+        <li>Valutazione della fattibilità e compatibilità amministrativa ed economica degli interventi</li>
+        <li>Gestione di eventi emergenziali</li>
+        <li>Gestione servizi prevenzione e sicurezza luoghi di lavoro dell'ente</li>
+      </ul>
+
+      <div class="bando-title">Requisiti specifici</div>
+      <div class="bando-block">
+        <strong>Patente:</strong> almeno patente di guida B<br>
+        <strong>Titolo di studio:</strong> laurea (triennale o magistrale)
+      </div>
+
+      <div class="bando-title">Competenze trasversali richieste</div>
+      <div class="comp-grid">
+        <div class="comp-item">Precisione esecutiva</div>
+        <div class="comp-item">Comunicazione efficace</div>
+        <div class="comp-item">Capacità relazionali e mediazione</div>
+        <div class="comp-item">Integrità e senso etico</div>
+        <div class="comp-item">Capacità di analisi e pensiero critico</div>
+        <div class="comp-item">Gestione del tempo e priorità</div>
+        <div class="comp-item">Flessibilità e adattabilità</div>
+        <div class="comp-item">Capacità di lavoro in gruppo</div>
+        <div class="comp-item">Orientamento al risultato</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROVE -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Art. 8 — Prove d'esame e punteggi</span>
+      <span class="card-badge badge-orange">Esame</span>
+    </div>
+    <div class="card-body">
+      <div class="esame-box">
+        <h4>Prova Scritta — contenuto teorico-pratico</h4>
+        <p>Esercitazione tesa ad accertare il possesso delle conoscenze e competenze relative alla redazione di atti o elaborati tipici e/o alla risoluzione di casi concreti, eventualmente integrati da un commento in ordine ai profili normativi, e/o domande a risposta multipla o sintetica. Può includere l'accertamento delle capacità comportamentali e attitudinali (competenze trasversali).</p>
+      </div>
+
+      <div class="esame-box">
+        <h4>Prova Orale — colloquio individuale</h4>
+        <p>Colloquio volto ad accertare le conoscenze e competenze inerenti all'attività, attraverso l'analisi del percorso di studio e professionale (curriculum su inPA) e la capacità di ragionare in modo costruttivo e libero da schemi di studio. Può includere valutazione attitudinale anche tramite esperto in psicologia.</p>
+        <p style="margin-top:10px;">Comprende anche: <strong>nozioni di informatica</strong> (Word, Excel, Open Office) e <strong>lingua inglese</strong>.</p>
+      </div>
+
+      <div class="punteggi-row">
+        <div class="punteggio-card">
+          <span class="val">30</span>
+          <div class="label-p">Punteggio max<br>Prova Scritta</div>
+        </div>
+        <div class="punteggio-card">
+          <span class="val">30</span>
+          <div class="label-p">Punteggio max<br>Prova Orale</div>
+        </div>
+        <div class="punteggio-card">
+          <span class="val">60</span>
+          <div class="label-p">Punteggio finale<br>(somma prove)</div>
+        </div>
+      </div>
+      <div class="nota-ammissione">⚠ Soglia minima di superamento: 21/30 in ciascuna prova</div>
+
+      <div class="bando-title">Commissione esaminatrice</div>
+      <div class="bando-block">
+        Nominata dal Dirigente del Settore Risorse Umane. Composta da <strong>3 componenti + 1 segretario verbalizzante</strong>. Possono essere aggregati membri aggiuntivi per la valutazione delle competenze linguistiche, informatiche/digitali e attitudinali (esperto psicologo iscritto all'ordine).
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ MATERIE ═══════════════════════════════ -->
+<section class="section" id="materie">
+  <div class="section-title">Materie d'Esame</div>
+
+  <!-- URBANISTICA/EDILIZIA -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Urbanistica ed Edilizia</span>
+      <span class="card-badge badge-orange">Core</span>
+    </div>
+    <div class="card-body">
+      <ul class="materie-list">
+        <li><span class="norm">LR 24/2017</span> Disciplina regionale sulla tutela e l'uso del territorio (+ atti di coordinamento regionali)</li>
+        <li><span class="norm">DPR 380/2001</span> Testo Unico Edilizia e s.m.i.</li>
+        <li><span class="norm">LR 15/2013</span> Semplificazione della disciplina edilizia e s.m.i.</li>
+        <li><span class="norm">DAL 186/2018</span> Disciplina del contributo di costruzione (art. 16 e 19 DPR 380)</li>
+        <li><span class="norm">LR 23/2004</span> Vigilanza e controllo dell'attività edilizia e s.m.i.</li>
+        <li>Elementi di Codice Civile</li>
+        <li><span class="norm">LR 19/2008</span> Norme per la riduzione del rischio sismico + DGR attuative (1373/2011, 1878/2011, 2272/2016, 828/2019, 924/2019, 1744/2025)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PAESAGGIO E AMBIENTE -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Paesaggio, Beni Culturali e Ambiente</span>
+      <span class="card-badge badge-green">Paesaggio</span>
+    </div>
+    <div class="card-body">
+      <ul class="materie-list">
+        <li><span class="norm">D.Lgs 42/2004</span> Codice dei beni culturali e del paesaggio e s.m.i.</li>
+        <li><span class="norm">DPR 31/2017</span> Interventi esclusi dall'autorizzazione paesaggistica o soggetti a procedura semplificata</li>
+        <li><span class="norm">D.Lgs 152/2006</span> Norme in materia ambientale (Codice Ambientale) e s.m.i.</li>
+        <li><span class="norm">D.Lgs 190/2024</span> Disciplina dei regimi amministrativi per la produzione di energia da fonti rinnovabili (FER)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DIRITTO AMMINISTRATIVO -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Diritto Amministrativo e Procedimentale</span>
+      <span class="card-badge badge-blue">Amm.</span>
+    </div>
+    <div class="card-body">
+      <ul class="materie-list">
+        <li>Elementi di diritto costituzionale (incl. fonti del diritto UE)</li>
+        <li>Diritto amministrativo — responsabilità civile, penale, amministrativa e contabile del pubblico dipendente</li>
+        <li><span class="norm">L. 241/1990</span> Nuove norme in materia di procedimento amministrativo e diritto di accesso e s.m.i.</li>
+        <li><span class="norm">D.Lgs 267/2000</span> Testo Unico Enti Locali (TUEL) e s.m.i.</li>
+        <li><span class="norm">DPR 445/2000</span> Documentazione amministrativa e s.m.i.</li>
+        <li>Normative in materia di organizzazione e gestione del rapporto di lavoro negli enti locali</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ANTICORRUZIONE, TRASPARENZA, PRIVACY -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Anticorruzione, Trasparenza e Privacy</span>
+      <span class="card-badge badge-purple">Anticorr.</span>
+    </div>
+    <div class="card-body">
+      <ul class="materie-list">
+        <li><span class="norm">L. 190/2012</span> Disposizioni per la prevenzione e la repressione della corruzione e s.m.i.</li>
+        <li><span class="norm">D.Lgs 33/2013</span> Riordino della disciplina riguardante la trasparenza e s.m.i.</li>
+        <li><span class="norm">D.Lgs 97/2016</span> Revisione e semplificazione delle disposizioni in materia di prevenzione della corruzione</li>
+        <li><span class="norm">GDPR 679/2016</span> Regolamento UE protezione dati personali</li>
+        <li><span class="norm">D.Lgs 196/2003</span> Codice in materia di protezione dei dati personali e s.m.i.</li>
+        <li><span class="norm">DPR 62/2013</span> Codice di comportamento dei dipendenti pubblici</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ALTRO -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Altre Materie</span>
+      <span class="card-badge badge-blue">Varie</span>
+    </div>
+    <div class="card-body">
+      <ul class="materie-list">
+        <li>Sistemi Informativi Territoriali (SIT) e loro gestione</li>
+        <li>Norme in materia di pubblico spettacolo e manifestazioni temporanee (safety e security)</li>
+        <li>Norme in materia di protezione civile</li>
+        <li>Normativa in materia di digitalizzazione dell'attività amministrativa</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PROVE SCRITTE ═══════════════════════════════ -->
+<section class="section" id="domande-scritte">
+  <div class="section-title">Prove Scritte — Istruttore Tecnico 2024</div>
+
+  <div class="legenda">
+    <div class="legenda-item"><div class="legenda-dot" style="background:var(--accent3)"></div> Domanda tecnica</div>
+    <div class="legenda-item"><div class="legenda-dot" style="background:var(--accent)"></div> Domanda normativa/procedimentale</div>
+  </div>
+
+  <p style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">Tracce reali — Selezione Istruttore Tecnico, Settore Programmazione Territoriale, Unione Valli e Delizie, prova scritta dell'08/10/2024</p>
+
+  <!-- PROVA 1 -->
+  <div class="domanda-set">
+    <div class="domanda-set-header">
+      <span>PROVA N. 1</span>
+      <span>08/10/2024 — Scritto</span>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato illustri le principali innovazioni apportate dal Decreto "Salva Casa" (L. 105 del 24 luglio 2024).</div>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato indichi, dovendo realizzare una nuova costruzione di un capannone produttivo all'interno del territorio urbanizzato in un ambito consolidato, quale contributo di costruzione va versato al Comune, ai sensi della DAL 186/2018.</div>
+    </div>
+    <div class="domanda-item">
+      <div class="num">N</div>
+      <div class="domanda-text">Il candidato descriva cos'è un'Unione di Comuni e quali sono i suoi organi politici.</div>
+    </div>
+  </div>
+
+  <!-- PROVA 2 -->
+  <div class="domanda-set">
+    <div class="domanda-set-header">
+      <span>PROVA N. 2</span>
+      <span>08/10/2024 — Scritto</span>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato descriva i titoli abilitativi previsti dalla LR 15/2013, con i relativi contenuti.</div>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato indichi gli interventi da sottoporsi ad autorizzazione paesaggistica semplificata e descriva l'iter procedurale per il rilascio di tale autorizzazione, ai sensi del D.Lgs. 42/2004.</div>
+    </div>
+    <div class="domanda-item">
+      <div class="num">N</div>
+      <div class="domanda-text">Il candidato illustri l'istituto della Conferenza dei Servizi, di cui al D.Lgs. 241/1990.</div>
+    </div>
+  </div>
+
+  <!-- PROVA 3 -->
+  <div class="domanda-set">
+    <div class="domanda-set-header">
+      <span>PROVA N. 3</span>
+      <span>08/10/2024 — Scritto</span>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato descriva i contenuti della Segnalazione Certificata di Conformità Edilizia e Agibilità (SCCEA), di cui alla LR 15/2013, e indichi a seguito di quali interventi edilizi o titoli abilitativi deve o può essere presentata.</div>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato descriva in quali casi occorre, in relazione al titolo abilitativo, l'autorizzazione sismica o il deposito o altra documentazione attinente, e descriva i relativi iter procedurali di cui alla LR 19/2008.</div>
+    </div>
+    <div class="domanda-item">
+      <div class="num">N</div>
+      <div class="domanda-text">Il candidato indichi i presupposti e i limiti dell'accesso documentale ai sensi dell'art. 22 del D.Lgs. 241/1990 e le principali differenze con l'accesso civico di cui al D.Lgs. 33/2013.</div>
+    </div>
+  </div>
+
+  <!-- CRITERI VALUTAZIONE SCRITTO -->
+  <div class="valutazione-box">
+    <h4>Criteri di valutazione — Prova Scritta</h4>
+    <ul>
+      <li>Corretto inquadramento dell'argomento dal punto di vista normativo</li>
+      <li>Capacità, anche lessicale, di rappresentare in forma sintetica ma completa i concetti in trattazione</li>
+      <li>Capacità di utilizzare e collegare le conoscenze nelle materie oggetto dei quesiti</li>
+      <li>Capacità di centrare le risposte con correttezza e chiarezza espositiva</li>
+      <li>Individuazione di criticità e capacità di individuare soluzioni</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PROVE ORALI ═══════════════════════════════ -->
+<section class="section" id="domande-orali">
+  <div class="section-title">Prove Orali — Istruttore Tecnico 2024</div>
+
+  <p style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">Domande reali — Prova orale del 15/10/2024 · 4 prove estratte a sorte</p>
+
+  <!-- PROVA ORALE 1 -->
+  <div class="domanda-set">
+    <div class="domanda-set-header">
+      <span>PROVA ORALE N. 1</span>
+      <span>15/10/2024</span>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato parli dell'efficacia della CILA e della SCIA, ne descriva le variabili previste dalla LR 15/2013 e s.m.i., la validità dei titoli e la possibilità di proroga degli stessi.</div>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato descriva il procedimento unico dell'art. 53 della LR 24/2017.</div>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato indichi gli interventi da sottoporsi ad autorizzazione paesaggistica semplificata e descriva l'iter procedurale per il rilascio di tale autorizzazione, ai sensi del D.Lgs. 42/2004.</div>
+    </div>
+    <div class="domanda-item">
+      <div class="num">N</div>
+      <div class="domanda-text">Il candidato parli del Responsabile del procedimento amministrativo ai sensi della L. n. 241/90 e s.m.i.</div>
+    </div>
+    <div class="domanda-item">
+      <div class="num">IT</div>
+      <div class="domanda-text" style="color:var(--accent2)">Informatica: Il candidato indichi cosa consente di fare il "Browser".</div>
+    </div>
+    <div class="domanda-item" style="border-color:rgba(198,120,221,0.25)">
+      <div class="num" style="color:var(--accent4);background:rgba(198,120,221,0.1);border-color:rgba(198,120,221,0.25)">EN</div>
+      <div class="domanda-text" style="color:var(--text-dim)">Inglese: lettura e commento di un testo scritto (brano Chicago Then &amp; Now — Navy Pier).</div>
+    </div>
+  </div>
+
+  <!-- PROVA ORALE 2 -->
+  <div class="domanda-set">
+    <div class="domanda-set-header">
+      <span>PROVA ORALE N. 2</span>
+      <span>15/10/2024</span>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato descriva, quando la LR 15/2013 e s.m.i. agli artt. 32–33 parla di "Convenzione Tipo": a cosa si riferisce, quali sono i casi in cui è possibile convenzionarsi e quali devono essere i contenuti della convenzione.</div>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato illustri i principali contenuti del Regolamento Edilizio.</div>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato illustri quali sono i titoli autorizzativi per la realizzazione degli impianti di produzione di energia da fonti rinnovabili (FER).</div>
+    </div>
+    <div class="domanda-item">
+      <div class="num">N</div>
+      <div class="domanda-text">Il candidato illustri le modalità e i contenuti della comunicazione di avvio del procedimento.</div>
+    </div>
+    <div class="domanda-item">
+      <div class="num">IT</div>
+      <div class="domanda-text" style="color:var(--accent2)">Informatica: Il candidato descriva che cos'è un "sistema operativo".</div>
+    </div>
+    <div class="domanda-item" style="border-color:rgba(198,120,221,0.25)">
+      <div class="num" style="color:var(--accent4);background:rgba(198,120,221,0.1);border-color:rgba(198,120,221,0.25)">EN</div>
+      <div class="domanda-text" style="color:var(--text-dim)">Inglese: lettura e commento di un testo scritto (brano Chicago Then &amp; Now — Grant Park / Buckingham Fountain).</div>
+    </div>
+  </div>
+
+  <!-- PROVA ORALE 3 -->
+  <div class="domanda-set">
+    <div class="domanda-set-header">
+      <span>PROVA ORALE N. 3</span>
+      <span>15/10/2024</span>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato descriva i contenuti della SCCEA, così come declinati dall'art. 23 della LR 15/2013 e s.m.i. e, a seguito di quali interventi edilizi o titoli abilitativi, deve o può essere presentata.</div>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato descriva come il concetto di "consumo di suolo 0" della LR 24/2017 si può concretizzare nei contenuti degli strumenti urbanistici comunali.</div>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato indichi quali autorizzazioni ambientali debbono essere richieste ad ARPAE nel caso di realizzazione di una nuova attività produttiva.</div>
+    </div>
+    <div class="domanda-item">
+      <div class="num">N</div>
+      <div class="domanda-text">Il candidato parli delle principali differenze tra l'accesso civico semplice e l'accesso civico generalizzato.</div>
+    </div>
+    <div class="domanda-item">
+      <div class="num">IT</div>
+      <div class="domanda-text" style="color:var(--accent2)">Informatica: Il candidato indichi cos'è la PEC.</div>
+    </div>
+    <div class="domanda-item" style="border-color:rgba(198,120,221,0.25)">
+      <div class="num" style="color:var(--accent4);background:rgba(198,120,221,0.1);border-color:rgba(198,120,221,0.25)">EN</div>
+      <div class="domanda-text" style="color:var(--text-dim)">Inglese: lettura e commento di un testo scritto (brano Chicago Then &amp; Now — Reliance Building 1894).</div>
+    </div>
+  </div>
+
+  <!-- PROVA ORALE 4 -->
+  <div class="domanda-set">
+    <div class="domanda-set-header">
+      <span>PROVA ORALE N. 4</span>
+      <span>15/10/2024</span>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato descriva quali sono gli adempimenti di competenza del SUE nel caso di accertamento di opere abusive.</div>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato indichi i contenuti del certificato di destinazione urbanistica e il suo utilizzo.</div>
+    </div>
+    <div class="domanda-item tecnica">
+      <div class="num">T</div>
+      <div class="domanda-text">Il candidato descriva in quali casi occorre, in relazione al titolo abilitativo, l'autorizzazione sismica o il deposito o altra documentazione attinente, e descriva i relativi iter procedurali di cui alla LR 19/2008.</div>
+    </div>
+    <div class="domanda-item">
+      <div class="num">N</div>
+      <div class="domanda-text">Il candidato illustri l'istituto della Conferenza dei Servizi, di cui al D.Lgs. 241/1990.</div>
+    </div>
+    <div class="domanda-item">
+      <div class="num">IT</div>
+      <div class="domanda-text" style="color:var(--accent2)">Informatica: Il candidato indichi cos'è la firma digitale.</div>
+    </div>
+    <div class="domanda-item" style="border-color:rgba(198,120,221,0.25)">
+      <div class="num" style="color:var(--accent4);background:rgba(198,120,221,0.1);border-color:rgba(198,120,221,0.25)">EN</div>
+      <div class="domanda-text" style="color:var(--text-dim)">Inglese: lettura e commento di un testo scritto (brano Chicago Then &amp; Now — LaSalle Street).</div>
+    </div>
+  </div>
+
+  <!-- CRITERI ORALE -->
+  <div class="valutazione-box">
+    <h4>Criteri di valutazione — Prova Orale</h4>
+    <ul>
+      <li>Completezza e pertinenza delle risposte</li>
+      <li>Capacità di sintesi e di focalizzazione degli aspetti centrali</li>
+      <li>Adeguata proprietà di linguaggio e capacità espressiva</li>
+      <li>Capacità di collegare l'aspetto tecnico con i processi organizzativi ed amministrativi del Settore Programmazione Territoriale</li>
+      <li>Capacità linguistiche (inglese)</li>
+      <li>Capacità informatiche</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PROGRESSIONI INTERNE ═══════════════════════════════ -->
+<section class="section" id="progressioni">
+  <div class="section-title">Progressioni Interne — Specialista 2024</div>
+
+  <p style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">Selezioni interne "in deroga" ex art. 13 c.6 CCNL 16/11/2022 — Colloqui Febbraio/Marzo 2024. Stesso profilo "Specialista in Attività Tecniche" — Area Funzionari ed EQ.</p>
+
+  <!-- OSTELLATO -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Comune di Ostellato — Colloqui del 26/02/2024</span>
+      <span class="card-badge badge-green">Progressione</span>
+    </div>
+    <div class="card-body">
+      <div class="domanda-set">
+        <div class="domanda-set-header"><span>PROVA 1</span></div>
+        <div class="domanda-item comportamentale">
+          <div class="num">C</div>
+          <div class="domanda-text">Durante un periodo di intenso lavoro, ha gestito molte attività contemporaneamente, tutte piuttosto impegnative. Si è reso/a conto di avere commesso degli errori, alcuni non banali. Come pensa di gestire la situazione?</div>
+        </div>
+        <div class="domanda-item tecnica">
+          <div class="num">T</div>
+          <div class="domanda-text">Il programma triennale delle opere pubbliche.</div>
+        </div>
+      </div>
+
+      <div class="domanda-set">
+        <div class="domanda-set-header"><span>PROVA 2</span></div>
+        <div class="domanda-item comportamentale">
+          <div class="num">C</div>
+          <div class="domanda-text">Durante una riunione di coordinamento interfunzionale, al termine di un suo intervento, un collega afferma di non essere affatto d'accordo con la sua opinione, proponendo un'altra soluzione. Le modalità del collega sono molto discutibili, ma il contenuto risulta per lei interessante. Come pensa che reagirebbe?</div>
+        </div>
+        <div class="domanda-item tecnica">
+          <div class="num">T</div>
+          <div class="domanda-text">Il candidato descriva i ruoli di RUP e di DL.</div>
+        </div>
+      </div>
+
+      <div class="domanda-set">
+        <div class="domanda-set-header"><span>PROVA 3</span></div>
+        <div class="domanda-item comportamentale">
+          <div class="num">C</div>
+          <div class="domanda-text">Ha coordinato il suo team nella realizzazione di un'attività. Tutti avete lavorato con molta dedizione, impegnando talvolta anche parte del tempo libero. A suo parere ne è risultato un buon lavoro. Il suo responsabile le dà, però, un riscontro non positivo, indicandole una serie di revisioni. I suoi collaboratori l'aspettano per avere un riscontro. Come gestirebbe la comunicazione?</div>
+        </div>
+        <div class="domanda-item tecnica">
+          <div class="num">T</div>
+          <div class="domanda-text">Il candidato descriva le varie fasi di redazione di un SAL (Stato Avanzamento Lavori) in un lavoro pubblico.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTOMAGGIORE -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Comune di Portomaggiore — Colloqui del 26/02/2024</span>
+      <span class="card-badge badge-green">Progressione</span>
+    </div>
+    <div class="card-body">
+      <div class="domanda-set">
+        <div class="domanda-set-header"><span>PROVA 1</span></div>
+        <div class="domanda-item comportamentale">
+          <div class="num">C</div>
+          <div class="domanda-text">Vi sono due suoi collaboratori che lavorano in coppia ad un'attività e hanno impostazioni completamente differenti su come eseguirla. Le hanno parlato, separatamente, e da entrambi ci sono suggerimenti importanti. Cosa riterrebbe opportuno fare?</div>
+        </div>
+        <div class="domanda-item tecnica">
+          <div class="num">T</div>
+          <div class="domanda-text">Le fasi di programmazione e realizzazione di un'opera pubblica.</div>
+        </div>
+      </div>
+
+      <div class="domanda-set">
+        <div class="domanda-set-header"><span>PROVA 2</span></div>
+        <div class="domanda-item comportamentale">
+          <div class="num">C</div>
+          <div class="domanda-text">Le hanno assegnato un'attività di rilievo, per lei molto interessante ma per la quale non ci sono a disposizione risorse umane o strumentali sufficienti. Come pensa di comportarsi?</div>
+        </div>
+        <div class="domanda-item tecnica">
+          <div class="num">T</div>
+          <div class="domanda-text">Il candidato descriva l'istituto della Consegna dei lavori di un'opera pubblica.</div>
+        </div>
+      </div>
+
+      <div class="domanda-set">
+        <div class="domanda-set-header"><span>PROVA 3</span></div>
+        <div class="domanda-item comportamentale">
+          <div class="num">C</div>
+          <div class="domanda-text">Lei e i suoi collaboratori state conducendo un'attività professionale molto impegnativa. Al momento di mettere insieme i contributi dei diversi colleghi, lei nota, in alcuni di questi, molti errori e sviste. Considerando che il tempo a disposizione è davvero esiguo, cosa pensa di fare?</div>
+        </div>
+        <div class="domanda-item tecnica">
+          <div class="num">T</div>
+          <div class="domanda-text">Il candidato descriva il ruolo del Coordinatore della sicurezza in fase di progettazione ed esecuzione in un lavoro pubblico.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIONE -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Unione dei Comuni (sede) — Colloqui del 01/03/2024</span>
+      <span class="card-badge badge-green">Progressione</span>
+    </div>
+    <div class="card-body">
+      <div class="domanda-set">
+        <div class="domanda-set-header"><span>PROVA 1</span></div>
+        <div class="domanda-item tecnica">
+          <div class="num">T</div>
+          <div class="domanda-text">La Conferenza dei Servizi: inquadramento normativo e applicazione nell'attività che svolge nel suo Servizio.</div>
+        </div>
+        <div class="domanda-item comportamentale">
+          <div class="num">C</div>
+          <div class="domanda-text">Che impatto pensa possa avere il suo nuovo eventuale inquadramento sull'organizzazione del lavoro individuale suo e dei suoi colleghi?</div>
+        </div>
+      </div>
+
+      <div class="domanda-set">
+        <div class="domanda-set-header"><span>PROVA 2</span></div>
+        <div class="domanda-item tecnica">
+          <div class="num">T</div>
+          <div class="domanda-text">Rapporto tra piano urbanistico comunale e regolamento edilizio: inquadramento generale e applicazioni nell'attività che svolge nel suo Servizio.</div>
+        </div>
+        <div class="domanda-item comportamentale">
+          <div class="num">C</div>
+          <div class="domanda-text">Le viene assegnato un incarico complesso. Lei si dedica a un'accurata pianificazione per assicurarsi il rispetto delle tempistiche. A seguito di numerose altre urgenze, non riesce a rispettare il programma. Non ha più tempo per una nuova pianificazione e rischia di non raggiungere l'obiettivo nei tempi definiti. Come pensa di risolvere la situazione?</div>
+        </div>
+      </div>
+
+      <div class="domanda-set">
+        <div class="domanda-set-header"><span>PROVA 3</span></div>
+        <div class="domanda-item tecnica">
+          <div class="num">T</div>
+          <div class="domanda-text">Le attività ammesse in ambito agricolo: inquadramento generale e declinazione nell'attività che svolge nel suo Servizio.</div>
+        </div>
+        <div class="domanda-item comportamentale">
+          <div class="num">C</div>
+          <div class="domanda-text">Durante una riunione, nella quale ha presentato un documento da lei realizzato, un suo collega esprime un parere negativo, criticando il suo operato, con modalità che la mettono in imbarazzo. Cosa pensa sia opportuno fare?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRITERI PROGRESSIONI -->
+  <div class="valutazione-box">
+    <h4>Criteri di valutazione — Progressioni Interne</h4>
+    <ul>
+      <li>Completezza e pertinenza delle risposte</li>
+      <li>Capacità di sintesi e di focalizzazione degli aspetti centrali</li>
+      <li>Adeguata proprietà di linguaggio e capacità espressiva</li>
+      <li>Conoscenza di terminologia appropriata con uso di richiami di carattere normativo e giurisprudenziale</li>
+      <li>Capacità di collegare l'aspetto tecnico con i processi organizzativi ed amministrativi del Settore Tecnico</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ DIRIGENTE ═══════════════════════════════ -->
+<section class="section" id="dirigente">
+  <div class="section-title">Selezione Dirigente 2022 — Domande</div>
+
+  <p style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">Domande reali — Avviso pubblico Dirigente Settore Programmazione Territoriale, Unione Valli e Delizie, colloquio 10/01/2022. Stesso settore, livello superiore: utilissime per anticipare i temi tecnici profondi.</p>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Buste 1–4 — LR 24/2017 e Titoli Edilizi</span>
+      <span class="card-badge badge-blue">Dirigente</span>
+    </div>
+    <div class="card-body">
+      <div class="domanda-item tecnica"><div class="num">B1</div><div class="domanda-text">Il ruolo della Strategia per la Qualità Urbana ed Ecologico-Ambientale (SQUEA) nel processo di formazione del Piano Urbanistico Generale (PUG) ai sensi della LR 24/2017.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B1</div><div class="domanda-text">Modalità di regolarizzazione postuma nei casi di opere eseguite in assenza, parziale o totale difformità dai titoli edilizi: procedure ex art. 34 del DPR 380/2001.</div></div>
+      <div class="domanda-item"><div class="num">B1</div><div class="domanda-text">L'Unione dei Comuni nell'ambito delle forme di gestione associata di servizi e funzioni comunali.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B2</div><div class="domanda-text">Il processo di formazione del Piano Urbanistico Generale (PUG) ai sensi della LR 24/2017.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B2</div><div class="domanda-text">I casi di interventi sottoposti a procedura autorizzatoria paesaggistica: procedura ordinaria.</div></div>
+      <div class="domanda-item"><div class="num">B2</div><div class="domanda-text">Le principali novità introdotte in materia di tutela dei dati personali dal GDPR UE n. 679/2016.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B3</div><div class="domanda-text">L'istituto della VALSAT ai sensi della LR 24/2017 e i principi di integrazione e non duplicazione.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B3</div><div class="domanda-text">I principi della rigenerazione urbana e contenimento del consumo di suolo contenuti nella LR 24/2017.</div></div>
+      <div class="domanda-item"><div class="num">B3</div><div class="domanda-text">L'accesso documentale ai sensi della L. 241/90 e l'accesso civico ai sensi del D.Lgs. n. 33/2013.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B4</div><div class="domanda-text">A seguito della conclusione del periodo transitorio previsto dalla LR 24/2017, quali interventi sono ammissibili (anche con riferimento all'atto di coordinamento tecnico della Giunta Regionale).</div></div>
+      <div class="domanda-item tecnica"><div class="num">B4</div><div class="domanda-text">Gli attuali istituti disciplinanti i titoli edilizi: la Segnalazione Certificata di Inizio Attività (SCIA) ai sensi della vigente normativa.</div></div>
+      <div class="domanda-item"><div class="num">B4</div><div class="domanda-text">I principali contenuti del Piano Triennale di Prevenzione della Corruzione e della Trasparenza (PTPCT).</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Buste 5–8 — Titoli Edilizi, Paesaggio, Procedimento</span>
+      <span class="card-badge badge-blue">Dirigente</span>
+    </div>
+    <div class="card-body">
+      <div class="domanda-item tecnica"><div class="num">B5</div><div class="domanda-text">Gli attuali istituti disciplinanti i titoli edilizi: la Comunicazione di Inizio Lavori Asseverata (CILA) ai sensi della vigente normativa.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B5</div><div class="domanda-text">Il modello organizzativo del SUAP e le principali criticità connesse al coinvolgimento dei servizi a vario titolo interessati dal procedimento.</div></div>
+      <div class="domanda-item"><div class="num">B5</div><div class="domanda-text">I principali documenti di programmazione economico-finanziaria ed organizzativa di un ente locale.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B6</div><div class="domanda-text">Gli attuali istituti disciplinanti i titoli edilizi: il Permesso di Costruire ai sensi della vigente normativa.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B6</div><div class="domanda-text">In relazione a interventi di ampliamento/ristrutturazione di fabbricati per attività d'impresa o nuove costruzioni per lo sviluppo di attività economiche già insediate, i procedimenti attuabili in variante allo strumento urbanistico generale.</div></div>
+      <div class="domanda-item"><div class="num">B6</div><div class="domanda-text">I possibili esiti dell'istruttoria del procedimento amministrativo ai sensi della L. n. 241/90 e le relative conseguenze.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B7</div><div class="domanda-text">Gli attuali istituti disciplinanti i titoli edilizi: il Permesso di Costruire convenzionato ai sensi della vigente normativa.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B7</div><div class="domanda-text">L'istituto dell'accordo operativo previsto dalla LR 24/2017 e confronto con il pregresso istituto degli accordi ex art. 18 della LR 20/2000: principali differenze.</div></div>
+      <div class="domanda-item"><div class="num">B7</div><div class="domanda-text">Il ruolo del Dirigente in un ente locale: compiti e responsabilità.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B8</div><div class="domanda-text">Le modalità di gestione di un procedimento urbanistico scaduto.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B8</div><div class="domanda-text">I casi di interventi sottoposti a procedura autorizzatoria paesaggistica: procedura semplificata.</div></div>
+      <div class="domanda-item"><div class="num">B8</div><div class="domanda-text">Il Documento Unico di Programmazione (DUP) e il PEG/Piano delle Performance: contenuti e relazioni tra i due documenti.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="chevron">▶</span>
+      <span class="card-title">Buste 9–12 — Paesaggio, Abusivismo, Urbanizzazioni</span>
+      <span class="card-badge badge-blue">Dirigente</span>
+    </div>
+    <div class="card-body">
+      <div class="domanda-item tecnica"><div class="num">B9</div><div class="domanda-text">La casistica delle procedure di accertamento di compatibilità paesaggistica e i limiti imposti per legge.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B9</div><div class="domanda-text">Modalità di regolarizzazione postuma nei casi di opere eseguite in assenza, parziale o totale difformità dai titoli edilizi: procedure ex art. 36 del DPR 380/2001.</div></div>
+      <div class="domanda-item"><div class="num">B9</div><div class="domanda-text">I vizi di merito e di legittimità dell'atto amministrativo ed i relativi rimedi.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B10</div><div class="domanda-text">La disciplina degli usi temporanei.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B10</div><div class="domanda-text">L'iter afferente all'avvio di procedure di bonifica di siti contaminati (con declinazione delle eventuali problematiche operative).</div></div>
+      <div class="domanda-item"><div class="num">B10</div><div class="domanda-text">Il Ciclo delle Performance in un ente locale.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B11</div><div class="domanda-text">L'istituto della Conferenza dei Servizi: modalità di convocazione, fattispecie previste dalla normativa vigente, collegamento con casistiche procedimentali di natura urbanistica o edilizia.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B11</div><div class="domanda-text">La disciplina regionale in materia di variazioni essenziali e come esse si relazionino rispetto ai procedimenti sanzionatori.</div></div>
+      <div class="domanda-item"><div class="num">B11</div><div class="domanda-text">Il controllo preventivo di regolarità amministrativo-contabile sugli atti dell'ente locale.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B12</div><div class="domanda-text">Le opere di urbanizzazione a scomputo del contributo di costruzione. Il contributo straordinario previsto dall'art. 16, comma 4, lett. d-ter del DPR 380/2001: casi esclusi dalla sua applicazione in base alle vigenti disposizioni regionali.</div></div>
+      <div class="domanda-item tecnica"><div class="num">B12</div><div class="domanda-text">I principi della Direttiva Bolkestein e le tematiche correlate alla tutela della concorrenza, con riguardo all'insediabilità di funzioni commerciali in sede di pianificazione.</div></div>
+      <div class="domanda-item"><div class="num">B12</div><div class="domanda-text">I poteri di autotutela della Pubblica Amministrazione.</div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  function toggleCard(header) {
+    header.classList.toggle('open');
+    const body = header.nextElementSibling;
+    body.classList.toggle('open');
+  }
+
+  function setActive(link) {
+    document.querySelectorAll('.nav-tabs a').forEach(a => a.classList.remove('active'));
+    link.classList.add('active');
+  }
+
+  // Sync active tab on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-tabs a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 120;
+      if (window.scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
