@@ -1,1167 +1,910 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="auto">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAL 186/2018 + L.R. 23/2004 — Guida Concorso</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>DAL 186/2018 + L.R. 23/2004 — Contributo di Costruzione e Vigilanza Edilizia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=Crimson+Pro:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-:root {
-  --bg: #f4f3ef;
-  --white: #ffffff;
-  --ink: #1a1917;
-  --muted: #56524a;
-  --light: #9a9488;
-  --border: #e0dcd4;
-  --blue: #1a4a8a;
-  --blue-bg: #edf2fb;
-  --blue-mid: #2e6dd4;
-  --green: #1a5a38;
-  --green-bg: #e8f4ee;
-  --orange: #7a3c08;
-  --orange-bg: #fdf0e2;
-  --red: #7a1818;
-  --red-bg: #fdf0f0;
-  --purple: #491878;
-  --purple-bg: #f3eefb;
-  --teal: #0d5a5a;
-  --teal-bg: #e6f3f3;
-  --gold: #6b4e00;
-  --gold-bg: #fdf6e3;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.75; }
+  :root {
+    --page-color:        #1a4a8a;
+    --page-color2:       #0d2d6b;
+    --page-color-bg:     #edf2fb;
+    --page-color-border: #90b8f0;
+  }
 
-/* HEADER */
-header { background: var(--ink); position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
-.hinner { max-width: 980px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; overflow-x: auto; scrollbar-width: none; gap: 0; }
-.hinner::-webkit-scrollbar { display: none; }
-.hlogo { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); white-space: nowrap; padding: 14px 18px 14px 0; border-right: 1px solid rgba(255,255,255,0.1); margin-right: 6px; letter-spacing: 0.05em; }
-nav button { background: none; border: none; color: rgba(255,255,255,0.5); font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500; padding: 14px 13px; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; }
-nav button:hover { color: white; }
-nav button.active { color: white; border-bottom-color: #f59e0b; }
+  [id] { scroll-margin-top: 80px; }
 
-main { max-width: 980px; margin: 0 auto; padding: 32px 20px 100px; }
-.section { display: none; }
-.section.active { display: block; }
+  .formula-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.2rem 1.5rem;
+    margin: .8rem 0;
+    font-family: var(--mono);
+    text-align: center;
+  }
+  .formula-eq {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--page-color);
+    margin-bottom: .8rem;
+    letter-spacing: .04em;
+  }
+  .formula-terms {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .5rem;
+  }
+  .fterm {
+    display: inline-block;
+    font-size: .72rem;
+    padding: .25rem .7rem;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--ink2);
+  }
 
-/* HERO */
-.hero { border-radius: 12px; padding: 36px; margin-bottom: 32px; position: relative; overflow: hidden; }
-.hero-186 { background: linear-gradient(135deg, #0d2d6b 0%, #1a4a8a 100%); }
-.hero-23 { background: linear-gradient(135deg, #1a0a3a 0%, #491878 100%); }
-.hero-stripe { position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,255,255,0.02) 30px, rgba(255,255,255,0.02) 60px); }
-.hero-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; position: relative; z-index: 1; }
-.hero-186 .hero-tag { color: #fbbf24; }
-.hero-23 .hero-tag { color: #c084fc; }
-.hero h1 { font-size: 28px; font-weight: 700; color: white; line-height: 1.2; margin-bottom: 12px; position: relative; z-index: 1; }
-.hero p { color: rgba(255,255,255,0.65); font-size: 14px; position: relative; z-index: 1; }
-.hero-law { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 10px; border-radius: 4px; margin-bottom: 14px; position: relative; z-index: 1; }
-.hero-186 .hero-law { background: rgba(251,191,36,0.2); color: #fbbf24; }
-.hero-23 .hero-law { background: rgba(192,132,252,0.2); color: #c084fc; }
+  .classe-row {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: .5rem 0;
+  }
+  .classe-letter {
+    background: var(--page-color);
+    color: white;
+    font-family: var(--mono);
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .classe-body {
+    padding: .7rem 1rem;
+    background: var(--card);
+    border-left: 1px solid var(--border);
+  }
+  .classe-body strong { display: block; font-size: .85rem; margin-bottom: .2rem; }
+  .classe-body span { font-size: .8rem; color: var(--ink2); }
 
-/* SECTION TITLE */
-.stitle { font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
-.ssub { color: var(--muted); font-size: 14px; margin-bottom: 28px; line-height: 1.5; }
+  .sanz-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+    margin: .8rem 0;
+  }
+  .sanz-card {
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    padding: 1rem 1.1rem;
+    background: var(--card);
+  }
+  .sanz-card h4 {
+    font-family: var(--mono);
+    font-size: .67rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+  .sanz-card p { font-size: .85rem; line-height: 1.6; color: var(--ink2); }
+  .sanz-card.demolizione h4 { color: #C0392B; }
+  .sanz-card.fiscalizzazione h4 { color: #C9670A; }
+  .sanz-card.acquisizione h4 { color: #6B2FA0; }
+  .sanz-card.pecuniaria h4 { color: #1a5a38; }
 
-/* CARD */
-.card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.chead { padding: 15px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: background 0.15s; border-bottom: 1px solid transparent; }
-.chead:hover { background: var(--bg); }
-.card.open .chead { border-bottom-color: var(--border); }
-.abadge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; padding: 3px 9px; border-radius: 4px; white-space: nowrap; letter-spacing: 0.07em; }
-.ab-blue { background: var(--blue-bg); color: var(--blue); }
-.ab-purple { background: var(--purple-bg); color: var(--purple); }
-.ab-green { background: var(--green-bg); color: var(--green); }
-.ab-orange { background: var(--orange-bg); color: var(--orange); }
-.ab-teal { background: var(--teal-bg); color: var(--teal); }
-.chead h3 { font-size: 15px; font-weight: 600; flex: 1; color: var(--ink); }
-.chev { color: var(--light); font-size: 12px; transition: transform 0.2s; }
-.card.open .chev { transform: rotate(180deg); }
-.cbody { display: none; padding: 22px; }
-.card.open .cbody { display: block; }
+  .case {
+    background: var(--realq-bg);
+    border-left: 5px solid var(--realq-br);
+    border-radius: 4px;
+    padding: 1.1rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .case-tag {
+    font-family: var(--mono);
+    font-size: .63rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--realq-br);
+    margin-bottom: .4rem;
+  }
+  .case-title {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: .7rem;
+  }
+  .case p { font-size: .9rem; line-height: 1.7; }
+  .case-answer {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: .9rem 1.1rem;
+    margin-top: .8rem;
+    font-size: .88rem;
+    line-height: 1.7;
+    color: var(--ink2);
+  }
+  .case-answer ol { padding-left: 1.3rem; margin: .5rem 0; }
+  .case-answer li { margin-bottom: .3rem; }
 
-/* TEXT */
-p { color: var(--muted); margin-bottom: 14px; font-size: 14.5px; }
-p:last-child { margin-bottom: 0; }
-strong { color: var(--ink); font-weight: 600; }
-h4 { font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); margin: 22px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-h4:first-child { margin-top: 0; }
-h4.purple { color: var(--purple); }
-h4.green { color: var(--green); }
-h4.orange { color: var(--orange); }
-ul { list-style: none; margin: 0 0 14px; }
-ul li { padding: 6px 0 6px 20px; color: var(--muted); font-size: 14px; position: relative; border-bottom: 1px solid rgba(0,0,0,0.04); }
-ul li:last-child { border-bottom: none; }
-ul li::before { content: '›'; color: var(--blue-mid); position: absolute; left: 5px; font-weight: 700; font-size: 15px; }
-ol { margin: 0 0 14px 18px; }
-ol li { padding: 4px 0; color: var(--muted); font-size: 14px; }
+  .quiz-score-box {
+    background: var(--page-color);
+    color: white;
+    border-radius: 6px;
+    padding: 1.2rem 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .quiz-score-box .big { font-family: var(--mono); font-size: 2.5rem; font-weight: 700; line-height: 1; }
+  .quiz-score-box .lbl { font-size: .85rem; opacity: .75; margin-top: .3rem; }
+  .pbar { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 1.5rem; overflow: hidden; }
+  .pfill { height: 100%; background: var(--page-color); border-radius: 2px; transition: width .3s; }
 
-/* BOX */
-.box { border-radius: 8px; padding: 15px 18px; margin: 16px 0; font-size: 14px; line-height: 1.65; }
-.box b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 6px; }
-.box-blue { background: var(--blue-bg); border-left: 3px solid var(--blue-mid); color: var(--blue); }
-.box-green { background: var(--green-bg); border-left: 3px solid var(--green); color: var(--green); }
-.box-orange { background: var(--orange-bg); border-left: 3px solid var(--orange); color: var(--orange); }
-.box-red { background: var(--red-bg); border-left: 3px solid var(--red); color: var(--red); }
-.box-purple { background: var(--purple-bg); border-left: 3px solid var(--purple); color: var(--purple); }
-.box-teal { background: var(--teal-bg); border-left: 3px solid var(--teal); color: var(--teal); }
-.box-gold { background: var(--gold-bg); border-left: 3px solid var(--gold); color: var(--gold); }
-
-/* FORMULA */
-.formula { background: var(--ink); color: white; border-radius: 10px; padding: 22px; margin: 18px 0; text-align: center; font-family: 'JetBrains Mono', monospace; }
-.formula .eq { font-size: 18px; font-weight: 500; color: #fbbf24; margin-bottom: 10px; letter-spacing: 0.05em; }
-.formula .breakdown { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.fterm { display: inline-block; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; }
-.ft-blue { background: rgba(46,109,212,0.25); color: #93c5fd; }
-.ft-green { background: rgba(26,90,56,0.3); color: #86efac; }
-.ft-orange { background: rgba(122,60,8,0.3); color: #fdba74; }
-.ft-purple { background: rgba(73,24,120,0.3); color: #d8b4fe; }
-.ft-teal { background: rgba(13,90,90,0.3); color: #99f6e4; }
-.ft-red { background: rgba(122,24,24,0.3); color: #fca5a5; }
-
-/* TABLE */
-.tw { overflow-x: auto; margin: 16px 0; }
-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-th { background: var(--ink); color: white; padding: 10px 14px; text-align: left; font-weight: 500; font-size: 12px; letter-spacing: 0.05em; }
-td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; }
-tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
-tr:hover td { background: var(--bg); }
-.tag { display: inline-block; font-size: 11px; padding: 2px 9px; border-radius: 100px; font-weight: 500; white-space: nowrap; }
-.tg-blue { background: var(--blue-bg); color: var(--blue); }
-.tg-green { background: var(--green-bg); color: var(--green); }
-.tg-orange { background: var(--orange-bg); color: var(--orange); }
-.tg-red { background: var(--red-bg); color: var(--red); }
-.tg-purple { background: var(--purple-bg); color: var(--purple); }
-
-/* GRID */
-.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
-.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 16px 0; }
-@media(max-width:640px) { .g2,.g3 { grid-template-columns: 1fr; } }
-.mini { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-size: 13.5px; }
-.mini strong { color: var(--blue); display: block; margin-bottom: 6px; font-size: 13px; }
-.mini p { font-size: 13px; }
-.mini.purple strong { color: var(--purple); }
-.mini.green strong { color: var(--green); }
-.mini.orange strong { color: var(--orange); }
-
-/* FLOW */
-.flow { margin: 18px 0; }
-.fstep { display: flex; gap: 14px; position: relative; }
-.fstep:not(:last-child)::after { content: ''; position: absolute; left: 15px; top: 33px; width: 2px; height: calc(100% - 6px); background: var(--border); z-index: 0; }
-.fnum { width: 32px; height: 32px; border-radius: 50%; color: white; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1; margin-top: 2px; }
-.fn-blue { background: var(--blue); }
-.fn-purple { background: var(--purple); }
-.fn-red { background: var(--red); }
-.fn-green { background: var(--green); }
-.fcontent { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; flex: 1; margin-bottom: 10px; }
-.ftitle { font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 4px; }
-.fnote { font-size: 13px; color: var(--muted); line-height: 1.6; }
-.ftiming { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 8px; border-radius: 3px; display: inline-block; margin-top: 6px; }
-.ft-blue-t { background: var(--blue-bg); color: var(--blue); }
-.ft-red-t { background: var(--red-bg); color: var(--red); }
-
-/* CLASSE COMUNE */
-.classe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 16px 0; }
-.classe-card { border-radius: 8px; border: 1.5px solid var(--border); padding: 16px; background: var(--white); text-align: center; }
-.classe-num { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; color: var(--blue); line-height: 1; margin-bottom: 6px; }
-.classe-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-.classe-ex { font-size: 11px; font-style: italic; margin-top: 8px; color: var(--light); }
-
-/* SANZIONE CARD */
-.sanz-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 16px 0; }
-.sanz-card { border-radius: 10px; border: 1.5px solid; padding: 18px; }
-.sanz-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
-.sanz-body { font-size: 13px; line-height: 1.6; }
-.sanz-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 8px; border-radius: 3px; display: inline-block; margin-bottom: 8px; font-weight: 500; }
-.sc-dem { border-color: var(--red); background: var(--red-bg); color: var(--red); }
-.sc-fisc { border-color: var(--orange); background: var(--orange-bg); color: var(--orange); }
-.sc-acq { border-color: var(--purple); background: var(--purple-bg); color: var(--purple); }
-.sc-pec { border-color: var(--teal); background: var(--teal-bg); color: var(--teal); }
-
-/* QUIZ */
-.qcard { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 22px; margin-bottom: 16px; }
-.qnum { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--blue); background: var(--blue-bg); padding: 2px 8px; border-radius: 3px; display: inline-block; margin-bottom: 10px; letter-spacing: 0.07em; }
-.qtext { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 16px; line-height: 1.4; }
-.opts { display: flex; flex-direction: column; gap: 8px; }
-.opt { border: 1.5px solid var(--border); border-radius: 7px; padding: 11px 15px; cursor: pointer; font-size: 14px; color: var(--muted); transition: all 0.15s; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
-.opt:hover { border-color: var(--blue-mid); background: var(--blue-bg); color: var(--blue); }
-.opt.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
-.opt.wrong { border-color: var(--red); background: var(--red-bg); color: var(--red); }
-.optL { font-family: 'JetBrains Mono', monospace; font-size: 11px; width: 22px; height: 22px; border-radius: 50%; background: var(--bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--muted); font-weight: 500; border: 1px solid var(--border); }
-.opt.correct .optL { background: var(--green); color: white; border-color: var(--green); }
-.opt.wrong .optL { background: var(--red); color: white; border-color: var(--red); }
-.qexpl { margin-top: 14px; padding: 14px 16px; background: var(--blue-bg); border-radius: 7px; font-size: 13.5px; color: var(--blue); display: none; border-left: 3px solid var(--blue-mid); line-height: 1.65; }
-.qexpl.show { display: block; }
-.answered { pointer-events: none; }
-.score-box { background: var(--ink); color: white; border-radius: 10px; padding: 22px 28px; text-align: center; margin-bottom: 22px; }
-.score-big { font-size: 52px; font-weight: 700; color: #fbbf24; line-height: 1; }
-.score-lbl { color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 4px; }
-.pbar { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 22px; overflow: hidden; }
-.pfill { height: 100%; background: #fbbf24; border-radius: 2px; transition: width 0.3s; }
-
-/* CASE STUDY */
-.case { background: var(--gold-bg); border: 1px solid #d4a017; border-radius: 10px; padding: 20px; margin: 18px 0; }
-.case-hd { font-size: 13px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
-.case-title { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 12px; }
-.case-body { font-size: 14px; color: var(--muted); }
-.case-ans { background: white; border-radius: 8px; padding: 14px 18px; margin-top: 12px; border-left: 3px solid #d4a017; font-size: 14px; color: var(--muted); }
-
-/* BTN */
-.btn { padding: 9px 20px; border-radius: 6px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; border: none; }
-.btn-dark { background: var(--ink); color: white; }
-.btn-out { background: white; color: var(--ink); border: 1.5px solid var(--border); }
-
-code { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: var(--bg); border: 1px solid var(--border); padding: 1px 6px; border-radius: 3px; color: var(--blue); }
-
-.foot { font-size: 11px; color: var(--light); text-align: center; margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); }
-
-/* ABBR GRID */
-.abbr-grid { display: grid; grid-template-columns: 60px 1fr; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 16px 0; }
-.abbr-key { background: var(--ink); color: #fbbf24; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; padding: 14px 8px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-.abbr-key:last-of-type { border-bottom: none; }
-.abbr-val { padding: 12px 16px; font-size: 13.5px; color: var(--muted); border-bottom: 1px solid var(--border); display: flex; align-items: center; }
-.abbr-val:last-child { border-bottom: none; }
-.abbr-val strong { color: var(--ink); margin-right: 6px; }
-
-/* HIGHLIGHT ROW */
-.hl-row { display: flex; align-items: center; gap: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin: 8px 0; font-size: 14px; }
-.hl-icon { font-size: 18px; flex-shrink: 0; }
-.hl-text { color: var(--muted); flex: 1; }
-.hl-text strong { color: var(--ink); }
-
-/* CONFRONTO */
-.confronto { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 16px 0; }
-.conf-hd { padding: 12px 16px; font-size: 13px; font-weight: 600; }
-.conf-hd.a { background: var(--blue); color: white; }
-.conf-hd.b { background: var(--purple); color: white; border-left: 1px solid rgba(255,255,255,0.2); }
-.conf-row { display: contents; }
-.conf-a { padding: 10px 16px; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--border); background: var(--blue-bg); }
-.conf-b { padding: 10px 16px; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); background: var(--purple-bg); }
+  .mc-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .mc-q { padding: 1rem 1.3rem; font-size: .93rem; font-weight: 600; color: var(--ink); }
+  .mc-num {
+    font-family: var(--mono);
+    font-size: .63rem;
+    color: var(--page-color);
+    display: block;
+    margin-bottom: .3rem;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+  .mc-opts { padding: 0 1rem 1rem; display: flex; flex-direction: column; gap: .5rem; }
+  .mc-opt {
+    border: 1.5px solid var(--border);
+    border-radius: 5px;
+    padding: .6rem .9rem;
+    cursor: pointer;
+    font-size: .88rem;
+    color: var(--ink2);
+    transition: all .15s;
+    display: flex;
+    gap: .7rem;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .mc-opt:hover { border-color: var(--page-color); background: var(--page-color-bg); }
+  .mc-opt.correct { border-color: #1a5a38; background: var(--alert-green-bg); color: #1a5a38; }
+  .mc-opt.wrong { border-color: #C0392B; background: var(--alert-red-bg); color: #C0392B; }
+  .mc-opt .ol {
+    font-family: var(--mono);
+    font-size: .7rem;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--bg2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--ink2);
+    border: 1px solid var(--border);
+  }
+  .mc-opt.correct .ol { background: #1a5a38; color: white; border-color: #1a5a38; }
+  .mc-opt.wrong .ol { background: #C0392B; color: white; border-color: #C0392B; }
+  .mc-expl {
+    margin: .5rem 1rem 1rem;
+    padding: .8rem 1rem;
+    background: var(--alert-blue-bg);
+    border: 1px solid var(--alert-blue-br);
+    border-radius: 5px;
+    font-size: .86rem;
+    color: var(--ink2);
+    display: none;
+    line-height: 1.65;
+  }
+  .mc-expl.show { display: block; }
+  .answered { pointer-events: none; }
+  .btn-reset {
+    font-family: var(--mono);
+    font-size: .7rem;
+    padding: .4rem 1rem;
+    border-radius: 4px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--ink2);
+    cursor: pointer;
+    letter-spacing: .05em;
+  }
+  .btn-reset:hover { border-color: var(--page-color); color: var(--page-color); }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="hinner">
-    <div class="hlogo">Concorso Tecnico</div>
-    <nav id="nav">
-      <button class="active" onclick="go('intro',this)">Panoramica</button>
-      <button onclick="go('dal186',this)">DAL 186/2018 — Contributo</button>
-      <button onclick="go('componenti',this)">Le Componenti U1 U2 QCC CS</button>
-      <button onclick="go('calcolo',this)">Calcolo e Riduzioni</button>
-      <button onclick="go('lr23',this)">L.R. 23/2004 — Vigilanza</button>
-      <button onclick="go('abusi',this)">Tipi di Abuso</button>
-      <button onclick="go('sanzioni',this)">Sanzioni e Procedura</button>
-      <button onclick="go('casi',this)">Casi Pratici</button>
-      <button onclick="go('quiz',this)">Quiz</button>
-    </nav>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="badge">Concorso Specialista Tecnico · Unione Valli e Delizie</div>
+      <h1>DAL 186/2018 + L.R. 23/2004</h1>
+      <p>Contributo di costruzione e vigilanza edilizia in Emilia-Romagna — aggiornato a DGR 91/2024, DGR 1210/2025, L.R. 5/2025</p>
+    </div>
+    <div class="controls">
+      <div class="toggle-row">
+        <span class="toggle-label">Dark</span>
+        <label class="toggle">
+          <input type="checkbox" id="darkToggle" onchange="toggleDark(this)">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+    </div>
   </div>
 </header>
 
-<main>
-
-<!-- ====== INTRO ====== -->
-<section id="intro" class="section active">
-  <div class="hero hero-186">
-    <div class="hero-stripe"></div>
-    <div class="hero-law">DAL 186/2018 + L.R. 23/2004</div>
-    <div class="hero-tag">Emilia-Romagna · Edilizia e Urbanistica</div>
-    <h1>Contributo di Costruzione<br>e Vigilanza Edilizia</h1>
-    <p>Quanto si paga per costruire e cosa succede quando si costruisce illegalmente. Due leggi che un tecnico comunale usa ogni settimana.</p>
+<div class="nav-wrap">
+  <div class="nav-pills">
+    <a href="#intro" class="nav-pill">Intro</a>
+    <a href="#logica" class="nav-pill">Perché esiste</a>
+    <a href="#classi" class="nav-pill">Classi Comuni</a>
+    <a href="#componenti" class="nav-pill">Componenti CC</a>
+    <a href="#u1u2" class="nav-pill">U1 + U2</a>
+    <a href="#qcc" class="nav-pill">QCC</a>
+    <a href="#cs" class="nav-pill">CS Straordinario</a>
+    <a href="#calcolo" class="nav-pill">Calcolo</a>
+    <a href="#esoneri" class="nav-pill">Esoneri</a>
+    <a href="#lr23" class="nav-pill">L.R. 23/2004</a>
+    <a href="#chifaracosa" class="nav-pill">Chi fa cosa</a>
+    <a href="#tipiabuso" class="nav-pill">Tipi di abuso</a>
+    <a href="#iter" class="nav-pill">Iter sanzionatorio</a>
+    <a href="#sanzioni" class="nav-pill">Le sanzioni</a>
+    <a href="#conformita" class="nav-pill">Accertamento conformità</a>
+    <a href="#condono" class="nav-pill">Condono 2003</a>
+    <a href="#casi" class="nav-pill">Casi pratici</a>
+    <a href="#quiz" class="nav-pill">Quiz</a>
   </div>
-
-  <div class="g2">
-    <div class="mini">
-      <strong>DAL 186/2018 — Il contributo</strong>
-      <p>Chiunque costruisce deve pagare il Comune. La Delibera dell'Assemblea Legislativa 186/2018 stabilisce <em>quanto, come e quando</em>. Sostituisce la vecchia DCR 850/1998. In vigore dall'11 gennaio 2019.</p>
-    </div>
-    <div class="mini purple">
-      <strong>L.R. 23/2004 — La vigilanza</strong>
-      <p>Se qualcuno costruisce senza permesso o in difformità, cosa fa il Comune? Questa legge regionale disciplina tutta la macchina sanzionatoria: dall'accertamento alla demolizione.</p>
-    </div>
-  </div>
-
-  <div class="box box-blue">
-    <b>📌 Perché sono nel programma del tuo concorso</b>
-    Come Specialista Tecnico al Settore Programmazione Territoriale dell'Unione, queste due norme le applichi ogni giorno: calcoli il contributo di costruzione per ogni permesso che istruisci, e gestisci i procedimenti sanzionatori per gli abusi che la Polizia Locale ti segnala. Non sono norme da sapere a memoria ma da capire nel meccanismo.
-  </div>
-
-  <div class="box box-gold">
-    <b>⚠️ Aggiornamenti recenti da sapere</b>
-    La DAL 186/2018 è stata modificata dalla DGR 91/2024 (aggiornamento quinquennale oneri) e dalla DGR 1210/2025 (aggiornamento coefficienti QCC). La L.R. 23/2004 è stata modificata dalla L.R. 5/2025 e L.R. 11/2025 per recepire il Decreto Salva Casa (D.L. 69/2024). Cita queste modifiche se le domande toccano l'attualità normativa.
-  </div>
-</section>
-
-<!-- ====== DAL 186 — STRUTTURA ====== -->
-<section id="dal186" class="section">
-  <div class="stitle">DAL 186/2018 — Il Contributo di Costruzione</div>
-  <div class="ssub">La norma che disciplina quanto si paga al Comune per costruire, ristrutturare o cambiare destinazione d'uso in Emilia-Romagna</div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-blue">PERCHÉ ESISTE</span>
-      <h3>Il senso del contributo — partire dalla logica</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>Quando costruisci una casa nuova, non usi solo il tuo lotto: usi la strada davanti, la fognatura sotto, i parchi del quartiere, la scuola elementare a 500 metri. Queste infrastrutture le ha pagate (e le deve mantenere) la collettività — cioè il Comune.</p>
-      <p>Il principio alla base del contributo di costruzione è semplice: <strong>chi trasforma il territorio genera un nuovo carico urbanistico</strong>, quindi deve contribuire ai costi che quella trasformazione impone alla collettività. È un corrispettivo di diritto pubblico, non una tassa — non va al bilancio generale ma deve essere destinato a opere di urbanizzazione.</p>
-      <div class="box box-blue">
-        <b>📖 La catena normativa</b>
-        L. 10/1977 (prima norma nazionale) → Art. 16 DPR 380/2001 (testo unico statale) → Art. 30 L.R. 15/2013 (norma regionale di attuazione) → DAL 186/2018 (delibera che fissa i parametri di calcolo per l'Emilia-Romagna) → Delibera comunale di recepimento (ogni Comune adotta la propria entro i limiti regionali).
-      </div>
-      <p>La DAL 186/2018 non è una legge regionale — è una <strong>deliberazione dell'Assemblea Legislativa</strong>, che ha però forza vincolante per i Comuni. I Comuni sono tenuti a recepirla e possono solo modificarla entro i margini di autonomia che la delibera stessa esplicitamente concede.</p>
-    </div>
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-blue">CHI PAGA E QUANDO</span>
-      <h3>Interventi onerosi — quando scatta l'obbligo</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>Il contributo è dovuto per tutti gli interventi che richiedono un <strong>titolo abilitativo edilizio</strong> (permesso di costruire, SCIA, anche in sanatoria), salvo specifici casi di esonero. Si parla di interventi «onerosi».</p>
-      <h4>Interventi sempre onerosi</h4>
-      <ul>
-        <li>Nuova costruzione</li>
-        <li>Ristrutturazione edilizia con demolizione e ricostruzione</li>
-        <li>Ampliamento di edifici esistenti</li>
-        <li>Mutamento della destinazione d'uso con opere</li>
-        <li>Mutamento della destinazione d'uso senza opere (se aumenta il carico urbanistico)</li>
-        <li>Interventi di addensamento o sostituzione urbana previsti dal PUG</li>
-      </ul>
-      <h4>Chi è il soggetto obbligato</h4>
-      <p>Il soggetto che presenta il titolo edilizio: proprietario, superficiario, o altro soggetto avente titolo. Il contributo si paga <strong>prima del rilascio del permesso di costruire</strong> o contestualmente alla SCIA. Non si può iniziare i lavori senza averlo versato (salvo rateizzazione autorizzata).</p>
-      <div class="box box-orange">
-        <b>⚠️ Contributo in sanatoria</b>
-        Per i titoli edilizi in sanatoria (accertamento di conformità ex art. 17 L.R. 23/2004), il contributo è dovuto in misura doppia rispetto all'ordinario, oltre all'oblazione. Questa maggiorazione è la «penale» per aver costruito senza titolo.
-      </div>
-    </div>
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-blue">CLASSI COMUNI</span>
-      <h3>Le 4 classi di Comuni — la base per il calcolo</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>La DAL 186/2018 ha semplificato il sistema di classificazione, riducendo le classi da sette a quattro. A ogni classe corrispondono valori unitari degli oneri diversi — più alto è il Comune (in termini di dimensione/posizione), più alti sono gli oneri.</p>
-      <div class="classe-grid">
-        <div class="classe-card">
-          <div class="classe-num">I</div>
-          <div class="classe-desc">Comuni con più di 50.000 abitanti + Comuni capoluogo di Provincia + Comuni della Città metropolitana di Bologna</div>
-          <div class="classe-ex">Bologna, Ferrara, Modena, Parma...</div>
-        </div>
-        <div class="classe-card">
-          <div class="classe-num">II</div>
-          <div class="classe-desc">Comuni con 15.001–50.000 abitanti + Comuni confinanti con capoluogo di Provincia + Comuni sulla Via Emilia o in zona costiera «fronte mare»</div>
-          <div class="classe-ex">Argenta (se supera 15.000 ab.), comuni della cintura di Ferrara</div>
-        </div>
-        <div class="classe-card">
-          <div class="classe-num">III</div>
-          <div class="classe-desc">Comuni con 5.001–15.000 abitanti</div>
-          <div class="classe-ex">Argenta (~22.000 ab → II classe), Ostellato (~6.000 ab → III classe)</div>
-        </div>
-        <div class="classe-card">
-          <div class="classe-num">IV</div>
-          <div class="classe-desc">Comuni con meno di 5.000 abitanti</div>
-          <div class="classe-ex">Portomaggiore (~11.000 ab → III classe)</div>
-        </div>
-      </div>
-      <div class="box box-blue">
-        <b>📍 Dove stanno i Comuni dell'Unione</b>
-        Argenta ha circa 22.000 abitanti → <strong>Classe II</strong>. Portomaggiore ha circa 11.000 → <strong>Classe III</strong>. Ostellato ha circa 6.000 → <strong>Classe III</strong>. Tutti e tre NON sono capoluogo di provincia, NON sono sulla Via Emilia, NON sono in zona costiera. La classe si verifica ogni 5 anni con il censimento ISTAT.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== COMPONENTI ====== -->
-<section id="componenti" class="section">
-  <div class="stitle">Le Componenti del Contributo</div>
-  <div class="ssub">Il contributo non è una cifra unica — è la somma di più voci con logiche diverse</div>
-
-  <div class="formula">
-    <div class="eq">CC = U1 + U2 + QCC + CS + D + S</div>
-    <div class="breakdown">
-      <span class="fterm ft-blue">U1 — Urbanizzazione primaria</span>
-      <span class="fterm ft-green">U2 — Urbanizzazione secondaria</span>
-      <span class="fterm ft-orange">QCC — Quota Costo Costruzione</span>
-      <span class="fterm ft-purple">CS — Contributo Straordinario</span>
-      <span class="fterm ft-teal">D — Rifiuti</span>
-      <span class="fterm ft-red">S — Sistemazione luoghi</span>
-    </div>
-  </div>
-
-  <div class="box box-gold" style="margin-bottom:24px">
-    <b>Prima di tutto: U1 + U2 = «Oneri di urbanizzazione». QCC = «Costo di costruzione». CS è separato e vale solo fuori dal territorio urbanizzato. D e S sono contributi minori per rifiuti e sistemazione luoghi.</b>
-    Questa distinzione fondamentale divide il contributo in due blocchi: gli <strong>oneri di urbanizzazione</strong> (pagano le infrastrutture collettive) e il <strong>costo di costruzione</strong> (proporzionale al valore dell'edificio). Sono logiche diverse: gli oneri guardano al territorio, il costo di costruzione guarda all'edificio.
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-blue">U1</span>
-      <h3>Urbanizzazione Primaria — le infrastrutture sotto casa</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>Le opere di urbanizzazione primaria sono quelle direttamente connesse all'edificio e ai lotti: quelle che permettono fisicamente di abitare un posto. Senza di esse l'edificio non funziona.</p>
-      <h4>Cosa comprende U1</h4>
-      <ul>
-        <li>Strade residenziali e marciapiedi</li>
-        <li>Spazi di sosta e parcheggi di quartiere</li>
-        <li>Rete idrica (acquedotto)</li>
-        <li>Rete fognaria (acque nere e meteoriche)</li>
-        <li>Rete elettrica di distribuzione, gas, telecomunicazioni</li>
-        <li>Pubblica illuminazione</li>
-        <li>Spazi verdi attrezzati di quartiere</li>
-      </ul>
-      <p>U1 si calcola applicando alla <strong>superficie utile (SU)</strong> dell'intervento i valori unitari della Tabella B della DAL, modificati dalla percentuale della classe del Comune (Tabella A) e dai parametri del tipo di intervento e localizzazione (Tabella C).</p>
-      <div class="box box-blue">
-        <b>💡 La logica del calcolo di U1</b>
-        Valore unitario dalla Tabella B (€/mq) × percentuale classe Comune (Tabella A) × coefficiente tipo intervento (Tabella C) = U1 per mq di SU. Poi si moltiplica per la SU totale dell'intervento.
-      </div>
-    </div>
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-green">U2</span>
-      <h3>Urbanizzazione Secondaria — i servizi della città</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>Le opere di urbanizzazione secondaria sono quelle che rendono la città vivibile oltre il singolo edificio: i servizi collettivi che servono un quartiere o tutta la città. Mentre U1 è «sotto casa», U2 è «nel quartiere e in città».</p>
-      <h4>Cosa comprende U2</h4>
-      <ul>
-        <li>Asili nido, scuole materne, elementari e medie</li>
-        <li>Mercati di quartiere</li>
-        <li>Delegazioni comunali e uffici di prossimità</li>
-        <li>Chiese e attrezzature religiose (fino al limite previsto)</li>
-        <li>Impianti sportivi di quartiere</li>
-        <li>Centri sociali e attrezzature culturali di quartiere</li>
-        <li>Aree verdi di quartiere (oltre quelle di U1)</li>
-      </ul>
-      <p>Il calcolo di U2 segue la stessa logica di U1: valori unitari regionali × percentuale classe Comune × coefficiente tipo/localizzazione, applicato alla SU.</p>
-      <div class="box box-orange">
-        <b>⚠️ Riduzioni specifiche su U2 — importanti per l'esame</b>
-        U2 può essere ridotta (o azzerata) in casi specifici: strutture religiose (fino al 50%), strutture socio-sanitarie e anziani (fino alla completa esenzione su U2), edilizia residenziale sociale — ERS (riduzione fino al 20% su U1 e U2 se alloggi ≤ 95 mq), attività produttive in aree ecologicamente attrezzate (riduzione 20% su U1 e U2). I Comuni possono ampliare queste riduzioni entro i limiti della DAL.
-      </div>
-    </div>
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-orange">QCC</span>
-      <h3>Quota del Costo di Costruzione — il contributo sull'edificio</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>La QCC è diversa da U1 e U2 nella sua logica: non guarda alle infrastrutture ma al <strong>valore dell'edificio</strong> che si costruisce. È una percentuale del costo di costruzione stimato secondo parametri regionali — più l'edificio vale, più si paga.</p>
-      <h4>Come si calcola la QCC</h4>
-      <p>La DAL fornisce un calcolatore e delle schede (A, B, C, D) divise per categoria funzionale e tipo di intervento:</p>
-      <ul>
-        <li><strong>Scheda A</strong> — Calcolo QCC per nuova costruzione, categoria residenziale</li>
-        <li><strong>Scheda B</strong> — Calcolo QCC per interventi su edifici esistenti, residenza</li>
-        <li><strong>Scheda C</strong> — Nuova costruzione e demolizione+ricostruzione, commerciale/direzionale</li>
-        <li><strong>Scheda D</strong> — Interventi su esistente, commerciale/direzionale</li>
-      </ul>
-      <p>La QCC tiene conto di: superficie utile, coefficienti di conversione per tipo d'uso, valore A-medio del Comune (basato sulle quotazioni OMI — Osservatorio del Mercato Immobiliare). Il valore A-medio è quello che differenzia tra un appartamento in zona pregiata e uno in zona periferica dello stesso Comune.</p>
-      <div class="box box-gold">
-        <b>🔄 Aggiornamento DGR 1210/2025</b>
-        I coefficienti di conversione per il calcolo della QCC sono stati aggiornati nel dicembre 2025 con la DGR 1210/2025. Cita questo aggiornamento se ti chiedono della normativa vigente — dimostra che sei aggiornato.
-      </div>
-      <h4>Quando la QCC non è dovuta</h4>
-      <ul>
-        <li>Interventi di manutenzione straordinaria senza aumento di SU</li>
-        <li>Restauro e risanamento conservativo</li>
-        <li>Interventi su edifici produttivi (per questi si pagano solo U1+U2)</li>
-        <li>Interventi di cui all'art. 17 DPR 380/2001 (esenzioni totali — vedi dopo)</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-purple">CS</span>
-      <h3>Contributo Straordinario — il costo di urbanizzare suolo vergine</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>Il contributo straordinario è la novità più importante introdotta con la DAL 186/2018, in linea con gli obiettivi della L.R. 24/2017 di <strong>riduzione del consumo di suolo</strong>. È dovuto per i nuovi insediamenti al di fuori del perimetro del territorio urbanizzato definito dal PUG.</p>
-      <h4>Logica del CS</h4>
-      <p>Chi costruisce dove non c'era ancora città — apre una nuova area da urbanizzare — genera costi molto più alti per la collettività: bisogna portare strade, fognature, cavi, illuminazione dove non c'erano. Il CS è il meccanismo che trasferisce questi costi aggiuntivi al costruttore invece di farli pagare a tutti.</p>
-      <div class="box box-purple">
-        <b>📍 Dove si applica il CS nel territorio dell'Unione</b>
-        Praticamente ogni nuovo insediamento residenziale su suolo agricolo (fuori dal perimetro urbanizzato del PUG) sconta il CS. Nel ferrarese, dove il PUG ha ridotto fortemente le previsioni di espansione rispetto ai vecchi PRG, il CS è un disincentivo reale alla costruzione in zona agricola. Può essere applicato anche per varianti urbanistiche che generano un maggior valore fondiario.
-      </div>
-      <div class="confronto">
-        <div class="conf-hd a">Dentro il territorio urbanizzato</div>
-        <div class="conf-hd b">Fuori dal territorio urbanizzato</div>
-        <div class="conf-a">CS ridotto di almeno il 35% o azzerato (la DAL favorisce il riuso)</div>
-        <div class="conf-b">CS pieno — incentivo negativo all'espansione su suolo vergine</div>
-        <div class="conf-a">Infrastrutture esistenti: costi di urbanizzazione inferiori</div>
-        <div class="conf-b">Infrastrutture da costruire ex novo: costi molto più alti</div>
-        <div class="conf-a">Compatibile con gli obiettivi della L.R. 24/2017</div>
-        <div class="conf-b">Scoraggiato dalla L.R. 24/2017 (consumo di suolo)</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-teal">D + S</span>
-      <h3>Contributi D e S — Rifiuti e Sistemazione luoghi</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>Sono due contributi minori previsti dalla DAL 186/2018 in aggiunta a U1+U2+QCC+CS:</p>
-      <div class="g2">
-        <div class="mini">
-          <strong>D — Contributo rifiuti</strong>
-          <p>Contributo per il trattamento e smaltimento dei rifiuti solidi, liquidi e gassosi. Copre i costi aggiuntivi di gestione rifiuti generati dall'insediamento. I Comuni possono aumentarlo o diminuirlo fino al 15%, ridurlo fino al 30% per certe zone del territorio.</p>
-        </div>
-        <div class="mini">
-          <strong>S — Sistemazione luoghi</strong>
-          <p>Contributo per la sistemazione dei luoghi ove l'intervento ne altera le caratteristiche (sistemazioni a verde, riqualificazione aree di pertinenza). Stessa logica di D per quanto riguarda i margini di autonomia comunale.</p>
-        </div>
-      </div>
-      <p>D e S sono stati aggiornati con la <strong>DGR 91/2024</strong> — aggiornamento quinquennale previsto dalla DAL 186/2018. Questa revisione adegua i valori all'inflazione e alle variazioni dei costi effettivi di gestione.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ====== CALCOLO E RIDUZIONI ====== -->
-<section id="calcolo" class="section">
-  <div class="stitle">Calcolo, Riduzioni ed Esoneri</div>
-  <div class="ssub">Come si determina concretamente il contributo e in quali casi si paga meno o niente</div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-blue">PROCESSO</span>
-      <h3>Come si calcola concretamente — passo per passo</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <div class="flow">
-        <div class="fstep">
-          <div class="fnum fn-blue">1</div>
-          <div class="fcontent">
-            <div class="ftitle">Identifica la classe del Comune</div>
-            <div class="fnote">Verifica la classe I–IV del Comune dove si realizza l'intervento (Tabella A della DAL). Es.: Portomaggiore = Classe III. Questo determina le percentuali da applicare ai valori unitari.</div>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-blue">2</div>
-          <div class="fcontent">
-            <div class="ftitle">Identifica la categoria funzionale e il tipo di intervento</div>
-            <div class="fnote">Residenziale? Commerciale? Produttivo? Nuova costruzione, ampliamento, ristrutturazione? Mutamento d'uso? Ogni combinazione ha un coefficiente diverso nella Tabella C.</div>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-blue">3</div>
-          <div class="fcontent">
-            <div class="ftitle">Calcola la Superficie Utile (SU) dell'intervento</div>
-            <div class="fnote">La SU è la superficie utile calpestabile dell'edificio come definita dalla L.R. 15/2013 e dal Regolamento Edilizio Tipo (RET) della Regione. È la base di calcolo per U1 e U2.</div>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-blue">4</div>
-          <div class="fcontent">
-            <div class="ftitle">Calcola U1 e U2</div>
-            <div class="fnote">Applica alla SU i valori unitari (Tabella B) moltiplicati per la percentuale della classe Comune e i coefficienti del tipo di intervento. Verifica se ci sono riduzioni applicabili (ERS, aree produttive, no-profit, ecc.).</div>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-blue">5</div>
-          <div class="fcontent">
-            <div class="ftitle">Calcola la QCC con la Scheda appropriata</div>
-            <div class="fnote">Scegli la scheda giusta (A, B, C, D) in base a categoria funzionale e tipo intervento. Usa il valore A-medio del Comune (quotazioni OMI II semestre 2018) e i coefficienti di conversione aggiornati dalla DGR 1210/2025.</div>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-blue">6</div>
-          <div class="fcontent">
-            <div class="ftitle">Verifica se è dovuto il CS</div>
-            <div class="fnote">L'intervento è dentro o fuori il territorio urbanizzato del PUG? Se fuori → applica CS pieno. Se dentro → CS ridotto di almeno il 35% o esonerato. Se è una variante con maggior valore generato → CS proporzionale al maggior valore.</div>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-blue">7</div>
-          <div class="fcontent">
-            <div class="ftitle">Aggiungi D e S, applica eventuali riduzioni finali</div>
-            <div class="fnote">Somma tutti gli importi. Verifica se la delibera comunale di recepimento ha modificato qualche voce entro i margini consentiti. Applica eventuali riduzioni per rigenerazione urbana, ERS, produttivo in aree ecologicamente attrezzate, ecc.</div>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-blue">8</div>
-          <div class="fcontent">
-            <div class="ftitle">Determina le modalità di pagamento</div>
-            <div class="fnote">Il contributo può essere pagato in un'unica soluzione o rateizzato (le rate devono essere coperte da fideiussione bancaria o assicurativa). Per la nuova costruzione, il pagamento avviene prima del rilascio del permesso o all'atto della SCIA. Il ritardo nel pagamento comporta interessi e sanzioni.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="box box-green">
-        <b>✅ Il calcolatore regionale</b>
-        La Regione Emilia-Romagna mette a disposizione un <strong>calcolatore automatico</strong> del contributo di costruzione (sul sito territorio.regione.emilia-romagna.it) che guida passo per passo il calcolo per ogni tipo di intervento. In pratica lo usi sempre, ma devi capire la logica per poterlo usare bene e per rispondere alle domande d'esame.
-      </div>
-    </div>
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-green">ESONERI TOTALI</span>
-      <h3>Quando non si paga niente — art. 17 DPR 380/2001</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>L'art. 17 del DPR 380/2001 (che la DAL 186/2018 richiama) prevede casi di esonero totale dal contributo. Questi esoneri operano per legge statale — il Comune non può disapplicarli.</p>
-      <h4>Esoneri totali (nessuna componente dovuta)</h4>
-      <ul>
-        <li><strong>Interventi di manutenzione ordinaria e straordinaria</strong> che non comportino aumento di SU o volumetria</li>
-        <li><strong>Restauro e risanamento conservativo</strong> degli edifici</li>
-        <li><strong>Ristrutturazione edilizia di edifici unifamiliari</strong> da parte del proprietario che li utilizzi come abitazione principale (con SU ≤ 120 mq) — esonero dalla QCC, non dagli oneri</li>
-        <li><strong>Edifici realizzati in attuazione di norme che prevedono l'esenzione</strong> (edilizia convenzionata, PEEP)</li>
-        <li><strong>Opere pubbliche o di interesse generale</strong> realizzate da Stato, Regione, Comune</li>
-        <li><strong>Impianti e attrezzature di culto</strong> (chiese, moschee, ecc.) entro i limiti della DAL</li>
-        <li><strong>Onlus e associazioni no-profit</strong> per interventi a fini sociali o assistenziali (entro limiti della delibera comunale)</li>
-      </ul>
-      <div class="box box-orange">
-        <b>⚠️ Attenzione all'esonero per abitazione principale</b>
-        L'esonero per il proprietario che ristruttura la propria casa (abitazione principale) è parziale: libera dalla QCC (costo di costruzione) ma non da U1 e U2 (oneri di urbanizzazione). Molti lo confondono con un esonero totale. Non lo è.
-      </div>
-    </div>
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-orange">RIDUZIONI RIGENERAZIONE</span>
-      <h3>Riduzioni per chi recupera il patrimonio esistente</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>In piena coerenza con la L.R. 24/2017 (che punta alla rigenerazione urbana e al contenimento del consumo di suolo), la DAL 186/2018 prevede riduzioni significative per chi interviene sul patrimonio già costruito:</p>
-      <h4>Riduzioni dentro il territorio urbanizzato</h4>
-      <ul>
-        <li>Per <strong>ristrutturazione urbanistica, addensamento, sostituzione urbana, recupero di immobili dismessi</strong>: D e S ridotti di almeno il <strong>35%</strong> rispetto alle nuove costruzioni. I Comuni possono deliberare ulteriori riduzioni fino all'esonero completo</li>
-        <li>Per interventi di <strong>demolizione e ricostruzione</strong> con la stessa SU e stessa destinazione: forte riduzione complessiva</li>
-        <li>Per interventi di <strong>riduzione del rischio sismico</strong> su edifici esistenti: riduzioni premiali aggiuntive (previste dalla normativa sismica regionale)</li>
-      </ul>
-      <h4>La logica del sistema premi/penalità</h4>
-      <p>Il sistema DAL 186/2018 è costruito intenzionalmente per premiare chi recupera e penalizzare chi espande: chi costruisce fuori dal territorio urbanizzato paga il CS pieno; chi demolisce e ricostruisce dentro ha riduzioni su D e S; chi costruisce in aree ecologicamente attrezzate ha riduzione del 20% su U1 e U2. È la traduzione economica degli obiettivi della L.R. 24/2017.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ====== LR 23/2004 ====== -->
-<section id="lr23" class="section">
-  <div class="hero hero-23" style="margin-bottom:28px">
-    <div class="hero-stripe"></div>
-    <div class="hero-law">L.R. 21 ottobre 2004, n. 23</div>
-    <div class="hero-tag">Vigilanza Edilizia · Emilia-Romagna</div>
-    <h1>Vigilanza e Controllo<br>dell'Attività Edilizia</h1>
-    <p>La legge che disciplina cosa fa il Comune quando scopre un abuso edilizio. Dal sopralluogo alla demolizione, ogni passo ha una norma.</p>
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-purple">PERCHÉ ESISTE</span>
-      <h3>La logica della L.R. 23/2004 — il sistema di controllo</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>Il DPR 380/2001 (Testo Unico Edilizia) stabilisce le sanzioni per gli abusi edilizi a livello statale. La L.R. 23/2004 dell'Emilia-Romagna <strong>integra e specifica</strong> quella disciplina per il territorio regionale, aggiungendo:</p>
-      <ul>
-        <li>Un sistema di <strong>vigilanza organizzato</strong> tra Comune, Provincia e Regione</li>
-        <li>I <strong>poteri sostitutivi</strong> della Provincia quando il Comune è inerte</li>
-        <li>Un <strong>sistema informativo regionale</strong> sull'abusivismo edilizio</li>
-        <li>Le regole specifiche per la <strong>gestione del condono</strong> ex art. 32 DL 269/2003 (il terzo condono edilizio nazionale)</li>
-        <li>Il <strong>fondo di rotazione</strong> regionale per anticipare le spese di demolizione quando il Comune non ha le risorse</li>
-      </ul>
-      <div class="box box-purple">
-        <b>📍 Il SUE è il perno di tutto</b>
-        Lo Sportello Unico per l'Edilizia (SUE) del Comune è l'organo che gestisce tutta la vigilanza edilizia. Non il Sindaco, non la Giunta — il SUE (dirigente del settore). È lui che riceve le segnalazioni, ordina le sospensioni, emette le ingiunzioni di demolizione, gestisce le sanatorie. Nel tuo ruolo di specialista tecnico, lavori con il SUE ogni giorno.
-      </div>
-    </div>
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-purple">ART. 2-3</span>
-      <h3>Chi fa cosa — Comune, Provincia, Regione</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <div class="flow">
-        <div class="fstep">
-          <div class="fnum fn-purple">🏛</div>
-          <div class="fcontent">
-            <div class="ftitle">Comune — SUE (Sportello Unico per l'Edilizia)</div>
-            <div class="fnote">Riceve le segnalazioni di abuso (da Polizia Locale, agenti di PG, cittadini, Soprintendenza). Verifica la regolarità delle opere entro 30 giorni dalla segnalazione. Emette ordine di sospensione lavori se in corso. Adotta tutti i provvedimenti sanzionatori: ingiunzione di demolizione, fiscalizzazione, acquisizione al patrimonio. È il soggetto principale della vigilanza.</div>
-            <span class="ftiming ft-blue-t">30 giorni per verificare dalla segnalazione</span>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-purple">🏢</div>
-          <div class="fcontent">
-            <div class="ftitle">Provincia — potere sostitutivo</div>
-            <div class="fnote">La Provincia interviene in via sostitutiva quando il Comune è inerte per più di 15 giorni dopo la scadenza dei termini. La Giunta provinciale può emanare i provvedimenti al posto del Comune: sospensione lavori, sanzioni, demolizioni. Può nominare un commissario ad acta. Fornisce anche supporto tecnico-giuridico ai SUE comunali.</div>
-            <span class="ftiming ft-blue-t">Dopo 15 gg di inerzia del Comune oltre il termine</span>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-purple">🌐</div>
-          <div class="fcontent">
-            <div class="ftitle">Regione — coordinamento e monitoraggio</div>
-            <div class="fnote">La Giunta regionale coordina il sistema, gestisce il sistema informativo regionale sull'abusivismo, gestisce il fondo di rotazione per le spese di demolizione, promuove accordi con le forze dell'ordine. Il Consiglio regionale adotta atti di indirizzo e coordinamento tecnico per l'esercizio omogeneo delle funzioni di vigilanza.</div>
-          </div>
-        </div>
-      </div>
-      <h4>Il Segretario Comunale — un ruolo specifico</h4>
-      <p>L'art. 2 comma 5 L.R. 23/2004 assegna al Segretario Comunale un compito preciso: redigere e pubblicare mensilmente nell'albo pretorio i dati sugli abusi accertati, le ordinanze di sospensione e i provvedimenti sanzionatori. Li trasmette all'Autorità giudiziaria, alla Provincia, alla Regione e al Ministero. Questo è il sistema di trasparenza e monitoraggio sull'abusivismo edilizio.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ====== TIPI DI ABUSO ====== -->
-<section id="abusi" class="section">
-  <div class="stitle">Tipologie di Abuso Edilizio</div>
-  <div class="ssub">Prima di applicare una sanzione bisogna qualificare l'abuso. Ogni tipo ha conseguenze diverse.</div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-purple">SCHEMA GENERALE</span>
-      <h3>Come classificare un abuso — la mappa decisionale</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>Il sistema sanzionatorio edilizio si articola su due assi: <strong>(1) la gravità dell'abuso</strong> (totale difformità vs. parziale difformità vs. variazione essenziale) e <strong>(2) la localizzazione</strong> (area vincolata, area protetta, zona normale). La combinazione di questi due fattori determina la sanzione.</p>
-
-      <div class="tw">
-        <table>
-          <thead>
-            <tr><th>Tipo di abuso</th><th>Definizione</th><th>Sanzione base</th><th>Sanabile?</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Opere senza titolo</strong> (in assenza di permesso)</td>
-              <td>Costruzione completamente priva di qualsiasi titolo abilitativo</td>
-              <td><span class="tag tg-red">Demolizione</span></td>
-              <td>Solo con accertamento conformità (doppio contributo)</td>
-            </tr>
-            <tr>
-              <td><strong>Totale difformità</strong> dal titolo</td>
-              <td>L'opera realizzata è completamente diversa da quella autorizzata — es. permesso per un garage, costruita una casa</td>
-              <td><span class="tag tg-red">Demolizione</span></td>
-              <td>Solo con accertamento conformità</td>
-            </tr>
-            <tr>
-              <td><strong>Variazione essenziale</strong></td>
-              <td>Modifiche al progetto autorizzato che alterano in modo sostanziale la tipologia, la destinazione d'uso, la volumetria oltre il 20%, le caratteristiche funzionali</td>
-              <td><span class="tag tg-red">Demolizione</span></td>
-              <td>Solo con accertamento conformità</td>
-            </tr>
-            <tr>
-              <td><strong>Parziale difformità</strong></td>
-              <td>Modifiche al progetto che non costituiscono variazione essenziale — es. finestra spostata di 50 cm, solaio 20 cm più alto</td>
-              <td><span class="tag tg-orange">Fiscalizzazione</span> (se non demolibile)</td>
-              <td>Sì, con oblazione</td>
-            </tr>
-            <tr>
-              <td><strong>Varianti in corso d'opera</strong></td>
-              <td>Modifiche al progetto durante l'esecuzione dei lavori</td>
-              <td>Dipende dall'entità: SCIA a fine lavori o permesso in variante</td>
-              <td>Sì — regolarizzazione con titolo</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="box box-purple">
-        <b>🔑 La distinzione più importante in esame</b>
-        <strong>Totale difformità e variazione essenziale → demolizione obbligatoria</strong> (non si può fiscalizzare). <strong>Parziale difformità → fiscalizzazione possibile</strong> se la demolizione non è opportuna (es. compromette parti legittime dell'edificio). Questa distinzione è la base di ogni domanda sulle sanzioni edilizie.
-      </div>
-    </div>
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-purple">ART. 10-11 LR 23</span>
-      <h3>Abusi in zona vincolata — le conseguenze più gravi</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>Quando l'abuso edilizio avviene in un'area soggetta a vincoli (inedificabilità assoluta, aree pubbliche, beni culturali, vincolo paesaggistico), il regime sanzionatorio si inasprisce notevolmente.</p>
-      <h4>Abusi su aree vincolate o destinate a opere pubbliche (art. 10)</h4>
-      <p>Il SUE ordina la <strong>sospensione immediata</strong> dei lavori e ingiunge al proprietario e al responsabile dell'abuso di procedere entro <strong>90 giorni</strong> alla demolizione e rimessione in pristino. Se non ottemperano:</p>
-      <ul>
-        <li>Le opere abusive e le aree di pertinenza vengono <strong>acquisite di diritto</strong> al patrimonio dell'ente preposto alla vigilanza del vincolo</li>
-        <li>L'ente acquisisce e poi provvede alla demolizione a spese del responsabile</li>
-        <li>Non è ammessa alcuna monetizzazione o fiscalizzazione</li>
-      </ul>
-      <h4>Abusi su beni culturali (Parte II D.Lgs. 42/2004) (art. 11)</h4>
-      <p>Se l'abuso riguarda un immobile dichiarato di interesse culturale, il SUE ordina la demolizione. Se il responsabile non demolisce entro il termine, <strong>il competente organo periferico del MiC può intervenire direttamente</strong> su richiesta della Regione, Provincia, Comune o altra autorità, demolendo e ripristinando.</p>
-      <h4>Abusi su beni paesaggistici (Parte III D.Lgs. 42/2004)</h4>
-      <p>Il SUE acquisisce il parere della <strong>Commissione per la Qualità Architettonica e il Paesaggio</strong>, poi provvede ai sensi dell'art. 167 D.Lgs. 42/2004 (accertamento compatibilità paesaggistica) ed irroga, per l'illecito edilizio, una <strong>sanzione da 2.000 a 20.000 euro</strong> oltre alle conseguenze paesaggistiche. Se la compatibilità non è accertabile → demolizione obbligatoria.</p>
-      <div class="box box-red">
-        <b>🚨 Caso tipico nel territorio dell'Unione</b>
-        Manufatto abusivo a 80 m dal Po di Volano (fascia 150 m art. 142 D.Lgs. 42/2004): doppio binario sanzionatorio. Il SUE istruisce il procedimento edilizio (L.R. 23/2004 + DPR 380) e al tempo stesso coordina con la Soprintendenza il procedimento paesaggistico (art. 167 D.Lgs. 42/2004). Le due procedure sono parallele e autonome.
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-purple">ART. 17 LR 23</span>
-      <h3>Accertamento di Conformità — la sanatoria ordinaria in Emilia-Romagna</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>L'accertamento di conformità (art. 17 L.R. 23/2004, che recepisce l'art. 36 DPR 380/2001) è la procedura mediante la quale un intervento edilizio realizzato senza titolo o in difformità può essere regolarizzato, a condizione che sia <strong>conforme alla disciplina urbanistica ed edilizia vigente sia al momento della realizzazione sia al momento della domanda</strong>.</p>
-      <h4>La doppia conformità — il requisito fondamentale</h4>
-      <p>La norma richiede che l'opera sia conforme alle norme urbanistiche <strong>in entrambi i momenti</strong>: quando è stata costruita E quando si chiede la sanatoria. Non basta che oggi sia permessa: deve essere stata conforme anche quando la si è costruita. Questo è il criterio più selettivo della sanatoria ordinaria.</p>
-      <div class="box box-orange">
-        <b>⚠️ Attenzione al Salva Casa 2024</b>
-        Il D.L. 69/2024 (Salva Casa, conv. L. 105/2024) ha introdotto una parziale deroga alla doppia conformità per alcune categorie di abusi di minima entità. La L.R. 5/2025 ha recepito queste modifiche in Emilia-Romagna (con Circolare regionale 768361/2025 che chiarisce cosa cambia nella L.R. 23/2004). Se hai già la guida sul Salva Casa, collegala a questo punto.
-      </div>
-      <h4>Cosa succede se l'accertamento di conformità è accolto</h4>
-      <ul>
-        <li>Il responsabile paga l'oblazione (sanzione pecuniaria) pari al <strong>doppio del contributo di costruzione</strong> che avrebbe dovuto pagare se avesse fatto tutto regolarmente</li>
-        <li>Viene rilasciato il titolo edilizio in sanatoria</li>
-        <li>L'abuso edilizio è estinto (non c'è più illecito amministrativo)</li>
-        <li>Il reato penale edilizio può estinguersi solo con oblazione nel processo penale — il titolo in sanatoria non lo estingue automaticamente</li>
-      </ul>
-      <h4>Cosa succede se l'accertamento di conformità è respinto (entro 90 giorni)</h4>
-      <ul>
-        <li>Il silenzio del SUE dopo 90 giorni equivale a rigetto</li>
-        <li>Il SUE adotta il provvedimento sanzionatorio definitivo: demolizione o fiscalizzazione</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ====== SANZIONI E PROCEDURA ====== -->
-<section id="sanzioni" class="section">
-  <div class="stitle">Sanzioni e Procedura Sanzionatoria</div>
-  <div class="ssub">L'iter completo dall'accertamento dell'abuso fino all'esito finale — demolizione, fiscalizzazione o acquisizione</div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-purple">IL PROCEDIMENTO</span>
-      <h3>Dall'accertamento dell'abuso all'esito — la sequenza completa</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <div class="flow">
-        <div class="fstep">
-          <div class="fnum fn-purple">1</div>
-          <div class="fcontent">
-            <div class="ftitle">Accertamento dell'abuso</div>
-            <div class="fnote">Un ufficiale o agente di polizia giudiziaria (Polizia Locale, Carabinieri, Guardia di Finanza) rileva l'abuso durante un sopralluogo. Redige il verbale e lo trasmette al SUE del Comune. I privati, le associazioni ambientaliste e i cittadini possono segnalare al SUE, che è obbligato a verificare.</div>
-            <span class="ftiming ft-blue-t">Il SUE verifica entro 30 giorni dalla comunicazione</span>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-purple">2</div>
-          <div class="fcontent">
-            <div class="ftitle">Sospensione dei lavori (se ancora in corso)</div>
-            <div class="fnote">Se i lavori sono in corso, il SUE ordina la <strong>sospensione immediata</strong>. L'ordine è notificato al proprietario e al direttore dei lavori (se c'è). I lavori devono fermarsi immediatamente. Continuare dopo l'ordine di sospensione costituisce aggravante sia penale che amministrativa.</div>
-            <span class="ftiming ft-red-t">Immediata — entro 24-48 ore dall'accertamento</span>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-purple">3</div>
-          <div class="fcontent">
-            <div class="ftitle">Comunicazione di avvio del procedimento (L. 241/90)</div>
-            <div class="fnote">Il SUE notifica al proprietario e al responsabile dell'abuso l'avvio del procedimento sanzionatorio. Vengono indicati: tipo di abuso contestato, norma violata, responsabile del procedimento. Il destinatario ha il diritto di presentare memorie e documenti (art. 10 L. 241/90) e di chiedere l'accesso agli atti.</div>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-purple">4</div>
-          <div class="fcontent">
-            <div class="ftitle">Ingiunzione di demolizione e rimessione in pristino</div>
-            <div class="fnote">Il SUE emette l'ingiunzione di demolizione (che equivale all'ordine del giudice in campo penale). Il proprietario ha <strong>90 giorni</strong> per demolire a proprie spese. Il provvedimento indica chiaramente l'area che verrà acquisita al patrimonio pubblico in caso di inottemperanza.</div>
-            <span class="ftiming ft-blue-t">90 giorni per demolire dalla notifica</span>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-purple">5A</div>
-          <div class="fcontent">
-            <div class="ftitle">Se demolisce → procedimento chiuso</div>
-            <div class="fnote">Il proprietario demolisce entro i 90 giorni e ripristina lo stato dei luoghi. Il SUE accerta l'avvenuta demolizione. Il procedimento amministrativo si chiude. Restano eventuali profili penali (reato edilizio) che seguono le proprie regole.</div>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-red">5B</div>
-          <div class="fcontent">
-            <div class="ftitle">Se NON demolisce → acquisizione automatica al patrimonio</div>
-            <div class="fnote">Decorsi i 90 giorni senza demolizione, <strong>le opere abusive e le relative aree di pertinenza vengono acquisite di diritto al patrimonio del Comune</strong> (o dell'ente preposto al vincolo, se in area vincolata). L'accertamento dell'inottemperanza è effettuato da un ufficiale di PG — questo atto ha valore di titolo esecutivo per l'immissione in possesso. Non serve sentenza del giudice.</div>
-            <span class="ftiming ft-red-t">Acquisizione automatica — nessuna ulteriore notifica</span>
-          </div>
-        </div>
-        <div class="fstep">
-          <div class="fnum fn-purple">6</div>
-          <div class="fcontent">
-            <div class="ftitle">Demolizione coattiva da parte del Comune</div>
-            <div class="fnote">Il Comune esegue la demolizione entro <strong>180 giorni dall'accertamento dell'inottemperanza</strong>. I costi sono a carico del responsabile dell'abuso e vengono recuperati coattivamente. Se il Comune non ha le risorse, può chiedere un'anticipazione al <strong>fondo di rotazione regionale</strong> (art. 25 L.R. 23/2004).</div>
-            <span class="ftiming ft-blue-t">180 giorni per demolire dalla data di accertamento inottemperanza</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card open">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-orange">LE SANZIONI</span>
-      <h3>Demolizione, Fiscalizzazione, Acquisizione — le tre strade</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <div class="sanz-grid">
-        <div class="sanz-card sc-dem">
-          <div class="sanz-badge">Sanzione principale</div>
-          <div class="sanz-title">🔨 Demolizione e Rimessione in Pristino</div>
-          <div class="sanz-body">
-            Obbligatoria per: opere senza titolo, totale difformità, variazioni essenziali, abusi in area vincolata. Non ammette alternativa salvo le eccezioni di parziale difformità. È la sanzione-regola dell'ordinamento edilizio.
-            <br><br>Il responsabile demolisce a proprie spese. Se non lo fa, il Comune demolisce e recupera le spese.
-          </div>
-        </div>
-        <div class="sanz-card sc-fisc">
-          <div class="sanz-badge">Alternativa alla demolizione</div>
-          <div class="sanz-title">💶 Fiscalizzazione (Sanzione Pecuniaria)</div>
-          <div class="sanz-body">
-            Prevista per la parziale difformità quando la demolizione non può avvenire senza pregiudicare le parti dell'edificio conformi al titolo (es. una parete abusiva in un edificio altrimenti regolare che non si può abbattere senza far crollare tutto).
-            <br><br>La sanzione è pari al doppio del valore venale delle opere abusive, con un minimo. La scelta tra demolizione e fiscalizzazione spetta al SUE — non al proprietario.
-          </div>
-        </div>
-        <div class="sanz-card sc-acq">
-          <div class="sanz-badge">Effetto automatico per inottemperanza</div>
-          <div class="sanz-title">🏛️ Acquisizione al Patrimonio Pubblico</div>
-          <div class="sanz-body">
-            Scatta automaticamente quando il proprietario non demolisce entro 90 giorni dall'ingiunzione. Non serve un ulteriore provvedimento — la legge produce l'effetto direttamente. Il Comune acquisisce l'opera e l'area di pertinenza.
-            <br><br>L'area acquisita non può essere utilmente destinata a scopi diversi dalla demolizione e dal ripristino — il Comune non può usarla per altri fini.
-          </div>
-        </div>
-        <div class="sanz-card sc-pec">
-          <div class="sanz-badge">Per abusi di minima entità</div>
-          <div class="sanz-title">📋 Sanzioni Pecuniarie Minori</div>
-          <div class="sanz-body">
-            Per interventi eseguiti in assenza di CILA o SCIA (ma conformi alle norme): sanzioni fisse previste dalla L.R. 23/2004 e dal DPR 380. Non si demolisce — si paga la sanzione e si regolarizza il titolo.
-            <br><br>Esempio: CILA non presentata per una tettoia di 10 mq → sanzione pecuniaria fissa + presentazione CILA in sanatoria.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="chead" onclick="tog(this)">
-      <span class="abadge ab-purple">IL CONDONO — ART. 32</span>
-      <h3>Il Condono edilizio ex art. 32 DL 269/2003 — il terzo condono</h3>
-      <span class="chev">▼</span>
-    </div>
-    <div class="cbody">
-      <p>La L.R. 23/2004 è nata principalmente per disciplinare la gestione del <strong>condono edilizio del 2003</strong> (art. 32 del D.L. 30 settembre 2003, n. 269, conv. con L. 326/2003) — il terzo condono edilizio nazionale dopo quelli del 1985 e del 1994.</p>
-      <h4>Cos'era il condono 2003</h4>
-      <p>Il condono del 2003 consentiva la sanatoria di abusi edilizi realizzati fino al 31 marzo 2003, mediante il pagamento di un'oblazione. Aveva però caratteristiche peculiari rispetto ai condoni precedenti:</p>
-      <ul>
-        <li>Le Regioni potevano <strong>limitarne l'applicazione</strong> nel proprio territorio — e l'Emilia-Romagna lo ha fatto pesantemente</li>
-        <li>L'E-R ha escluso dalla condonabilità numerose categorie di abusi, rendendo la norma statale molto più restrittiva nel territorio regionale</li>
-        <li>Per gli abusi su beni paesaggistici e culturali il condono era praticamente inapplicabile</li>
-      </ul>
-      <div class="box box-purple">
-        <b>📌 Perché è ancora rilevante oggi</b>
-        Le domande di condono del 2003 sono spesso ancora in corso di istruttoria nei Comuni (erano 20+ anni fa!). Come tecnico comunale potresti ancora gestire pratiche di condono pendenti, soprattutto per abusi minori. La L.R. 23/2004 regola la procedura di questi condoni ancora in giacenza. Cita questo fatto se ti chiedono della L.R. 23/2004 e della sua origine.
-      </div>
-      <div class="box box-orange">
-        <b>⚠️ Non confondere i tre condoni</b>
-        1° condono: L. 47/1985. 2° condono: L. 724/1994. 3° condono: art. 32 D.L. 269/2003 (conv. L. 326/2003). Non c'è stato un 4° condono (il Salva Casa 2024 NON è un condono — è una disciplina delle difformità formali, cosa completamente diversa).
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== CASI PRATICI ====== -->
-<section id="casi" class="section">
-  <div class="stitle">Casi Pratici — Unione Valli e Delizie</div>
-  <div class="ssub">Come applicare concretamente le due normative nel territorio di Argenta, Portomaggiore e Ostellato</div>
-
-  <div class="case">
-    <div class="case-hd">📐 Caso 1 — DAL 186/2018</div>
-    <div class="case-title">Ampliamento di un capannone produttivo a Portomaggiore</div>
-    <div class="case-body">
-      Un'azienda artigianale con sede a Portomaggiore (Classe III per la DAL) vuole ampliare il proprio capannone di 400 mq di superficie utile. L'intervento è previsto su suolo già urbanizzato (dentro il territorio urbanizzato del PUG), in zona produttiva D. Che contributo deve pagare?
-    </div>
-    <div class="case-ans">
-      <strong>Analisi:</strong>
-      <ol style="margin: 8px 0 12px 16px">
-        <li><strong>Classe Comune:</strong> Portomaggiore → Classe III</li>
-        <li><strong>Categoria funzionale:</strong> produttivo/artigianale → U1 e U2 si applicano, QCC dipende dal tipo</li>
-        <li><strong>U1:</strong> valore unitario Tabella B per categoria produttiva × percentuale Classe III × coefficiente ampliamento × 400 mq SU</li>
-        <li><strong>U2:</strong> stessa logica. Per attività produttive in aree ecologicamente attrezzate (se l'area lo è) → riduzione 20% su U1 e U2</li>
-        <li><strong>QCC:</strong> per edifici produttivi/artigianali la QCC ha coefficienti diversi dal residenziale — generalmente più bassa</li>
-        <li><strong>CS:</strong> intervento dentro il territorio urbanizzato → CS ridotto di almeno il 35% o deliberato dal Comune in esonero (la DAL favorisce il riuso del patrimonio edilizio produttivo)</li>
-        <li><strong>D e S:</strong> si aggiungono secondo i valori deliberati dal Comune di Portomaggiore nel recepimento della DAL</li>
-      </ol>
-      <strong>Nota pratica:</strong> Per la categoria produttiva, la DAL prevede che i Comuni possano deliberare riduzioni ulteriori per incentivare l'insediamento di attività economiche. Verifica sempre la delibera comunale di recepimento della DAL 186/2018 del Comune specifico, perché le variazioni locali sono frequenti.
-    </div>
-  </div>
-
-  <div class="case">
-    <div class="case-hd">🏗️ Caso 2 — L.R. 23/2004</div>
-    <div class="case-title">Abuso edilizio scoperto dalla Polizia Locale di Argenta</div>
-    <div class="case-body">
-      La Polizia Locale di Argenta segnala al SUE dell'Unione che un privato ha realizzato una dependance di 60 mq nel proprio giardino senza alcun titolo edilizio. I lavori sono completati. L'area è in zona residenziale B del PUG, non in fascia vincolata. Qual è il procedimento?
-    </div>
-    <div class="case-ans">
-      <strong>Tipo di abuso:</strong> Opera in assenza di titolo abilitativo → rientra nella categoria più grave.
-      <br><br>
-      <strong>Iter del SUE:</strong>
-      <ol style="margin: 8px 0 12px 16px">
-        <li>Verifica la segnalazione della PL entro 30 giorni — sopralluogo tecnico, rilievo, documentazione fotografica</li>
-        <li>I lavori sono già terminati → non serve ordine di sospensione</li>
-        <li>Comunicazione di avvio del procedimento al proprietario (L. 241/90)</li>
-        <li>Il proprietario può presentare memorie e chiedere l'accertamento di conformità entro 30 giorni</li>
-        <li>Se chiede l'accertamento di conformità (art. 17 L.R. 23/2004): la dependance era conforme alle norme urbanistiche sia quando è stata costruita sia oggi? Se zona B, SU ammessa, distanze rispettate → probabilmente sì. Se conforme → titolo in sanatoria + oblazione (doppio contributo di costruzione)</li>
-        <li>Se NON chiede la conformità o se non è conforme → ingiunzione di demolizione entro 90 giorni</li>
-        <li>Se non demolisce → acquisizione automatica della dependance e area di pertinenza al patrimonio del Comune</li>
-      </ol>
-      <strong>Nota:</strong> La zona B non è vincolata paesaggisticamente (salvo verifica della distanza da eventuali corsi d'acqua), quindi non si attiva il doppio binario sanzionatorio paesaggistico. Se l'area fosse a 80 m da un canale → aggiungere il procedimento ex art. 167 D.Lgs. 42/2004.
-    </div>
-  </div>
-
-  <div class="case">
-    <div class="case-hd">💶 Caso 3 — DAL 186/2018</div>
-    <div class="case-title">Nuova costruzione residenziale fuori dal territorio urbanizzato</div>
-    <div class="case-body">
-      Un privato vuole costruire un'abitazione unifamiliare di 200 mq SU su un terreno agricolo di 5.000 mq nel comune di Ostellato (Classe III). L'area è fuori dal perimetro del territorio urbanizzato del PUG. Che contributo paga e cosa cambia rispetto a costruire dentro il territorio urbanizzato?
-    </div>
-    <div class="case-ans">
-      <strong>Prima cosa:</strong> Verificare se è urbanisticamente possibile. Il PUG dell'Unione ha fortemente limitato le nuove costruzioni residenziali fuori dal territorio urbanizzato in coerenza con la L.R. 24/2017. Probabilmente questo intervento non è consentito in zona E salvo che il richiedente sia un imprenditore agricolo professionale (IAP) che costruisce la propria residenza sul fondo condotto. Assumendo che sia consentito:
-      <ol style="margin: 8px 0 12px 16px">
-        <li><strong>U1 + U2</strong> secondo i valori della Classe III di Ostellato</li>
-        <li><strong>QCC</strong> sulla nuova costruzione residenziale (Scheda C) — importo pieno</li>
-        <li><strong>CS pieno</strong> (non ridotto) perché fuori territorio urbanizzato — questa è la differenza cruciale: aggiunge un costo significativo rispetto alla costruzione dentro il perimetro</li>
-        <li><strong>D e S</strong> per rifiuti e sistemazione</li>
-      </ol>
-      <strong>Se costruisse DENTRO il territorio urbanizzato:</strong> CS ridotto di almeno il 35% o azzerato, U1+U2 potrebbero avere riduzioni per rigenerazione. La differenza economica tra i due scenari è sostanziale — è esattamente il meccanismo che la DAL 186/2018 vuole creare per disincentivare il consumo di suolo.
-    </div>
-  </div>
-
-  <div class="case">
-    <div class="case-hd">🏛️ Caso 4 — L.R. 23/2004 + DAL 186/2018</div>
-    <div class="case-title">Inerzia del Comune — quando interviene la Provincia</div>
-    <div class="case-body">
-      Il SUE dell'Unione riceve una segnalazione di abuso il 15 gennaio. Il termine per verificare la regolarità delle opere è 30 giorni (14 febbraio). Al 1° marzo il SUE non ha ancora adottato alcun provvedimento. Cosa succede?
-    </div>
-    <div class="case-ans">
-      <strong>L'inerzia del Comune:</strong> Il termine di 30 giorni per la verifica (art. 2 c.4 L.R. 23/2004) è scaduto il 14 febbraio. Al 1° marzo sono passati 15 giorni oltre la scadenza.
-      <br><br>
-      <strong>Potere sostitutivo della Provincia:</strong> Ai sensi dell'art. 5 c.2 L.R. 23/2004, la Giunta Provinciale di Ferrara può assumere in via sostitutiva i provvedimenti necessari — in questo caso, ordinare al SUE di procedere o intervenire direttamente. Può nominare un commissario ad acta.
-      <br><br>
-      <strong>Conseguenze per il Comune:</strong> L'inerzia del SUE è un illecito amministrativo. Il responsabile del procedimento risponde disciplinarmente. Il danneggiato (es. il vicino che aveva segnalato l'abuso) può agire con il ricorso avverso il silenzio-inadempimento ex art. 117 c.p.a.
-      <br><br>
-      <strong>Nota per l'esame:</strong> Il termine di 30 giorni per la verifica è ordinatorio, non perentorio (non produce decadenza) — lo ha chiarito il TAR Bologna. Ma l'inerzia attiva comunque il potere sostitutivo provinciale e la responsabilità del RUP.
-    </div>
-  </div>
-</section>
-
-<!-- ====== QUIZ ====== -->
-<section id="quiz" class="section">
-  <div class="stitle">Quiz</div>
-  <div class="ssub">DAL 186/2018 e L.R. 23/2004 — domande tipiche da prova scritta e orale</div>
-  <div class="score-box">
-    <div class="score-big" id="score">0/0</div>
-    <div class="score-lbl">Risposte corrette — clicca sulle opzioni per iniziare</div>
-  </div>
-  <div class="pbar"><div class="pfill" id="pbar" style="width:0%"></div></div>
-  <div id="qbox"></div>
-  <div style="margin-top:16px; display:flex; gap:10px">
-    <button class="btn btn-out" onclick="resetQ()">↺ Ricomincia</button>
-  </div>
-</section>
-
-</main>
-
-<div class="foot">
-  DAL 186/2018 · L.R. 23/2004 Emilia-Romagna · Guida per concorso Specialista Tecnico · Unione Valli e Delizie (FE) · aggiornata a DGR 91/2024, DGR 1210/2025, L.R. 5/2025
 </div>
 
+<div class="main">
+
+<div id="intro"></div>
+<div class="section-title"><span class="num">0</span> Prima di tutto — la logica del sistema</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>Queste due norme sono i due lati della stessa medaglia: la <strong>DAL 186/2018</strong> regola quanto si paga per costruire legalmente; la <strong>L.R. 23/2004</strong> regola cosa succede quando si costruisce illegalmente. Come tecnico comunale al Settore Programmazione Territoriale le usi entrambe ogni settimana.</p>
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>DAL 186/2018</h4>
+        <ul>
+          <li>In vigore dall'11 gennaio 2019</li>
+          <li>Sostituisce la vecchia DCR 850/1998</li>
+          <li>Fissa le regole per calcolare il contributo di costruzione in E-R</li>
+          <li>Aggiornata da DGR 91/2024 e DGR 1210/2025</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>L.R. 23/2004</h4>
+        <ul>
+          <li>In vigore dal 21 ottobre 2004</li>
+          <li>Integra il DPR 380/2001 per il territorio regionale</li>
+          <li>Disciplina vigilanza, sanzioni, condono 2003</li>
+          <li>Modificata da L.R. 5/2025 (Salva Casa)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert alert-blue">
+      <span class="alert-icon">⚖️</span>
+      <div><strong>Gerarchia normativa:</strong> La DAL 186/2018 non è una legge regionale — è una deliberazione dell'Assemblea Legislativa. Ha però forza vincolante per i Comuni, che sono tenuti a recepirla entro i margini di autonomia che la delibera stessa esplicitamente concede. I Comuni non possono fissare contributi inferiori ai minimi né superiori ai massimi regionali.</div>
+    </div>
+  </div>
+</div>
+
+<div id="logica"></div>
+<div class="section-title"><span class="num">1</span> DAL 186/2018 — Perché esiste e cosa disciplina</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">CATENA NORMATIVA</div>
+      <div class="art-title">Dalla legge statale alla delibera comunale</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità esame</span>
+  </div>
+  <div class="art-body">
+    <p>Quando costruisci una casa nuova non usi solo il tuo lotto: usi la strada davanti, la fognatura sotto, i parchi, la scuola a 500 m. Quelle infrastrutture le ha pagate la collettività. Il principio: <strong>chi trasforma il territorio genera un nuovo carico urbanistico e deve contribuire ai costi che quella trasformazione impone alla collettività</strong>. Non è una tassa — è un corrispettivo di diritto pubblico che deve essere destinato a opere di urbanizzazione.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">1</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-action">L. 28 gennaio 1977, n. 10 — «Legge Bucalossi»</div>
+          <div class="flow-detail">Prima norma che ha introdotto il principio: costruire è attività onerosa. Prima di questa legge, costruire era «diritto del proprietario» senza corrispettivo alla collettività.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">2</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-action">Art. 16 DPR 380/2001 — Testo Unico Edilizia</div>
+          <div class="flow-detail">Norma statale vigente. Il rilascio del permesso di costruire comporta la corresponsione del contributo commisurato all'incidenza degli oneri di urbanizzazione e al costo di costruzione. Le Regioni fissano i parametri.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">3</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-action">Art. 30 L.R. 15/2013 — Semplificazione edilizia E-R</div>
+          <div class="flow-detail">Norma regionale di attuazione. Rinvia alla deliberazione regionale per la determinazione dei parametri di calcolo e dei criteri per la modulazione dei contributi.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">4</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-action">DAL 186/2018 — Delibera Assemblea Legislativa E-R</div>
+          <div class="flow-detail">Fissa per tutta l'E-R: classi di Comuni, valori unitari, tabelle di calcolo, riduzioni obbligatorie e facoltative. Aggiornata ogni 5 anni (DGR 91/2024 = primo aggiornamento quinquennale).</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">5</div></div>
+        <div class="flow-content">
+          <div class="flow-action">Delibera comunale di recepimento</div>
+          <div class="flow-detail">Ogni Comune recepisce con delibera di Consiglio Comunale. Può modificare le voci entro i margini esplicitamente concessi dalla DAL. Senza recepimento entro il termine, la DAL si applica direttamente.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Chi paga e quando:</strong> Il soggetto che presenta il titolo edilizio. Il contributo si paga <em>prima del rilascio del permesso di costruire</em> o contestualmente alla SCIA. Non si può iniziare i lavori senza averlo versato, salvo rateizzazione con fideiussione.</div>
+    </div>
+    <div class="alert alert-red">
+      <span class="alert-icon">🔴</span>
+      <div><strong>Contributo in sanatoria — misura doppia:</strong> Per i titoli edilizi in sanatoria (accertamento di conformità ex art. 17 L.R. 23/2004), il contributo è dovuto in misura <em>doppia</em>, oltre all'oblazione.</div>
+    </div>
+  </div>
+</div>
+
+<div id="classi"></div>
+<div class="section-title"><span class="num">2</span> Le 4 Classi di Comuni</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">TABELLA A — DAL 186/2018</div>
+      <div class="art-title">La classificazione che determina i valori da applicare</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>La DAL 186/2018 ha semplificato il sistema da 7 a <strong>4 classi</strong>. A ogni classe corrispondono percentuali diverse da applicare ai valori unitari regionali.</p>
+    <div class="classe-row">
+      <div class="classe-letter">I</div>
+      <div class="classe-body">
+        <strong>Comuni > 50.000 ab. + Capoluoghi di Provincia + Città metropolitana di Bologna</strong>
+        <span>Bologna, Ferrara, Modena, Parma, Reggio Emilia, Rimini...</span>
+      </div>
+    </div>
+    <div class="classe-row">
+      <div class="classe-letter">II</div>
+      <div class="classe-body">
+        <strong>Comuni 15.001–50.000 ab. + confinanti con capoluogo + sulla Via Emilia + zona costiera fronte mare</strong>
+        <span>Argenta (~22.000 ab.) → <strong>Classe II</strong></span>
+      </div>
+    </div>
+    <div class="classe-row">
+      <div class="classe-letter">III</div>
+      <div class="classe-body">
+        <strong>Comuni 5.001–15.000 abitanti</strong>
+        <span>Portomaggiore (~11.000 ab.) → <strong>Classe III</strong> &nbsp;·&nbsp; Ostellato (~6.000 ab.) → <strong>Classe III</strong></span>
+      </div>
+    </div>
+    <div class="classe-row">
+      <div class="classe-letter">IV</div>
+      <div class="classe-body">
+        <strong>Comuni ≤ 5.000 abitanti</strong>
+        <span>Comuni montani e piccoli centri</span>
+      </div>
+    </div>
+    <div class="alert alert-blue">
+      <span class="alert-icon">📍</span>
+      <div>La classe si verifica ogni 5 anni con il censimento ISTAT. La classe del Comune è il primo dato da determinare in qualsiasi calcolo del contributo.</div>
+    </div>
+  </div>
+</div>
+
+<div id="componenti"></div>
+<div class="section-title"><span class="num">3</span> Le Componenti del Contributo</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>Il contributo non è una cifra unica — è la <strong>somma di più voci con logiche diverse</strong>.</p>
+    <div class="formula-box">
+      <div class="formula-eq">CC = U1 + U2 + QCC + CS + D + S</div>
+      <div class="formula-terms">
+        <span class="fterm">U1 — Urbanizzazione primaria</span>
+        <span class="fterm">U2 — Urbanizzazione secondaria</span>
+        <span class="fterm">QCC — Quota Costo Costruzione</span>
+        <span class="fterm">CS — Contributo Straordinario</span>
+        <span class="fterm">D — Gestione rifiuti</span>
+        <span class="fterm">S — Sistemazione luoghi</span>
+      </div>
+    </div>
+    <div class="alert alert-page">
+      <span class="alert-icon">🔑</span>
+      <div><strong>La distinzione fondamentale:</strong> U1+U2 = <em>oneri di urbanizzazione</em> — guardano al territorio e alle infrastrutture. QCC = <em>costo di costruzione</em> — guarda al valore dell'edificio. Sono logiche diverse che si sommano.</div>
+    </div>
+  </div>
+</div>
+
+<div id="u1u2"></div>
+<div class="section-title"><span class="num">4</span> U1 e U2 — Oneri di Urbanizzazione</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">COMPONENTI U1 + U2</div>
+      <div class="art-title">Urbanizzazione Primaria e Secondaria</div>
+    </div>
+    <span class="prio prio-red">🔴 Esce sempre</span>
+  </div>
+  <div class="art-body">
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>U1 — Primaria (sotto casa)</h4>
+        <ul>
+          <li>Strade residenziali e marciapiedi</li>
+          <li>Spazi di sosta e parcheggi di quartiere</li>
+          <li>Rete idrica (acquedotto)</li>
+          <li>Rete fognaria</li>
+          <li>Rete elettrica, gas, telecomunicazioni</li>
+          <li>Pubblica illuminazione</li>
+          <li>Verde attrezzato di quartiere</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>U2 — Secondaria (nel quartiere)</h4>
+        <ul>
+          <li>Asili nido, scuole materne ed elementari</li>
+          <li>Mercati di quartiere</li>
+          <li>Delegazioni comunali</li>
+          <li>Chiese e attrezzature religiose</li>
+          <li>Impianti sportivi di quartiere</li>
+          <li>Centri sociali e culturali</li>
+          <li>Verde di quartiere (oltre U1)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="concept">
+      <div class="concept-title">Come si calcola</div>
+      Valore unitario (Tabella B) × percentuale classe Comune (Tabella A) × coefficiente tipo intervento (Tabella C) × Superficie Utile (SU).
+    </div>
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Riduzioni specifiche su U2:</strong> strutture religiose fino al 50% · strutture socio-sanitarie possibile esonero completo · ERS (alloggi ≤ 95 mq) riduzione fino al 20% su U1 e U2 · attività produttive in APEA (aree ecologicamente attrezzate) riduzione 20% su U1 e U2.</div>
+    </div>
+  </div>
+</div>
+
+<div id="qcc"></div>
+<div class="section-title"><span class="num">5</span> QCC — Quota del Costo di Costruzione</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>La QCC è proporzionale al <strong>valore dell'edificio</strong> che si costruisce, non alle infrastrutture. Usa il <strong>valore A-medio</strong> del Comune (quotazioni OMI, 2° semestre 2018) e i coefficienti aggiornati dalla <strong>DGR 1210/2025</strong>.</p>
+    <table class="vtable">
+      <thead><tr><th>Scheda</th><th>Tipo intervento</th><th>Categoria funzionale</th></tr></thead>
+      <tbody>
+        <tr><td><strong>A</strong></td><td>Nuova costruzione, demo+ricostruzione</td><td>Residenziale</td></tr>
+        <tr><td><strong>B</strong></td><td>Interventi su esistente</td><td>Residenziale</td></tr>
+        <tr><td><strong>C</strong></td><td>Nuova costruzione, demo+ricostruzione</td><td>Commerciale/Direzionale</td></tr>
+        <tr><td><strong>D</strong></td><td>Interventi su esistente</td><td>Commerciale/Direzionale</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-green">
+      <span class="alert-icon">✅</span>
+      <div><strong>Quando la QCC non è dovuta:</strong> manutenzione straordinaria senza aumento di SU · restauro e risanamento conservativo · interventi su edifici produttivi (solo U1+U2) · interventi esonerati ex art. 17 DPR 380/2001.</div>
+    </div>
+  </div>
+</div>
+
+<div id="cs"></div>
+<div class="section-title"><span class="num">6</span> CS — Contributo Straordinario</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">COMPONENTE CS</div>
+      <div class="art-title">Il costo di urbanizzare suolo vergine — novità della DAL 186/2018</div>
+    </div>
+    <span class="prio prio-red">🔴 Novità importante</span>
+  </div>
+  <div class="art-body">
+    <p>Il CS disincentiva il consumo di suolo, in linea con la L.R. 24/2017. È dovuto per i nuovi insediamenti <strong>fuori dal perimetro del territorio urbanizzato</strong> definito dal PUG.</p>
+    <table class="vtable">
+      <thead><tr><th>Localizzazione</th><th>CS</th><th>Logica</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Fuori dal territorio urbanizzato</strong></td><td>CS pieno</td><td>Infrastrutture da costruire ex novo — massimo costo collettivo</td></tr>
+        <tr><td><strong>Dentro il territorio urbanizzato</strong></td><td>D e S ridotti ≥35%, CS ridotto o esonerato</td><td>Infrastrutture già esistenti — si premia il riuso</td></tr>
+        <tr><td><strong>Varianti urbanistiche</strong> con maggior valore fondiario</td><td>CS proporzionale al maggior valore generato</td><td>Chi cattura valore pubblico ne restituisce parte</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-page">
+      <span class="alert-icon">📍</span>
+      <div><strong>Nel territorio dell'Unione:</strong> praticamente ogni nuovo insediamento residenziale su suolo agricolo fuori dal PUG urbanizzato sconta il CS pieno. Il PUG del 2022 ha ridotto fortemente le previsioni di espansione. Il CS è un disincentivo reale e concreto alla costruzione in zona agricola.</div>
+    </div>
+  </div>
+</div>
+
+<div id="calcolo"></div>
+<div class="section-title"><span class="num">7</span> Il Calcolo — Passo per Passo</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <div class="flow">
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">1</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-action">Identifica la classe del Comune</div><div class="flow-detail">Tabella A. Determina le percentuali da applicare ai valori unitari.</div></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">2</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-action">Identifica categoria funzionale e tipo intervento</div><div class="flow-detail">Residenziale/commerciale/produttivo? Nuova costruzione, ampliamento, ristrutturazione, mutamento d'uso? Ogni combinazione ha coefficienti diversi (Tabella C).</div></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">3</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-action">Calcola la Superficie Utile (SU)</div><div class="flow-detail">SU come definita dalla L.R. 15/2013 e dal Regolamento Edilizio Tipo (RET). È la base di calcolo per U1 e U2.</div></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">4</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-action">Calcola U1 e U2</div><div class="flow-detail">Valori unitari × percentuale classe × coefficiente tipo/localizzazione × SU. Verifica riduzioni applicabili (ERS, APEA, no-profit).</div></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">5</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-action">Calcola la QCC con la Scheda appropriata</div><div class="flow-detail">Scheda A, B, C o D. Usa il valore A-medio del Comune (OMI) e i coefficienti aggiornati dalla DGR 1210/2025.</div></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">6</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-action">Verifica se è dovuto il CS</div><div class="flow-detail">Dentro o fuori il territorio urbanizzato del PUG? Fuori → CS pieno. Dentro → D e S ridotti ≥35%, CS ridotto o esonerato.</div></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">7</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-action">Aggiungi D e S, applica riduzioni finali</div><div class="flow-detail">Verifica la delibera comunale di recepimento per variazioni locali nei margini consentiti dalla DAL.</div></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">8</div></div><div class="flow-content"><div class="flow-action">Determina le modalità di pagamento</div><div class="flow-detail">Unica soluzione o rateizzazione con fideiussione. Pagamento prima del rilascio del permesso o alla SCIA. Ritardi → interessi e sanzioni.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="esoneri"></div>
+<div class="section-title"><span class="num">8</span> Esoneri e Riduzioni</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ART. 17 DPR 380/2001</div>
+      <div class="art-title">Quando non si paga — esoneri totali e parziali</div>
+    </div>
+    <span class="prio prio-red">🔴 Frequente all'esame</span>
+  </div>
+  <div class="art-body">
+    <div class="alert alert-green">
+      <span class="alert-icon">✅</span>
+      <div>
+        <strong>Interventi esonerati (art. 17 DPR 380/2001):</strong>
+        <ul style="margin-top:.4rem; padding-left:1.2rem">
+          <li>Manutenzione ordinaria e straordinaria senza aumento di SU</li>
+          <li>Restauro e risanamento conservativo</li>
+          <li>Ristrutturazione di abitazione principale del proprietario (SU ≤ 120 mq) — <em>solo QCC esonerata, U1+U2 restano dovute</em></li>
+          <li>Edilizia convenzionata (PEEP, ERS convenzionata)</li>
+          <li>Opere pubbliche di Stato, Regione, Comune</li>
+          <li>Impianti e attrezzature di culto · Onlus per fini sociali/assistenziali</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert alert-red">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Errore frequente — abitazione principale:</strong> L'esonero è <em>parziale</em>: libera dalla QCC ma NON da U1 e U2. Non è un esonero totale. Questo esce spesso nelle domande.</div>
+    </div>
+    <div class="alert alert-page">
+      <span class="alert-icon">🏗️</span>
+      <div><strong>Riduzioni per rigenerazione urbana:</strong> per interventi di ristrutturazione urbanistica, addensamento, sostituzione urbana e recupero di immobili dismessi <em>dentro il territorio urbanizzato</em>, D e S sono ridotti di almeno il 35%. I Comuni possono deliberare riduzioni ulteriori fino all'esonero completo.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LR 23 ===== -->
+
+<div id="lr23"></div>
+<div class="section-title"><span class="num">9</span> L.R. 23/2004 — Vigilanza e Controllo Edilizio</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">L.R. 21 OTTOBRE 2004, N. 23</div>
+      <div class="art-title">Cosa fa il Comune quando scopre un abuso</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità</span>
+  </div>
+  <div class="art-body">
+    <p>Il DPR 380/2001 stabilisce le sanzioni edilizie a livello statale. La L.R. 23/2004 le <strong>integra e specifica</strong> per il territorio regionale — non le sostituisce. Aggiunge: il sistema di vigilanza organizzato a tre livelli, i poteri sostitutivi provinciali, e la disciplina del condono 2003.</p>
+    <div class="alert alert-page">
+      <span class="alert-icon">🏛️</span>
+      <div><strong>Il SUE è il perno di tutto.</strong> Lo Sportello Unico per l'Edilizia del Comune gestisce l'intera vigilanza: riceve le segnalazioni, verifica le opere, ordina le sospensioni, emette ingiunzioni di demolizione, gestisce le sanatorie. Non il Sindaco, non la Giunta — il SUE (il dirigente del settore). Tu istruisci le pratiche; il dirigente firma.</div>
+    </div>
+  </div>
+</div>
+
+<div id="chifaracosa"></div>
+<div class="section-title"><span class="num">10</span> Chi fa Cosa</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ARTT. 2–5 L.R. 23/2004</div>
+      <div class="art-title">Il sistema di vigilanza a tre livelli</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:#1a4a8a">C</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-who">Comune — SUE</div>
+          <div class="flow-action">Soggetto principale della vigilanza</div>
+          <div class="flow-detail">Riceve segnalazioni (Polizia Locale, PG, cittadini, Soprintendenza). Verifica la regolarità entro 30 giorni. Ordina sospensione lavori se in corso. Emette tutti i provvedimenti: ingiunzione demolizione, fiscalizzazione, acquisizione al patrimonio. Il Segretario Comunale pubblica mensilmente i dati sugli abusi accertati.</div>
+          <span class="timer t-blue">30 giorni per verificare dalla segnalazione</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:#491878">P</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-who">Provincia — potere sostitutivo</div>
+          <div class="flow-action">Interviene quando il Comune è inerte</div>
+          <div class="flow-detail">Se il SUE non provvede entro 15 giorni dalla scadenza del termine, la Giunta Provinciale assume in via sostitutiva i provvedimenti necessari. Può agire direttamente o nominare un commissario ad acta.</div>
+          <span class="timer t-orange">Dopo 15 gg di inerzia del Comune oltre il termine</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:#1a5a38">R</div></div>
+        <div class="flow-content">
+          <div class="flow-who">Regione — coordinamento e fondo demolizioni</div>
+          <div class="flow-action">Coordina il sistema e gestisce il fondo di rotazione</div>
+          <div class="flow-detail">Sistema informativo regionale sull'abusivismo. Fondo di rotazione (art. 25) per anticipare le spese di demolizione quando il Comune non ha le risorse. Atti di indirizzo e coordinamento tecnico.</div>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Il termine di 30 giorni è ordinatorio, non perentorio</strong> (TAR Bologna) — non produce decadenza dal potere sanzionatorio. Ma attiva il potere sostitutivo provinciale e la responsabilità disciplinare del RUP. Il danneggiato può impugnare il silenzio-inadempimento ex art. 117 c.p.a.</div>
+    </div>
+  </div>
+</div>
+
+<div id="tipiabuso"></div>
+<div class="section-title"><span class="num">11</span> Tipologie di Abuso Edilizio</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">DPR 380/2001 + L.R. 23/2004</div>
+      <div class="art-title">Prima di sanzionare, bisogna qualificare correttamente l'abuso</div>
+    </div>
+    <span class="prio prio-red">🔴 Esce sempre</span>
+  </div>
+  <div class="art-body">
+    <table class="vtable">
+      <thead><tr><th>Tipo di abuso</th><th>Definizione</th><th>Sanzione base</th><th>Sanabile?</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Opere senza titolo</strong></td><td>Costruzione priva di qualsiasi titolo abilitativo</td><td>Demolizione</td><td>Solo accertamento conformità (contributo doppio)</td></tr>
+        <tr><td><strong>Totale difformità</strong></td><td>Opera completamente diversa da quella autorizzata</td><td>Demolizione</td><td>Solo accertamento conformità</td></tr>
+        <tr><td><strong>Variazione essenziale</strong></td><td>Modifiche sostanziali: tipologia, destinazione, volumetria >20%, caratteristiche funzionali</td><td>Demolizione</td><td>Solo accertamento conformità</td></tr>
+        <tr><td><strong>Parziale difformità</strong></td><td>Modifiche che non costituiscono variazione essenziale</td><td>Fiscalizzazione se non demolibile</td><td>Sì, con oblazione</td></tr>
+        <tr><td><strong>Varianti in corso d'opera</strong></td><td>Modifiche durante l'esecuzione</td><td>SCIA a fine lavori o permesso in variante</td><td>Sì — regolarizzazione con titolo</td></tr>
+      </tbody>
+    </table>
+
+    <div class="mnemonic">
+      <h4>🔑 La regola che non puoi sbagliare</h4>
+      <p><span>Totale difformità e variazione essenziale → demolizione obbligatoria.</span> Non si fiscalizza.<br>
+      <span>Parziale difformità → fiscalizzazione possibile</span> se la demolizione pregiudica le parti conformi.<br>
+      La scelta tra demolizione e fiscalizzazione spetta al SUE, <span>non al proprietario.</span></p>
+    </div>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">🚨</span>
+      <div><strong>Abusi in area vincolata (art. 10 L.R. 23/2004):</strong> sospensione immediata + demolizione entro 90 giorni + se non demolisce → acquisizione di diritto al patrimonio dell'ente preposto al vincolo. Nessuna fiscalizzazione ammessa. Nel ferrarese: un abuso a 80 m dal Po di Volano attiva sia il procedimento edilizio (L.R. 23/2004) sia quello paesaggistico (art. 167 D.Lgs. 42/2004) — paralleli e autonomi.</div>
+    </div>
+  </div>
+</div>
+
+<div id="iter"></div>
+<div class="section-title"><span class="num">12</span> L'Iter Sanzionatorio Completo</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ARTT. 7–14 L.R. 23/2004</div>
+      <div class="art-title">Dall'accertamento all'esito — la sequenza con i tempi precisi</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <div class="flow">
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">1</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-who">Polizia Locale / Forze dell'ordine / Cittadini</div><div class="flow-action">Accertamento e segnalazione al SUE</div><div class="flow-detail">Ufficiale o agente di PG redige verbale e trasmette al SUE. I privati possono segnalare — il SUE è obbligato a verificare.</div><span class="timer t-blue">SUE verifica entro 30 giorni</span></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">2</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-who">SUE</div><div class="flow-action">Sospensione immediata dei lavori (se in corso)</div><div class="flow-detail">Notificato al proprietario e al direttore dei lavori. Continuare dopo la sospensione costituisce aggravante penale e amministrativa.</div><span class="timer t-red">Immediata — 24/48 ore</span></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">3</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-who">SUE</div><div class="flow-action">Comunicazione di avvio del procedimento (L. 241/90)</div><div class="flow-detail">Il destinatario ha diritto di presentare memorie, documenti e chiedere accesso agli atti (art. 10 L. 241/90).</div></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">4</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-who">SUE</div><div class="flow-action">Ingiunzione di demolizione e rimessione in pristino</div><div class="flow-detail">Il provvedimento indica chiaramente l'area che verrà acquisita al patrimonio pubblico in caso di inottemperanza.</div><span class="timer t-orange">90 giorni per demolire dalla notifica</span></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:#1a5a38">5A</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-who">Proprietario</div><div class="flow-action">Demolisce entro i 90 giorni → procedimento chiuso</div><div class="flow-detail">Il SUE accerta l'avvenuta demolizione. Procedimento amministrativo concluso. Restano eventuali profili penali autonomi.</div><span class="timer t-green">Fine del procedimento</span></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:#C0392B">5B</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-who">Effetto automatico di legge</div><div class="flow-action">NON demolisce → acquisizione automatica al patrimonio</div><div class="flow-detail">Acquisizione di diritto al patrimonio del Comune senza bisogno di ulteriori provvedimenti. Un ufficiale di PG accerta l'inottemperanza — questo atto vale come titolo esecutivo per l'immissione in possesso.</div><span class="timer t-red">Automatico — nessuna ulteriore notifica</span></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">6</div></div><div class="flow-content"><div class="flow-who">Comune</div><div class="flow-action">Demolizione coattiva</div><div class="flow-detail">Il Comune demolisce entro 180 giorni dall'accertamento dell'inottemperanza. Costi a carico del responsabile, recuperati coattivamente. Se il Comune non ha le risorse → fondo di rotazione regionale (art. 25 L.R. 23/2004).</div><span class="timer t-blue">180 giorni dall'accertamento inottemperanza</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="sanzioni"></div>
+<div class="section-title"><span class="num">13</span> Le Quattro Sanzioni</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <div class="sanz-grid">
+      <div class="sanz-card demolizione">
+        <h4>🔨 Demolizione</h4>
+        <p>Sanzione principale e obbligatoria per: opere senza titolo, totale difformità, variazioni essenziali, qualsiasi abuso in area vincolata. Non ammette alternativa.</p>
+      </div>
+      <div class="sanz-card fiscalizzazione">
+        <h4>💶 Fiscalizzazione</h4>
+        <p>Alternativa alla demolizione, solo per la parziale difformità quando demolire pregiudica le parti conformi. Sanzione pecuniaria = doppio del valore venale delle opere abusive. La scelta spetta al SUE.</p>
+      </div>
+      <div class="sanz-card acquisizione">
+        <h4>🏛️ Acquisizione al patrimonio</h4>
+        <p>Effetto automatico dell'inottemperanza. Opera di diritto dopo 90 giorni senza demolizione. L'area acquisita non può essere usata per fini diversi dalla demolizione e dal ripristino.</p>
+      </div>
+      <div class="sanz-card pecuniaria">
+        <h4>📋 Sanzioni pecuniarie minori</h4>
+        <p>Per assenza di CILA o SCIA su interventi conformi alle norme. Sanzione fissa + presentazione del titolo in sanatoria. Non si demolisce.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="conformita"></div>
+<div class="section-title"><span class="num">14</span> Accertamento di Conformità</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ART. 17 L.R. 23/2004 — ART. 36 DPR 380/2001</div>
+      <div class="art-title">La sanatoria ordinaria — doppia conformità obbligatoria</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità</span>
+  </div>
+  <div class="art-body">
+    <div class="mnemonic">
+      <h4>La doppia conformità — il criterio più selettivo</h4>
+      <p>L'opera deve essere stata <span>conforme quando è stata costruita</span><br>
+      E deve essere <span>conforme oggi</span> quando chiedi la sanatoria.<br>
+      Non basta che oggi sia permessa. Deve essere stata lecita <span>anche allora.</span><br>
+      Molti abusi non si possono sanare perché le norme erano diverse al momento della costruzione.</p>
+    </div>
+    <div class="flow">
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">1</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-action">Il proprietario presenta istanza al SUE</div><div class="flow-detail">Relazione tecnica che dimostra la doppia conformità, elaborati grafici, documentazione fotografica.</div></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">2</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-action">Il SUE istruisce la pratica</div><div class="flow-detail">Verifica la doppia conformità. Acquisisce pareri (Soprintendenza se in area vincolata). Il silenzio dopo 90 giorni equivale a rigetto.</div><span class="timer t-orange">90 giorni — silenzio = rigetto</span></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:#1a5a38">3A</div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-action">Accoglimento → titolo in sanatoria + oblazione</div><div class="flow-detail">Oblazione = <strong>doppio del contributo di costruzione</strong> che avrebbe pagato regolarmente. Il titolo viene rilasciato. L'illecito amministrativo si estingue. Il reato penale edilizio segue le proprie regole — non si estingue automaticamente.</div></div></div>
+      <div class="flow-step"><div class="flow-left"><div class="flow-circle" style="background:#C0392B">3B</div></div><div class="flow-content"><div class="flow-action">Rigetto → provvedimento sanzionatorio definitivo</div><div class="flow-detail">Demolizione o fiscalizzazione secondo il tipo di abuso.</div></div></div>
+    </div>
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Salva Casa 2024:</strong> il D.L. 69/2024 (conv. L. 105/2024) ha introdotto una parziale deroga alla doppia conformità per alcune categorie di abusi di minima entità. La <strong>L.R. 5/2025</strong> ha recepito queste modifiche in E-R, con Circolare regionale 768361/2025. Se hai la guida sul Salva Casa, collegala qui.</div>
+    </div>
+  </div>
+</div>
+
+<div id="condono"></div>
+<div class="section-title"><span class="num">15</span> Il Condono 2003 — Perché la L.R. 23 è nata</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>La L.R. 23/2004 è nata in ottobre 2004 principalmente per disciplinare la gestione del <strong>condono edilizio del 2003</strong> (art. 32 D.L. 269/2003, conv. L. 326/2003) nel territorio regionale.</p>
+    <table class="vtable">
+      <thead><tr><th>Condono</th><th>Norma</th><th>Abusi condonabili fino al</th></tr></thead>
+      <tbody>
+        <tr><td>1° condono</td><td>L. 47/1985</td><td>1° ottobre 1983</td></tr>
+        <tr><td>2° condono</td><td>L. 724/1994</td><td>31 dicembre 1993</td></tr>
+        <tr><td>3° condono</td><td>Art. 32 D.L. 269/2003</td><td>31 marzo 2003</td></tr>
+      </tbody>
+    </table>
+    <div class="alert alert-red">
+      <span class="alert-icon">🚨</span>
+      <div><strong>Non confondere: il Salva Casa 2024 NON è un condono.</strong> Il D.L. 69/2024 disciplina le difformità formali e le tolleranze costruttive — è cosa completamente diversa. Questa distinzione esce spesso nelle domande.</div>
+    </div>
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div><strong>Perché è ancora rilevante:</strong> le domande di condono del 2003 sono spesso ancora in corso di istruttoria. Come tecnico potresti gestire pratiche pendenti, soprattutto per abusi minori. L'E-R ha limitato pesantemente le tipologie condonabili rispetto alla normativa statale — per gli abusi su beni paesaggistici era praticamente inapplicabile.</div>
+    </div>
+  </div>
+</div>
+
+<div id="casi"></div>
+<div class="section-title"><span class="num">16</span> Casi Pratici</div>
+
+<div class="case">
+  <div class="case-tag">📐 Caso 1 — DAL 186/2018 · Portomaggiore</div>
+  <div class="case-title">Ampliamento capannone produttivo</div>
+  <p>Azienda artigianale a Portomaggiore (Classe III) vuole ampliare il capannone di 400 mq SU, dentro il territorio urbanizzato del PUG, zona produttiva D. Che contributo paga?</p>
+  <div class="case-answer">
+    <ol>
+      <li><strong>Classe Comune:</strong> Portomaggiore → Classe III</li>
+      <li><strong>U1 + U2:</strong> valori Tabella B per categoria produttiva × Classe III × coefficiente ampliamento × 400 mq SU. Se area ecologicamente attrezzata (APEA) → riduzione 20% su U1 e U2.</li>
+      <li><strong>QCC:</strong> per produttivo/artigianale i coefficienti sono più bassi del residenziale.</li>
+      <li><strong>CS:</strong> dentro il territorio urbanizzato → D e S ridotti ≥35%; CS ridotto o esonerato.</li>
+      <li><strong>Delibera comunale:</strong> verifica quella di Portomaggiore — può prevedere ulteriori riduzioni per incentivare le attività economiche.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="case">
+  <div class="case-tag">🏗️ Caso 2 — L.R. 23/2004 · Argenta</div>
+  <div class="case-title">Abuso edilizio scoperto dalla Polizia Locale</div>
+  <p>La PL segnala al SUE: privato ha realizzato una dependance di 60 mq senza titolo. Lavori completati. Zona residenziale B del PUG, non in fascia vincolata.</p>
+  <div class="case-answer">
+    <strong>Tipo di abuso:</strong> opera in assenza di titolo → categoria più grave.
+    <ol>
+      <li>Verifica della segnalazione entro 30 giorni — sopralluogo, rilievo, documentazione fotografica.</li>
+      <li>Lavori già terminati → non serve sospensione. Comunicazione avvio del procedimento (L. 241/90).</li>
+      <li>Il proprietario può chiedere l'accertamento di conformità entro 30 giorni.</li>
+      <li>Se chiede conformità: era conforme alle norme urbanistiche sia quando costruita sia oggi? Se zona B, SU ammessa, distanze rispettate → probabilmente sì → titolo in sanatoria + oblazione (doppio contributo).</li>
+      <li>Se NON chiede conformità o non è conforme → ingiunzione demolizione entro 90 giorni.</li>
+      <li>Se non demolisce → acquisizione automatica della dependance e area al patrimonio del Comune.</li>
+    </ol>
+    <strong>Nota:</strong> Zona B non vincolata (salvo verifica distanza da corsi d'acqua). Se a 80 m da un canale → aggiungere procedimento paesaggistico ex art. 167 D.Lgs. 42/2004 in parallelo.
+  </div>
+</div>
+
+<div class="case">
+  <div class="case-tag">💶 Caso 3 — DAL 186/2018 · Ostellato</div>
+  <div class="case-title">Nuova costruzione fuori dal territorio urbanizzato</div>
+  <p>Privato vuole costruire un'abitazione unifamiliare di 200 mq SU su terreno agricolo a Ostellato (Classe III), fuori dal perimetro urbanizzato del PUG. Cosa cambia rispetto a costruire dentro?</p>
+  <div class="case-answer">
+    <strong>Prima:</strong> verificare se è urbanisticamente possibile — il PUG dell'Unione ha fortemente limitato le nuove costruzioni residenziali fuori dal territorio urbanizzato. Assumendo ammissibile (es. IAP):
+    <ol>
+      <li>U1 + U2 per Classe III, categoria residenziale, nuova costruzione.</li>
+      <li>QCC sulla nuova costruzione residenziale (Scheda A).</li>
+      <li><strong>CS pieno</strong> — questa è la differenza cruciale. Aggiunge un costo significativo.</li>
+      <li>D e S senza riduzioni (le riduzioni ≥35% operano solo dentro il territorio urbanizzato).</li>
+    </ol>
+    <strong>Se costruisse dentro il territorio urbanizzato:</strong> D e S ridotti ≥35%, CS ridotto o esonerato. La differenza economica è sostanziale — è esattamente il meccanismo che la DAL 186/2018 vuole creare per disincentivare il consumo di suolo.
+  </div>
+</div>
+
+<div class="case">
+  <div class="case-tag">🏛️ Caso 4 — L.R. 23/2004 · Inerzia del Comune</div>
+  <div class="case-title">Quando interviene la Provincia</div>
+  <p>Il SUE riceve una segnalazione il 15 gennaio. Termine verifica: 30 giorni (14 febbraio). Al 1° marzo il SUE non ha adottato alcun provvedimento. Cosa succede?</p>
+  <div class="case-answer">
+    Al 1° marzo sono passati 15 giorni oltre la scadenza del termine di verifica.<br><br>
+    <strong>Potere sostitutivo della Provincia (art. 5 c.2 L.R. 23/2004):</strong> la Giunta Provinciale di Ferrara può assumere in via sostitutiva i provvedimenti necessari, o nominare un commissario ad acta.<br><br>
+    <strong>Conseguenze per il Comune:</strong> inerzia = illecito amministrativo. Il RUP risponde disciplinarmente. Il danneggiato può impugnare il silenzio-inadempimento ex art. 117 c.p.a.<br><br>
+    <strong>Nota:</strong> il termine di 30 giorni è ordinatorio, non perentorio — non produce decadenza dal potere sanzionatorio. Ma attiva comunque il potere sostitutivo.
+  </div>
+</div>
+
+<div id="quiz"></div>
+<div class="section-title"><span class="num">17</span> Quiz</div>
+
+<div class="quiz-score-box">
+  <div class="big" id="score">0/0</div>
+  <div class="lbl">Risposte corrette — clicca sulle opzioni per iniziare</div>
+</div>
+<div class="pbar"><div class="pfill" id="pbar" style="width:0%"></div></div>
+<div id="qbox"></div>
+<button class="btn-reset" onclick="resetQ()" style="margin-top:.5rem">↺ Ricomincia quiz</button>
+
+</div><!-- .main -->
+
+<footer>
+  DAL 186/2018 · L.R. 23/2004 Emilia-Romagna · Concorso Specialista Tecnico · Unione Valli e Delizie (FE) · DGR 91/2024 · DGR 1210/2025 · L.R. 5/2025
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <script>
-function go(id, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
+function toggleDark(el) {
+  document.documentElement.dataset.theme = el.checked ? 'dark' : 'light';
 }
-function tog(head) { head.parentElement.classList.toggle('open'); }
+window.addEventListener('scroll', () => {
+  document.getElementById('scrolltop').classList.toggle('visible', window.scrollY > 400);
+});
 
 const qs = [
-  {
-    q: "La Delibera dell'Assemblea Legislativa n. 186/2018 è entrata in vigore:",
-    opts:["Il 20 dicembre 2018, data della sua approvazione","L'11 gennaio 2019, data della pubblicazione sul BURERT","Il 30 settembre 2019, termine per il recepimento comunale","Il 1° gennaio 2019 per tutti i Comuni della Regione"],
-    c:1,
-    e:"La DAL 186/2018 è entrata in vigore l'11 gennaio 2019, data della sua pubblicazione sul Bollettino Ufficiale della Regione Emilia-Romagna. I Comuni avevano tempo fino al 30 settembre 2019 per recepirla con propria delibera consiliare. Decorso quel termine senza recepimento, la DAL ha operato direttamente e automaticamente."
-  },
-  {
-    q: "Nel sistema della DAL 186/2018, il Contributo Straordinario (CS) è dovuto principalmente per:",
-    opts:["Tutti i nuovi interventi edilizi, senza distinzione di localizzazione","I nuovi insediamenti al di fuori del perimetro del territorio urbanizzato definito dal PUG","Le ristrutturazioni edilizie con cambio di destinazione d'uso in zona A","Gli interventi di manutenzione straordinaria su edifici vincolati"],
-    c:1,
-    e:"Il CS è lo strumento economico della DAL 186/2018 per disincentivare il consumo di suolo, in linea con gli obiettivi della L.R. 24/2017. È dovuto per i nuovi insediamenti fuori dal territorio urbanizzato. Per gli interventi dentro il territorio urbanizzato, D e S sono ridotti di almeno il 35% — il meccanismo premia chi recupera e penalizza chi espande su suolo vergine."
-  },
-  {
-    q: "Per una parziale difformità edilizia su un edificio in zona residenziale non vincolata, la L.R. 23/2004 prevede come sanzione principale:",
-    opts:["La demolizione obbligatoria in ogni caso","La fiscalizzazione (sanzione pecuniaria) quando la demolizione pregiudica le parti conformi","L'acquisizione automatica al patrimonio comunale","Una sanzione penale con arresto fino a 2 anni"],
-    c:1,
-    e:"La parziale difformità ammette la fiscalizzazione — sanzione pecuniaria alternativa alla demolizione — quando la demolizione non può avvenire senza pregiudicare le parti dell'edificio conformi al titolo. La scelta tra demolizione e fiscalizzazione spetta al SUE, non al proprietario. Attenzione: per totale difformità e variazioni essenziali invece la demolizione è obbligatoria, non sostituibile con la fiscalizzazione."
-  },
-  {
-    q: "Il Comune di Portomaggiore, che ha circa 11.000 abitanti, rientra in quale classe del sistema DAL 186/2018?",
-    opts:["Classe I — comuni sopra 50.000 abitanti","Classe II — comuni tra 15.001 e 50.000 abitanti","Classe III — comuni tra 5.001 e 15.000 abitanti","Classe IV — comuni sotto 5.000 abitanti"],
-    c:2,
-    e:"Portomaggiore ha circa 11.000 abitanti, non è capoluogo di provincia, non confina con il capoluogo, non è sulla Via Emilia e non è in zona costiera fronte mare → Classe III (comuni tra 5.001 e 15.000 abitanti). Ostellato (~6.000 ab.) è anch'essa Classe III. Argenta (~22.000 ab.) invece rientra in Classe II."
-  },
-  {
-    q: "Decorsi 90 giorni dall'ingiunzione di demolizione senza che il proprietario vi abbia ottemperato, la L.R. 23/2004 prevede che:",
-    opts:["Il Comune emetta una seconda ingiunzione con ulteriori 90 giorni di termine","Le opere abusive e l'area di pertinenza vengano acquisite di diritto al patrimonio del Comune, senza ulteriori provvedimenti","Il Comune debba adire il Tribunale civile per ottenere l'ordine di demolizione","Scatti automaticamente una sanzione pecuniaria in sostituzione della demolizione"],
-    c:1,
-    e:"L'acquisizione al patrimonio comunale è automatica — opera di diritto per effetto della legge, senza bisogno di ulteriori provvedimenti amministrativi. L'accertamento dell'inottemperanza viene effettuato da un ufficiale di PG e costituisce titolo esecutivo per l'immissione in possesso. Il Comune poi ha 180 giorni per eseguire la demolizione coattiva a spese del responsabile dell'abuso."
-  },
-  {
-    q: "L'accertamento di conformità ex art. 17 L.R. 23/2004 richiede che l'opera abusiva sia:",
-    opts:["Conforme alle norme urbanistiche vigenti solo al momento della domanda di sanatoria","Conforme alle norme urbanistiche sia al momento della realizzazione sia al momento della domanda (doppia conformità)","Conforme solo alle norme igienico-sanitarie, indipendentemente da quelle urbanistiche","Conforme alle norme vigenti almeno per il 70% dell'opera realizzata"],
-    c:1,
-    e:"La 'doppia conformità' è il requisito cardine dell'accertamento di conformità: l'opera deve essere stata conforme alle norme urbanistiche ed edilizie QUANDO è stata costruita E deve essere conforme QUANDO si chiede la sanatoria. Non basta che oggi sia permessa: deve essere stata lecita anche allora. Questo è il criterio che rende la sanatoria ordinaria molto selettiva — molte opere non possono essere sanate proprio perché al momento della costruzione le norme erano diverse."
-  },
-  {
-    q: "In caso di inerzia del SUE per più di 15 giorni oltre il termine previsto per verificare la regolarità delle opere segnalate come abusive, la L.R. 23/2004 prevede che:",
-    opts:["Il procedimento si estingua per decadenza e l'abuso non possa più essere perseguito","La Giunta provinciale assuma in via sostitutiva i provvedimenti necessari","Il Sindaco subentri direttamente al SUE nell'esercizio delle funzioni","Il cittadino che ha segnalato possa richiedere direttamente la demolizione al Tribunale"],
-    c:1,
-    e:"Art. 5, comma 2, L.R. 23/2004: la Giunta provinciale assume in via sostitutiva i provvedimenti necessari in caso di inerzia del SUE protrattasi per 15 giorni oltre la scadenza del termine. Può emanare i provvedimenti direttamente o nominare un commissario ad acta. Il TAR Bologna ha chiarito che il termine di 30 giorni per la verifica è ordinatorio (non perentorio), ma l'inerzia attiva comunque il potere sostitutivo provinciale."
-  },
-  {
-    q: "Per gli interventi di manutenzione straordinaria senza aumento di superficie utile, il contributo di costruzione è:",
-    opts:["Dovuto per intero (U1+U2+QCC)","Dovuto solo per la componente U1 (urbanizzazione primaria)","Non dovuto — l'intervento è esonerato dal contributo","Dovuto nella misura del 50% del contributo ordinario"],
-    c:2,
-    e:"La manutenzione straordinaria senza aumento di SU è tra gli interventi esonerati dal contributo di costruzione ai sensi dell'art. 17 DPR 380/2001, richiamato dalla DAL 186/2018. L'esonero è totale: nessuna delle componenti (U1, U2, QCC) è dovuta. Diverso il caso della manutenzione straordinaria CON aumento di SU: in quel caso scatta l'obbligo contributivo limitato alle nuove superfici."
-  },
-  {
-    q: "La L.R. 23/2004 Emilia-Romagna è nata principalmente per disciplinare la gestione di:",
-    opts:["Le procedure di VIA per grandi interventi edilizi","Il condono edilizio ex art. 32 D.L. 269/2003 nel territorio regionale","Le procedure di approvazione dei piani urbanistici comunali","La delega delle funzioni edilizie ai Comuni montani"],
-    c:1,
-    e:"La L.R. 23/2004 è stata approvata in ottobre 2004, poco dopo il condono edilizio statale (art. 32 D.L. 269/2003, conv. L. 326/2003). L'Emilia-Romagna ha usato la legge per disciplinare la gestione del condono nel proprio territorio, fortemente limitando le tipologie condonabili rispetto alla normativa statale. Le norme sulla vigilanza e le sanzioni erano già contenute nel DPR 380/2001 — la L.R. 23 le ha adattate e integrate per il contesto regionale."
-  },
-  {
-    q: "Per un intervento di demolizione e ricostruzione con la stessa superficie utile e stessa destinazione d'uso, realizzato dentro il territorio urbanizzato del PUG, il Contributo Straordinario (CS) previsto dalla DAL 186/2018 è:",
-    opts:["Dovuto per intero, pari a quello per le nuove costruzioni fuori territorio urbanizzato","Ridotto di almeno il 35% rispetto a quello previsto per le nuove costruzioni, con possibilità per il Comune di azzerarlo","Non dovuto in nessun caso, trattandosi di semplice demolizione e ricostruzione","Dovuto in misura doppia perché comporta comunque un nuovo insediamento"],
-    c:1,
-    e:"Il punto 3.10 della DAL 186/2018 stabilisce che dentro il territorio urbanizzato, per interventi di ristrutturazione urbanistica, addensamento o sostituzione urbana, e per interventi di recupero o riuso di immobili dismessi (compresi demolizione e ricostruzione), D e S sono ridotti di almeno il 35%. I Comuni possono deliberare riduzioni ulteriori fino alla completa esenzione. Questo è il meccanismo premiale per chi recupera invece di costruire su suolo vergine."
-  }
+  { q:"La DAL 186/2018 è entrata in vigore:", opts:["Il 20 dicembre 2018","L'11 gennaio 2019, data della pubblicazione sul BURERT","Il 30 settembre 2019, termine per il recepimento comunale","Il 1° gennaio 2019"], c:1, e:"La DAL 186/2018 è entrata in vigore l'11 gennaio 2019, data della pubblicazione sul BURERT. I Comuni avevano tempo fino al 30 settembre 2019 per recepirla con delibera consiliare. Decorso il termine, la DAL si applica direttamente." },
+  { q:"Il Contributo Straordinario (CS) è dovuto principalmente per:", opts:["Tutti i nuovi interventi edilizi","I nuovi insediamenti fuori dal perimetro del territorio urbanizzato del PUG","Le ristrutturazioni con cambio d'uso in zona A","Gli interventi di manutenzione straordinaria su edifici vincolati"], c:1, e:"Il CS disincentiva il consumo di suolo (L.R. 24/2017). È dovuto per i nuovi insediamenti fuori dal territorio urbanizzato. Dentro, D e S sono ridotti di almeno il 35% — si premia chi recupera e si penalizza chi espande su suolo vergine." },
+  { q:"Per una parziale difformità edilizia in zona residenziale non vincolata, la sanzione principale è:", opts:["Demolizione obbligatoria in ogni caso","Fiscalizzazione quando la demolizione pregiudica le parti conformi","Acquisizione automatica al patrimonio comunale","Sanzione penale con arresto fino a 2 anni"], c:1, e:"La parziale difformità ammette la fiscalizzazione — alternativa alla demolizione — quando demolire pregiudica le parti conformi. La scelta spetta al SUE, non al proprietario. Per totale difformità e variazioni essenziali la demolizione è invece obbligatoria." },
+  { q:"Il Comune di Portomaggiore (~11.000 ab.) rientra in quale classe DAL 186/2018?", opts:["Classe I","Classe II","Classe III","Classe IV"], c:2, e:"Portomaggiore ~11.000 ab., non capoluogo, non confina col capoluogo, non sulla Via Emilia, non zona costiera → Classe III. Ostellato (~6.000) è anch'essa Classe III. Argenta (~22.000) è Classe II." },
+  { q:"Decorsi 90 giorni dall'ingiunzione di demolizione senza ottemperanza:", opts:["Il Comune emette una seconda ingiunzione","Le opere vengono acquisite di diritto al patrimonio del Comune, senza ulteriori provvedimenti","Il Comune deve adire il Tribunale civile","Scatta una sanzione pecuniaria sostitutiva"], c:1, e:"L'acquisizione è automatica — opera di diritto per legge, senza ulteriori provvedimenti. Un ufficiale di PG accerta l'inottemperanza e questo atto vale come titolo esecutivo per l'immissione in possesso. Il Comune ha poi 180 giorni per la demolizione coattiva." },
+  { q:"L'accertamento di conformità ex art. 17 L.R. 23/2004 richiede che l'opera abusiva sia:", opts:["Conforme alle norme solo al momento della domanda","Conforme alle norme sia al momento della realizzazione sia al momento della domanda (doppia conformità)","Conforme solo alle norme igienico-sanitarie","Conforme almeno per il 70%"], c:1, e:"La doppia conformità è il requisito cardine: l'opera deve essere stata conforme QUANDO è stata costruita E conforme OGGI. Non basta che oggi sia permessa. Molti abusi non si possono sanare perché le norme erano diverse al momento della costruzione." },
+  { q:"In caso di inerzia del SUE per più di 15 giorni oltre il termine:", opts:["Il procedimento si estingue per decadenza","La Giunta provinciale assume in via sostitutiva i provvedimenti necessari","Il Sindaco subentra al SUE","Il cittadino può richiedere la demolizione direttamente al Tribunale"], c:1, e:"Art. 5, comma 2, L.R. 23/2004: la Giunta provinciale assume in via sostitutiva i provvedimenti, può agire direttamente o nominare un commissario ad acta. Il termine di 30 giorni è ordinatorio ma l'inerzia attiva il potere sostitutivo e la responsabilità disciplinare del RUP." },
+  { q:"Per la manutenzione straordinaria senza aumento di SU, il contributo di costruzione è:", opts:["Dovuto per intero (U1+U2+QCC)","Dovuto solo per U1","Non dovuto — l'intervento è esonerato","Dovuto al 50%"], c:2, e:"La manutenzione straordinaria senza aumento di SU è esonerata dal contributo di costruzione (art. 17 DPR 380/2001, richiamato dalla DAL 186/2018). L'esonero è totale: nessuna componente è dovuta." },
+  { q:"L'esonero per il proprietario che ristruttura la propria abitazione principale (SU ≤ 120 mq) è:", opts:["Totale — nessuna componente dovuta","Parziale — libera dalla QCC ma U1 e U2 restano dovute","Totale solo se l'edificio ha più di 50 anni","Riduzione del 50% su tutte le componenti"], c:1, e:"L'esonero è parziale: libera dalla QCC ma NON da U1 e U2. Molti candidati sbagliano confondendolo con un esonero totale. Questo esce frequentemente nelle domande." },
+  { q:"La L.R. 23/2004 è nata principalmente per:", opts:["Disciplinare le procedure VIA","Gestire il condono edilizio ex art. 32 D.L. 269/2003 nel territorio regionale","Approvare i piani urbanistici comunali","Delegare le funzioni edilizie ai Comuni montani"], c:1, e:"La L.R. 23/2004 è stata approvata in ottobre 2004 subito dopo il condono edilizio statale. L'E-R l'ha usata per disciplinare la gestione del condono nel proprio territorio, limitando pesantemente le tipologie condonabili, e per integrare la disciplina sanzionatoria del DPR 380/2001." }
 ];
 
 let st = { right:0, total:0, done: new Set() };
@@ -1171,44 +914,40 @@ function buildQ() {
   c.innerHTML = '';
   qs.forEach((q,i) => {
     const d = document.createElement('div');
-    d.className = 'qcard';
+    d.className = 'mc-item';
     d.innerHTML = `
-      <div class="qnum">Domanda ${i+1} / ${qs.length}</div>
-      <div class="qtext">${q.q}</div>
-      <div class="opts">
-        ${q.opts.map((o,j) => `
-          <div class="opt" onclick="ans(${i},${j},this)">
-            <div class="optL">${['A','B','C','D'][j]}</div>
-            <div>${o}</div>
+      <div class="mc-q">
+        <span class="mc-num">Domanda ${i+1} / ${qs.length}</span>${q.q}
+      </div>
+      <div class="mc-opts">
+        ${q.opts.map((o,j)=>`
+          <div class="mc-opt" onclick="ans(${i},${j},this)">
+            <div class="ol">${['A','B','C','D'][j]}</div><div>${o}</div>
           </div>`).join('')}
       </div>
-      <div class="qexpl" id="e${i}">${q.e}</div>`;
+      <div class="mc-expl" id="e${i}">${q.e}</div>`;
     c.appendChild(d);
   });
   upd();
 }
 
-function ans(qi, oi, el) {
-  if (st.done.has(qi)) return;
-  st.done.add(qi);
-  st.total++;
-  const opts = el.parentElement.querySelectorAll('.opt');
-  opts.forEach(o => o.classList.add('answered'));
-  if (oi === qs[qi].c) { el.classList.add('correct'); st.right++; }
-  else { el.classList.add('wrong'); opts[qs[qi].c].classList.add('correct'); }
+function ans(qi,oi,el){
+  if(st.done.has(qi))return;
+  st.done.add(qi);st.total++;
+  const opts=el.parentElement.querySelectorAll('.mc-opt');
+  opts.forEach(o=>o.classList.add('answered'));
+  if(oi===qs[qi].c){el.classList.add('correct');st.right++;}
+  else{el.classList.add('wrong');opts[qs[qi].c].classList.add('correct');}
   document.getElementById('e'+qi).classList.add('show');
   upd();
 }
 
-function upd() {
-  document.getElementById('score').textContent = `${st.right}/${st.total}`;
-  document.getElementById('pbar').style.width = (qs.length > 0 ? st.done.size/qs.length*100 : 0) + '%';
+function upd(){
+  document.getElementById('score').textContent=`${st.right}/${st.total}`;
+  document.getElementById('pbar').style.width=(qs.length>0?st.done.size/qs.length*100:0)+'%';
 }
 
-function resetQ() {
-  st = { right:0, total:0, done: new Set() };
-  buildQ();
-}
+function resetQ(){st={right:0,total:0,done:new Set()};buildQ();}
 
 buildQ();
 </script>
