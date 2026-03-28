@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appalti Pubblici — RUP, DL, SAL — Guida Concorso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F7F0;
+    --bg2: #EAEDE3;
+    --ink: #1C1C1C;
+    --ink2: #4A4A4A;
+    --red: #C0392B;
+    --green: #1A6B3C;
+    --blue: #1A3A6B;
+    --blue2: #2C5AA0;
+    --orange: #C9670A;
+    --yellow: #B8860B;
+    --construct: #2D5016;
+    --construct2: #4A7C2F;
+    --steel: #374151;
+    --border: #D1D8C8;
+    --card: #FFFFFF;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; }
+
+  /* HEADER */
+  .site-header { background: var(--construct); color: white; padding: 2.5rem 1.5rem 2rem; position: relative; overflow: hidden; }
+  .site-header::before { content:''; position:absolute; top:0;left:0;right:0;bottom:0; background:repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,.02) 40px,rgba(255,255,255,.02) 41px),repeating-linear-gradient(transparent,transparent 40px,rgba(255,255,255,.02) 40px,rgba(255,255,255,.02) 41px); }
+  .header-inner { position:relative; max-width:940px; margin:auto; }
+  .badge { display:inline-block; background:var(--construct2); color:white; font-family:var(--mono); font-size:.7rem; font-weight:600; letter-spacing:.1em; padding:.25rem .7rem; border-radius:2px; margin-bottom:.8rem; text-transform:uppercase; border:1px solid rgba(255,255,255,.2); }
+  .site-header h1 { font-family:var(--serif); font-size:2.3rem; font-weight:700; line-height:1.2; margin-bottom:.5rem; }
+  .site-header p { font-size:.95rem; opacity:.8; max-width:640px; }
+
+  /* NAV */
+  .nav-pills { display:flex; flex-wrap:wrap; gap:.5rem; padding:1rem 1.5rem; background:var(--bg2); border-bottom:1px solid var(--border); max-width:940px; margin:0 auto; }
+  .nav-pill { font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; padding:.35rem .8rem; border-radius:20px; background:var(--card); border:1px solid var(--border); color:var(--ink2); text-decoration:none; transition:all .15s; white-space:nowrap; }
+  .nav-pill:hover { background:var(--construct); color:white; border-color:var(--construct); }
+
+  /* LAYOUT */
+  .main { max-width:940px; margin:0 auto; padding:0 1.2rem 4rem; }
+
+  /* REAL Q */
+  .real-q { background:#FFF8E1; border-left:5px solid var(--yellow); padding:1.1rem 1.5rem; max-width:940px; margin:1.5rem auto .5rem; border-radius:4px; }
+  .real-q .label { font-family:var(--mono); font-size:.67rem; letter-spacing:.1em; text-transform:uppercase; color:var(--yellow); margin-bottom:.4rem; }
+  .real-q p { font-size:.93rem; }
+
+  /* SECTION */
+  .section-title { font-family:var(--serif); font-size:1.5rem; font-weight:700; color:var(--construct); margin:2.5rem 0 1rem; padding-bottom:.4rem; border-bottom:2px solid var(--construct2); display:flex; align-items:center; gap:.7rem; }
+  .section-title .num { font-family:var(--mono); font-size:.75rem; background:var(--construct); color:white; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border-radius:50%; flex-shrink:0; }
+
+  /* PRIORITY */
+  .prio { display:inline-flex; align-items:center; gap:.3rem; font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:.2rem .6rem; border-radius:3px; }
+  .prio-red { background:#FEE2E2; color:var(--red); border:1px solid #FECACA; }
+  .prio-orange { background:#FFF3E0; color:var(--orange); border:1px solid #FFCC80; }
+
+  /* CARDS */
+  .art-card { background:var(--card); border:1px solid var(--border); border-radius:8px; margin-bottom:1.3rem; overflow:hidden; }
+  .art-header { padding:1rem 1.4rem .8rem; border-bottom:1px solid var(--border); display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+  .art-num { font-family:var(--mono); font-size:.73rem; font-weight:600; color:var(--construct2); margin-bottom:.2rem; }
+  .art-title { font-family:var(--serif); font-size:1.15rem; font-weight:700; }
+  .art-body { padding:1.2rem 1.4rem; }
+  .art-body p { font-size:.92rem; line-height:1.75; margin-bottom:.8rem; }
+  .art-body p:last-child { margin-bottom:0; }
+
+  /* CONCEPT */
+  .concept { background:var(--bg2); border-radius:5px; padding:.9rem 1.1rem; margin:.6rem 0; font-size:.9rem; line-height:1.7; }
+  .concept-title { font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--construct2); margin-bottom:.4rem; }
+
+  /* ALERT */
+  .alert { border-radius:5px; padding:.9rem 1.1rem; margin:.7rem 0; font-size:.9rem; display:flex; gap:.7rem; align-items:flex-start; line-height:1.6; }
+  .alert-icon { font-size:1rem; flex-shrink:0; margin-top:.1rem; }
+  .alert-red { background:#FFF5F5; border:1px solid #FFC0BB; }
+  .alert-green { background:#F0FFF4; border:1px solid #9AE6B4; }
+  .alert-blue { background:#EBF8FF; border:1px solid #90CDF4; }
+  .alert-orange { background:#FFFAF0; border:1px solid #FBD38D; }
+  .alert-construct { background:#F3F7EE; border:1px solid #A8C494; }
+
+  /* GRID 2 */
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.8rem 0; }
+  .grid2-item { border-radius:5px; border:1px solid var(--border); padding:.9rem 1rem; background:var(--bg2); }
+  .grid2-item h4 { font-family:var(--mono); font-size:.67rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--construct2); margin-bottom:.5rem; }
+  .grid2-item ul { list-style:none; padding:0; }
+  .grid2-item li { font-size:.87rem; padding:.25rem 0; border-bottom:1px solid var(--border); display:flex; gap:.5rem; line-height:1.5; }
+  .grid2-item li:last-child { border-bottom:none; }
+  .grid2-item li::before { content:'·'; color:var(--construct2); font-weight:700; flex-shrink:0; }
+
+  /* TABLE */
+  .vtable { width:100%; border-collapse:collapse; font-size:.86rem; margin:.8rem 0; }
+  .vtable th { background:var(--construct); color:white; padding:.6rem .9rem; text-align:left; font-family:var(--mono); font-size:.67rem; font-weight:600; letter-spacing:.06em; }
+  .vtable td { padding:.55rem .9rem; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.55; }
+  .vtable tr:nth-child(even) td { background:var(--bg2); }
+  .vtable tr:last-child td { border-bottom:none; }
+
+  /* GRANDE TIMELINE FASI */
+  .timeline { position:relative; margin:1.5rem 0; }
+  .tl-item { display:flex; gap:0; margin-bottom:0; }
+  .tl-left { display:flex; flex-direction:column; align-items:center; width:52px; flex-shrink:0; }
+  .tl-circle { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:.8rem; font-weight:700; color:white; flex-shrink:0; margin-top:.6rem; z-index:1; position:relative; }
+  .tl-line { width:3px; flex:1; min-height:20px; }
+  .tl-content { flex:1; padding:.5rem .8rem 1.4rem; }
+  .tl-phase { font-family:var(--mono); font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:.2rem; }
+  .tl-title { font-size:1.05rem; font-weight:700; font-family:var(--serif); margin-bottom:.3rem; }
+  .tl-body { font-size:.88rem; color:var(--ink2); line-height:1.6; }
+  .tl-tags { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.5rem; }
+  .tl-tag { font-family:var(--mono); font-size:.65rem; padding:.15rem .5rem; border-radius:3px; border:1px solid; }
+
+  /* fasi colori */
+  .ph1 .tl-circle, .ph1 .tl-line { background:var(--blue); }
+  .ph1 .tl-phase { color:var(--blue); }
+  .ph1 .tl-tag { background:#EBF8FF; color:var(--blue2); border-color:#90CAF9; }
+
+  .ph2 .tl-circle, .ph2 .tl-line { background:var(--construct2); }
+  .ph2 .tl-phase { color:var(--construct2); }
+  .ph2 .tl-tag { background:#F3F7EE; color:var(--construct); border-color:#A8C494; }
+
+  .ph3 .tl-circle, .ph3 .tl-line { background:var(--orange); }
+  .ph3 .tl-phase { color:var(--orange); }
+  .ph3 .tl-tag { background:#FFFAF0; color:var(--orange); border-color:#FFCC80; }
+
+  .ph4 .tl-circle, .ph4 .tl-line { background:var(--red); }
+  .ph4 .tl-phase { color:var(--red); }
+  .ph4 .tl-tag { background:#FFF5F5; color:var(--red); border-color:#FFC0BB; }
+
+  .ph5 .tl-circle { background:var(--green); }
+  .ph5 .tl-line { background:transparent; }
+  .ph5 .tl-phase { color:var(--green); }
+  .ph5 .tl-tag { background:#F0FFF4; color:var(--green); border-color:#9AE6B4; }
+
+  /* SAL */
+  .sal-flow { display:flex; flex-direction:column; gap:.6rem; margin:.8rem 0; }
+  .sal-step { display:flex; align-items:center; gap:.8rem; background:var(--bg2); border-radius:5px; padding:.7rem 1rem; border:1px solid var(--border); }
+  .sal-num { font-family:var(--mono); font-size:.75rem; font-weight:700; background:var(--construct); color:white; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .sal-text { font-size:.88rem; line-height:1.5; }
+  .sal-text strong { color:var(--construct); }
+
+  /* MNEMONICA */
+  .mnemonic { background:#1C1C1C; color:#E8D44D; border-radius:6px; padding:1.1rem 1.4rem; font-family:var(--mono); margin:1rem 0; }
+  .mnemonic h4 { font-size:.63rem; letter-spacing:.15em; text-transform:uppercase; opacity:.6; margin-bottom:.5rem; }
+  .mnemonic p { font-size:.92rem; line-height:1.85; }
+  .mnemonic span { color:white; }
+
+  /* RISPOSTA */
+  .risposta { background:var(--construct); color:white; border-radius:8px; padding:1.6rem 1.8rem; margin:2rem 0 1rem; }
+  .risposta-label { font-family:var(--mono); font-size:.63rem; letter-spacing:.15em; text-transform:uppercase; opacity:.6; margin-bottom:1rem; }
+  .risposta p { font-size:.92rem; line-height:1.78; margin-bottom:.85rem; opacity:.93; }
+  .risposta strong { color:#B8F0A0; }
+  .risposta .par-title { font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:#B8F0A0; margin:.9rem 0 .3rem; }
+
+  /* QUIZ */
+  .quiz-area { margin:2.5rem 0 1rem; }
+  .quiz-title { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--construct); margin-bottom:1rem; padding-bottom:.4rem; border-bottom:1px solid var(--border); }
+  .quiz-item { background:var(--card); border:1px solid var(--border); border-radius:5px; margin-bottom:.8rem; overflow:hidden; }
+  .quiz-q { padding:.85rem 1.2rem; font-size:.92rem; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem; user-select:none; transition:background .15s; }
+  .quiz-q:hover { background:var(--bg2); }
+  .quiz-q .arrow { font-size:.8rem; transition:transform .2s; flex-shrink:0; color:var(--construct2); }
+  .quiz-a { padding:0 1.2rem; font-size:.9rem; color:var(--ink2); line-height:1.65; max-height:0; overflow:hidden; transition:max-height .35s ease, padding .3s ease; }
+  .quiz-a.open { max-height:800px; padding:.85rem 1.2rem 1rem; border-top:1px solid var(--border); }
+  .quiz-q.active .arrow { transform:rotate(180deg); }
+
+  /* SCROLLTOP */
+  #scrolltop { position:fixed; bottom:1.5rem; right:1.5rem; width:42px; height:42px; background:var(--construct); color:white; border:none; border-radius:50%; cursor:pointer; font-size:1.1rem; display:none; align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(0,0,0,.25); z-index:100; }
+  #scrolltop.visible { display:flex; }
+
+  footer { text-align:center; padding:2rem; font-family:var(--mono); font-size:.68rem; color:var(--ink2); opacity:.6; border-top:1px solid var(--border); margin-top:3rem; }
+
+  @media (max-width:680px) {
+    .grid2 { grid-template-columns:1fr; }
+    .site-header h1 { font-size:1.7rem; }
+    .vtable { font-size:.8rem; }
+    .vtable td, .vtable th { padding:.45rem .6rem; }
+    .tl-left { width:40px; }
+    .tl-circle { width:28px; height:28px; font-size:.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="badge">🏗️ Guida Concorso — Specialista EQ Attività Tecniche</div>
+    <h1>Appalti Pubblici</h1>
+    <p>RUP · Direttore Lavori · SAL · Fasi dell'opera pubblica · Programma Triennale — D.Lgs. 36/2023 (nuovo Codice Contratti)</p>
+  </div>
+</header>
+
+<!-- DOMANDE REALI -->
+<div class="real-q">
+  <div class="label">⭐ Già uscito — Specialista EQ Ostellato, Colloquio 26/02/2024, Prova 2</div>
+  <p><strong>«Il candidato descriva i ruoli di RUP e di DL»</strong></p>
+</div>
+<div class="real-q" style="border-left-color:var(--construct2);">
+  <div class="label" style="color:var(--construct2);">⭐ Già uscito — Specialista EQ Ostellato, Colloquio 26/02/2024, Prova 3</div>
+  <p><strong>«Il candidato descriva le varie fasi di redazione di un SAL in un lavoro pubblico»</strong></p>
+</div>
+<div class="real-q" style="border-left-color:var(--orange);">
+  <div class="label" style="color:var(--orange);">⭐ Già uscito — Specialista EQ Portomaggiore, Prova 1</div>
+  <p><strong>«Le fasi di programmazione e realizzazione di un'opera pubblica»</strong></p>
+</div>
+<div class="real-q" style="border-left-color:var(--steel);">
+  <div class="label" style="color:var(--steel);">⭐ Già uscito — Specialista EQ Ostellato, Prova 1</div>
+  <p><strong>«Il programma triennale delle opere pubbliche»</strong></p>
+</div>
+
+<nav><div class="nav-pills">
+  <a href="#quadro" class="nav-pill">📌 Il quadro</a>
+  <a href="#fasi" class="nav-pill">🔢 Fasi opera pubblica</a>
+  <a href="#programmazione" class="nav-pill">📋 Programma triennale</a>
+  <a href="#rup" class="nav-pill">👤 RUP</a>
+  <a href="#dl" class="nav-pill">🦺 Direttore Lavori</a>
+  <a href="#sal" class="nav-pill">💰 SAL</a>
+  <a href="#consegna" class="nav-pill">🔑 Consegna lavori</a>
+  <a href="#collaudo" class="nav-pill">✅ Collaudo</a>
+  <a href="#risposta" class="nav-pill">✍️ Risposte modello</a>
+  <a href="#quiz" class="nav-pill">🧠 Quiz</a>
+</div></nav>
+
+<main class="main">
+
+<!-- QUADRO GENERALE -->
+<h2 id="quadro" class="section-title"><span class="num">0</span> Il quadro generale — come funziona un appalto pubblico</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <div class="concept">
+      <div class="concept-title">La norma di riferimento</div>
+      Il <strong>D.Lgs. 36/2023</strong> è il nuovo Codice dei Contratti Pubblici, in vigore dal 1° luglio 2023. Ha sostituito il vecchio D.Lgs. 50/2016. È la legge che regola tutto — come si programma, come si fa la gara, come si esegue e come si chiude un appalto pubblico.
+    </div>
+
+    <p style="font-size:.92rem; margin-bottom:.8rem;">Quando un Comune vuole costruire qualcosa — una strada, una scuola, un parco — non può semplicemente chiamare un'impresa e dirle "fallo". Deve seguire un percorso preciso fatto di <strong>5 fasi obbligatorie</strong>:</p>
+
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin:.5rem 0 1rem;">
+      <div style="background:#EBF8FF; border:1px solid #90CAF9; border-radius:5px; padding:.6rem 1rem; font-family:var(--mono); font-size:.75rem; color:var(--blue2); font-weight:600;">1 → PROGRAMMAZIONE</div>
+      <div style="color:var(--ink2); align-self:center; font-size:1.2rem;">→</div>
+      <div style="background:#F3F7EE; border:1px solid #A8C494; border-radius:5px; padding:.6rem 1rem; font-family:var(--mono); font-size:.75rem; color:var(--construct); font-weight:600;">2 → PROGETTAZIONE</div>
+      <div style="color:var(--ink2); align-self:center; font-size:1.2rem;">→</div>
+      <div style="background:#FFF3E0; border:1px solid #FFCC80; border-radius:5px; padding:.6rem 1rem; font-family:var(--mono); font-size:.75rem; color:var(--orange); font-weight:600;">3 → AFFIDAMENTO (GARA)</div>
+      <div style="color:var(--ink2); align-self:center; font-size:1.2rem;">→</div>
+      <div style="background:#FFF5F5; border:1px solid #FFC0BB; border-radius:5px; padding:.6rem 1rem; font-family:var(--mono); font-size:.75rem; color:var(--red); font-weight:600;">4 → ESECUZIONE</div>
+      <div style="color:var(--ink2); align-self:center; font-size:1.2rem;">→</div>
+      <div style="background:#F0FFF4; border:1px solid #9AE6B4; border-radius:5px; padding:.6rem 1rem; font-family:var(--mono); font-size:.75rem; color:var(--green); font-weight:600;">5 → COLLAUDO</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Mnemonica per le 5 fasi</h4>
+      <p><span>P</span>rima <span>P</span>rogrammo · <span>P</span>oi <span>P</span>rogetto · <span>A</span>ffido con la <span>G</span>ara · <span>E</span>seguo i <span>L</span>avori · <span>C</span>ollaudo e <span>C</span>hiudo<br>
+      <span style="opacity:.5; font-size:.8rem;">PP — AG — EL — CC</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- FASI DETTAGLIATE -->
+<!-- ============================================================ -->
+<h2 id="fasi" class="section-title"><span class="num">1</span> Le 5 fasi dell'opera pubblica — nel dettaglio</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <div class="timeline">
+
+      <!-- FASE 1 -->
+      <div class="tl-item ph1">
+        <div class="tl-left">
+          <div class="tl-circle">1</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-phase">Fase 1 — Prima della gara</div>
+          <div class="tl-title">Programmazione</div>
+          <div class="tl-body">
+            Il Comune decide <strong>quali opere vuole realizzare</strong> nei prossimi 3 anni e le inserisce nel <strong>Programma Triennale dei Lavori Pubblici</strong> (PTLP). È il documento di pianificazione — senza di esso l'opera non esiste giuridicamente. Le opere sopra 100.000 € devono essere nel programma triennale. Quelle sotto 100.000 € vanno nell'elenco annuale.
+          </div>
+          <div class="tl-tags">
+            <span class="tl-tag">Programma Triennale PTLP</span>
+            <span class="tl-tag">Elenco annuale</span>
+            <span class="tl-tag">Delibera di Giunta</span>
+            <span class="tl-tag">Documento di Fattibilità (DFTE)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FASE 2 -->
+      <div class="tl-item ph2">
+        <div class="tl-left">
+          <div class="tl-circle">2</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-phase">Fase 2 — Prima della gara</div>
+          <div class="tl-title">Progettazione</div>
+          <div class="tl-body">
+            Con il D.Lgs. 36/2023 i livelli progettuali sono diventati <strong>2</strong> (prima erano 3):<br><br>
+            <strong>1. Progetto di fattibilità tecnico-economica (PFTE)</strong> — sostituisce il vecchio "preliminare". Definisce le caratteristiche dell'opera, i costi, la fattibilità ambientale e urbanistica. È il documento su cui si fa la gara per l'affidamento della progettazione esecutiva.<br><br>
+            <strong>2. Progetto esecutivo</strong> — il progetto definitivo e completo con tutti i dettagli tecnici, computo metrico estimativo, capitolato. È il documento su cui si fa la gara per i lavori.
+          </div>
+          <div class="tl-tags">
+            <span class="tl-tag">PFTE</span>
+            <span class="tl-tag">Progetto esecutivo</span>
+            <span class="tl-tag">Computo metrico</span>
+            <span class="tl-tag">Capitolato speciale</span>
+            <span class="tl-tag">Piano sicurezza (PSC)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FASE 3 -->
+      <div class="tl-item ph3">
+        <div class="tl-left">
+          <div class="tl-circle">3</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-phase">Fase 3 — La gara</div>
+          <div class="tl-title">Affidamento (procedura di gara)</div>
+          <div class="tl-body">
+            Il Comune pubblica il bando e seleziona l'impresa. Le procedure principali sono:<br><br>
+            <strong>Affidamento diretto</strong> — sotto 150.000 € si può scegliere direttamente un'impresa (con motivazione)<br>
+            <strong>Procedura negoziata</strong> — tra 150.000 € e 1 milione € si invitano almeno 5 operatori<br>
+            <strong>Procedura aperta</strong> — sopra 1 milione € gara pubblica aperta a tutti<br><br>
+            La gara si conclude con l'<strong>aggiudicazione</strong> e poi la firma del <strong>contratto</strong>.
+          </div>
+          <div class="tl-tags">
+            <span class="tl-tag">Bando di gara</span>
+            <span class="tl-tag">Offerta economicamente più vantaggiosa</span>
+            <span class="tl-tag">Aggiudicazione</span>
+            <span class="tl-tag">Contratto</span>
+            <span class="tl-tag">Cauzione definitiva</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FASE 4 -->
+      <div class="tl-item ph4">
+        <div class="tl-left">
+          <div class="tl-circle">4</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-phase">Fase 4 — I lavori</div>
+          <div class="tl-title">Esecuzione</div>
+          <div class="tl-body">
+            L'impresa inizia a costruire. Questa fase si apre con la <strong>consegna dei lavori</strong> e si chiude con l'<strong>ultimazione dei lavori</strong>. Durante tutta questa fase:<br><br>
+            — Il <strong>RUP</strong> coordina e sorveglia tutto dall'alto<br>
+            — Il <strong>Direttore Lavori (DL)</strong> controlla in cantiere giorno per giorno<br>
+            — Si emettono periodicamente i <strong>SAL</strong> (Stati Avanzamento Lavori) per pagare l'impresa<br>
+            — Il <strong>Coordinatore Sicurezza in Esecuzione (CSE)</strong> vigila sulla sicurezza
+          </div>
+          <div class="tl-tags">
+            <span class="tl-tag">Consegna lavori</span>
+            <span class="tl-tag">Direttore Lavori</span>
+            <span class="tl-tag">SAL</span>
+            <span class="tl-tag">Varianti</span>
+            <span class="tl-tag">Riserve impresa</span>
+            <span class="tl-tag">Ultimazione lavori</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FASE 5 -->
+      <div class="tl-item ph5">
+        <div class="tl-left">
+          <div class="tl-circle">5</div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-phase">Fase 5 — La chiusura</div>
+          <div class="tl-title">Collaudo e presa in consegna</div>
+          <div class="tl-body">
+            Finiti i lavori, un <strong>collaudatore indipendente</strong> (o una commissione) verifica che tutto sia stato realizzato a regola d'arte e in conformità al progetto. Esistono due tipi: <strong>collaudo tecnico-amministrativo</strong> (obbligatorio sopra 1 milione €) e <strong>certificato di regolare esecuzione</strong> (per lavori minori, lo emette il DL stesso). Dopo il collaudo l'opera passa nella disponibilità dell'ente.
+          </div>
+          <div class="tl-tags">
+            <span class="tl-tag">Collaudo tecnico-amministrativo</span>
+            <span class="tl-tag">Certificato regolare esecuzione</span>
+            <span class="tl-tag">Conto finale</span>
+            <span class="tl-tag">Svincolo cauzione</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PROGRAMMA TRIENNALE -->
+<!-- ============================================================ -->
+<h2 id="programmazione" class="section-title"><span class="num">2</span> Programma Triennale Lavori Pubblici — già uscito!</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Art. 37 D.Lgs. 36/2023 + Allegato I.3</div>
+      <div class="art-title">Programma Triennale dei Lavori Pubblici (PTLP)</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità — già uscito</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Cos'è in una frase</div>
+      È il documento con cui il Comune pianifica le opere pubbliche che vuole realizzare nei prossimi <strong>3 anni</strong>, indicando per ciascuna i costi, le fonti di finanziamento e le priorità. Senza essere nel programma, un'opera non può essere appaltata.
+    </div>
+
+    <table class="vtable">
+      <thead><tr><th>Elemento</th><th>Dettaglio</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Chi lo approva</strong></td><td>La <strong>Giunta Comunale</strong> (organo esecutivo) con delibera</td></tr>
+        <tr><td><strong>Quando</strong></td><td>Entro il <strong>31 ottobre</strong> di ogni anno (per il triennio successivo)</td></tr>
+        <tr><td><strong>Cosa contiene</strong></td><td>Elenco opere con: descrizione, importo, fonte finanziamento, anno previsto di avvio, RUP designato</td></tr>
+        <tr><td><strong>Soglia per l'inserimento</strong></td><td>Opere di importo <strong>≥ 100.000 €</strong> → nel programma triennale<br>Opere sotto 100.000 € → nell'elenco annuale</td></tr>
+        <tr><td><strong>Pubblicazione</strong></td><td>Sul sito istituzionale + sul portale MIT (Ministero Infrastrutture)</td></tr>
+        <tr><td><strong>Documento base</strong></td><td>Per ogni opera inserita serve il <strong>Documento di Fattibilità delle Alternative Progettuali (DFTE)</strong> — valuta se l'opera è necessaria e fattibile</td></tr>
+        <tr><td><strong>Aggiornamento</strong></td><td>Annuale con scorrimento — il secondo anno diventa primo, si aggiunge il terzo anno</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">🔑</span>
+      <div><strong>Regola fondamentale:</strong> Nessun lavoro pubblico sopra 150.000 € può essere affidato se non è inserito nel programma triennale e nell'elenco annuale. È una condizione di legittimità dell'appalto — non un adempimento burocratico.</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p>
+        <span>Chi approva:</span> Giunta · <span>Scadenza:</span> 31 ottobre<br>
+        <span>Soglia:</span> 100.000 € per il triennale · sotto = elenco annuale<br>
+        <span>Senza programma</span> → appalto illegittimo
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- RUP -->
+<!-- ============================================================ -->
+<h2 id="rup" class="section-title"><span class="num">3</span> Il RUP — Responsabile Unico del Progetto</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 15-16 D.Lgs. 36/2023 + Allegato I.2</div>
+      <div class="art-title">RUP — Responsabile Unico del Progetto</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità — già uscito</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Cos'è il RUP — la definizione precisa</div>
+      Il RUP (prima si chiamava "Responsabile Unico del Procedimento") è il <strong>funzionario dell'ente pubblico</strong> che segue l'appalto dall'inizio alla fine. È il punto di riferimento unico per tutto — dalla programmazione al collaudo. Ogni appalto deve avere il suo RUP, nominato prima ancora che si faccia qualsiasi atto.
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div><strong>Novità D.Lgs. 36/2023:</strong> Il nome è cambiato da "Responsabile Unico del Procedimento" a "Responsabile Unico del Progetto" — per sottolineare che la sua responsabilità non è solo burocratica ma gestionale e di risultato sull'intera opera.</div>
+    </div>
+
+    <div class="grid2" style="margin:.8rem 0;">
+      <div class="grid2-item">
+        <h4>👤 Chi può essere RUP</h4>
+        <ul>
+          <li>Dipendente dell'ente con adeguata competenza tecnica</li>
+          <li>Di norma un <strong>tecnico</strong> (ingegnere, architetto, geometra)</li>
+          <li>Deve avere esperienza nelle materie dell'appalto</li>
+          <li>Nominato dal responsabile dell'unità organizzativa</li>
+          <li>Non può essere il collaudatore (incompatibilità)</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>📋 Cosa fa il RUP — in sintesi</h4>
+        <ul>
+          <li>Redige o coordina la redazione del DFTE</li>
+          <li>Coordina la <strong>progettazione</strong></li>
+          <li>Gestisce la <strong>procedura di gara</strong></li>
+          <li>Sovraintende all'<strong>esecuzione</strong> del contratto</li>
+          <li>Propone varianti e modifiche contrattuali</li>
+          <li>Decide sulle <strong>riserve</strong> dell'impresa</li>
+          <li>Coordina il <strong>collaudo</strong></li>
+          <li>Firma il <strong>conto finale</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Responsabilità del RUP:</strong> Il RUP risponde del risultato complessivo dell'appalto — rispetto dei tempi, dei costi, della qualità. Se ci sono ritardi o maggiori costi ingiustificati può rispondere per <strong>danno erariale</strong> davanti alla Corte dei Conti.</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 RUP in una frase</h4>
+      <p>
+        Il RUP è il <span>"regista"</span> dell'appalto — nominato prima di tutto, responsabile di tutto, presente dall'inizio alla fine. Non esegue i lavori — li <span>coordina e controlla</span>.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DIRETTORE LAVORI -->
+<!-- ============================================================ -->
+<h2 id="dl" class="section-title"><span class="num">4</span> Il Direttore Lavori (DL)</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 114-120 D.Lgs. 36/2023 + Allegato II.14</div>
+      <div class="art-title">Direttore dei Lavori — il controllore in cantiere</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità — già uscito</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">La differenza fondamentale RUP vs DL</div>
+      Il <strong>RUP</strong> gestisce l'intero processo dall'alto — è il responsabile complessivo.<br>
+      Il <strong>DL</strong> controlla l'esecuzione fisica dei lavori — è gli occhi dell'ente in cantiere.<br><br>
+      Possono coincidere nella stessa persona per lavori semplici, ma di norma sono figure distinte. Il DL risponde al RUP.
+    </div>
+
+    <table class="vtable">
+      <thead><tr><th>Aspetto</th><th>RUP</th><th>Direttore Lavori (DL)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Quando entra in gioco</strong></td>
+          <td>Dall'inizio (programmazione)</td>
+          <td>Dalla consegna dei lavori</td>
+        </tr>
+        <tr>
+          <td><strong>Cosa controlla</strong></td>
+          <td>L'intero appalto (tempi, costi, qualità, gara)</td>
+          <td>L'esecuzione fisica in cantiere</td>
+        </tr>
+        <tr>
+          <td><strong>Dove lavora</strong></td>
+          <td>In ufficio (principalmente)</td>
+          <td>In cantiere (principalmente)</td>
+        </tr>
+        <tr>
+          <td><strong>Rapporto con l'impresa</strong></td>
+          <td>Indiretto — tramite DL</td>
+          <td>Diretto — impartisce istruzioni quotidiane</td>
+        </tr>
+        <tr>
+          <td><strong>Atti principali</strong></td>
+          <td>Consegna lavori, approvazione varianti, conto finale</td>
+          <td>Giornale lavori, SAL, ordini di servizio, riserve</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-weight:600; font-size:.92rem; margin:.9rem 0 .5rem;">I principali atti del Direttore Lavori:</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>📓 Documenti che tiene</h4>
+        <ul>
+          <li><strong>Giornale dei lavori</strong> — registro giornaliero di tutto ciò che succede in cantiere</li>
+          <li><strong>Libretto delle misure</strong> — misurazioni delle quantità realizzate</li>
+          <li><strong>Registro di contabilità</strong> — contabilità progressiva delle lavorazioni</li>
+          <li><strong>Ordini di servizio</strong> — istruzioni scritte all'impresa</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>⚡ Poteri del DL</h4>
+        <ul>
+          <li>Impartisce <strong>ordini di servizio</strong> vincolanti all'impresa</li>
+          <li>Può <strong>sospendere i lavori</strong> per cause di forza maggiore o irregolarità</li>
+          <li>Redige i <strong>SAL</strong> per i pagamenti</li>
+          <li>Gestisce le <strong>riserve</strong> dell'impresa</li>
+          <li>Propone varianti al RUP</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare in prova</h4>
+      <p>
+        <span>RUP</span> = responsabile di TUTTO dall'inizio alla fine<br>
+        <span>DL</span> = responsabile dell'ESECUZIONE in cantiere<br>
+        <span>Differenza chiave:</span> il RUP gestisce il contratto · il DL gestisce i lavori fisici
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SAL -->
+<!-- ============================================================ -->
+<h2 id="sal" class="section-title"><span class="num">5</span> Il SAL — Stato Avanzamento Lavori</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Allegato II.14 D.Lgs. 36/2023</div>
+      <div class="art-title">SAL — come funziona il pagamento in corso d'opera</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità — già uscito esplicitamente</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Cos'è il SAL in parole semplici</div>
+      Quando costruisci qualcosa ci vogliono mesi o anni. L'impresa non può aspettare la fine per essere pagata — altrimenti nessuno lavorerebbe. Il SAL è il meccanismo con cui l'impresa viene pagata <strong>a rate</strong> man mano che avanza con i lavori. Ogni SAL corrisponde a una percentuale dei lavori completata.
+    </div>
+
+    <p style="font-weight:600; font-size:.92rem; margin:.8rem 0 .4rem;">Le fasi di redazione di un SAL — passo per passo:</p>
+
+    <div class="sal-flow">
+      <div class="sal-step">
+        <div class="sal-num">1</div>
+        <div class="sal-text"><strong>Raggiungimento della soglia contrattuale</strong><br>Il contratto stabilisce ogni quanto si emette un SAL — di solito ogni 30 giorni oppure al raggiungimento di una certa quota (es: ogni 100.000 € di lavori). Quando si raggiunge la soglia, il DL avvia la procedura.</div>
+      </div>
+      <div class="sal-step">
+        <div class="sal-num">2</div>
+        <div class="sal-text"><strong>Misurazione e contabilizzazione</strong><br>Il DL (spesso con il suo assistente) va in cantiere e <strong>misura fisicamente</strong> i lavori eseguiti. Confronta con il computo metrico del progetto. Registra tutto nel <strong>libretto delle misure</strong> e nel <strong>registro di contabilità</strong>.</div>
+      </div>
+      <div class="sal-step">
+        <div class="sal-num">3</div>
+        <div class="sal-text"><strong>Redazione del SAL</strong><br>Il DL redige il documento "Stato Avanzamento Lavori n. X" indicando: lavori eseguiti per categoria, quantità, prezzi unitari, importo totale. Si calcola quanto è stato fatto rispetto al totale contrattuale.</div>
+      </div>
+      <div class="sal-step">
+        <div class="sal-num">4</div>
+        <div class="sal-text"><strong>Emissione del certificato di pagamento</strong><br>Sulla base del SAL, il RUP emette il <strong>certificato di pagamento</strong> — il documento che autorizza il pagamento. L'importo è il SAL progressivo meno quanto già pagato nei SAL precedenti, meno la <strong>ritenuta di garanzia</strong> (0,5%).</div>
+      </div>
+      <div class="sal-step">
+        <div class="sal-num">5</div>
+        <div class="sal-text"><strong>Pagamento dell'impresa</strong><br>L'ufficio contabile paga l'impresa entro <strong>30 giorni</strong> dall'emissione del certificato. Ritardi → l'ente paga gli interessi di mora (D.Lgs. 231/2002).</div>
+      </div>
+      <div class="sal-step">
+        <div class="sal-num">6</div>
+        <div class="sal-text"><strong>Conto finale</strong><br>Ultimati tutti i lavori, si redige il <strong>conto finale</strong> — l'ultimo e definitivo SAL che chiude la contabilità. Contiene anche la gestione delle eventuali <strong>riserve</strong> dell'impresa (contestazioni sui prezzi o sulle quantità). Il conto finale viene firmato dal RUP.</div>
+      </div>
+    </div>
+
+    <div class="alert alert-orange" style="margin-top:.8rem;">
+      <span class="alert-icon">💡</span>
+      <div><strong>La ritenuta di garanzia:</strong> Su ogni SAL viene trattenuta una percentuale dello <strong>0,5%</strong> come garanzia sulla buona esecuzione. Viene svincolata solo dopo il collaudo positivo o il certificato di regolare esecuzione. Serve a coprire eventuali vizi o difetti che emergono dopo la fine dei lavori.</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Sequenza SAL da ricordare</h4>
+      <p>
+        <span>Soglia raggiunta</span> → DL misura in cantiere → redige SAL →<br>
+        RUP emette certificato di pagamento → ente paga entro <span>30 giorni</span><br>
+        Ritenuta: <span>0,5%</span> su ogni SAL · Svincolata dopo collaudo
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CONSEGNA LAVORI -->
+<!-- ============================================================ -->
+<h2 id="consegna" class="section-title"><span class="num">6</span> Consegna dei lavori</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Allegato II.14 D.Lgs. 36/2023</div>
+      <div class="art-title">La consegna — quando inizia ufficialmente il cantiere</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità — già uscito (Portomaggiore Prova 2)</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Cos'è la consegna dei lavori</div>
+      È l'atto formale con cui l'ente pubblico <strong>mette a disposizione dell'impresa il cantiere</strong> e le consente di iniziare i lavori. Dal giorno della consegna inizia a decorrere il <strong>termine contrattuale</strong> per l'ultimazione.
+    </div>
+
+    <table class="vtable">
+      <thead><tr><th>Aspetto</th><th>Dettaglio</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Chi la fa</strong></td><td>Il <strong>Direttore Lavori</strong>, in presenza del RUP o di un suo delegato</td></tr>
+        <tr><td><strong>Quando</strong></td><td>Entro <strong>45 giorni</strong> dalla firma del contratto (salvo diverso accordo)</td></tr>
+        <tr><td><strong>Come</strong></td><td>Si redige il <strong>verbale di consegna</strong> firmato dal DL e dall'impresa. Si verifica che l'area sia libera e accessibile.</td></tr>
+        <tr><td><strong>Cosa contiene il verbale</strong></td><td>Data e ora · stato dei luoghi · eventuali impedimenti · data di inizio lavori · data prevista di ultimazione</td></tr>
+        <tr><td><strong>Consegna parziale</strong></td><td>Se l'area non è completamente disponibile (es: espropri non ancora completati) si può fare una consegna parziale — i tempi decorrono solo per le parti consegnate</td></tr>
+        <tr><td><strong>Rifiuto dell'impresa</strong></td><td>Se l'impresa rifiuta la consegna senza giustificato motivo → risoluzione del contratto per colpa dell'impresa</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-construct">
+      <span class="alert-icon">📋</span>
+      <div><strong>Cosa deve fare l'impresa prima di iniziare i lavori:</strong> presentare il <strong>Piano Operativo di Sicurezza (POS)</strong>, nominare il <strong>Direttore Tecnico di cantiere</strong>, installare il cartello di cantiere, comunicare l'avvio lavori alla cassa edile.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- COLLAUDO -->
+<!-- ============================================================ -->
+<h2 id="collaudo" class="section-title"><span class="num">7</span> Collaudo e Certificato di Regolare Esecuzione</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <div class="concept">
+      <div class="concept-title">La differenza tra i due strumenti</div>
+      <strong>Collaudo tecnico-amministrativo</strong> → obbligatorio per lavori sopra <strong>1 milione €</strong>. Lo fa un collaudatore esterno e indipendente nominato dall'ente.<br><br>
+      <strong>Certificato di Regolare Esecuzione (CRE)</strong> → per lavori sotto 1 milione €. Lo emette il <strong>Direttore Lavori stesso</strong> entro 3 mesi dall'ultimazione.
+    </div>
+
+    <table class="vtable">
+      <thead><tr><th>Elemento</th><th>Collaudo T.A.</th><th>Certificato Reg. Esecuzione</th></tr></thead>
+      <tbody>
+        <tr><td>Soglia</td><td>Obbligatorio sopra <strong>1 milione €</strong></td><td>Per lavori sotto 1 milione €</td></tr>
+        <tr><td>Chi lo fa</td><td>Collaudatore indipendente (non il DL, non il RUP)</td><td>Il Direttore Lavori</td></tr>
+        <tr><td>Tempi</td><td>Entro 6 mesi dall'ultimazione</td><td>Entro 3 mesi dall'ultimazione</td></tr>
+        <tr><td>Effetto</td><td>Accettazione ufficiale dell'opera</td><td>Idem, ma procedura semplificata</td></tr>
+        <tr><td>Garanzia</td><td>Svincolo della cauzione definitiva</td><td>Svincolo della cauzione definitiva</td></tr>
+      </tbody>
+    </table>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p>
+        Sopra <span>1 milione €</span> → collaudo da collaudatore esterno<br>
+        Sotto <span>1 milione €</span> → certificato di regolare esecuzione dal DL<br>
+        Dopo il collaudo → svincolo cauzione + svincolo ritenuta 0,5%
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- RISPOSTE MODELLO -->
+<!-- ============================================================ -->
+<h2 id="risposta" class="section-title"><span class="num">8</span> Risposte modello</h2>
+
+<div class="risposta">
+  <div class="risposta-label">✍️ Risposta modello 1 — "I ruoli di RUP e DL"</div>
+  <div class="par-title">RUP</div>
+  <p>Il <strong>Responsabile Unico del Progetto</strong> (RUP), disciplinato dagli artt. 15-16 del D.Lgs. 36/2023, è il funzionario dell'ente pubblico che coordina l'intero ciclo di vita dell'appalto — dalla programmazione al collaudo. Nominato prima di qualsiasi atto, il RUP gestisce la procedura di gara, sovraintende all'esecuzione contrattuale, coordina le varianti, decide sulle riserve dell'impresa e firma il conto finale. Risponde del risultato complessivo dell'opera in termini di tempi, costi e qualità, con possibile responsabilità erariale davanti alla Corte dei Conti in caso di danni all'ente.</p>
+  <div class="par-title">Direttore Lavori</div>
+  <p>Il <strong>Direttore dei Lavori</strong> è la figura che, per conto dell'ente, <strong>controlla l'esecuzione fisica in cantiere</strong>. Opera dall'atto della consegna dei lavori fino al collaudo. I suoi compiti principali sono: tenuta del giornale dei lavori, delle misure e del registro di contabilità; emissione degli ordini di servizio all'impresa; redazione dei SAL per i pagamenti; gestione delle sospensioni e delle riserve. A differenza del RUP, che ha una visione gestionale complessiva, il DL ha una funzione di controllo tecnico operativo diretto sul cantiere.</p>
+</div>
+
+<div class="risposta" style="margin-top:1rem;">
+  <div class="risposta-label">✍️ Risposta modello 2 — "Le fasi di redazione di un SAL"</div>
+  <p>Lo Stato di Avanzamento Lavori (SAL) è lo strumento contabile attraverso cui l'impresa viene pagata progressivamente durante l'esecuzione dei lavori. Le fasi di redazione sono le seguenti. <strong>Prima</strong>, al raggiungimento della soglia contrattuale (temporale o economica), il Direttore Lavori procede alla misurazione e contabilizzazione delle lavorazioni eseguite, registrandole nel libretto delle misure e nel registro di contabilità. <strong>Seconda</strong>, sulla base delle misurazioni redige il SAL, indicando per categoria di lavoro le quantità eseguite, i prezzi unitari e l'importo progressivo. <strong>Terza</strong>, il RUP emette il certificato di pagamento, calcolato come differenza tra il SAL corrente e quanto già corrisposto, al netto della ritenuta di garanzia dello 0,5%. <strong>Quarta</strong>, l'ente procede al pagamento entro 30 giorni. La procedura si chiude con il conto finale, redatto dopo l'ultimazione di tutti i lavori, che definisce il saldo definitivo e gestisce le eventuali riserve dell'impresa.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- QUIZ -->
+<!-- ============================================================ -->
+<div id="quiz" class="quiz-area">
+  <div class="quiz-title">🧠 Quiz — 6 domande stile colloquio Specialista EQ</div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Qual è la differenza tra RUP e Direttore Lavori?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il <strong>RUP</strong> (Responsabile Unico del Progetto, art. 15 D.Lgs. 36/2023) è responsabile dell'intero appalto dall'inizio alla fine — programmazione, progettazione, gara, esecuzione, collaudo. Ha una visione gestionale complessiva e risponde del risultato dell'opera. Il <strong>Direttore Lavori</strong> invece opera solo nella fase esecutiva — dalla consegna dei lavori al collaudo — e controlla fisicamente l'esecuzione in cantiere. Redige il giornale dei lavori, le misure, i SAL, emette ordini di servizio. Possono coincidere per lavori semplici, ma sono normalmente figure distinte con responsabilità diverse: il RUP gestisce il contratto, il DL gestisce i lavori fisici.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Cos'è il Programma Triennale dei Lavori Pubblici e chi lo approva?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il Programma Triennale dei Lavori Pubblici (PTLP), disciplinato dall'art. 37 D.Lgs. 36/2023, è il documento con cui l'ente pianifica le opere pubbliche da realizzare nel triennio successivo. Contiene per ciascuna opera: descrizione, importo stimato, fonte di finanziamento, anno previsto di avvio, RUP designato. Viene approvato dalla <strong>Giunta Comunale</strong> entro il <strong>31 ottobre</strong> di ogni anno. Le opere sopra 100.000 € devono essere inserite nel programma triennale; quelle sotto 100.000 € nell'elenco annuale. Senza inserimento nel programma, nessun appalto sopra 150.000 € può essere legittimamente affidato.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Descrivi le fasi di un SAL dalla misurazione al pagamento<span class="arrow">▼</span></div>
+    <div class="quiz-a">Le fasi sono: (1) al raggiungimento della soglia contrattuale, il DL va in cantiere e <strong>misura le lavorazioni eseguite</strong>, registrandole nel libretto delle misure; (2) redige il <strong>SAL</strong> con quantità, prezzi unitari e importo progressivo; (3) il RUP emette il <strong>certificato di pagamento</strong> = SAL corrente - già pagato - ritenuta 0,5%; (4) l'ente paga entro <strong>30 giorni</strong>. La ritenuta dello 0,5% viene trattenuta su ogni SAL e svincolata solo dopo il collaudo. La procedura si chiude con il <strong>conto finale</strong> dopo l'ultimazione di tutti i lavori.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Cosa succede nella consegna dei lavori e quando avviene?<span class="arrow">▼</span></div>
+    <div class="quiz-a">La consegna dei lavori è l'atto formale con cui l'ente mette a disposizione dell'impresa l'area di cantiere e autorizza l'inizio dei lavori. La fa il <strong>Direttore Lavori</strong> entro <strong>45 giorni</strong> dalla firma del contratto. Si redige il <strong>verbale di consegna</strong> firmato da DL e impresa, che indica: data, stato dei luoghi, data di inizio e data prevista di ultimazione. Dal giorno della consegna decorre il termine contrattuale. Se l'area non è completamente disponibile (es: espropri in corso) si può fare una consegna parziale. Prima di iniziare, l'impresa deve presentare il Piano Operativo di Sicurezza (POS) e nominare il Direttore Tecnico di cantiere.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Qual è la differenza tra collaudo tecnico-amministrativo e certificato di regolare esecuzione?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il <strong>collaudo tecnico-amministrativo</strong> è obbligatorio per lavori sopra <strong>1 milione €</strong>: lo esegue un collaudatore indipendente (non il DL né il RUP) entro 6 mesi dall'ultimazione. Il <strong>certificato di regolare esecuzione (CRE)</strong> si usa per lavori sotto 1 milione €: lo emette il Direttore Lavori stesso entro 3 mesi dall'ultimazione. In entrambi i casi, il documento accerta che i lavori sono stati eseguiti a regola d'arte e in conformità al progetto, e consente lo svincolo della cauzione definitiva e della ritenuta dello 0,5%.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Quanti e quali sono i livelli di progettazione nel nuovo Codice (D.Lgs. 36/2023)?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il D.Lgs. 36/2023 ha ridotto i livelli progettuali da 3 a <strong>2</strong>: (1) <strong>Progetto di Fattibilità Tecnico-Economica (PFTE)</strong> — sostituisce il vecchio progetto preliminare e definitivo; definisce caratteristiche dell'opera, costi, fattibilità ambientale e urbanistica; è il documento su cui si fa la gara per la progettazione esecutiva o per l'appalto integrato; (2) <strong>Progetto esecutivo</strong> — il progetto completo con tutti i dettagli, computo metrico estimativo e capitolato speciale; è il documento su cui si affidano i lavori. Prima erano 3 livelli (preliminare + definitivo + esecutivo): la semplificazione ha accorpato i primi due nel PFTE.</div>
+  </div>
+
+</div>
+
+</main>
+
+<footer>
+  Guida studio per concorso — Specialista EQ Attività Tecniche — Unione Comuni Valli e Delizie<br>
+  D.Lgs. 36/2023 · D.Lgs. 81/2008 · D.Lgs. 231/2002
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  function toggle(el) {
+    const ans = el.nextElementSibling;
+    const isOpen = ans.classList.contains('open');
+    document.querySelectorAll('.quiz-a.open').forEach(a => {
+      a.classList.remove('open');
+      a.previousElementSibling.classList.remove('active');
+    });
+    if (!isOpen) { ans.classList.add('open'); el.classList.add('active'); }
+  }
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => { btn.classList.toggle('visible', window.scrollY > 400); });
+</script>
+</body>
+</html>

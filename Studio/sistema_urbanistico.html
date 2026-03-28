@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il Sistema Urbanistico Italiano — Mappa Completa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F4EF;
+    --bg2: #EDEAE3;
+    --ink: #1C1C1C;
+    --ink2: #4A4A4A;
+    --border: #D4CFC7;
+    --card: #FFFFFF;
+    --stato: #1A3A6B;
+    --regione: #6B21A8;
+    --provincia: #0F766E;
+    --comune: #C9670A;
+    --vincoli: #C0392B;
+    --green: #1A6B3C;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--sans); background:var(--bg); color:var(--ink); line-height:1.6; font-size:16px; }
+
+  /* HEADER */
+  .site-header { background:#1C1C1C; color:white; padding:2.5rem 1.5rem 2rem; }
+  .header-inner { max-width:960px; margin:auto; }
+  .badge { display:inline-block; background:var(--comune); color:white; font-family:var(--mono); font-size:.7rem; font-weight:600; letter-spacing:.1em; padding:.25rem .7rem; border-radius:2px; margin-bottom:.8rem; text-transform:uppercase; }
+  .site-header h1 { font-family:var(--serif); font-size:2.2rem; font-weight:700; line-height:1.2; margin-bottom:.5rem; }
+  .site-header p { font-size:.95rem; opacity:.75; max-width:680px; }
+
+  /* NAV */
+  .nav-pills { display:flex; flex-wrap:wrap; gap:.5rem; padding:1rem 1.5rem; background:var(--bg2); border-bottom:1px solid var(--border); max-width:960px; margin:0 auto; }
+  .nav-pill { font-family:var(--mono); font-size:.67rem; padding:.3rem .7rem; border-radius:20px; background:var(--card); border:1px solid var(--border); color:var(--ink2); text-decoration:none; transition:all .15s; white-space:nowrap; }
+  .nav-pill:hover { background:#1C1C1C; color:white; border-color:#1C1C1C; }
+
+  .main { max-width:960px; margin:0 auto; padding:0 1.2rem 4rem; }
+
+  /* SECTION */
+  .section-title { font-family:var(--serif); font-size:1.45rem; font-weight:700; margin:2.5rem 0 1rem; padding-bottom:.4rem; border-bottom:2px solid; display:flex; align-items:center; gap:.7rem; }
+  .section-title .num { font-family:var(--mono); font-size:.73rem; color:white; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border-radius:50%; flex-shrink:0; }
+  .st-stato { color:var(--stato); border-color:var(--stato); }
+  .st-stato .num { background:var(--stato); }
+  .st-regione { color:var(--regione); border-color:var(--regione); }
+  .st-regione .num { background:var(--regione); }
+  .st-provincia { color:var(--provincia); border-color:var(--provincia); }
+  .st-provincia .num { background:var(--provincia); }
+  .st-comune { color:var(--comune); border-color:var(--comune); }
+  .st-comune .num { background:var(--comune); }
+  .st-vincoli { color:var(--vincoli); border-color:var(--vincoli); }
+  .st-vincoli .num { background:var(--vincoli); }
+  .st-black { color:#1C1C1C; border-color:#1C1C1C; }
+  .st-black .num { background:#1C1C1C; }
+  .st-green { color:var(--green); border-color:var(--green); }
+  .st-green .num { background:var(--green); }
+
+  /* CARD */
+  .card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:1.3rem 1.5rem; margin-bottom:1.2rem; }
+  .card p { font-size:.92rem; line-height:1.75; margin-bottom:.7rem; }
+  .card p:last-child { margin-bottom:0; }
+
+  /* ALERT */
+  .alert { border-radius:5px; padding:.85rem 1.1rem; margin:.7rem 0; font-size:.9rem; display:flex; gap:.7rem; align-items:flex-start; line-height:1.6; }
+  .alert-icon { font-size:1rem; flex-shrink:0; margin-top:.1rem; }
+  .alert-red { background:#FFF5F5; border:1px solid #FFC0BB; }
+  .alert-green { background:#F0FFF4; border:1px solid #9AE6B4; }
+  .alert-blue { background:#EBF8FF; border:1px solid #90CDF4; }
+  .alert-orange { background:#FFFAF0; border:1px solid #FBD38D; }
+  .alert-dark { background:#F8F9FA; border:1px solid #CED4DA; }
+
+  /* GERARCHIA PIANI - PIRAMIDE */
+  .piramide { margin:1.2rem 0; }
+  .pyr-level { border-radius:6px; padding:.9rem 1.2rem; margin-bottom:.5rem; border:2px solid; }
+  .pyr-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.5rem; margin-bottom:.4rem; }
+  .pyr-chi { font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+  .pyr-title { font-size:1rem; font-weight:700; font-family:var(--serif); }
+  .pyr-sub { font-size:.85rem; color:var(--ink2); line-height:1.55; }
+  .pyr-tag { font-family:var(--mono); font-size:.65rem; padding:.15rem .5rem; border-radius:3px; }
+  .pyr-tools { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.5rem; }
+
+  .lv-stato { background:#EBF8FF; border-color:#90CAF9; }
+  .lv-stato .pyr-chi { color:var(--stato); }
+  .lv-stato .pyr-title { color:var(--stato); }
+  .lv-stato .pyr-tag { background:#DBEAFE; color:var(--stato); border:1px solid #93C5FD; }
+
+  .lv-regione { background:#F5F3FF; border-color:#C4B5FD; }
+  .lv-regione .pyr-chi { color:var(--regione); }
+  .lv-regione .pyr-title { color:var(--regione); }
+  .lv-regione .pyr-tag { background:#EDE9FE; color:var(--regione); border:1px solid #C4B5FD; }
+
+  .lv-provincia { background:#F0FDFA; border-color:#5EEAD4; }
+  .lv-provincia .pyr-chi { color:var(--provincia); }
+  .lv-provincia .pyr-title { color:var(--provincia); }
+  .lv-provincia .pyr-tag { background:#CCFBF1; color:var(--provincia); border:1px solid #5EEAD4; }
+
+  .lv-comune { background:#FFF7ED; border-color:#FDBA74; }
+  .lv-comune .pyr-chi { color:var(--comune); }
+  .lv-comune .pyr-title { color:var(--comune); }
+  .lv-comune .pyr-tag { background:#FEF3C7; color:var(--comune); border:1px solid #FCD34D; }
+
+  /* TIMELINE STORICA */
+  .storia { display:flex; flex-direction:column; gap:0; }
+  .storia-item { display:flex; gap:0; }
+  .storia-left { display:flex; flex-direction:column; align-items:center; width:80px; flex-shrink:0; }
+  .storia-anno { font-family:var(--mono); font-size:.72rem; font-weight:700; color:white; background:#1C1C1C; padding:.2rem .5rem; border-radius:3px; white-space:nowrap; margin-top:.6rem; }
+  .storia-line { width:2px; background:var(--border); flex:1; min-height:16px; }
+  .storia-content { flex:1; padding:.4rem .8rem 1.2rem; }
+  .storia-title { font-weight:700; font-size:.95rem; margin-bottom:.2rem; }
+  .storia-body { font-size:.87rem; color:var(--ink2); line-height:1.55; }
+
+  /* VINCOLI GRID */
+  .vincoli-grid { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin:.8rem 0; }
+  .vincolo-box { border-radius:6px; border:1px solid; padding:.9rem 1rem; }
+  .vincolo-box h4 { font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.5rem; }
+  .vincolo-box ul { list-style:none; padding:0; }
+  .vincolo-box li { font-size:.86rem; padding:.2rem 0; border-bottom:1px solid; display:flex; gap:.4rem; line-height:1.5; }
+  .vincolo-box li:last-child { border-bottom:none; }
+  .vincolo-box li::before { content:'·'; font-weight:700; flex-shrink:0; }
+  .vb-pae { background:#FFF5F5; border-color:#FFC0BB; }
+  .vb-pae h4 { color:var(--vincoli); }
+  .vb-pae li { border-color:#FFE4E1; }
+  .vb-pae li::before { color:var(--vincoli); }
+  .vb-sto { background:#FFF8E1; border-color:#FFD54F; }
+  .vb-sto h4 { color:#B8860B; }
+  .vb-sto li { border-color:#FFF3CD; }
+  .vb-sto li::before { color:#B8860B; }
+  .vb-amb { background:#F0FFF4; border-color:#9AE6B4; }
+  .vb-amb h4 { color:var(--green); }
+  .vb-amb li { border-color:#C6F6D5; }
+  .vb-amb li::before { color:var(--green); }
+  .vb-inf { background:#EBF8FF; border-color:#90CAF9; }
+  .vb-inf h4 { color:var(--stato); }
+  .vb-inf li { border-color:#BEE3F8; }
+  .vb-inf li::before { color:var(--stato); }
+
+  /* CHECKLIST PROGETTISTA */
+  .checklist { display:flex; flex-direction:column; gap:.5rem; margin:.8rem 0; }
+  .check-item { display:flex; gap:.8rem; align-items:flex-start; background:var(--card); border:1px solid var(--border); border-radius:5px; padding:.75rem 1rem; }
+  .check-num { font-family:var(--mono); font-size:.72rem; font-weight:700; color:white; background:#1C1C1C; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:.1rem; }
+  .check-content { flex:1; }
+  .check-title { font-weight:700; font-size:.92rem; margin-bottom:.2rem; }
+  .check-body { font-size:.85rem; color:var(--ink2); line-height:1.55; }
+  .check-dove { font-family:var(--mono); font-size:.68rem; background:var(--bg2); padding:.15rem .5rem; border-radius:3px; display:inline-block; margin-top:.3rem; color:var(--ink2); }
+
+  /* MNEMONICA */
+  .mnemonic { background:#1C1C1C; color:#E8D44D; border-radius:6px; padding:1.1rem 1.4rem; font-family:var(--mono); margin:1rem 0; }
+  .mnemonic h4 { font-size:.63rem; letter-spacing:.15em; text-transform:uppercase; opacity:.6; margin-bottom:.5rem; }
+  .mnemonic p { font-size:.9rem; line-height:1.85; }
+  .mnemonic span { color:white; }
+
+  /* PORTALI */
+  .portali { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin:.8rem 0; }
+  .portale { background:var(--card); border:1px solid var(--border); border-radius:6px; padding:.9rem 1rem; }
+  .portale h4 { font-weight:700; font-size:.9rem; margin-bottom:.3rem; }
+  .portale p { font-size:.83rem; color:var(--ink2); line-height:1.5; margin-bottom:.3rem; }
+  .portale a { font-family:var(--mono); font-size:.72rem; color:var(--stato); word-break:break-all; }
+
+  /* QUIZ */
+  .quiz-area { margin:2.5rem 0 1rem; }
+  .quiz-title { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:#1C1C1C; margin-bottom:1rem; padding-bottom:.4rem; border-bottom:1px solid var(--border); }
+  .quiz-item { background:var(--card); border:1px solid var(--border); border-radius:5px; margin-bottom:.8rem; overflow:hidden; }
+  .quiz-q { padding:.85rem 1.2rem; font-size:.92rem; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem; user-select:none; transition:background .15s; }
+  .quiz-q:hover { background:var(--bg2); }
+  .quiz-q .arrow { font-size:.8rem; transition:transform .2s; flex-shrink:0; }
+  .quiz-a { padding:0 1.2rem; font-size:.9rem; color:var(--ink2); line-height:1.65; max-height:0; overflow:hidden; transition:max-height .35s ease, padding .3s ease; }
+  .quiz-a.open { max-height:800px; padding:.85rem 1.2rem 1rem; border-top:1px solid var(--border); }
+  .quiz-q.active .arrow { transform:rotate(180deg); }
+
+  #scrolltop { position:fixed; bottom:1.5rem; right:1.5rem; width:42px; height:42px; background:#1C1C1C; color:white; border:none; border-radius:50%; cursor:pointer; font-size:1.1rem; display:none; align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(0,0,0,.25); z-index:100; }
+  #scrolltop.visible { display:flex; }
+  footer { text-align:center; padding:2rem; font-family:var(--mono); font-size:.68rem; color:var(--ink2); opacity:.6; border-top:1px solid var(--border); margin-top:3rem; }
+
+  @media (max-width:680px) {
+    .vincoli-grid { grid-template-columns:1fr; }
+    .portali { grid-template-columns:1fr; }
+    .site-header h1 { font-size:1.7rem; }
+    .storia-left { width:60px; }
+    .storia-anno { font-size:.62rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="badge">🗺️ Mappa del sistema — Specialista EQ</div>
+    <h1>Il Sistema Urbanistico Italiano</h1>
+    <p>Chi fa cosa, quale piano conta, quali vincoli guardare, dove trovarli online. Tutto in un posto solo.</p>
+  </div>
+</header>
+
+<nav><div class="nav-pills">
+  <a href="#storia" class="nav-pill">📅 Storia</a>
+  <a href="#gerarchia" class="nav-pill">🏛️ Gerarchia piani</a>
+  <a href="#vecchi-piani" class="nav-pill">📦 PRG/PSC servono ancora?</a>
+  <a href="#vincoli" class="nav-pill">🚧 I vincoli</a>
+  <a href="#checklist" class="nav-pill">✅ Checklist progettista</a>
+  <a href="#portali" class="nav-pill">💻 Dove trovarli online</a>
+  <a href="#quiz" class="nav-pill">🧠 Quiz</a>
+</div></nav>
+
+<main class="main">
+
+<!-- ============================================================ -->
+<!-- STORIA -->
+<!-- ============================================================ -->
+<h2 id="storia" class="section-title st-black"><span class="num">1</span> Come siamo arrivati fin qui — la storia in 5 minuti</h2>
+
+<div class="card">
+  <p>Per capire perché esistono tanti piani diversi bisogna sapere come si è evoluto il sistema nel tempo. Ogni legge è nata per risolvere i problemi di quella precedente.</p>
+</div>
+
+<div class="card">
+  <div class="storia">
+
+    <div class="storia-item">
+      <div class="storia-left"><div class="storia-anno">1942</div><div class="storia-line"></div></div>
+      <div class="storia-content">
+        <div class="storia-title">Legge Urbanistica n. 1150/1942 — il Big Bang</div>
+        <div class="storia-body">La prima legge urbanistica italiana. Introduce il <strong>Piano Regolatore Generale (PRG)</strong> comunale. Il Comune disegna tutto — zone residenziali, industriali, agricole, strade — e i privati si adeguano. Semplice ma rigidissimo. Problema: il PRG durava decenni senza aggiornarsi, e spesso era fatto senza conoscere bene il territorio reale.</div>
+      </div>
+    </div>
+
+    <div class="storia-item">
+      <div class="storia-left"><div class="storia-anno">1968</div><div class="storia-line"></div></div>
+      <div class="storia-content">
+        <div class="storia-title">DM 1444/1968 — gli standard urbanistici</div>
+        <div class="storia-body">Introduce gli <strong>standard minimi</strong> di verde, parcheggi, scuole e servizi per abitante. Ogni Piano deve garantire almeno: 9 m² di verde/abitante, 2,5 m² di parcheggi, 4,5 m² di servizi scolastici. Ancora oggi questi standard sono obbligatori — compreso il famoso limite di <strong>10 m tra pareti finestrate</strong> che è più restrittivo del Codice Civile.</div>
+      </div>
+    </div>
+
+    <div class="storia-item">
+      <div class="storia-left"><div class="storia-anno">1977</div><div class="storia-line"></div></div>
+      <div class="storia-content">
+        <div class="storia-title">Legge Bucalossi n. 10/1977 — nasce il contributo di costruzione</div>
+        <div class="storia-body">Prima di questa legge costruire era quasi libero. La Bucalossi separa il <strong>diritto di proprietà</strong> dallo <strong>jus aedificandi</strong> (diritto di costruire): il proprietario è tale ma per costruire deve avere il permesso e pagare gli oneri. Introduce la <strong>concessione edilizia</strong> (poi diventata permesso di costruire) e il contributo commisurato al costo di costruzione.</div>
+      </div>
+    </div>
+
+    <div class="storia-item">
+      <div class="storia-left"><div class="storia-anno">2001</div><div class="storia-line"></div></div>
+      <div class="storia-content">
+        <div class="storia-title">DPR 380/2001 — Testo Unico Edilizia</div>
+        <div class="storia-body">Raccoglie e unifica tutte le norme edilizie nazionali. Ancora oggi è la norma principale per i titoli edilizi (permesso di costruire, SCIA, CILA), le sanzioni, i contributi. È il "codice dell'edilizia" nazionale valido su tutto il territorio — poi integrato dalle leggi regionali.</div>
+      </div>
+    </div>
+
+    <div class="storia-item">
+      <div class="storia-left"><div class="storia-anno">2000</div><div class="storia-line"></div></div>
+      <div class="storia-content">
+        <div class="storia-title">LR Emilia-Romagna 20/2000 — il sistema PSC/RUE/POC</div>
+        <div class="storia-body">L'ER anticipa l'Italia e introduce un sistema tripartito: <strong>PSC</strong> (Piano Strutturale Comunale) — la visione strategica a lungo termine; <strong>RUE</strong> (Regolamento Urbanistico Edilizio) — le regole operative per costruire; <strong>POC</strong> (Piano Operativo Comunale) — cosa si può fare nei prossimi 5 anni. Più flessibile del PRG ma anche più complicato — tre documenti separati che a volte si contraddicevano.</div>
+      </div>
+    </div>
+
+    <div class="storia-item">
+      <div class="storia-left"><div class="storia-anno">2017</div><div class="storia-line"></div></div>
+      <div class="storia-content">
+        <div class="storia-title">LR Emilia-Romagna 24/2017 — il PUG unificato</div>
+        <div class="storia-body">Nasce il <strong>PUG (Piano Urbanistico Generale)</strong> che unifica PSC+RUE+POC in un documento solo. Introduce il consumo di suolo zero, gli accordi operativi, la VALSAT. Per l'Unione Valli e Delizie il PUG è in vigore dal <strong>26 ottobre 2022</strong>. Da quel giorno PSC, RUE e POC dei tre Comuni hanno perso efficacia come norme vigenti.</div>
+      </div>
+    </div>
+
+    <div class="storia-item">
+      <div class="storia-left"><div class="storia-anno">OGGI</div><div class="storia-line" style="background:transparent"></div></div>
+      <div class="storia-content">
+        <div class="storia-title">Il sistema attuale in ER</div>
+        <div class="storia-body">PUG comunale + PTGM metropolitano/provinciale + PTR regionale + norme nazionali (DPR 380, D.Lgs. 42/2004 per il paesaggio). Più i vincoli speciali sovrapposti (paesaggistici, idrogeologici, ferroviari, ecc.) che esistono indipendentemente dai piani.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- GERARCHIA PIANI -->
+<!-- ============================================================ -->
+<h2 id="gerarchia" class="section-title st-stato"><span class="num">2</span> La gerarchia dei piani — chi comanda su chi</h2>
+
+<div class="card">
+  <p>La regola è semplice: <strong>il piano di livello superiore prevale su quello inferiore</strong>. Il Comune non può fare scelte che contraddicono la Regione, la Regione non può contraddire lo Stato. È come una piramide.</p>
+  <div class="alert alert-blue">
+    <span class="alert-icon">💡</span>
+    <div><strong>Regola pratica:</strong> Come tecnico devi guardare TUTTI i livelli — partendo dall'alto verso il basso. Un'area può essere libera nel PUG ma bloccata da un vincolo regionale o statale.</div>
+  </div>
+</div>
+
+<div class="piramide">
+
+  <!-- STATO -->
+  <div class="pyr-level lv-stato">
+    <div class="pyr-header">
+      <div>
+        <div class="pyr-chi">🇮🇹 Stato — livello 1 (il più alto)</div>
+        <div class="pyr-title">Norme nazionali + Piani nazionali</div>
+      </div>
+    </div>
+    <div class="pyr-sub">
+      <strong>Norme:</strong> DPR 380/2001 (edilizia), D.Lgs. 42/2004 (paesaggio e beni culturali), D.Lgs. 152/2006 (ambiente), D.Lgs. 36/2023 (appalti), Codice Civile (distanze).<br>
+      <strong>Piani:</strong> Piano Paesaggistico Nazionale (non ancora completato), Piani di Bacino idrografici (es: Autorità di Bacino del Po), Piano per l'assetto idrogeologico (PAI).<br>
+      <strong>Vincoli che pone:</strong> vincoli paesaggistici ex lege (art. 142 D.Lgs. 42/2004 — fasce fluviali 150m, coste 300m, boschi, montagne, ecc.), vincoli monumentali (art. 10), aree protette nazionali.
+    </div>
+    <div class="pyr-tools">
+      <span class="pyr-tag">DPR 380/2001</span>
+      <span class="pyr-tag">D.Lgs. 42/2004</span>
+      <span class="pyr-tag">PAI — Piano Assetto Idrogeologico</span>
+      <span class="pyr-tag">D.Lgs. 152/2006</span>
+    </div>
+  </div>
+
+  <div style="text-align:center; font-size:1.5rem; color:var(--border); margin:.3rem 0;">↓</div>
+
+  <!-- REGIONE -->
+  <div class="pyr-level lv-regione">
+    <div class="pyr-header">
+      <div>
+        <div class="pyr-chi">🏛️ Regione Emilia-Romagna — livello 2</div>
+        <div class="pyr-title">PTR + PTPR + Atti di coordinamento</div>
+      </div>
+    </div>
+    <div class="pyr-sub">
+      <strong>PTR</strong> (Piano Territoriale Regionale) — indirizzi strategici per tutto il territorio regionale: mobilità, sviluppo economico, aree protette, grandi infrastrutture.<br>
+      <strong>PTPR</strong> (Piano Territoriale Paesaggistico Regionale) — il piano paesaggistico dell'ER, fatto in accordo con il MiC (Ministero Cultura). Individua le aree vincolate, le categorie di paesaggio, le prescrizioni. <strong>Attenzione: questo è il documento che ti dice se un'area è vincolata paesaggisticamente in ER!</strong><br>
+      <strong>Atti di coordinamento tecnico</strong> alla LR 24/2017 — definiscono come si fa il PUG, come si calcola il consumo di suolo, ecc.<br>
+      <strong>Norme regionali:</strong> LR 24/2017, LR 15/2013, LR 19/2008 (sismica), LR 23/2004 (abusi).
+    </div>
+    <div class="pyr-tools">
+      <span class="pyr-tag">PTR</span>
+      <span class="pyr-tag">PTPR (paesaggio)</span>
+      <span class="pyr-tag">LR 24/2017</span>
+      <span class="pyr-tag">LR 15/2013</span>
+      <span class="pyr-tag">Atti coordinamento</span>
+    </div>
+  </div>
+
+  <div style="text-align:center; font-size:1.5rem; color:var(--border); margin:.3rem 0;">↓</div>
+
+  <!-- PROVINCIA / CITTA METROPOLITANA -->
+  <div class="pyr-level lv-provincia">
+    <div class="pyr-header">
+      <div>
+        <div class="pyr-chi">🏢 Provincia di Ferrara — livello 3</div>
+        <div class="pyr-title">PTCP (Piano Territoriale di Coordinamento Provinciale)</div>
+      </div>
+    </div>
+    <div class="pyr-sub">
+      Il PTCP coordina i Comuni della Provincia su temi sovracomunali: grandi infrastrutture, aree ecologiche, poli produttivi, ambiti agricoli strategici, dissesto idrogeologico locale.<br><br>
+      <strong>Come tecnico lo usi?</strong> Principalmente per verificare:<br>
+      — Se un'area è classificata come <strong>ambito agricolo di rilievo paesaggistico</strong> (più restrittivo del normale)<br>
+      — Se ci sono <strong>corridoi ecologici</strong> o <strong>reti naturali</strong> che limitano la trasformabilità<br>
+      — Per le <strong>grandi opere</strong> che attraversano più comuni<br><br>
+      <strong>Il PUG deve essere conforme al PTCP</strong> — se c'è conflitto, prevale il PTCP. Ma nella pratica quotidiana del SUE, il PTCP lo guardi raramente — è più un riferimento per chi fa il PUG.
+    </div>
+    <div class="pyr-tools">
+      <span class="pyr-tag">PTCP Ferrara</span>
+      <span class="pyr-tag">Vincoli sovracomunali</span>
+      <span class="pyr-tag">Ambiti agricoli strategici</span>
+    </div>
+  </div>
+
+  <div style="text-align:center; font-size:1.5rem; color:var(--border); margin:.3rem 0;">↓</div>
+
+  <!-- COMUNE / UNIONE -->
+  <div class="pyr-level lv-comune">
+    <div class="pyr-header">
+      <div>
+        <div class="pyr-chi">🏘️ Unione Comuni Valli e Delizie — livello 4 (quello operativo)</div>
+        <div class="pyr-title">PUG + Regolamento Edilizio</div>
+      </div>
+    </div>
+    <div class="pyr-sub">
+      Il <strong>PUG</strong> (in vigore dal 26/10/2022) è il piano che usi ogni giorno al SUE. Dice:<br>
+      — Cosa si può costruire dove (destinazioni d'uso, indici edilizi, altezze massime)<br>
+      — Quali aree sono nel territorio urbanizzato e quali nel territorio rurale<br>
+      — Dove servono accordi operativi per intervenire<br>
+      — Quali sono le dotazioni territoriali richieste<br><br>
+      Il <strong>Regolamento Edilizio</strong> integra il PUG con le regole tecniche di dettaglio: come si misurano le altezze, le distanze, le superfici; i materiali ammessi; le modalità di presentazione delle pratiche.<br><br>
+      <strong>Il PUG RECEPISCE i vincoli dei livelli superiori</strong> — li rappresenta nelle sue tavole grafiche. Ma se un vincolo non è nel PUG, esiste comunque! Il PUG non crea i vincoli, li mostra.
+    </div>
+    <div class="pyr-tools">
+      <span class="pyr-tag">PUG (in vigore 26/10/2022)</span>
+      <span class="pyr-tag">Regolamento Edilizio</span>
+      <span class="pyr-tag">Tavola dei Vincoli</span>
+      <span class="pyr-tag">Accordi operativi</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- VECCHI PIANI -->
+<!-- ============================================================ -->
+<h2 id="vecchi-piani" class="section-title st-black"><span class="num">3</span> PRG, PSC, RUE, POC — servono ancora?</h2>
+
+<div class="card">
+  <p>Domanda fondamentale che hai fatto tu. La risposta è: <strong>come norme vigenti no, come archivio storico sì — e lo usi spesso.</strong></p>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.8rem 0;">
+    <div style="background:#FFF5F5; border:1px solid #FFC0BB; border-radius:6px; padding:1rem;">
+      <div style="font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--vincoli); margin-bottom:.5rem;">❌ NON servono per...</div>
+      <ul style="list-style:none; padding:0; font-size:.87rem; display:flex; flex-direction:column; gap:.3rem;">
+        <li>Valutare cosa si può costruire oggi</li>
+        <li>Verificare le destinazioni d'uso attuali</li>
+        <li>Calcolare gli indici edilizi vigenti</li>
+        <li>Decidere se serve un titolo edilizio</li>
+      </ul>
+    </div>
+    <div style="background:#F0FFF4; border:1px solid #9AE6B4; border-radius:6px; padding:1rem;">
+      <div style="font-family:var(--mono); font-size:.65rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--green); margin-bottom:.5rem;">✅ SERVONO per...</div>
+      <ul style="list-style:none; padding:0; font-size:.87rem; display:flex; flex-direction:column; gap:.3rem;">
+        <li>Verificare la <strong>legittimità originaria</strong> di un edificio</li>
+        <li>Ricostruire la storia urbanistica di un lotto</li>
+        <li>Pratiche di <strong>sanatoria</strong> e accertamento conformità</li>
+        <li>Verificare titoli edilizi rilasciati all'epoca</li>
+        <li>Comprendere perché certi edifici sono dove sono</li>
+        <li>Ricorsi e contenziosi su edifici storici</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-orange">
+    <span class="alert-icon">🔑</span>
+    <div><strong>La regola d'oro:</strong> La legittimità di un edificio si valuta con le norme vigenti <em>al momento della sua costruzione</em>. Quindi per un edificio del 1985 devi guardare il PRG del 1980. Per una sanatoria di un abuso del 1995 devi verificare cosa diceva il PRG del 1995. I vecchi piani vivono per sempre come riferimento storico.</div>
+  </div>
+
+  <div class="alert alert-blue" style="margin-top:.5rem;">
+    <span class="alert-icon">📁</span>
+    <div><strong>Dove si trovano:</strong> Nell'archivio cartaceo del Comune (SUE e Segreteria). Alcuni Comuni li hanno scansionati e sono su PDF sul sito. L'Unione Valli e Delizie li ha in archivio presso ciascun Comune membro. Per accedervi: di solito basta chiedere all'ufficio, non serve istanza formale per i tecnici interni.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- VINCOLI -->
+<!-- ============================================================ -->
+<h2 id="vincoli" class="section-title st-vincoli"><span class="num">4</span> I vincoli — chi li mette, dove si trovano</h2>
+
+<div class="card">
+  <p><strong>Questa è la cosa più importante da capire:</strong> i vincoli esistono indipendentemente dai piani comunali. Il PUG li <em>rappresenta</em> nelle sue tavole, ma non li crea e non li elimina. Anche se il PUG non mostrasse un vincolo, il vincolo esisterebbe comunque.</p>
+
+  <div class="vincoli-grid">
+
+    <div class="vincolo-box vb-pae">
+      <h4>🏔️ Vincoli paesaggistici</h4>
+      <ul>
+        <li><strong>Chi li mette:</strong> Stato (art. 142 D.Lgs. 42/2004 — automatici) o Regione/MiC (art. 136 — con provvedimento)</li>
+        <li><strong>Cosa sono:</strong> Fasce fluviali 150m, coste 300m, boschi, montagne, zone UNESCO, aree di notevole interesse pubblico</li>
+        <li><strong>Effetto:</strong> Serve autorizzazione paesaggistica (ordinaria o semplificata) prima del titolo edilizio</li>
+        <li><strong>Dove li trovi:</strong> PTPR della Regione ER + Tavola dei Vincoli del PUG + Geoportale Regionale</li>
+      </ul>
+    </div>
+
+    <div class="vincolo-box vb-sto">
+      <h4>🏛️ Vincoli storico-monumentali</h4>
+      <ul>
+        <li><strong>Chi li mette:</strong> Soprintendenza (MiC) con decreto di vincolo</li>
+        <li><strong>Cosa sono:</strong> Edifici di interesse storico-artistico (art. 10 D.Lgs. 42/2004), centri storici</li>
+        <li><strong>Effetto:</strong> Qualsiasi intervento richiede autorizzazione della Soprintendenza</li>
+        <li><strong>Dove li trovi:</strong> Archivio Soprintendenza + Tavola dei Vincoli del PUG + Vincoli in Rete (MiC)</li>
+      </ul>
+    </div>
+
+    <div class="vincolo-box vb-amb">
+      <h4>🌿 Vincoli ambientali/idrogeologici</h4>
+      <ul>
+        <li><strong>Chi li mette:</strong> Stato (PAI — Piano Assetto Idrogeologico), Regione, Autorità di Bacino del Po</li>
+        <li><strong>Cosa sono:</strong> Fasce di esondazione del Po e affluenti (Reno, Idice...), aree a rischio frana, aree protette</li>
+        <li><strong>Effetto:</strong> Limitazioni o divieto di costruzione, autorizzazione idraulica</li>
+        <li><strong>Dove li trovi:</strong> PTCP + PAI online + IDT Regione ER (Infrastruttura Dati Territoriali)</li>
+      </ul>
+    </div>
+
+    <div class="vincolo-box vb-inf">
+      <h4>🚂 Vincoli infrastrutturali</h4>
+      <ul>
+        <li><strong>Chi li mette:</strong> Stato e gestori (RFI per ferrovie, ANAS per strade statali, Enav per aeroporti)</li>
+        <li><strong>Cosa sono:</strong> Fasce di rispetto ferroviarie (30m dal binario), stradali (vedi Codice della Strada), elettrodotti (DPA), gasdotti, cimiteri (200m)</li>
+        <li><strong>Effetto:</strong> Divieto di costruzione nella fascia + autorizzazione del gestore</li>
+        <li><strong>Dove li trovi:</strong> Tavola dei Vincoli del PUG + catasto reti + richiesta diretta al gestore</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="alert alert-orange" style="margin-top:.5rem;">
+    <span class="alert-icon">🚂</span>
+    <div><strong>Risposta alla tua domanda sulle ferrovie:</strong> Sì, il vincolo ferroviario (30 metri dal binario) è un vincolo di legge automatico — è nel DPR 753/1980 (norme sicurezza ferroviaria). È rappresentato nella Tavola dei Vincoli del PUG, ma esiste anche se non ci fosse. Per costruire vicino a ferrovie serve il nulla osta di RFI (Rete Ferroviaria Italiana).</div>
+  </div>
+
+  <div class="mnemonic" style="margin-top:.8rem;">
+    <h4>🧠 Come ricordare i vincoli principali e chi li gestisce</h4>
+    <p>
+      <span>Paesaggio</span> → D.Lgs. 42/2004 → Soprintendenza MiC<br>
+      <span>Idrogeologico</span> → PAI → Autorità di Bacino / Regione<br>
+      <span>Ferroviario</span> → DPR 753/1980 → RFI (30m dal binario)<span style="opacity:.5"> · Stradale → Cod. Strada → proprietario strada</span><br>
+      <span>Elettrodotti</span> → DPCM 8/7/2003 → DPA (distanza di prima approssimazione)<br>
+      <span>Cimiteri</span> → DPR 285/1990 → 200m (derogabile a 50m con variante)
+    </p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CHECKLIST PROGETTISTA -->
+<!-- ============================================================ -->
+<h2 id="checklist" class="section-title st-green"><span class="num">5</span> Checklist — cosa guarda un tecnico prima di progettare</h2>
+
+<div class="card">
+  <p>Quando un progettista (o tu al SUE che istruisce la pratica) deve valutare un intervento su un lotto, segue questo ordine. Non è arbitrario — va dal livello più alto al più basso.</p>
+</div>
+
+<div class="checklist">
+
+  <div class="check-item">
+    <div class="check-num">1</div>
+    <div class="check-content">
+      <div class="check-title">Identificazione catastale del lotto</div>
+      <div class="check-body">Foglio e mappale catastale, superficie, confini, proprietà. Base di partenza per tutto.</div>
+      <div class="check-dove">📍 Catasto → visura catastale + estratto di mappa</div>
+    </div>
+  </div>
+
+  <div class="check-item">
+    <div class="check-num">2</div>
+    <div class="check-content">
+      <div class="check-title">Destinazione urbanistica nel PUG</div>
+      <div class="check-body">Cosa dice il PUG per quella zona: residenziale, produttiva, agricola, servizi? Quali sono gli indici edilizi (densità, altezza max, distanze)? Il lotto è nel territorio urbanizzato o rurale?</div>
+      <div class="check-dove">📍 PUG → tavole grafiche + norme tecniche di attuazione (NTA)</div>
+    </div>
+  </div>
+
+  <div class="check-item">
+    <div class="check-num">3</div>
+    <div class="check-content">
+      <div class="check-title">Tavola dei Vincoli del PUG</div>
+      <div class="check-body">Il PUG ha una tavola specifica che raccoglie TUTTI i vincoli sovrapposti al territorio: paesaggistici, idrogeologici, ferroviari, stradali, monumentali, cimiteriali. È il primo colpo d'occhio sui vincoli.</div>
+      <div class="check-dove">📍 PUG → Tavola dei Vincoli (aggiornata dicembre 2024)</div>
+    </div>
+  </div>
+
+  <div class="check-item">
+    <div class="check-num">4</div>
+    <div class="check-content">
+      <div class="check-title">Vincoli paesaggistici (PTPR)</div>
+      <div class="check-body">Se l'area è in zona vincolata paesaggisticamente (art. 136 o 142 D.Lgs. 42/2004) → serve autorizzazione paesaggistica. Verifico se l'intervento è libero (All. A DPR 31/2017), semplificato (All. B) o ordinario.</div>
+      <div class="check-dove">📍 PTPR Regione ER + Geoportale Regionale + DPR 31/2017</div>
+    </div>
+  </div>
+
+  <div class="check-item">
+    <div class="check-num">5</div>
+    <div class="check-content">
+      <div class="check-title">Vincolo sismico</div>
+      <div class="check-body">Tutta l'ER è in zona sismica. Per qualsiasi intervento strutturale devo sapere la classificazione sismica del Comune e se serve deposito sismico, autorizzazione sismica o nulla (dipende dal tipo di intervento — LR 19/2008).</div>
+      <div class="check-dove">📍 LR 19/2008 + Classificazione sismica Regione ER</div>
+    </div>
+  </div>
+
+  <div class="check-item">
+    <div class="check-num">6</div>
+    <div class="check-content">
+      <div class="check-title">Vincoli idrogeologici e idraulici</div>
+      <div class="check-body">L'area del Ferrarese è pianura alluvionale — molte zone sono in fascia di esondazione del Po, del Reno o del Canale Diversivo. In fascia A (esondazione frequente) → praticamente vietato costruire. In fascia B o C → limitazioni e nulla osta idraulico.</div>
+      <div class="check-dove">📍 PAI → mappe su geoportale AdbPo (Autorità di Bacino Po)</div>
+    </div>
+  </div>
+
+  <div class="check-item">
+    <div class="check-num">7</div>
+    <div class="check-content">
+      <div class="check-title">Vincoli infrastrutturali specifici</div>
+      <div class="check-body">Il lotto è vicino a una ferrovia? A una strada statale o provinciale? A un elettrodotto? A un cimitero? A un gasdotto? Verifico le fasce di rispetto e se serve nulla osta del gestore.</div>
+      <div class="check-dove">📍 Tavola Vincoli PUG + catasto reti + richiesta diretta al gestore</div>
+    </div>
+  </div>
+
+  <div class="check-item">
+    <div class="check-num">8</div>
+    <div class="check-content">
+      <div class="check-title">Distanze da confini e fabbricati</div>
+      <div class="check-body">Distanze minime da confini (PUG + Codice Civile art. 873), da altri fabbricati (DM 1444/1968 — 10m tra pareti finestrate), da strade (Codice della Strada). Prevale la norma più restrittiva.</div>
+      <div class="check-dove">📍 NTA del PUG + Regolamento Edilizio + DM 1444/1968 + Codice Civile</div>
+    </div>
+  </div>
+
+  <div class="check-item">
+    <div class="check-num">9</div>
+    <div class="check-content">
+      <div class="check-title">Quale titolo edilizio serve?</div>
+      <div class="check-body">In base all'intervento: attività libera / CILA / SCIA / Permesso di costruire? La risposta dipende da DPR 380/2001 + LR 15/2013 (ER). Se l'area è vincolata, serve anche l'autorizzazione paesaggistica PRIMA del titolo edilizio.</div>
+      <div class="check-dove">📍 DPR 380/2001 artt. 6/22/10 + LR 15/2013</div>
+    </div>
+  </div>
+
+  <div class="check-item">
+    <div class="check-num">10</div>
+    <div class="check-content">
+      <div class="check-title">Contributo di costruzione</div>
+      <div class="check-body">Oneri di urbanizzazione + costo di costruzione da pagare al Comune. Solo per permesso di costruire e SCIA in certi casi. Calcolati secondo la DAL 186/2018 (tabelle ER) + delibere comunali.</div>
+      <div class="check-dove">📍 DAL 186/2018 + delibere tariffe Comune/Unione</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- PORTALI ONLINE -->
+<!-- ============================================================ -->
+<h2 id="portali" class="section-title st-stato"><span class="num">6</span> Dove trovare tutto online — i portali</h2>
+
+<div class="card">
+  <p><strong>Risposta alla tua domanda:</strong> quasi tutto è online e interattivo. Non devi chiedere PDF con istanza formale per la maggior parte delle cose. Ecco i portali che userai ogni giorno.</p>
+</div>
+
+<div class="portali">
+
+  <div class="portale">
+    <h4>🗺️ Geoportale Regione ER</h4>
+    <p>Il GIS regionale con tutti i layer sovrapposti: vincoli paesaggistici, PTPR, PAI, uso del suolo, ortofoto. Puoi cercare per indirizzo e vedere tutti i vincoli in un colpo d'occhio.</p>
+    <a href="https://geoportale.regione.emilia-romagna.it" target="_blank">geoportale.regione.emilia-romagna.it</a>
+  </div>
+
+  <div class="portale">
+    <h4>🏘️ SITAR — SIT Unione Valli e Delizie</h4>
+    <p>Il Sistema Informativo Territoriale dell'Unione. Contiene il PUG con le tavole grafiche navigabili, la Tavola dei Vincoli aggiornata, le destinazioni d'uso per ogni lotto.</p>
+    <a href="https://www.unionevalliedelizie.fe.it" target="_blank">unionevalliedelizie.fe.it → sezione PUG</a>
+  </div>
+
+  <div class="portale">
+    <h4>💧 Geoportale AdbPo — PAI</h4>
+    <p>Le mappe del Piano di Assetto Idrogeologico dell'Autorità di Bacino del Po. Fasce A, B, C di esondazione del Po e affluenti. Fondamentale per la pianura ferrarese.</p>
+    <a href="https://www.adbpo.it" target="_blank">adbpo.it → sezione PAI/mappe</a>
+  </div>
+
+  <div class="portale">
+    <h4>🏛️ Vincoli in Rete — MiC</h4>
+    <p>Il portale del Ministero della Cultura con tutti i vincoli culturali e paesaggistici (art. 136 D.Lgs. 42/2004). Edifici vincolati, aree dichiarate di notevole interesse pubblico.</p>
+    <a href="https://vincoliinrete.beniculturali.it" target="_blank">vincoliinrete.beniculturali.it</a>
+  </div>
+
+  <div class="portale">
+    <h4>📐 Catasto — AdE</h4>
+    <p>Agenzia delle Entrate — visure catastali, estratti di mappa, planimetrie. Per identificare il lotto, verificare superfici, trovare il proprietario.</p>
+    <a href="https://sister.agenziaentrate.gov.it" target="_blank">sister.agenziaentrate.gov.it</a>
+  </div>
+
+  <div class="portale">
+    <h4>🌊 PTPR Emilia-Romagna</h4>
+    <p>Il Piano Territoriale Paesaggistico Regionale — consultabile online con le tavole del paesaggio. Dice se un'area è vincolata ex art. 136 o 142 e con quali prescrizioni specifiche.</p>
+    <a href="https://ambiente.regione.emilia-romagna.it/it/paesaggio/piano-paesaggistico" target="_blank">ambiente.regione.emilia-romagna.it → paesaggio</a>
+  </div>
+
+  <div class="portale">
+    <h4>⚡ TERNA/gestori reti</h4>
+    <p>Per le fasce di rispetto degli elettrodotti (DPA — Distanza di Prima Approssimazione) si chiede al gestore della rete elettrica (TERNA per alta tensione, distributori locali per media/bassa).</p>
+    <a href="https://www.terna.it" target="_blank">terna.it → DPA linee AT</a>
+  </div>
+
+  <div class="portale">
+    <h4>🚂 RFI — Ferrovie</h4>
+    <p>Per nulla osta di costruzione vicino a ferrovie (fascia 30m) si fa richiesta formale a RFI (Rete Ferroviaria Italiana) tramite il loro ufficio territoriale. Non online — è una pratica cartacea/PEC.</p>
+    <a href="https://www.rfi.it" target="_blank">rfi.it → contatti territoriali</a>
+  </div>
+
+</div>
+
+<div class="alert alert-green" style="margin-top:.5rem;">
+  <span class="alert-icon">💡</span>
+  <div><strong>Il flusso pratico quando arriva una pratica al SUE:</strong> apri il Geoportale Regionale → cerchi il lotto → controlli i layer dei vincoli → poi apri il SITAR dell'Unione → vedi la destinazione PUG → poi guardi le NTA per gli indici edilizi → poi decidi quale titolo serve. Tutto online, tutto in 10-15 minuti per un lotto normale.</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- QUIZ -->
+<!-- ============================================================ -->
+<div id="quiz" class="quiz-area">
+  <div class="quiz-title">🧠 Quiz — domande di sistema</div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Il PUG contiene tutti i vincoli che devo rispettare su un lotto?<span class="arrow">▼</span></div>
+    <div class="quiz-a">No — il PUG <em>rappresenta</em> i vincoli nelle sue tavole ma non li crea e non è esaustivo. I vincoli esistono per legge propria (paesaggistici per D.Lgs. 42/2004, idrogeologici per PAI, ferroviari per DPR 753/1980, ecc.) indipendentemente dal PUG. La Tavola dei Vincoli del PUG è un ottimo punto di partenza ma devi sempre verificare direttamente sui portali specifici — un vincolo non rappresentato nel PUG esiste comunque e la sua omissione non ti protegge.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Un edificio del 1975 era conforme al vecchio PRG. Oggi il PUG classifica quell'area diversamente. L'edificio è abusivo?<span class="arrow">▼</span></div>
+    <div class="quiz-a">No — la legittimità si valuta con le norme vigenti al momento della costruzione. Se nel 1975 era conforme al PRG allora vigente, l'edificio è legittimo. Il cambio di destinazione d'uso del PUG non lo rende retroattivamente abusivo. Diventa però un edificio in "zona non conforme" o "fuori zona" — che ha conseguenze pratiche: potrà fare manutenzione ordinaria e straordinaria, ma difficilmente ampliamenti o cambi di destinazione verso usi incompatibili con la nuova classificazione.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Qual è la differenza tra PTCP e PUG dal punto di vista operativo del SUE?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il PTCP (Piano Territoriale di Coordinamento Provinciale) è il piano di area vasta della Provincia — coordina i Comuni su temi sovracomunali (infrastrutture, ambiti agricoli strategici, corridoi ecologici). Come tecnico del SUE lo guardi raramente nella pratica quotidiana — è più uno strumento per chi fa il PUG e deve verificare la conformità. Il PUG invece è il piano operativo che usi ogni giorno: destinazioni d'uso, indici edilizi, tavola dei vincoli, NTA. La gerarchia è: PTCP prevale sul PUG, ma nella pratica edilizia ordinaria lavori quasi sempre solo col PUG.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Voglio costruire vicino a un binario ferroviario. A chi chiedo?<span class="arrow">▼</span></div>
+    <div class="quiz-a">La fascia di rispetto ferroviaria è di 30 metri dal binario (DPR 753/1980). Dentro questa fascia non si può costruire senza nulla osta di RFI (Rete Ferroviaria Italiana). La richiesta si fa all'ufficio territoriale di RFI tramite PEC o sportello — non è online. RFI verifica che la costruzione non interferisca con la sicurezza ferroviaria e con future opere di ammodernamento. Anche con il nulla osta di RFI, si deve poi rispettare il PUG e tutti gli altri vincoli eventualmente presenti.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">In quale ordine controllo i vincoli su un lotto prima di progettare?<span class="arrow">▼</span></div>
+    <div class="quiz-a">L'ordine logico è: (1) identificazione catastale; (2) destinazione PUG e tavola dei vincoli; (3) vincoli paesaggistici (PTPR + geoportale regionale); (4) vincolo sismico (classificazione sismica comunale); (5) vincoli idrogeologici (PAI, fasce Po); (6) vincoli infrastrutturali specifici (ferrovie, strade, elettrodotti, gasdotti, cimiteri); (7) distanze da confini e fabbricati (DM 1444/68 + NTA PUG + Codice Civile); (8) quale titolo edilizio serve (DPR 380 + LR 15/2013); (9) contributo di costruzione (DAL 186/2018). Dalla normativa più alta alla più operativa.</div>
+  </div>
+
+</div>
+
+</main>
+
+<footer>
+  Guida studio — Specialista EQ Attività Tecniche — Unione Comuni Valli e Delizie<br>
+  L. 1150/1942 · DM 1444/1968 · DPR 380/2001 · D.Lgs. 42/2004 · LR 24/2017 · LR 15/2013
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  function toggle(el) {
+    const ans = el.nextElementSibling;
+    const isOpen = ans.classList.contains('open');
+    document.querySelectorAll('.quiz-a.open').forEach(a => {
+      a.classList.remove('open');
+      a.previousElementSibling.classList.remove('active');
+    });
+    if (!isOpen) { ans.classList.add('open'); el.classList.add('active'); }
+  }
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => { btn.classList.toggle('visible', window.scrollY > 400); });
+</script>
+</body>
+</html>
