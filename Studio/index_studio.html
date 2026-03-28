@@ -1,4 +1,4 @@
-PRIORITÀ ALTA (appaiono in quasi tutti i concorsi passati)
+<!-- PRIORITÀ ALTA (appaiono in quasi tutti i concorsi passati)
 LR 24/2017 — è il tema più ricorrente in assoluto. Mancano ancora: PUG (processo di formazione), VALSAT, accordo operativo (vs vecchio art. 18 LR 20/2000), usi temporanei, rigenerazione urbana e consumo di suolo zero, periodo transitorio e interventi ammissibili, SUAP e varianti urbanistiche per attività produttive.
 Abusi edilizi e sanatorie (DPR 380/2001, artt. 34 e 36) — accertamento di compatibilità, variazioni essenziali, adempimenti SUE. Ricorrono spesso come caso pratico.
 Conferenza dei Servizi (L. 241/90) — inquadramento normativo, tipologie, modalità di convocazione. È apparsa in quasi tutti i concorsi.
@@ -10,233 +10,678 @@ LR 15/2013 — convenzione tipo (artt. 32-33), SCCEA (art. 23), contributo di co
 Procedimento amministrativo (L. 241/90) — avvio, responsabile del procedimento, esiti dell'istruttoria, autotutela. Sempre presente.
 
 PRIORITÀ PIÙ BASSA ma nel bando 2026 (meno frequenti nei colloqui passati, ma potrebbero comparire nella prova scritta)
-LR 19/2008 (sismica), D.Lgs. 152/2006 (ambiente, bonifica siti), D.Lgs. 190/2024 (FER — nuovo nel bando 2026), anticorruzione (L. 190/2012 + D.Lgs. 33/2013), ordinamento enti locali (D.Lgs. 267/2000 — Unione di Comuni e organi politici è uscita nella prova scritta 2024).
+LR 19/2008 (sismica), D.Lgs. 152/2006 (ambiente, bonifica siti), D.Lgs. 190/2024 (FER — nuovo nel bando 2026), anticorruzione (L. 190/2012 + D.Lgs. 33/2013), ordinamento enti locali (D.Lgs. 267/2000 — Unione di Comuni e organi politici è uscita nella prova scritta 2024). -->
 
 
-```html
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-width=1.0">
-    <title>HUB Concorso - Unione Valli e Delizie</title>
-    <style>
-        :root {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --card-bg: #1e1e1e;
-            --accent-color: #bb86fc;
-            --hover-color: #3700b3;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hub Concorso — Unione Valli e Delizie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     THEME SYSTEM
+     data-theme="dark"  → dark mode forzato
+     data-theme="light" → light mode forzato
+     data-theme="auto"  → segue OS
+  ============================================================ */
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 50px 20px;
-            margin: 0;
-        }
+  /* VARIABILI LIGHT */
+  :root,
+  [data-theme="light"] {
+    --bg:        #F7F4EF;
+    --bg2:       #EDEAE3;
+    --bg3:       #E2DDD6;
+    --card:      #FFFFFF;
+    --ink:       #1C1C1C;
+    --ink2:      #4A4A4A;
+    --ink3:      #7A7A7A;
+    --border:    #D4CFC7;
+    --accent:    #1A3A6B;
+    --accent2:   #2C5AA0;
+    --tag-bg:    #DBEAFE;
+    --tag-fg:    #1A3A6B;
+    --header-bg: #1C1C1C;
+    --header-fg: #FFFFFF;
+    --toggle-bg: #D4CFC7;
+    --toggle-dot:#FFFFFF;
+    --shadow:    0 2px 12px rgba(0,0,0,.08);
+    --shadow-h:  0 6px 24px rgba(0,0,0,.15);
+  }
 
-        h1 {
-            color: var(--accent-color);
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2.5rem;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
-        }
+  /* VARIABILI DARK */
+  [data-theme="dark"] {
+    --bg:        #121212;
+    --bg2:       #1E1E1E;
+    --bg3:       #2A2A2A;
+    --card:      #1E1E1E;
+    --ink:       #E0E0E0;
+    --ink2:      #AAAAAA;
+    --ink3:      #666666;
+    --border:    #333333;
+    --accent:    #BB86FC;
+    --accent2:   #9B5DE5;
+    --tag-bg:    #2D1B69;
+    --tag-fg:    #BB86FC;
+    --header-bg: #0A0A0A;
+    --header-fg: #FFFFFF;
+    --toggle-bg: #BB86FC;
+    --toggle-dot:#FFFFFF;
+    --shadow:    0 2px 12px rgba(0,0,0,.5);
+    --shadow-h:  0 6px 24px rgba(187,134,252,.2);
+  }
 
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1000px;
-        }
+  /* AUTO MODE: usa preferenza OS quando data-theme="auto" */
+  @media (prefers-color-scheme: dark) {
+    [data-theme="auto"] {
+      --bg:        #121212;
+      --bg2:       #1E1E1E;
+      --bg3:       #2A2A2A;
+      --card:      #1E1E1E;
+      --ink:       #E0E0E0;
+      --ink2:      #AAAAAA;
+      --ink3:      #666666;
+      --border:    #333333;
+      --accent:    #BB86FC;
+      --accent2:   #9B5DE5;
+      --tag-bg:    #2D1B69;
+      --tag-fg:    #BB86FC;
+      --header-bg: #0A0A0A;
+      --header-fg: #FFFFFF;
+      --toggle-bg: #BB86FC;
+      --toggle-dot:#FFFFFF;
+      --shadow:    0 2px 12px rgba(0,0,0,.5);
+      --shadow-h:  0 6px 24px rgba(187,134,252,.2);
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    [data-theme="auto"] {
+      --bg:        #F7F4EF;
+      --bg2:       #EDEAE3;
+      --bg3:       #E2DDD6;
+      --card:      #FFFFFF;
+      --ink:       #1C1C1C;
+      --ink2:      #4A4A4A;
+      --ink3:      #7A7A7A;
+      --border:    #D4CFC7;
+      --accent:    #1A3A6B;
+      --accent2:   #2C5AA0;
+      --tag-bg:    #DBEAFE;
+      --tag-fg:    #1A3A6B;
+      --header-bg: #1C1C1C;
+      --header-fg: #FFFFFF;
+      --toggle-bg: #D4CFC7;
+      --toggle-dot:#FFFFFF;
+      --shadow:    0 2px 12px rgba(0,0,0,.08);
+      --shadow-h:  0 6px 24px rgba(0,0,0,.15);
+    }
+  }
 
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+  /* ============================================================
+     BASE
+  ============================================================ */
+  * { box-sizing:border-box; margin:0; padding:0; }
 
-        .card:hover {
-            transform: translateY(-5px);
-            background-color: var(--hover-color);
-            box-shadow: 0 8px 15px rgba(187, 134, 252, 0.3);
-            border-color: var(--accent-color);
-        }
+  body {
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
 
-        .card h2 {
-            margin: 0 0 15px 0;
-            color: #fff;
-        }
+  /* ============================================================
+     HEADER
+  ============================================================ */
+  .site-header {
+    background: var(--header-bg);
+    color: var(--header-fg);
+    padding: 2.5rem 1.5rem 2rem;
+    position: relative;
+  }
+  .site-header::after {
+    content:'';
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:3px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+  .header-inner {
+    max-width:1060px;
+    margin:auto;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:1.5rem;
+    flex-wrap:wrap;
+  }
+  .header-text {}
+  .header-eyebrow {
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.7rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color: var(--accent);
+    margin-bottom:.6rem;
+  }
+  .header-title {
+    font-family:'Crimson Pro', Georgia, serif;
+    font-size:2.2rem;
+    font-weight:700;
+    line-height:1.2;
+    margin-bottom:.4rem;
+  }
+  .header-sub {
+    font-size:.9rem;
+    opacity:.6;
+  }
 
-        .card p {
-            margin: 0;
-            font-size: 0.9rem;
-            color: #aaa;
-        }
+  /* ============================================================
+     TOGGLE CONTROLS
+  ============================================================ */
+  .controls {
+    display:flex;
+    flex-direction:column;
+    gap:.7rem;
+    align-items:flex-end;
+    flex-shrink:0;
+  }
+  .toggle-row {
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+  .toggle-label {
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.67rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.55);
+    white-space:nowrap;
+  }
+  .toggle {
+    position:relative;
+    width:42px;
+    height:24px;
+    flex-shrink:0;
+  }
+  .toggle input {
+    opacity:0;
+    width:0;
+    height:0;
+    position:absolute;
+  }
+  .toggle-track {
+    position:absolute;
+    inset:0;
+    background:#444;
+    border-radius:12px;
+    cursor:pointer;
+    transition:background .25s;
+  }
+  .toggle-track::after {
+    content:'';
+    position:absolute;
+    top:3px; left:3px;
+    width:18px; height:18px;
+    border-radius:50%;
+    background:white;
+    transition:transform .25s;
+  }
+  .toggle input:checked + .toggle-track {
+    background: var(--accent);
+  }
+  .toggle input:checked + .toggle-track::after {
+    transform:translateX(18px);
+  }
+  /* auto mode toggle ha stile diverso */
+  .toggle-auto .toggle-track { background:#2A6B2A; }
+  .toggle-auto input:checked + .toggle-track { background:#BB86FC; }
 
-        .card:hover p {
-            color: #ddd;
-        }
+  /* ============================================================
+     SEZIONI E GRID
+  ============================================================ */
+  .main {
+    max-width:1060px;
+    margin:0 auto;
+    padding:2rem 1.2rem 4rem;
+  }
 
-    </style>
+  .section-label {
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.68rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color: var(--ink3);
+    margin:2.2rem 0 .8rem;
+    padding-bottom:.4rem;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+  }
+
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+    gap:.9rem;
+  }
+
+  /* ============================================================
+     CARD
+  ============================================================ */
+  .card {
+    background: var(--card);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:1.2rem 1.3rem;
+    text-decoration:none;
+    color: var(--ink);
+    display:flex;
+    flex-direction:column;
+    gap:.5rem;
+    box-shadow: var(--shadow);
+    transition: transform .18s, box-shadow .18s, border-color .18s, background .18s;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before {
+    content:'';
+    position:absolute;
+    top:0; left:0;
+    width:3px; height:100%;
+    background: var(--accent);
+    opacity:0;
+    transition:opacity .18s;
+  }
+  .card:hover {
+    transform:translateY(-3px);
+    box-shadow: var(--shadow-h);
+    border-color: var(--accent);
+  }
+  .card:hover::before { opacity:1; }
+
+  .card-icon {
+    font-size:1.3rem;
+    line-height:1;
+  }
+  .card-title {
+    font-family:'Crimson Pro', Georgia, serif;
+    font-size:1.05rem;
+    font-weight:700;
+    line-height:1.3;
+    color: var(--ink);
+  }
+  .card-desc {
+    font-size:.8rem;
+    color: var(--ink2);
+    line-height:1.5;
+  }
+  .card-tag {
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.6rem;
+    font-weight:600;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:.15rem .45rem;
+    border-radius:3px;
+    background: var(--tag-bg);
+    color: var(--tag-fg);
+    margin-top:.2rem;
+    align-self:flex-start;
+  }
+
+  /* card speciale — esterna (link a sito esterno) */
+  .card-ext .card-title::after {
+    content:' ↗';
+    font-size:.8rem;
+    opacity:.5;
+  }
+
+  /* card WIP */
+  .card-wip {
+    opacity:.6;
+    pointer-events:none;
+  }
+  .card-wip .card-tag { background:#3A3A1A; color:#AAA020; }
+
+  /* ============================================================
+     FOOTER
+  ============================================================ */
+  footer {
+    text-align:center;
+    padding:2rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.67rem;
+    color: var(--ink3);
+    border-top:1px solid var(--border);
+    margin-top:2rem;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-width:600px) {
+    .header-inner { flex-direction:column; }
+    .controls { align-items:flex-start; }
+    .header-title { font-size:1.7rem; }
+    .grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:400px) {
+    .grid { grid-template-columns:1fr; }
+  }
+</style>
 </head>
 <body>
 
-    <h1>🧠 Hub Preparazione Concorso<br><span style="font-size: 1.2rem; color: #aaa;">Unione Valli e Delizie - Area Tecnica</span></h1>
-
-    <div class="dashboard">
-        
-        <a href="specialista-tecnico.html" class="card">
-            <h2>🌳 Materia di studio</h2>
-            <p>Materie di studio</p>
-        </a>
-
-        <a href="guida_tuel_1444.html" class="card">
-            <h2>🌳 TUEL + DM 1444/1968</h2>
-            <p>TUEL + DM 1444/1968</p>
-        </a>
-
-        <a href="267_2000.html" class="card">
-            <h2>🌳 TUEL Estesa</h2>
-            <p>TUEL Intera</p>
-        </a>
-        
-
-        <a href="dal186_lr23_guida.html" class="card">
-            <h2>🏗️ DAL 186/2018 + L.R. 23/2004</h2>
-            <p>DAL 186/2018 + L.R. 23/2004</p>
-        </a>
-
-        <!-- Disciplina Edilizia L.R. 15/2013 -->
-        <a href="lr_15_2013.html" class="card">
-            <h2>🏗️ L.R. 15/2013</h2>
-            <p>Disciplina Edilizia ER (Semplificata)</p>
-        </a>
-
-        <!-- Paesaggistica che hai già -->
-        <a href="paesaggistica.html" class="card">
-            <h2>🌳 Paesaggistica</h2>
-            <p>D.Lgs. 42/2004 e DPR 31/2017</p>
-        </a>
-
-        <a href="guida_dlgs42_2004_concorso.html" class="card">
-            <h2>🌳 D.Lgs. 42/2004</h2>
-            <p>D.Lgs. 42/2004 e DPR 31/2017</p>
-        </a>
-
-        <a href="https://www.bosettiegatti.eu/info/norme/statali/2001_0380.htm" class="card">
-            <h2>🏗️ DPR 380/2001</h2>
-            <p>Testo unico delle disposizioni legislative e regolamentari in materia edilizia</p>
-        </a>
-
-        <a href="380_manuale_sopravvivenza.html" class="card">
-            <h2>🏗️ DPR 380/2001</h2>
-            <p>Manuale sopravvivenza per studiarla</p>
-        </a>
-
-        <!-- Focus Salva Casa -->
-        <a href="salva_casa.html" class="card">
-            <h2>📜 Salva Casa 2024</h2>
-            <p>Decreto 105/2024 - Difformità e Sanatorie</p>
-        </a>
-
-        <!-- Focus Accesso Atti -->
-        <a href="accesso_atti.html" class="card">
-            <h2>📜 Accesso agli atti della PA</h2>
-            <p>Accesso documentale (L. 241/90) · Accesso civico semplice · Accesso civico generalizzato FOIA (D.Lgs. 33/2013)</p>
-        </a>   
-
-        <!-- Focus Accesso Atti -->
-        <a href="legge_241_1990.html" class="card">
-            <h2>📜 L. 241/90 Completa</h2>
-            <p>Tutta la L. 241/90</p>
-        </a>   
-
-        <!-- Focus L 241/90-->
-
-        <a href="DPR31_2017_Articoli_claude_ben_fatto.pdf" class="card">
-            <h2>📜 L. 241/90 Completa pdf</h2>
-            <p>Tutta la L. 241/90</p>
-        </a>   
-
-<!-- Focus Accesso Atti -->
-        <a href="lr_24_2017.html" class="card">
-            <h2>📜 DISCIPLINA REGIONALE SULLA TUTELA E L’USO DEL TERRITORIO</h2>
-            <p>Legge Regionale 24/2017</p>
-        </a>   
-
-
-        <a href="lr_24_2017_2.html" class="card">
-            <h2>📜 DISCIPLINA REGIONALE SULLA TUTELA E L’USO DEL TERRITORIO</h2>
-            <p>Legge Regionale 24/2017 - informale</p>
-        </a>   
-
-
-
-
-        <a href="lr19-2008-sismica.html" class="card">
-            <h2>📜 LR 19/2008 + DGR attuative</h2>
-            <p>Anti sismica</p>
-        </a>   
-
-
-        <!-- Focus Legge 241 Base + RUP e PDF -->
-        <a href="l241_rup.html" class="card">
-            <h2>👔 RUP, D.L. & L. 241/90</h2>
-            <p>(con PDF), Ruoli, S.A.L. e Preavvisi</p>
-        </a>
-
-        <!-- Focus Competenze Trasversali -->
-        <a href="soft_skills.html" class="card">
-            <h2>🤝 Situazionali e RUP</h2>
-            <p>Gestione colleghi rompicoglioni e appalti</p>
-        </a>
-
-        <a href="codice_civile.html" class="card">
-            <h2>📜 Elementi di codice civile</h2>
-            <p>Parti del Codice Civile che toccano l'edilizia e l'urbanistica</p>
-        </a>
-
-        <a href="Ordinamento_Anticorruzione.html" class="card">
-            <h2>📜 Anti Corruzione</h2>
-            <p>Anti corruzione</p>
-        </a>
-
-        <a href="anticorruzione.html" class="card">
-            <h2>📜 Anti Corruzione e Trasparenza</h2>
-            <p>Anti corruzione e Trasparenza Claude</p>
-        </a>    
-
-        <a href="appalti_pubblici.html" class="card">
-            <h2>📜 Appalti pubblici</h2>
-            <p>Non in programma ma utile</p>
-        </a>    
-
-
-        <a href="sistema_urbanistico.html" class="card">
-            <h2>📜 Schema riepilogativo</h2>
-            <p>Sistema italiano riepilogativo</p>
-        </a>    
-
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="header-eyebrow">📚 Preparazione Concorso</div>
+      <div class="header-title">Hub Concorso</div>
+      <div class="header-sub">Unione Valli e Delizie — Area Tecnica</div>
     </div>
+
+    <div class="controls">
+      <!-- Toggle auto (segue OS) -->
+      <div class="toggle-row">
+        <span class="toggle-label">Auto (OS)</span>
+        <label class="toggle toggle-auto">
+          <input type="checkbox" id="toggleAuto">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+      <!-- Toggle chiaro/scuro manuale -->
+      <div class="toggle-row">
+        <span class="toggle-label">☀️ Chiaro</span>
+        <label class="toggle">
+          <input type="checkbox" id="toggleDark" checked>
+          <span class="toggle-track"></span>
+        </label>
+        <span class="toggle-label">🌙 Scuro</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- SEZIONE 1 — URBANISTICA E TERRITORIO -->
+  <div class="section-label">🗺️ Urbanistica e territorio</div>
+  <div class="grid">
+
+    <a href="sistema_urbanistico.html" class="card">
+      <div class="card-icon">🗺️</div>
+      <div class="card-title">Schema riepilogativo sistema urbanistico</div>
+      <div class="card-desc">Gerarchia piani, vincoli, portali online — il quadro d'insieme</div>
+      <span class="card-tag">Fondamentale</span>
+    </a>
+
+    <a href="lr_24_2017.html" class="card">
+      <div class="card-icon">📜</div>
+      <div class="card-title">LR 24/2017 — Disciplina territoriale ER</div>
+      <div class="card-desc">PUG, accordi operativi, consumo di suolo, VALSAT</div>
+      <span class="card-tag">Alta priorità</span>
+    </a>
+
+    <a href="lr_24_2017_2.html" class="card">
+      <div class="card-icon">📜</div>
+      <div class="card-title">LR 24/2017 — versione informale</div>
+      <div class="card-desc">Spiegazione semplice della legge regionale</div>
+    </a>
+
+    <a href="paesaggistica.html" class="card">
+      <div class="card-icon">🌳</div>
+      <div class="card-title">Autorizzazione paesaggistica</div>
+      <div class="card-desc">D.Lgs. 42/2004 e DPR 31/2017 — ordinaria e semplificata</div>
+      <span class="card-tag">Già uscito</span>
+    </a>
+
+    <a href="guida_dlgs42_2004_concorso.html" class="card">
+      <div class="card-icon">🌳</div>
+      <div class="card-title">D.Lgs. 42/2004 esteso</div>
+      <div class="card-desc">Codice beni culturali e del paesaggio — versione completa</div>
+    </a>
+
+  </div>
+
+  <!-- SEZIONE 2 — EDILIZIA -->
+  <div class="section-label">🏗️ Edilizia</div>
+  <div class="grid">
+
+    <a href="380_manuale_sopravvivenza.html" class="card">
+      <div class="card-icon">🏗️</div>
+      <div class="card-title">DPR 380/2001 — Manuale sopravvivenza</div>
+      <div class="card-desc">Gli articoli che escono in prova spiegati senza impazzire</div>
+      <span class="card-tag">Alta priorità</span>
+    </a>
+
+    <a href="https://www.bosettiegatti.eu/info/norme/statali/2001_0380.htm" class="card card-ext">
+      <div class="card-icon">🏗️</div>
+      <div class="card-title">DPR 380/2001 — Testo integrale</div>
+      <div class="card-desc">Testo unico edilizia su bosettiegatti.eu</div>
+      <span class="card-tag">Esterno</span>
+    </a>
+
+    <a href="lr_15_2013.html" class="card">
+      <div class="card-icon">🏗️</div>
+      <div class="card-title">LR 15/2013 — Disciplina edilizia ER</div>
+      <div class="card-desc">Titoli abilitativi in Emilia-Romagna, CILA, SCIA, SCCEA</div>
+      <span class="card-tag">Alta priorità</span>
+    </a>
+
+    <a href="salva_casa.html" class="card">
+      <div class="card-icon">📜</div>
+      <div class="card-title">Salva Casa 2024</div>
+      <div class="card-desc">Decreto 105/2024 — difformità, sanatorie, novità</div>
+      <span class="card-tag">Nuovo 2024</span>
+    </a>
+
+    <a href="dal186_lr23_guida.html" class="card">
+      <div class="card-icon">💶</div>
+      <div class="card-title">DAL 186/2018 + LR 23/2004</div>
+      <div class="card-desc">Contributo di costruzione e vigilanza edilizia in ER</div>
+    </a>
+
+    <a href="lr19-2008-sismica.html" class="card">
+      <div class="card-icon">⚠️</div>
+      <div class="card-title">LR 19/2008 — Sismica</div>
+      <div class="card-desc">Norme sismiche ER + DGR attuative</div>
+    </a>
+
+  </div>
+
+  <!-- SEZIONE 3 — PROCEDIMENTO E ACCESSO -->
+  <div class="section-label">📋 Procedimento amministrativo e accesso</div>
+  <div class="grid">
+
+    <a href="accesso_atti.html" class="card">
+      <div class="card-icon">📜</div>
+      <div class="card-title">Accesso agli atti della PA</div>
+      <div class="card-desc">Documentale (L. 241/90) · Civico semplice · FOIA generalizzato</div>
+      <span class="card-tag">Già uscito</span>
+    </a>
+
+    <a href="legge_241_1990.html" class="card">
+      <div class="card-icon">📜</div>
+      <div class="card-title">L. 241/90 — Procedimento amministrativo</div>
+      <div class="card-desc">Tutta la legge 241/90 spiegata</div>
+      <span class="card-tag">Alta priorità</span>
+    </a>
+
+    <a href="l241_rup.html" class="card">
+      <div class="card-icon">👔</div>
+      <div class="card-title">RUP, DL e L. 241/90</div>
+      <div class="card-desc">Ruoli, SAL, preavvisi di rigetto — con PDF</div>
+      <span class="card-tag">Già uscito</span>
+    </a>
+
+  </div>
+
+  <!-- SEZIONE 4 — APPALTI E LAVORI PUBBLICI -->
+  <div class="section-label">🏛️ Appalti e lavori pubblici</div>
+  <div class="grid">
+
+    <a href="appalti_pubblici.html" class="card">
+      <div class="card-icon">🏛️</div>
+      <div class="card-title">Appalti pubblici</div>
+      <div class="card-desc">RUP, DL, SAL, fasi opera pubblica, programma triennale — D.Lgs. 36/2023</div>
+      <span class="card-tag">Già uscito</span>
+    </a>
+
+    <a href="soft_skills.html" class="card">
+      <div class="card-icon">🤝</div>
+      <div class="card-title">Domande situazionali e gestione team</div>
+      <div class="card-desc">Come rispondere alle domande comportamentali del colloquio</div>
+    </a>
+
+  </div>
+
+  <!-- SEZIONE 5 — ORDINAMENTO E ANTICORRUZIONE -->
+  <div class="section-label">⚖️ Ordinamento, anticorruzione, trasparenza</div>
+  <div class="grid">
+
+    <a href="anticorruzione.html" class="card">
+      <div class="card-icon">🛡️</div>
+      <div class="card-title">Anticorruzione e Trasparenza</div>
+      <div class="card-desc">RPCT, PTPCT, Whistleblowing, Inconferibilità — L. 190/2012</div>
+      <span class="card-tag">Già uscito</span>
+    </a>
+
+    <a href="anticorruzione_2.html" class="card">
+      <div class="card-icon">🛡️</div>
+      <div class="card-title">Anticorruzione e Trasparenza 2</div>
+      <div class="card-desc">RPCT, PTPCT, Whistleblowing, Inconferibilità — L. 190/2012</div>
+      <span class="card-tag">Già uscito</span>
+    </a>
+
+
+    <a href="Ordinamento_Anticorruzione.html" class="card">
+      <div class="card-icon">📜</div>
+      <div class="card-title">Anticorruzione — versione estesa</div>
+      <div class="card-desc">Testo completo con ordinamento</div>
+    </a>
+
+    <a href="guida_tuel_1444.html" class="card">
+      <div class="card-icon">🏢</div>
+      <div class="card-title">TUEL + DM 1444/1968</div>
+      <div class="card-desc">Ordinamento enti locali + standard urbanistici</div>
+    </a>
+
+    <a href="267_2000.html" class="card">
+      <div class="card-icon">🏢</div>
+      <div class="card-title">TUEL D.Lgs. 267/2000 — esteso</div>
+      <div class="card-desc">Testo completo ordinamento enti locali</div>
+    </a>
+
+  </div>
+
+  <!-- SEZIONE 6 — CODICE CIVILE E ALTRI -->
+  <div class="section-label">📖 Codice civile e altri riferimenti</div>
+  <div class="grid">
+
+    <a href="codice_civile.html" class="card">
+      <div class="card-icon">⚖️</div>
+      <div class="card-title">Elementi di Codice Civile</div>
+      <div class="card-desc">Proprietà, distanze, servitù, condominio, trascrizioni — solo le parti che contano</div>
+    </a>
+
+    <a href="specialista-tecnico.html" class="card">
+      <div class="card-icon">📋</div>
+      <div class="card-title">Panoramica materie di studio</div>
+      <div class="card-desc">Mappa completa di tutte le materie del programma</div>
+    </a>
+
+  </div>
+
+  <!-- SEZIONE 7 — PLACEHOLDER per future aggiunte -->
+  <div class="section-label">🚧 In arrivo</div>
+  <div class="grid">
+
+    <div class="card card-wip">
+      <div class="card-icon">🌿</div>
+      <div class="card-title">D.Lgs. 152/2006 — Ambiente e bonifica</div>
+      <div class="card-desc">Norme ambientali, VIA, bonifica siti contaminati</div>
+      <span class="card-tag">In preparazione</span>
+    </div>
+
+    <div class="card card-wip">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">D.Lgs. 190/2024 — FER</div>
+      <div class="card-desc">Regimi autorizzativi per energie rinnovabili</div>
+      <span class="card-tag">In preparazione</span>
+    </div>
+
+    <div class="card card-wip">
+      <div class="card-icon">🔒</div>
+      <div class="card-title">GDPR 679/2016 — Privacy</div>
+      <div class="card-desc">Protezione dati personali nella PA</div>
+      <span class="card-tag">In preparazione</span>
+    </div>
+
+    <div class="card card-wip">
+      <div class="card-icon">💻</div>
+      <div class="card-title">Digitalizzazione PA</div>
+      <div class="card-desc">CAD, SPID, CIE, firma digitale, PEC</div>
+      <span class="card-tag">In preparazione</span>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  Hub locale — Unione Comuni Valli e Delizie · Argenta · Ostellato · Portomaggiore
+</footer>
+
+<script>
+  const html       = document.documentElement;
+  const toggleDark = document.getElementById('toggleDark');
+  const toggleAuto = document.getElementById('toggleAuto');
+
+  // Carica preferenze salvate
+  const saved = localStorage.getItem('theme') || 'dark';
+  applyTheme(saved);
+
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    if (theme === 'auto') {
+      toggleAuto.checked = true;
+      // imposta il toggle chiaro/scuro in base all'OS
+      toggleDark.checked = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      toggleDark.disabled = true;
+    } else {
+      toggleAuto.checked = false;
+      toggleDark.checked = theme === 'dark';
+      toggleDark.disabled = false;
+    }
+    localStorage.setItem('theme', theme);
+  }
+
+  // Toggle AUTO
+  toggleAuto.addEventListener('change', () => {
+    applyTheme(toggleAuto.checked ? 'auto' : (toggleDark.checked ? 'dark' : 'light'));
+  });
+
+  // Toggle CHIARO/SCURO manuale
+  toggleDark.addEventListener('change', () => {
+    if (!toggleAuto.checked) {
+      applyTheme(toggleDark.checked ? 'dark' : 'light');
+    }
+  });
+
+  // Aggiorna il toggle scuro quando cambia la preferenza OS (solo in modalità auto)
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (html.getAttribute('data-theme') === 'auto') {
+      toggleDark.checked = e.matches;
+    }
+  });
+</script>
 
 </body>
 </html>
-```

@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LR 19/2008 — Rischio Sismico ER</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Sora:wght@300;400;600;700&display=swap');
+
+  :root {
+    --bg:      #0d0f14;
+    --bg2:     #141720;
+    --bg3:     #1b1f2e;
+    --border:  #2a2f45;
+    --accent:  #5b8dee;   /* blu — normativa/procedura */
+    --accent2: #e87d3e;   /* arancio — attenzione/step */
+    --accent3: #4fc08d;   /* verde — ok/definizione */
+    --accent4: #c678dd;   /* viola — enti/competenze */
+    --accent5: #e06c75;   /* rosso — attenzione critica */
+    --yellow:  #d4a017;   /* giallo — esame */
+    --text:    #cdd6f4;
+    --textd:   #7a8099;
+    --textb:   #e8eaf6;
+    --mono:    'IBM Plex Mono', monospace;
+    --sans:    'Sora', sans-serif;
+    --r:       10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.75;
+    max-width: 820px;
+    margin: 0 auto;
+    padding-bottom: 80px;
+  }
+
+  /* ── HEADER ── */
+  .hdr {
+    background: linear-gradient(160deg, #111525 0%, #0d1020 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 22px 22px 16px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .hdr .chip {
+    font-family: var(--mono); font-size: 10px; color: var(--accent5);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .hdr h1 { font-size: 17px; font-weight: 700; color: var(--textb); line-height: 1.3; }
+  .hdr .sub { font-family: var(--mono); font-size: 11px; color: var(--textd); margin-top: 5px; }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex; gap: 3px;
+    padding: 12px 22px 0;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs a {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    color: var(--textd); text-decoration: none;
+    padding: 7px 13px; border-radius: 6px 6px 0 0;
+    border: 1px solid transparent; border-bottom: none;
+    white-space: nowrap; transition: all .18s;
+  }
+  .tabs a:hover { color: var(--text); background: var(--bg3); border-color: var(--border); }
+  .tabs a.on { color: var(--accent); background: var(--bg); border-color: var(--border); }
+
+  /* ── MAIN ── */
+  main { padding: 26px 22px; }
+
+  /* ── SECTION TITLE ── */
+  .stitle {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .stitle::after { content:''; flex:1; height:1px; background: var(--border); }
+
+  .section { margin-bottom: 40px; }
+
+  /* ── CARD COLLASSABILE ── */
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 10px; overflow: hidden; }
+  .ch { padding: 13px 16px; cursor: pointer; display: flex; align-items: flex-start; gap: 11px; user-select: none; transition: background .15s; }
+  .ch:hover { background: var(--bg3); }
+  .ch .arr { font-size: 11px; color: var(--textd); margin-top: 3px; flex-shrink: 0; transition: transform .22s; }
+  .ch.open .arr { transform: rotate(90deg); }
+  .ch .ctitle { font-size: 14px; font-weight: 600; color: var(--textb); flex: 1; line-height: 1.4; }
+  .cb { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
+  .cb.open { display: block; }
+
+  /* ── BADGE ── */
+  .badge {
+    font-family: var(--mono); font-size: 10px;
+    padding: 2px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+    border: 1px solid;
+  }
+  .b-blue   { background: rgba(91,141,238,.12); color: var(--accent);  border-color: rgba(91,141,238,.3); }
+  .b-ora    { background: rgba(232,125,62,.12);  color: var(--accent2); border-color: rgba(232,125,62,.3); }
+  .b-grn    { background: rgba(79,192,141,.12);  color: var(--accent3); border-color: rgba(79,192,141,.3); }
+  .b-vio    { background: rgba(198,120,221,.12); color: var(--accent4); border-color: rgba(198,120,221,.3); }
+  .b-red    { background: rgba(224,108,117,.12); color: var(--accent5); border-color: rgba(224,108,117,.3); }
+  .b-yel    { background: rgba(212,160,23,.12);  color: var(--yellow);  border-color: rgba(212,160,23,.3); }
+
+  /* ── BLOCCO DEFINIZIONE ── */
+  .def {
+    background: var(--bg3); border-left: 3px solid var(--accent3);
+    border-radius: 0 6px 6px 0; padding: 12px 15px; margin: 12px 0;
+    font-size: 14px; line-height: 1.7;
+  }
+  .def strong { color: var(--textb); }
+
+  .warn {
+    background: rgba(224,108,117,.07); border: 1px solid rgba(224,108,117,.25);
+    border-radius: 8px; padding: 11px 14px; margin: 12px 0; font-size: 13.5px;
+  }
+  .warn::before { content: '⚠ '; color: var(--accent5); font-weight: 700; }
+
+  .note {
+    background: rgba(212,160,23,.07); border: 1px solid rgba(212,160,23,.25);
+    border-radius: 8px; padding: 11px 14px; margin: 12px 0; font-size: 13.5px;
+  }
+  .note::before { content: '★ '; color: var(--yellow); font-weight: 700; }
+
+  .info {
+    background: rgba(91,141,238,.07); border: 1px solid rgba(91,141,238,.25);
+    border-radius: 8px; padding: 11px 14px; margin: 12px 0; font-size: 13.5px;
+  }
+
+  /* ── MINI TITLE ── */
+  .mt {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase; margin: 16px 0 8px;
+    color: var(--accent2);
+  }
+
+  /* ── ZONE CARD ── */
+  .zone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .zone-card {
+    border-radius: 8px; padding: 14px 15px; border: 1px solid;
+    position: relative; overflow: hidden;
+  }
+  .zone-card .znum {
+    font-family: var(--mono); font-size: 28px; font-weight: 700;
+    opacity: .12; position: absolute; top: 6px; right: 12px; line-height: 1;
+  }
+  .zone-card .zlabel {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;
+  }
+  .zone-card p { font-size: 13px; line-height: 1.6; color: var(--text); }
+  .zone-card ul { list-style: none; padding: 0; margin-top: 6px; }
+  .zone-card ul li { font-size: 12.5px; padding: 2px 0; color: var(--text); }
+  .zone-card ul li::before { content: '▸ '; font-size: 10px; }
+
+  .zone-2 { background: rgba(224,108,117,.08); border-color: rgba(224,108,117,.3); }
+  .zone-2 .zlabel, .zone-2 .znum { color: var(--accent5); }
+  .zone-3 { background: rgba(232,125,62,.08); border-color: rgba(232,125,62,.3); }
+  .zone-3 .zlabel, .zone-3 .znum { color: var(--accent2); }
+  .zone-4 { background: rgba(79,192,141,.08); border-color: rgba(79,192,141,.3); }
+  .zone-4 .zlabel, .zone-4 .znum { color: var(--accent3); }
+
+  /* ── TABELLA ADEMPIMENTI ── */
+  .tab-wrap { overflow-x: auto; margin: 14px 0; border-radius: 8px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: var(--bg3); color: var(--textd);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 1px;
+    text-transform: uppercase; padding: 10px 12px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,.02); }
+
+  .pill {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+    padding: 3px 9px; border-radius: 20px; display: inline-block;
+    border: 1px solid; white-space: nowrap;
+  }
+  .pill-red  { color: var(--accent5); border-color: rgba(224,108,117,.4); background: rgba(224,108,117,.1); }
+  .pill-ora  { color: var(--accent2); border-color: rgba(232,125,62,.4); background: rgba(232,125,62,.1); }
+  .pill-grn  { color: var(--accent3); border-color: rgba(79,192,141,.4); background: rgba(79,192,141,.1); }
+  .pill-blu  { color: var(--accent);  border-color: rgba(91,141,238,.4); background: rgba(91,141,238,.1); }
+  .pill-gry  { color: var(--textd);   border-color: var(--border);       background: var(--bg3); }
+
+  /* ── STEP FLOW ── */
+  .steps { margin: 14px 0; }
+  .step {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 11px 0; border-bottom: 1px dashed var(--border);
+    font-size: 14px; line-height: 1.6;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: var(--mono); font-size: 12px; font-weight: 700;
+    color: var(--bg); background: var(--accent2);
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .step-num.red  { background: var(--accent5); }
+  .step-num.grn  { background: var(--accent3); }
+  .step-num.blu  { background: var(--accent); }
+  .step-num.vio  { background: var(--accent4); }
+  .step-body { flex: 1; }
+  .step-body strong { color: var(--textb); font-size: 13.5px; display: block; margin-bottom: 2px; }
+
+  /* ── CONFRONTO BOX ── */
+  .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .vs-box {
+    border-radius: 8px; padding: 14px 15px; border: 1px solid; font-size: 13.5px;
+  }
+  .vs-box h4 { font-family: var(--mono); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .vs-box ul { list-style: none; padding: 0; }
+  .vs-box ul li { padding: 4px 0; display: flex; gap: 8px; align-items: flex-start; }
+  .vs-box ul li::before { content: '→'; flex-shrink: 0; }
+
+  .vs-ntc { background: rgba(79,192,141,.06); border-color: rgba(79,192,141,.25); }
+  .vs-ntc h4, .vs-ntc ul li::before { color: var(--accent3); }
+  .vs-lr  { background: rgba(91,141,238,.06); border-color: rgba(91,141,238,.25); }
+  .vs-lr  h4, .vs-lr  ul li::before { color: var(--accent); }
+
+  /* ── ENTI TABLE ── */
+  .enti-list { margin: 12px 0; }
+  .ente-row {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 11px 13px; background: var(--bg3);
+    border: 1px solid var(--border); border-radius: 7px; margin-bottom: 6px;
+    font-size: 13.5px;
+  }
+  .ente-row .ente-ico {
+    font-size: 18px; flex-shrink: 0; margin-top: 1px;
+    width: 30px; text-align: center;
+  }
+  .ente-row .ente-body { flex: 1; }
+  .ente-row .ente-body strong { color: var(--textb); display: block; font-size: 13.5px; }
+  .ente-row .ente-body small { color: var(--textd); font-size: 12px; display: block; margin-top: 1px; }
+  .ente-row .ente-body p { margin-top: 5px; font-size: 13px; line-height: 1.55; color: var(--text); }
+
+  /* ── RISPOSTA ESAME ── */
+  .esame-block {
+    background: rgba(212,160,23,.05); border: 1px solid rgba(212,160,23,.3);
+    border-radius: var(--r); padding: 18px 16px; font-size: 14.5px;
+    line-height: 1.8; color: var(--text);
+  }
+  .esame-block .esame-header {
+    font-family: var(--mono); font-size: 11px; color: var(--yellow);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .esame-block p { margin-bottom: 12px; }
+  .esame-block strong { color: var(--textb); }
+  .esame-block em { font-style: normal; color: var(--accent3); }
+
+  /* ── DOMANDE POSSIBILI ── */
+  .dq {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 14px; margin-bottom: 8px;
+    font-size: 14px; line-height: 1.6; display: flex; gap: 11px; align-items: flex-start;
+  }
+  .dq-n {
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 3px;
+    border: 1px solid; color: var(--yellow); background: rgba(212,160,23,.1); border-color: rgba(212,160,23,.3);
+  }
+  .dq-n.hot { color: var(--accent5); background: rgba(224,108,117,.1); border-color: rgba(224,108,117,.3); }
+
+  /* ── DGR LIST ── */
+  .dgr-row {
+    display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13.5px;
+  }
+  .dgr-row:last-child { border-bottom: none; }
+  .dgr-id { font-family: var(--mono); font-size: 11.5px; font-weight: 700; color: var(--accent4); flex-shrink: 0; min-width: 90px; margin-top: 1px; }
+  .dgr-desc { flex: 1; line-height: 1.55; }
+  .dgr-desc strong { color: var(--textb); }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  @media (max-width: 600px) {
+    .zone-grid, .vs-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="chip">Rischio Sismico — Emilia-Romagna</div>
+  <h1>LR 19/2008 + DGR attuative</h1>
+  <div class="sub">1373/2011 · 1878/2011 · 2272/2016 · 828/2019 · 924/2019 · 1744/2025</div>
+</header>
+
+<nav class="tabs">
+  <a href="#panoramica" class="on" onclick="setActive(this)">Panoramica</a>
+  <a href="#zone" onclick="setActive(this)">Zone Sismiche</a>
+  <a href="#adempimenti" onclick="setActive(this)">Adempimenti</a>
+  <a href="#procedimenti" onclick="setActive(this)">Procedimenti</a>
+  <a href="#enti" onclick="setActive(this)">Enti</a>
+  <a href="#ntc" onclick="setActive(this)">NTC vs LR</a>
+  <a href="#esame" onclick="setActive(this)">Risposta Esame</a>
+  <a href="#domande" onclick="setActive(this)">Domande Possibili</a>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════════
+     PANORAMICA
+══════════════════════════════════════════ -->
+<section class="section" id="panoramica">
+  <div class="stitle">Panoramica — Cos'è e perché esiste</div>
+
+  <div class="def">
+    La LR 19/2008 è la legge con cui l'Emilia-Romagna ha esercitato la sua <strong>competenza legislativa concorrente in materia di governo del territorio</strong> per disciplinare, a livello regionale, gli adempimenti amministrativi e i controlli tecnici relativi alle costruzioni nei territori esposti a rischio sismico. Non ridefinisce la tecnica di calcolo strutturale (che è compito delle NTC nazionali), ma stabilisce <strong>chi deve controllare cosa, quando e come</strong>.
+  </div>
+
+  <div class="card">
+    <div class="ch" onclick="tc(this)">
+      <span class="arr">▶</span>
+      <span class="ctitle">Perché esiste — il problema che risolve</span>
+      <span class="badge b-grn">Contesto</span>
+    </div>
+    <div class="cb">
+      <div class="mt">Il vuoto normativo pre-2008</div>
+      <p style="font-size:14px;line-height:1.75">Prima della LR 19/2008, in Emilia-Romagna il controllo delle costruzioni in zona sismica era disciplinato dalla normativa nazionale (L. 64/1974, DPR 380/2001 artt. 83–95) senza una struttura procedurale regionale organica. Con la riclassificazione sismica nazionale del 2003 (OPCM 3274), quasi tutto il territorio dell'ER è passato in zona sismica, moltiplicando gli obblighi di controllo e rendendo necessario un sistema regionale strutturato.</p>
+      <div class="mt">Gli obiettivi della legge</div>
+      <ul style="list-style:none;padding:0;margin-top:8px">
+        <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">✦ Definire le <strong style="color:var(--textb)">categorie di intervento</strong> in base alla rilevanza strutturale e al rischio sismico</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">✦ Distinguere tra <strong style="color:var(--textb)">autorizzazione preventiva</strong> (zona 2) e <strong style="color:var(--textb)">deposito preventivo</strong> (zona 3), adattando l'intensità del controllo al rischio</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">✦ Istituire un sistema di <strong style="color:var(--textb)">controlli a campione</strong> che renda sostenibile il carico amministrativo</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">✦ Individuare con precisione gli <strong style="color:var(--textb)">uffici regionali competenti</strong> (Area Sismica) come soggetti tecnici di riferimento</li>
+        <li style="padding:6px 0;font-size:14px">✦ Regolamentare il <strong style="color:var(--textb)">collaudo statico</strong> come momento di verifica finale indipendente</li>
+      </ul>
+      <div class="note" style="margin-top:14px">Il terremoto dell'Emilia del 2012 ha dimostrato l'importanza del sistema: le DGR 2272/2016 e successive sono figlie di quella esperienza, che ha mostrato dove le procedure dovevano essere rafforzate.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch" onclick="tc(this)">
+      <span class="arr">▶</span>
+      <span class="ctitle">Le DGR attuative — cosa fa ognuna</span>
+      <span class="badge b-vio">DGR</span>
+    </div>
+    <div class="cb">
+      <div class="dgr-row">
+        <div class="dgr-id">DGR 1373/2011</div>
+        <div class="dgr-desc"><strong>Prima grande DGR attuativa.</strong> Definisce le categorie di intervento (da A a E), i contenuti minimi degli elaborati progettuali da depositare, le procedure di autorizzazione e deposito, i moduli standard, le modalità di trasmissione. È il testo fondativo del sistema procedurale. Sostituisce le vecchie procedure pre-LR 19.</div>
+      </div>
+      <div class="dgr-row">
+        <div class="dgr-id">DGR 1878/2011</div>
+        <div class="dgr-desc"><strong>Integrazione della 1373.</strong> Emessa nello stesso anno per correggere e integrare alcuni aspetti della DGR 1373 (moduli, categorie di interventi specifici, chiarimenti procedurali). Le due DGR del 2011 si leggono insieme.</div>
+      </div>
+      <div class="dgr-row">
+        <div class="dgr-id">DGR 2272/2016</div>
+        <div class="dgr-desc"><strong>Aggiornamento post-terremoto 2012.</strong> Rivede le procedure alla luce dell'esperienza del sisma. Aggiorna la classificazione delle categorie, introduce requisiti aggiuntivi per alcune tipologie, modifica le percentuali e le modalità dei controlli a campione. Primo aggiornamento sostanziale del sistema.</div>
+      </div>
+      <div class="dgr-row">
+        <div class="dgr-id">DGR 828/2019</div>
+        <div class="dgr-desc"><strong>Digitalizzazione — nasce SISO.</strong> Introduce il Sistema Informativo Sismico Online (SISO), portale regionale obbligatorio per il deposito e la richiesta di autorizzazione sismici. Elimina la carta e standardizza i flussi documentali. Definisce le tempistiche di accettazione telematica.</div>
+      </div>
+      <div class="dgr-row">
+        <div class="dgr-id">DGR 924/2019</div>
+        <div class="dgr-desc"><strong>Disposizioni complementari alla 828.</strong> Integra la DGR 828 su aspetti operativi del sistema SISO: accesso al portale, gestione dei profili (progettista, committente, comune), modalità di autenticazione, flussi di comunicazione tra SISO e SUE.</div>
+      </div>
+      <div class="dgr-row">
+        <div class="dgr-id">DGR 1744/2025</div>
+        <div class="dgr-desc"><strong>Aggiornamento 2025.</strong> La più recente. Aggiorna il quadro procedurale complessivo, probabilmente in recepimento di modifiche normative nazionali (DM NTC 2018, aggiornamento classificazione sismica) e dell'esperienza accumulata con SISO. Da monitorare: potrebbe aver modificato categorie, soglie o procedure di controllo.</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     ZONE SISMICHE
+══════════════════════════════════════════ -->
+<section class="section" id="zone">
+  <div class="stitle">Zone Sismiche — ER e Provincia di Ferrara</div>
+
+  <div class="def">
+    La classificazione sismica nazionale (OPCM 3274/2003, poi DM 2015 con aggiornamento mappe di pericolosità) suddivide il territorio in 4 zone (1 = massimo rischio, 4 = minimo). L'ER ha recepito questa classificazione e la LR 19/2008 vi si àncora per determinare il regime di controllo applicabile.
+  </div>
+
+  <div class="zone-grid">
+    <div class="zone-card zone-2">
+      <div class="znum">2</div>
+      <div class="zlabel">Zona 2 — Media-Alta</div>
+      <p>Rischio sismico medio-alto. Regime più stringente: <strong>autorizzazione sismica preventiva</strong>.</p>
+      <ul>
+        <li>Appennino emiliano</li>
+        <li>Comuni montani di BO, MO, RE, PC</li>
+        <li>Alcuni comuni pianura alta (es. Finale Emilia, Mirandola)</li>
+      </ul>
+    </div>
+    <div class="zone-card zone-3">
+      <div class="znum">3</div>
+      <div class="zlabel">Zona 3 — Media-Bassa</div>
+      <p>Rischio medio-basso. Regime standard: <strong>deposito preventivo</strong>.</p>
+      <ul>
+        <li><strong>Tutta la provincia di Ferrara</strong></li>
+        <li>Ferrara, Cento, Portomaggiore, Ostellato, Argenta, Comacchio...</li>
+        <li>La maggior parte della pianura padana ER</li>
+      </ul>
+    </div>
+    <div class="zone-card zone-4" style="grid-column: span 2;">
+      <div class="znum">4</div>
+      <div class="zlabel">Zona 4 — Bassa (residuale in ER)</div>
+      <p>Dopo il 2003/2012 quasi nessun comune ER è rimasto in zona 4. In zona 4 il regime è molto semplificato. Ai fini pratici per la provincia di Ferrara: <strong>non rilevante</strong>.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch" onclick="tc(this)">
+      <span class="arr">▶</span>
+      <span class="ctitle">Ferrara vs Portomaggiore — differenze pratiche</span>
+      <span class="badge b-ora">Focus locale</span>
+    </div>
+    <div class="cb">
+      <div class="warn">Dal punto di vista della <strong>zona sismica</strong>, Ferrara e Portomaggiore (come tutti i comuni della provincia di Ferrara) sono entrambi in <strong>Zona 3</strong>. Le procedure che si applicano sono identiche. Non esiste una differenza di "livello di rischio" tra i due.</div>
+      <div class="mt">Le differenze pratiche sono procedurali, non normative</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num blu">1</div>
+          <div class="step-body">
+            <strong>Sportello di riferimento (SUE)</strong>
+            Ferrara: SUE del Comune di Ferrara.<br>
+            Portomaggiore/Ostellato/Argenta: SUE dell'Unione dei Comuni Valli e Delizie (sportello unico per i tre comuni). Il tecnico deposita su SISO e invia la ricevuta allo sportello dell'Unione.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num blu">2</div>
+          <div class="step-body">
+            <strong>Ufficio tecnico regionale di controllo</strong>
+            Per tutta la provincia di Ferrara fa capo all'<strong>Area Sismica della Regione ER — sede di Ferrara</strong> (ex Genio Civile, ora articolazione territoriale del Servizio Geologico Sismico e dei Suoli). Il back-end del controllo è lo stesso per tutti i comuni ferraresi.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num blu">3</div>
+          <div class="step-body">
+            <strong>Microzonazione sismica</strong>
+            Dopo il terremoto del 2012, alcuni comuni della bassa ferrarese (inclusa la zona di Argenta-Ostellato-Portomaggiore) hanno effettuato studi di microzonazione sismica che hanno evidenziato amplificazioni locali. Questo non cambia la zona sismica formale ma può influenzare le analisi geotecniche richieste per specifici interventi.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num blu">4</div>
+          <div class="step-body">
+            <strong>Nessuna differenza sulle procedure</strong>
+            Le categorie di intervento, i contenuti degli elaborati, le soglie di deposito, i tempi: tutto identico. La zona 3 si applica uniformemente.
+          </div>
+        </div>
+      </div>
+      <div class="note">Se all'esame ti viene chiesta la differenza tra Ferrara e Portomaggiore per la sismica: la risposta è che <strong>non c'è differenza di zona né di regime</strong>, ma che il SUE di riferimento è diverso (Comune per Ferrara, Unione per i tre comuni). Entrambe fanno riferimento all'Area Sismica regionale per i controlli.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     ADEMPIMENTI
+══════════════════════════════════════════ -->
+<section class="section" id="adempimenti">
+  <div class="stitle">Adempimenti — Cosa fare e quando</div>
+
+  <div class="def">
+    Il <strong>tipo di adempimento</strong> dipende da due variabili: (1) la <strong>zona sismica</strong> del comune e (2) la <strong>categoria dell'intervento</strong>. La DGR 1373/2011 e successive definiscono le categorie. Il regime è: zona 2 → autorizzazione preventiva; zona 3 → deposito preventivo; interventi minori → esenzione o comunicazione.
+  </div>
+
+  <div class="card">
+    <div class="ch" onclick="tc(this)">
+      <span class="arr">▶</span>
+      <span class="ctitle">Categorie di intervento (schema DGR 1373/2011 e s.m.i.)</span>
+      <span class="badge b-ora">Categorie</span>
+    </div>
+    <div class="cb">
+      <div class="tab-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Categoria</th>
+              <th>Tipo intervento</th>
+              <th>Zona 2</th>
+              <th>Zona 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="pill pill-red">A</span></td>
+              <td>Nuove costruzioni, ampliamenti in elevazione, sopraelevazioni, ricostruzioni integrali. <em style="color:var(--textd);font-style:normal;font-size:12px">Strutture ordinarie e speciali.</em></td>
+              <td><span class="pill pill-red">Autorizzazione preventiva</span></td>
+              <td><span class="pill pill-ora">Deposito preventivo</span></td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-red">B</span></td>
+              <td>Interventi strutturali su edifici esistenti: consolidamenti, ristrutturazioni strutturali significative, variazioni di destinazione d'uso con cambio di classe strutturale.</td>
+              <td><span class="pill pill-red">Autorizzazione preventiva</span></td>
+              <td><span class="pill pill-ora">Deposito preventivo</span></td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-ora">C</span></td>
+              <td>Interventi locali su strutture esistenti: rinforzi parziali, ripristino, riparazione danni senza modifica della struttura complessiva.</td>
+              <td><span class="pill pill-ora">Deposito preventivo</span></td>
+              <td><span class="pill pill-grn">Deposito contestuale o preventivo</span></td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-grn">D</span></td>
+              <td>Interventi minori su strutture esistenti di limitata rilevanza strutturale (es. tramezzi non portanti, finiture, manutenzione ordinaria strutturale).</td>
+              <td><span class="pill pill-grn">Comunicazione / Esenzione</span></td>
+              <td><span class="pill pill-gry">Esenzione</span></td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-gry">E</span></td>
+              <td>Opere minori o temporanee non strutturalmente rilevanti ai fini sismici: arredi esterni fissi, piccole pertinenze, tende, manufatti leggeri.</td>
+              <td><span class="pill pill-gry">Esenzione</span></td>
+              <td><span class="pill pill-gry">Esenzione</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="warn">La categoria non è scelta liberamente dal progettista: è determinata dalle caratteristiche oggettive dell'intervento. La DGR fornisce criteri dettagliati e l'ufficio regionale può riclassificare un intervento in fase di istruttoria.</div>
+      <div class="note">Per l'Unione Valli e Delizie (zona 3): in pratica quasi tutti gli interventi strutturali significativi rientrano in categoria A o B e richiedono <strong>deposito preventivo</strong> prima dell'inizio lavori.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch" onclick="tc(this)">
+      <span class="arr">▶</span>
+      <span class="ctitle">Contenuto degli elaborati da depositare</span>
+      <span class="badge b-blue">Elaborati</span>
+    </div>
+    <div class="cb">
+      <div class="mt">Elaborati strutturali minimi (cat. A e B, zona 3)</div>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:7px 0;border-bottom:1px solid var(--border);font-size:14px">📄 <strong style="color:var(--textb)">Relazione geologica e geotecnica</strong> — redatta da geologo abilitato, include caratterizzazione del sito, stratigrafia, parametri del suolo per il calcolo sismico (categoria di sottosuolo ex NTC).</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--border);font-size:14px">📐 <strong style="color:var(--textb)">Relazione tecnica strutturale</strong> — illustra le scelte progettuali, i materiali, la verifica sismica, i calcoli.</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--border);font-size:14px">📏 <strong style="color:var(--textb)">Elaborati grafici strutturali</strong> — piante, sezioni, prospetti con la struttura portante, armature (c.a.), sezioni dei profili (acciaio), particolari costruttivi.</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--border);font-size:14px">📋 <strong style="color:var(--textb)">Relazione sui materiali</strong> — specifiche tecniche e caratteristiche dei materiali strutturali utilizzati.</li>
+        <li style="padding:7px 0;font-size:14px">📝 <strong style="color:var(--textb)">Modulo di deposito/domanda</strong> — compilato su SISO, firmato digitalmente dal committente e dal progettista strutturale.</li>
+      </ul>
+      <div class="mt">Elaborati aggiuntivi per alcuni interventi</div>
+      <div class="info">Per strutture speciali (grandi luci, edifici strategici, ponti, strutture in zona rossa a microzonazione): possono essere richiesti analisi di risposta sismica locale, modelli FEM, o perizia di un tecnico terzo.</div>
+      <div class="mt">Chi firma gli elaborati</div>
+      <div class="def">Il <strong>progettista strutturale</strong> deve essere un professionista abilitato (ingegnere o architetto). Gli elaborati vengono firmati digitalmente su SISO. La relazione geologica/geotecnica è di competenza esclusiva del <strong>geologo</strong>. Committente e progettista strutturale sono co-responsabili del deposito.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch" onclick="tc(this)">
+      <span class="arr">▶</span>
+      <span class="ctitle">Il collaudo statico — ruolo e obblighi</span>
+      <span class="badge b-vio">Collaudo</span>
+    </div>
+    <div class="cb">
+      <div class="def">Il collaudo statico è il controllo tecnico <strong>finale e indipendente</strong> sulla corretta esecuzione delle opere strutturali. È obbligatorio per le categorie A e B in zona 2 e 3, e per alcune tipologie di categoria C. Non può essere svolto dal progettista strutturale né dal direttore dei lavori.</div>
+      <div class="mt">Il collaudatore</div>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">▸ Nominato dal <strong style="color:var(--textb)">committente</strong></li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">▸ Deve essere ingegnere o architetto iscritto all'albo da almeno <strong style="color:var(--textb)">10 anni</strong></li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">▸ <strong style="color:var(--accent5)">Non può essere</strong> il progettista, il direttore dei lavori, il costruttore, né un loro collaboratore</li>
+        <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">▸ Effettua <strong style="color:var(--textb)">sopralluoghi in corso d'opera</strong> per verificare la qualità delle lavorazioni strutturali</li>
+        <li style="padding:6px 0;font-size:14px">▸ Redige il <strong style="color:var(--textb)">certificato di collaudo statico</strong> entro 60 giorni dalla fine lavori, depositato su SISO</li>
+      </ul>
+      <div class="mt">Differenza: Collaudo statico vs Certificato di agibilità</div>
+      <div class="info">Il collaudo statico verifica la struttura. È distinto dal collaudo funzionale e dal certificato di conformità edilizia e agibilità (SCCEA ex LR 15/2013), che è un adempimento edilizio-urbanistico. Il deposito del collaudo statico su SISO è però <strong>condizione necessaria</strong> per la presentazione della SCCEA per le categorie che lo richiedono.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch" onclick="tc(this)">
+      <span class="arr">▶</span>
+      <span class="ctitle">SISO — Sistema Informativo Sismico Online</span>
+      <span class="badge b-grn">Digitale</span>
+    </div>
+    <div class="cb">
+      <div class="def">Introdotto con le DGR 828 e 924/2019, SISO è il portale informatico regionale obbligatorio per la gestione di tutti i procedimenti sismici in Emilia-Romagna. <strong>Sostituisce completamente la presentazione cartacea.</strong></div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num grn">1</div>
+          <div class="step-body"><strong>Profili utente</strong> Il progettista strutturale, il committente e il comune accedono con credenziali SPID/CIE. Ogni soggetto ha un profilo con ruolo definito.</div>
+        </div>
+        <div class="step">
+          <div class="step-num grn">2</div>
+          <div class="step-body"><strong>Caricamento elaborati</strong> Il progettista carica tutti i file firmati digitalmente. SISO verifica automaticamente la completezza formale del fascicolo.</div>
+        </div>
+        <div class="step">
+          <div class="step-num grn">3</div>
+          <div class="step-body"><strong>Ricevuta di deposito</strong> SISO rilascia una ricevuta telematica numerata con data e ora. È questo documento che attesta l'avvenuto deposito preventivo.</div>
+        </div>
+        <div class="step">
+          <div class="step-num grn">4</div>
+          <div class="step-body"><strong>Notifica al SUE</strong> SISO notifica automaticamente il SUE competente dell'avvenuto deposito. Il costruttore può iniziare i lavori solo dopo la ricevuta SISO.</div>
+        </div>
+        <div class="step">
+          <div class="step-num grn">5</div>
+          <div class="step-body"><strong>Controlli a campione</strong> L'Area Sismica regionale seleziona in SISO le pratiche da sottoporre a controllo. Tutta la comunicazione avviene nel portale.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROCEDIMENTI
+══════════════════════════════════════════ -->
+<section class="section" id="procedimenti">
+  <div class="stitle">Procedimenti — Step by Step</div>
+
+  <div class="card">
+    <div class="ch" onclick="tc(this)">
+      <span class="arr">▶</span>
+      <span class="ctitle">Deposito preventivo — Zona 3 (Ferrara, Portomaggiore, Argenta, Ostellato)</span>
+      <span class="badge b-ora">Zona 3</span>
+    </div>
+    <div class="cb">
+      <div class="info">Questo è il procedimento che interessa quasi tutti gli interventi strutturali nel territorio dell'Unione Valli e Delizie. È più semplice dell'autorizzazione preventiva: si deposita PRIMA di iniziare i lavori, ma non si deve attendere un'approvazione preventiva.</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body"><strong>Redazione elaborati strutturali</strong> Il progettista strutturale (ingegnere/architetto) predispone gli elaborati: relazione geologica, relazione strutturale, elaborati grafici, relazione sui materiali.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body"><strong>Deposito su SISO (obbligatorio dal 2019)</strong> Il progettista/committente carica gli elaborati firmati digitalmente sul portale SISO della Regione ER. SISO rilascia la <strong>ricevuta di avvenuto deposito</strong> con numero di protocollo e timestamp.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body"><strong>Notifica al SUE</strong> SISO notifica automaticamente il SUE dell'Unione (o del Comune). Il committente trasmette anche la ricevuta SISO contestualmente alla presentazione del titolo edilizio (SCIA, PDC, CILA strutturale) o alla comunicazione di inizio lavori.</div>
+        </div>
+        <div class="step">
+          <div class="step-num grn">4</div>
+          <div class="step-body"><strong>Inizio lavori</strong> I lavori possono iniziare <em>dopo</em> il deposito su SISO. Non è necessario attendere alcun parere o autorizzazione. La ricevuta SISO è condizione sufficiente per iniziare.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body"><strong>Nominato il collaudatore</strong> Prima dell'inizio dei lavori strutturali (o comunque in fase iniziale), il committente nomina il collaudatore statico e lo comunica su SISO. Il collaudatore svolge sopralluoghi in corso d'opera.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body"><strong>Eventuale controllo a campione</strong> L'Area Sismica seleziona automaticamente una percentuale delle pratiche depositate per controllo tecnico approfondito. Se la pratica è selezionata, l'ufficio regionale può richiedere integrazioni, effettuare sopralluoghi, emettere prescrizioni.</div>
+        </div>
+        <div class="step">
+          <div class="step-num grn">7</div>
+          <div class="step-body"><strong>Fine lavori — Deposito collaudo statico</strong> Entro 60 giorni dall'ultimazione delle opere strutturali, il collaudatore deposita su SISO il <strong>certificato di collaudo statico</strong>. Questo chiude il procedimento sismico.</div>
+        </div>
+        <div class="step">
+          <div class="step-num grn">8</div>
+          <div class="step-body"><strong>SCCEA / Agibilità</strong> Con il collaudo statico depositato, il tecnico abilitato può presentare la Segnalazione Certificata di Conformità Edilizia e Agibilità (SCCEA) al SUE ex LR 15/2013, che chiude il procedimento edilizio.</div>
+        </div>
+      </div>
+      <div class="warn">Iniziare i lavori strutturali PRIMA del deposito su SISO è un illecito: il DPR 380/2001 art. 93 prevede sanzioni pecuniarie e il SUE può disporre l'ordine di sospensione dei lavori.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch" onclick="tc(this)">
+      <span class="arr">▶</span>
+      <span class="ctitle">Autorizzazione preventiva — Zona 2 (per confronto)</span>
+      <span class="badge b-red">Zona 2</span>
+    </div>
+    <div class="cb">
+      <div class="warn">NON si applica ai comuni dell'Unione Valli e Delizie (tutti zona 3). È utile conoscerla per comparazione e per l'esame.</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num red">1</div>
+          <div class="step-body"><strong>Presentazione domanda di autorizzazione</strong> Il committente/progettista presenta domanda all'Area Sismica regionale (tramite SISO) con tutti gli elaborati strutturali.</div>
+        </div>
+        <div class="step">
+          <div class="step-num red">2</div>
+          <div class="step-body"><strong>Istruttoria dell'Area Sismica</strong> L'ufficio regionale esamina nel merito gli elaborati. Può richiedere integrazioni, prescrizioni, modifiche progettuali. Termine: normalmente 30–60 giorni.</div>
+        </div>
+        <div class="step">
+          <div class="step-num red">3</div>
+          <div class="step-body"><strong>Rilascio dell'autorizzazione sismica</strong> Solo dopo il rilascio dell'autorizzazione, il SUE può rilasciare il Permesso di Costruire (o per SCIA: l'inizio attività è subordinato all'autorizzazione sismica).</div>
+        </div>
+        <div class="step">
+          <div class="step-num red">4</div>
+          <div class="step-body"><strong>Inizio lavori</strong> I lavori possono iniziare solo con autorizzazione sismica + titolo edilizio valido.</div>
+        </div>
+      </div>
+      <div class="note">Differenza chiave: in zona 2, l'autorizzazione sismica è <strong>condizione previa al titolo edilizio</strong>. In zona 3, il deposito è solo condizione all'inizio lavori e può essere contestuale o successivo al titolo edilizio.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch" onclick="tc(this)">
+      <span class="arr">▶</span>
+      <span class="ctitle">Rapporto con i titoli edilizi — timing preciso</span>
+      <span class="badge b-blue">Titoli + Sismica</span>
+    </div>
+    <div class="cb">
+      <div class="tab-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Titolo edilizio</th>
+              <th>Quando depositare (zona 3)</th>
+              <th>Quando depositare (zona 2)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>PDC</strong> (Permesso di Costruire)</td>
+              <td>Il deposito sismica avviene <em>prima dell'inizio lavori</em>. Il PDC viene rilasciato anche senza il deposito sismico, ma i lavori non possono partire prima del deposito SISO.</td>
+              <td>Autorizzazione sismica <strong>preventiva al PDC</strong>: il comune non può rilasciare il PDC senza che l'AS l'abbia autorizzato.</td>
+            </tr>
+            <tr>
+              <td><strong>SCIA</strong> (edilizia)</td>
+              <td>Deposito sismico contestuale o precedente all'inizio lavori. La SCIA può essere presentata, ma i lavori strutturali non partono senza SISO.</td>
+              <td>SCIA + autorizzazione sismica preventiva. L'efficacia della SCIA per i lavori strutturali è sospesa fino all'autorizzazione.</td>
+            </tr>
+            <tr>
+              <td><strong>CILA</strong> strutturale</td>
+              <td>Se l'intervento rientra in una categoria che richiede deposito, va depositato su SISO contestualmente o prima della CILA strutturale.</td>
+              <td>Autorizzazione preventiva se la categoria lo richiede.</td>
+            </tr>
+            <tr>
+              <td><strong>Interventi esenti</strong> (cat. D/E)</td>
+              <td>Nessun adempimento sismico specifico.</td>
+              <td>Solo eventuale comunicazione o esenzione.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     ENTI E COMPETENZE
+══════════════════════════════════════════ -->
+<section class="section" id="enti">
+  <div class="stitle">Enti e Competenze — Chi fa cosa</div>
+
+  <div class="enti-list">
+    <div class="ente-row">
+      <div class="ente-ico">🏛️</div>
+      <div class="ente-body">
+        <strong>Regione Emilia-Romagna — Area Sismica</strong>
+        <small>Servizio Geologico Sismico e dei Suoli · Direzione Ambiente</small>
+        <p>È il soggetto tecnico principale. Riceve i depositi e le domande di autorizzazione tramite SISO, effettua i controlli a campione, esegue le istruttorie di merito in zona 2, emette le autorizzazioni sismiche, gestisce il sistema SISO. Ha sedi territoriali per provincia: per Ferrara, la sede di riferimento è <strong>Ferrara</strong> (ex Genio Civile). Emette anche provvedimenti sanzionatori per irregolarità strutturali.</p>
+      </div>
+    </div>
+    <div class="ente-row">
+      <div class="ente-ico">🏗️</div>
+      <div class="ente-body">
+        <strong>Progettista strutturale</strong>
+        <small>Ingegnere o Architetto abilitato · Soggetto privato</small>
+        <p>Redige e firma digitalmente tutti gli elaborati strutturali. Si registra su SISO e carica il fascicolo. È il responsabile tecnico del progetto strutturale e risponde della sua conformità alle NTC e alle normative sismiche. Può coincidere con il progettista architettonico ma non con il collaudatore.</p>
+      </div>
+    </div>
+    <div class="ente-row">
+      <div class="ente-ico">🔍</div>
+      <div class="ente-body">
+        <strong>Collaudatore statico</strong>
+        <small>Tecnico abilitato indipendente · Nominato dal committente</small>
+        <p>Svolge il controllo finale e indipendente sull'esecuzione delle opere strutturali. Non può essere il progettista né il DL. Deve avere almeno 10 anni di iscrizione all'albo. Deposita il certificato di collaudo statico su SISO entro 60 giorni dalla fine lavori.</p>
+      </div>
+    </div>
+    <div class="ente-row">
+      <div class="ente-ico">🏢</div>
+      <div class="ente-body">
+        <strong>SUE — Sportello Unico per l'Edilizia</strong>
+        <small>Comune o Unione dei Comuni · Ente locale</small>
+        <p>Per l'Unione Valli e Delizie: il SUE è quello dell'Unione (Portomaggiore, Ostellato, Argenta). Riceve la notifica da SISO dell'avvenuto deposito. Verifica che la ricevuta SISO sia allegata agli atti edilizi. In zona 2, non rilascia il PDC senza l'autorizzazione sismica dell'Area Sismica. Non fa il controllo tecnico degli elaborati strutturali (quello spetta all'Area Sismica), ma verifica la sussistenza del deposito/autorizzazione come presupposto procedurale.</p>
+      </div>
+    </div>
+    <div class="ente-row">
+      <div class="ente-ico">👷</div>
+      <div class="ente-body">
+        <strong>Direttore dei Lavori strutturali (DL strutturale)</strong>
+        <small>Tecnico abilitato · Nominato dal committente</small>
+        <p>Sorveglia l'esecuzione dei lavori strutturali, certifica la conformità al progetto depositato, redige i libri dei calcoli in c.a. (se applicabile), firma i documenti di cantiere. Collabora con il collaudatore ma non lo sostituisce. Può coincidere con il progettista strutturale.</p>
+      </div>
+    </div>
+    <div class="ente-row">
+      <div class="ente-ico">🧱</div>
+      <div class="ente-body">
+        <strong>Committente / Titolare del titolo edilizio</strong>
+        <small>Soggetto privato o pubblico</small>
+        <p>Responsabile dell'avvio del procedimento su SISO. Deve garantire che i lavori strutturali inizino solo dopo il deposito (zona 3) o l'autorizzazione (zona 2). Nomina il collaudatore. Risponde delle irregolarità in solido con il progettista strutturale.</p>
+      </div>
+    </div>
+    <div class="ente-row">
+      <div class="ente-ico">⛏️</div>
+      <div class="ente-body">
+        <strong>Geologo</strong>
+        <small>Professionista iscritto all'Ordine dei Geologi</small>
+        <p>Redige la relazione geologica e geotecnica, fondamentale per la caratterizzazione del sito ai fini del calcolo sismico (categoria di sottosuolo, fattore di amplificazione stratigrafica). È un elaborato separato e di competenza esclusiva del geologo. Il progettista strutturale lo integra nei calcoli.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">Regola pratica fondamentale: il SUE <strong>verifica l'esistenza</strong> del deposito/autorizzazione sismica come condizione procedurale, ma <strong>non può valutare nel merito</strong> la correttezza strutturale degli elaborati. Quella è esclusiva competenza dell'Area Sismica regionale.</div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     NTC vs LR
+══════════════════════════════════════════ -->
+<section class="section" id="ntc">
+  <div class="stitle">NTC 2018 vs LR 19/2008 — Due piani diversi</div>
+
+  <div class="def">
+    Questa distinzione è <strong>fondamentale</strong> e spesso confusa. Le due normative operano su piani completamente diversi e si integrano senza sovrapporsi: le NTC dicono <em>come progettare</em>, la LR 19 dice <em>come autorizzare e controllare</em>.
+  </div>
+
+  <div class="vs-grid">
+    <div class="vs-box vs-ntc">
+      <h4>NTC 2018 — DM 17/01/2018</h4>
+      <ul>
+        <li>Norma tecnica <strong>nazionale</strong>, di competenza statale</li>
+        <li>Definisce i <strong>metodi di calcolo</strong> strutturale per il sisma</li>
+        <li>Stabilisce i <strong>parametri sismici</strong> del sito (ag, Fo, Tc*) basati su mappe di pericolosità INGV</li>
+        <li>Definisce le <strong>classi d'uso</strong> degli edifici (I–IV) e i coefficienti di amplificazione</li>
+        <li>Indica le <strong>categorie di sottosuolo</strong> (A–E) per il calcolo dell'azione sismica</li>
+        <li>Disciplina i <strong>materiali strutturali</strong>: c.a., acciaio, legno, muratura</li>
+        <li>Obbligatoria per tutte le costruzioni su tutto il territorio nazionale</li>
+        <li>Non dice nulla su chi controlla, chi deposita, chi autorizza</li>
+      </ul>
+    </div>
+    <div class="vs-box vs-lr">
+      <h4>LR 19/2008 + DGR attuative</h4>
+      <ul>
+        <li>Norma <strong>regionale</strong>, competenza concorrente ex art. 117 Cost.</li>
+        <li>Definisce <strong>chi deve controllare</strong> (Area Sismica ER)</li>
+        <li>Stabilisce <strong>quando serve</strong> deposito o autorizzazione (categorie A–E)</li>
+        <li>Determina <strong>come si depositano</strong> gli elaborati (SISO)</li>
+        <li>Definisce i <strong>contenuti minimi</strong> del fascicolo da presentare</li>
+        <li>Disciplina il <strong>collaudo statico</strong> e i relativi obblighi</li>
+        <li>Stabilisce le <strong>sanzioni</strong> per i lavori eseguiti senza deposito</li>
+        <li>Non ridefinisce i metodi di calcolo strutturale (quelli sono delle NTC)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">All'esame: se ti chiedono la differenza, la risposta chiave è che le NTC sono la norma tecnica di <strong>progettazione</strong> (il "come fare i calcoli"), mentre la LR 19/2008 è la norma <strong>procedurale e amministrativa</strong> regionale (il "come autorizzare e controllare"). Un progetto strutturale deve rispettare entrambe, ma i due adempimenti sono distinti.</div>
+
+  <div class="card">
+    <div class="ch" onclick="tc(this)">
+      <span class="arr">▶</span>
+      <span class="ctitle">Come si integrano concretamente in un progetto</span>
+      <span class="badge b-grn">Integrazione</span>
+    </div>
+    <div class="cb">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num blu">→</div>
+          <div class="step-body"><strong>Il progettista usa le NTC per calcolare</strong> Definisce la pericolosità sismica del sito con le mappe INGV, individua la categoria di sottosuolo con la relazione geologica, sceglie la classe d'uso, calcola l'azione sismica di progetto, verifica le strutture.</div>
+        </div>
+        <div class="step">
+          <div class="step-num blu">→</div>
+          <div class="step-body"><strong>La LR 19 determina cosa fare con quel progetto</strong> In base alla categoria di intervento (A/B/C...) e alla zona sismica (2 o 3), la LR 19 e le DGR dicono se il progetto va depositato o autorizzato, con quali modalità e chi lo controlla.</div>
+        </div>
+        <div class="step">
+          <div class="step-num blu">→</div>
+          <div class="step-body"><strong>L'Area Sismica controlla che il progetto rispetti le NTC</strong> In fase di istruttoria (controllo a campione in zona 3, esame completo in zona 2), i tecnici dell'Area Sismica verificano che gli elaborati siano conformi alle NTC vigenti.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     RISPOSTA ESAME
+══════════════════════════════════════════ -->
+<section class="section" id="esame">
+  <div class="stitle">Risposta per l'Esame</div>
+
+  <div class="note">Testo strutturato per risposta scritta. Circa 300–400 parole. Adattabile a domanda specifica o generica sulla LR 19/2008.</div>
+
+  <div class="esame-block">
+    <div class="esame-header">★ Testo risposta — LR 19/2008 e adempimenti sismici</div>
+
+    <p>La <strong>LR 19/2008 "Norme per la riduzione del rischio sismico"</strong> è la disciplina regionale che, in attuazione della potestà concorrente in materia di governo del territorio (art. 117 Cost.), stabilisce gli adempimenti amministrativi e i controlli tecnici a cui sono soggette le costruzioni realizzate in territorio emiliano-romagnolo in relazione al rischio sismico.</p>
+
+    <p>La legge si integra con le <em>Norme Tecniche per le Costruzioni (NTC 2018 — DM 17/01/2018)</em>, che definiscono i metodi di calcolo strutturale: mentre le NTC disciplinano il "come progettare", la LR 19 disciplina "chi controlla e con quale procedura". Le DGR attuative principali sono la <strong>DGR 1373/2011</strong> (impianto procedurale e categorie di intervento), la <strong>DGR 2272/2016</strong> (aggiornamento post-terremoto 2012) e le <strong>DGR 828–924/2019</strong> (introduzione del sistema digitale SISO).</p>
+
+    <p>Il regime di controllo dipende dalla <strong>zona sismica</strong> del comune e dalla <strong>categoria dell'intervento</strong>. In <em>zona 2</em> (comuni appenninici), le opere strutturali più rilevanti richiedono <strong>autorizzazione sismica preventiva</strong> rilasciata dall'Area Sismica della Regione, la quale istruisce la pratica nel merito prima che il comune rilasci il titolo edilizio. In <em>zona 3</em> — in cui ricadono tutti i comuni della provincia di Ferrara, tra cui quelli dell'Unione Valli e Delizie — vige invece il regime del <strong>deposito preventivo</strong>: gli elaborati strutturali devono essere caricati obbligatoriamente sul portale regionale <strong>SISO (Sistema Informativo Sismico Online)</strong> prima dell'inizio dei lavori strutturali. La ricevuta di deposito SISO è condizione necessaria all'avvio del cantiere, ma non è richiesta un'approvazione preventiva; l'Area Sismica effettua poi <strong>controlli a campione</strong> sulle pratiche depositate.</p>
+
+    <p>Gli <strong>elaborati</strong> da depositare comprendono: relazione geologica e geotecnica (a firma del geologo), relazione tecnica strutturale, elaborati grafici strutturali e relazione sui materiali. Al termine dei lavori, il committente nomina un <strong>collaudatore statico</strong> — tecnico abilitato e indipendente, non coincidente con progettista o DL — che, entro 60 giorni dall'ultimazione delle opere, deposita su SISO il <strong>certificato di collaudo statico</strong>. Tale deposito è condizione per la presentazione della SCCEA ex LR 15/2013.</p>
+
+    <p>I soggetti coinvolti sono: il <strong>progettista strutturale</strong> (redazione e firma degli elaborati), il <strong>committente</strong> (responsabilità dell'iter e nomina del collaudatore), l'<strong>Area Sismica regionale</strong> (ufficio tecnico di controllo e autorizzazione), il <strong>SUE</strong> dell'ente locale (verifica procedurale della sussistenza del deposito/autorizzazione come presupposto al titolo edilizio). L'iniziare lavori strutturali in assenza di deposito su SISO configura un illecito ai sensi dell'art. 93 DPR 380/2001, con conseguenti sanzioni pecuniarie e facoltà del SUE di disporre la sospensione dei lavori.</p>
+  </div>
+
+  <div class="mt">Versione ultra-sintetica (3 righe, per domanda rapida)</div>
+  <div class="def">La LR 19/2008 disciplina proceduralmente gli adempimenti sismici in ER: in zona 2 serve autorizzazione preventiva dell'Area Sismica, in zona 3 (Ferrara e Unione Valli e Delizie) basta il deposito preventivo su SISO prima dell'inizio lavori, seguito da collaudo statico finale. I controlli tecnici nel merito spettano all'Area Sismica regionale; il SUE verifica solo la sussistenza dell'adempimento procedurale.</div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     DOMANDE POSSIBILI
+══════════════════════════════════════════ -->
+<section class="section" id="domande">
+  <div class="stitle">Domande Specifiche che Potrebbero Farti</div>
+
+  <div class="dq"><div class="dq-n hot">🔥</div><div>Qual è la differenza tra il regime della zona 2 e della zona 3 ai sensi della LR 19/2008? — <em style="color:var(--textd);font-size:13px">Risposta: autorizzazione preventiva vs deposito preventivo. Argenta/Portomaggiore/Ostellato/Ferrara = zona 3 = deposito.</em></div></div>
+
+  <div class="dq"><div class="dq-n hot">🔥</div><div>Chi controlla gli elaborati strutturali depositati in zona 3 e con quale modalità? — <em style="color:var(--textd);font-size:13px">Area Sismica regionale, con controllo a campione tramite SISO. Il SUE non valuta nel merito.</em></div></div>
+
+  <div class="dq"><div class="dq-n hot">🔥</div><div>Cosa succede se si iniziano lavori strutturali senza aver depositato su SISO? — <em style="color:var(--textd);font-size:13px">Illecito ex art. 93 DPR 380. Sanzioni pecuniarie. Il SUE può ordinare la sospensione.</em></div></div>
+
+  <div class="dq"><div class="dq-n hot">🔥</div><div>Chi è il collaudatore statico e quando deve depositare il suo certificato? — <em style="color:var(--textd);font-size:13px">Tecnico abilitato indipendente (no progettista, no DL), almeno 10 anni di iscrizione. Deposita su SISO entro 60 giorni dalla fine lavori.</em></div></div>
+
+  <div class="dq"><div class="dq-n">Q</div><div>Qual è la differenza tra le NTC e la LR 19/2008? — <em style="color:var(--textd);font-size:13px">NTC = norma tecnica di calcolo (statale). LR 19 = norma procedurale-amministrativa di controllo (regionale). Si integrano.</em></div></div>
+
+  <div class="dq"><div class="dq-n">Q</div><div>Cos'è SISO e quando è diventato obbligatorio? — <em style="color:var(--textd);font-size:13px">Sistema Informativo Sismico Online della Regione ER. Obbligatorio dal 2019 con DGR 828 e 924/2019. Sostituisce integralmente la presentazione cartacea.</em></div></div>
+
+  <div class="dq"><div class="dq-n">Q</div><div>In quale zona sismica ricade l'Unione Valli e Delizie e cosa comporta? — <em style="color:var(--textd);font-size:13px">Zona 3. Comporta deposito preventivo su SISO (non autorizzazione). Tutti i comuni: Ferrara, Portomaggiore, Argenta, Ostellato = zona 3.</em></div></div>
+
+  <div class="dq"><div class="dq-n">Q</div><div>Il SUE può rifiutare un PDC perché ritiene che il progetto strutturale sia sbagliato? — <em style="color:var(--textd);font-size:13px">No. Il SUE verifica solo la sussistenza del deposito/autorizzazione come presupposto procedurale. La valutazione tecnica spetta all'Area Sismica.</em></div></div>
+
+  <div class="dq"><div class="dq-n">Q</div><div>Cosa deve contenere il fascicolo del deposito sismico? — <em style="color:var(--textd);font-size:13px">Relazione geologica (geologo), relazione strutturale, elaborati grafici strutturali, relazione sui materiali, modulo firmato digitalmente su SISO.</em></div></div>
+
+  <div class="dq"><div class="dq-n">Q</div><div>Qual è il rapporto tra il collaudo statico e la SCCEA? — <em style="color:var(--textd);font-size:13px">Il deposito del collaudo statico su SISO è condizione necessaria per presentare la SCCEA ex LR 15/2013 al SUE. Procedura sismica chiusa prima → poi procedura edilizia chiusa.</em></div></div>
+
+  <div class="dq"><div class="dq-n">Q</div><div>Le DGR del 2019 hanno cambiato cosa si deposita o come si deposita? — <em style="color:var(--textd);font-size:13px">Il "come": hanno introdotto SISO (deposito digitale obbligatorio). Il "cosa" era già disciplinato dalla DGR 1373/2011 e 2272/2016.</em></div></div>
+
+  <div class="dq"><div class="dq-n">Q</div><div>Perché dopo il terremoto del 2012 la LR 19/2008 è stata aggiornata con la DGR 2272/2016? — <em style="color:var(--textd);font-size:13px">Il sisma ha evidenziato criticità nelle costruzioni della bassa pianura padana (Finale Emilia, Mirandola, zona FE) che non avevano seguito correttamente le procedure. La DGR ha rafforzato requisiti e controlli.</em></div></div>
+
+  <div class="dq"><div class="dq-n">Q</div><div>Cosa fa concretamente il geologo nel procedimento sismico? — <em style="color:var(--textd);font-size:13px">Redige la relazione geologica e geotecnica: caratterizza il suolo, individua la categoria di sottosuolo (A–E per NTC), fornisce parametri per il calcolo sismico del progettista strutturale.</em></div></div>
+
+  <div class="dq"><div class="dq-n">Q</div><div>In quale caso un intervento di ristrutturazione non richiede deposito sismico? — <em style="color:var(--textd);font-size:13px">Se rientra nelle categorie D o E (interventi minori non strutturalmente rilevanti). Es: sostituzione finestre, tinteggiatura, manutenzione ordinaria. In zona 3 la categoria C può richiedere deposito contestuale invece che preventivo.</em></div></div>
+
+</section>
+
+</main>
+
+<script>
+  function tc(h) {
+    h.classList.toggle('open');
+    h.nextElementSibling.classList.toggle('open');
+  }
+  function setActive(a) {
+    document.querySelectorAll('.tabs a').forEach(x => x.classList.remove('on'));
+    a.classList.add('on');
+  }
+  const secs = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.tabs a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 130) cur = s.id; });
+    links.forEach(l => {
+      l.classList.remove('on');
+      if (l.getAttribute('href') === '#' + cur) l.classList.add('on');
+    });
+  });
+</script>
+</body>
+</html>
