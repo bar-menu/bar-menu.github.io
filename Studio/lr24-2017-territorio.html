@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LR 24/2017 — Governo del Territorio ER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Crimson+Pro:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --page-color:        #2D6A4F;
+    --page-color2:       #1B4332;
+    --page-color-bg:     rgba(45,106,79,.07);
+    --page-color-border: rgba(45,106,79,.28);
+  }
+  [data-theme="dark"] {
+    --page-color-bg:     rgba(45,106,79,.13);
+    --page-color-border: rgba(45,106,79,.38);
+  }
+
+  /* confronto vecchio/nuovo */
+  .vs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: .8rem 0;
+  }
+  .vs-old {
+    background: var(--alert-red-bg);
+    border: 1px solid var(--alert-red-br);
+    border-radius: 6px;
+    padding: .9rem 1rem;
+  }
+  .vs-new {
+    background: var(--alert-green-bg);
+    border: 1px solid var(--alert-green-br);
+    border-radius: 6px;
+    padding: .9rem 1rem;
+  }
+  .vs-old h4 { color: #C0392B; font-family: var(--mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; }
+  .vs-new h4 { color: #1A6B3C; font-family: var(--mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; }
+  .vs-old ul, .vs-new ul { list-style: none; padding: 0; }
+  .vs-old li, .vs-new li { font-size: .87rem; padding: .2rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .5rem; line-height: 1.5; }
+  .vs-old li:last-child, .vs-new li:last-child { border-bottom: none; }
+  .vs-old li::before { content: '✗'; color: #C0392B; flex-shrink: 0; }
+  .vs-new li::before { content: '✓'; color: #1A6B3C; flex-shrink: 0; }
+
+  /* territorio badge */
+  .t-urb {
+    font-family: var(--mono); font-size: .67rem; font-weight: 700;
+    padding: .15rem .55rem; border-radius: 3px; display: inline-block;
+    background: var(--alert-blue-bg); color: #2C5AA0; border: 1px solid var(--alert-blue-br);
+  }
+  .t-rur {
+    font-family: var(--mono); font-size: .67rem; font-weight: 700;
+    padding: .15rem .55rem; border-radius: 3px; display: inline-block;
+    background: var(--alert-green-bg); color: #1A6B3C; border: 1px solid var(--alert-green-br);
+  }
+  .t-no {
+    font-family: var(--mono); font-size: .67rem; font-weight: 700;
+    padding: .15rem .55rem; border-radius: 3px; display: inline-block;
+    background: var(--alert-red-bg); color: #C0392B; border: 1px solid var(--alert-red-br);
+  }
+  .t-ok {
+    font-family: var(--mono); font-size: .67rem; font-weight: 700;
+    padding: .15rem .55rem; border-radius: 3px; display: inline-block;
+    background: var(--alert-green-bg); color: #1A6B3C; border: 1px solid var(--alert-green-br);
+  }
+
+  /* esempio pratico */
+  .esempio {
+    background: var(--alert-green-bg);
+    border: 1px solid var(--alert-green-br);
+    border-radius: 5px;
+    padding: .75rem 1rem;
+    margin: .6rem 0;
+    font-size: .87rem;
+    line-height: 1.65;
+  }
+  .esempio::before { content: '📌 Esempio pratico: '; font-weight: 600; color: #1A6B3C; }
+
+  /* cascade schema */
+  .cascade {
+    margin: .8rem 0;
+  }
+  .cascade-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+  .cascade-level {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: var(--mono);
+    font-size: .6rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: white;
+    padding: .6rem .3rem;
+    border-radius: 4px 0 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    flex-shrink: 0;
+  }
+  .cascade-content {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    padding: .7rem 1rem;
+    font-size: .88rem;
+    line-height: 1.6;
+    margin-bottom: 4px;
+  }
+  .cascade-content strong { color: var(--ink); }
+  .cascade-content small { color: var(--ink3); font-size: .82rem; display: block; margin-top: .2rem; }
+
+  .lv-stato  { background: #C0392B; }
+  .lv-reg    { background: #2D6A4F; }
+  .lv-prov   { background: #2C5AA0; }
+  .lv-com    { background: #C9670A; }
+
+  @media (max-width: 700px) {
+    .vs-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="badge">LR 21 dicembre 2017, n. 24 e s.m.i. — Emilia-Romagna</div>
+      <h1>Disciplina regionale<br>sulla tutela e l'uso del territorio</h1>
+      <p>Consumo di suolo zero · Rigenerazione urbana · PUG · Accordi operativi · Periodo transitorio — con la logica profonda per rispondere all'esame e lavorarci davvero</p>
+    </div>
+    <div class="controls">
+      <div class="toggle-row">
+        <span class="toggle-label">Tema scuro</span>
+        <label class="toggle">
+          <input type="checkbox" id="themeToggle">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-wrap">
+  <div class="nav-pills">
+    <a class="nav-pill" href="#perche">Perché esiste</a>
+    <a class="nav-pill" href="#cascata">Il sistema a cascata</a>
+    <a class="nav-pill" href="#territorio">Urb. vs Rurale</a>
+    <a class="nav-pill" href="#pug">Il PUG</a>
+    <a class="nav-pill" href="#suolo">Consumo di suolo</a>
+    <a class="nav-pill" href="#rigenerazione">Rigenerazione</a>
+    <a class="nav-pill" href="#strumenti">Strumenti attuativi</a>
+    <a class="nav-pill" href="#valsat">VALSAT e SQUEA</a>
+    <a class="nav-pill" href="#vincoli">Vincoli nel PUG</a>
+    <a class="nav-pill" href="#transitorio">Transitorio</a>
+    <a class="nav-pill" href="#risposta">Risposte esame</a>
+    <a class="nav-pill" href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<div class="real-q">
+  <div class="label">★ Domande reali — stesso ente, concorso Dirigente 2022 e Istruttore 2024</div>
+  <p>«Illustri il processo di formazione del PUG ai sensi della LR 24/2017» · «Illustri i principi della rigenerazione urbana e il contenimento del consumo di suolo» · «Illustri la VALSAT e i principi di integrazione e non duplicazione» · «Quali interventi sono ammissibili a seguito della conclusione del periodo transitorio?»</p>
+</div>
+
+<main class="main">
+
+<!-- ══════════════════════════════════
+     1 — PERCHÉ ESISTE
+══════════════════════════════════ -->
+<h2 class="section-title" id="perche">
+  <span class="num">1</span>
+  Perché esiste — cosa ha cambiato e perché
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">LR 24/2017 — in vigore dal 1° gennaio 2018</div>
+      <div class="art-title">La legge che ha ribaltato il modo di pianificare in ER</div>
+    </div>
+    <span class="prio prio-red">Materia centrale</span>
+  </div>
+  <div class="art-body">
+    <p>Prima del 2018, l'Emilia-Romagna pianificava il territorio con la <strong>LR 20/2000</strong>, che aveva introdotto un sistema a tre strumenti: il <strong>PSC</strong> (Piano Strutturale Comunale, strategico), il <strong>RUE</strong> (Regolamento Urbanistico Edilizio, la disciplina dell'esistente) e il <strong>POC</strong> (Piano Operativo Comunale, i comparti di espansione). Questo sistema aveva un difetto enorme: autorizzava espansione su espansione, consumando suolo agricolo a ritmo sostenuto, con quartieri nuovi costruiti anche quando metà del patrimonio edilizio esistente era vuoto o degradato.</p>
+
+    <p>La LR 24/2017 nasce da una presa di coscienza: <strong>il suolo è una risorsa finita, non rinnovabile e fondamentale per il territorio</strong>. Non si può continuare a costruire sul verde quando esistono già migliaia di edifici vuoti, capannoni abbandonati, aree dismesse. La legge rovescia la logica: prima si recupera l'esistente, poi — solo se strettamente necessario e giustificato — si costruisce nuovo.</p>
+
+    <div class="vs-grid">
+      <div class="vs-old">
+        <h4>LR 20/2000 — vecchio sistema</h4>
+        <ul>
+          <li>Tre strumenti separati: PSC + RUE + POC</li>
+          <li>Espansione come normalità: zone C (nuovi quartieri) previste quasi ovunque</li>
+          <li>Consumo di suolo non limitato strutturalmente</li>
+          <li>Zone A/B/C/D/E: etichette fisse per ogni parte del territorio</li>
+          <li>VAS separata dal piano</li>
+          <li>Accordi ex art. 18 per varianti negoziate</li>
+        </ul>
+      </div>
+      <div class="vs-new">
+        <h4>LR 24/2017 — nuovo sistema</h4>
+        <ul>
+          <li>Un solo strumento: il PUG (Piano Urbanistico Generale)</li>
+          <li>Rigenerazione come regola: nuova urbanizzazione solo in casi eccezionali</li>
+          <li>Consumo di suolo tendente a zero (obiettivo legge)</li>
+          <li>Territorio urbanizzato vs territorio rurale: logica binaria semplice</li>
+          <li>VALSAT integrata nel piano</li>
+          <li>Accordo operativo: nuovo strumento attuativo negoziato</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">💡</span>
+      <div><strong>Il concetto chiave da portare sempre in risposta:</strong> la LR 24/2017 non è solo una riforma tecnica degli strumenti urbanistici. È un cambio di paradigma culturale: si passa dall'urbanistica dell'<em>espansione</em> all'urbanistica della <em>rigenerazione</em>. Ogni domanda sull'LR 24 ha questa risposta come fondamento.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     2 — IL SISTEMA A CASCATA
+══════════════════════════════════ -->
+<h2 class="section-title" id="cascata">
+  <span class="num">2</span>
+  Il sistema a cascata — come funziona davvero
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Gerarchia delle fonti nella pianificazione del territorio</div>
+      <div class="art-title">Perché la regione può "sopravanzare" il comune — e quando</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>Questa è la domanda che ti crea confusione, e ha una risposta precisa. In Italia la pianificazione del territorio funziona per livelli gerarchici: ogni livello inferiore deve rispettare i vincoli e i principi del livello superiore, ma <strong>non può essere più permissivo</strong>. Può invece essere <strong>più restrittivo</strong>.</p>
+
+    <div class="cascade">
+      <div class="cascade-row">
+        <div class="cascade-level lv-stato">STATO</div>
+        <div class="cascade-content">
+          <strong>Costituzione + leggi statali</strong> — D.Lgs. 42/2004 (Codice dei beni culturali), DPR 380/2001 (TUE), D.Lgs. 152/2006 (Ambiente), norme antisismiche. Fissano i <strong>principi fondamentali e i vincoli assoluti</strong> validi su tutto il territorio nazionale.
+          <small>Esempio: il vincolo paesaggistico statale (art. 142 D.Lgs. 42) non può essere eliminato da nessuna legge regionale o comunale.</small>
+        </div>
+      </div>
+      <div class="cascade-row">
+        <div class="cascade-level lv-reg">REGIONE</div>
+        <div class="cascade-content">
+          <strong>LR 24/2017 + Piano Territoriale Regionale (PTR)</strong> — in base all'art. 117 Cost., le regioni hanno <strong>potestà legislativa concorrente</strong> in materia di "governo del territorio". Possono quindi fissare regole più restrittive di quelle statali (non meno). La LR 24 impone: consumo di suolo zero, rigenerazione prioritaria, criteri per il PUG. I comuni <strong>devono</strong> rispettarle.
+          <small>Esempio: la LR 24 stabilisce che non si possono urbanizzare nuove aree fuori dal territorio urbanizzato salvo casi eccezionali. Un comune non può derogare questa regola nel suo PUG.</small>
+        </div>
+      </div>
+      <div class="cascade-row">
+        <div class="cascade-level lv-prov">PROV/METRO</div>
+        <div class="cascade-content">
+          <strong>Piano Territoriale Metropolitano (PTM) / Piano Territoriale Provinciale (PTP)</strong> — per Ferrara esiste il PTCP della Provincia di Ferrara (in aggiornamento al PTM). Fissa: aree agricole strategiche da preservare, infrastrutture sovracomunali, coordinamento tra comuni. Il PUG comunale deve essere <strong>compatibile</strong> col PTM/PTCP.
+          <small>Esempio: se il PTCP ha classificato un'area come "territorio agricolo di rilievo paesaggistico", il comune non può prevedervi insediamenti nel PUG.</small>
+        </div>
+      </div>
+      <div class="cascade-row">
+        <div class="cascade-level lv-com">COMUNE</div>
+        <div class="cascade-content">
+          <strong>PUG (Piano Urbanistico Generale)</strong> — lo strumento urbanistico comunale ex LR 24. Il comune ha ampia discrezionalità <em>all'interno</em> dei vincoli superiori: decide dove costruire, cosa demolire e ricostruire, quali funzioni permettere dove, quanto verde garantire. Ma <strong>non può</strong> urbanizzare fuori dal territorio urbanizzato (salvo eccezioni), non può ignorare i vincoli sovraordinati, non può derogare ai principi della LR 24.
+          <small>Il PUG può essere più restrittivo della LR 24 (es. vietare funzioni commerciali in certe zone), mai più permissivo sui punti che la legge fissa come limiti.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">La risposta alla tua domanda — perché la regione "sopravanza"</div>
+      <p style="font-size:.9rem;line-height:1.75">La regione non "sopravanza" il comune nel senso di decidere al posto suo. La regione fissa il <strong>perimetro entro cui il comune decide</strong>. L'art. 117 Cost. dà alle regioni competenza concorrente sul governo del territorio: la legge statale fissa i principi fondamentali, la legge regionale li sviluppa, e il comune pianifica dentro quella cornice. Il comune <em>non</em> è sottomesso alla regione in tutto: sceglie liberamente le destinazioni d'uso, i servizi, le densità — ma non può uscire dai binari che la LR 24 ha posto. È come un'autostrada: la regione fissa le corsie e i guardrail, il comune sceglie la velocità di crociera.</p>
+    </div>
+
+    <div class="esempio">L'Unione Valli e Delizie vuole favorire un nuovo insediamento produttivo su un'area agricola fuori dal perimetro urbanizzato. Il comune (tramite PUG o accordo operativo) non può farlo liberamente: la LR 24 lo consente solo in casi eccezionali e con specifiche giustificazioni dimostrate. Se lo fa comunque, la Regione può impugnare il piano per illegittimità.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     3 — TERRITORIO URBANIZZATO VS RURALE
+══════════════════════════════════ -->
+<h2 class="section-title" id="territorio">
+  <span class="num">3</span>
+  Urbanizzato vs Rurale — addio alle zone A/B/C/D
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">La distinzione fondamentale della LR 24/2017</div>
+      <div class="art-title">Perché le vecchie zone A/B/C/D non esistono più (e cosa le ha sostituite)</div>
+    </div>
+  </div>
+  <div class="art-body">
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚡</span>
+      <div><strong>Questo è il punto che crea confusione:</strong> le zone A/B/C/D/E/F che conosci appartengono al vecchio sistema PRG/PSC della LR 20/2000. La LR 24/2017 non le usa più. Ha introdotto una logica completamente diversa basata su una <strong>distinzione binaria fondamentale</strong>: il territorio è urbanizzato o rurale. Fine. Tutto il resto dipende da questa distinzione.</div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Le vecchie zone (LR 20/2000 — per capire il contrasto)</div>
+      <p style="font-size:.9rem">Il vecchio PRG divideva il territorio comunale in zone tipizzate: <strong>Zona A</strong> (centri storici), <strong>Zona B</strong> (residenziale esistente), <strong>Zona C</strong> (residenziale di espansione — qui si costruiva nuovo!), <strong>Zona D</strong> (produttivo/commerciale), <strong>Zona E</strong> (agricola), <strong>Zona F</strong> (servizi pubblici). Ogni zona aveva i propri indici edilizi e regole. Il problema: le Zone C erano spesso enormi, prevedendo migliaia di abitazioni su terreni agricoli che non sarebbero mai stati costruiti, gonfiando le aspettative dei proprietari e bloccando la rigenerazione dell'esistente.</p>
+    </div>
+
+    <table class="vtable">
+      <thead>
+        <tr>
+          <th>Categoria LR 24</th>
+          <th>Definizione</th>
+          <th>Cosa si può fare</th>
+          <th>Corrispondenza vecchie zone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="t-urb">Territorio urbanizzato</span></td>
+          <td>Le parti del territorio già dotate di infrastrutture e servizi, già edificate o già oggetto di piani attuativi vigenti. Il perimetro è definito nel PUG.</td>
+          <td>Interventi di rigenerazione, nuova edificazione entro limiti, recupero. <strong>È qui che si può costruire.</strong></td>
+          <td>Corrisponde approssimativamente alle vecchie zone A + B + D (edificato esistente) più le zone C già attuate</td>
+        </tr>
+        <tr>
+          <td><span class="t-rur">Territorio rurale</span></td>
+          <td>Tutto il resto: campagna, aree agricole, zone naturali, aree di tutela paesaggistica o ecologica. Tutto ciò che non è urbanizzato.</td>
+          <td>Solo attività agricole, forestali, agrituristiche. Nuova urbanizzazione <strong>vietata in via ordinaria</strong>. Solo eccezioni giustificate.</td>
+          <td>Corrisponde alle vecchie zone E (agricola) più i parchi e le zone naturali</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="concept">
+      <div class="concept-title">Dentro il territorio urbanizzato — gli "ambiti"</div>
+      <p style="font-size:.9rem">All'interno del territorio urbanizzato, il PUG non usa più le vecchie etichette A/B/C/D ma identifica degli <strong>ambiti</strong> con caratteristiche specifiche. I principali sono:</p>
+      <table class="vtable" style="margin-top:.5rem">
+        <thead><tr><th>Ambito</th><th>Cosa sono</th><th>Cosa ci puoi fare</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Ambiti urbani consolidati</strong></td>
+            <td>Le parti già edificate e complete di servizi. Il tessuto urbano "normale". Vecchie zone B.</td>
+            <td>Manutenzione, ristrutturazione, densificazione limitata, cambio d'uso, recupero. Non espansione.</td>
+          </tr>
+          <tr>
+            <td><strong>Ambiti da rigenerare</strong></td>
+            <td>Aree degradate, edifici dismessi, capannoni abbandonati, periferie obsolete. Il cuore della legge.</td>
+            <td>Demolizione e ricostruzione (con possibili bonus volumetrici fino al +20%), nuove funzioni, mix funzionale, verde urbano.</td>
+          </tr>
+          <tr>
+            <td><strong>Aree di nuovo insediamento</strong></td>
+            <td>Le pochissime aree (dentro il perimetro urbanizzato) dove il PUG prevede nuova edificazione ex novo.</td>
+            <td>Nuova costruzione, ma solo dentro il territorio urbanizzato e con adeguate dotazioni di servizi. Non sul verde agricolo.</td>
+          </tr>
+          <tr>
+            <td><strong>Dotazioni territoriali</strong></td>
+            <td>Verde pubblico, parcheggi, scuole, servizi, infrastrutture. Standard minimi garantiti dalla LR 24.</td>
+            <td>Uso pubblico. Il PUG deve garantire standard minimi per abitante.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="esempio">Portomaggiore: il PUG identifica come "territorio urbanizzato" il centro abitato, le frazioni e le aree produttive già servite. Come "territorio rurale" tutto il resto — che nel ferrarese è la grandissima parte del territorio comunale (pianura agricola). Un privato vuole costruire un capannone su un campo agricolo fuori dal perimetro urbanizzato: con la LR 24 non può farlo in modo ordinario. Prima doveva solo trovare un'area in zona D nel PRG. Questo è il cambiamento concreto.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     4 — IL PUG
+══════════════════════════════════ -->
+<h2 class="section-title" id="pug">
+  <span class="num">4</span>
+  Il PUG — Piano Urbanistico Generale
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 24–34 LR 24/2017</div>
+      <div class="art-title">Lo strumento urbanistico unico comunale</div>
+    </div>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">È obbligatorio? Sì, ma con un regime transitorio lungo</div>
+      <p style="font-size:.9rem">La LR 24/2017 ha previsto che tutti i comuni adottino il PUG in sostituzione dei vecchi strumenti (PSC, RUE, POC o PRG). <strong>È obbligatorio</strong>, ma la legge ha previsto un lungo periodo transitorio durante il quale i vecchi piani restano validi. In pratica, molti comuni dell'ER stanno ancora procedendo all'adozione del PUG. I comuni dell'Unione Valli e Delizie hanno avviato o stanno avviando il processo. Finché il PUG non è adottato, il vecchio piano continua ad applicarsi (vedi sezione Transitorio).</p>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Cosa contiene il PUG — la struttura</div>
+    </div>
+
+    <table class="vtable">
+      <thead>
+        <tr><th>Componente</th><th>Contenuto</th><th>Natura</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Quadro conoscitivo</strong></td>
+          <td>Analisi del territorio: stato del suolo, patrimonio edilizio, dotazioni di servizi, rischi, vincoli esistenti, dinamiche demografiche ed economiche. È la "fotografia" del territorio.</td>
+          <td>Obbligatorio. Forma la base su cui si costruisce tutto il piano.</td>
+        </tr>
+        <tr>
+          <td><strong>VALSAT</strong></td>
+          <td>Valutazione di sostenibilità ambientale e territoriale — integrata nel piano, non separata (vedi sezione dedicata).</td>
+          <td>Obbligatoria. Sostituisce la VAS separata.</td>
+        </tr>
+        <tr>
+          <td><strong>SQUEA</strong></td>
+          <td>Strategia per la Qualità Urbana ed Ecologico-Ambientale — definisce gli obiettivi di qualità che il piano vuole raggiungere.</td>
+          <td>Obbligatoria. Orienta le scelte del piano.</td>
+        </tr>
+        <tr>
+          <td><strong>Disciplina del territorio urbanizzato</strong></td>
+          <td>Definisce gli ambiti (consolidati, da rigenerare, nuovi insediamenti), le destinazioni d'uso consentite, gli indici edilizi, le dotazioni da garantire per ogni ambito.</td>
+          <td>La parte "operativa" per l'edificato esistente.</td>
+        </tr>
+        <tr>
+          <td><strong>Disciplina del territorio rurale</strong></td>
+          <td>Definisce le aree agricole, le tutele naturalistiche, le limitazioni alle costruzioni, gli usi consentiti in agricoltura.</td>
+          <td>La parte "operativa" per la campagna.</td>
+        </tr>
+        <tr>
+          <td><strong>Invarianti strutturali</strong></td>
+          <td>Le componenti del territorio che non possono essere trasformate: corsi d'acqua, beni culturali, aree naturali protette, elementi identitari del paesaggio. Hanno carattere permanente.</td>
+          <td>Non derogabili neanche con variante al PUG.</td>
+        </tr>
+        <tr>
+          <td><strong>Disciplina delle dotazioni territoriali</strong></td>
+          <td>Standard di servizi (verde, parcheggi, scuole, sport) che ogni nuovo intervento deve garantire o contribuire a realizzare.</td>
+          <td>Obbligatoria per legge, con standard minimi regionali.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="concept">
+      <div class="concept-title">La procedura di formazione del PUG — chi fa cosa</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Comune — Giunta Comunale</div>
+          <div class="flow-action">Avvio del procedimento e documento preliminare</div>
+          <div class="flow-detail">Il comune pubblica il documento preliminare che illustra gli obiettivi, le scelte strategiche, i principali temi del piano. Avvia la fase di partecipazione pubblica.</div>
+          <span class="timer t-blue">Avvio partecipazione</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Enti, cittadini, portatori di interessi</div>
+          <div class="flow-action">Conferenza di pianificazione (copianificazione)</div>
+          <div class="flow-detail">Momento chiave: il comune discute il piano con la Regione, la Città Metropolitana/Provincia, i comuni confinanti, i gestori di reti, le associazioni. Serve a verificare la compatibilità con gli strumenti sovraordinati e a raccogliere contributi. La Regione esprime il proprio parere sulla coerenza con la LR 24.</div>
+          <span class="timer t-orange">Fase obbligatoria</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">3</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Comune</div>
+          <div class="flow-action">Adozione del PUG — Consiglio Comunale</div>
+          <div class="flow-detail">Il Consiglio Comunale adotta il PUG con delibera. Il piano viene depositato e pubblicato. Segue un periodo di 60 giorni per la presentazione di osservazioni da parte di chiunque.</div>
+          <span class="timer t-blue">60 giorni per osservazioni</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">4</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Comune — Consiglio Comunale</div>
+          <div class="flow-action">Approvazione definitiva con controdeduzione alle osservazioni</div>
+          <div class="flow-detail">Il Consiglio Comunale esamina le osservazioni pervenute, le controdeduce (accoglie o respinge motivatamente) e approva definitivamente il PUG. Non è più necessaria l'approvazione regionale (a differenza del vecchio PSC): il controllo regionale avviene in fase di copianificazione.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">5</div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Comune</div>
+          <div class="flow-action">Pubblicazione e efficacia</div>
+          <div class="flow-detail">Il PUG approvato viene pubblicato sul BURERT (Bollettino Ufficiale Regionale) e diventa efficace. Da quel momento sostituisce integralmente i vecchi strumenti urbanistici.</div>
+          <span class="timer t-green">Efficacia immediata alla pubblicazione</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">⚡</span>
+      <div><strong>Novità rispetto al vecchio sistema:</strong> con la LR 20/2000 il PSC doveva essere approvato dalla Provincia dopo un iter che durava anni. Con la LR 24, il controllo si sposta "all'inizio" (conferenza di copianificazione) invece che "alla fine": il comune approva da solo, ma ha già concordato con la Regione e la Provincia. Questo accelera il processo e responsabilizza di più il comune.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     5 — CONSUMO DI SUOLO
+══════════════════════════════════ -->
+<h2 class="section-title" id="suolo">
+  <span class="num">5</span>
+  Consumo di suolo zero — il principio fondante
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 1, 5, 6 LR 24/2017</div>
+      <div class="art-title">Il principio di non consumo di suolo e le sue eccezioni</div>
+    </div>
+    <span class="prio prio-red">Concetto chiave</span>
+  </div>
+  <div class="art-body">
+    <p>La LR 24/2017 pone come obiettivo il <strong>consumo di suolo tendente a zero</strong>: nessuna nuova urbanizzazione su suolo non ancora urbanizzato. Non è un divieto assoluto oggi (sarebbe impossibile), ma è l'orizzonte verso cui la pianificazione deve tendere con ogni scelta.</p>
+
+    <div class="concept">
+      <div class="concept-title">Cos'è il "consumo di suolo"</div>
+      <p style="font-size:.9rem">È la trasformazione di suolo non urbanizzato (agricolo, naturale, verde) in suolo urbanizzato (edificato, asfaltato, impermeabilizzato). Ogni nuova costruzione su un prato è consumo di suolo. La LR 24 vuole azzerarlo, non limitarlo: la meta è che ogni nuovo metro quadro edificato corrisponda a un metro quadro recuperato dall'esistente.</p>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Le (poche) eccezioni consentite</div>
+      <p style="font-size:.9rem">La legge consente nuova urbanizzazione fuori dal territorio urbanizzato solo in casi specifici, tutti soggetti a dimostrazione rigorosa:</p>
+      <ul style="list-style:none;padding:0;font-size:.9rem">
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ <strong>Opere pubbliche o di interesse pubblico</strong> non localizzabili altrove (infrastrutture, impianti tecnologici)</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ <strong>Ampliamenti di attività produttive esistenti</strong> non delocalizzabili, quando non ci sono spazi disponibili nel territorio urbanizzato</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ <strong>Insediamenti strettamente funzionali all'attività agricola</strong> (fabbricati rurali, agriturismi, infrastrutture agricole)</li>
+        <li style="padding:.3rem 0">▸ <strong>Accordi operativi</strong> con compensazione: se si urba un'area, si de-urbanizza un'altra di pari o maggiore estensione</li>
+      </ul>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">📊</span>
+      <span>Il comune deve dimostrare nel PUG il <strong>bilancio del consumo di suolo</strong>: quanti mq vengono eventualmente urbanizzati devono essere compensati da de-urbanizzazione di pari entità. Non si può crescere netto: qualsiasi espansione deve avere una compensazione.</span>
+    </div>
+
+    <div class="esempio">Il Comune di Argenta vuole realizzare un nuovo insediamento produttivo su 3 ettari di campagna. Con la LR 24 deve: (1) dimostrare che non esistono aree dismesse o sottoutilizzate nel territorio urbanizzato dove insediare l'attività; (2) prevedere la de-urbanizzazione di almeno 3 ettari di altra area urbanizzata non più necessaria. Se non può fare entrambe le cose, l'insediamento non si fa.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     6 — RIGENERAZIONE URBANA
+══════════════════════════════════ -->
+<h2 class="section-title" id="rigenerazione">
+  <span class="num">6</span>
+  Rigenerazione urbana — la strada maestra
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 7–8 LR 24/2017</div>
+      <div class="art-title">Recupero dell'esistente come priorità assoluta</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>Se il consumo di suolo zero è il limite, la <strong>rigenerazione urbana</strong> è la soluzione. Vuol dire: invece di costruire nuovo sul verde, si recuperano gli edifici abbandonati, si demoliscono e ricostruiscono quelli obsoleti, si riqualificano le aree degradate. La LR 24 incentiva questo processo con misure concrete.</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Cosa si intende per rigenerazione</h4>
+        <ul>
+          <li>Demolizione e ricostruzione di edifici fatiscenti o non più funzionali</li>
+          <li>Recupero di capannoni industriali dismessi</li>
+          <li>Riqualificazione di periferie degradate</li>
+          <li>Cambio di destinazione d'uso di edifici inutilizzati</li>
+          <li>Densificazione di aree sottoutilizzate già urbanizzate</li>
+          <li>Usi temporanei per tenere attivi spazi in attesa di rigenerazione</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Gli incentivi previsti</h4>
+        <ul>
+          <li><strong>Bonus volumetrico fino al +20%</strong> sulla SUL esistente per interventi di demolizione e ricostruzione</li>
+          <li>Riduzione o esenzione del contributo di costruzione</li>
+          <li>Procedure semplificate (accordo operativo vs piano attuativo ordinario)</li>
+          <li>Possibilità di cambiare destinazione d'uso in sede di rigenerazione</li>
+          <li>Deroghe agli standard edilizi in alcuni casi</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Gli usi temporanei — art. 9 LR 24</div>
+      <p style="font-size:.9rem">La LR 24 introduce il concetto di <strong>usi temporanei</strong>: spazi inutilizzati (edifici, aree) possono essere temporaneamente destinati a funzioni diverse da quelle previste dal PUG, per un periodo determinato (di solito 3 anni, prorogabili), senza che questo costituisca variante urbanistica. L'obiettivo è tenere vivi gli spazi, evitare l'abbandono, favorire l'economia e la cultura in attesa della rigenerazione definitiva. L'uso temporaneo non crea diritti acquisiti sulla destinazione definitiva.</p>
+    </div>
+
+    <div class="esempio">Un capannone industriale dismesso a Ostellato: con la LR 24, il proprietario può demolirlo e ricostruirlo (anche cambiando destinazione, es. residenziale + commerciale) con un bonus volumetrico del 15-20%. Nel frattempo, in attesa dell'accordo operativo, può affittarlo a una startup o usarlo per eventi culturali come "uso temporaneo" senza necessità di variante urbanistica.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     7 — STRUMENTI ATTUATIVI
+══════════════════════════════════ -->
+<h2 class="section-title" id="strumenti">
+  <span class="num">7</span>
+  Strumenti attuativi — come si realizzano le trasformazioni
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 38–55 LR 24/2017</div>
+      <div class="art-title">L'accordo operativo e gli altri strumenti</div>
+    </div>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">L'accordo operativo — art. 38 (lo strumento più nuovo e importante)</div>
+      <p style="font-size:.9rem">È la grande novità della LR 24. Sostituisce il vecchio sistema POC + accordi ex art. 18 LR 20/2000. L'accordo operativo è un <strong>accordo negoziato tra il Comune e il soggetto privato</strong> (proprietario/developer) per la realizzazione di trasformazioni urbanistiche significative. Funziona così:</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Privato (proprietario/developer)</div>
+          <div class="flow-action">Proposta di accordo operativo</div>
+          <div class="flow-detail">Il privato presenta al comune una proposta di trasformazione con: progetto urbanistico, standard da cedere, contributi, tempi di realizzazione. La proposta è pubblica.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Comune</div>
+          <div class="flow-action">Valutazione e negoziazione</div>
+          <div class="flow-detail">Il comune verifica la compatibilità con il PUG, negozia le condizioni (cessioni, standard aggiuntivi, contributi straordinari), garantisce la partecipazione pubblica.</div>
+          <span class="timer t-blue">Valutazione pubblica obbligatoria</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">3</div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Consiglio Comunale</div>
+          <div class="flow-action">Approvazione — ha valore di variante al PUG</div>
+          <div class="flow-detail">L'accordo operativo approvato vale come variante urbanistica automatica, senza necessità di seguire il percorso ordinario di variante al PUG. Questo lo rende uno strumento potente e flessibile.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Differenza accordo operativo vs accordo ex art. 18 LR 20/2000</div>
+    </div>
+    <div class="vs-grid">
+      <div class="vs-old">
+        <h4>Accordo ex art. 18 LR 20/2000 (vecchio)</h4>
+        <ul>
+          <li>Accordo tra PA e privato su materie urbanistiche</li>
+          <li>Richiedeva spesso anche variante al PSC separata</li>
+          <li>Procedura più lunga e incerta</li>
+          <li>Meno integrazione con la fase di partecipazione pubblica</li>
+        </ul>
+      </div>
+      <div class="vs-new">
+        <h4>Accordo operativo LR 24/2017 (nuovo)</h4>
+        <ul>
+          <li>Strumento organico con valore di variante automatica al PUG</li>
+          <li>Procedura unificata con partecipazione pubblica integrata</li>
+          <li>Può prevedere contributi straordinari oltre agli standard ordinari</li>
+          <li>Applicabile anche per interventi di rigenerazione complessi</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Il piano attuativo di iniziativa pubblica</div>
+      <p style="font-size:.9rem">Per le trasformazioni di iniziativa pubblica (il comune decide dove e cosa fare), lo strumento è il <strong>piano attuativo di iniziativa pubblica</strong> (ex piano particolareggiato). Il comune lo adotta autonomamente, senza proposta privata, per realizzare opere pubbliche, riqualificazioni, nuovi servizi. Non richiede la partecipazione privata e può essere adottato dalla Giunta Comunale con successiva approvazione del Consiglio.</p>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Il procedimento unico — art. 53 LR 24</div>
+      <p style="font-size:.9rem">La LR 24 introduce il <strong>procedimento unico</strong> per gli interventi di trasformazione che richiedono più autorizzazioni (urbanistiche + paesaggistiche + ambientali + sismiche). Il SUE coordina un unico procedimento che raccoglie tutti i pareri necessari, evitando al privato di girare tra uffici diversi. Si svolge con la Conferenza dei Servizi. È una semplificazione procedurale concreta, particolarmente rilevante per gli interventi di rigenerazione complessi.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     8 — VALSAT E SQUEA
+══════════════════════════════════ -->
+<h2 class="section-title" id="valsat">
+  <span class="num">8</span>
+  VALSAT e SQUEA — sostenibilità integrata nel piano
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 18–19 LR 24/2017</div>
+      <div class="art-title">Valutazione e strategia che non sono allegati ma sono il piano</div>
+    </div>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">VALSAT — Valutazione di Sostenibilità Ambientale e Territoriale</div>
+      <p style="font-size:.9rem">La VALSAT è la <strong>valutazione ambientale strategica</strong> del PUG, ma — e questa è la novità rispetto al passato — <strong>non è un documento separato allegato al piano: è parte integrante del piano stesso</strong>. Il principio di integrazione e non duplicazione significa che la VALSAT non si fa dopo il piano per verificarlo, ma si costruisce insieme al piano per orientarlo. Ogni scelta urbanistica viene valutata in termini di sostenibilità ambientale mentre si forma, non a posteriori.</p>
+      <p style="font-size:.9rem;margin-top:.5rem">La VALSAT valuta: impatti sul suolo e sul paesaggio, effetti sulla qualità dell'aria e delle acque, rischi naturali, biodiversità, consumo energetico, mobilità sostenibile. Individua anche le misure di mitigazione e compensazione per gli impatti inevitabili.</p>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">🔑</span>
+      <div><strong>Il principio di integrazione e non duplicazione (art. 18 c. 2):</strong> la VALSAT <em>integra</em> le valutazioni ambientali richieste da altre normative (VAS ex D.Lgs. 152/2006, valutazione d'incidenza per siti Natura 2000) invece di duplicarle. Un solo processo di valutazione copre tutte le esigenze valutative, riducendo i tempi e i costi del procedimento. Questo è un punto chiave che viene chiesto all'esame.</div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">SQUEA — Strategia per la Qualità Urbana ed Ecologico-Ambientale</div>
+      <p style="font-size:.9rem">La SQUEA è il documento che definisce gli <strong>obiettivi di qualità urbana e ambientale</strong> che il PUG vuole raggiungere: quanto verde pubblico garantire, quale qualità degli spazi pubblici, quale mix funzionale, quale connettività ecologica, quale efficienza energetica degli edifici. Non è un documento visionario generico: ha valore prescrittivo e orienta concretamente le scelte del piano e dei piani attuativi. In pratica risponde alla domanda: "che tipo di città/territorio vogliamo costruire con questo piano?"</p>
+    </div>
+
+    <div class="esempio">Il Comune di Argenta, nel processo di formazione del PUG, discute se prevedere un nuovo insediamento produttivo di 5 ettari in un'area agricola. La VALSAT analizza l'impatto di questa scelta: consumo di suolo, effetti sulla falda, traffico generato, frammentazione del paesaggio. Se gli impatti sono insostenibili, la VALSAT — essendo parte del piano — porta a scartare o ridimensionare quella scelta già in fase progettuale, non a correre ai ripari dopo.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     9 — VINCOLI NEL PUG
+══════════════════════════════════ -->
+<h2 class="section-title" id="vincoli">
+  <span class="num">9</span>
+  Come vengono rappresentati i vincoli nel PUG
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Quadro conoscitivo + Invarianti strutturali</div>
+      <div class="art-title">Il PUG riconosce i vincoli, non li crea</div>
+    </div>
+  </div>
+  <div class="art-body">
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚡</span>
+      <div><strong>Concetto fondamentale:</strong> il PUG non crea i vincoli. Li <strong>riceve</strong> da normative sovraordinate (statali e regionali) e li <strong>rappresenta cartograficamente</strong> nelle proprie tavole. Un vincolo paesaggistico ex D.Lgs. 42/2004 esiste anche senza il PUG; il PUG lo mappa per rendere chiaro a tutti dove si applica.</div>
+    </div>
+
+    <table class="vtable">
+      <thead>
+        <tr><th>Tipo di vincolo</th><th>Fonte normativa</th><th>Come appare nel PUG</th><th>Effetto pratico</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Vincolo paesaggistico</strong></td>
+          <td>D.Lgs. 42/2004 art. 136 (decreto ministeriale) o art. 142 (legge)</td>
+          <td>Campiture colorate sulle tavole del QC; richiamato nella disciplina degli ambiti</td>
+          <td>Ogni intervento nell'area vincolata richiede autorizzazione paesaggistica (ordinaria o semplificata)</td>
+        </tr>
+        <tr>
+          <td><strong>Vincolo idrogeologico / PAI</strong></td>
+          <td>Piano Stralcio per l'Assetto Idrogeologico dell'Autorità di Bacino</td>
+          <td>Fasce fluviali (A, B, C), aree a rischio idraulico mappate nel QC</td>
+          <td>Limiti alle trasformazioni nelle fasce di rischio; parere dell'Autorità di Bacino o di AIPO</td>
+        </tr>
+        <tr>
+          <td><strong>Zona di tutela dei corpi idrici</strong></td>
+          <td>LR 24/2017 + normativa ambientale</td>
+          <td>Fascia di rispetto intorno ai corsi d'acqua (di solito 10 m) nel PUG</td>
+          <td>Divieto di nuove costruzioni nella fascia</td>
+        </tr>
+        <tr>
+          <td><strong>Vincolo cimiteriale</strong></td>
+          <td>DPR 285/1990</td>
+          <td>Fascia di rispetto di 200 m (o ridotta con variante) nel PUG</td>
+          <td>Divieto di nuove costruzioni nella fascia</td>
+        </tr>
+        <tr>
+          <td><strong>Zona sismica</strong></td>
+          <td>LR 19/2008 + classificazione nazionale</td>
+          <td>Indicazione della zona sismica nel QC (tutta la provincia di FE = zona 3)</td>
+          <td>Obbligo di deposito sismico su SISO per ogni intervento strutturale</td>
+        </tr>
+        <tr>
+          <td><strong>Invarianti strutturali</strong></td>
+          <td>Definite dal PUG stesso, ma su basi ricognitive</td>
+          <td>Campiture specifiche nelle tavole strutturali del PUG</td>
+          <td>Non modificabili neanche con variante ordinaria al PUG; richiedono procedura complessa</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="concept">
+      <div class="concept-title">Come si legge una tavola del PUG (per l'operatività quotidiana)</div>
+      <p style="font-size:.9rem">Nelle tavole del PUG un'area può essere contemporaneamente soggetta a più regimi sovrapposti: es. ambito urbano consolidato + vincolo paesaggistico + fascia di rispetto idraulica. Per ogni intervento devi verificare <em>tutti</em> i livelli sovrapposti, non solo la destinazione urbanistica. Il PUG deve avere un sistema di tavole chiaro che renda leggibili le sovrapposizioni. Nella pratica quotidiana di sportello, la verifica dei vincoli sul SIT (Sistema Informativo Territoriale) precede qualsiasi altra valutazione.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     10 — PERIODO TRANSITORIO
+══════════════════════════════════ -->
+<h2 class="section-title" id="transitorio">
+  <span class="num">10</span>
+  Il periodo transitorio — cosa succede fino all'adozione del PUG
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 4, 100–103 LR 24/2017 e atti di coordinamento</div>
+      <div class="art-title">La convivenza tra vecchi piani e nuova legge</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>La LR 24/2017 non ha imposto l'immediata sostituzione di tutti i piani comunali vigenti: ci sarebbero voluti anni e molti comuni si sarebbero trovati senza piano. Ha previsto invece un <strong>periodo transitorio</strong> durante il quale i vecchi strumenti urbanistici (PSC/RUE/POC o PRG) restano in vigore, applicando però già alcuni principi della nuova legge.</p>
+
+    <div class="concept">
+      <div class="concept-title">Cosa vale durante il transitorio</div>
+      <ul style="list-style:none;padding:0;font-size:.9rem">
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ I vecchi PSC/RUE/POC (o PRG) <strong>restano validi</strong> e continuano ad essere applicati per le trasformazioni ordinarie</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ <strong>Non si possono più approvare nuovi POC</strong> (il vecchio strumento operativo) perché è sostituito dall'accordo operativo</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Le <strong>previsioni dei vecchi piani non attuate</strong> (zone C, zone D mai costruite) hanno una <strong>durata limitata</strong>: scadono se non avviate entro certi termini (di solito 5 anni dalla prima scadenza), dopodiché il suolo torna "non pianificato" e si applicano i principi di consumo di suolo zero</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Possono essere usati gli <strong>accordi operativi</strong> ex LR 24 anche durante il transitorio, come strumento alternativo al POC</li>
+        <li style="padding:.3rem 0">▸ La Regione ha emanato atti di coordinamento tecnico per disciplinare il transitorio (es. su quali previsioni dei vecchi piani restano valide e quali no)</li>
+      </ul>
+    </div>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">⚠</span>
+      <div><strong>Punto critico chiesto all'esame:</strong> le previsioni dei vecchi piani non attuate (le famose "Zone C" con migliaia di abitazioni mai costruite) non sopravvivono all'infinito. La LR 24 prevede che decadano se i titoli edilizi non vengono richiesti entro i termini. Questo ha creato molte controversie con i proprietari di aree classificate come edificabili nel vecchio piano e ora "scadute". L'atto di coordinamento tecnico della Giunta Regionale ha chiarito caso per caso.</div>
+    </div>
+
+    <div class="esempio">Il Comune di Portomaggiore aveva nel vecchio PSC una zona C (espansione residenziale) per 200 appartamenti mai realizzati. Con la LR 24 e il passaggio al PUG, quella zona C non verrà semplicemente trasferita nel nuovo piano: il comune dovrà valutare se c'è reale fabbisogno abitativo, se l'area è all'interno del perimetro del territorio urbanizzato, e se è compatibile con il consumo di suolo zero. Molto probabilmente quella zona C verrà ridimensionata o soppressa.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     11 — RISPOSTE ESAME
+══════════════════════════════════ -->
+<h2 class="section-title" id="risposta">
+  <span class="num">11</span>
+  Risposte modello per l'esame
+</h2>
+
+<div class="alert alert-page">
+  <span class="alert-icon">✏</span>
+  <div>Ogni risposta ha un'<strong>apertura fissa</strong> che puoi sempre riutilizzare (introduce la legge), un <strong>corpo specifico</strong> per quella domanda, e una <strong>chiusura</strong> che porta un esempio o un collegamento pratico. In mezzoretta puoi scrivere la brutta: prima i titoli, poi i concetti chiave, poi riscrivi pulito.</div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Domanda 1 — Alta probabilità</div>
+      <div class="art-title">«Illustri i principi della rigenerazione urbana e il contenimento del consumo di suolo nella LR 24/2017»</div>
+    </div>
+    <span class="prio prio-red">🔥 Molto probabile</span>
+  </div>
+  <div class="art-body">
+    <div class="risposta">
+      <div class="risposta-label">✏ Risposta modello — circa 350 parole</div>
+
+      <div class="par-title">Inquadramento</div>
+      <p>La <strong>LR 21 dicembre 2017, n. 24</strong> — "Disciplina regionale sulla tutela e l'uso del territorio" — ha profondamente innovato il sistema di governo del territorio dell'Emilia-Romagna, sostituendo la previgente LR 20/2000. La legge opera in attuazione della competenza legislativa concorrente in materia di governo del territorio (art. 117 Cost.) e si inserisce nella cornice dei principi statali di contenimento del consumo di suolo, facendo propria la logica secondo cui il suolo è una risorsa <strong>non rinnovabile</strong> che deve essere tutelata come bene comune.</p>
+
+      <div class="par-title">Il principio di consumo di suolo tendente a zero</div>
+      <p>Il principio fondante è il <strong>consumo di suolo tendente a zero</strong>: nessuna nuova urbanizzazione su suolo non ancora urbanizzato può essere autorizzata senza una specifica giustificazione basata su un fabbisogno reale dimostrato e, in ogni caso, con compensazione mediante de-urbanizzazione di pari superficie. La legge distingue nettamente tra <strong>territorio urbanizzato</strong> (le parti del territorio già edificate e infrastrutturate) e <strong>territorio rurale</strong> (campagna, aree naturali, zone agricole), riservando le nuove trasformazioni al primo e proteggendo il secondo dalla pressione edificatoria. Le previsioni di nuova urbanizzazione su suolo rurale sono consentite solo in casi eccezionali tassativamente previsti (opere pubbliche non localizzabili altrove, ampliamenti produttivi non delocalizzabili, fabbricati rurali funzionali all'agricoltura).</p>
+
+      <div class="par-title">La rigenerazione urbana come strumento principale</div>
+      <p>La <strong>rigenerazione urbana</strong> (artt. 7–8 LR 24/2017) è la risposta operativa al principio di contenimento. Consiste nel recupero, riqualificazione e densificazione del patrimonio edilizio esistente: demolizione e ricostruzione di edifici obsoleti (con possibile <strong>bonus volumetrico fino al +20%</strong> sulla SUL preesistente), recupero di aree dismesse e capannoni abbandonati, riqualificazione di periferie degradate, cambio di destinazione d'uso dell'esistente. La rigenerazione è incentivata anche mediante la semplificazione procedurale attraverso l'<strong>accordo operativo</strong> e la possibilità di <strong>usi temporanei</strong> per tenere vivi gli spazi in attesa degli interventi definitivi.</p>
+
+      <div class="par-title">Il concetto nella pianificazione concreta</div>
+      <p>Nel <strong>PUG</strong> (Piano Urbanistico Generale), strumento urbanistico unico introdotto dalla LR 24, questi principi si traducono nella definizione del perimetro del territorio urbanizzato, nell'identificazione degli <strong>ambiti da rigenerare</strong> prioritari e nel <strong>bilancio del consumo di suolo</strong>, che deve dimostrare che ogni eventuale nuova urbanizzazione sia compensata da de-urbanizzazione equivalente. In ambito ferrarese, dove il territorio è prevalentemente agricolo con una pianura di alto valore paesaggistico e idrogeologico, questi principi hanno una rilevanza pratica immediata per ogni procedimento edilizio e urbanistico.</p>
+    </div>
+  </div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Domanda 2 — Alta probabilità</div>
+      <div class="art-title">«Illustri il processo di formazione del PUG ai sensi della LR 24/2017»</div>
+    </div>
+    <span class="prio prio-red">🔥 Molto probabile</span>
+  </div>
+  <div class="art-body">
+    <div class="risposta">
+      <div class="risposta-label">✏ Risposta modello — circa 300 parole</div>
+
+      <div class="par-title">Inquadramento</div>
+      <p>La <strong>LR 24/2017</strong> sostituisce il previgente sistema a tre strumenti (PSC, RUE, POC) con un unico strumento di pianificazione comunale: il <strong>Piano Urbanistico Generale (PUG)</strong>. Il PUG contiene sia la componente strategica (obiettivi, quadro conoscitivo, VALSAT, SQUEA) sia la componente operativa (disciplina del territorio urbanizzato e rurale, dotazioni territoriali, invarianti strutturali).</p>
+
+      <div class="par-title">La procedura di formazione</div>
+      <p>Il processo si articola in fasi obbligatorie. Il <strong>Comune</strong> avvia il procedimento con un documento preliminare che illustra obiettivi e scelte strategiche, aprendo la fase di <strong>partecipazione pubblica</strong>. Segue la <strong>Conferenza di pianificazione</strong> (o copianificazione), momento fondamentale in cui il Comune discute il piano con la <strong>Regione, la Città Metropolitana/Provincia</strong>, i comuni confinanti e gli enti gestori di reti: la Regione esprime un parere sulla coerenza con la LR 24 e con gli strumenti sovraordinati. Questa fase sposta il controllo di legittimità "all'inizio" del processo anziché alla fine, responsabilizzando il Comune e accelerando i tempi. Dopo la conferenza, il <strong>Consiglio Comunale adotta</strong> il PUG, che viene pubblicato per 60 giorni per la presentazione di osservazioni. Il Consiglio Comunale <strong>approva definitivamente</strong> il piano controdedotte le osservazioni. Il PUG acquista efficacia con la <strong>pubblicazione sul BURERT</strong>, senza necessità di approvazione regionale finale — a differenza del vecchio PSC.</p>
+
+      <div class="par-title">La novità rispetto al passato e il significato pratico</div>
+      <p>Il PUG integra obbligatoriamente la <strong>VALSAT</strong> (Valutazione di Sostenibilità Ambientale e Territoriale) e la <strong>SQUEA</strong> (Strategia per la Qualità Urbana ed Ecologico-Ambientale) non come allegati esterni ma come componenti costitutive del piano, in applicazione del principio di integrazione e non duplicazione delle valutazioni ambientali. Per l'<strong>Unione Valli e Delizie</strong>, il PUG può essere adottato in forma associata per i tre comuni, con un processo coordinato che garantisce coerenza nelle scelte territoriali sovra-comunali.</p>
+    </div>
+  </div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Domanda 3</div>
+      <div class="art-title">«Illustri la VALSAT e i principi di integrazione e non duplicazione»</div>
+    </div>
+    <span class="prio prio-orange">Media-alta probabilità</span>
+  </div>
+  <div class="art-body">
+    <div class="risposta">
+      <div class="risposta-label">✏ Risposta modello — circa 220 parole</div>
+
+      <div class="par-title">Inquadramento</div>
+      <p>La <strong>LR 24/2017</strong> introduce la <strong>VALSAT — Valutazione di Sostenibilità Ambientale e Territoriale</strong> (art. 18) come valutazione integrata e contestuale al processo di formazione del Piano Urbanistico Generale. La VALSAT non è un documento separato allegato al PUG, ma ne è <strong>parte costitutiva</strong>: si costruisce parallelamente al piano, orientandone le scelte invece di verificarle a posteriori.</p>
+
+      <div class="par-title">Il principio di integrazione e non duplicazione</div>
+      <p>Il <strong>principio di integrazione</strong> significa che la VALSAT incorpora e sostituisce le valutazioni ambientali richieste da altre normative: la <strong>VAS</strong> (Valutazione Ambientale Strategica) ex D.Lgs. 152/2006 e, ove necessaria, la <strong>valutazione di incidenza</strong> per i siti della rete Natura 2000. Il <strong>principio di non duplicazione</strong> garantisce che queste valutazioni non vengano effettuate due volte con procedure separate: un unico processo integrato copre tutte le esigenze valutative, riducendo i tempi, i costi e le ridondanze procedurali. La VALSAT analizza gli impatti delle scelte del PUG su suolo, paesaggio, acqua, aria, biodiversità, rischi, consumi energetici, e individua le misure di mitigazione e compensazione degli impatti inevitabili.</p>
+
+      <div class="par-title">La SQUEA</div>
+      <p>La <strong>SQUEA</strong> (Strategia per la Qualità Urbana ed Ecologico-Ambientale, art. 19) è il documento strategico del PUG che definisce gli obiettivi qualitativi che il piano vuole raggiungere: standard di verde, qualità degli spazi pubblici, mix funzionale, efficienza energetica. Ha valore prescrittivo e orienta le scelte del piano e dei piani attuativi.</p>
+    </div>
+  </div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Domanda 4</div>
+      <div class="art-title">«Quali interventi sono ammissibili a seguito della conclusione del periodo transitorio?»</div>
+    </div>
+    <span class="prio prio-orange">Media probabilità</span>
+  </div>
+  <div class="art-body">
+    <div class="risposta">
+      <div class="risposta-label">✏ Risposta modello — circa 220 parole</div>
+
+      <div class="par-title">Inquadramento del transitorio</div>
+      <p>La <strong>LR 24/2017</strong> ha previsto un periodo transitorio durante il quale i previgenti strumenti urbanistici comunali (PSC, RUE, POC o PRG ex LR 20/2000) rimangono in vigore nelle more dell'adozione del PUG. Durante il transitorio si applicano già i principi della nuova legge per gli interventi di nuova pianificazione, ma il vecchio piano regola l'ordinaria attività edilizia.</p>
+
+      <div class="par-title">Cosa succede alla conclusione del transitorio (o con l'adozione del PUG)</div>
+      <p>Con l'adozione del PUG e la scadenza del transitorio, le <strong>previsioni urbanistiche non attuate</strong> dei vecchi piani — in particolare le zone di espansione residenziale (vecchie zone C) e produttiva non ancora edificate — perdono efficacia se non accompagnate da titoli edilizi già rilasciati o convenzioni già stipulate. Il suolo torna al suo stato di "non pianificato per l'edificazione" e si applicano i principi di consumo di suolo tendente a zero della LR 24. Restano invece valide: le previsioni già attuate (edificato esistente), le convenzioni vigenti con impegni già assunti, e le trasformazioni già avviate con titoli edilizi efficaci. La <strong>Giunta Regionale</strong> ha emanato specifici atti di coordinamento tecnico per disciplinare caso per caso le situazioni di confine, chiarendo quali previsioni dei vecchi piani sopravvivono e con quali limiti temporali, evitando il rischio di contenziosi con i proprietari di aree che perdono classificazione edificatoria.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     12 — QUIZ
+══════════════════════════════════ -->
+<h2 class="section-title" id="quiz">
+  <span class="num">12</span>
+  Quiz — domande e approfondimenti
+</h2>
+
+<div class="quiz-area">
+  <div class="quiz-title">Clicca per risposta</div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Cosa sostituisce la LR 24/2017 e perché? <span class="arrow">▾</span></div>
+    <div class="quiz-a">Sostituisce la <strong>LR 20/2000</strong> che disciplinava la pianificazione con PSC + RUE + POC. La ragione è il cambio di paradigma: dalla logica dell'espansione (costruire nuovo sul verde) alla logica della rigenerazione (recuperare l'esistente). Il suolo è risorsa finita e non rinnovabile: la LR 20 non lo tutelava strutturalmente, permettendo zone di espansione su suoli agricoli anche quando non c'era domanda reale. La LR 24 pone il consumo di suolo tendente a zero come principio fondante.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Come può una legge regionale vincolare le scelte del comune? Non dovrebbe essere il comune a decidere sul proprio territorio? <span class="arrow">▾</span></div>
+    <div class="quiz-a">La risposta sta nell'art. 117 Cost.: il governo del territorio è materia di <strong>legislazione concorrente</strong> Stato/Regioni. Lo Stato fissa i principi fondamentali, le Regioni li sviluppano. I Comuni pianificano <em>dentro</em> il perimetro che la legge regionale disegna. La Regione non decide al posto del Comune: decide i <strong>limiti invalicabili</strong> (es. non urbanizzare il territorio rurale). Dentro quei limiti il Comune è libero di scegliere destinazioni, densità, mix funzionale. È come un campo da gioco: la Regione disegna le righe di fondo, il Comune gioca la partita.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Qual è la differenza pratica tra territorio urbanizzato e territorio rurale nella LR 24? <span class="arrow">▾</span></div>
+    <div class="quiz-a"><span class="t-urb">Territorio urbanizzato</span>: già edificato e infrastrutturato. Qui si può intervenire con rigenerazione, manutenzione, ristrutturazione, limitata nuova edificazione, accordi operativi. È la "città". <span class="t-rur">Territorio rurale</span>: campagna, agricoltura, natura. Nuova urbanizzazione vietata in via ordinaria. Solo attività agricole, agrituristiche, infrastrutture rurali. In provincia di Ferrara, dove la pianura agricola occupa il 90% del territorio dei comuni dell'Unione, questa distinzione è determinante per qualsiasi valutazione urbanistica quotidiana.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Un privato vuole costruire un capannone nuovo su terreno agricolo fuori dal perimetro urbanizzato. È possibile con la LR 24? <span class="arrow">▾</span></div>
+    <div class="quiz-a">In via ordinaria <span class="t-no">no</span>. Il territorio rurale è protetto dal consumo di suolo. Tuttavia ci sono eccezioni tassative: (1) se l'attività è già esistente nel territorio urbanizzato e deve ampliarsi senza possibilità di farlo lì, (2) se si tratta di infrastruttura necessaria non localizzabile altrove, (3) se è un fabbricato strettamente funzionale all'attività agricola. In tutti i casi occorre dimostrare la necessità con documentazione specifica, e compensare il consumo di suolo con de-urbanizzazione di pari superficie. Il PUG deve averlo previsto o occorre un accordo operativo specifico.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Cos'è l'accordo operativo e in cosa differisce dal vecchio accordo ex art. 18 LR 20/2000? <span class="arrow">▾</span></div>
+    <div class="quiz-a">L'<strong>accordo operativo</strong> (art. 38 LR 24) è lo strumento negoziato tra Comune e privato per trasformazioni urbanistiche significative. Il privato propone, il Comune valuta e negozia (standard, contributi, qualità urbana), il Consiglio Comunale approva con valore di <strong>variante automatica al PUG</strong>. Differenza con il vecchio accordo ex art. 18 LR 20: quello richiedeva spesso una variante separata al PSC oltre all'accordo; l'accordo operativo unifica tutto in un solo procedimento con partecipazione pubblica integrata, è più trasparente (la proposta è pubblica fin dall'inizio) e più rapido. Può prevedere contributi straordinari oltre agli standard ordinari.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Il PUG crea i vincoli paesaggistici o li rappresenta solo? <span class="arrow">▾</span></div>
+    <div class="quiz-a">Il PUG <strong>riceve e rappresenta</strong> i vincoli, non li crea. I vincoli paesaggistici derivano dal D.Lgs. 42/2004 (decreto ministeriale per art. 136, legge per art. 142), quelli idrogeologici dal PAI, quelli cimiteriali dal DPR 285/1990 e così via. Il PUG li mappa cartograficamente nelle proprie tavole per renderli visibili e gestibili operativamente, ma esistono a prescindere dal PUG. Fanno eccezione le <strong>invarianti strutturali</strong>, che il PUG stesso definisce (su basi ricognitive del territorio) e che hanno carattere permanente e non derogabile.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Cosa sono gli usi temporanei e a cosa servono? <span class="arrow">▾</span></div>
+    <div class="quiz-a">Gli <strong>usi temporanei</strong> (art. 9 LR 24) permettono di destinare spazi inutilizzati (edifici dismessi, aree abbandonate) a funzioni diverse da quelle previste dal PUG, per un periodo determinato (di norma fino a 3 anni, prorogabili), senza che questo costituisca variante urbanistica. Servono a: evitare l'abbandono degli spazi in attesa della rigenerazione definitiva, sostenere attività culturali/economiche/sociali temporanee, mantenere vivi tessuti urbani degradati. L'uso temporaneo non crea diritti acquisiti sulla destinazione definitiva e non impedisce la successiva trasformazione prevista dal piano.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Qual è il principio di integrazione e non duplicazione della VALSAT? <span class="arrow">▾</span></div>
+    <div class="quiz-a">La <strong>VALSAT</strong> (Valutazione di Sostenibilità Ambientale e Territoriale, art. 18 LR 24) integra in un unico processo le valutazioni ambientali richieste da diverse normative: la VAS ex D.Lgs. 152/2006 e la valutazione di incidenza per i siti Natura 2000. Il <strong>principio di integrazione</strong> significa che la valutazione ambientale è parte costitutiva del PUG, non un allegato esterno. Il <strong>principio di non duplicazione</strong> garantisce che le stesse valutazioni non vengano ripetute due volte in procedure separate. Risultato: un processo più snello, meno costoso e più coerente, in cui le considerazioni ambientali orientano le scelte urbanistiche mentre si formano, invece di correggere a posteriori quello che è già stato deciso.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Cosa succede alle vecchie zone C (espansione residenziale) del PRG/PSC con l'adozione del PUG? <span class="arrow">▾</span></div>
+    <div class="quiz-a">Le vecchie zone C non vengono automaticamente trasferite nel PUG. Il comune, nell'adottare il PUG, deve verificare: (1) se c'è un reale fabbisogno abitativo non soddisfibile attraverso la rigenerazione dell'esistente; (2) se l'area rientra o può rientrare nel perimetro del territorio urbanizzato; (3) se la previsione è compatibile con il bilancio del consumo di suolo. Nelle aree dove non c'è fabbisogno dimostrato, le zone C vengono soppresse nel PUG e il suolo torna rurale. Le previsioni non attuate dei vecchi piani perdono efficacia se i titoli edilizi non vengono richiesti entro i termini del transitorio. Per i proprietari di aree che perdono edificabilità, questo può creare questioni di indennizzo e contenziosi.</div>
+  </div>
+
+</div>
+
+<div class="mnemonic">
+  <h4>Mnemonica — La logica della LR 24 in una frase</h4>
+  <p><span>RIGENERA</span> prima di costruire · <span>URBANIZZATO</span> prima del rurale · <span>PUG</span> invece di tre piani · <span>VALSAT</span> dentro al piano non fuori · <span>ACCORDO OPERATIVO</span> invece del POC · <span>ZERO</span> consumo di suolo come orizzonte</p>
+</div>
+
+</main>
+
+<footer>
+  LR 24/2017 "Disciplina regionale sulla tutela e l'uso del territorio" — Studio Concorso Unione Valli e Delizie · Aprile 2026
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  const html   = document.documentElement;
+  function applyTheme(dark) {
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    toggle.checked = dark;
+  }
+  const saved = localStorage.getItem('theme');
+  if (saved) { applyTheme(saved === 'dark'); }
+  else { applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches); }
+  toggle.addEventListener('change', () => {
+    const dark = toggle.checked;
+    applyTheme(dark);
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
+
+  function tq(el) {
+    el.classList.toggle('active');
+    el.nextElementSibling.classList.toggle('open');
+  }
+
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 300));
+
+  const allTargets = [...document.querySelectorAll('[id]')].filter(el =>
+    [...document.querySelectorAll('.nav-pill')].some(p => p.getAttribute('href') === '#' + el.id)
+  );
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    allTargets.forEach(t => { if (window.scrollY >= t.offsetTop - 140) cur = t.id; });
+    document.querySelectorAll('.nav-pill').forEach(p => {
+      const on = p.getAttribute('href') === '#' + cur;
+      p.style.background  = on ? 'var(--page-color)' : '';
+      p.style.color       = on ? 'white' : '';
+      p.style.borderColor = on ? 'var(--page-color)' : '';
+    });
+  });
+</script>
+</body>
+</html>
