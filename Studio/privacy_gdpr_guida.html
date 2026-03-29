@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy — GDPR 679/2016 + D.Lgs. 196/2003 — Guida Concorso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=Crimson+Pro:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --page-color:        #2d4a7a;
+    --page-color2:       #1a2f52;
+    --page-color-bg:     #edf2fb;
+    --page-color-border: #90b0e8;
+  }
+
+  [id] { scroll-margin-top: 80px; }
+
+  /* PRINCIPI GDPR */
+  .principi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: .8rem;
+    margin: .8rem 0;
+  }
+  .principio {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: .9rem 1rem;
+    border-top: 3px solid var(--page-color);
+  }
+  .principio h4 {
+    font-family: var(--mono);
+    font-size: .65rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--page-color);
+    margin-bottom: .4rem;
+  }
+  .principio p { font-size: .82rem; color: var(--ink2); line-height: 1.5; }
+  .principio .art-ref {
+    font-family: var(--mono);
+    font-size: .62rem;
+    color: var(--ink3);
+    margin-top: .4rem;
+    display: block;
+  }
+
+  /* DIRITTI */
+  .diritti-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .5rem;
+    margin: .8rem 0;
+  }
+  .diritto-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: .7rem .9rem;
+    font-size: .85rem;
+    color: var(--ink2);
+    display: flex;
+    align-items: flex-start;
+    gap: .6rem;
+  }
+  .diritto-item .dart {
+    font-family: var(--mono);
+    font-size: .65rem;
+    color: var(--page-color);
+    background: var(--page-color-bg);
+    padding: .15rem .4rem;
+    border-radius: 3px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-weight: 600;
+    margin-top: .1rem;
+  }
+  @media(max-width:600px) { .diritti-list { grid-template-columns: 1fr; } }
+
+  /* FIGURE */
+  .figure-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: .8rem 0;
+  }
+  .figura {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .figura-hd {
+    padding: .7rem 1rem;
+    font-family: var(--mono);
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: white;
+    background: var(--page-color);
+  }
+  .figura-body { padding: .8rem 1rem; font-size: .84rem; color: var(--ink2); line-height: 1.6; }
+  .figura-body strong { color: var(--ink); display: block; margin-bottom: .3rem; }
+
+  /* CASO */
+  .case {
+    background: var(--realq-bg);
+    border-left: 5px solid var(--realq-br);
+    border-radius: 4px;
+    padding: 1.1rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .case-tag {
+    font-family: var(--mono);
+    font-size: .63rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--realq-br);
+    margin-bottom: .4rem;
+  }
+  .case-title {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: .7rem;
+  }
+  .case p { font-size: .9rem; line-height: 1.7; }
+  .case-answer {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: .9rem 1.1rem;
+    margin-top: .8rem;
+    font-size: .88rem;
+    line-height: 1.7;
+    color: var(--ink2);
+  }
+  .case-answer ol,
+  .case-answer ul { padding-left: 1.3rem; margin: .5rem 0; }
+  .case-answer li { margin-bottom: .3rem; }
+
+  /* RISPOSTA MODELLO — il pezzo più importante */
+  .risposta {
+    background: var(--page-color);
+    color: white;
+    border-radius: 8px;
+    padding: 1.8rem 2rem;
+    margin: 1.5rem 0;
+  }
+  .risposta-label {
+    font-family: var(--mono);
+    font-size: .63rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    opacity: .6;
+    margin-bottom: 1.2rem;
+  }
+  .risposta p {
+    font-size: .93rem;
+    line-height: 1.85;
+    margin-bottom: 1rem;
+    opacity: .93;
+    color: white;
+  }
+  .risposta strong { color: #FCD34D; font-weight: 600; }
+  .risposta .par-title {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #FCD34D;
+    margin: 1.2rem 0 .4rem;
+    opacity: 1;
+  }
+
+  /* SANZIONI */
+  .sanz-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: .6rem 0;
+  }
+  .sanz-num {
+    padding: .8rem 1rem;
+    background: var(--page-color);
+    color: white;
+    font-family: var(--mono);
+    font-size: .85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .sanz-body {
+    padding: .8rem 1.1rem;
+    background: var(--card);
+    font-size: .86rem;
+    color: var(--ink2);
+    border-left: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+  }
+
+  /* QUIZ */
+  .quiz-score-box { background: var(--page-color); color: white; border-radius: 6px; padding: 1.2rem 1.5rem; text-align: center; margin-bottom: 1rem; }
+  .quiz-score-box .big { font-family: var(--mono); font-size: 2.5rem; font-weight: 700; line-height: 1; }
+  .quiz-score-box .lbl { font-size: .85rem; opacity: .75; margin-top: .3rem; }
+  .pbar { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 1.5rem; overflow: hidden; }
+  .pfill { height: 100%; background: var(--page-color); border-radius: 2px; transition: width .3s; }
+  .mc-item { background: var(--card); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 1rem; overflow: hidden; box-shadow: var(--shadow); }
+  .mc-q { padding: 1rem 1.3rem; font-size: .93rem; font-weight: 600; color: var(--ink); }
+  .mc-num { font-family: var(--mono); font-size: .63rem; color: var(--page-color); display: block; margin-bottom: .3rem; letter-spacing: .07em; text-transform: uppercase; }
+  .mc-opts { padding: 0 1rem 1rem; display: flex; flex-direction: column; gap: .5rem; }
+  .mc-opt { border: 1.5px solid var(--border); border-radius: 5px; padding: .6rem .9rem; cursor: pointer; font-size: .88rem; color: var(--ink2); transition: all .15s; display: flex; gap: .7rem; align-items: flex-start; line-height: 1.5; }
+  .mc-opt:hover { border-color: var(--page-color); background: var(--page-color-bg); }
+  .mc-opt.correct { border-color: #1a5a38; background: var(--alert-green-bg); color: #1a5a38; }
+  .mc-opt.wrong { border-color: #C0392B; background: var(--alert-red-bg); color: #C0392B; }
+  .mc-opt .ol { font-family: var(--mono); font-size: .7rem; width: 20px; height: 20px; border-radius: 50%; background: var(--bg2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--ink2); border: 1px solid var(--border); }
+  .mc-opt.correct .ol { background: #1a5a38; color: white; border-color: #1a5a38; }
+  .mc-opt.wrong .ol { background: #C0392B; color: white; border-color: #C0392B; }
+  .mc-expl { margin: .5rem 1rem 1rem; padding: .8rem 1rem; background: var(--alert-blue-bg); border: 1px solid var(--alert-blue-br); border-radius: 5px; font-size: .86rem; color: var(--ink2); display: none; line-height: 1.65; }
+  .mc-expl.show { display: block; }
+  .answered { pointer-events: none; }
+  .btn-reset { font-family: var(--mono); font-size: .7rem; padding: .4rem 1rem; border-radius: 4px; background: var(--card); border: 1px solid var(--border); color: var(--ink2); cursor: pointer; letter-spacing: .05em; margin-top: .5rem; }
+  .btn-reset:hover { border-color: var(--page-color); color: var(--page-color); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="badge">Concorso Specialista Tecnico · Unione Valli e Delizie</div>
+      <h1>Protezione dei Dati Personali</h1>
+      <p>GDPR — Regolamento UE 2016/679 · D.Lgs. 30 giugno 2003, n. 196 (come modificato dal D.Lgs. 101/2018) · Con risposta modello per la prova scritta</p>
+    </div>
+    <div class="controls">
+      <div class="toggle-row">
+        <span class="toggle-label">Dark</span>
+        <label class="toggle">
+          <input type="checkbox" id="darkToggle" onchange="toggleDark(this)">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="nav-wrap">
+  <div class="nav-pills">
+    <a href="#intro" class="nav-pill">Quadro normativo</a>
+    <a href="#definizioni" class="nav-pill">Definizioni chiave</a>
+    <a href="#principi" class="nav-pill">6 Principi art. 5</a>
+    <a href="#basi" class="nav-pill">Basi giuridiche</a>
+    <a href="#dati-particolari" class="nav-pill">Dati particolari</a>
+    <a href="#diritti" class="nav-pill">Diritti dell'interessato</a>
+    <a href="#figure" class="nav-pill">Titolare, Responsabile, DPO</a>
+    <a href="#registro" class="nav-pill">Registro trattamenti</a>
+    <a href="#pbd" class="nav-pill">Privacy by Design</a>
+    <a href="#breach" class="nav-pill">Data Breach</a>
+    <a href="#dpia" class="nav-pill">DPIA</a>
+    <a href="#pa" class="nav-pill">PA e Privacy</a>
+    <a href="#garante" class="nav-pill">Garante e Sanzioni</a>
+    <a href="#risposta" class="nav-pill">⭐ Risposta modello</a>
+    <a href="#casi" class="nav-pill">Casi pratici</a>
+    <a href="#orale" class="nav-pill">Domande orali</a>
+    <a href="#quiz" class="nav-pill">Quiz</a>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ================================================================
+     QUADRO NORMATIVO
+================================================================ -->
+<div id="intro"></div>
+<div class="section-title"><span class="num">1</span> Il Quadro Normativo — Come si articola</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">GDPR + D.LGS. 196/2003 + D.LGS. 101/2018</div>
+      <div class="art-title">Tre norme, un sistema coerente</div>
+    </div>
+    <span class="prio prio-red">🔴 Fondamentale</span>
+  </div>
+  <div class="art-body">
+    <p>La protezione dei dati personali in Italia si fonda su tre livelli normativi che operano insieme. Non sono alternative — si integrano e si completano a vicenda.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">UE</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-who">Livello europeo — primario e direttamente applicabile</div>
+          <div class="flow-action">Regolamento UE 2016/679 — GDPR</div>
+          <div class="flow-detail">Entrato in vigore il 25 maggio 2018. È un <strong>Regolamento europeo</strong>, non una direttiva: si applica direttamente in tutti gli Stati membri senza bisogno di recepimento. Prevale sulla legge nazionale in caso di contrasto. Ha abrogato la Direttiva 95/46/CE e ha reso incompatibili ed inapplicabili le disposizioni del D.Lgs. 196/2003 che vi contrastano. Obiettivo dichiarato: proteggere i dati personali come diritto fondamentale della persona (art. 8 Carta dei Diritti Fondamentali UE) e garantire la libera circolazione dei dati nel mercato unico.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">IT</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-who">Livello nazionale — adattamento e integrazione</div>
+          <div class="flow-action">D.Lgs. 30 giugno 2003, n. 196 — Codice Privacy</div>
+          <div class="flow-detail">Il D.Lgs. 196/2003, profondamente modificato dal D.Lgs. 10 agosto 2018, n. 101 (adottato per rendere il Codice Privacy compatibile con il GDPR), è oggi la legge nazionale di integrazione. Non è stato abrogato — è stato «riscritto» per coesistere con il GDPR. Contiene le norme nazionali che il GDPR consente agli Stati di mantenere o introdurre (c.d. «clausole di apertura»): regole specifiche per le PA, per i dati particolari, per il Garante, per il settore sanitario e lavorativo.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">+</div></div>
+        <div class="flow-content">
+          <div class="flow-who">Integrazione specifica</div>
+          <div class="flow-action">D.Lgs. 10 agosto 2018, n. 101 — adeguamento del Codice</div>
+          <div class="flow-detail">Il decreto di adeguamento ha modificato il D.Lgs. 196/2003 articolo per articolo, abrogando quanto incompatibile con il GDPR e mantenendo quanto il GDPR rimette alla discrezionalità degli Stati. Ha anche designato il Garante per la protezione dei dati personali come Autorità di controllo ai sensi dell'art. 51 GDPR.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">⚖️</span>
+      <div><strong>La regola d'oro per l'esame:</strong> Quando citi la normativa privacy, cita sempre entrambe le fonti — «il GDPR 679/2016 e il D.Lgs. 196/2003 come modificato dal D.Lgs. 101/2018». Dimostra che conosci il sistema e non solo una delle due norme.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     DEFINIZIONI CHIAVE
+================================================================ -->
+<div id="definizioni"></div>
+<div class="section-title"><span class="num">2</span> Definizioni Chiave — Art. 4 GDPR</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ART. 4 GDPR</div>
+      <div class="art-title">Il vocabolario della privacy — devi saperle a memoria</div>
+    </div>
+    <span class="prio prio-red">🔴 Esce sempre</span>
+  </div>
+  <div class="art-body">
+    <table class="vtable">
+      <thead><tr><th>Termine</th><th>Definizione (art. 4 GDPR)</th><th>Esempi pratici</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Dato personale</strong></td>
+          <td>Qualsiasi informazione riguardante una persona fisica identificata o <em>identificabile</em>. Identificabile = può essere identificata, direttamente o indirettamente, tramite riferimento a un identificativo (nome, codice fiscale, dati di localizzazione, identificativo online) o a uno o più elementi caratteristici della sua identità fisica, fisiologica, genetica, psichica, economica, culturale o sociale.</td>
+          <td>Nome, CF, indirizzo, targa auto, IP, email, impronta digitale, foto, dati catastali associati al proprietario</td>
+        </tr>
+        <tr>
+          <td><strong>Trattamento</strong></td>
+          <td>Qualsiasi operazione o insieme di operazioni, compiute con o senza l'ausilio di processi automatizzati, su dati personali: raccolta, registrazione, organizzazione, strutturazione, conservazione, adattamento o modifica, estrazione, consultazione, uso, comunicazione mediante trasmissione, diffusione, messa a disposizione, raffronto o interconnessione, limitazione, cancellazione o distruzione.</td>
+          <td>Inserire un nominativo in una pratica edilizia = trattamento. Archiviare documenti con dati personali = trattamento. Pubblicare l'albo pretorio con nomi = trattamento.</td>
+        </tr>
+        <tr>
+          <td><strong>Titolare del trattamento</strong></td>
+          <td>La persona fisica o giuridica, l'autorità pubblica, il servizio o altro organismo che, singolarmente o insieme ad altri, determina le <em>finalità</em> e i <em>mezzi</em> del trattamento. In una PA: il Comune o l'Unione è il Titolare, non il singolo dipendente.</td>
+          <td>L'Unione dei Comuni Valli e Delizie è il Titolare di tutti i trattamenti che effettua (pratiche edilizie, personale, gare, ecc.)</td>
+        </tr>
+        <tr>
+          <td><strong>Responsabile del trattamento</strong></td>
+          <td>La persona fisica o giuridica, l'autorità pubblica, il servizio o altro organismo che tratta dati personali <em>per conto del titolare</em>, in base a contratto o atto giuridico vincolante (art. 28).</td>
+          <td>Una software house che gestisce il gestionale edilizio del Comune; un avvocato esterno che gestisce il contenzioso</td>
+        </tr>
+        <tr>
+          <td><strong>Interessato</strong></td>
+          <td>La persona fisica i cui dati personali sono oggetto di trattamento.</td>
+          <td>Il cittadino che presenta la domanda di permesso di costruire; il dipendente dell'Unione</td>
+        </tr>
+        <tr>
+          <td><strong>Consenso</strong></td>
+          <td>Qualsiasi manifestazione di volontà <em>libera, specifica, informata e inequivocabile</em> con la quale l'interessato accetta il trattamento dei propri dati. Deve essere verificabile e revocabile.</td>
+          <td>Attenzione: nelle PA il consenso raramente è la base giuridica. La base è quasi sempre la legge o il compito di interesse pubblico.</td>
+        </tr>
+        <tr>
+          <td><strong>Violazione dei dati personali (Data Breach)</strong></td>
+          <td>Violazione di sicurezza che comporta accidentalmente o in modo illecito la distruzione, la perdita, la modifica, la divulgazione non autorizzata o l'accesso ai dati personali trasmessi, conservati o altrimenti elaborati.</td>
+          <td>Furto di un laptop contenente dati di cittadini; invio di email con allegato riservato al destinatario sbagliato; sito web hackerato</td>
+        </tr>
+        <tr>
+          <td><strong>Profilazione</strong></td>
+          <td>Qualsiasi forma di trattamento automatizzato di dati personali volta a valutare aspetti personali relativi a una persona fisica, in particolare per analizzare o prevedere comportamenti, preferenze, interessi.</td>
+          <td>Rilevante per i sistemi di sorveglianza urbana intelligente; sistemi di scoring creditizio</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ================================================================
+     6 PRINCIPI
+================================================================ -->
+<div id="principi"></div>
+<div class="section-title"><span class="num">3</span> I 6 Principi del GDPR — Art. 5</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ART. 5 GDPR — LA COLONNA VERTEBRALE</div>
+      <div class="art-title">Tutto il sistema ruota attorno a questi sei principi</div>
+    </div>
+    <span class="prio prio-red">🔴 Fondamentale — impara la mnemonica</span>
+  </div>
+  <div class="art-body">
+    <div class="principi-grid">
+      <div class="principio">
+        <h4>1. Liceità, correttezza e trasparenza</h4>
+        <p>I dati devono essere trattati in modo lecito (su una base giuridica valida), corretto (senza ingannare l'interessato) e trasparente (l'interessato deve sapere chi tratta i suoi dati, perché e come).</p>
+        <span class="art-ref">Art. 5 c.1 lett. a)</span>
+      </div>
+      <div class="principio">
+        <h4>2. Limitazione della finalità</h4>
+        <p>I dati raccolti per una finalità non possono essere usati per scopi incompatibili con quella finalità originaria. Eccezione: fini di ricerca scientifica, storica o statistica.</p>
+        <span class="art-ref">Art. 5 c.1 lett. b)</span>
+      </div>
+      <div class="principio">
+        <h4>3. Minimizzazione dei dati</h4>
+        <p>Raccogliere solo i dati <em>adeguati, pertinenti e limitati</em> a quanto necessario rispetto alle finalità. Non si raccolgono dati «perché potrebbe servire».</p>
+        <span class="art-ref">Art. 5 c.1 lett. c)</span>
+      </div>
+      <div class="principio">
+        <h4>4. Esattezza</h4>
+        <p>I dati devono essere esatti e, se necessario, aggiornati. I dati inesatti devono essere cancellati o rettificati senza indugio.</p>
+        <span class="art-ref">Art. 5 c.1 lett. d)</span>
+      </div>
+      <div class="principio">
+        <h4>5. Limitazione della conservazione</h4>
+        <p>I dati devono essere conservati in una forma che consenta l'identificazione degli interessati per un arco di tempo non superiore al conseguimento delle finalità. Principi analoghi al divieto di archiviazione eterna.</p>
+        <span class="art-ref">Art. 5 c.1 lett. e)</span>
+      </div>
+      <div class="principio">
+        <h4>6. Integrità e riservatezza</h4>
+        <p>I dati devono essere trattati in maniera da garantirne la sicurezza adeguata, la protezione da trattamenti non autorizzati o illeciti e da perdita, distruzione o danno accidentale.</p>
+        <span class="art-ref">Art. 5 c.1 lett. f)</span>
+      </div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🔑 Mnemonica per i 6 principi</h4>
+      <p><span>L</span>iceità · <span>F</span>inalità · <span>M</span>inimizzazione · <span>E</span>sattezza · <span>C</span>onservazione · <span>S</span>icurezza<br>
+      → <span>«La Fata Magica Eseguì Con Scrupolo»</span><br>
+      oppure l'acronimo: <span>L-F-M-E-C-S</span></p>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Art. 5 c.2 — Responsabilizzazione (Accountability):</strong> il titolare del trattamento è responsabile del rispetto di tutti i principi ed è in grado di comprovarlo. Non basta rispettare le regole — bisogna <em>dimostrare</em> di averle rispettate. È il cambio di paradigma fondamentale del GDPR rispetto alla vecchia normativa: da compliance passiva a responsabilità attiva e documentata.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     BASI GIURIDICHE
+================================================================ -->
+<div id="basi"></div>
+<div class="section-title"><span class="num">4</span> Le Basi Giuridiche del Trattamento — Art. 6 GDPR</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ART. 6 GDPR</div>
+      <div class="art-title">Senza una base giuridica il trattamento è illecito</div>
+    </div>
+    <span class="prio prio-red">🔴 Critico per le PA</span>
+  </div>
+  <div class="art-body">
+    <p>Il trattamento è lecito solo se — e nella misura in cui — ricorre almeno una delle condizioni previste dall'art. 6. Le PA usano quasi sempre le basi delle lettere c) ed e), non il consenso.</p>
+
+    <table class="vtable">
+      <thead><tr><th>Lett.</th><th>Base giuridica</th><th>Quando si usa</th><th>Rilevanza PA</th></tr></thead>
+      <tbody>
+        <tr><td><code>a)</code></td><td><strong>Consenso</strong> dell'interessato</td><td>Privati e aziende, per trattamenti non obbligatori. Deve essere libero, specifico, informato, inequivocabile e revocabile.</td><td>⚠️ Raramente usato dalle PA — il consenso non può essere «libero» se chi lo chiede ha potere sull'interessato (datore di lavoro, PA con potestà).</td></tr>
+        <tr><td><code>b)</code></td><td><strong>Esecuzione di un contratto</strong></td><td>Il trattamento è necessario per eseguire un contratto di cui l'interessato è parte, o per misure precontrattuali.</td><td>Contratti di lavoro dei dipendenti dell'Unione, contratti con i fornitori.</td></tr>
+        <tr><td><code>c)</code></td><td><strong>Obbligo legale</strong></td><td>Il trattamento è necessario per adempiere a un obbligo legale al quale è soggetto il titolare.</td><td>⭐ Principale base per la PA. Qualsiasi trattamento imposto da una norma di legge (DPR 380, L. 241/90, codici settoriali, ecc.).</td></tr>
+        <tr><td><code>d)</code></td><td><strong>Interessi vitali</strong></td><td>Protezione di interessi vitali dell'interessato o di terzi.</td><td>Emergenze sanitarie, protezione civile.</td></tr>
+        <tr><td><code>e)</code></td><td><strong>Interesse pubblico o esercizio di pubblici poteri</strong></td><td>Il trattamento è necessario per l'esecuzione di un compito di interesse pubblico o connesso all'esercizio di pubblici poteri di cui è investito il titolare.</td><td>⭐ La principale base per la PA quando non c'è una norma specifica che impone il trattamento. Pratiche edilizie, urbanistica, servizi sociali, anagrafe.</td></tr>
+        <tr><td><code>f)</code></td><td><strong>Legittimo interesse</strong></td><td>Interessi legittimi del titolare o di terzi, a meno che non prevalgano gli interessi dell'interessato.</td><td>❌ Non applicabile alle autorità pubbliche nell'esercizio delle loro funzioni istituzionali (art. 6 c.1 lett. f) ultima parte).</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">📍</span>
+      <div><strong>Per i Comuni e le Unioni:</strong> nel D.Lgs. 196/2003 modificato, l'art. 2-ter specifica che la base giuridica per i trattamenti della PA deve essere prevista da una norma di legge o di regolamento. Il «legittimo interesse» (lett. f) è escluso per le PA nell'esercizio delle loro funzioni. Le basi c) ed e) sono quelle da citare in quasi tutti i casi pratici.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     DATI PARTICOLARI
+================================================================ -->
+<div id="dati-particolari"></div>
+<div class="section-title"><span class="num">5</span> Dati Particolari e Giudiziari — Artt. 9-10 GDPR</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>Alcune categorie di dati, per la loro <strong>elevata sensitività</strong>, ricevono una protezione rafforzata. Il loro trattamento è vietato in linea di principio, salvo che ricorra una delle eccezioni dell'art. 9 c.2.</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Art. 9 — Dati «particolari» (ex «sensibili»)</h4>
+        <ul>
+          <li>Origine razziale o etnica</li>
+          <li>Opinioni politiche</li>
+          <li>Convinzioni religiose o filosofiche</li>
+          <li>Appartenenza sindacale</li>
+          <li>Dati genetici e biometrici</li>
+          <li>Dati relativi alla salute</li>
+          <li>Vita sessuale e orientamento sessuale</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Art. 10 — Dati giudiziari (ex «super-sensibili»)</h4>
+        <ul>
+          <li>Condanne penali</li>
+          <li>Reati</li>
+          <li>Misure di sicurezza connesse</li>
+          <li>Il trattamento è autorizzato solo se previsto da norma di legge o disposizione del Garante</li>
+          <li>In Italia: D.Lgs. 196/2003 art. 2-octies</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Eccezioni art. 9 c.2 per le PA:</strong> le lettere b), c), g), h), i) consentono il trattamento di dati particolari senza consenso quando: è necessario per adempiere obblighi in materia di diritto del lavoro (b); è necessario per la salvaguardia di interessi vitali (c); è necessario per motivi di interesse pubblico rilevante sulla base del diritto UE o nazionale (g). Le PA usano quasi sempre la lettera g) per i trattamenti di dati particolari istituzionalmente necessari.</div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Cambiamento terminologico importante</div>
+      Il GDPR ha cambiato il nome: i vecchi «dati sensibili» del D.Lgs. 196/2003 pre-riforma diventano «categorie particolari di dati personali». I vecchi «dati super-sensibili» (giudiziari) rimangono disciplinati dall'art. 10. All'esame usa la terminologia GDPR — ma spiega il collegamento con la vecchia normativa se ti viene chiesto.
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     DIRITTI DELL'INTERESSATO
+================================================================ -->
+<div id="diritti"></div>
+<div class="section-title"><span class="num">6</span> I Diritti dell'Interessato — Artt. 15-22 GDPR</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ARTT. 15–22 GDPR</div>
+      <div class="art-title">Otto diritti, tutti esercitabili gratuitamente e senza indugio</div>
+    </div>
+    <span class="prio prio-red">🔴 Esce spesso</span>
+  </div>
+  <div class="art-body">
+    <div class="diritti-list">
+      <div class="diritto-item"><span class="dart">Art.15</span><div><strong>Diritto di accesso:</strong> l'interessato può chiedere conferma che siano trattati suoi dati e ottenerne copia. Non è l'accesso documentale ex L. 241/90 — è diverso e autonomo.</div></div>
+      <div class="diritto-item"><span class="dart">Art.16</span><div><strong>Diritto di rettifica:</strong> correzione di dati inesatti o integrazione di dati incompleti, senza indugio.</div></div>
+      <div class="diritto-item"><span class="dart">Art.17</span><div><strong>Diritto alla cancellazione («diritto all'oblio»):</strong> cancellazione dei dati che non sono più necessari, o se revoca il consenso, o se trattati illecitamente. Non assoluto — cede di fronte a obblighi di legge o interesse pubblico.</div></div>
+      <div class="diritto-item"><span class="dart">Art.18</span><div><strong>Diritto di limitazione:</strong> l'interessato può chiedere che i propri dati siano «bloccati» — conservati ma non ulteriormente trattati — in casi specifici (contestazione esattezza, illiceità, opposizione).</div></div>
+      <div class="diritto-item"><span class="dart">Art.19</span><div><strong>Obbligo di notifica:</strong> il titolare deve comunicare a tutti i destinatari dei dati ogni rettifica, cancellazione o limitazione effettuata, salvo che ciò sia impossibile o sproporzionato.</div></div>
+      <div class="diritto-item"><span class="dart">Art.20</span><div><strong>Diritto alla portabilità:</strong> ricevere i propri dati in formato strutturato, leggibile da macchina, e trasmetterli ad altro titolare. Applicabile solo ai trattamenti basati su consenso o contratto — <em>non applicabile ai trattamenti della PA su base di legge.</em></div></div>
+      <div class="diritto-item"><span class="dart">Art.21</span><div><strong>Diritto di opposizione:</strong> l'interessato può opporsi in qualsiasi momento al trattamento dei propri dati. Per le PA: l'opposizione non è assoluta se il trattamento si fonda su motivi legittimi prevalenti o è necessario per compiti istituzionali.</div></div>
+      <div class="diritto-item"><span class="dart">Art.22</span><div><strong>Diritto a non essere soggetto a decisioni automatizzate:</strong> l'interessato ha il diritto di non essere sottoposto a decisioni basate unicamente sul trattamento automatizzato, compresa la profilazione, che producano effetti giuridici o incidano significativamente.</div></div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">⏱️</span>
+      <div><strong>Tempi di risposta:</strong> il titolare deve rispondere alle richieste degli interessati <strong>senza indugio e al più tardi entro 1 mese</strong> dalla ricezione. Il termine può essere prorogato di altri 2 mesi in caso di complessità o elevato numero di richieste, con obbligo di comunicare la proroga entro il primo mese.</div>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Diritto all'oblio nella PA — il conflitto con la trasparenza:</strong> il diritto alla cancellazione (art. 17) entra in tensione con gli obblighi di trasparenza delle PA (D.Lgs. 33/2013) e con i vincoli archivistici sui documenti pubblici. Il GDPR risolve il conflitto: l'art. 17 c.3 esclude la cancellazione quando il trattamento è necessario per adempiere un obbligo legale, per ragioni di interesse pubblico nel settore della sanità pubblica, o per archiviazione nel pubblico interesse. Il Garante ha emesso linee guida specifiche sul tema «trasparenza vs privacy».</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     FIGURE
+================================================================ -->
+<div id="figure"></div>
+<div class="section-title"><span class="num">7</span> Titolare, Responsabile, DPO — Chi è Chi</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <div class="figure-grid">
+      <div class="figura">
+        <div class="figura-hd">Titolare del trattamento</div>
+        <div class="figura-body">
+          <strong>Chi è: l'Unione dei Comuni Valli e Delizie</strong>
+          È chi decide <em>perché</em> (finalità) e <em>come</em> (mezzi) trattare i dati. Nella PA: è l'ente (non il singolo dirigente o funzionario). Ha tutte le responsabilità. Deve: redigere l'informativa, gestire i diritti degli interessati, nominare il DPO, tenere il registro dei trattamenti, notificare i data breach al Garante, nominare i responsabili del trattamento con atto scritto (art. 28).
+        </div>
+      </div>
+      <div class="figura">
+        <div class="figura-hd">Responsabile del trattamento</div>
+        <div class="figura-body">
+          <strong>Chi è: il soggetto esterno che tratta i dati per conto del titolare</strong>
+          La software house del gestionale edilizio, lo studio legale per il contenzioso, il medico competente per la sorveglianza sanitaria dei dipendenti. Deve operare solo su istruzione del titolare, documentata nel contratto ex art. 28 (c.d. «atto di nomina»). Tiene il proprio registro dei trattamenti. Può nominare sub-responsabili solo con autorizzazione del titolare.
+        </div>
+      </div>
+      <div class="figura">
+        <div class="figura-hd">Autorizzato / Incaricato</div>
+        <div class="figura-body">
+          <strong>Chi è: tu — il funzionario tecnico</strong>
+          Il GDPR non definisce espressamente questa figura (la vecchia disciplina chiamava «incaricati» i dipendenti autorizzati). Il GDPR li chiama «persone autorizzate al trattamento sotto l'autorità del titolare». Devono trattare i dati solo su istruzione del titolare, essere formati, rispettare la riservatezza. Praticamente: ogni dipendente che maneggia dati personali nell'esercizio delle sue funzioni.
+        </div>
+      </div>
+      <div class="figura">
+        <div class="figura-hd">DPO — Responsabile Protezione Dati</div>
+        <div class="figura-body">
+          <strong>Chi è: figura obbligatoria per tutte le PA</strong>
+          Il Data Protection Officer (o RPD — Responsabile della Protezione dei Dati) è obbligatorio per tutte le PA e per soggetti che trattano dati su larga scala (art. 37). Può essere un dipendente o un esterno. Requisiti: competenze specialistiche in materia, indipendenza, non conflitti di interesse. Compiti: informare e formare, verificare la conformità, cooperare col Garante, punto di contatto. Non è il «responsabile» delle violazioni — è il consulente di conformità. L'Unione dei Comuni deve averlo nominato.
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">🚨</span>
+      <div><strong>Il DPO non può essere rimosso o penalizzato per aver svolto le sue funzioni (art. 38 c.3).</strong> La sua indipendenza è garantita per legge. Riferisce direttamente al vertice dell'organizzazione (Sindaco, Presidente dell'Unione). Non è il «responsabile» delle violazioni della privacy — quella responsabilità rimane sul titolare del trattamento.</div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Contitolari del trattamento — art. 26 GDPR</div>
+      Quando due o più soggetti determinano <em>congiuntamente</em> le finalità e i mezzi del trattamento. Es.: l'Unione e i Comuni conferenti che trattano congiuntamente i dati del personale nel sistema informativo condiviso. Devono stipulare un accordo scritto che definisce le rispettive responsabilità (art. 26).
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     REGISTRO TRATTAMENTI
+================================================================ -->
+<div id="registro"></div>
+<div class="section-title"><span class="num">8</span> Registro delle Attività di Trattamento — Art. 30 GDPR</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ART. 30 GDPR</div>
+      <div class="art-title">Lo strumento principale dell'accountability</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>Il registro è l'inventario di tutti i trattamenti di dati personali effettuati dall'ente. È obbligatorio per tutte le PA (senza soglie) e per i titolari con più di 250 dipendenti, ma il Garante raccomanda che chiunque lo tenga. È tenuto in forma scritta (anche elettronica), è a disposizione del Garante su richiesta e <strong>non viene pubblicato</strong>.</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Cosa contiene il registro del titolare</h4>
+        <ul>
+          <li>Nome e dati di contatto del titolare (e del DPO se nominato)</li>
+          <li>Finalità del trattamento</li>
+          <li>Categorie di interessati e di dati personali</li>
+          <li>Categorie di destinatari</li>
+          <li>Trasferimenti verso Paesi terzi</li>
+          <li>Termini previsti per la cancellazione dei dati</li>
+          <li>Descrizione misure di sicurezza (ove possibile)</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Esempi di trattamenti nel registro dell'Unione</h4>
+        <ul>
+          <li>Gestione pratiche edilizie (dati dei richiedenti)</li>
+          <li>Gestione del personale dipendente</li>
+          <li>Gare e appalti (dati di imprese e persone fisiche)</li>
+          <li>Anagrafe (se funzione conferita)</li>
+          <li>Videosorveglianza (se presente)</li>
+          <li>Sito web e cookie</li>
+          <li>Accesso agli atti (L. 241/90)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PRIVACY BY DESIGN / BY DEFAULT
+================================================================ -->
+<div id="pbd"></div>
+<div class="section-title"><span class="num">9</span> Privacy by Design e Privacy by Default — Art. 25 GDPR</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ART. 25 GDPR</div>
+      <div class="art-title">La protezione dei dati deve essere integrata fin dall'inizio</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Privacy by Design</h4>
+        <ul>
+          <li>La protezione dei dati deve essere integrata nella progettazione di sistemi, processi e servizi <em>fin dall'inizio</em></li>
+          <li>Non si aggiunge la privacy «dopo» come una vernice — si costruisce dentro</li>
+          <li>Misure tecniche e organizzative adeguate devono essere implementate sin dalla fase di concezione del trattamento</li>
+          <li>Es.: progettare un sistema informatico che non registra dati non necessari, che cripta automaticamente i dati sensibili</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Privacy by Default</h4>
+        <ul>
+          <li>Le impostazioni predefinite dei sistemi devono garantire il massimo livello di protezione</li>
+          <li>Solo i dati strettamente necessari devono essere trattati per impostazione predefinita</li>
+          <li>L'utente non deve «fare nulla» per avere la massima protezione — deve essere quella di default</li>
+          <li>Es.: un form online che non raccoglie dati facoltativi a meno che l'utente li inserisca esplicitamente</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div><strong>Esempio pratico per la PA tecnica:</strong> quando si progetta un nuovo software gestionale per le pratiche edilizie, il Privacy by Design impone di prevedere sin dalla progettazione: minimizzazione dei campi obbligatori, accessi profilati per funzione, log di accesso, cancellazione automatica dei dati alla scadenza dei termini di conservazione, cifratura dei dati particolari. Non si può comprare il software e poi pensarci.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     DATA BREACH
+================================================================ -->
+<div id="breach"></div>
+<div class="section-title"><span class="num">10</span> Violazione dei Dati Personali — Data Breach — Artt. 33-34 GDPR</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ARTT. 33–34 GDPR</div>
+      <div class="art-title">Cosa fare quando succede un incidente — i tempi sono stringenti</div>
+    </div>
+    <span class="prio prio-red">🔴 Esce spesso — impara i tempi</span>
+  </div>
+  <div class="art-body">
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:#C0392B">!</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-who">Il titolare o il suo staff</div>
+          <div class="flow-action">Scoperta della violazione</div>
+          <div class="flow-detail">La violazione può essere: distruzione/perdita/modifica/divulgazione non autorizzata/accesso non autorizzato a dati personali. Qualunque dipendente che scopre una violazione deve segnalarla immediatamente al DPO e al titolare.</div>
+          <span class="timer t-red">Giorno 0 — la scoperta fa scattare il timer</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">1</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-who">Titolare del trattamento</div>
+          <div class="flow-action">Valutazione del rischio</div>
+          <div class="flow-detail">Il titolare valuta se la violazione può comportare un rischio per i diritti e le libertà delle persone fisiche. Se il rischio è <em>improbabile</em> → non serve notificare il Garante (ma va documentata nel registro delle violazioni). Se c'è un rischio, anche solo probabile → notifica al Garante.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">2</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-who">Titolare → Garante per la Protezione dei Dati</div>
+          <div class="flow-action">Notifica al Garante (art. 33)</div>
+          <div class="flow-detail">Se la violazione può comportare un rischio per i diritti e le libertà delle persone, il titolare notifica la violazione al Garante <strong>entro 72 ore</strong> dalla scoperta. La notifica deve contenere: descrizione della violazione, dati di contatto del DPO, categorie e numero di interessati e dati coinvolti, probabili conseguenze, misure adottate o proposte.</div>
+          <span class="timer t-red">Entro 72 ore dalla scoperta</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">3</div></div>
+        <div class="flow-content">
+          <div class="flow-who">Titolare → Interessati</div>
+          <div class="flow-action">Comunicazione agli interessati (art. 34)</div>
+          <div class="flow-detail">Se la violazione può comportare un <strong>rischio elevato</strong> per i diritti e le libertà degli interessati, il titolare comunica la violazione agli interessati <em>senza indugio</em>. Non serve se: i dati erano cifrati, il titolare ha adottato misure che eliminano il rischio, comunicare sarebbe sproporzionatamente oneroso (in tal caso: comunicazione pubblica).</div>
+          <span class="timer t-orange">Senza indugio — dopo la notifica al Garante</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">🚨</span>
+      <div><strong>Le 72 ore sono tassative e decorrono dalla «scoperta», non dall'evento.</strong> Se il data breach avviene di notte e viene scoperto la mattina dopo, le 72 ore decorrono dalla mattina. Il Garante ha chiarito che la notifica può essere effettuata anche in maniera progressiva se non tutte le informazioni sono disponibili entro i termini. Meglio notificare subito con le informazioni disponibili che aspettare di avere tutto e superare le 72 ore.</div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Registro delle violazioni — sempre obbligatorio</div>
+      Indipendentemente dall'obbligo di notifica al Garante, il titolare deve documentare <em>tutte</em> le violazioni nel registro delle violazioni dei dati personali (art. 33 c.5). Anche le violazioni che non richiedono notifica al Garante vanno registrate, con la motivazione per cui si è ritenuto il rischio improbabile. Questo è controllo ex post dell'Accountability.
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     DPIA
+================================================================ -->
+<div id="dpia"></div>
+<div class="section-title"><span class="num">11</span> DPIA — Valutazione d'Impatto — Art. 35 GDPR</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ART. 35 GDPR</div>
+      <div class="art-title">Quando il trattamento è «ad alto rischio» — valutazione preventiva obbligatoria</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>La Data Protection Impact Assessment (DPIA — Valutazione d'Impatto sulla Protezione dei Dati) è uno strumento di analisi preventiva obbligatorio quando un tipo di trattamento <strong>può presentare un rischio elevato</strong> per i diritti e le libertà delle persone fisiche. Va effettuata <em>prima</em> di avviare il trattamento.</p>
+
+    <h4 class="green">Quando è obbligatoria (art. 35 c.3)</h4>
+    <ul>
+      <li>Trattamento sistematico e su larga scala di <strong>dati particolari</strong> (art. 9) o giudiziari (art. 10)</li>
+      <li><strong>Profilazione sistematica</strong> su larga scala degli interessati</li>
+      <li><strong>Sorveglianza sistematica</strong> su larga scala di zone accessibili al pubblico — es. videosorveglianza urbana estesa</li>
+      <li>Il Garante ha pubblicato un elenco di trattamenti per i quali è obbligatoria in Italia</li>
+    </ul>
+
+    <h4>Cosa contiene una DPIA</h4>
+    <ul>
+      <li>Descrizione sistematica del trattamento previsto e delle finalità</li>
+      <li>Valutazione della necessità e proporzionalità del trattamento</li>
+      <li>Valutazione dei rischi per i diritti e le libertà degli interessati</li>
+      <li>Misure previste per affrontare i rischi, garantire la conformità al GDPR e dimostrare il rispetto del Regolamento</li>
+    </ul>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div><strong>Esempio pratico per il Comune:</strong> l'installazione di un sistema di videosorveglianza con riconoscimento facciale nelle piazze pubbliche richiede DPIA obbligatoria. Anche l'introduzione di un sistema di analisi comportamentale degli accessi al sito web del Comune che vada oltre i normali analytics richiede DPIA. Se la DPIA rivela un rischio residuo elevato, il titolare deve consultare preventivamente il Garante (art. 36) prima di procedere.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PA E PRIVACY — SEZIONE SPECIFICA
+================================================================ -->
+<div id="pa"></div>
+<div class="section-title"><span class="num">12</span> Privacy e Pubblica Amministrazione — Le Regole Specifiche</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">D.LGS. 196/2003 — ARTT. 2-TER, 2-SEXIES, 2-OCTIES</div>
+      <div class="art-title">Le norme nazionali che integrano il GDPR per le PA</div>
+    </div>
+    <span class="prio prio-red">🔴 Specifica PA — priorità alta</span>
+  </div>
+  <div class="art-body">
+    <p>Il D.Lgs. 196/2003 modificato contiene alcune disposizioni specifiche per le PA che integrano il GDPR. Le principali da conoscere:</p>
+
+    <table class="vtable">
+      <thead><tr><th>Articolo</th><th>Contenuto</th><th>Rilievo pratico</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Art. 2-ter</strong></td>
+          <td>Base giuridica per il trattamento da parte delle PA: il trattamento è consentito solo se previsto da una norma di legge o di regolamento. Per comunicazione a terzi: necessaria ulteriore base giuridica specifica.</td>
+          <td>Ogni volta che una PA tratta dati deve identificare la norma di legge che lo consente. Non basta la «utilità» o la «convenienza».</td>
+        </tr>
+        <tr>
+          <td><strong>Art. 2-sexies</strong></td>
+          <td>Trattamento di dati particolari per motivi di interesse pubblico rilevante: elenco delle ipotesi per le quali si possono trattare dati sensibili senza consenso (attività ispettive, tributarie, previdenziali, giudiziarie, sanitarie, ecc.).</td>
+          <td>Base per il trattamento di dati di salute del personale, dati su controversie legali, accertamenti fiscali e tributari.</td>
+        </tr>
+        <tr>
+          <td><strong>Art. 2-octies</strong></td>
+          <td>Trattamento di dati giudiziari: consentito solo se autorizzato da norma di legge o regolamento che specifichi i trattamenti consentiti, i soggetti autorizzati e le finalità.</td>
+          <td>Controlli antimafia negli appalti, verifica carichi pendenti del personale.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 class="orange">Il conflitto più comune nella PA — Privacy vs Trasparenza</h4>
+    <p>Il diritto di accesso documentale (L. 241/1990), l'accesso civico generalizzato (D.Lgs. 33/2013 — FOIA) e la protezione dei dati personali spesso si scontrano. La regola generale:</p>
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Accesso documentale (L. 241/90)</h4>
+        <ul>
+          <li>Diritto soggettivo di chi ha interesse qualificato</li>
+          <li>Cede parzialmente alla privacy: il Comune può oscurare dati di terzi non pertinenti all'interesse del richiedente</li>
+          <li>Bilanciamento caso per caso</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Accesso civico generalizzato (FOIA)</h4>
+        <ul>
+          <li>Diritto a chiunque di accedere a qualsiasi dato/documento PA</li>
+          <li>Eccezioni: privacy degli interessati, sicurezza, segreto commerciale</li>
+          <li>Il Garante ha emesso le Linee guida n. 1/2022 sul bilanciamento</li>
+          <li>Regola: accesso prevalente se l'interesse pubblico supera il danno alla privacy</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">📍</span>
+      <div><strong>L'Albo Pretorio online e i limiti di indicizzazione:</strong> la pubblicazione di atti sull'Albo Pretorio del Comune è obbligatoria per legge (base giuridica: obbligo di legge). Ma il Garante ha chiarito che i motori di ricerca non devono poter indicizzare i dati personali contenuti negli atti pubblicati, per evitare la «gogna mediatica perpetua». Per questo molti Comuni impostano il tag <code>noindex</code> sulle pagine dell'Albo Pretorio. Questo è un tipico esempio di bilanciamento tra trasparenza e privacy nella PA.</div>
+    </div>
+
+    <h4>Informativa (Artt. 13-14 GDPR) — Obbligatoria prima del trattamento</h4>
+    <p>Prima di raccogliere i dati di un cittadino (es. all'atto della presentazione di una domanda di permesso di costruire), la PA deve fornire l'informativa contenente:</p>
+    <ul>
+      <li>Identità e dati di contatto del titolare (l'Unione) e del DPO</li>
+      <li>Finalità e base giuridica del trattamento</li>
+      <li>Eventuali destinatari dei dati</li>
+      <li>Periodo di conservazione previsto</li>
+      <li>Elenco dei diritti dell'interessato e come esercitarli</li>
+      <li>Diritto di proporre reclamo al Garante</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================================================================
+     GARANTE E SANZIONI
+================================================================ -->
+<div id="garante"></div>
+<div class="section-title"><span class="num">13</span> Il Garante e le Sanzioni</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>Il <strong>Garante per la protezione dei dati personali</strong> è l'autorità di controllo italiana, autorità amministrativa indipendente istituita dalla L. 675/1996 e designata come Autorità di controllo ex art. 51 GDPR dal D.Lgs. 101/2018. Ha sede a Roma. È composto da 4 membri eletti dal Parlamento e dura in carica 7 anni non rinnovabili.</p>
+
+    <h4>Poteri del Garante (artt. 51-84 GDPR)</h4>
+    <ul>
+      <li><strong>Poteri investigativi:</strong> accesso a tutti i dati e documenti, ispezioni in loco</li>
+      <li><strong>Poteri correttivi:</strong> ammonimenti, ingiunzioni di conformarsi, limitazione o divieto di trattamento, ordine di cancellazione dei dati</li>
+      <li><strong>Poteri autorizzativi:</strong> autorizzazioni, pareri su proposte legislative</li>
+      <li><strong>Poteri sanzionatori:</strong> sanzioni amministrative pecuniarie</li>
+    </ul>
+
+    <h4 class="orange">Il sistema sanzionatorio — due soglie</h4>
+    <div class="sanz-row">
+      <div class="sanz-num">Fascia 1<br>max<br>10M€<br>o 2%</div>
+      <div class="sanz-body">Per violazioni di obblighi «tecnici»: mancata nomina del DPO, mancata tenuta del registro dei trattamenti, mancata notifica del data breach al Garante entro 72 ore, mancata designazione del responsabile del trattamento con atto scritto, mancata DPIA quando obbligatoria. <strong>10 milioni di euro</strong> o il 2% del fatturato mondiale annuo totale (se superiore).</div>
+    </div>
+    <div class="sanz-row">
+      <div class="sanz-num">Fascia 2<br>max<br>20M€<br>o 4%</div>
+      <div class="sanz-body">Per violazioni dei principi fondamentali del GDPR (art. 5), delle basi giuridiche (art. 6), dei diritti degli interessati (artt. 15-22), dei trasferimenti internazionali. <strong>20 milioni di euro</strong> o il 4% del fatturato mondiale annuo (se superiore). Per una PA il riferimento è il bilancio, non il fatturato.</div>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Sanzioni per le PA italiane — D.Lgs. 196/2003 art. 166:</strong> Per le PA il D.Lgs. 196/2003 ha temperato l'applicazione delle sanzioni GDPR: il Garante, quando accerta una violazione commessa da una PA, dispone le misure correttive senza irrogare sanzioni pecuniarie nella misura massima prevista dal GDPR, ma segnala la violazione alla Corte dei Conti e comunica all'organo di vertice dell'amministrazione. Possono essere irrogate sanzioni pecuniarie ridotte, e il responsabile risponde disciplinarmente e contabilmente.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     RISPOSTA MODELLO — IL PEZZO PIÙ IMPORTANTE
+================================================================ -->
+<div id="risposta"></div>
+<div class="section-title"><span class="num">⭐</span> Risposta Modello per la Prova Scritta</div>
+
+<div class="real-q">
+  <div class="label">Domanda tipo — prova scritta</div>
+  <p>Il candidato illustri la disciplina in materia di protezione dei dati personali applicabile alle pubbliche amministrazioni, con riferimento al Regolamento UE 2016/679 (GDPR) e al D.Lgs. 196/2003 come modificato dal D.Lgs. 101/2018, descrivendo i principi fondamentali, i soggetti coinvolti, gli obblighi dell'ente e i diritti degli interessati.</p>
+</div>
+
+<div class="risposta">
+  <div class="risposta-label">Risposta modello — tempo stimato: 20-25 minuti — lunghezza: circa 800 parole scritte</div>
+
+  <div class="par-title">1. Il quadro normativo</div>
+  <p>La protezione dei dati personali è oggi disciplinata da un sistema normativo a due livelli. A livello europeo, il <strong>Regolamento UE 2016/679 (GDPR)</strong>, direttamente applicabile in tutti gli Stati membri dal 25 maggio 2018, costituisce la fonte primaria e prevalente; esso tutela la protezione dei dati personali quale diritto fondamentale della persona ai sensi dell'art. 8 della Carta dei Diritti Fondamentali dell'Unione europea. A livello nazionale, il <strong>D.Lgs. 30 giugno 2003, n. 196</strong> (Codice Privacy), profondamente riformato dal D.Lgs. 10 agosto 2018, n. 101, integra il GDPR con le disposizioni che il Regolamento rimette alla discrezionalità degli Stati membri, con particolare riguardo ai trattamenti effettuati dalle pubbliche amministrazioni.</p>
+
+  <div class="par-title">2. I principi fondamentali — art. 5 GDPR</div>
+  <p>L'art. 5 del GDPR enuncia i sei principi che governano qualsiasi trattamento di dati personali e che il titolare deve rispettare e dimostrare di rispettare (principio di <strong>accountability</strong>, art. 5 c.2). Il trattamento deve essere: <strong>lecito, corretto e trasparente</strong> nei confronti dell'interessato; effettuato per <strong>finalità determinate, esplicite e legittime</strong> e non ulteriormente trattato in modo incompatibile con esse; <strong>adeguato, pertinente e limitato</strong> a quanto necessario rispetto alle finalità (minimizzazione); <strong>esatto e aggiornato</strong>; conservato per un periodo di tempo non superiore al necessario (<strong>limitazione della conservazione</strong>); trattato in maniera da garantirne adeguata sicurezza (<strong>integrità e riservatezza</strong>). La violazione di questi principi costituisce la più grave categoria di infrazioni, sanzionata fino a 20 milioni di euro.</p>
+
+  <div class="par-title">3. La base giuridica del trattamento nella PA</div>
+  <p>Il trattamento di dati personali è lecito solo in presenza di una delle basi giuridiche previste dall'art. 6 GDPR. Per le pubbliche amministrazioni le basi rilevanti sono principalmente due: l'<strong>adempimento di un obbligo legale</strong> (lett. c), che ricorre ogni volta che una norma di legge impone all'ente di raccogliere o trattare certi dati; e l'<strong>esecuzione di un compito di interesse pubblico</strong> o connesso all'esercizio di pubblici poteri (lett. e). Il D.Lgs. 196/2003 riformato chiarisce all'art. 2-ter che il trattamento da parte delle PA deve essere previsto da una norma di legge o di regolamento. La base del <strong>legittimo interesse</strong> (lett. f) è invece esplicitamente esclusa per le autorità pubbliche nell'esercizio delle loro funzioni istituzionali. Per i dati appartenenti alle <strong>categorie particolari</strong> (art. 9 GDPR — già dati sensibili nel lessico della vecchia disciplina: origine etnica, salute, convinzioni religiose, dati genetici e biometrici, vita sessuale), il trattamento è vietato salvo eccezioni tassative; le PA ricorrono principalmente alla lettera g), che consente il trattamento per motivi di interesse pubblico rilevante sulla base del diritto nazionale, come specificato dall'art. 2-sexies D.Lgs. 196/2003.</p>
+
+  <div class="par-title">4. I soggetti del trattamento</div>
+  <p>Il <strong>titolare del trattamento</strong> è il soggetto che determina le finalità e i mezzi del trattamento: nella PA è l'ente (il Comune, l'Unione dei Comuni) e non il singolo funzionario. Il titolare è responsabile dell'intera filiera di conformità e deve documentare le proprie scelte. Il <strong>responsabile del trattamento</strong> è il soggetto esterno che tratta dati per conto del titolare (es. la software house del gestionale edilizio); deve essere nominato con atto scritto ex art. 28 GDPR e operare solo su istruzione del titolare. I dipendenti che trattano dati nell'esercizio delle loro funzioni operano come <strong>persone autorizzate al trattamento</strong> sotto l'autorità del titolare. Il <strong>Responsabile della Protezione dei Dati (DPO)</strong> è obbligatorio per tutte le PA ai sensi dell'art. 37 GDPR: deve possedere competenze specialistiche, operare in modo indipendente, informare e formare il personale, verificare la conformità e fare da punto di contatto con il Garante. Non può essere rimosso o penalizzato per l'esercizio delle sue funzioni.</p>
+
+  <div class="par-title">5. I principali obblighi dell'ente</div>
+  <p>Il titolare PA deve: fornire agli interessati l'<strong>informativa</strong> (artt. 13-14 GDPR) prima o al momento della raccolta dei dati; tenere il <strong>Registro delle attività di trattamento</strong> (art. 30), documento interno non pubblicato ma disponibile al Garante su richiesta; adottare misure tecniche e organizzative per garantire la sicurezza del trattamento (<strong>privacy by design e by default</strong>, art. 25); in caso di <strong>violazione dei dati personali</strong> (data breach, art. 33), notificare il Garante entro 72 ore dalla scoperta e, se il rischio è elevato, informare direttamente gli interessati senza indugio; effettuare la <strong>Valutazione d'Impatto sulla Protezione dei Dati</strong> (DPIA, art. 35) prima di avviare trattamenti ad alto rischio, come sistemi di videosorveglianza su larga scala o trattamenti sistematici di dati particolari.</p>
+
+  <div class="par-title">6. I diritti degli interessati</div>
+  <p>Il GDPR riconosce agli interessati diritti azionabili entro un mese dalla richiesta: accesso ai propri dati (art. 15), rettifica (art. 16), cancellazione — c.d. diritto all'oblio — (art. 17, non assoluto per le PA), limitazione del trattamento (art. 18), portabilità (art. 20, applicabile solo ai trattamenti basati su consenso o contratto, non ai trattamenti della PA su base di legge), opposizione (art. 21). Il diritto all'oblio è limitato per le PA dalla necessità di rispettare gli obblighi di conservazione degli atti amministrativi e di trasparenza.</p>
+
+  <div class="par-title">7. Il sistema sanzionatorio e l'autorità di controllo</div>
+  <p>Il <strong>Garante per la protezione dei dati personali</strong>, autorità amministrativa indipendente designata come autorità di controllo ai sensi dell'art. 51 GDPR, esercita poteri investigativi, correttivi e sanzionatori. Il GDPR prevede sanzioni fino a 20 milioni di euro o il 4% del fatturato mondiale per le violazioni più gravi. Per le PA italiane, il D.Lgs. 196/2003 art. 166 prevede che le sanzioni pecuniarie siano applicate in misura temperata, con segnalazione alla Corte dei Conti e all'organo di vertice dell'amministrazione, ferme restando le responsabilità disciplinari e contabili dei funzionari responsabili.</p>
+</div>
+
+<!-- ================================================================
+     CASI PRATICI
+================================================================ -->
+<div id="casi"></div>
+<div class="section-title"><span class="num">14</span> Casi Pratici — Ufficio Tecnico Comunale</div>
+
+<div class="case">
+  <div class="case-tag">🏗️ Caso 1 — Pratica edilizia e accesso ai dati</div>
+  <div class="case-title">Un vicino chiede di vedere la pratica edilizia del confinante</div>
+  <p>Un cittadino chiede all'ufficio tecnico del Comune accesso alla pratica edilizia del proprio vicino, che ha realizzato un ampliamento. Nel fascicolo ci sono i dati personali del vicino (anagrafica, codice fiscale, redditi da dichiarazione ISEE). Come si gestisce la richiesta?</p>
+  <div class="case-answer">
+    <strong>Analisi:</strong> doppio binario — accesso documentale (L. 241/90) e protezione dei dati (GDPR).<br><br>
+    <ol>
+      <li><strong>Base dell'accesso:</strong> il richiedente ha un interesse qualificato (è il confinante potenzialmente leso dall'intervento edilizio) → accesso documentale ex art. 22 L. 241/90 legittimo.</li>
+      <li><strong>Cosa può vedere:</strong> i documenti tecnici (tavole, relazioni, titolo edilizio). Non i dati personali ulteriori non pertinenti all'interesse del richiedente (es. dati fiscali del vicino non rilevanti per valutare la legittimità dell'opera).</li>
+      <li><strong>Tecnica del bilanciamento:</strong> il SUE oscura o estrae le parti del fascicolo non pertinenti all'interesse del richiedente. Il Garante ha indicato questa metodologia come corretta per conciliare trasparenza e privacy.</li>
+      <li><strong>Informativa al controinteressato:</strong> prima di concedere l'accesso, il Comune può (non deve necessariamente) avvisare il controinteressato (il vicino) che qualcuno ha chiesto accesso ai suoi dati, per consentirgli di presentare osservazioni.</li>
+    </ol>
+    <strong>Base giuridica del trattamento originario:</strong> art. 6 c.1 lett. c) GDPR (obbligo legale) + art. 6 lett. e) (compito di interesse pubblico) per il trattamento dei dati nella pratica edilizia.
+  </div>
+</div>
+
+<div class="case">
+  <div class="case-tag">💻 Caso 2 — Data Breach nell'ufficio tecnico</div>
+  <div class="case-title">Email inviata al destinatario sbagliato con dati personali di cittadini</div>
+  <p>Un funzionario dell'ufficio tecnico invia per errore a un indirizzo email esterno (non della PA destinataria) un file Excel con i dati di 150 richiedenti in attesa di permesso di costruire (nome, indirizzo, codice fiscale, dati catastali). Il funzionario se ne accorge il giorno dopo. Cosa deve fare il Comune?</p>
+  <div class="case-answer">
+    <strong>Classificazione dell'evento:</strong> violazione dei dati personali (data breach) per divulgazione non autorizzata — art. 4 n. 12 GDPR.<br><br>
+    <ol>
+      <li><strong>Segnalazione immediata interna:</strong> il funzionario segnala subito al DPO e al dirigente responsabile. Il timer delle 72 ore decorre dal momento della scoperta (il giorno dopo l'invio).</li>
+      <li><strong>Valutazione del rischio:</strong> i dati coinvolti (nome, CF, indirizzo, dati catastali) sono dati personali comuni, non particolari. Il rischio è probabile ma non necessariamente elevato (non ci sono dati bancari, sanitari, ecc.). Il DPO valuta la probabilità e gravità delle conseguenze per gli interessati.</li>
+      <li><strong>Notifica al Garante entro 72 ore:</strong> poiché il rischio è almeno probabile, il Comune notifica al Garante tramite il portale telematico (www.gpdp.it). Contiene: descrizione, dati di contatto del DPO, 150 interessati coinvolti, dati personali comuni, misure adottate (tentativo di recall dell'email, eventuale richiesta di cancellazione immediata al destinatario).</li>
+      <li><strong>Comunicazione agli interessati:</strong> solo se il Garante ritiene che il rischio sia elevato, o se il titolare lo valuta tale. In questo caso probabilmente non necessaria, ma va valutata caso per caso.</li>
+      <li><strong>Registro delle violazioni:</strong> la violazione viene documentata nel registro interno anche se il rischio fosse stato valutato basso.</li>
+      <li><strong>Misure correttive:</strong> formazione del personale, controllo delle procedure di invio email, eventuale adozione di sistemi di classificazione dei documenti.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="case">
+  <div class="case-tag">📹 Caso 3 — Videosorveglianza in Comune</div>
+  <div class="case-title">Installare telecamere nel parcheggio del municipio</div>
+  <p>Il Comune di Portomaggiore vuole installare un sistema di videosorveglianza nel parcheggio dell'ufficio comunale per motivi di sicurezza. Quali adempimenti privacy sono necessari?</p>
+  <div class="case-answer">
+    <strong>La videosorveglianza è un trattamento di dati personali</strong> — le immagini di persone fisiche identificabili sono dati personali.<br><br>
+    <ol>
+      <li><strong>Base giuridica:</strong> art. 6 c.1 lett. e) GDPR — compito di interesse pubblico (sicurezza della sede istituzionale).</li>
+      <li><strong>DPIA:</strong> per la videosorveglianza in luoghi pubblici il Garante l'ha inclusa nell'elenco dei trattamenti per cui è obbligatoria (Provvedimento 8 aprile 2010, ora aggiornato al GDPR). Va effettuata prima dell'installazione.</li>
+      <li><strong>Informativa semplificata:</strong> cartello con simbolo telecamera + indicazioni essenziali (titolare, finalità, periodo di conservazione, dove trovare informativa completa) — ex Provvedimento Garante 8/4/2010 e art. 13 GDPR.</li>
+      <li><strong>Periodo di conservazione:</strong> il Garante indica normalmente 24-48 ore per la videosorveglianza. Periodi più lunghi richiedono giustificazione specifica.</li>
+      <li><strong>Accesso alle immagini:</strong> limitato ai soggetti autorizzati, con log di accesso.</li>
+      <li><strong>Protocollo per le richieste delle forze dell'ordine:</strong> le immagini possono essere consegnate all'autorità giudiziaria o di pubblica sicurezza su richiesta motivata.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ================================================================
+     DOMANDE ORALI
+================================================================ -->
+<div id="orale"></div>
+<div class="section-title"><span class="num">15</span> Domande Orali — Come Rispondere</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <div class="quiz-area">
+      <div class="quiz-title">Domande tipiche da orale — clicca per aprire la risposta</div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQ(this)">
+          Qual è la differenza tra il titolare del trattamento e il responsabile del trattamento?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="quiz-a">
+          Il <strong>titolare</strong> è chi decide il «perché» (finalità) e il «come» (mezzi) del trattamento — nella PA è l'ente istituzionale (il Comune, l'Unione). Ha piena responsabilità della conformità. Il <strong>responsabile del trattamento</strong> è un soggetto esterno che tratta dati personali <em>per conto</em> del titolare, su sua istruzione, in base a un contratto scritto ex art. 28 GDPR. Es.: la software house che gestisce il gestionale del protocollo. Errore frequente: nella PA i dipendenti non sono «responsabili del trattamento» — sono «persone autorizzate» che operano sotto l'autorità del titolare. La figura del responsabile è sempre un soggetto esterno all'organizzazione del titolare.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQ(this)">
+          Le PA possono basarsi sul consenso come base giuridica per trattare dati personali dei cittadini?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="quiz-a">
+          Il consenso è tecnicamente una delle sei basi giuridiche previste dall'art. 6 GDPR. Tuttavia, per le PA nell'esercizio delle loro funzioni istituzionali è quasi sempre inadeguato per due motivi: (1) il consenso deve essere «libero» ma quando è la PA a chiederlo (con potestà sull'interessato) non può considerarsi davvero libero; (2) se il trattamento è obbligatorio per legge, richiedere il consenso sarebbe fuorviante perché l'interessato non ha realmente la scelta di negarlo. Le PA usano quasi sempre le basi dell'art. 6 c.1 lett. c) (obbligo legale) ed e) (interesse pubblico). Il D.Lgs. 196/2003 art. 2-ter rafforza questo principio chiedendo che la base per i trattamenti PA sia prevista da una norma di legge o regolamento.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQ(this)">
+          Cosa si intende per accountability nel GDPR e come si manifesta concretamente?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="quiz-a">
+          L'accountability (responsabilizzazione) è il principio fondante del GDPR, enunciato all'art. 5 c.2: il titolare è responsabile del rispetto di tutti i principi del GDPR ed è in grado di <em>comprovarlo</em>. Non basta rispettare le regole — bisogna documentare di averle rispettate. Si manifesta concretamente attraverso: la tenuta del Registro dei trattamenti (art. 30), la redazione di privacy policy e informative, la nomina per iscritto dei responsabili del trattamento (art. 28), la valutazione d'impatto (DPIA, art. 35), la nomina del DPO, il registro delle violazioni (art. 33 c.5), la formazione documentata del personale. È il cambio di paradigma più importante rispetto alla vecchia disciplina: da obbligo di conformità passiva a responsabilità attiva e documentata.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQ(this)">
+          Come si risolve il conflitto tra il diritto di accesso agli atti (L. 241/90) e la protezione dei dati personali di terzi contenuti negli atti richiesti?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="quiz-a">
+          Il conflitto si risolve attraverso un bilanciamento caso per caso, seguendo le indicazioni del Garante e della giurisprudenza del Consiglio di Stato. La regola generale: l'accesso è consentito quando l'interesse del richiedente è qualificato e la documentazione richiesta è pertinente alla tutela di quel interesse. I dati personali di terzi contenuti negli atti che non sono pertinenti all'interesse del richiedente devono essere oscurati (tecnica dell'estrazione o dell'oscuramento). Per l'accesso civico generalizzato (FOIA, D.Lgs. 33/2013) il bilanciamento è più articolato: prevale la trasparenza salvo che il danno alla riservatezza dell'interessato sia superiore all'interesse pubblico alla divulgazione — il Garante ha emesso le Linee guida n. 1/2022 che forniscono i criteri di bilanciamento specifici.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQ(this)">
+          Cosa deve fare un Comune che scopre un data breach? Quali sono i termini?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="quiz-a">
+          Dalla scoperta della violazione decorre il termine di <strong>72 ore</strong> per la notifica al Garante (art. 33 GDPR), se la violazione può comportare un rischio per i diritti e le libertà degli interessati. La notifica avviene tramite il portale telematico del Garante (www.gpdp.it). Può essere «progressiva» se non tutte le informazioni sono disponibili entro le 72 ore. Se il rischio per gli interessati è <em>elevato</em> (non solo probabile), il titolare deve comunicare la violazione direttamente agli interessati, <em>senza indugio</em> (art. 34). Indipendentemente dall'obbligo di notifica, ogni violazione va documentata nel Registro delle violazioni (art. 33 c.5), anche quelle che non richiedono notifica al Garante. Se la PA non notifica entro 72 ore una violazione che avrebbe dovuto notificare, la sanzione può arrivare fino a 10 milioni di euro.
+        </div>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-q" onclick="toggleQ(this)">
+          Il Comune può pubblicare sull'Albo Pretorio online i dati personali dei destinatari di ordinanze? C'è un limite?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="quiz-a">
+          Sì — la pubblicazione sull'Albo Pretorio è spesso obbligatoria per legge (base giuridica: art. 6 c.1 lett. c) GDPR, obbligo legale). Tuttavia il Garante ha chiarito che: (1) i dati pubblicati devono essere limitati a quelli strettamente necessari allo scopo della pubblicazione (principio di minimizzazione); (2) il periodo di pubblicazione non deve eccedere quanto previsto dalla legge; (3) una volta scaduto il termine di pubblicazione obbligatoria, i dati devono essere rimossi dall'Albo online; (4) le pagine dell'Albo Pretorio non devono essere indicizzate dai motori di ricerca (tag <em>noindex</em>) per evitare che i dati rimangano accessibili in rete dopo la rimozione dall'Albo — la c.d. «pubblicità notizia» non deve diventare «gogna perpetua». Questo è il bilanciamento tra trasparenza e privacy più praticato nei Comuni.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     QUIZ
+================================================================ -->
+<div id="quiz"></div>
+<div class="section-title"><span class="num">16</span> Quiz</div>
+
+<div class="quiz-score-box">
+  <div class="big" id="score">0/0</div>
+  <div class="lbl">Risposte corrette — clicca sulle opzioni per iniziare</div>
+</div>
+<div class="pbar"><div class="pfill" id="pbar" style="width:0%"></div></div>
+<div id="qbox"></div>
+<button class="btn-reset" onclick="resetQ()">↺ Ricomincia quiz</button>
+
+</div><!-- .main -->
+
+<footer>
+  GDPR Reg. UE 2016/679 · D.Lgs. 196/2003 mod. D.Lgs. 101/2018 · Guida per concorso Specialista Tecnico · Unione Valli e Delizie (FE)
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function toggleDark(el) { document.documentElement.dataset.theme = el.checked ? 'dark' : 'light'; }
+window.addEventListener('scroll', () => { document.getElementById('scrolltop').classList.toggle('visible', window.scrollY > 400); });
+
+function toggleQ(el) {
+  const a = el.nextElementSibling;
+  a.classList.toggle('open');
+  el.classList.toggle('active');
+}
+
+const qs = [
+  {
+    q: "Il GDPR 679/2016 è applicabile in Italia dal:",
+    opts: ["25 maggio 2016, data della sua adozione","25 maggio 2018, due anni dopo la sua entrata in vigore","10 agosto 2018, data del D.Lgs. 101/2018","1° gennaio 2019, primo giorno dell'anno successivo all'adeguamento"],
+    c: 1,
+    e: "Il GDPR è entrato in vigore il 24 maggio 2016, ma è diventato applicabile — con effetto diretto in tutti gli Stati membri — il 25 maggio 2018, dopo due anni di periodo transitorio concessi agli Stati per adeguarsi."
+  },
+  {
+    q: "Quale dei seguenti NON è uno dei sei principi dell'art. 5 GDPR?",
+    opts: ["Minimizzazione dei dati","Portabilità dei dati","Limitazione della finalità","Integrità e riservatezza"],
+    c: 1,
+    e: "La portabilità dei dati è un diritto degli interessati (art. 20 GDPR), non un principio dell'art. 5. I sei principi dell'art. 5 sono: liceità/correttezza/trasparenza, limitazione della finalità, minimizzazione, esattezza, limitazione della conservazione, integrità e riservatezza."
+  },
+  {
+    q: "Quale base giuridica del trattamento NON può essere usata dalle pubbliche amministrazioni nell'esercizio delle loro funzioni istituzionali?",
+    opts: ["Adempimento di un obbligo legale (lett. c)","Esecuzione di un compito di interesse pubblico (lett. e)","Legittimo interesse del titolare (lett. f)","Interessi vitali dell'interessato (lett. d)"],
+    c: 2,
+    e: "L'art. 6 c.1 ultima parte esclude esplicitamente che le autorità pubbliche possano ricorrere al legittimo interesse (lett. f) nell'esercizio delle loro funzioni. Le PA usano principalmente le basi delle lett. c) ed e). Il legittimo interesse è riservato ai soggetti privati."
+  },
+  {
+    q: "Il DPO (Responsabile della Protezione dei Dati) è obbligatorio per le pubbliche amministrazioni?",
+    opts: ["No, è facoltativo per tutti i soggetti pubblici e privati","Sì, è obbligatorio per tutte le PA senza eccezioni (art. 37 GDPR)","Sì, ma solo per i Comuni con più di 50.000 abitanti","No, è obbligatorio solo per le aziende private che trattano dati su larga scala"],
+    c: 1,
+    e: "Art. 37 GDPR: il DPO è obbligatorio per tutte le autorità pubbliche e gli organismi pubblici, senza soglie di dimensione. Anche un piccolo Comune di 3.000 abitanti deve avere un DPO. Può essere un dipendente interno o un soggetto esterno, ma deve avere le competenze specialistiche necessarie."
+  },
+  {
+    q: "In caso di data breach, il titolare del trattamento deve notificarlo al Garante entro:",
+    opts: ["24 ore dalla scoperta","48 ore dalla scoperta della violazione","72 ore dalla scoperta della violazione","7 giorni dal verificarsi dell'evento"],
+    c: 2,
+    e: "Art. 33 GDPR: la notifica al Garante deve avvenire entro 72 ore dalla scoperta della violazione, qualora essa possa comportare un rischio per i diritti e le libertà delle persone fisiche. Le 72 ore decorrono dalla «scoperta», non dal momento in cui è avvenuta la violazione. La notifica può essere progressiva se non tutte le informazioni sono disponibili entro i termini."
+  },
+  {
+    q: "Il diritto alla portabilità dei dati (art. 20 GDPR) si applica ai trattamenti effettuati dalla PA su base di legge?",
+    opts: ["Sì, si applica a tutti i trattamenti senza eccezioni","No, si applica solo ai trattamenti basati su consenso o su contratto","Sì, ma solo se i dati trattati sono in formato digitale","No, si applica solo alle aziende private con più di 250 dipendenti"],
+    c: 1,
+    e: "Art. 20 c.3 GDPR: il diritto alla portabilità non si applica al trattamento necessario per l'esecuzione di un compito di interesse pubblico o connesso all'esercizio di pubblici poteri. Poiché la PA tratta quasi sempre sulla base dell'art. 6 c.1 lett. c) o e), il diritto alla portabilità non è normalmente applicabile ai trattamenti delle PA nell'esercizio delle loro funzioni istituzionali."
+  },
+  {
+    q: "Cosa si intende per «accountability» nel sistema GDPR?",
+    opts: ["Il diritto dell'interessato di chiedere conto al titolare delle modalità di trattamento","L'obbligo del titolare di rispettare i principi del GDPR ed essere in grado di comprovarlo","L'obbligo di notificare al Garante ogni trattamento di dati personali","La responsabilità penale del DPO in caso di violazione del GDPR"],
+    c: 1,
+    e: "Art. 5 c.2 GDPR: il titolare del trattamento è responsabile del rispetto dei principi del GDPR ed è in grado di comprovarlo. L'accountability è il cambio di paradigma fondamentale: non basta rispettare le norme, bisogna documentare di averle rispettate. Si manifesta attraverso il registro dei trattamenti, le valutazioni d'impatto, la formazione documentata del personale, le nomine scritte dei responsabili, il registro delle violazioni."
+  },
+  {
+    q: "La DPIA (Valutazione d'Impatto sulla Protezione dei Dati) è obbligatoria quando:",
+    opts: ["Si installa qualsiasi sistema informatico che tratti dati personali","Il trattamento può presentare un rischio elevato per i diritti e le libertà degli interessati","Si tratta un numero superiore a 1000 interessati","Si nominano nuovi responsabili del trattamento"],
+    c: 1,
+    e: "Art. 35 GDPR: la DPIA è obbligatoria quando il trattamento può presentare un rischio elevato per i diritti e le libertà delle persone fisiche, in particolare per trattamenti sistematici su larga scala di dati particolari, sorveglianza sistematica di aree pubbliche, profilazione su larga scala. Il Garante italiano ha pubblicato un elenco di trattamenti per i quali è obbligatoria."
+  },
+  {
+    q: "Qual è la differenza tra i 'dati particolari' ex art. 9 GDPR e i 'dati giudiziari' ex art. 10 GDPR?",
+    opts: ["Non c'è differenza — sono la stessa categoria con due nomi diversi","I dati particolari riguardano categorie sensibili (salute, etnia, religione, ecc.), i dati giudiziari riguardano condanne penali e reati — hanno regimi distinti","I dati particolari possono essere trattati solo dalla PA, i giudiziari solo dall'autorità giudiziaria","I dati particolari richiedono sempre il consenso, i dati giudiziari invece no"],
+    c: 1,
+    e: "Sono due categorie distinte con regimi diversi. L'art. 9 elenca le «categorie particolari» (ex dati sensibili): origine etnica, opinioni politiche, convinzioni religiose, appartenenza sindacale, dati genetici e biometrici, salute, vita sessuale. L'art. 10 disciplina i dati relativi a condanne penali, reati e misure di sicurezza — il cui trattamento è consentito solo sotto il controllo dell'autorità pubblica o se previsto da norma di legge o dal Garante."
+  },
+  {
+    q: "Il Comune pubblica sull'Albo Pretorio online un'ordinanza con il nome e l'indirizzo del destinatario. Dopo la scadenza del periodo di pubblicazione, i dati rimangono indicizzati da Google. Cosa deve fare il Comune?",
+    opts: ["Nulla — la pubblicazione è avvenuta legalmente, i successivi effetti non sono di competenza del Comune","Rimuovere i dati dall'Albo e impostare il tag 'noindex' sulle pagine dell'Albo per evitare l'indicizzazione permanente","Chiedere all'interessato il consenso per la pubblicazione preventiva","Segnalare il problema a Google e attendere la deindicizzazione spontanea"],
+    c: 1,
+    e: "Il Garante ha chiarito che la pubblicità legale sull'Albo Pretorio è legittima come «pubblicità notizia» per il periodo prescritto, ma non deve trasformarsi in «gogna mediatica perpetua» per effetto dei motori di ricerca. I Comuni devono: (1) rimuovere i dati dall'Albo alla scadenza del periodo obbligatorio, (2) impostare il tag noindex sulle pagine dell'Albo per impedire l'indicizzazione permanente. Questo è uno degli esempi più pratici di bilanciamento trasparenza/privacy nella PA."
+  }
+];
+
+let st = { right:0, total:0, done: new Set() };
+
+function buildQ() {
+  const c = document.getElementById('qbox');
+  c.innerHTML = '';
+  qs.forEach((q,i) => {
+    const d = document.createElement('div');
+    d.className = 'mc-item';
+    d.innerHTML = `
+      <div class="mc-q"><span class="mc-num">Domanda ${i+1} / ${qs.length}</span>${q.q}</div>
+      <div class="mc-opts">
+        ${q.opts.map((o,j)=>`
+          <div class="mc-opt" onclick="ans(${i},${j},this)">
+            <div class="ol">${['A','B','C','D'][j]}</div><div>${o}</div>
+          </div>`).join('')}
+      </div>
+      <div class="mc-expl" id="e${i}">${q.e}</div>`;
+    c.appendChild(d);
+  });
+  upd();
+}
+
+function ans(qi,oi,el){
+  if(st.done.has(qi))return;
+  st.done.add(qi);st.total++;
+  const opts=el.parentElement.querySelectorAll('.mc-opt');
+  opts.forEach(o=>o.classList.add('answered'));
+  if(oi===qs[qi].c){el.classList.add('correct');st.right++;}
+  else{el.classList.add('wrong');opts[qs[qi].c].classList.add('correct');}
+  document.getElementById('e'+qi).classList.add('show');
+  upd();
+}
+
+function upd(){
+  document.getElementById('score').textContent=`${st.right}/${st.total}`;
+  document.getElementById('pbar').style.width=(qs.length>0?st.done.size/qs.length*100:0)+'%';
+}
+
+function resetQ(){st={right:0,total:0,done:new Set()};buildQ();}
+
+buildQ();
+</script>
+</body>
+</html>

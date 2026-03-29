@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPR 62/2013 — Codice di Comportamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Crimson+Pro:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --page-color:        #2E5FA3;
+    --page-color2:       #1E4080;
+    --page-color-bg:     rgba(46,95,163,.07);
+    --page-color-border: rgba(46,95,163,.28);
+  }
+  [data-theme="dark"] {
+    --page-color-bg:     rgba(46,95,163,.13);
+    --page-color-border: rgba(46,95,163,.35);
+  }
+
+  /* tag articolo */
+  .art-tag {
+    font-family: var(--mono);
+    font-size: .65rem;
+    font-weight: 600;
+    padding: .15rem .55rem;
+    border-radius: 3px;
+    display: inline-block;
+    background: var(--page-color-bg);
+    color: var(--page-color);
+    border: 1px solid var(--page-color-border);
+    margin-right: .3rem;
+    white-space: nowrap;
+  }
+
+  /* blocco esempio pratico */
+  .esempio {
+    background: var(--alert-green-bg);
+    border: 1px solid var(--alert-green-br);
+    border-radius: 5px;
+    padding: .75rem 1rem;
+    margin: .5rem 0;
+    font-size: .87rem;
+    line-height: 1.6;
+  }
+  .esempio::before {
+    content: '📌 Esempio: ';
+    font-weight: 600;
+    color: #1A6B3C;
+  }
+
+  /* blocco "cosa non fare" */
+  .vietato {
+    background: var(--alert-red-bg);
+    border: 1px solid var(--alert-red-br);
+    border-radius: 5px;
+    padding: .75rem 1rem;
+    margin: .5rem 0;
+    font-size: .87rem;
+    line-height: 1.6;
+  }
+  .vietato::before {
+    content: '🚫 Vietato: ';
+    font-weight: 600;
+    color: #C0392B;
+  }
+
+  /* soglia valore */
+  .soglia {
+    font-family: var(--mono);
+    font-size: .8rem;
+    font-weight: 700;
+    background: var(--alert-orange-bg);
+    color: #C9670A;
+    border: 1px solid var(--alert-orange-br);
+    padding: .15rem .55rem;
+    border-radius: 3px;
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="badge">DPR 16 aprile 2013, n. 62</div>
+      <h1>Codice di Comportamento<br>dei Dipendenti Pubblici</h1>
+      <p>Doveri, obblighi, conflitti di interessi, sanzioni — tutto quello che serve per rispondere all'esame con padronanza e precisione</p>
+    </div>
+    <div class="controls">
+      <div class="toggle-row">
+        <span class="toggle-label">Tema scuro</span>
+        <label class="toggle">
+          <input type="checkbox" id="themeToggle">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-wrap">
+  <div class="nav-pills">
+    <a class="nav-pill" href="#inquadramento">Inquadramento</a>
+    <a class="nav-pill" href="#principi">Principi generali</a>
+    <a class="nav-pill" href="#conflitto">Conflitto d'interessi</a>
+    <a class="nav-pill" href="#regali">Regali e vantaggi</a>
+    <a class="nav-pill" href="#beni">Uso beni PA</a>
+    <a class="nav-pill" href="#comunicazioni">Comunicazioni</a>
+    <a class="nav-pill" href="#altri">Altri obblighi</a>
+    <a class="nav-pill" href="#dirigenti">Dirigenti</a>
+    <a class="nav-pill" href="#sanzioni">Sanzioni</a>
+    <a class="nav-pill" href="#risposta">Risposta esame</a>
+    <a class="nav-pill" href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<div class="real-q">
+  <div class="label">★ Domanda tipica d'esame — scritta e orale</div>
+  <p>«Illustri i principali obblighi del dipendente pubblico ai sensi del Codice di comportamento DPR 62/2013» — oppure: «Quali sono i principi generali e i doveri del dipendente pubblico?» — oppure ancora in combinazione: «Illustri il sistema di prevenzione della corruzione e i principali obblighi comportamentali del dipendente.»</p>
+</div>
+
+<main class="main">
+
+<!-- ══════════════════════════════════
+     1 — INQUADRAMENTO
+══════════════════════════════════ -->
+<h2 class="section-title" id="inquadramento">
+  <span class="num">1</span>
+  Inquadramento — cos'è e perché esiste
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">DPR 62/2013 — adottato ex art. 54 D.Lgs. 165/2001</div>
+      <div class="art-title">Codice di comportamento dei dipendenti pubblici</div>
+    </div>
+    <span class="prio prio-red">Materia d'esame</span>
+  </div>
+  <div class="art-body">
+    <p>Il DPR 62/2013 è il <strong>codice di comportamento nazionale</strong> dei dipendenti delle pubbliche amministrazioni, adottato in attuazione dell'art. 54 del D.Lgs. 165/2001 (Testo Unico sul Pubblico Impiego) e potenziato dalla <strong>L. 190/2012</strong> (legge anticorruzione), che ha reso obbligatoria per ogni PA l'adozione di un codice di comportamento integrativo di quello nazionale.</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Dove si inserisce</h4>
+        <ul>
+          <li><strong>Art. 54 D.Lgs. 165/2001</strong> — base legale del codice nazionale</li>
+          <li><strong>L. 190/2012</strong> — ha reso obbligatori i codici integrativi di ente</li>
+          <li><strong>CCNL di riferimento</strong> — il codice integra (non sostituisce) le norme contrattuali sui doveri</li>
+          <li><strong>Piano anticorruzione (PTPCT)</strong> — il codice integrativo è allegato al Piano</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>A chi si applica</h4>
+        <ul>
+          <li>Tutti i <strong>dipendenti delle PA</strong> ex art. 1 c.2 D.Lgs. 165 (inclusi enti locali)</li>
+          <li>Dipendenti a tempo <strong>determinato e indeterminato</strong></li>
+          <li>Collaboratori e consulenti (per quanto compatibile)</li>
+          <li>Imprese fornitrici e appaltatori (clausole contrattuali obbligatorie)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">⚡</span>
+      <div><strong>Il doppio livello:</strong> esiste il codice <em>nazionale</em> (DPR 62/2013) che vale per tutti, e il codice <em>integrativo di ente</em> che ogni PA deve adottare per declinare gli obblighi sulla propria realtà specifica. L'Unione Valli e Delizie ha il proprio codice integrativo allegato al PTPCT. Le violazioni di entrambi hanno rilevanza disciplinare.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     2 — PRINCIPI GENERALI
+══════════════════════════════════ -->
+<h2 class="section-title" id="principi">
+  <span class="num">2</span>
+  Principi generali — art. 3
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Art. 3 DPR 62/2013</div>
+      <div class="art-title">I principi cardine del dipendente pubblico</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>Il dipendente osserva la Costituzione, serve esclusivamente la Nazione e agisce in modo da <strong>non deludere la fiducia e le aspettative che i cittadini ripongono nell'imparzialità e nell'efficienza delle PA</strong>. Cinque principi fondamentali permeano tutto il codice:</p>
+
+    <table class="vtable">
+      <thead>
+        <tr>
+          <th>Principio</th>
+          <th>In cosa si traduce concretamente</th>
+          <th>Esempio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Lealtà</strong></td>
+          <td>Rispettare le leggi, i regolamenti, le direttive dell'ente. Non aggirare le norme. Essere fedele agli obiettivi dell'amministrazione.</td>
+          <td>Eseguire una direttiva del dirigente anche se non si è personalmente d'accordo, salvo casi di illiceità palese.</td>
+        </tr>
+        <tr>
+          <td><strong>Imparzialità</strong></td>
+          <td>Non favorire né danneggiare nessun soggetto. Trattare tutti i cittadini/utenti allo stesso modo. Non far prevalere interessi personali o di parte.</td>
+          <td>Istruire una pratica edilizia di un amico con gli stessi tempi e criteri di qualsiasi altra pratica.</td>
+        </tr>
+        <tr>
+          <td><strong>Buona condotta</strong></td>
+          <td>Comportarsi correttamente nei rapporti con colleghi, superiori, utenti. Tenere un contegno dignitoso anche fuori dall'orario di lavoro se in qualità di pubblico dipendente.</td>
+          <td>Non usare un linguaggio offensivo né con i cittadini allo sportello né sui social quando si parla in nome dell'ente.</td>
+        </tr>
+        <tr>
+          <td><strong>Diligenza</strong></td>
+          <td>Svolgere i compiti assegnati con cura, precisione e tempestività. Non procrastinare senza motivo. Tenersi aggiornato professionalmente.</td>
+          <td>Rispettare i termini del procedimento amministrativo ex L. 241/90, segnalare tempestivamente impedimenti.</td>
+        </tr>
+        <tr>
+          <td><strong>Integrità</strong></td>
+          <td>Non perseguire interessi privati nell'esercizio delle funzioni pubbliche. Agire per il solo interesse pubblico. Non accettare vantaggi non dovuti.</td>
+          <td>Segnalare al responsabile un potenziale conflitto di interessi anziché gestirlo in silenzio.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mnemonic">
+      <h4>Mnemonica — I 5 principi</h4>
+      <p><span>L</span>ealtà · <span>I</span>mparzialità · <span>B</span>uona condotta · <span>D</span>iligenza · <span>I</span>ntegrità<br>
+      → <span>«LIBDI»</span> — o più facile: <span>«un dipendente LEALE è IMPARZIALE, si comporta BENE, è DILIGENTE e ha INTEGRITÀ»</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     3 — CONFLITTO DI INTERESSI
+══════════════════════════════════ -->
+<h2 class="section-title" id="conflitto">
+  <span class="num">3</span>
+  Conflitto di interessi — artt. 6–7
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 6–7 DPR 62/2013</div>
+      <div class="art-title">Comunicazione e astensione in caso di conflitto</div>
+    </div>
+    <span class="prio prio-red">Alta probabilità esame</span>
+  </div>
+  <div class="art-body">
+    <p>Il conflitto di interessi si verifica quando il dipendente si trova a dover gestire un procedimento, un affare o una decisione in cui ha — o potrebbe avere — un <strong>interesse personale, economico o familiare</strong> che potrebbe comprometterne l'imparzialità.</p>
+
+    <div class="concept">
+      <div class="concept-title">Il duplice obbligo: comunicare E astenersi</div>
+      <p>Il dipendente che si trova in una situazione di conflitto (anche solo potenziale) ha <strong>due obblighi distinti e obbligatori</strong>, non alternativi:</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Obbligo di comunicazione — art. 6</div>
+          <div class="flow-action">Comunicare per iscritto al dirigente la situazione di conflitto</div>
+          <div class="flow-detail">Il dipendente segnala tempestivamente al proprio responsabile l'esistenza del conflitto di interessi, anche solo potenziale. La comunicazione deve essere fatta <strong>prima</strong> di qualsiasi atto sul procedimento.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">2</div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Obbligo di astensione — art. 7</div>
+          <div class="flow-action">Astenersi dal partecipare all'adozione di decisioni o attività</div>
+          <div class="flow-detail">Il dipendente non partecipa al procedimento fino a che il dirigente non valuta la situazione e adotta le misure necessarie (assegnazione ad altro dipendente, intervento sostitutivo, ecc.).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept" style="margin-top:.8rem">
+      <div class="concept-title">Quando si configura conflitto — casistica</div>
+      <ul style="list-style:none;padding:0;font-size:.9rem">
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Il dipendente deve rilasciare un'autorizzazione edilizia a un <strong>parente</strong></li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Deve valutare un'offerta in una gara d'appalto presentata da una <strong>società di cui è socio</strong> un familiare</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Deve istruire una pratica relativa a un soggetto con cui ha <strong>contenziosi legali in corso</strong></li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Ha <strong>interessi economici</strong> (anche indiretti) nell'esito del procedimento che gestisce</li>
+        <li style="padding:.3rem 0">▸ Ha rapporti di <strong>frequentazione abituale</strong> con il soggetto interessato dal procedimento</li>
+      </ul>
+    </div>
+
+    <div class="esempio">Il geometra dell'Unione deve istruire una SCIA presentata dal cognato. Prima di toccare la pratica deve scrivere al suo responsabile segnalando la situazione. Il responsabile decide se assegnare la pratica a un collega.</div>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">⚠</span>
+      <span>Il conflitto va comunicato <strong>anche se</strong> il dipendente ritiene di poter essere ugualmente imparziale. Non è lui a decidere: è il <strong>responsabile</strong> che valuta e decide le misure. L'autocertificazione di imparzialità non è sufficiente.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     4 — REGALI E VANTAGGI
+══════════════════════════════════ -->
+<h2 class="section-title" id="regali">
+  <span class="num">4</span>
+  Regali, doni e altri vantaggi — art. 4
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Art. 4 DPR 62/2013</div>
+      <div class="art-title">Divieto di accettare regali e vantaggi non dovuti</div>
+    </div>
+    <span class="prio prio-orange">Media-alta priorità</span>
+  </div>
+  <div class="art-body">
+    <p>Il dipendente non accetta per sé o per altri, <strong>direttamente o indirettamente</strong>, regali, doni, compensi, utilità o altri vantaggi, comunque denominati, di cui non sia debitore, da soggetti che abbiano o abbiano avuto <strong>rapporti con l'amministrazione</strong> nell'ambito delle proprie funzioni.</p>
+
+    <div class="alert alert-page" style="margin:.8rem 0">
+      <span class="alert-icon">💡</span>
+      <div>
+        <strong>La soglia dei 150 euro — regola pratica fondamentale:</strong><br>
+        Fa eccezione solo <span class="soglia">≤ 150 €</span> di valore complessivo, se si tratta di <strong>regali d'uso</strong> (es. oggetti promozionali, calendario, agenda aziendale). Sopra questa soglia il divieto è assoluto. Il limite vale anche per l'insieme di più regali dello stesso soggetto nell'anno.
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Cosa è vietato (qualsiasi valore)</h4>
+        <ul>
+          <li>Denaro, buoni spesa, gift card</li>
+          <li>Viaggi, ospitalità, pasti di valore non modesto</li>
+          <li>Sconti su beni/servizi non aperti al pubblico</li>
+          <li>Vantaggi per familiari o terzi collegati al dipendente</li>
+          <li>Promesse di futuri vantaggi lavorativi</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Cosa è tollerato (uso e valore modesto)</h4>
+        <ul>
+          <li>Penna, agenda, calendario aziendale (valore simbolico)</li>
+          <li>Gadget promozionali standardizzati</li>
+          <li>Caffè offerto durante un incontro istituzionale</li>
+          <li>Sempre: <strong>entro 150 € complessivi per anno per soggetto</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="vietato">Accettare una cena offerta da un professionista che ha un'istanza in istruttoria presso l'ufficio del dipendente, anche se di valore modesto, è vietato se configura un rapporto di interesse con l'amministrazione.</div>
+
+    <div class="esempio">Un tecnico dell'Unione riceve un agenda promozionale da uno studio professionale che deposita spesso pratiche. Valore: circa 20 €. È tollerato come omaggio d'uso. Se invece riceve una bottiglia di vino da 80 € + un pranzo da 90 € dallo stesso studio nello stesso anno: la soglia di 150 € è superata, il vantaggio è vietato.</div>
+
+    <div class="concept">
+      <div class="concept-title">Cosa fa il dipendente se riceve un regalo non dovuto</div>
+      <p style="font-size:.9rem">Deve <strong>immediatamente comunicarlo</strong> al proprio responsabile e restituire il regalo o, se non possibile, metterlo a disposizione dell'amministrazione. Non comunicare la ricezione di un regalo non dovuto è già di per sé una violazione del codice.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     5 — USO DEI BENI PUBBLICI
+══════════════════════════════════ -->
+<h2 class="section-title" id="beni">
+  <span class="num">5</span>
+  Uso dei beni pubblici — art. 11
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Art. 11 DPR 62/2013</div>
+      <div class="art-title">Uso delle risorse, dei beni e dei sistemi informatici della PA</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>Il dipendente utilizza i beni e le risorse pubbliche <strong>esclusivamente per ragioni d'ufficio</strong>. Non può utilizzarli per scopi privati né metterli a disposizione di terzi. La regola vale per beni materiali e immateriali.</p>
+
+    <table class="vtable">
+      <thead>
+        <tr><th>Risorsa</th><th>Uso consentito</th><th>Uso vietato</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>PC / sistemi informatici</strong></td>
+          <td>Attività lavorative istituzionali, ricerca di informazioni necessarie al servizio</td>
+          <td>Navigazione privata continuativa, social personali, acquisti online, download di contenuti per uso privato</td>
+        </tr>
+        <tr>
+          <td><strong>Telefono/cellulare d'ufficio</strong></td>
+          <td>Comunicazioni di servizio con utenti, colleghi, enti terzi</td>
+          <td>Telefonate o messaggi privati abituali, uso del numero per attività personali</td>
+        </tr>
+        <tr>
+          <td><strong>Auto di servizio</strong></td>
+          <td>Missioni, sopralluoghi, trasferte di servizio</td>
+          <td>Spostamenti privati, uso nei giorni non lavorativi senza autorizzazione</td>
+        </tr>
+        <tr>
+          <td><strong>Locali e attrezzature</strong></td>
+          <td>Svolgimento delle mansioni assegnate</td>
+          <td>Uso per attività private o di terzi, anche associazioni o partiti</td>
+        </tr>
+        <tr>
+          <td><strong>Stampanti / carta / cancelleria</strong></td>
+          <td>Produzione documenti di servizio</td>
+          <td>Stampa di documenti personali, curricula, materiale privato</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">📱</span>
+      <span>La giurisprudenza ha chiarito che l'uso <em>occasionale e marginale</em> di risorse pubbliche per scopi privati (es. una stampa personale, un breve messaggio privato) non integra sempre una violazione disciplinare grave, ma resta formalmente vietato. La <strong>sistematicità</strong> o la <strong>rilevanza economica</strong> dell'uso privato trasforma la violazione in illecito disciplinare serio.</span>
+    </div>
+
+    <div class="esempio">Il responsabile dell'ufficio tecnico dell'Unione usa il pc aziendale per gestire la propria attività di consulenza privata nelle ore di pausa pranzo. Usa la stampante dell'ufficio per stampare le proprie fatture. È una violazione dell'art. 11: uso sistematico dei beni pubblici per fini privati.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     6 — OBBLIGHI DI COMUNICAZIONE
+══════════════════════════════════ -->
+<h2 class="section-title" id="comunicazioni">
+  <span class="num">6</span>
+  Obblighi di comunicazione e trasparenza — artt. 5–6
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 5–6 DPR 62/2013</div>
+      <div class="art-title">Comunicazioni obbligatorie all'assunzione e in corso di servizio</div>
+    </div>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">All'atto dell'assunzione — art. 5</div>
+      <p style="font-size:.9rem">Il dipendente, <strong>all'assunzione</strong>, comunica all'amministrazione le partecipazioni azionarie e gli interessi finanziari che possano porlo in conflitto di interessi con le funzioni che svolgerà. Comunica anche le attività lavorative precedenti presso soggetti privati (rilevante per il <em>pantouflage</em> / revolving door).</p>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">In corso di servizio — art. 6</div>
+      <p style="font-size:.9rem">Il dipendente informa per iscritto il dirigente di <strong>tutti i rapporti</strong> (diretti o tramite familiari) con soggetti privati che abbiano o abbiano avuto interessi con l'amministrazione, qualora tali rapporti possano interferire con l'esercizio delle proprie funzioni. Questo obbligo è <strong>continuo</strong>: ogni volta che cambia la situazione va aggiornata la comunicazione.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Cosa comunicare all'assunzione</h4>
+        <ul>
+          <li>Partecipazioni societarie rilevanti</li>
+          <li>Cariche in enti, associazioni, fondazioni</li>
+          <li>Attività professionali svolte nei 3 anni precedenti</li>
+          <li>Rapporti con soggetti potenzialmente in conflitto</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Cosa comunicare in corso di servizio</h4>
+        <ul>
+          <li>Nuovi incarichi o collaborazioni private</li>
+          <li>Variazioni nelle partecipazioni societarie</li>
+          <li>Instaurazione di rapporti con soggetti portatori di interessi presso l'ente</li>
+          <li>Situazioni di conflitto sopravvenuto</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">🔗</span>
+      <span><strong>Il collegamento con il pantouflage (art. 53 c.16-ter D.Lgs. 165/2001):</strong> il dipendente che, negli ultimi 3 anni di servizio, ha esercitato poteri autoritativi o negoziali per conto della PA non può, per 3 anni dalla cessazione del rapporto, svolgere attività lavorative/professionali presso i soggetti privati destinatari di tali poteri. Gli obblighi di comunicazione del DPR 62 servono anche a monitorare questo rischio.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     7 — ALTRI OBBLIGHI
+══════════════════════════════════ -->
+<h2 class="section-title" id="altri">
+  <span class="num">7</span>
+  Altri obblighi rilevanti — artt. 8–15
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 8–15 DPR 62/2013</div>
+      <div class="art-title">Comportamento in servizio, riservatezza, rapporti con il pubblico</div>
+    </div>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Comportamento in servizio — art. 8</div>
+      <ul style="list-style:none;padding:0;font-size:.9rem">
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Il dipendente rispetta l'orario di lavoro e adempie le presenze secondo le modalità previste</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Non si assenta senza giustificazione. Non utilizza permessi e congedi per fini diversi da quelli per cui sono previsti</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Usa l'abbigliamento consono all'ambiente di lavoro e al contatto con il pubblico</li>
+        <li style="padding:.3rem 0">▸ Non svolge attività lavorativa privata durante l'orario di servizio</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Riservatezza e trattamento delle informazioni — art. 12</div>
+      <ul style="list-style:none;padding:0;font-size:.9rem">
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Osserva l'<strong>obbligo di riservatezza</strong> su atti e documenti di cui venga a conoscenza nell'esercizio delle funzioni, salvo obblighi di pubblicità previsti dalla legge</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Non divulga notizie o informazioni di cui sia a conoscenza per ragioni di ufficio, a meno che non sia autorizzato o vi sia obbligo di legge</li>
+        <li style="padding:.3rem 0">▸ Questo obbligo si integra con il <strong>GDPR 679/2016</strong> e il D.Lgs. 196/2003 per il trattamento dei dati personali</li>
+      </ul>
+      <div class="vietato" style="margin-top:.5rem">Raccontare ad amici o colleghi non coinvolti i dettagli di una pratica urbanistica o di un'ispezione, anche senza nominare le persone, potrebbe configurare violazione del dovere di riservatezza.</div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Rapporti con il pubblico — art. 13</div>
+      <ul style="list-style:none;padding:0;font-size:.9rem">
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Si comporta con <strong>cortesia, disponibilità e rispetto</strong> verso i cittadini e gli utenti dei servizi</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Non rifiuta prestazioni cui il cittadino ha diritto senza motivazione</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Si identifica con nome e cognome e qualifica quando il cittadino lo richiede</li>
+        <li style="padding:.3rem 0">▸ Non discrimina l'utenza per ragioni di sesso, età, etnia, religione, orientamento sessuale, condizione economica</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Rapporti con i colleghi e il dirigente — artt. 9–10</div>
+      <ul style="list-style:none;padding:0;font-size:.9rem">
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Collabora con i colleghi in modo leale e professionale</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Non assume comportamenti ostili, discriminatori o di mobbing</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Rispetta le disposizioni dei superiori e le esegue con diligenza, salvo ordini manifestamente illegittimi</li>
+        <li style="padding:.3rem 0">▸ Non sfrutta la propria posizione gerarchica per ottenere vantaggi personali</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Comunicazione pubblica e social media — art. 3 e giurisprudenza</div>
+      <p style="font-size:.9rem">Il dipendente si astiene da dichiarazioni pubbliche che possano compromettere l'immagine dell'amministrazione. Sui social media deve comportarsi in modo da non ledere la reputazione dell'ente anche quando agisce a titolo privato: la giurisprudenza ha ritenuto che la qualità di dipendente pubblico non si "spegne" sui social. I codici integrativi degli enti locali spesso disciplinano esplicitamente l'uso dei social.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     8 — OBBLIGHI DEI DIRIGENTI
+══════════════════════════════════ -->
+<h2 class="section-title" id="dirigenti">
+  <span class="num">8</span>
+  Obblighi aggiuntivi per i dirigenti — art. 13
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Art. 13 DPR 62/2013</div>
+      <div class="art-title">Responsabilità rafforzata dei dirigenti</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>I dirigenti hanno <strong>obblighi aggiuntivi</strong> rispetto ai dipendenti, in ragione della loro posizione apicale e della maggiore capacità di influenza. Il codice configura per loro una <strong>responsabilità per esempio e controllo</strong>.</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Obblighi di esempio</h4>
+        <ul>
+          <li>Rispettare per primi tutte le norme del codice come modello per i propri collaboratori</li>
+          <li>Non chiedere ai dipendenti prestazioni non dovute o eccedenti le mansioni</li>
+          <li>Non creare un clima di intimidazione o favoritismo nell'ufficio</li>
+          <li>Garantire pari trattamento e opportunità ai collaboratori</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Obblighi di controllo e intervento</h4>
+        <ul>
+          <li>Vigilare sul rispetto del codice da parte dei propri collaboratori</li>
+          <li>Valutare le comunicazioni di conflitto di interessi e adottare le misure opportune</li>
+          <li>Avviare il procedimento disciplinare in caso di violazioni rilevate</li>
+          <li>Segnalare al Responsabile della Prevenzione della Corruzione (RPCT) situazioni anomale</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚡</span>
+      <span>La violazione dei doveri di vigilanza da parte del dirigente è di per sé un illecito disciplinare: il dirigente che <em>sapeva o avrebbe dovuto sapere</em> di una violazione dei collaboratori e non ha agito risponde disciplinarmente della propria omissione, indipendentemente dalle responsabilità del dipendente inadempiente.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     9 — SANZIONI
+══════════════════════════════════ -->
+<h2 class="section-title" id="sanzioni">
+  <span class="num">9</span>
+  Violazioni e sanzioni — art. 16
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Art. 16 DPR 62/2013</div>
+      <div class="art-title">Responsabilità disciplinare e altre forme di responsabilità</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>La violazione del codice di comportamento è <strong>sempre fonte di responsabilità disciplinare</strong>. La gravità della sanzione dipende dalla gravità della violazione e dal grado di danno arrecato all'immagine e al funzionamento dell'amministrazione.</p>
+
+    <table class="vtable">
+      <thead>
+        <tr>
+          <th>Tipo di violazione</th>
+          <th>Sanzione tipica</th>
+          <th>Esempio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Violazioni lievi (prima volta, scarso impatto)</td>
+          <td>Rimprovero verbale o scritto, censura</td>
+          <td>Uso occasionale della stampante per un documento personale</td>
+        </tr>
+        <tr>
+          <td>Violazioni medie (recidiva o impatto sull'immagine)</td>
+          <td>Sospensione dal servizio e dalla retribuzione fino a 10 giorni</td>
+          <td>Accettazione di un regalo oltre la soglia; uso sistematico del pc per fini privati</td>
+        </tr>
+        <tr>
+          <td>Violazioni gravi (danno all'interesse pubblico, corruzione)</td>
+          <td>Sospensione fino a 6 mesi o <strong>licenziamento disciplinare</strong></td>
+          <td>Omessa comunicazione di conflitto di interessi con danno al procedimento; accettazione di tangenti</td>
+        </tr>
+        <tr>
+          <td>Violazioni gravissime (art. 55-quater D.Lgs. 165)</td>
+          <td><strong>Licenziamento senza preavviso</strong></td>
+          <td>Falsa attestazione di presenze, falsità in atti, peculato, concussione</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="concept">
+      <div class="concept-title">Il quadro completo delle responsabilità — non solo disciplinare</div>
+      <p style="font-size:.9rem">La violazione del codice può concorrere con altre forme di responsabilità:</p>
+      <div class="grid2" style="margin-top:.5rem">
+        <div class="grid2-item">
+          <h4>Responsabilità disciplinare</h4>
+          <ul>
+            <li>Gestita dal dirigente dell'ufficio procedimenti disciplinari</li>
+            <li>Si applica il codice DPR 62 + CCNL</li>
+            <li>Termini di prescrizione: 120 giorni dalla conoscenza del fatto</li>
+          </ul>
+        </div>
+        <div class="grid2-item">
+          <h4>Altre responsabilità</h4>
+          <ul>
+            <li><strong>Penale</strong>: se la condotta integra un reato (corruzione, peculato, abuso d'ufficio)</li>
+            <li><strong>Civile</strong>: per danni patrimoniali causati a terzi</li>
+            <li><strong>Contabile</strong>: per danno erariale alla PA (Corte dei Conti)</li>
+            <li><strong>Amministrativa</strong>: per illegittimità dell'atto adottato in conflitto</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>Mnemonica — Le 4 responsabilità del dipendente pubblico</h4>
+      <p><span>D</span>isciplinare → <span>P</span>enale → <span>C</span>ivile → <span>C</span>ontabile<br>
+      → <span>«DPCC»</span> — <span>«Dal Procedimento disciplinare si può finire alla Corte dei Conti»</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     10 — RISPOSTA MODELLO
+══════════════════════════════════ -->
+<h2 class="section-title" id="risposta">
+  <span class="num">10</span>
+  Risposta modello per l'esame
+</h2>
+
+<div class="alert alert-page">
+  <span class="alert-icon">✏</span>
+  <div><strong>Come usarla:</strong> questa è la risposta da scrivere in brutta copia in circa 20 minuti, per poi riscriverla. Struttura in 5 paragrafi logici. Circa 380 parole. Può essere ampliata o ridotta a seconda del tempo disponibile.</div>
+</div>
+
+<div class="risposta">
+  <div class="risposta-label">✏ Risposta modello — «Principali obblighi del dipendente pubblico ex DPR 62/2013»</div>
+
+  <div class="par-title">1. Inquadramento normativo</div>
+  <p>Il <strong>DPR 62/2013</strong> — "Codice di comportamento dei dipendenti pubblici" — è adottato in attuazione dell'art. 54 del D.Lgs. 165/2001 e si inserisce nel più ampio sistema di prevenzione della corruzione delineato dalla <strong>L. 190/2012</strong>, che ha reso obbligatoria per ogni PA l'adozione di un codice integrativo di ente. Il codice si applica a tutti i dipendenti delle amministrazioni pubbliche, a prescindere dalla tipologia contrattuale, e le sue violazioni hanno sempre rilevanza disciplinare, potendo concorrere con responsabilità penale, civile e contabile.</p>
+
+  <div class="par-title">2. Principi generali</div>
+  <p>L'art. 3 enuncia i principi cardine: <strong>lealtà, imparzialità, buona condotta, diligenza e integrità</strong>. Il dipendente agisce esclusivamente nell'interesse pubblico, serve la Nazione nel rispetto della Costituzione e si comporta in modo da non deludere la fiducia che i cittadini ripongono nell'imparzialità e nell'efficienza delle pubbliche amministrazioni. Questi principi permeano tutti gli obblighi specifici del codice.</p>
+
+  <div class="par-title">3. Conflitto di interessi e obblighi di comunicazione</div>
+  <p>Gli artt. 5–7 disciplinano il conflitto di interessi: il dipendente che si trova in una situazione — anche solo potenziale — di conflitto tra i propri interessi personali o familiari e le funzioni istituzionali ha il <strong>duplice obbligo</strong> di comunicarlo per iscritto al dirigente e di astenersi da qualsiasi decisione o attività fino alla valutazione del responsabile. Non è il dipendente a valutare la propria imparzialità: è il dirigente ad adottare le misure necessarie (riassegnazione della pratica, sostituzione, ecc.). All'atto dell'assunzione e in corso di rapporto, il dipendente comunica partecipazioni societarie, incarichi e rapporti che possano interferire con le proprie funzioni.</p>
+
+  <div class="par-title">4. Regali, uso dei beni pubblici e riservatezza</div>
+  <p>L'<strong>art. 4</strong> vieta l'accettazione di regali, doni o altri vantaggi non dovuti da parte di soggetti che abbiano rapporti con l'amministrazione, con la sola eccezione dei regali d'uso di <strong>valore non superiore a 150 euro</strong>. L'<strong>art. 11</strong> impone l'utilizzo delle risorse, dei beni e dei sistemi informatici della PA esclusivamente per ragioni d'ufficio: qualsiasi uso privato sistematico integra una violazione disciplinare. L'<strong>art. 12</strong> obbliga il dipendente alla riservatezza sugli atti e le informazioni di cui venga a conoscenza nell'esercizio delle funzioni, in integrazione con la normativa sulla protezione dei dati personali (GDPR 679/2016).</p>
+
+  <div class="par-title">5. Responsabilità e sanzioni</div>
+  <p>La violazione del codice è fonte di <strong>responsabilità disciplinare</strong>, proporzionata alla gravità della condotta e al danno arrecato: dal rimprovero scritto per violazioni lievi fino al <strong>licenziamento disciplinare</strong> per violazioni gravi (omessa comunicazione di conflitto di interessi con danno al procedimento, accettazione di tangenti). Le responsabilità sono <strong>cumulabili</strong>: alla sanzione disciplinare possono aggiungersi responsabilità penale (se la condotta integra un reato), civile e contabile innanzi alla Corte dei Conti per il danno erariale. I <strong>dirigenti</strong> hanno obblighi rafforzati: oltre a rispettare il codice come modello, vigilano sul comportamento dei collaboratori e rispondono disciplinarmente delle proprie omissioni di controllo.</p>
+</div>
+
+<div class="concept" style="margin-top:.8rem">
+  <div class="concept-title">Versione ultra-sintetica (risposta rapida o integrazione orale)</div>
+  Il DPR 62/2013 disciplina i doveri comportamentali dei dipendenti PA. Principi: lealtà, imparzialità, diligenza, integrità. Obblighi chiave: comunicare e astenersi in caso di conflitto di interessi; non accettare regali oltre 150 €; usare i beni pubblici solo per ragioni d'ufficio; mantenere la riservatezza. Le violazioni generano responsabilità disciplinare (fino al licenziamento) cumulabile con responsabilità penale, civile e contabile. I dirigenti hanno obblighi aggiuntivi di vigilanza e risposta.
+</div>
+
+<!-- ══════════════════════════════════
+     11 — QUIZ
+══════════════════════════════════ -->
+<h2 class="section-title" id="quiz">
+  <span class="num">11</span>
+  Quiz — domande possibili
+</h2>
+
+<div class="quiz-area">
+  <div class="quiz-title">Clicca per mostrare la risposta</div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Un dipendente può accettare una bottiglia di vino da 60 € da un professionista che ha pratiche in istruttoria? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      <strong>Dipende.</strong> Il valore di 60 € è sotto la soglia di 150 €, ma la norma richiede che si tratti di un <em>omaggio d'uso</em> e che provenga da un soggetto con rapporti con l'amministrazione. Un professionista con pratiche in istruttoria presso quell'ufficio è esattamente il soggetto da cui il divieto è pensato. La risposta corretta è che il dipendente dovrebbe <strong>rifiutare o comunicare immediatamente al dirigente</strong>, perché il contesto (pratica in istruttoria) rende il dono potenzialmente interferente con l'imparzialità, anche sotto soglia.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Qual è la differenza tra il codice nazionale (DPR 62) e il codice integrativo di ente? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      Il <strong>DPR 62/2013</strong> è il codice nazionale, valido per tutti i dipendenti di tutte le PA. Il <strong>codice integrativo di ente</strong> è adottato da ogni singola PA (obbligo introdotto dalla L. 190/2012) e declina gli obblighi generali sulla realtà specifica dell'ente: rischi tipici di quel contesto, settori a rischio, misure specifiche. Il codice integrativo <em>integra</em> ma non può contraddire quello nazionale. Entrambi hanno rilevanza disciplinare. L'Unione Valli e Delizie ha il proprio codice integrativo allegato al PTPCT.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Un dipendente si accorge di essere in conflitto di interessi su una pratica. Può decidere da solo di essere ugualmente imparziale e procedere? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      <strong>No.</strong> Il codice non lascia al dipendente la valutazione della propria imparzialità. L'obbligo è duplice e automatico: <strong>comunicare per iscritto al dirigente</strong> e <strong>astenersi</strong> da qualsiasi atto sul procedimento. È il <em>dirigente</em> che valuta la situazione e decide le misure (riassegnazione, sostituzione, ecc.). Procedere senza comunicare integra una violazione del codice indipendentemente dall'esito del procedimento.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Quali sono le forme di responsabilità del dipendente pubblico che può subire per la violazione dei propri doveri? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      Quattro forme, cumulabili:<br><br>
+      <strong>1. Disciplinare</strong> — gestita dall'ufficio procedimenti disciplinari dell'ente, porta a sanzioni dal rimprovero al licenziamento.<br>
+      <strong>2. Penale</strong> — se la condotta integra un reato (corruzione, peculato, abuso d'ufficio, falso in atti).<br>
+      <strong>3. Civile</strong> — per danni patrimoniali causati a terzi nell'esercizio delle funzioni.<br>
+      <strong>4. Contabile</strong> — per danno erariale alla PA, innanzi alla Corte dei Conti.<br><br>
+      Le procedure sono indipendenti: si può essere prosciolti penalmente e comunque essere licenziati disciplinarmente, o essere condannati dalla Corte dei Conti.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Il dirigente ha obblighi specifici oltre a quelli del comune dipendente? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      Sì, l'art. 13 prevede obblighi aggiuntivi per i dirigenti:<br><br>
+      — <strong>Obbligo di esempio</strong>: rispettare per primi il codice come modello comportamentale per i collaboratori.<br>
+      — <strong>Obbligo di vigilanza</strong>: monitorare il rispetto del codice da parte dei propri collaboratori.<br>
+      — <strong>Obbligo di intervento</strong>: avviare procedimenti disciplinari in caso di violazioni rilevate; valutare le comunicazioni di conflitto e adottare misure.<br>
+      — <strong>Responsabilità per omissione</strong>: il dirigente che sapeva (o avrebbe dovuto sapere) di violazioni e non ha agito risponde disciplinarmente della propria inerzia.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Un dipendente usa il pc dell'ufficio per gestire la propria pagina Instagram personale durante l'orario di lavoro. Viola qualcosa? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      Sì, viola almeno due disposizioni:<br><br>
+      <strong>Art. 11 DPR 62/2013</strong>: uso dei sistemi informatici della PA per fini diversi da quelli d'ufficio.<br>
+      <strong>Art. 8 DPR 62/2013</strong>: svolgimento di attività privata durante l'orario di lavoro.<br><br>
+      Se la pagina ha contenuti che ledono l'immagine dell'ente o il dovere di riservatezza (es. foto dell'ufficio, commenti su pratiche), si aggiungono le violazioni degli artt. 12 e 3. La sanzione disciplinare dipende dalla sistematicità e dall'impatto concreto.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Cosa si intende per "pantouflage" e come si collega al DPR 62? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      Il <strong>pantouflage</strong> (o <em>revolving door</em>) è il fenomeno per cui un dipendente pubblico, al termine del rapporto, va a lavorare per soggetti privati che erano stati i destinatari dei suoi poteri autoritativi o negoziali. L'art. 53 c.16-ter D.Lgs. 165/2001 lo vieta per <strong>3 anni</strong> dalla cessazione del servizio. Il collegamento con il DPR 62 è che gli <strong>obblighi di comunicazione</strong> (artt. 5–6) servono anche a mappare preventivamente i rapporti tra dipendente e soggetti privati, individuando rischi futuri di pantouflage. La violazione del divieto comporta nullità del contratto e responsabilità dell'impresa privata.
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<footer>
+  DPR 62/2013 · Codice di comportamento dei dipendenti pubblici · Studio Concorso Unione Valli e Delizie
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  const html   = document.documentElement;
+  function applyTheme(dark) {
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    toggle.checked = dark;
+  }
+  const saved = localStorage.getItem('theme');
+  if (saved) { applyTheme(saved === 'dark'); }
+  else { applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches); }
+  toggle.addEventListener('change', () => {
+    const dark = toggle.checked;
+    applyTheme(dark);
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
+
+  function tq(el) {
+    el.classList.toggle('active');
+    el.nextElementSibling.classList.toggle('open');
+  }
+
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 300);
+  });
+
+  const allTargets = [...document.querySelectorAll('[id]')].filter(el =>
+    [...document.querySelectorAll('.nav-pill')].some(p => p.getAttribute('href') === '#' + el.id)
+  );
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    allTargets.forEach(t => { if (window.scrollY >= t.offsetTop - 140) cur = t.id; });
+    document.querySelectorAll('.nav-pill').forEach(p => {
+      const on = p.getAttribute('href') === '#' + cur;
+      p.style.background  = on ? 'var(--page-color)' : '';
+      p.style.color       = on ? 'white' : '';
+      p.style.borderColor = on ? 'var(--page-color)' : '';
+    });
+  });
+</script>
+</body>
+</html>

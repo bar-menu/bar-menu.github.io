@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decreto Salva Casa — L. 105/2024</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root, [data-theme="light"] {
+    --page-color:        #7C3D12;
+    --page-color2:       #9A4F1A;
+    --page-color-bg:     #FFF7ED;
+    --page-color-border: #FDBA74;
+  }
+  [data-theme="dark"] {
+    --page-color:        #C2692A;
+    --page-color-bg:     #2D1800;
+    --page-color-border: #7A3D10;
+  }
+  @media (prefers-color-scheme: dark) {
+    [data-theme="auto"] {
+      --page-color: #C2692A;
+      --page-color-bg: #2D1800;
+      --page-color-border: #7A3D10;
+    }
+  }
+
+  /* novità card */
+  .novita { display:flex; flex-direction:column; gap:.8rem; margin:1rem 0; }
+  .nov-item { background:var(--card); border:1px solid var(--border); border-radius:7px; overflow:hidden; box-shadow:var(--shadow); }
+  .nov-header { padding:.7rem 1.1rem; display:flex; align-items:center; gap:.8rem; border-bottom:1px solid var(--border); background:var(--bg2); }
+  .nov-art { font-family:var(--mono); font-size:.67rem; font-weight:600; color:var(--page-color); white-space:nowrap; }
+  .nov-title { font-family:var(--serif); font-size:1rem; font-weight:700; color:var(--ink); }
+  .nov-body { padding:.85rem 1.1rem; font-size:.9rem; line-height:1.7; }
+  .nov-body p { margin-bottom:.5rem; }
+  .nov-body p:last-child { margin-bottom:0; }
+  .nov-prima { font-size:.82rem; color:var(--ink2); border-left:3px solid var(--border); padding:.4rem .7rem; margin:.4rem 0; background:var(--bg2); border-radius:0 4px 4px 0; }
+  .nov-dopo { font-size:.82rem; color:var(--ink); border-left:3px solid var(--page-color); padding:.4rem .7rem; margin:.4rem 0; background:var(--page-color-bg); border-radius:0 4px 4px 0; }
+  .nov-prima span, .nov-dopo span { font-family:var(--mono); font-size:.62rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; display:block; margin-bottom:.2rem; opacity:.7; }
+
+  /* tabella tolleranze */
+  .tol-table { width:100%; border-collapse:collapse; font-size:.85rem; margin:.7rem 0; }
+  .tol-table th { background:var(--page-color); color:white; padding:.5rem .8rem; text-align:left; font-family:var(--mono); font-size:.65rem; }
+  .tol-table td { padding:.45rem .8rem; border-bottom:1px solid var(--border); }
+  .tol-table tr:nth-child(even) td { background:var(--bg2); }
+  .tol-table tr:last-child td { border-bottom:none; }
+  .tol-num { font-family:var(--mono); font-weight:700; color:var(--page-color); font-size:1rem; }
+
+  /* leggi collegate */
+  .leggi-grid { display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin:.8rem 0; }
+  .legge-tag { background:var(--bg2); border:1px solid var(--border); border-radius:5px; padding:.7rem .9rem; }
+  .legge-tag .norma { font-family:var(--mono); font-size:.67rem; font-weight:600; color:var(--page-color); margin-bottom:.2rem; }
+  .legge-tag .ruolo { font-size:.83rem; line-height:1.5; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="badge">📚 Guida Concorso — Specialista EQ</div>
+      <h1>Decreto Salva Casa</h1>
+      <p>L. 105/2024 (conv. D.L. 69/2024) — Semplificazione edilizia e urbanistica · in vigore dal 28 luglio 2024</p>
+    </div>
+    <div class="controls">
+      <div class="toggle-row">
+        <span class="toggle-label">Auto (OS)</span>
+        <label class="toggle"><input type="checkbox" id="toggleAuto"><span class="toggle-track"></span></label>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">☀️</span>
+        <label class="toggle"><input type="checkbox" id="toggleDark" checked><span class="toggle-track"></span></label>
+        <span class="toggle-label">🌙</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- DOMANDA REALE -->
+<div class="real-q">
+  <div class="label">⭐ Già uscito — Prova SCRITTA 08/10/2024 (Istruttore Tecnico Unione), Prova 1, q.1</div>
+  <p><strong>«Il candidato illustri le principali innovazioni apportate dal Decreto "salva casa", L. 105 del 24 luglio 2024»</strong></p>
+</div>
+<div class="real-q" style="border-left-color:var(--page-color);">
+  <div class="label" style="color:var(--page-color);">⚠️ Perché riguarda anche te — Specialista EQ</div>
+  <p>Il Salva Casa modifica articoli del DPR 380/2001 che sono il pane quotidiano del SUE. La commissione si aspetta che tu sappia collegarlo al sistema preesistente — non solo elencare le novità.</p>
+</div>
+
+<nav class="nav-wrap"><div class="nav-pills">
+  <a href="index.html" class="nav-pill">← Hub</a>
+  <a href="#perche" class="nav-pill">💡 Perché nasce</a>
+  <a href="#leggi" class="nav-pill">⚖️ Leggi collegate</a>
+  <a href="#novita" class="nav-pill">🆕 Le 7 novità</a>
+  <a href="#tolleranze" class="nav-pill">📐 Tolleranze</a>
+  <a href="#36bis" class="nav-pill">🔑 Art. 36-bis</a>
+  <a href="#tensioni" class="nav-pill">⚠️ Tensioni normative</a>
+  <a href="#risposta" class="nav-pill">✍️ Risposta modello</a>
+  <a href="#quiz" class="nav-pill">🧠 Quiz</a>
+</div></nav>
+
+<main class="main">
+
+<!-- PERCHE NASCE -->
+<h2 id="perche" class="section-title"><span class="num">0</span> Perché nasce il Salva Casa — la logica della riforma</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>In Italia si stima che <strong>oltre il 70% degli immobili</strong> presenti difformità rispetto al titolo edilizio originale — spesso piccole irregolarità accumulate nei decenni: una finestra spostata di 10 cm, un setto interno non in pianta, un balcone leggermente più largo. Non abusi gravi, ma irregolarità che bloccano le compravendite, le ristrutturazioni e i mutui.</p>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">🎯</span>
+      <div>
+        <strong>Il problema che il Salva Casa risolve:</strong> Prima del 2024, per sanare anche una minima difformità si applicava la regola della <strong>"doppia conformità"</strong> (art. 36 DPR 380/2001): l'intervento doveva essere conforme alle norme <em>sia al momento dell'esecuzione sia al momento della domanda di sanatoria</em>. Se le norme erano cambiate nel frattempo — anche di poco — la sanatoria era impossibile. Risultato: milioni di immobili invendibili per piccole irregolarità senza reale interesse pubblico alla demolizione.
+      </div>
+    </div>
+
+    <p>Il D.L. 69/2024, convertito nella <strong>L. 105/2024</strong> (in vigore dal 28 luglio 2024), interviene in modo <em>permanente</em> sul DPR 380/2001 — non è un condono temporaneo come quelli del 1985, 1994 e 2003, ma una modifica strutturale al Testo Unico Edilizia. Non sanabile il futuro — solo le difformità già esistenti.</p>
+
+    <div class="mnemonic">
+      <h4>🧠 La frase chiave da dire in prova</h4>
+      <p>
+        <span>"Il Salva Casa non è un condono temporaneo</span> ma una riforma strutturale e permanente del DPR 380/2001, che introduce strumenti ordinari per la regolarizzazione delle difformità minori, superando la rigidità della doppia conformità integrale per i casi di parziale difformità."
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- LEGGI COLLEGATE -->
+<h2 id="leggi" class="section-title"><span class="num">1</span> Il sistema normativo — leggi collegate da citare</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>Per rispondere bene, devi mostrare che il Salva Casa non è un'isola — si inserisce in un sistema. Queste sono le leggi che devi saper citare in collegamento:</p>
+    <div class="leggi-grid">
+      <div class="legge-tag">
+        <div class="norma">DPR 380/2001 — Testo Unico Edilizia</div>
+        <div class="ruolo">La norma base che il Salva Casa modifica. Gli articoli toccati: 6, 9-bis, 23-ter, 24, 31, 32, 34, 34-bis, 34-ter, 36, 36-bis, 37. Ogni novità del Salva Casa è una modifica a questi articoli.</div>
+      </div>
+      <div class="legge-tag">
+        <div class="norma">L. 765/1967 — Legge Ponte</div>
+        <div class="ruolo">La data spartiacque del 1967: prima di essa la licenza edilizia non era obbligatoria fuori dai centri abitati. Rilevante per l'art. 34-ter (varianti ante-Bucalossi) che usa il 1977 come soglia.</div>
+      </div>
+      <div class="legge-tag">
+        <div class="norma">L. 10/1977 — Legge Bucalossi</div>
+        <div class="ruolo">Prima legge a disciplinare le variazioni essenziali rispetto al titolo edilizio. Il Salva Casa usa il 1977 come data spartiacque per le "varianti ante-Bucalossi" (art. 34-ter): prima non erano normate, quindi non erano formalmente "abusi".</div>
+      </div>
+      <div class="legge-tag">
+        <div class="norma">D.Lgs. 42/2004 — Codice Beni Culturali</div>
+        <div class="ruolo">L'art. 36-bis del Salva Casa crea tensione con l'art. 167 del Codice (sanatoria paesaggistica): il Salva Casa ammette sanatoria anche con incrementi volumetrici in area vincolata, mentre l'art. 167 la vieta. Punto critico da conoscere.</div>
+      </div>
+      <div class="legge-tag">
+        <div class="norma">LR 15/2013 (ER) — Disciplina edilizia regionale</div>
+        <div class="ruolo">La legge regionale ER che integra il DPR 380 per i titoli edilizi. Le modifiche del Salva Casa si applicano anche in ER, ma alcune misure dipendono da scelte regionali — rischio di applicazione non uniforme.</div>
+      </div>
+      <div class="legge-tag">
+        <div class="norma">DM 1444/1968 — Standard urbanistici</div>
+        <div class="ruolo">Il Salva Casa tocca le distanze minime tra edifici e le altezze minime per i micro-appartamenti, che erano vincolate dagli standard del 1968. Alcune deroghe sono ora possibili per il recupero di sottotetti.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LE 7 NOVITA -->
+<h2 id="novita" class="section-title"><span class="num">2</span> Le 7 novità principali — una per una</h2>
+
+<div class="novita">
+
+  <!-- 1. STATO LEGITTIMO -->
+  <div class="nov-item">
+    <div class="nov-header">
+      <div class="nov-art">Art. 9-bis DPR 380 (modificato)</div>
+      <div class="nov-title">1 — Stato legittimo dell'immobile — definizione ampliata</div>
+    </div>
+    <div class="nov-body">
+      <p>Lo <strong>stato legittimo</strong> è la "carta d'identità" dell'immobile: dice cosa è stato autorizzato costruire. Senza uno stato legittimo chiaro non si può fare niente — né vendere, né ristrutturare, né ottenere mutui.</p>
+      <div class="nov-prima"><span>Prima</span>Lo stato legittimo era definito solo dal titolo edilizio originario. Se mancava, l'immobile era "senza stato legittimo" e bloccato.</div>
+      <div class="nov-dopo"><span>Dopo — Salva Casa</span>Lo stato legittimo può essere dimostrato anche con il <strong>titolo che ha disciplinato l'ultimo intervento edilizio</strong> (non necessariamente quello originario), integrato da eventuali condoni o sanatorie. Difformità nelle parti comuni non pregiudicano lo stato legittimo delle singole unità private. Semplifica enormemente le pratiche di compravendita e ristrutturazione.</div>
+    </div>
+  </div>
+
+  <!-- 2. TOLLERANZE COSTRUTTIVE -->
+  <div class="nov-item">
+    <div class="nov-header">
+      <div class="nov-art">Art. 34-bis DPR 380 (modificato)</div>
+      <div class="nov-title">2 — Tolleranze costruttive — percentuali ampliate</div>
+    </div>
+    <div class="nov-body">
+      <p>Le <strong>tolleranze costruttive</strong> sono piccoli scostamenti rispetto al titolo edilizio (altezza, superficie, distacchi, cubatura) che <em>non costituiscono violazione edilizia</em>. Il Salva Casa le amplia con una logica inversa: più è piccolo l'immobile, più margine si tollera.</p>
+      <p><strong>Valide per interventi realizzati entro il 24 maggio 2024:</strong></p>
+    </div>
+  </div>
+
+  <!-- 3. ART. 36-BIS -->
+  <div class="nov-item">
+    <div class="nov-header">
+      <div class="nov-art">Art. 36-bis DPR 380 (NUOVO)</div>
+      <div class="nov-title">3 — Sanatoria parziali difformità — doppia conformità "attenuata"</div>
+    </div>
+    <div class="nov-body">
+      <p>È la novità più importante. Il Salva Casa introduce l'<strong>art. 36-bis</strong> accanto al vecchio art. 36, creando due regimi paralleli.</p>
+      <div class="nov-prima"><span>Prima — art. 36 (resta in vigore)</span><strong>Doppia conformità integrale:</strong> per sanare un abuso l'intervento deve essere conforme alle norme urbanistiche ed edilizie <em>sia al momento dell'esecuzione sia al momento della domanda</em>. Se le norme sono cambiate nel frattempo → sanatoria impossibile. Usato per le difformità totali.</div>
+      <div class="nov-dopo"><span>Dopo — nuovo art. 36-bis (Salva Casa)</span><strong>Doppia conformità attenuata per parziali difformità e variazioni essenziali:</strong> l'intervento deve essere conforme solo <em>al momento della domanda</em> (conformità urbanistica) + conforme alle norme tecniche attuali (sismica, sicurezza). Non serve la conformità storica. Il silenzio del Comune entro 45 giorni (PdC) o 30 giorni (SCIA) → <strong>silenzio-assenso</strong> = accoglimento. Sanzione: doppio del valore venale accertato dall'AdE (min. 1.032 € - max. 10.328 €).</div>
+      <div class="alert alert-red" style="margin-top:.6rem;">
+        <span class="alert-icon">⚠️</span>
+        <div><strong>Art. 36-bis NON si applica:</strong> agli interventi in <strong>totale difformità</strong> o realizzati in <strong>assenza di titolo</strong> (per quelli resta il vecchio art. 36 con doppia conformità integrale); agli interventi su immobili soggetti a <strong>vincolo paesaggistico</strong> (vedi sezione tensioni normative).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. VARIANTI ANTE BUCALOSSI -->
+  <div class="nov-item">
+    <div class="nov-header">
+      <div class="nov-art">Art. 34-ter DPR 380 (NUOVO)</div>
+      <div class="nov-title">4 — Varianti ante-Bucalossi — regolarizzazione interventi storici</div>
+    </div>
+    <div class="nov-body">
+      <p>La <strong>Legge Bucalossi (L. 10/1977)</strong> è stata la prima a disciplinare e graduare le variazioni rispetto al titolo edilizio. Prima del 1977 il concetto di "variazione essenziale" non esisteva normativamente: costruire in modo difforme dal progetto approvato non era formalmente un "abuso" nel senso moderno.</p>
+      <div class="nov-dopo"><span>Novità art. 34-ter</span>Le difformità realizzate <strong>prima del 30 gennaio 1977</strong> rispetto a titoli rilasciati prima di quella data, se non configurano tolleranze costruttive, possono essere regolarizzate con <strong>SCIA + pagamento sanzione</strong>, salvo che il Comune accerti un interesse pubblico concreto e attuale alla rimozione. È un mini-condono strutturale per gli abusi storici pre-Bucalossi.</div>
+    </div>
+  </div>
+
+  <!-- 5. EDILIZIA LIBERA AMPLIATA -->
+  <div class="nov-item">
+    <div class="nov-header">
+      <div class="nov-art">Art. 6 DPR 380 (modificato)</div>
+      <div class="nov-title">5 — Edilizia libera ampliata — nuovi interventi senza titolo</div>
+    </div>
+    <div class="nov-body">
+      <p>Il Salva Casa aggiunge nuove tipologie all'edilizia libera (interventi eseguibili senza titolo edilizio):</p>
+      <div class="nov-dopo"><span>Nuovi interventi in edilizia libera</span>
+        <strong>VePA</strong> (Vetrate Panoramiche Amovibili) — vetrate scorrevoli amovibili e totalmente trasparenti, anche nei porticati, purché amovibili e temporanee.<br>
+        <strong>Pergotende e pergole bioclimatiche</strong> a protezione dal sole e dagli agenti atmosferici.<br>
+        <strong>Strutture amovibili temporanee</strong> già installate per l'emergenza Covid-19 (art. 2 D.L. 69/2024).
+      </div>
+      <div class="alert alert-blue" style="margin-top:.5rem;">
+        <span class="alert-icon">💡</span>
+        <div><strong>Attenzione:</strong> "edilizia libera" dal titolo edilizio non significa libera da tutto. Rimangono obbligatori: rispetto delle norme antisismiche, antincendio, igienico-sanitarie, efficienza energetica, vincoli paesaggistici e quanto previsto dagli strumenti urbanistici comunali.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. CAMBIO DESTINAZIONE D'USO -->
+  <div class="nov-item">
+    <div class="nov-header">
+      <div class="nov-art">Art. 23-ter DPR 380 (modificato)</div>
+      <div class="nov-title">6 — Cambio di destinazione d'uso — semplificato</div>
+    </div>
+    <div class="nov-body">
+      <div class="nov-prima"><span>Prima</span>Il cambio di destinazione d'uso tra categorie diverse richiedeva sempre la verifica della doppia conformità e spesso il reperimento di nuove aree da cedere al Comune (standard urbanistici). Procedura lunga e spesso bloccante.</div>
+      <div class="nov-dopo"><span>Dopo — Salva Casa</span>Per cambi tra categorie funzionali <strong>affini</strong> (residenziale ↔ turistico-ricettiva ↔ produttiva-direzionale ↔ commerciale): eliminato l'obbligo di reperire nuove aree da cedere. Mantenuto solo il pagamento degli oneri di urbanizzazione secondaria. Possibile contestualmente alla sanatoria di difformità pregresse con un'unica istanza (<strong>procedimento a finalità multipla</strong>).</div>
+    </div>
+  </div>
+
+  <!-- 7. SOTTOTETTI E MICRO-APPARTAMENTI -->
+  <div class="nov-item">
+    <div class="nov-header">
+      <div class="nov-art">Art. 24 DPR 380 (modificato)</div>
+      <div class="nov-title">7 — Sottotetti e micro-appartamenti — nuovi parametri abitabilità</div>
+    </div>
+    <div class="nov-body">
+      <div class="nov-prima"><span>Prima</span>Altezza minima per agibilità: 2,70 m nei locali principali, 2,40 m nei corridoi. Superficie minima: 28 m² per alloggio monolocale. Molti sottotetti e mini-appartamenti non raggiungevano questi parametri → non agibili → non commerciabili.</div>
+      <div class="nov-dopo"><span>Dopo — Salva Casa</span><strong>Altezza media ponderata</strong> minima ridotta a 2,40 m (locali principali) e 2,10 m (corridoi) per il recupero dei sottotetti e la realizzazione di <strong>micro-appartamenti</strong>. Possibile derogare alle distanze minime tra edifici per il recupero dei sottotetti in contesti già urbanizzati. Incentiva il recupero del patrimonio edilizio esistente invece di costruire nuovo.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TABELLA TOLLERANZE -->
+<h2 id="tolleranze" class="section-title"><span class="num">3</span> Le tolleranze costruttive — i numeri da sapere</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>Per gli interventi realizzati <strong>entro il 24 maggio 2024</strong>, il mancato rispetto dei parametri del titolo edilizio (altezza, distacchi, cubatura, superficie) <strong>non costituisce violazione edilizia</strong> se contenuto entro questi limiti:</p>
+
+    <table class="tol-table">
+      <thead>
+        <tr>
+          <th>Superficie utile dell'unità immobiliare</th>
+          <th>Tolleranza massima</th>
+          <th>Esempio pratico</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Fino a 60 m²</td>
+          <td><span class="tol-num">6%</span></td>
+          <td>Appartamento 50 m²: fino a 3 m² di scostamento tollerato</td>
+        </tr>
+        <tr>
+          <td>Da 60 m² a 100 m²</td>
+          <td><span class="tol-num">5%</span></td>
+          <td>Appartamento 80 m²: fino a 4 m² di scostamento</td>
+        </tr>
+        <tr>
+          <td>Da 100 m² a 300 m²</td>
+          <td><span class="tol-num">4%</span></td>
+          <td>Villa 200 m²: fino a 8 m² di scostamento</td>
+        </tr>
+        <tr>
+          <td>Da 300 m² a 500 m²</td>
+          <td><span class="tol-num">3%</span></td>
+          <td>Grande villa 400 m²: fino a 12 m²</td>
+        </tr>
+        <tr>
+          <td>Oltre 500 m²</td>
+          <td><span class="tol-num">2%</span></td>
+          <td>Capannone o grande complesso</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div><strong>La logica inversa:</strong> più l'immobile è piccolo, più margine si concede — perché in un piccolo appartamento anche pochi centimetri di scostamento possono rappresentare una percentuale rilevante, spesso dovuta a semplici imprecisioni esecutive.</div>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>La tolleranza del 2% rimane a regime</strong> (senza limite temporale) per tutti gli immobili, indipendentemente dalla data di costruzione. Le percentuali maggiori valgono solo per costruzioni ante 24 maggio 2024.</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Come ricordare i numeri</h4>
+      <p><span>6-5-4-3-2</span> % in proporzione inversa alla superficie<br>
+      <span>Soglie:</span> 60 · 100 · 300 · 500 m²<br>
+      <span>Solo per:</span> interventi realizzati entro il <span>24 maggio 2024</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- TENSIONI NORMATIVE -->
+<h2 id="tensioni" class="section-title"><span class="num">4</span> Le tensioni normative — cosa sa chi prende il massimo</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>Chi cita solo le novità prende un buon voto. Chi sa anche dove il Salva Casa crea <em>tensioni</em> con le norme preesistenti prende il massimo. Ecco i due punti critici:</p>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">⚔️</span>
+      <div>
+        <strong>Tensione 1 — Art. 36-bis vs art. 167 D.Lgs. 42/2004 (paesaggio):</strong><br><br>
+        Il <strong>nuovo art. 36-bis</strong> del Salva Casa ammette la sanatoria paesaggistica postuma anche per interventi che hanno creato <strong>incrementi volumetrici</strong> in area vincolata.<br><br>
+        L'<strong>art. 167 del Codice dei Beni Culturali</strong> (D.Lgs. 42/2004) invece lo vieta espressamente: la sanatoria paesaggistica è ammessa <em>solo</em> se l'intervento non ha creato nuove superfici o volumi.<br><br>
+        Risultato: le due norme si contraddicono. La dottrina e i tribunali stanno ancora lavorando per chiarire quale prevale — tendenzialmente il D.Lgs. 42/2004 come norma speciale di settore.
+      </div>
+    </div>
+
+    <div class="alert alert-orange" style="margin-top:.7rem;">
+      <span class="alert-icon">⚔️</span>
+      <div>
+        <strong>Tensione 2 — Silenzio-assenso nell'art. 36-bis vs silenzio-rifiuto nell'art. 167:</strong><br><br>
+        Il Salva Casa introduce il <strong>silenzio-assenso</strong> per la sanatoria (Comune non risponde entro 45/30 gg → pratiche accolta).<br><br>
+        L'art. 167 D.Lgs. 42/2004 invece non prevede silenzio-assenso: il silenzio dell'amministrazione non equivale ad accoglimento.<br><br>
+        Per gli immobili vincolati paesaggisticamente si applica quindi ancora la regola più restrittiva del D.Lgs. 42/2004.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RISPOSTA MODELLO -->
+<h2 id="risposta" class="section-title"><span class="num">5</span> Risposta modello — da scrivere in 30 minuti</h2>
+
+<div class="risposta">
+  <div class="risposta-label">✍️ Risposta modello completa — "principali innovazioni del Decreto Salva Casa L. 105/2024"</div>
+
+  <div class="par-title">1 — Inquadramento e finalità</div>
+  <p>Il D.L. 29 maggio 2024, n. 69, convertito con modificazioni nella <strong>L. 24 luglio 2024, n. 105</strong> (c.d. Decreto Salva Casa), è entrato in vigore il 28 luglio 2024. A differenza dei condoni edilizi temporanei del passato (L. 47/1985, L. 724/1994, L. 326/2003), esso introduce <strong>modifiche strutturali e permanenti al DPR 380/2001</strong> (Testo Unico Edilizia), con l'obiettivo di regolarizzare le difformità edilizie minori che bloccano compravendite, ristrutturazioni e accesso al credito, senza incidere sugli abusi gravi o futuri.</p>
+
+  <div class="par-title">2 — Stato legittimo (art. 9-bis DPR 380)</div>
+  <p>Il Salva Casa amplia la nozione di <strong>stato legittimo</strong> dell'immobile: esso può essere dimostrato non solo con il titolo originario ma anche con il titolo che ha disciplinato <strong>l'ultimo intervento edilizio</strong>, integrato da eventuali condoni o sanatorie. Inoltre, le difformità nelle parti comuni di un edificio condominiale non pregiudicano più lo stato legittimo delle singole unità immobiliari di proprietà esclusiva — eliminando una causa frequente di blocco delle compravendite.</p>
+
+  <div class="par-title">3 — Tolleranze costruttive ampliate (art. 34-bis DPR 380)</div>
+  <p>Per gli interventi realizzati entro il 24 maggio 2024, le tolleranze costruttive (scostamenti dai parametri del titolo che non costituiscono violazione edilizia) vengono riparametrate in misura <strong>inversamente proporzionale alla superficie</strong>: dal 6% per unità fino a 60 m² fino al 2% per unità oltre i 500 m². La tolleranza del 2% rimane a regime per tutti gli immobili senza limite temporale.</p>
+
+  <div class="par-title">4 — Sanatoria parziali difformità: nuovo art. 36-bis DPR 380</div>
+  <p>La novità più rilevante è il nuovo <strong>art. 36-bis</strong>, che introduce la <strong>doppia conformità attenuata</strong> per le parziali difformità e le variazioni essenziali: l'intervento deve essere conforme alle norme urbanistiche vigenti al momento della domanda (non necessariamente al momento dell'esecuzione) e alle norme tecniche attuali. Ciò supera il rigore del vecchio <strong>art. 36</strong> (che rimane per le difformità totali e gli interventi in assenza di titolo), rendendo sanabili situazioni prima bloccate da sopravvenute modifiche normative. Il procedimento si conclude con silenzio-assenso se il Comune non risponde entro 45 giorni (PdC in sanatoria) o 30 giorni (SCIA in sanatoria). La sanzione è pari al doppio del valore venale accertato dall'Agenzia delle Entrate (da 1.032 a 10.328 euro).</p>
+
+  <div class="par-title">5 — Varianti ante-Bucalossi (art. 34-ter DPR 380)</div>
+  <p>Il nuovo <strong>art. 34-ter</strong> disciplina le difformità realizzate prima del 30 gennaio 1977 (data di entrata in vigore della <strong>L. 10/1977 — Legge Bucalossi</strong>), prima cioè che il concetto di variazione essenziale fosse normativamente definito. Tali difformità, se non già qualificabili come tolleranze costruttive, possono essere regolarizzate mediante SCIA e pagamento di sanzione, salvo interesse pubblico concreto alla rimozione accertato dall'amministrazione.</p>
+
+  <div class="par-title">6 — Edilizia libera ampliata, cambio d'uso e recupero sottotetti</div>
+  <p>Il Salva Casa amplia l'edilizia libera (art. 6 DPR 380) includendovi le <strong>VePA</strong> (Vetrate Panoramiche Amovibili) e le pergole bioclimatiche. Semplifica il <strong>cambio di destinazione d'uso</strong> tra categorie funzionali affini (art. 23-ter), eliminando l'obbligo di reperire nuove aree da cedere al Comune. Introduce infine parametri di agibilità ridotti (altezza media ponderata minima a 2,40 m) per incentivare il <strong>recupero dei sottotetti</strong> e la realizzazione di micro-appartamenti (art. 24), in linea con l'obiettivo di valorizzare il patrimonio edilizio esistente.</p>
+
+  <div class="par-title">7 — Rapporto con la tutela paesaggistica</div>
+  <p>Il Salva Casa crea una <strong>tensione interpretativa</strong> con il <strong>D.Lgs. 42/2004</strong>: l'art. 36-bis ammette la sanatoria anche per interventi che hanno creato incrementi volumetrici in area vincolata, mentre l'art. 167 del Codice dei Beni Culturali la esclude espressamente per tali casi. Il prevalente orientamento ritiene applicabile il D.Lgs. 42/2004 come norma speciale di settore, con conseguente inapplicabilità dell'art. 36-bis agli immobili vincolati paesaggisticamente per la parte relativa agli incrementi volumetrici.</p>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="quiz-area">
+  <div class="quiz-title">🧠 Quiz — domande stile commissione</div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Qual è la differenza tra il vecchio art. 36 e il nuovo art. 36-bis del DPR 380?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il <strong>vecchio art. 36</strong> (rimasto in vigore per le difformità totali) richiede la <strong>doppia conformità integrale</strong>: l'intervento deve essere conforme sia al momento dell'esecuzione sia al momento della domanda. Se le norme sono cambiate nel frattempo → sanatoria impossibile.<br><br>Il <strong>nuovo art. 36-bis</strong> (Salva Casa, per parziali difformità e variazioni essenziali) introduce la <strong>doppia conformità attenuata</strong>: serve solo la conformità urbanistica al momento della domanda + conformità alle norme tecniche attuali. Non serve la conformità storica. Silenzio-assenso se il Comune non risponde entro 45/30 giorni. Sanzione da 1.032 a 10.328 euro.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Quanto vale la tolleranza costruttiva per un appartamento di 45 m²?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Per un'unità immobiliare con superficie utile inferiore a 60 m², la tolleranza costruttiva prevista dall'art. 34-bis (come modificato dal Salva Casa) è del <strong>6%</strong>. Questo significa che scostamenti di altezza, distacchi, cubatura o superficie fino al 6% rispetto ai parametri del titolo edilizio, se realizzati entro il 24 maggio 2024, non costituiscono violazione edilizia. In un appartamento di 45 m², la tolleranza ammessa è quindi di circa 2,7 m².</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Perché il Salva Casa non è un "condono edilizio" in senso tradizionale?<span class="arrow">▼</span></div>
+    <div class="quiz-a">I condoni edilizi classici (1985, 1994, 2003) erano provvedimenti <em>temporanei</em> con una finestra temporale entro cui presentare domanda e con sanatoria di qualsiasi abuso pregresso. Il Salva Casa invece: (1) introduce modifiche <strong>permanenti e strutturali</strong> al DPR 380/2001 — non ha scadenza; (2) non sana gli abusi futuri, ma solo le difformità già esistenti al 24 maggio 2024; (3) non sana le difformità totali o gli interventi in assenza assoluta di titolo; (4) richiede comunque il pagamento di una sanzione e la conformità urbanistica attuale. È più correttamente una <strong>riforma del sistema ordinario di sanatoria</strong>.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Cosa sono le VePA e perché il Salva Casa le ha incluse nell'edilizia libera?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Le <strong>VePA</strong> (Vetrate Panoramiche Amovibili) sono chiusure vetrate scorrevoli, amovibili e totalmente trasparenti, installabili su terrazze, balconi e logge anche nei porticati. Prima del Salva Casa erano oggetto di controversie: in molti Comuni richiedevano titolo edilizio, creando contenziosi su installazioni diffusissime. Il Salva Casa le ha inserite nell'edilizia libera (art. 6 DPR 380) purché siano amovibili e temporanee. Restano comunque soggette al rispetto dei vincoli paesaggistici — in area vincolata può servire l'autorizzazione paesaggistica semplificata.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">In che rapporto sta il Salva Casa con il D.Lgs. 42/2004 (Codice paesaggio)?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il Salva Casa crea una <strong>tensione normativa</strong> con il D.Lgs. 42/2004. L'art. 36-bis del Salva Casa ammette la sanatoria paesaggistica postuma anche per interventi che hanno creato incrementi volumetrici in area vincolata. L'art. 167 del D.Lgs. 42/2004 invece esclude espressamente la sanatoria paesaggistica per interventi che hanno determinato nuove superfici o volumi. Anche la disciplina del silenzio diverge: art. 36-bis prevede silenzio-assenso, art. 167 no. Il prevalente orientamento ritiene che il D.Lgs. 42/2004, come norma speciale di settore, prevalga: per gli immobili vincolati paesaggisticamente, la parte dell'art. 36-bis relativa agli incrementi volumetrici non si applica.</div>
+  </div>
+
+</div>
+
+</main>
+
+<footer>
+  Guida studio — Specialista EQ — Unione Comuni Valli e Delizie<br>
+  L. 105/2024 · D.L. 69/2024 · DPR 380/2001 · L. 10/1977 · D.Lgs. 42/2004
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  function toggle(el) {
+    const ans = el.nextElementSibling;
+    const isOpen = ans.classList.contains('open');
+    document.querySelectorAll('.quiz-a.open').forEach(a => {
+      a.classList.remove('open');
+      a.previousElementSibling.classList.remove('active');
+    });
+    if (!isOpen) { ans.classList.add('open'); el.classList.add('active'); }
+  }
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 400));
+
+  const html = document.documentElement;
+  const toggleDark = document.getElementById('toggleDark');
+  const toggleAuto = document.getElementById('toggleAuto');
+  const saved = localStorage.getItem('theme') || 'dark';
+  applyTheme(saved);
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    if (theme === 'auto') {
+      toggleAuto.checked = true;
+      toggleDark.checked = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      toggleDark.disabled = true;
+    } else {
+      toggleAuto.checked = false;
+      toggleDark.checked = theme === 'dark';
+      toggleDark.disabled = false;
+    }
+    localStorage.setItem('theme', theme);
+  }
+  toggleAuto.addEventListener('change', () => applyTheme(toggleAuto.checked ? 'auto' : (toggleDark.checked ? 'dark' : 'light')));
+  toggleDark.addEventListener('change', () => { if (!toggleAuto.checked) applyTheme(toggleDark.checked ? 'dark' : 'light'); });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (html.getAttribute('data-theme') === 'auto') toggleDark.checked = e.matches;
+  });
+</script>
+</body>
+</html>
