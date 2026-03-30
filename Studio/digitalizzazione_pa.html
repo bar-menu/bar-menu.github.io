@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digitalizzazione PA — CAD, SPID, CIE, Firma Digitale, PEC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root, [data-theme="light"] {
+    --page-color:        #0369A1;
+    --page-color2:       #0284C7;
+    --page-color-bg:     #F0F9FF;
+    --page-color-border: #BAE6FD;
+  }
+  [data-theme="dark"] {
+    --page-color:        #38BDF8;
+    --page-color-bg:     #0C1A2E;
+    --page-color-border: #1E3A5F;
+  }
+  @media (prefers-color-scheme: dark) {
+    [data-theme="auto"] {
+      --page-color: #38BDF8;
+      --page-color-bg: #0C1A2E;
+      --page-color-border: #1E3A5F;
+    }
+  }
+
+  /* card strumento */
+  .tool-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .tool-header {
+    padding: .8rem 1.3rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    background: var(--bg2);
+  }
+  .tool-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .tool-meta { flex: 1; }
+  .tool-norma { font-family: var(--mono); font-size: .65rem; font-weight: 600; color: var(--page-color); letter-spacing: .08em; text-transform: uppercase; margin-bottom: .15rem; }
+  .tool-name { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+  .tool-body { padding: 1.1rem 1.3rem; }
+  .tool-body p { font-size: .91rem; line-height: 1.72; margin-bottom: .6rem; }
+  .tool-body p:last-child { margin-bottom: 0; }
+
+  /* prop grid compatta */
+  .prop { display: grid; grid-template-columns: 110px 1fr; gap: .3rem .8rem; margin: .6rem 0; align-items: start; }
+  .prop-k { font-family: var(--mono); font-size: .67rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink3); padding-top: .1rem; }
+  .prop-v { font-size: .88rem; line-height: 1.55; }
+
+  /* domande probabili */
+  .domande-grid { display: flex; flex-direction: column; gap: .5rem; margin: .8rem 0; }
+  .dom-item { display: flex; gap: .8rem; align-items: flex-start; background: var(--bg2); border: 1px solid var(--border); border-radius: 5px; padding: .65rem .9rem; }
+  .dom-prob { font-family: var(--mono); font-size: .62rem; font-weight: 700; padding: .15rem .45rem; border-radius: 3px; white-space: nowrap; margin-top: .05rem; flex-shrink: 0; }
+  .prob-alta { background: var(--alert-red-bg); color: #C0392B; border: 1px solid var(--alert-red-br); }
+  .prob-media { background: var(--alert-orange-bg); color: #C9670A; border: 1px solid var(--alert-orange-br); }
+  .prob-bassa { background: var(--alert-green-bg); color: #1A6B3C; border: 1px solid var(--alert-green-br); }
+  .dom-text { font-size: .88rem; line-height: 1.5; }
+
+  @media (max-width: 600px) {
+    .prop { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="badge">📚 Guida Concorso — Specialista EQ</div>
+      <h1>Digitalizzazione della PA</h1>
+      <p>CAD · SPID · CIE · Firma Digitale · PEC — gli strumenti del funzionario digitale, spiegati come si usano davvero</p>
+    </div>
+    <div class="controls">
+      <div class="toggle-row">
+        <span class="toggle-label">Auto (OS)</span>
+        <label class="toggle"><input type="checkbox" id="toggleAuto"><span class="toggle-track"></span></label>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">☀️</span>
+        <label class="toggle"><input type="checkbox" id="toggleDark" checked><span class="toggle-track"></span></label>
+        <span class="toggle-label">🌙</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-wrap"><div class="nav-pills">
+  <a href="index.html" class="nav-pill">← Hub</a>
+  <a href="#intro" class="nav-pill">📌 Introduzione generica</a>
+  <a href="#cad" class="nav-pill">📖 CAD</a>
+  <a href="#spid" class="nav-pill">🔑 SPID</a>
+  <a href="#cie" class="nav-pill">💳 CIE</a>
+  <a href="#firma" class="nav-pill">✍️ Firma digitale</a>
+  <a href="#pec" class="nav-pill">📧 PEC</a>
+  <a href="#domande" class="nav-pill">❓ Domande probabili</a>
+  <a href="#quiz" class="nav-pill">🧠 Quiz</a>
+</div></nav>
+
+<main class="main">
+
+<!-- INTRO GENERICA -->
+<h2 id="intro" class="section-title"><span class="num">0</span> Introduzione generica — valida per qualsiasi domanda su questo tema</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <div class="concept">
+      <div class="concept-title">Usala come attacco per qualsiasi domanda sulla digitalizzazione</div>
+      Da imparare quasi a memoria — funziona come apertura universale per SPID, CIE, firma digitale, PEC, CAD.
+    </div>
+
+    <div class="risposta" style="margin: .8rem 0 0;">
+      <div class="risposta-label">✍️ Introduzione generica — 3-4 righe di apertura</div>
+      <p>La digitalizzazione della Pubblica Amministrazione italiana è disciplinata dal <strong>D.Lgs. 82/2005</strong> (Codice dell'Amministrazione Digitale — CAD) e dai successivi decreti attuativi. Il processo punta a tre obiettivi interconnessi: il <strong>principio digital-first</strong> (i servizi pubblici sono progettati nativamente in digitale), il <strong>principio once-only</strong> (il cittadino fornisce un'informazione alla PA una sola volta) e l'<strong>interoperabilità</strong> tra le banche dati delle diverse amministrazioni. Gli strumenti operativi di questo sistema sono: l'identità digitale (SPID e CIE), la firma digitale, la posta elettronica certificata (PEC) e il domicilio digitale.</p>
+    </div>
+
+    <div class="alert alert-blue" style="margin-top:.8rem;">
+      <span class="alert-icon">💡</span>
+      <div><strong>I principi chiave del CAD da citare sempre:</strong> digital-first · once-only · cloud-first · interoperabilità · open-data · accessibilità · diritto all'uso delle tecnologie. Citarne 2-3 fa capire subito che hai una visione di sistema, non solo nozioni isolate.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CAD -->
+<h2 id="cad" class="section-title"><span class="num">1</span> CAD — Codice dell'Amministrazione Digitale</h2>
+
+<div class="tool-card">
+  <div class="tool-header">
+    <div class="tool-icon">📖</div>
+    <div class="tool-meta">
+      <div class="tool-norma">D.Lgs. 7 marzo 2005 n. 82 e s.m.i.</div>
+      <div class="tool-name">Codice dell'Amministrazione Digitale (CAD)</div>
+    </div>
+    <span class="prio prio-red">🔴 La norma madre</span>
+  </div>
+  <div class="tool-body">
+    <div class="concept">
+      <div class="concept-title">Cos'è in una frase</div>
+      Il CAD è la <strong>legge quadro</strong> che fissa i diritti dei cittadini e gli obblighi delle PA nel rapporto digitale. È il "codice civile" della digitalizzazione pubblica italiana.
+    </div>
+
+    <div class="prop">
+      <div class="prop-k">Emanato</div><div class="prop-v">2005, aggiornato più volte — ultima revisione organica con D.Lgs. 217/2017 (riforma Madia)</div>
+      <div class="prop-k">A chi si applica</div><div class="prop-v">Tutte le Pubbliche Amministrazioni, incluse le Unioni di Comuni</div>
+      <div class="prop-k">Ente attuatore</div><div class="prop-v">AgID (Agenzia per l'Italia Digitale) — emana regole tecniche e linee guida vincolanti</div>
+    </div>
+
+    <p style="margin-top:.7rem; font-weight:600; font-size:.9rem;">I diritti del cittadino sanciti dal CAD:</p>
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>✅ Diritti "attivi"</h4>
+        <ul>
+          <li>Usare qualsiasi strumento tecnologico nei rapporti con la PA</li>
+          <li>Ricevere i servizi in forma digitale (digital-first)</li>
+          <li>Non dover fornire più volte le stesse informazioni (once-only)</li>
+          <li>Accedere ai propri dati conservati dalla PA (open data)</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>📋 Obblighi della PA</h4>
+        <ul>
+          <li>Accettare documenti informatici con valore legale</li>
+          <li>Usare PEC o domicilio digitale per le comunicazioni ufficiali</li>
+          <li>Pubblicare i dati in formato aperto (open data)</li>
+          <li>Garantire accessibilità dei siti web (WCAG 2.1)</li>
+          <li>Non richiedere documenti già in possesso di altra PA</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-orange" style="margin-top:.7rem;">
+      <span class="alert-icon">🔑</span>
+      <div><strong>Articoli del CAD da citare in prova:</strong> art. 1 (definizioni: documento informatico, firma elettronica, PEC) · art. 3-bis (domicilio digitale) · art. 20 (valore probatorio del documento informatico) · art. 21 (firma elettronica avanzata e qualificata) · art. 45 (PEC come raccomandata) · art. 50 (disponibilità dei dati).</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p><span>CAD</span> = D.Lgs. 82/2005 · <span>Attuato da</span> AgID<br>
+      <span>Principi:</span> digital-first · once-only · cloud-first · interoperabilità<br>
+      <span>Diritto fondamentale:</span> il cittadino NON può essere costretto a usare carta</p>
+    </div>
+  </div>
+</div>
+
+<!-- SPID -->
+<h2 id="spid" class="section-title"><span class="num">2</span> SPID — Sistema Pubblico di Identità Digitale</h2>
+
+<div class="tool-card">
+  <div class="tool-header">
+    <div class="tool-icon">🔑</div>
+    <div class="tool-meta">
+      <div class="tool-norma">Art. 64 CAD + DPCM 24 ottobre 2014 + Regolamento AgID</div>
+      <div class="tool-name">SPID — Sistema Pubblico di Identità Digitale</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità</span>
+  </div>
+  <div class="tool-body">
+    <div class="concept">
+      <div class="concept-title">Cos'è in una frase</div>
+      SPID è il sistema di autenticazione digitale che permette ai cittadini di accedere ai servizi online della PA (e dei privati aderenti) con un'unica coppia di credenziali (username + password + secondo fattore), rilasciate da gestori di identità accreditati (Identity Provider).
+    </div>
+
+    <div class="prop">
+      <div class="prop-k">Istituito</div><div class="prop-v">DPCM 24 ottobre 2014, operativo dal 2016</div>
+      <div class="prop-k">Gestito da</div><div class="prop-v">AgID accredita gli Identity Provider privati (es: Poste Italiane, Aruba, InfoCert, Namirial, ecc.) — lo Stato non rilascia SPID direttamente</div>
+      <div class="prop-k">Obbligatorio per PA</div><div class="prop-v">Dal 1° ottobre 2021 tutte le PA devono accettare SPID e CIE per l'accesso ai servizi online (art. 24 D.L. 76/2020 — Decreto Semplificazioni)</div>
+      <div class="prop-k">Gratuito</div><div class="prop-v">Per il cittadino (il livello base). Può avere costi per livelli superiori o con alcune modalità di riconoscimento</div>
+    </div>
+
+    <p style="font-weight:600; font-size:.9rem; margin:.7rem 0 .4rem;">I 3 livelli di sicurezza SPID:</p>
+    <table class="vtable">
+      <thead><tr><th>Livello</th><th>Autenticazione</th><th>Quando si usa</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Livello 1</strong></td><td>Username + password</td><td>Servizi a basso rischio — raramente usato</td></tr>
+        <tr><td><strong>Livello 2</strong></td><td>Username + password + OTP (codice temporaneo via app/SMS)</td><td>Servizi standard PA — il più comune (INPS, Agenzia Entrate, SUE)</td></tr>
+        <tr><td><strong>Livello 3</strong></td><td>Username + password + dispositivo fisico certificato</td><td>Servizi ad alto rischio — usato raramente</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div><strong>SPID nel lavoro quotidiano al SUE:</strong> I cittadini usano SPID per accedere al portale del SUE digitale (SUAP/SUE online), presentare pratiche edilizie, consultare lo stato delle pratiche, accedere a INPS per le pratiche previdenziali. Come funzionario, usi SPID anche per accedere ai portali interni di AgID, ANAC, banche dati regionali.</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p><span>SPID</span> = art. 64 CAD + DPCM 24/10/2014<br>
+      <span>Chi rilascia:</span> Identity Provider accreditati da AgID (non lo Stato)<br>
+      <span>Livello 2</span> = il più comune (password + OTP)<br>
+      <span>Obbligatorio per PA</span> dal 1° ottobre 2021</p>
+    </div>
+  </div>
+</div>
+
+<!-- CIE -->
+<h2 id="cie" class="section-title"><span class="num">3</span> CIE — Carta d'Identità Elettronica</h2>
+
+<div class="tool-card">
+  <div class="tool-header">
+    <div class="tool-icon">💳</div>
+    <div class="tool-meta">
+      <div class="tool-norma">Art. 66 CAD + D.Lgs. 7/2012 + D.M. 23 dicembre 2015</div>
+      <div class="tool-name">CIE — Carta d'Identità Elettronica</div>
+    </div>
+    <span class="prio prio-orange">🟠 Media priorità</span>
+  </div>
+  <div class="tool-body">
+    <div class="concept">
+      <div class="concept-title">Cos'è e come funziona</div>
+      La CIE è la carta d'identità fisica (in formato card) con chip NFC integrato che contiene i dati biometrici del titolare (foto, impronte digitali) e un certificato digitale. Funge sia da documento di identità fisico sia da strumento di autenticazione digitale — in concorrenza con SPID.
+    </div>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>🆚 CIE vs SPID — le differenze</h4>
+        <ul>
+          <li><strong>CIE</strong> → rilasciata dal Ministero dell'Interno tramite i Comuni. È un documento fisico con chip.</li>
+          <li><strong>SPID</strong> → rilasciato da operatori privati accreditati. È solo digitale — non ha forma fisica.</li>
+          <li>Per autenticarsi con CIE serve lo smartphone con NFC o un lettore di smart card.</li>
+          <li>Entrambi danno accesso agli stessi servizi PA — sono equivalenti per legge dal 2021.</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>📋 Cosa contiene il chip CIE</h4>
+        <ul>
+          <li>Dati anagrafici del titolare</li>
+          <li>Fotografia digitale</li>
+          <li>Impronte digitali (2 dita)</li>
+          <li>Certificato digitale di autenticazione</li>
+          <li>Codice fiscale</li>
+          <li>Validità: 10 anni (adulti), 3 anni (under 3), 5 anni (3-18 anni)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-green">
+      <span class="alert-icon">🏛️</span>
+      <div><strong>Rilevanza per il Comune:</strong> Il Comune rilascia la CIE ai propri cittadini tramite l'Anagrafe. Come funzionario tecnico non ti occupi direttamente del rilascio, ma devi sapere che i cittadini usano la CIE per autenticarsi ai portali del SUE digitale — è equivalente a SPID. Dal 2026 la CIE diventerà il documento unico per tutti i cittadini UE (Regolamento eIDAS2).</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p><span>CIE</span> = documento fisico + chip NFC + certificato digitale<br>
+      <span>Rilasciata da:</span> Ministero Interno → Comuni<br>
+      <span>Equivalente a SPID</span> per l'accesso ai servizi PA dal 2021<br>
+      <span>Differenza chiave:</span> CIE = fisica + biometrica · SPID = solo digitale</p>
+    </div>
+  </div>
+</div>
+
+<!-- FIRMA DIGITALE -->
+<h2 id="firma" class="section-title"><span class="num">4</span> Firma Digitale — il documento informatico con valore legale</h2>
+
+<div class="tool-card">
+  <div class="tool-header">
+    <div class="tool-icon">✍️</div>
+    <div class="tool-meta">
+      <div class="tool-norma">Artt. 20-25 CAD + Reg. UE eIDAS n. 910/2014</div>
+      <div class="tool-name">Firma Digitale (e le altre firme elettroniche)</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità — usata ogni giorno al SUE</span>
+  </div>
+  <div class="tool-body">
+    <div class="concept">
+      <div class="concept-title">Il concetto fondamentale</div>
+      La firma digitale è l'equivalente informatico della firma autografa su carta, ma con un valore giuridico ancora più forte: garantisce <strong>autenticità</strong> (chi ha firmato), <strong>integrità</strong> (il documento non è stato modificato dopo la firma) e <strong>non ripudio</strong> (il firmatario non può negare di aver firmato). Si basa su crittografia asimmetrica a chiave pubblica/privata.
+    </div>
+
+    <p style="font-weight:600; font-size:.9rem; margin:.7rem 0 .4rem;">La gerarchia delle firme elettroniche (Reg. UE eIDAS 910/2014):</p>
+    <table class="vtable">
+      <thead><tr><th>Tipo</th><th>Sicurezza</th><th>Valore legale</th><th>Esempio d'uso</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Firma Elettronica Semplice (FES)</strong></td>
+          <td>Bassa</td>
+          <td>Liberamente valutabile dal giudice</td>
+          <td>Scansione firma autografa, spunta su checkbox</td>
+        </tr>
+        <tr>
+          <td><strong>Firma Elettronica Avanzata (FEA)</strong></td>
+          <td>Media</td>
+          <td>Equivale alla scrittura privata (art. 2702 c.c.)</td>
+          <td>Firma grafometrica su tablet, SPID + OTP su moduli</td>
+        </tr>
+        <tr>
+          <td><strong>Firma Elettronica Qualificata (FEQ) = Firma Digitale</strong></td>
+          <td>Alta</td>
+          <td>Equivale alla firma autografa autenticata — pieno valore probatorio</td>
+          <td>Atti della PA, contratti, determinazioni dirigenziali, pratiche SUE</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-orange" style="margin-top:.5rem;">
+      <span class="alert-icon">🔑</span>
+      <div>
+        <strong>Come funziona tecnicamente (da sapere in prova):</strong><br>
+        Il titolare ha due chiavi crittografiche: una <strong>chiave privata</strong> (segreta, sul dispositivo/token USB) e una <strong>chiave pubblica</strong> (nel certificato, verificabile da chiunque). Firma con la privata → chiunque verifica con la pubblica. Se il documento è stato modificato dopo la firma → la verifica fallisce. Il certificato è rilasciato da un <strong>Prestatore di Servizi Fiduciari Qualificato</strong> (ex Certification Authority) accreditato da AgID.
+      </div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div><strong>Nella pratica al SUE:</strong> Ogni determinazione dirigenziale, ogni autorizzazione paesaggistica, ogni permesso di costruire firmato digitalmente usa la FEQ. Il documento in formato PDF/A viene firmato con il token USB del dirigente → produce un file .p7m (CAdES) o un PDF con firma incorporata (PAdES). Senza firma digitale valida l'atto non ha efficacia giuridica.</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p>
+        <span>Tre garanzie:</span> autenticità · integrità · non ripudio<br>
+        <span>FES</span> = semplice · <span>FEA</span> = avanzata · <span>FEQ</span> = qualificata (= firma digitale vera)<br>
+        <span>Norma:</span> artt. 20-25 CAD + Reg. UE eIDAS 910/2014<br>
+        <span>Formato file:</span> .p7m (CAdES) oppure PDF firmato (PAdES)
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- PEC -->
+<h2 id="pec" class="section-title"><span class="num">5</span> PEC — Posta Elettronica Certificata</h2>
+
+<div class="tool-card">
+  <div class="tool-header">
+    <div class="tool-icon">📧</div>
+    <div class="tool-meta">
+      <div class="tool-norma">Art. 48 CAD + DPR 68/2005 + D.Lgs. 82/2005</div>
+      <div class="tool-name">PEC — Posta Elettronica Certificata</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità — usata ogni giorno</span>
+  </div>
+  <div class="tool-body">
+    <div class="concept">
+      <div class="concept-title">Cos'è in una frase</div>
+      La PEC è un sistema di posta elettronica che fornisce la certezza giuridica dell'<strong>invio</strong>, della <strong>consegna</strong> e del <strong>contenuto</strong> del messaggio. Equivale alla <strong>raccomandata con ricevuta di ritorno</strong> cartacea, con valore legale (art. 48 CAD).
+    </div>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>📨 Cosa certifica la PEC</h4>
+        <ul>
+          <li><strong>Data e ora di invio</strong> — con certezza assoluta</li>
+          <li><strong>Data e ora di consegna</strong> nella casella del destinatario</li>
+          <li><strong>Integrità del contenuto</strong> — il messaggio non è stato modificato</li>
+          <li><strong>Identità del mittente</strong> — la casella PEC è intestata a un soggetto identificato</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>⚠️ Cosa NON certifica la PEC</h4>
+        <ul>
+          <li>Che il destinatario abbia <strong>letto</strong> il messaggio</li>
+          <li>Che il destinatario abbia <strong>capito</strong> il contenuto</li>
+          <li>L'autenticità della firma autografa allegata</li>
+          <li>Il valore legale degli allegati (per quello serve la firma digitale)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prop" style="margin-top:.7rem;">
+      <div class="prop-k">Obbligatoria per</div><div class="prop-v">Tutte le PA, imprese, professionisti iscritti ad albi, società — devono avere una casella PEC e comunicarla ai registri pubblici</div>
+      <div class="prop-k">Gestori PEC</div><div class="prop-v">Operatori privati accreditati da AgID (Aruba, Poste Italiane, InfoCert, Namirial, ecc.)</div>
+      <div class="prop-k">IPA</div><div class="prop-v">Indice PA (iPA) — il registro pubblico dove sono elencate le caselle PEC ufficiali di tutte le PA italiane. Obbligatorio consultarlo per comunicazioni tra PA</div>
+      <div class="prop-k">Novità 2024</div><div class="prop-v">La PEC si sta evolvendo in <strong>REM</strong> (Registered Electronic Mail) — standard europeo che sostituirà la PEC nel contesto UE (Reg. eIDAS2)</div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div><strong>Nella pratica al SUE:</strong> Le pratiche edilizie si presentano via PEC (o portale SUE digitale). Le comunicazioni ufficiali agli interessati (avvio procedimento, preavviso di rigetto, rilascio titolo) vanno inviate alla PEC del professionista/richiedente. La PEC dell'Unione è su iPA. Una comunicazione inviata via PEC vale come notifica legale — i termini decorrono dalla data di consegna nella casella.</div>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Errore comune da non fare in prova:</strong> La PEC certifica la consegna nella casella, non la lettura. Se il destinatario non accede alla casella, non cambia niente giuridicamente — il termine decorre ugualmente dalla data di consegna. Questo è un punto frequente nei ricorsi amministrativi.</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>🧠 Da ricordare</h4>
+      <p>
+        <span>PEC</span> = raccomandata A/R elettronica con valore legale (art. 48 CAD + DPR 68/2005)<br>
+        <span>Certifica:</span> invio · consegna · contenuto · data/ora<br>
+        <span>NON certifica:</span> la lettura da parte del destinatario<br>
+        <span>IPA</span> = Indice PA → registro PEC ufficiali di tutte le PA
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- DOMANDE PROBABILI -->
+<h2 id="domande" class="section-title"><span class="num">6</span> Domande probabili — cosa ti potrebbero chiedere</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>La digitalizzazione è materia "trasversale" — raramente è la domanda principale, ma può essere la domanda n.2 o n.3 in un colloquio che inizia su tutt'altro argomento. Ecco le domande più probabili, in ordine di probabilità:</p>
+
+    <div class="domande-grid">
+
+      <div class="dom-item">
+        <span class="dom-prob prob-alta">🔴 Alta</span>
+        <div class="dom-text"><strong>Cos'è la PEC e quale valore legale ha?</strong> — La chiedono quasi sempre. Risposta: raccomandata A/R elettronica, certifica invio e consegna ma non la lettura, art. 48 CAD.</div>
+      </div>
+
+      <div class="dom-item">
+        <span class="dom-prob prob-alta">🔴 Alta</span>
+        <div class="dom-text"><strong>Cos'è la firma digitale e quali garanzie offre?</strong> — Chiedi le tre garanzie: autenticità, integrità, non ripudio. Cita il Reg. UE eIDAS e la differenza FES/FEA/FEQ.</div>
+      </div>
+
+      <div class="dom-item">
+        <span class="dom-prob prob-alta">🔴 Alta</span>
+        <div class="dom-text"><strong>Cos'è lo SPID e perché è stato introdotto?</strong> — Sistema di identità digitale unica, art. 64 CAD, DPCM 2014, 3 livelli di sicurezza, obbligatorio per PA dal 2021.</div>
+      </div>
+
+      <div class="dom-item">
+        <span class="dom-prob prob-media">🟠 Media</span>
+        <div class="dom-text"><strong>Qual è la differenza tra SPID e CIE?</strong> — SPID = solo digitale, rilasciato da privati accreditati. CIE = documento fisico con chip NFC, rilasciata dai Comuni. Entrambi danno accesso agli stessi servizi PA.</div>
+      </div>
+
+      <div class="dom-item">
+        <span class="dom-prob prob-media">🟠 Media</span>
+        <div class="dom-text"><strong>Cos'è il CAD e quali sono i suoi principi fondamentali?</strong> — D.Lgs. 82/2005, digital-first, once-only, interoperabilità, cloud-first. AgID come ente attuatore.</div>
+      </div>
+
+      <div class="dom-item">
+        <span class="dom-prob prob-media">🟠 Media</span>
+        <div class="dom-text"><strong>Come funziona la presentazione di una pratica edilizia in digitale?</strong> — Via PEC o portale SUE digitale (SUAP), documenti in PDF/A firmati digitalmente, accesso tramite SPID/CIE, ricevuta di consegna PEC come prova di avvio procedimento.</div>
+      </div>
+
+      <div class="dom-item">
+        <span class="dom-prob prob-media">🟠 Media</span>
+        <div class="dom-text"><strong>Cos'è il domicilio digitale?</strong> — Art. 3-bis CAD: l'indirizzo PEC (o servizio equivalente) che il cittadino elegge come recapito ufficiale per le comunicazioni della PA. Registrato nell'INAD (Indice Nazionale dei Domicili Digitali) — istituito nel 2023.</div>
+      </div>
+
+      <div class="dom-item">
+        <span class="dom-prob prob-bassa">🟢 Bassa</span>
+        <div class="dom-text"><strong>Cosa cambia con il Regolamento eIDAS2?</strong> — Introduce il Portafoglio Europeo di Identità Digitale (EUDI Wallet), il che significa che entro il 2026 ogni cittadino UE potrà avere un'identità digitale unica riconosciuta in tutti gli Stati membri. La CIE convergerà in questo standard.</div>
+      </div>
+
+      <div class="dom-item">
+        <span class="dom-prob prob-bassa">🟢 Bassa</span>
+        <div class="dom-text"><strong>Cosa si intende per "conservazione digitale" dei documenti?</strong> — I documenti informatici devono essere conservati in modo da garantirne l'integrità nel tempo. Il Manuale di Conservazione è redatto dal Responsabile della Conservazione. AgID fissa le regole tecniche (Linee Guida sulla formazione e conservazione dei documenti informatici).</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- VADEMECUM PRATICO -->
+<h2 class="section-title"><span class="num">7</span> Vademecum pratico — quello che usi davvero ogni giorno</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>Queste sono le cose concrete che un funzionario tecnico del SUE usa o incontra quotidianamente — utili sia per il colloquio che per il lavoro reale:</p>
+
+    <table class="vtable">
+      <thead><tr><th>Situazione</th><th>Strumento</th><th>Note pratiche</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Ricevo una pratica edilizia via email</td>
+          <td><strong>PEC</strong></td>
+          <td>Valida solo se arriva su casella PEC ufficiale dell'Unione (su iPA). Email normale → non ha valore legale per avviare il procedimento</td>
+        </tr>
+        <tr>
+          <td>Devo firmare una determinazione o un'autorizzazione</td>
+          <td><strong>Firma digitale (FEQ)</strong></td>
+          <td>Token USB o firma remota su cloud. Il documento deve essere in formato PDF/A o p7m. Senza FEQ l'atto non ha efficacia</td>
+        </tr>
+        <tr>
+          <td>Un cittadino vuole accedere al portale SUE online</td>
+          <td><strong>SPID o CIE</strong></td>
+          <td>Entrambi validi. Il Comune non può richiedere altro sistema di autenticazione dal 2021</td>
+        </tr>
+        <tr>
+          <td>Devo inviare comunicazione ufficiale a un professionista</td>
+          <td><strong>PEC</strong></td>
+          <td>All'indirizzo PEC del professionista (obbligatorio per iscritti agli albi). I termini decorrono dalla consegna nella casella</td>
+        </tr>
+        <tr>
+          <td>Devo comunicare con un'altra PA</td>
+          <td><strong>PEC + iPA</strong></td>
+          <td>Cerco la casella PEC ufficiale dell'altra PA su iPA (Indice PA). Non usare email ordinarie</td>
+        </tr>
+        <tr>
+          <td>Ricevo un documento PDF con firma digitale</td>
+          <td><strong>Verifica firma</strong></td>
+          <td>Uso Acrobat Reader o il verificatore AgID (firmaok.agid.gov.it) per verificare validità e integrità. Controllare data di firma e scadenza certificato</td>
+        </tr>
+        <tr>
+          <td>Conservo gli atti del procedimento edilizio</td>
+          <td><strong>Conservazione digitale</strong></td>
+          <td>Linee guida AgID sulla conservazione. I fascicoli digitali devono garantire integrità e accessibilità nel tempo. Formato raccomandato: PDF/A</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="quiz-area">
+  <div class="quiz-title">🧠 Quiz — 6 domande stile commissione</div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Quali garanzie offre la firma digitale e su quale norma si basa?<span class="arrow">▼</span></div>
+    <div class="quiz-a">La firma digitale (Firma Elettronica Qualificata — FEQ) garantisce tre proprietà fondamentali: (1) <strong>Autenticità</strong> — certifica chi ha firmato il documento; (2) <strong>Integrità</strong> — garantisce che il documento non sia stato modificato dopo la firma; (3) <strong>Non ripudio</strong> — il firmatario non può negare di aver firmato. Si basa sugli artt. 20-25 del <strong>CAD (D.Lgs. 82/2005)</strong> e sul <strong>Regolamento UE eIDAS n. 910/2014</strong>. Tecnicamente funziona con crittografia asimmetrica: il firmatario usa la chiave privata (sul token USB), chiunque può verificare con la chiave pubblica nel certificato rilasciato da un prestatore accreditato da AgID.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Qual è la differenza tra PEC e email ordinaria dal punto di vista legale?<span class="arrow">▼</span></div>
+    <div class="quiz-a">L'email ordinaria non ha valore legale certificato: non prova che il messaggio sia stato consegnato né che il contenuto non sia stato alterato. La <strong>PEC</strong> (art. 48 CAD + DPR 68/2005) equivale alla raccomandata con ricevuta di ritorno: certifica data e ora di invio, data e ora di consegna nella casella del destinatario e integrità del contenuto. Ha pieno valore legale in giudizio. Attenzione: la PEC certifica la consegna nella casella, non la lettura — se il destinatario non accede alla casella, i termini decorrono ugualmente dalla data di consegna.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Qual è la differenza tra SPID e CIE?<span class="arrow">▼</span></div>
+    <div class="quiz-a"><strong>SPID</strong> (Sistema Pubblico di Identità Digitale, art. 64 CAD, DPCM 2014) è un sistema di autenticazione esclusivamente digitale: credenziali (username + password + OTP) rilasciate da Identity Provider privati accreditati da AgID. Non ha forma fisica. <strong>CIE</strong> (Carta d'Identità Elettronica, art. 66 CAD) è un documento fisico in formato card con chip NFC che contiene dati biometrici e un certificato digitale. Rilasciata dai Comuni per conto del Ministero dell'Interno. Dal 1° ottobre 2021 entrambi danno accesso agli stessi servizi PA e le amministrazioni non possono rifiutare né richiedere sistemi diversi.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Cosa si intende per "principio once-only" nel CAD?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il principio <strong>once-only</strong>, sancito dal CAD (D.Lgs. 82/2005) e dalla normativa UE, stabilisce che il cittadino deve fornire un'informazione alla Pubblica Amministrazione <em>una volta sola</em>: le PA devono poi condividere tra loro i dati necessari tramite le banche dati e i sistemi di interoperabilità, senza chiedere al cittadino di ripresentare documenti già in possesso di un'altra PA. In pratica: il Comune non può chiedere al cittadino la visura catastale se può ottenerla direttamente dall'Agenzia delle Entrate tramite interoperabilità. La violazione del principio once-only è un inadempimento del CAD.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Come si presenta correttamente una pratica edilizia in digitale?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Una pratica edilizia in digitale si presenta: (1) tramite <strong>PEC</strong> alla casella ufficiale del SUE dell'Unione (reperibile su iPA) oppure tramite il <strong>portale SUE digitale/SUAP</strong> con autenticazione via SPID o CIE; (2) gli allegati devono essere in formato <strong>PDF/A</strong>, firmati digitalmente (FEQ) dal professionista abilitato; (3) la ricevuta di consegna PEC costituisce prova dell'avvio del procedimento e fa decorrere i termini per l'amministrazione. Una pratica inviata via email ordinaria o priva di firma digitale del professionista non ha valore legale e può essere dichiarata irricevibile.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="toggle(this)">Cos'è il domicilio digitale e dove si registra?<span class="arrow">▼</span></div>
+    <div class="quiz-a">Il <strong>domicilio digitale</strong> (art. 3-bis CAD) è l'indirizzo di posta elettronica certificata (o servizio equivalente) che il cittadino, il professionista o l'impresa elegge come recapito ufficiale per tutte le comunicazioni della PA. Le comunicazioni inviate al domicilio digitale hanno valore legale. I domicili digitali dei cittadini non professionisti sono registrati nell'<strong>INAD</strong> (Indice Nazionale dei Domicili Digitali, attivo dal 2023). Quelli dei professionisti sono nei registri degli albi. Quelli delle imprese nel Registro delle Imprese (Camere di Commercio). Quelli delle PA nell'<strong>iPA</strong> (Indice delle Pubbliche Amministrazioni).</div>
+  </div>
+
+</div>
+
+</main>
+
+<footer>
+  Guida studio — Specialista EQ — Unione Comuni Valli e Delizie<br>
+  D.Lgs. 82/2005 (CAD) · DPR 68/2005 (PEC) · Reg. UE eIDAS 910/2014 · DPCM 24/10/2014 (SPID)
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  function toggle(el) {
+    const ans = el.nextElementSibling;
+    const isOpen = ans.classList.contains('open');
+    document.querySelectorAll('.quiz-a.open').forEach(a => {
+      a.classList.remove('open');
+      a.previousElementSibling.classList.remove('active');
+    });
+    if (!isOpen) { ans.classList.add('open'); el.classList.add('active'); }
+  }
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 400));
+
+  const html = document.documentElement;
+  const toggleDark = document.getElementById('toggleDark');
+  const toggleAuto = document.getElementById('toggleAuto');
+  const saved = localStorage.getItem('theme') || 'dark';
+  applyTheme(saved);
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    if (theme === 'auto') {
+      toggleAuto.checked = true;
+      toggleDark.checked = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      toggleDark.disabled = true;
+    } else {
+      toggleAuto.checked = false;
+      toggleDark.checked = theme === 'dark';
+      toggleDark.disabled = false;
+    }
+    localStorage.setItem('theme', theme);
+  }
+  toggleAuto.addEventListener('change', () => applyTheme(toggleAuto.checked ? 'auto' : (toggleDark.checked ? 'dark' : 'light')));
+  toggleDark.addEventListener('change', () => { if (!toggleAuto.checked) applyTheme(toggleDark.checked ? 'dark' : 'light'); });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (html.getAttribute('data-theme') === 'auto') toggleDark.checked = e.matches;
+  });
+</script>
+</body>
+</html>

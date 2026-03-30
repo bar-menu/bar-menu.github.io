@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storia della Pianificazione Urbanistica + L.R. 24/2017</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=Crimson+Pro:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --page-color:        #1a5a38;
+    --page-color2:       #0f3a24;
+    --page-color-bg:     #e8f4ee;
+    --page-color-border: #6dba92;
+  }
+
+  [id] { scroll-margin-top: 80px; }
+
+  /* TIMELINE STORICA */
+  .timeline { margin: 1.2rem 0; }
+  .tl-item {
+    display: flex;
+    gap: 0;
+    margin-bottom: 0;
+  }
+  .tl-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    flex-shrink: 0;
+  }
+  .tl-year {
+    background: var(--page-color);
+    color: white;
+    font-family: var(--mono);
+    font-size: .75rem;
+    font-weight: 600;
+    padding: .35rem .5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    text-align: center;
+    width: 72px;
+    margin-top: .55rem;
+  }
+  .tl-line {
+    width: 2px;
+    background: var(--border);
+    flex: 1;
+    min-height: 20px;
+    margin-top: 4px;
+  }
+  .tl-right {
+    padding: .4rem .8rem 1.2rem 1rem;
+    flex: 1;
+  }
+  .tl-title {
+    font-weight: 600;
+    font-size: .96rem;
+    color: var(--ink);
+    margin-bottom: .25rem;
+  }
+  .tl-sub { font-size: .86rem; color: var(--ink2); line-height: 1.6; }
+  .tl-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: .62rem;
+    padding: .15rem .5rem;
+    border-radius: 3px;
+    margin-top: .4rem;
+    font-weight: 600;
+  }
+  .tt-stato { background: var(--alert-blue-bg); color: #1a3a6a; border: 1px solid var(--alert-blue-br); }
+  .tt-reg   { background: var(--page-color-bg); color: var(--page-color2); border: 1px solid var(--page-color-border); }
+  .tt-critico { background: var(--alert-orange-bg); color: #7a3c00; border: 1px solid var(--alert-orange-br); }
+
+  /* SCHEMA PIANI */
+  .schema-piani {
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .piano-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+  .piano-livello {
+    font-family: var(--mono);
+    font-size: .63rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: white;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    padding: .5rem .3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    flex-shrink: 0;
+  }
+  .lv-stato  { background: #1a3a6a; }
+  .lv-reg    { background: var(--page-color); }
+  .lv-prov   { background: #7a3c00; }
+  .lv-com    { background: #4a1870; }
+  .piano-content {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-left: none;
+    padding: .7rem 1rem;
+    background: var(--card);
+  }
+  .piano-name {
+    font-weight: 600;
+    font-size: .9rem;
+    margin-bottom: .2rem;
+    color: var(--ink);
+  }
+  .piano-desc { font-size: .82rem; color: var(--ink2); line-height: 1.55; }
+  .piano-arrow {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--ink3);
+    margin: .1rem 0 .1rem 14px;
+    line-height: 1;
+  }
+
+  /* CONFRONTO SISTEMI */
+  .confronto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .conf-col {
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    overflow: hidden;
+  }
+  .conf-hd {
+    padding: .7rem 1rem;
+    font-family: var(--mono);
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: white;
+  }
+  .conf-hd.vecchio { background: #6a3a00; }
+  .conf-hd.nuovo   { background: var(--page-color); }
+  .conf-body {
+    padding: .8rem 1rem;
+    font-size: .85rem;
+    color: var(--ink2);
+    line-height: 1.65;
+    background: var(--card);
+  }
+  .conf-body ul { list-style: none; padding: 0; }
+  .conf-body li { padding: .25rem 0; border-bottom: 1px solid var(--border); padding-left: 14px; position: relative; }
+  .conf-body li:last-child { border-bottom: none; }
+  .conf-body li::before { content: '›'; position: absolute; left: 0; color: var(--page-color); font-weight: 700; }
+  @media(max-width:600px){ .confronto-grid { grid-template-columns: 1fr; } }
+
+  /* ZONA CARD */
+  .zone-row {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: .4rem 0;
+  }
+  .zone-letter {
+    background: var(--bg3);
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+  .zone-body {
+    padding: .6rem .9rem;
+    background: var(--card);
+    font-size: .84rem;
+  }
+  .zone-body strong { display: block; margin-bottom: .15rem; color: var(--ink); }
+  .zone-body span { color: var(--ink2); }
+
+  /* REGOLA ORO */
+  .gold-rule {
+    background: var(--page-color);
+    color: white;
+    border-radius: 8px;
+    padding: 1.4rem 1.8rem;
+    margin: 1.2rem 0;
+  }
+  .gold-rule p { color: rgba(255,255,255,.9); font-size: .92rem; line-height: 1.8; margin-bottom: .7rem; }
+  .gold-rule p:last-child { margin-bottom: 0; }
+  .gold-rule strong { color: #d4edda; }
+  .gold-rule .label {
+    font-family: var(--mono);
+    font-size: .62rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .7;
+    margin-bottom: .8rem;
+    display: block;
+  }
+
+  /* RISPOSTA MODELLO */
+  .risposta {
+    background: var(--page-color);
+    color: white;
+    border-radius: 8px;
+    padding: 1.8rem 2rem;
+    margin: 1.5rem 0;
+  }
+  .risposta-label {
+    font-family: var(--mono);
+    font-size: .63rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    opacity: .6;
+    margin-bottom: 1.2rem;
+  }
+  .risposta p { font-size: .93rem; line-height: 1.85; margin-bottom: 1rem; opacity: .93; color: white; }
+  .risposta p:last-child { margin-bottom: 0; }
+  .risposta strong { color: #a3d9b1; font-weight: 600; }
+  .risposta .par-title {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #a3d9b1;
+    margin: 1.2rem 0 .4rem;
+    opacity: 1;
+  }
+
+  /* CASO */
+  .case {
+    background: var(--realq-bg);
+    border-left: 5px solid var(--realq-br);
+    border-radius: 4px;
+    padding: 1.1rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .case-tag {
+    font-family: var(--mono);
+    font-size: .63rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--realq-br);
+    margin-bottom: .4rem;
+  }
+  .case-title { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; margin-bottom: .7rem; }
+  .case p { font-size: .9rem; line-height: 1.7; }
+  .case-answer {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: .9rem 1.1rem;
+    margin-top: .8rem;
+    font-size: .88rem;
+    line-height: 1.7;
+    color: var(--ink2);
+  }
+
+  /* QUIZ */
+  .quiz-score-box { background: var(--page-color); color: white; border-radius: 6px; padding: 1.2rem 1.5rem; text-align: center; margin-bottom: 1rem; }
+  .quiz-score-box .big { font-family: var(--mono); font-size: 2.5rem; font-weight: 700; line-height: 1; }
+  .quiz-score-box .lbl { font-size: .85rem; opacity: .75; margin-top: .3rem; }
+  .pbar { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 1.5rem; overflow: hidden; }
+  .pfill { height: 100%; background: var(--page-color); border-radius: 2px; transition: width .3s; }
+  .mc-item { background: var(--card); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 1rem; overflow: hidden; box-shadow: var(--shadow); }
+  .mc-q { padding: 1rem 1.3rem; font-size: .93rem; font-weight: 600; color: var(--ink); }
+  .mc-num { font-family: var(--mono); font-size: .63rem; color: var(--page-color); display: block; margin-bottom: .3rem; letter-spacing: .07em; text-transform: uppercase; }
+  .mc-opts { padding: 0 1rem 1rem; display: flex; flex-direction: column; gap: .5rem; }
+  .mc-opt { border: 1.5px solid var(--border); border-radius: 5px; padding: .6rem .9rem; cursor: pointer; font-size: .88rem; color: var(--ink2); transition: all .15s; display: flex; gap: .7rem; align-items: flex-start; line-height: 1.5; }
+  .mc-opt:hover { border-color: var(--page-color); background: var(--page-color-bg); }
+  .mc-opt.correct { border-color: #1a5a38; background: var(--alert-green-bg); color: #1a5a38; }
+  .mc-opt.wrong { border-color: #C0392B; background: var(--alert-red-bg); color: #C0392B; }
+  .mc-opt .ol { font-family: var(--mono); font-size: .7rem; width: 20px; height: 20px; border-radius: 50%; background: var(--bg2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--ink2); border: 1px solid var(--border); }
+  .mc-opt.correct .ol { background: #1a5a38; color: white; border-color: #1a5a38; }
+  .mc-opt.wrong .ol { background: #C0392B; color: white; border-color: #C0392B; }
+  .mc-expl { margin: .5rem 1rem 1rem; padding: .8rem 1rem; background: var(--alert-blue-bg); border: 1px solid var(--alert-blue-br); border-radius: 5px; font-size: .86rem; color: var(--ink2); display: none; line-height: 1.65; }
+  .mc-expl.show { display: block; }
+  .answered { pointer-events: none; }
+  .btn-reset { font-family: var(--mono); font-size: .7rem; padding: .4rem 1rem; border-radius: 4px; background: var(--card); border: 1px solid var(--border); color: var(--ink2); cursor: pointer; letter-spacing: .05em; margin-top: .5rem; }
+  .btn-reset:hover { border-color: var(--page-color); color: var(--page-color); }
+
+  .ext-link {
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: var(--page-color);
+    background: var(--page-color-bg);
+    border: 1px solid var(--page-color-border);
+    padding: .2rem .6rem;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    margin: .2rem .2rem 0 0;
+  }
+  .ext-link:hover { opacity: .8; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="badge">Concorso Specialista Tecnico · Unione Valli e Delizie</div>
+      <h1>Storia della Pianificazione Urbanistica e L.R. 24/2017</h1>
+      <p>Dal 1935 al PUG — Come si è evoluto il sistema dei piani, perché la L.R. 24/2017 ha cambiato tutto, e quanto può fare una Regione</p>
+    </div>
+    <div class="controls">
+      <div class="toggle-row">
+        <span class="toggle-label">Dark</span>
+        <label class="toggle">
+          <input type="checkbox" id="darkToggle" onchange="toggleDark(this)">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="nav-wrap">
+  <div class="nav-pills">
+    <a href="#pre42" class="nav-pill">Prima del 1942</a>
+    <a href="#l1150" class="nav-pill">L. 1150/1942</a>
+    <a href="#problema" class="nav-pill">Il problema dei centri abitati</a>
+    <a href="#leggepontefinale" class="nav-pill">Legge Ponte 1967</a>
+    <a href="#cascata" class="nav-pill">Sistema a cascata</a>
+    <a href="#titolv" class="nav-pill">Riforma Titolo V 2001</a>
+    <a href="#lr24" class="nav-pill">L.R. 24/2017 — la riforma</a>
+    <a href="#competenza" class="nav-pill">Principio di competenza</a>
+    <a href="#zone" class="nav-pill">Zone A-B-C-D-E-F: cosa rimane</a>
+    <a href="#libertaregione" class="nav-pill">Libertà della Regione</a>
+    <a href="#paesaggio" class="nav-pill">Vincolo paesaggistico: chi prevale</a>
+    <a href="#pug" class="nav-pill">Il PUG dell'Unione</a>
+    <a href="#risposta" class="nav-pill">⭐ Risposta modello</a>
+    <a href="#quiz" class="nav-pill">Quiz</a>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ================================================================
+     PRIMA DEL 1942
+================================================================ -->
+<div id="pre42"></div>
+<div class="section-title"><span class="num">1</span> Prima del 1942 — Il «Far West» Edilizio</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>Prima della legge urbanistica del 1942, in Italia non esisteva una disciplina unitaria nazionale dell'attività edilizia. Ogni Comune aveva il proprio <strong>Regolamento Edilizio</strong>, approvato in autonomia, che poteva prevedere o meno l'obbligo di chiedere un'autorizzazione per costruire. Fuori dai centri più grandi e organizzati, costruire era sostanzialmente libero.</p>
+
+    <p>Il primo atto normativo nazionale che introduce un obbligo di autorizzazione edilizia è il <strong>R.D.L. 25 marzo 1935, n. 640</strong>, che impone la licenza edilizia per le costruzioni all'interno dei centri abitati. Ma attenzione: quell'obbligo era <em>rimandato ai regolamenti edilizi comunali</em> per la sua concreta attuazione. In pratica, solo i Comuni che si erano dotati di un regolamento edilizio lo applicavano davvero — e la maggior parte erano le grandi città.</p>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">📍</span>
+      <div><strong>A Ferrara e nei Comuni del ferrarese:</strong> le città più grandi del nord avevano già regolamenti edilizi ottocenteschi dettagliati. Ferrara, con la sua tradizione urbanistica rinascimentale, aveva norme locali già dall'Ottocento che regolavano l'aspetto dei fabbricati nel centro storico. I piccoli Comuni come Portomaggiore o Ostellato invece avevano regolamenti edilizi molto più essenziali, spesso privi di vero obbligo di licenza per le costruzioni fuori dal nucleo urbano.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     L. 1150/1942
+================================================================ -->
+<div id="l1150"></div>
+<div class="section-title"><span class="num">2</span> L. 1150/1942 — La Prima Legge Urbanistica Nazionale</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">LEGGE 17 AGOSTO 1942, N. 1150</div>
+      <div class="art-title">La «Legge Fondamentale» dell'Urbanistica</div>
+    </div>
+    <span class="prio prio-red">🔴 Ancora vigente (con modifiche)</span>
+  </div>
+  <div class="art-body">
+    <p>Con la L. 1150/1942 l'Italia si dota per la prima volta di una legge urbanistica nazionale organica. È la legge che inventa il Piano Regolatore Generale (PRG), lo strumento che divide il territorio comunale in zone e stabilisce cosa si può fare dove. Ancora oggi — 80 anni dopo — è la legge-madre dell'urbanistica italiana. Il DPR 380/2001 (Testo Unico Edilizia) e le leggi regionali si appoggiano su di essa.</p>
+
+    <h4>Le grandi novità del 1942</h4>
+    <ul>
+      <li>Introduce il <strong>Piano Regolatore Generale (PRG)</strong> come strumento urbanistico del Comune</li>
+      <li>Introduce il <strong>Piano Territoriale di Coordinamento (PTC)</strong> a livello sovracomunale</li>
+      <li>Istituisce la <strong>licenza edilizia</strong> come titolo necessario per costruire (art. 31)</li>
+      <li>Impone al Comune la pianificazione di <strong>tutto</strong> il territorio comunale, non solo del centro</li>
+      <li>Crea le basi del sistema sanzionatorio edilizio</li>
+    </ul>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Ma c'è un problema enorme nell'art. 31 — e dura fino al 1967:</strong> la licenza edilizia è obbligatoria solo per costruire <em>«nei centri abitati e ove esista il piano regolatore comunale»</em>. Fuori dal centro abitato, se il Comune non ha il PRG approvato (e la maggior parte dei Comuni nel 1942 non ce l'aveva), costruire è libero. Questo è il nodo centrale che genera la maggior parte dei problemi di legittimità degli edifici storici italiani.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     IL PROBLEMA: CENTRI ABITATI
+================================================================ -->
+<div id="problema"></div>
+<div class="section-title"><span class="num">3</span> Il Problema dei «Centri Abitati» — 1942/1967</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ART. 31 L. 1150/1942 — versione originale</div>
+      <div class="art-title">Una norma che vale solo dentro il paese</div>
+    </div>
+    <span class="prio prio-red">🔴 Fondamentale per le pratiche storiche</span>
+  </div>
+  <div class="art-body">
+    <p>L'art. 31 nella sua versione originale (dal 1942 al 31 agosto 1967) dice letteralmente: <em>«Chiunque intenda eseguire nuove costruzioni edilizie ovvero ampliare quelle esistenti o modificare la struttura o l'aspetto <strong>nei centri abitati</strong> ed ove esista il piano regolatore comunale […] deve chiedere apposita licenza al podestà del Comune»</em>.</p>
+
+    <p>Traduzione: <strong>fuori dal centro abitato, fino al 31 agosto 1967, non serviva alcun titolo edilizio per costruire</strong>, a meno che il Comune non avesse adottato un proprio regolamento edilizio più restrittivo che lo imponesse. Per la stragrande maggioranza dei Comuni italiani, la campagna, i fondi agricoli, le zone periferiche erano costruzione-libera.</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>✅ Costruzione legittima senza licenza (ante 1/9/1967)</h4>
+        <ul>
+          <li>Edificio in zona rurale fuori dal perimetro del centro abitato</li>
+          <li>Edificio in zona periferica senza PRG approvato</li>
+          <li>Capannone agricolo fuori dal paese</li>
+          <li>Casa colonica in campagna</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>⚠️ Richiedeva licenza anche ante 1967</h4>
+        <ul>
+          <li>Qualsiasi edificio dentro il perimetro del centro abitato</li>
+          <li>Edificio in zona di espansione prevista dal PRG</li>
+          <li>Costruzioni in Comuni con regolamento edilizio restrittivo</li>
+          <li>Edifici su aree demaniali (sempre)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="case-tag">📌 Caso pratico — Portomaggiore 1955</div>
+      <div class="case-title">Una casa costruita nel 1955 a 500 m dal paese</div>
+      <p>Un privato costruisce nel 1955 un fabbricato di 200 mc a 500 m dal nucleo abitato di Portomaggiore, senza chiedere nessun permesso. Nel 2024 viene rilevata dal SUE durante un sopralluogo. È un abuso?</p>
+      <div class="case-answer">
+        <strong>No — è un edificio legittimo.</strong> Nel 1955 l'art. 31 della L. 1150/1942 non imponeva la licenza fuori dal centro abitato. L'edificio, costruito in zona rurale prima del 1° settembre 1967, non aveva bisogno di alcun titolo. <br><br>
+        Il proprietario deve però dimostrarlo con documentazione: aerofotogrammetria d'epoca (IGM), estratto catastale ante 1967, atto notarile, fotografia storica. Il Consiglio di Stato ha confermato che l'onere della prova spetta al proprietario che invoca la legittimità ante '67, non al Comune.
+        <br><br>
+        <strong>Se fosse stato costruito dentro il perimetro del centro abitato:</strong> sarebbe stato abusivo già dal 1942 (licenza obbligatoria ex art. 31 L. 1150/1942) — indipendentemente dalla data.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     LEGGE PONTE 1967
+================================================================ -->
+<div id="leggepontefinale"></div>
+<div class="section-title"><span class="num">4</span> La Legge Ponte 1967 e il DM 1444/1968 — La Svolta</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">L. 6 AGOSTO 1967, N. 765 + DM 2 APRILE 1968, N. 1444</div>
+      <div class="art-title">Licenza ovunque. Zone ovunque. Standard ovunque.</div>
+    </div>
+    <span class="prio prio-red">🔴 Data cruciale: 1° settembre 1967</span>
+  </div>
+  <div class="art-body">
+    <p>Si chiama «legge ponte» perché fa da ponte tra la vecchia urbanistica del 1942 e le riforme più radicali che verranno negli anni '70-'80. È la legge che, con una modifica dell'art. 31 della L. 1150/1942, cambia tutto d'un colpo. A partire dal <strong>1° settembre 1967</strong>:</p>
+
+    <ul>
+      <li>La licenza edilizia è obbligatoria su <strong>tutto il territorio comunale</strong> — dentro e fuori il centro abitato, con o senza PRG approvato</li>
+      <li>Chiunque costruisce senza licenza commette un illecito, qualunque sia la zona</li>
+      <li>Vengono introdotti indici di fabbricabilità minimi e massimi per legge</li>
+    </ul>
+
+    <p>La legge ponte dà poi mandato al Ministero dei Lavori Pubblici di definire <strong>standard urbanistici inderogabili</strong>. Da questo mandato nasce, l'anno successivo, il <strong>DM 2 aprile 1968, n. 1444</strong> — il decreto che tutti conoscono come il «DM 1444» e che introduce le famose <strong>zone omogenee A, B, C, D, E, F</strong> insieme ai limiti di densità, altezza e distanza tra fabbricati.</p>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">🔑</span>
+      <div><strong>La logica del DM 1444 e il suo rapporto con le zone:</strong> il DM 1444 non è una legge urbanistica — è un decreto ministeriale che fissa i <em>limiti minimi e massimi inderogabili</em> per i piani urbanistici comunali. I Comuni non possono fare piani che violino il DM 1444. Le zone A-B-C-D-E-F sono definite proprio in questo decreto, che è legge statale e rimane in vigore ancora oggi — anche dove la Regione ha introdotto nomi e sistemi diversi. Questo è il punto chiave per capire perché le zone non «scompaiono» con la L.R. 24/2017.</div>
+    </div>
+
+    <h4>La sequenza dei titoli edilizi — come cambia nel tempo</h4>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-year">1935–1967</div><div class="tl-line"></div></div>
+        <div class="tl-right"><div class="tl-title">Licenza edilizia (gratuita)</div><div class="tl-sub">Solo nei centri abitati. Gratuita e «dovuta» a chi ne fa richiesta con un diritto sul suolo.</div><span class="tl-tag tt-stato">Art. 31 L. 1150/1942</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-year">1967–1977</div><div class="tl-line"></div></div>
+        <div class="tl-right"><div class="tl-title">Licenza edilizia (gratuita) — estesa a tutto il territorio</div><div class="tl-sub">Obbligo generalizzato dal 1° settembre 1967. Ancora gratuita.</div><span class="tl-tag tt-stato">L. 765/1967</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-year">1977–2001</div><div class="tl-line"></div></div>
+        <div class="tl-right"><div class="tl-title">Concessione edilizia (onerosa)</div><div class="tl-sub">La L. 28 gennaio 1977, n. 10 («Bucalossi») trasforma la licenza in concessione — onerosa. Il proprietario non ha più il diritto di costruire in quanto tale: lo jus aedificandi si separa dalla proprietà del suolo. Nasce il contributo di costruzione.</div><span class="tl-tag tt-stato">L. 10/1977</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-year">2001–oggi</div><div class="tl-line"></div></div>
+        <div class="tl-right"><div class="tl-title">Permesso di costruire / SCIA / CILA</div><div class="tl-sub">Il DPR 380/2001 (Testo Unico Edilizia) sostituisce la concessione col «permesso di costruire» e introduce il sistema stratificato dei titoli: CIL, CILA, SCIA, permesso, con DIA per i casi intermedi. La logica degli oneri rimane identica alla Bucalossi.</div><span class="tl-tag tt-stato">DPR 380/2001</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     IL SISTEMA A CASCATA
+================================================================ -->
+<div id="cascata"></div>
+<div class="section-title"><span class="num">5</span> Il Sistema a Cascata — Come Funzionava Prima del 2017</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>Dal 1942 fino alla L.R. 24/2017 (e ancora oggi in gran parte d'Italia), la pianificazione urbanistica funzionava con un sistema <strong>«a cascata»</strong>: ogni livello di governo produceva un piano che doveva conformarsi a quello del livello superiore, trasmettendo a sua volta prescrizioni al livello inferiore. Come una serie di scatole cinesi.</p>
+
+    <div class="schema-piani">
+      <div class="piano-row">
+        <div class="piano-livello lv-stato">STATO</div>
+        <div class="piano-content">
+          <div class="piano-name">Principi fondamentali statali — L. 1150/1942, DPR 380/2001, DM 1444/1968</div>
+          <div class="piano-desc">Lo Stato fissa le regole del gioco che valgono per tutti: cosa è la licenza/permesso, cosa sono le zone omogenee, quali sono gli standard urbanistici minimi inderogabili, le sanzioni per gli abusi. Tutti gli strumenti inferiori devono conformarsi.</div>
+        </div>
+      </div>
+      <div class="piano-arrow">↓ conformità obbligatoria</div>
+      <div class="piano-row">
+        <div class="piano-livello lv-reg">REGIONE</div>
+        <div class="piano-content">
+          <div class="piano-name">Piano Territoriale Paesistico Regionale (PTPR) + Legge regionale urbanistica</div>
+          <div class="piano-desc">La Regione adotta il piano paesaggistico e la legge urbanistica regionale, che definisce le regole per la pianificazione comunale nel proprio territorio. In Emilia-Romagna: L.R. 20/2000 (ora abrogata) → L.R. 24/2017.</div>
+        </div>
+      </div>
+      <div class="piano-arrow">↓ conformità obbligatoria</div>
+      <div class="piano-row">
+        <div class="piano-livello lv-prov">PROVINCIA</div>
+        <div class="piano-content">
+          <div class="piano-name">Piano Territoriale di Coordinamento Provinciale (PTCP)</div>
+          <div class="piano-desc">La Provincia (ora spesso Area Metropolitana o Area Vasta) coordina la pianificazione tra più Comuni: infrastrutture sovracomunali, sistemi naturali, poli produttivi, mobilità. I Comuni devono conformarsi al PTCP.</div>
+        </div>
+      </div>
+      <div class="piano-arrow">↓ conformità obbligatoria</div>
+      <div class="piano-row">
+        <div class="piano-livello lv-com">COMUNE</div>
+        <div class="piano-content">
+          <div class="piano-name">Piano Regolatore Generale (PRG) → oggi PUG</div>
+          <div class="piano-desc">Il Comune decide cosa si fa nel suo territorio specifico: zonizzazione, destinazioni d'uso, indici edilizi, tutele locali. Ma deve stare dentro i limiti fissati dal PTCP, dalla legge regionale e dai principi statali. Non può contraddire nessuno di questi.</div>
+        </div>
+      </div>
+      <div class="piano-arrow">↓ attuazione</div>
+      <div class="piano-row">
+        <div class="piano-livello lv-com" style="background:#7a1a7a">ATTUAZ.</div>
+        <div class="piano-content">
+          <div class="piano-name">Piani attuativi (lottizzazioni, PUA, POC, ecc.)</div>
+          <div class="piano-desc">I piani di secondo livello che traducono le previsioni del PRG in interventi concreti: lottizzazioni, piani particolareggiati, comparti. Devono conformarsi al PRG che li contiene.</div>
+        </div>
+      </div>
+    </div>
+
+    <p>Il problema del sistema a cascata è la <strong>rigidità</strong> e la <strong>duplicazione</strong>: le stesse scelte venivano replicate e approfondite a ogni livello, con procedure lunghissime e frequenti conflitti tra piani. In Emilia-Romagna, con la L.R. 20/2000, esistevano già PSC + RUE + POC + PUA, cioè quattro strumenti comunali separati invece di uno solo. La L.R. 24/2017 è nata per risolvere questo problema.</p>
+  </div>
+</div>
+
+<!-- ================================================================
+     RIFORMA TITOLO V
+================================================================ -->
+<div id="titolv"></div>
+<div class="section-title"><span class="num">6</span> La Riforma del Titolo V — Art. 117 Costituzione (2001)</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">LEGGE COST. 18 OTTOBRE 2001, N. 3 — ART. 117 COST.</div>
+      <div class="art-title">Perché le Regioni possono fare leggi urbanistiche proprie</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>Questo è il punto che spiega <em>perché</em> l'Emilia-Romagna può avere una propria legge urbanistica diversa da quella di altre Regioni. Non è un'anomalia — è la Costituzione che lo prevede.</p>
+
+    <p>Con la riforma del Titolo V della Costituzione (2001), il <strong>«governo del territorio»</strong> è diventato materia di <strong>legislazione concorrente</strong> tra Stato e Regioni (art. 117, comma 3 Cost.). Significa:</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Lo Stato fissa i «principi fondamentali»</h4>
+        <ul>
+          <li>La L. 1150/1942 (schema base dei piani)</li>
+          <li>Il DPR 380/2001 (titoli edilizi, sanzioni, agibilità)</li>
+          <li>Il DM 1444/1968 (standard urbanistici e distanze)</li>
+          <li>Il D.Lgs. 42/2004 (tutela paesaggistica)</li>
+          <li>Il D.Lgs. 267/2000 TUEL (chi approva i piani)</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>La Regione legifera nel dettaglio</h4>
+        <ul>
+          <li>Procedure di approvazione dei piani</li>
+          <li>Nomenclatura degli strumenti urbanistici</li>
+          <li>Standard urbanistici aggiuntivi rispetto al DM 1444</li>
+          <li>Incentivi e disincentivi (es. consumo di suolo)</li>
+          <li>Procedure per la VIA e la VAS</li>
+          <li>Gestione del paesaggio in coordinamento con lo Stato</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>La Regione può tutto tranne:</strong> non può contraddire i principi fondamentali statali. Il TAR Bologna (sentenza n. 224/2015) ha chiarito che la L.R. 20/2000 (e per estensione la L.R. 24/2017) è legittima perché costituisce «il legittimo esercizio del potere legislativo concorrente assicurato dall'art. 117 Cost., nel rispetto dei principi fondamentali della materia». In parole povere: i principi dello Stato sono il pavimento, la Regione costruisce il piano superiore come vuole ma non può abbassare il pavimento.</div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">La tutela dell'ambiente e del paesaggio è diversa</div>
+      L'art. 117 comma 2 lett. s) assegna allo Stato la <strong>potestà legislativa esclusiva</strong> in materia di «tutela dell'ambiente, dell'ecosistema e dei beni culturali». Questo spiega perché il D.Lgs. 42/2004 (Codice dei Beni Culturali e del Paesaggio) è legge statale che prevale su qualsiasi legge regionale in materia paesaggistica — la Regione può collaborare (e deve), ma non può indebolire la tutela statale.
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     LR 24/2017
+================================================================ -->
+<div id="lr24"></div>
+<div class="section-title"><span class="num">7</span> La L.R. 24/2017 — Addio alla Cascata</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">L.R. 21 DICEMBRE 2017, N. 24 — IN VIGORE DAL 1° GENNAIO 2018</div>
+      <div class="art-title">La nuova legge urbanistica dell'Emilia-Romagna</div>
+    </div>
+    <span class="prio prio-red">🔴 Alta priorità — materia del concorso</span>
+  </div>
+  <div class="art-body">
+    <p>La L.R. 24/2017 ha abrogato la vecchia L.R. 20/2000 e rifondato completamente il sistema pianificatorio regionale. La filosofia di fondo ha tre pilastri che stanno tutti insieme e si capiscono solo insieme:</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>1. Consumo di suolo a saldo zero</h4>
+        <ul>
+          <li>Obiettivo al 2050 (art. 1)</li>
+          <li>Nuovo consumo di suolo consentito solo entro il 3% del territorio urbanizzato</li>
+          <li>Fortissimo incentivo alla rigenerazione urbana (demolizione e ricostruzione)</li>
+          <li>Il Contributo Straordinario (CS nella DAL 186/2018) è lo strumento economico</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>2. Semplificazione degli strumenti</h4>
+        <ul>
+          <li>Un solo piano per ogni livello (non più PSC+RUE+POC)</li>
+          <li>I Comuni adottano il PUG (Piano Urbanistico Generale) unico</li>
+          <li>Gli Accordi Operativi sostituiscono POC+PUA per le trasformazioni</li>
+          <li>Piano Territoriale Regionale (PTR) che incorpora il paesaggistico</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid2" style="margin-top:-.5rem">
+      <div class="grid2-item">
+        <h4>3. Qualità sismica e ambientale</h4>
+        <ul>
+          <li>Incentivi per l'adeguamento antisismico degli edifici esistenti</li>
+          <li>Incentivi all'efficienza energetica</li>
+          <li>VALSAT (Valutazione di Sostenibilità Ambientale e Territoriale) integrata nel piano</li>
+          <li>Riduzione dei rischi idraulici e idrogeologici</li>
+        </ul>
+      </div>
+      <div class="grid2-item" style="background:var(--page-color-bg); border-color:var(--page-color-border)">
+        <h4 style="color:var(--page-color2)">📍 Per l'Unione Valli e Delizie</h4>
+        <ul>
+          <li>Il PUG dell'Unione (ottobre 2022) è il <strong>primo in tutta la Provincia di Ferrara</strong></li>
+          <li>Ha sostituito i vecchi PRG/PSC/RUE di Argenta, Portomaggiore e Ostellato</li>
+          <li>Ha drasticamente ridotto le previsioni di espansione dei vecchi piani</li>
+          <li>Introduce il perimetro del territorio urbanizzato come confine hard</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PRINCIPIO DI COMPETENZA
+================================================================ -->
+<div id="competenza"></div>
+<div class="section-title"><span class="num">8</span> Il Principio di Competenza — Come Funziona al Posto della Cascata</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">ART. 24 L.R. 24/2017</div>
+      <div class="art-title">Ogni livello fa solo quello che è suo — e non invade il terreno degli altri</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>Questo è il punto più difficile da capire. Nel sistema a cascata, il piano superiore «pesava» su quello inferiore — il PRG comunale doveva conformarsi al PTCP provinciale che doveva conformarsi alla legge regionale e così via. Se c'era un conflitto, «vinceva» sempre il piano superiore per il semplice fatto di essere «più alto nella gerarchia».</p>
+
+    <p>Con la L.R. 24/2017 la logica cambia completamente. Invece di una gerarchia per «stazza», si introduce un sistema per <strong>competenza per materia</strong>. Ogni livello di governo ha una sfera di competenza esclusiva: fa le scelte che gli appartengono e non può invadere la sfera degli altri. Non è che la Regione «vince» sul Comune — è che la Regione decide su certe cose e il Comune su altre, e queste sfere non si sovrappongono.</p>
+
+    <div class="confronto-grid">
+      <div class="conf-col">
+        <div class="conf-hd vecchio">Sistema a cascata (prima)</div>
+        <div class="conf-body">
+          <ul>
+            <li>La Regione fa il piano → il Comune lo «recepisce» e scende nei dettagli</li>
+            <li>Se il piano regionale dice una cosa e il Comune un'altra, vince la Regione per gerarchia</li>
+            <li>Stesso argomento disciplinato a tutti i livelli (triplicazione)</li>
+            <li>Procedure lunghissime: per variare un PRG servivano anni e passaggi infiniti</li>
+            <li>Conflitti continui su chi aveva ragione</li>
+          </ul>
+        </div>
+      </div>
+      <div class="conf-col">
+        <div class="conf-hd nuovo">Principio di competenza (L.R. 24/2017)</div>
+        <div class="conf-body">
+          <ul>
+            <li>La Regione decide su paesaggio, infrastrutture regionali, standard minimi</li>
+            <li>Il Comune decide su zonizzazione locale, regole edilizie di dettaglio, perimetro urbano</li>
+            <li>Se la Regione ha già stabilito qualcosa, il Comune non lo ridecide — lo applica</li>
+            <li>Se il Comune ha competenza esclusiva, la Regione non interviene</li>
+            <li>Non c'è «chi vince» perché non ci sono conflitti di competenza se ognuno fa il suo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p>Il PUG (Piano Urbanistico Generale) del Comune ha due parti che riflettono questa logica:</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Parte Strutturale (PS) — la roba «stabile»</h4>
+        <ul>
+          <li>Le <strong>invarianti strutturali</strong>: valori e risorse che non si toccano (centro storico, paesaggio, aree naturali)</li>
+          <li>Il <strong>perimetro del territorio urbanizzato</strong></li>
+          <li>Le tutele e le limitazioni sovraordinate (vincoli paesaggistici, idrogeologici)</li>
+          <li>Approvata dalla Regione insieme al Comune (co-pianificazione)</li>
+          <li>Non si cambia con facilità — è la «costituzione» del territorio</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Parte Operativa (PO) — la roba «dinamica»</h4>
+        <ul>
+          <li>La <strong>disciplina degli usi del territorio</strong>: cosa si può fare dove, con quali regole</li>
+          <li>Le previsioni di rigenerazione e sviluppo</li>
+          <li>Gli Accordi Operativi per le trasformazioni significative</li>
+          <li>Approvata dal solo Comune (autonomia comunale)</li>
+          <li>Aggiornabile più facilmente con la procedura degli Accordi Operativi</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">💡</span>
+      <div><strong>Perché non c'è più conflitto di gerarchia:</strong> la Parte Strutturale (che tocca competenze regionali come il paesaggio) viene approvata insieme alla Regione. La Parte Operativa (competenza comunale) viene approvata dal Comune da solo. Se il Comune vuole variare la Parte Strutturale su una materia regionale, deve tornare a sedersi con la Regione. Se vuole variare la Parte Operativa, lo fa da solo. Non c'è più un piano superiore che sovrasta — c'è una cooperazione nelle materie condivise e autonomia nelle materie proprie.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     ZONE A-B-C-D-E-F: COSA RIMANE
+================================================================ -->
+<div id="zone"></div>
+<div class="section-title"><span class="num">9</span> Le Zone A-B-C-D-E-F — Cosa Rimane e Cosa Cambia</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">DM 1444/1968 — LEGGE STATALE ANCORA VIGENTE</div>
+      <div class="art-title">La L.R. 24/2017 cambia i nomi — non può cambiare le regole</div>
+    </div>
+    <span class="prio prio-red">🔴 Punto di confusione frequente — cruciale</span>
+  </div>
+  <div class="art-body">
+    <p>La domanda che ti sei posto è esattamente quella che si pongono tutti: se la L.R. 24/2017 supera il sistema delle zone omogenee, quelle zone esistono ancora? Sì e no. Bisogna capire <em>chi ha introdotto le zone e chi può modificarle</em>.</p>
+
+    <p>Le zone A-B-C-D-E-F non sono state inventate dalla Regione — sono state create dal <strong>DM 1444/1968</strong>, che è un decreto ministeriale <em>statale</em>. La Regione non può abrogare una norma statale: può solo non usare quella terminologia nei propri strumenti, oppure aggiungere articolazioni ulteriori. I <strong>principi del DM 1444 rimangono in vigore</strong> come principi fondamentali della materia, anche se il PUG non usa più le lettere A-F.</p>
+
+    <div class="gold-rule">
+      <span class="label">La regola per capire tutto</span>
+      <p>Il DM 1444/1968 dice che ci devono essere standard urbanistici minimi (verde, parcheggi, scuole), distanze minime tra fabbricati, densità massime per tipo di area. Questi sono principi fondamentali statali — nessuna Regione li può toccare.</p>
+      <p>La L.R. 24/2017 dice che il PUG invece di chiamare le zone A, B, C… usa i concetti di «territorio urbanizzato» / «territorio rurale» / «sistema insediativo storico» / «dotazioni territoriali». <strong>Ma i contenuti concreti che quelle zone devono garantire (standard, distanze, densità) rimangono quelli del DM 1444.</strong></p>
+      <p>È come cambiare le etichette sulle bottiglie senza cambiare il liquido dentro. Il PUG di Portomaggiore non chiama più «zona A» il centro storico — ma le regole che si applicano al centro storico nel PUG sono sostanzialmente quelle che il DM 1444 prescrive per le zone A.</p>
+    </div>
+
+    <h4>I concetti del DM 1444 nel linguaggio della L.R. 24/2017</h4>
+
+    <div class="zone-row">
+      <div class="zone-letter" style="color:#b8860b">A</div>
+      <div class="zone-body">
+        <strong>Centro storico → «Sistema insediativo storico» (art. 32 c.5 L.R. 24/2017)</strong>
+        <span>Il PUG perimetra il centro storico e ne individua gli elementi peculiari. Si applicano le tutele degli artt. 7 e 8 del DM 1444 nella sostanza.</span>
+      </div>
+    </div>
+    <div class="zone-row">
+      <div class="zone-letter" style="color:#1a4a8a">B</div>
+      <div class="zone-body">
+        <strong>Completamento → «Territorio urbanizzato consolidato»</strong>
+        <span>Incluso nel perimetro del territorio urbanizzato. La disciplina degli interventi diretti è nel PUG (Parte Operativa).</span>
+      </div>
+    </div>
+    <div class="zone-row">
+      <div class="zone-letter" style="color:#1a5a38">C</div>
+      <div class="zone-body">
+        <strong>Espansione → «Nuova urbanizzazione» (fortemente limitata)</strong>
+        <span>Fuori dal perimetro del territorio urbanizzato. Possibile solo nei limiti del 3% e solo per insediamenti strategici tramite Accordi Operativi.</span>
+      </div>
+    </div>
+    <div class="zone-row">
+      <div class="zone-letter" style="color:#7a1a7a">D</div>
+      <div class="zone-body">
+        <strong>Produttivo → «Ambiti specializzati per attività produttive»</strong>
+        <span>Permane la distinzione tra produttivo e residenziale. Gli ampliamenti di attività produttive esistenti sono esclusi dai limiti di consumo di suolo.</span>
+      </div>
+    </div>
+    <div class="zone-row">
+      <div class="zone-letter" style="color:#3a6a1a">E</div>
+      <div class="zone-body">
+        <strong>Agricola → «Territorio rurale» (art. 54 L.R. 24/2017)</strong>
+        <span>La L.R. 24/2017 ha la normativa più dettagliata di tutta la legge sul territorio rurale. Fortissima limitazione alla nuova edificazione. Solo IAP e imprenditori agricoli possono costruire per esigenze aziendali.</span>
+      </div>
+    </div>
+    <div class="zone-row">
+      <div class="zone-letter" style="color:#4a1870">F</div>
+      <div class="zone-body">
+        <strong>Attrezzature → «Dotazioni territoriali» (art. 26 L.R. 24/2017)</strong>
+        <span>Il concetto di standard urbanistico (mq di verde, parcheggi, scuole per abitante) rimane — cambia solo il nome in «dotazioni territoriali». I minimi del DM 1444 continuano ad applicarsi.</span>
+      </div>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💡</span>
+      <div><strong>Il TAR Bologna (sentenza n. 224/2015) ha confermato espressamente:</strong> la scelta regionale di superare il modello delle «zone territoriali omogenee» previsto dalla normativa nazionale (DM 1444/1968) è costituzionalmente legittima, in quanto il nuovo sistema degli «ambiti territoriali» consente di determinare in modo specifico l'esercizio del potere pianificatorio comunale, individuandone i limiti e ponendo le regole per l'esercizio della discrezionalità. Traduzione: cambiare i nomi delle zone è OK; cambiare i contenuti minimi non lo è.</div>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>L'art. 10 L.R. 24/2017 — Deroghe al DM 1444:</strong> la L.R. 24/2017 prevede espressamente alcune deroghe al DM 1444 per gli interventi di rigenerazione urbana (ristrutturazione urbanistica, addensamento, sostituzione). Es.: gli accordi operativi per la rigenerazione non sono tenuti ai limiti di densità edilizia e altezza degli artt. 7 e 8 del DM 1444. <strong>Ma le distanze minime tra fabbricati (art. 9 DM 1444) rimangono sempre inderogabili</strong> anche negli interventi di rigenerazione — la L.R. 24/2017 lo conferma espressamente.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     LIBERTÀ DELLA REGIONE
+================================================================ -->
+<div id="libertaregione"></div>
+<div class="section-title"><span class="num">10</span> Quanta Libertà ha la Regione? I Confini Costituzionali</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>La risposta breve è: <strong>molta, ma non illimitata</strong>. La libertà della Regione è definita da tre confini precisi, che si capiscono guardando l'art. 117 Cost. e la giurisprudenza della Corte Costituzionale.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">1</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-action">Confine 1 — I principi fondamentali statali</div>
+          <div class="flow-detail">La Regione non può toccare i «principi fondamentali» della materia «governo del territorio» fissati dallo Stato. Il DPR 380/2001 (titoli edilizi, sanzioni), il DM 1444/1968 (standard minimi inderogabili, distanze), la L. 1150/1942 nelle parti ancora vigenti — questi sono principi fondamentali che la Regione non può contraddire. La Corte Costituzionale ha annullato leggi regionali che abrogavano la necessità del permesso di costruire o che riducevano le sanzioni per gli abusi al di sotto del minimo statale.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">2</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-action">Confine 2 — La potestà esclusiva statale su ambiente e paesaggio</div>
+          <div class="flow-detail">Il D.Lgs. 42/2004 (Codice dei Beni Culturali e del Paesaggio) è legge statale su materia di potestà esclusiva dello Stato (art. 117 c.2 lett. s Cost.). La Regione può collaborare con lo Stato nella tutela del paesaggio (e lo fa col PTPR), ma non può abbassare il livello di tutela fissato dal Codice. Non può, per esempio, consentire interventi che il Codice vieta in area paesaggistica vincolata.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left"><div class="flow-circle" style="background:var(--page-color)">3</div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-action">Confine 3 — Il diritto di proprietà e l'ordinamento civile</div>
+          <div class="flow-detail">L'art. 117 c.2 lett. l Cost. riserva allo Stato la potestà esclusiva in materia di «ordinamento civile e penale» e di «regime della proprietà». Questo vuol dire che la Regione non può istituire nuove sanzioni penali per le violazioni urbanistiche (sono nel DPR 380) né modificare le regole civilistiche sulle distanze tra fabbricati (che il Codice Civile artt. 873-907 disciplina come materia civilistica).</div>
+        </div>
+      </div>
+    </div>
+
+    <p>Dentro questi tre confini, la Regione può fare tutto: può inventare nuovi strumenti urbanistici (PUG, Accordi Operativi), può imporre standard più alti di quelli statali (ma non più bassi), può introdurre nuovi vincoli per il consumo di suolo, può semplificare i procedimenti, può creare incentivi economici. La L.R. 24/2017 nell'art. 1 dichiara esplicitamente di operare «in conformità ai principi fondamentali della legislazione statale» — è la bussola che evita l'incostituzionalità.</p>
+  </div>
+</div>
+
+<!-- ================================================================
+     VINCOLO PAESAGGISTICO: COMUNE VS REGIONE
+================================================================ -->
+<div id="paesaggio"></div>
+<div class="section-title"><span class="num">11</span> Vincolo Paesaggistico: Quando il Comune è Più Restrittivo della Regione</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">PRINCIPIO DI MAGGIOR TUTELA</div>
+      <div class="art-title">Chi è più restrittivo prevale — non chi è «più in alto»</div>
+    </div>
+    <span class="prio prio-red">🔴 Punto di confusione frequente</span>
+  </div>
+  <div class="art-body">
+    <p>Hai capito bene il principio ma l'hai letto in modo rovesciato. Non è che il Comune «vince» sulla Regione per forza — è che in materia di <strong>tutela del paesaggio e dell'ambiente la norma più restrittiva prevale sempre</strong>, indipendentemente da chi l'ha adottata.</p>
+
+    <p>Ecco come funziona: il D.Lgs. 42/2004 fissa la tutela paesaggistica <em>minima</em>. Il Piano Paesaggistico Regionale (PTPR) può aggiungere ulteriori tutele sopra questo minimo. Il PRG o PUG Comunale può aggiungere ulteriori tutele sopra quelle regionali. In nessun caso il piano inferiore può abbassare le tutele del piano superiore — ma può sempre alzarle.</p>
+
+    <div class="gold-rule">
+      <span class="label">Il principio di non regressione nella tutela ambientale</span>
+      <p>Un Comune il cui PRG classifica un'area come «zona di rispetto paesaggistico» con divieto assoluto di costruire, anche se il PTPR regionale consentiva qualche intervento in quella zona, ha tutto il diritto di farlo. <strong>Il Comune sta aggiungendo tutela, non sottraendola.</strong> La giurisprudenza del Consiglio di Stato è consolidata: i piani comunali possono imporre limitazioni al diritto di edificare più restrittive rispetto agli strumenti sovraordinati, purché siano sorrette da adeguata motivazione.</p>
+      <p>Il caso inverso — Comune che riduce le tutele sotto il livello regionale o statale — sarebbe illegittimo. Il Comune non può dire «quella zona è vincolata ex art. 142 D.Lgs. 42/2004 ma nel nostro PRG la rendiamo libera». Quello non si può fare.</p>
+    </div>
+
+    <div class="case">
+      <div class="case-tag">⚖️ Caso tipico — Vincolo comunale più restrittivo</div>
+      <div class="case-title">PRG di Argenta classifica come inedificabile un'area che il PTPR regionale consentiva di edificare</div>
+      <p>Il PTPR regionale classifica una fascia di 50 m attorno ad un bosco come «area di rispetto» con edificabilità ridotta ma possibile. Il PRG di Argenta invece classifica quell'intera fascia come «area boschiva di tutela assoluta» con inedificabilità totale. Un privato impugna al TAR: dice che il Comune non può essere più restrittivo della Regione.</p>
+      <div class="case-answer">
+        <strong>Il TAR dà ragione al Comune (se la scelta è adeguatamente motivata).</strong><br><br>
+        In materia di pianificazione paesaggistica e ambientale, il Comune può legittimamente imporre tutele più severe di quelle previste dagli strumenti sovraordinati. La limitazione del diritto di edificare rientra nella discrezionalità pianificatoria del Comune, che può perseguire finalità di protezione ambientale più elevate.<br><br>
+        <strong>Condizione:</strong> il Comune deve motivare adeguatamente la scelta più restrittiva (es. tutela della biodiversità, rischio idrogeologico, valore paesaggistico locale documentato). Una scelta arbitraria e immotivata potrebbe essere annullata, ma non per il principio gerarchico — bensì per eccesso di potere e carenza di motivazione.<br><br>
+        <strong>Attenzione:</strong> questo principio vale in senso opposto per i casi dove la Cassazione dà ragione al Comune. Non è che il Comune «prevale» sulla Regione in senso gerarchico — è che in materia di tutela ambientale il principio è «chi tutela di più, tutela meglio».
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     IL PUG DELL'UNIONE
+================================================================ -->
+<div id="pug"></div>
+<div class="section-title"><span class="num">12</span> Il PUG dell'Unione Valli e Delizie — Caso Concreto</div>
+
+<div class="art-card">
+  <div class="art-body">
+    <p>Il PUG dell'Unione (approvato con delibera di Consiglio Unione n. 36 del 29/09/2022, in vigore dal 26 ottobre 2022) è il primo PUG approvato in tutta la provincia di Ferrara — un primato che ti potranno chiedere all'esame.</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Cosa ha sostituito</h4>
+        <ul>
+          <li>I vecchi PRG storici di Argenta, Portomaggiore e Ostellato</li>
+          <li>I PSC (Piani Strutturali Comunali) adottati sotto la L.R. 20/2000</li>
+          <li>I RUE (Regolamenti Urbanistici Edilizi) dei tre Comuni</li>
+          <li>I POC (Piani Operativi Comunali) vigenti</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Le scelte principali</h4>
+        <ul>
+          <li>Drastica riduzione delle previsioni di espansione (consumo di suolo)</li>
+          <li>Perimetro del territorio urbanizzato definito rigorosamente</li>
+          <li>Forte tutela del territorio rurale e delle aree naturali (Delta del Po, valli)</li>
+          <li>Incentivi alla rigenerazione urbana nei centri esistenti</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">📍</span>
+      <div>
+        <strong>Dove trovare il PUG:</strong>
+        <a href="https://www.unionevalliedelizie.fe.it" class="ext-link" target="_blank">unionevalliedelizie.fe.it</a> → Strumenti Urbanistici → PUG
+        <br><br>
+        <strong>Il Regolamento Edilizio:</strong> esiste un Regolamento Edilizio (RE) comune a tutti e tre i Comuni, che disciplina le procedure edilizie di dettaglio. Non è il PUG — è uno strumento separato che lo integra per le questioni tecnico-edilizie operative. Il RE è sovraordinato al titolo edilizio ma sottordinato al PUG.
+      </div>
+    </div>
+
+    <p>Per il tuo lavoro quotidiano come Specialista Tecnico, il PUG è il documento che consulti ogni volta che devi valutare la fattibilità di un intervento: ti dice in quale ambito ricade il lotto, quali sono le destinazioni d'uso ammesse, quali sono gli indici edilizi, se ci sono vincoli specifici locali. Lo usi insieme alla verifica dei vincoli paesaggistici (art. 136/142 D.Lgs. 42/2004) e alla disciplina edilizia (DPR 380/2001 + L.R. 15/2013).</p>
+  </div>
+</div>
+
+<!-- ================================================================
+     RISPOSTA MODELLO
+================================================================ -->
+<div id="risposta"></div>
+<div class="section-title"><span class="num">⭐</span> Risposta Modello — 30 minuti alla prova scritta</div>
+
+<div class="real-q">
+  <div class="label">Domanda tipo da prova scritta</div>
+  <p>Il candidato illustri l'evoluzione del sistema di pianificazione urbanistica in Italia, con particolare riferimento alla Legge Urbanistica del 1942, alla Legge Ponte del 1967 e alla riforma introdotta dalla L.R. n. 24/2017 dell'Emilia-Romagna, descrivendo le principali innovazioni rispetto al sistema precedente.</p>
+</div>
+
+<div class="risposta">
+  <div class="risposta-label">Risposta modello — tempo stimato: 25-30 minuti di scrittura — circa 900 parole</div>
+
+  <div class="par-title">1. Le origini — prima della legge urbanistica</div>
+  <p>Prima del 1942 l'Italia non disponeva di una disciplina unitaria dell'attività edilizia. L'obbligo di autorizzazione per costruire era rimandato ai regolamenti edilizi comunali, con il risultato che la maggior parte del territorio nazionale era privo di controllo pubblico sull'attività edificatoria. Solo le grandi città disponevano di strumenti regolatori efficaci.</p>
+
+  <div class="par-title">2. La L. 1150/1942 — la prima legge urbanistica nazionale</div>
+  <p>La <strong>Legge 17 agosto 1942, n. 1150</strong> costituisce la prima disciplina organica dell'urbanistica italiana, ancora oggi in vigore nella sua struttura fondamentale. Essa introduce il <strong>Piano Regolatore Generale (PRG)</strong> come strumento principale di governo del territorio comunale, impone la pianificazione dell'intero territorio (non solo del centro urbano), e istituisce la <strong>licenza edilizia</strong> quale titolo abilitativo obbligatorio per costruire. Tuttavia, nella versione originaria dell'art. 31, l'obbligo della licenza si applicava esclusivamente alle costruzioni realizzate «<em>nei centri abitati</em> e ove esista il piano regolatore comunale»: al di fuori del perimetro edificato e in assenza di PRG approvato, costruire restava libero. Questo limite costituisce il dato più rilevante ai fini della verifica della legittimità degli edifici storici.</p>
+
+  <div class="par-title">3. La Legge Ponte 1967 e il DM 1444/1968 — la svolta</div>
+  <p>La <strong>Legge 6 agosto 1967, n. 765</strong> (c.d. «Legge Ponte») modifica l'art. 31 della L. 1150/1942 estendendo l'obbligo della licenza edilizia a tutto il territorio comunale, indipendentemente dalla localizzazione e dalla dotazione di strumenti urbanistici. Dal <strong>1° settembre 1967</strong>, data di entrata in vigore della norma, qualsiasi intervento edilizio su qualunque parte del territorio richiede il preventivo titolo abilitativo. Gli edifici costruiti in zone extraurbane prima di tale data senza licenza, qualora dimostrata la anteriorità alla Legge Ponte, sono da considerarsi legittimi per le norme dell'epoca; la prova della data di costruzione spetta al proprietario. La Legge Ponte demanda poi al Ministero la definizione di standard urbanistici inderogabili, da cui nasce il <strong>DM 2 aprile 1968, n. 1444</strong> — ancora oggi vigente — che introduce le zone omogenee A, B, C, D, E, F e fissa i limiti minimi di densità edilizia, altezza, distanza tra fabbricati e rapporti tra spazi edificati e spazi pubblici. Questi standard costituiscono principi fondamentali statali che nessun piano regionale o comunale può derogare al ribasso.</p>
+
+  <div class="par-title">4. Il sistema a cascata e la sua crisi</div>
+  <p>Dal 1942 al 2018 la pianificazione italiana funzionò secondo un sistema <strong>«a cascata»</strong>: ogni livello di governo (Stato, Regione, Provincia, Comune) elaborava un piano che doveva conformarsi a quello del livello superiore. La Regione adottava il Piano Territoriale Paesistico, la Provincia il Piano Territoriale di Coordinamento, il Comune il PRG, e via via i piani attuativi. Il piano superiore prevaleva su quello inferiore in ragione della gerarchia tra gli enti. Questo sistema produceva duplicazioni, conflitti e lunghe procedure: in Emilia-Romagna, con la L.R. 20/2000, esistevano per ogni Comune addirittura quattro strumenti distinti (PSC, RUE, POC, PUA). La necessità di una semplificazione radicale diventa evidente già nei primi anni 2000.</p>
+
+  <div class="par-title">5. La L.R. 24/2017 — il superamento della cascata</div>
+  <p>La <strong>L.R. 21 dicembre 2017, n. 24</strong> («Disciplina regionale sulla tutela e l'uso del territorio»), in vigore dal 1° gennaio 2018, abroga la L.R. 20/2000 e ridisegna il sistema pianificatorio regionale attorno a tre obiettivi fondamentali: il <strong>consumo di suolo a saldo zero</strong> entro il 2050, la <strong>semplificazione degli strumenti urbanistici</strong>, e la <strong>promozione della rigenerazione urbana</strong> in sostituzione dell'espansione su suolo vergine.</p>
+  <p>La principale innovazione strutturale è il passaggio dal sistema a cascata al <strong>principio di competenza per materia</strong> (art. 24). Ogni livello di governo non elabora più una versione approfondita del piano superiore — esercita invece competenze proprie e distinte. La Regione decide su paesaggio, infrastrutture di interesse regionale e standard minimi di sostenibilità; il Comune decide sulla disciplina locale degli usi del suolo, sulle regole edilizie di dettaglio e sul perimetro del territorio urbanizzato. Non vi è conflitto gerarchico perché le sfere di competenza non si sovrappongono: se si deve decidere su una materia regionale, Regione e Comune co-pianificano; se la materia è di competenza esclusiva comunale, il Comune decide autonomamente.</p>
+
+  <div class="par-title">6. Il PUG e gli Accordi Operativi</div>
+  <p>Sul piano degli strumenti, la L.R. 24/2017 introduce per ogni Comune un unico <strong>Piano Urbanistico Generale (PUG)</strong> in sostituzione di PSC, RUE e POC. Il PUG si articola in Parte Strutturale (invarianti e vincoli sovraordinati, approvata in co-pianificazione con la Regione) e Parte Operativa (disciplina degli usi e delle trasformazioni, approvata dal Comune in autonomia). Le trasformazioni significative non previste direttamente nel PUG si attuano tramite <strong>Accordi Operativi</strong>, strumenti negoziali che sostituiscono i vecchi POC e PUA, garantendo flessibilità senza aggirare le tutele strutturali.</p>
+
+  <div class="par-title">7. Il rapporto con il DM 1444/1968 e i principi fondamentali statali</div>
+  <p>Il superamento della nomenclatura delle zone omogenee A-F non equivale all'abrogazione del DM 1444/1968, che è legge statale e rimane in vigore come principio fondamentale della materia. Il PUG non usa più le lettere A-F ma i suoi contenuti devono garantire gli standard minimi del DM 1444 (verde, parcheggi, scuole, distanze). La L.R. 24/2017 prevede deroghe espresse ai soli limiti di densità edilizia e altezza per gli interventi di rigenerazione urbana, mantenendo invece intatte le distanze minime tra fabbricati dell'art. 9 DM 1444. Questa scelta è costituzionalmente fondata: la Regione opera nell'ambito della legislazione concorrente «governo del territorio» (art. 117 c.3 Cost.) nel rispetto dei principi fondamentali statali, come confermato dal TAR Bologna con sentenza n. 224/2015.</p>
+</div>
+
+<!-- ================================================================
+     QUIZ
+================================================================ -->
+<div id="quiz"></div>
+<div class="section-title"><span class="num">13</span> Quiz</div>
+
+<div class="quiz-score-box">
+  <div class="big" id="score">0/0</div>
+  <div class="lbl">Risposte corrette — clicca sulle opzioni per iniziare</div>
+</div>
+<div class="pbar"><div class="pfill" id="pbar" style="width:0%"></div></div>
+<div id="qbox"></div>
+<button class="btn-reset" onclick="resetQ()">↺ Ricomincia quiz</button>
+
+</div><!-- .main -->
+
+<footer>
+  Storia Pianificazione Urbanistica · L.R. 24/2017 · Guida per concorso Specialista Tecnico · Unione Valli e Delizie (FE)
+</footer>
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function toggleDark(el){ document.documentElement.dataset.theme = el.checked ? 'dark' : 'light'; }
+window.addEventListener('scroll', () => { document.getElementById('scrolltop').classList.toggle('visible', window.scrollY > 400); });
+
+const qs = [
+  {
+    q: "Prima dell'entrata in vigore della Legge Ponte (L. 765/1967), l'obbligo di ottenere la licenza edilizia previsto dall'art. 31 della L. 1150/1942 si applicava:",
+    opts: ["A tutto il territorio nazionale, indipendentemente dalla localizzazione","Solo nei centri abitati e nelle zone di espansione previste dal PRG comunale","Solo nei Comuni con più di 50.000 abitanti","A qualsiasi costruzione superiore a 100 mc di volume"],
+    c: 1,
+    e: "L'art. 31 della L. 1150/1942, nella versione originale vigente fino al 31 agosto 1967, limitava esplicitamente l'obbligo della licenza edilizia alle costruzioni eseguite «nei centri abitati e ove esista il piano regolatore comunale». Al di fuori dei centri abitati, in assenza di PRG, costruire era libero. La data del 1° settembre 1967 (entrata in vigore della Legge Ponte) è cruciale per determinare la legittimità degli edifici storici."
+  },
+  {
+    q: "Il DM 2 aprile 1968, n. 1444 è stato abrogato dalla L.R. 24/2017 dell'Emilia-Romagna, che ha introdotto un sistema di ambiti territoriali in sostituzione delle zone omogenee A-F?",
+    opts: ["Sì — la L.R. 24/2017 ha superato integralmente il sistema del DM 1444","No — il DM 1444 è legge statale e rimane in vigore come principio fondamentale. La L.R. 24/2017 può cambiare la nomenclatura ma non i contenuti minimi","Sì, ma solo per i Comuni che hanno approvato il PUG","No, ma la Regione può derogare a tutti i suoi limiti con specifici accordi operativi"],
+    c: 1,
+    e: "Il DM 1444/1968 è un decreto ministeriale statale e costituisce principio fondamentale della materia «governo del territorio» ex art. 117 Cost. La Regione, nel campo della legislazione concorrente, non può abrogarlo. Il TAR Bologna (n. 224/2015) ha confermato la legittimità del sistema degli «ambiti territoriali» della L.R. 20/2000 (e per estensione della 24/2017), precisando che questo non crea incostituzionalità perché i contenuti minimi del DM 1444 devono comunque essere garantiti."
+  },
+  {
+    q: "Il principale cambiamento strutturale introdotto dalla L.R. 24/2017 rispetto al sistema precedente è:",
+    opts: ["L'introduzione del permesso di costruire in sostituzione della concessione edilizia","Il passaggio dal sistema di pianificazione «a cascata» al principio di competenza per materia","La soppressione del Piano Regolatore Generale e la sua sostituzione col Piano Paesaggistico","L'attribuzione ai Comuni della competenza esclusiva in materia di tutela paesaggistica"],
+    c: 1,
+    e: "La principale innovazione della L.R. 24/2017 è il superamento della «pianificazione a cascata» (ogni livello di governo elabora una versione approfondita del piano superiore, con il piano superiore che prevale per gerarchia) in favore del principio di competenza per materia (art. 24): ogni livello esercita competenze proprie e distinte, senza sovrapposizioni. Regione e Comune co-pianificano sulle materie condivise; il Comune ha autonomia sulle materie di propria competenza."
+  },
+  {
+    q: "Un Comune il cui PUG classifica come «inedificabile assoluta» una zona che il Piano Paesaggistico Regionale consentirebbe di edificare con limitazioni:",
+    opts: ["Commette un atto illegittimo perché il piano regionale prevale sempre su quello comunale","Può farlo legittimamente perché in materia ambientale e paesaggistica la norma più restrittiva è ammessa, purché adeguatamente motivata","Non può farlo perché viola il principio di leale cooperazione tra Stato, Regione e Comuni","Può farlo solo con autorizzazione espressa della Regione"],
+    c: 1,
+    e: "Il Consiglio di Stato ha confermato in numerose pronunce che i piani comunali possono imporre limitazioni al diritto di edificare più restrittive rispetto agli strumenti sovraordinati, purché sorrette da adeguata motivazione urbanistica. In materia di tutela ambientale e paesaggistica vale il principio per cui la norma più restrittiva è ammessa: il Comune aggiunge tutela, non la sottrae. L'opposto — Comune che riduce le tutele paesaggistiche sotto il livello regionale o statale — sarebbe illegittimo."
+  },
+  {
+    q: "La materia «governo del territorio» nell'art. 117 della Costituzione è classificata come:",
+    opts: ["Materia di potestà legislativa esclusiva dello Stato","Materia di potestà legislativa esclusiva delle Regioni","Materia di legislazione concorrente tra Stato e Regioni","Materia attribuita esclusivamente ai Comuni con legge regionale"],
+    c: 2,
+    e: "Art. 117, comma 3, Cost.: il «governo del territorio» rientra tra le materie di legislazione concorrente. Nella legislazione concorrente lo Stato fissa i principi fondamentali (L. 1150/1942, DPR 380/2001, DM 1444/1968) e le Regioni disciplinano nel dettaglio. Attenzione: la tutela dell'ambiente e dei beni culturali (art. 117 c.2 lett. s) è invece materia di potestà esclusiva statale — per questo il D.Lgs. 42/2004 prevale su qualsiasi legge regionale."
+  },
+  {
+    q: "Quale legge ha trasformato la licenza edilizia (gratuita) in concessione edilizia (onerosa), separando lo jus aedificandi dalla proprietà del suolo?",
+    opts: ["La L. 765/1967 (Legge Ponte)","La L. 28 gennaio 1977, n. 10 (Legge Bucalossi)","Il DPR 380/2001 (Testo Unico Edilizia)","La L. 47/1985 (Primo condono edilizio)"],
+    c: 1,
+    e: "La L. 28 gennaio 1977, n. 10 (Legge Bucalossi) ha trasformato la licenza edilizia in concessione edilizia, rendendola onerosa. La modifica sostanziale è che il proprietario del suolo non ha più il diritto di costruire come attributo naturale della proprietà: lo jus aedificandi si separa dalla proprietà del terreno e la costruzione richiede ora il pagamento degli oneri di urbanizzazione — il precursore del contributo di costruzione disciplinato oggi dalla DAL 186/2018."
+  },
+  {
+    q: "Il PUG dell'Unione dei Comuni Valli e Delizie, approvato nel 2022, ha sostituito:",
+    opts: ["Solo il Piano Regolatore Generale del Comune di Argenta","Solo il PTCP (Piano Territoriale di Coordinamento Provinciale) della Provincia di Ferrara","I PSC, RUE e POC dei tre Comuni aderenti (Argenta, Portomaggiore, Ostellato), in attuazione della L.R. 24/2017","Il Piano Paesaggistico Regionale per il territorio dei tre Comuni"],
+    c: 2,
+    e: "Il PUG dell'Unione (delibera di Consiglio Unione n. 36 del 29/09/2022, in vigore dal 26 ottobre 2022) è il primo PUG approvato in tutta la Provincia di Ferrara e ha sostituito i vecchi strumenti urbanistici di tutti e tre i Comuni aderenti (Argenta, Portomaggiore, Ostellato): PSC (Piani Strutturali Comunali), RUE (Regolamenti Urbanistici Edilizi) e POC (Piani Operativi Comunali) adottati sotto la vecchia L.R. 20/2000."
+  },
+  {
+    q: "La distanza minima di 10 metri tra pareti finestrate prevista dall'art. 9 del DM 1444/1968 è derogabile dalla L.R. 24/2017 per gli interventi di rigenerazione urbana?",
+    opts: ["Sì — la L.R. 24/2017 consente deroghe a tutti i limiti del DM 1444 per la rigenerazione","No — le distanze minime tra fabbricati dell'art. 9 DM 1444 rimangono inderogabili anche per la L.R. 24/2017","Sì, ma solo se il Comune lo prevede esplicitamente nel PUG","No, ma la Soprintendenza può autorizzare distanze inferiori"],
+    c: 1,
+    e: "La L.R. 24/2017 prevede espressamente deroghe ai limiti di densità edilizia e altezza degli artt. 7 e 8 del DM 1444 per gli interventi di rigenerazione urbana (art. 10 L.R. 24/2017). Tuttavia, la legge regionale specifica che tali deroghe non si applicano alle distanze minime tra fabbricati dell'art. 9 DM 1444 (i famosi «10 metri tra pareti finestrate»), che rimangono inderogabili. Il Consiglio di Stato ha confermato in decine di sentenze il carattere assolutamente inderogabile delle distanze dell'art. 9 DM 1444."
+  }
+];
+
+let st = { right:0, total:0, done: new Set() };
+function buildQ(){
+  const c = document.getElementById('qbox'); c.innerHTML = '';
+  qs.forEach((q,i)=>{
+    const d = document.createElement('div'); d.className = 'mc-item';
+    d.innerHTML = `<div class="mc-q"><span class="mc-num">Domanda ${i+1} / ${qs.length}</span>${q.q}</div>
+    <div class="mc-opts">${q.opts.map((o,j)=>`<div class="mc-opt" onclick="ans(${i},${j},this)"><div class="ol">${['A','B','C','D'][j]}</div><div>${o}</div></div>`).join('')}</div>
+    <div class="mc-expl" id="e${i}">${q.e}</div>`;
+    c.appendChild(d);
+  }); upd();
+}
+function ans(qi,oi,el){
+  if(st.done.has(qi))return; st.done.add(qi); st.total++;
+  const opts=el.parentElement.querySelectorAll('.mc-opt');
+  opts.forEach(o=>o.classList.add('answered'));
+  if(oi===qs[qi].c){el.classList.add('correct');st.right++;}
+  else{el.classList.add('wrong');opts[qs[qi].c].classList.add('correct');}
+  document.getElementById('e'+qi).classList.add('show'); upd();
+}
+function upd(){
+  document.getElementById('score').textContent=`${st.right}/${st.total}`;
+  document.getElementById('pbar').style.width=(qs.length>0?st.done.size/qs.length*100:0)+'%';
+}
+function resetQ(){ st={right:0,total:0,done:new Set()}; buildQ(); }
+buildQ();
+</script>
+</body>
+</html>

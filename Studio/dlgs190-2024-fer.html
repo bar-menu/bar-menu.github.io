@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D.Lgs. 190/2024 — FER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Crimson+Pro:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --page-color:        #D4700A;
+    --page-color2:       #A85508;
+    --page-color-bg:     rgba(212,112,10,.07);
+    --page-color-border: rgba(212,112,10,.28);
+  }
+  [data-theme="dark"] {
+    --page-color-bg:     rgba(212,112,10,.12);
+    --page-color-border: rgba(212,112,10,.35);
+  }
+
+  .esempio {
+    background: var(--alert-green-bg);
+    border: 1px solid var(--alert-green-br);
+    border-radius: 5px;
+    padding: .75rem 1rem;
+    margin: .6rem 0;
+    font-size: .87rem;
+    line-height: 1.65;
+  }
+  .esempio::before { content: '📌 Esempio pratico: '; font-weight: 600; color: #1A6B3C; }
+
+  /* regime badge */
+  .r-libera {
+    font-family: var(--mono); font-size: .67rem; font-weight: 700;
+    padding: .15rem .6rem; border-radius: 3px; display: inline-block;
+    background: var(--alert-green-bg); color: #1A6B3C; border: 1px solid var(--alert-green-br);
+  }
+  .r-pas {
+    font-family: var(--mono); font-size: .67rem; font-weight: 700;
+    padding: .15rem .6rem; border-radius: 3px; display: inline-block;
+    background: var(--alert-blue-bg); color: #2C5AA0; border: 1px solid var(--alert-blue-br);
+  }
+  .r-au {
+    font-family: var(--mono); font-size: .67rem; font-weight: 700;
+    padding: .15rem .6rem; border-radius: 3px; display: inline-block;
+    background: var(--alert-red-bg); color: #C0392B; border: 1px solid var(--alert-red-br);
+  }
+  .r-idonea {
+    font-family: var(--mono); font-size: .67rem; font-weight: 700;
+    padding: .15rem .6rem; border-radius: 3px; display: inline-block;
+    background: var(--alert-orange-bg); color: #C9670A; border: 1px solid var(--alert-orange-br);
+  }
+
+  .vs-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: .8rem 0;
+  }
+  .vs-old {
+    background: var(--alert-red-bg); border: 1px solid var(--alert-red-br);
+    border-radius: 6px; padding: .9rem 1rem;
+  }
+  .vs-new {
+    background: var(--alert-green-bg); border: 1px solid var(--alert-green-br);
+    border-radius: 6px; padding: .9rem 1rem;
+  }
+  .vs-old h4 { color: #C0392B; font-family: var(--mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; }
+  .vs-new h4 { color: #1A6B3C; font-family: var(--mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; }
+  .vs-old ul, .vs-new ul { list-style: none; padding: 0; }
+  .vs-old li, .vs-new li { font-size: .87rem; padding: .25rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .5rem; line-height: 1.5; }
+  .vs-old li:last-child, .vs-new li:last-child { border-bottom: none; }
+  .vs-old li::before { content: '✗'; color: #C0392B; flex-shrink: 0; }
+  .vs-new li::before { content: '✓'; color: #1A6B3C; flex-shrink: 0; }
+
+  @media (max-width: 700px) { .vs-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="badge">D.Lgs. 25 novembre 2024, n. 190 — Fonti Rinnovabili (FER)</div>
+      <h1>Regimi amministrativi<br>per la produzione di energia<br>da fonti rinnovabili</h1>
+      <p>Attività libera · PAS · Autorizzazione Unica · Aree idonee · Chi fa cosa — tutto per rispondere all'esame con padronanza su una norma recentissima</p>
+    </div>
+    <div class="controls">
+      <div class="toggle-row">
+        <span class="toggle-label">Tema scuro</span>
+        <label class="toggle">
+          <input type="checkbox" id="themeToggle">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-wrap">
+  <div class="nav-pills">
+    <a class="nav-pill" href="#perche">Perché esiste</a>
+    <a class="nav-pill" href="#regimi">I 3 regimi</a>
+    <a class="nav-pill" href="#soglie">Soglie e tecnologie</a>
+    <a class="nav-pill" href="#aree">Aree idonee</a>
+    <a class="nav-pill" href="#procedimenti">Procedimenti</a>
+    <a class="nav-pill" href="#enti">Chi fa cosa</a>
+    <a class="nav-pill" href="#vincoli">Paesaggio e vincoli</a>
+    <a class="nav-pill" href="#speciali">Casi speciali</a>
+    <a class="nav-pill" href="#risposta">Risposte esame</a>
+    <a class="nav-pill" href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<div class="real-q">
+  <div class="label">★ Domanda reale — Prova orale 15/10/2024 (Istruttore Tecnico) + bando Specialista 2026</div>
+  <p>«Il candidato illustri quali sono i titoli autorizzativi per la realizzazione degli impianti di produzione di energia da fonti rinnovabili (FER).» — Il D.Lgs. 190/2024 è materia esplicita del bando e, essendo entrato in vigore a novembre 2024, è molto probabile che venga chiesto proprio perché è nuovo: chi lo conosce si distingue subito.</p>
+</div>
+
+<main class="main">
+
+<!-- ══════════════════════════════════
+     1 — PERCHÉ ESISTE
+══════════════════════════════════ -->
+<h2 class="section-title" id="perche">
+  <span class="num">1</span>
+  Perché esiste — cosa cambia rispetto al passato
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">D.Lgs. 190/2024 — in vigore dal 30 dicembre 2024</div>
+      <div class="art-title">Il riordino totale delle autorizzazioni per le rinnovabili</div>
+    </div>
+    <span class="prio prio-red">Normativa recentissima</span>
+  </div>
+  <div class="art-body">
+    <p>Prima del D.Lgs. 190/2024, le autorizzazioni per gli impianti a fonti rinnovabili erano disciplinate da un sistema frammentato e stratificato: il <strong>D.Lgs. 387/2003</strong> aveva introdotto l'Autorizzazione Unica, le <strong>Linee Guida Nazionali del DM 10 settembre 2010</strong> avevano definito i regimi semplificati, e una miriade di norme regionali e decreti successivi avevano aggiunto strati su strati di regole, spesso in contraddizione tra loro. Il risultato era un sistema caotico in cui lo stesso impianto fotovoltaico poteva richiedere procedure completamente diverse da comune a comune o da regione a regione.</p>
+
+    <p>Il D.Lgs. 190/2024 è adottato in attuazione della <strong>legge delega sulla concorrenza (L. 118/2022)</strong> e ha l'obiettivo dichiarato di semplificare, uniformare e accelerare le procedure autorizzative per le FER, in linea con gli obiettivi del <strong>PNIEC</strong> (Piano Nazionale Integrato per l'Energia e il Clima) e delle direttive europee RED II e RED III che impongono all'Italia di raggiungere quote crescenti di energie rinnovabili entro il 2030.</p>
+
+    <div class="vs-grid">
+      <div class="vs-old">
+        <h4>Prima — sistema frammentato</h4>
+        <ul>
+          <li>D.Lgs. 387/2003 + DM 2010 + norme regionali: sistema sovrapposto</li>
+          <li>Regime semplificato (PAS) con soglie diverse per regione</li>
+          <li>Incertezza su chi era il soggetto competente</li>
+          <li>Procedure lunghe: AU spesso oltre 12–18 mesi</li>
+          <li>Nessuna distinzione sistematica tra "aree idonee" e "non idonee"</li>
+          <li>Agrivoltaico privo di disciplina specifica</li>
+        </ul>
+      </div>
+      <div class="vs-new">
+        <h4>Dopo — D.Lgs. 190/2024</h4>
+        <ul>
+          <li>Testo unico dei regimi autorizzativi FER: tre regimi chiari e uniformi</li>
+          <li>Soglie nazionali uniformi per ogni tecnologia e regime</li>
+          <li>Competenze nette tra SUAP, Regione, Ministero</li>
+          <li>Termini perentori: AU entro 90 giorni in aree idonee</li>
+          <li>Aree idonee: procedura accelerata; aree non idonee: vietato o molto limitato</li>
+          <li>Agrivoltaico: disciplina organica specifica</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">⚡</span>
+      <div><strong>Perché è fondamentale per un tecnico dell'Unione Valli e Delizie:</strong> il Settore Programmazione Territoriale riceve ogni giorno domande per pannelli fotovoltaici, impianti a biogas, turbine eoliche, agrivoltaico. Sapere quale regime si applica, chi istruisce la pratica, se serve il parere paesaggistico, se l'area è "idonea" o no: è lavoro quotidiano. Questa norma determina concretamente il flusso di lavoro dello sportello.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     2 — I TRE REGIMI
+══════════════════════════════════ -->
+<h2 class="section-title" id="regimi">
+  <span class="num">2</span>
+  I tre regimi autorizzativi — la mappa logica
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 4–22 D.Lgs. 190/2024</div>
+      <div class="art-title">Attività libera · PAS · Autorizzazione Unica</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <p>Il decreto organizza le autorizzazioni in <strong>tre regimi progressivi</strong>, dal più semplice al più complesso, in funzione della potenza dell'impianto, della tecnologia e della localizzazione. Il principio è: più l'impianto è grande e più l'impatto è potenzialmente significativo, più la procedura è complessa. Nelle <strong>aree idonee</strong> (vedi sezione dedicata) le procedure sono semplificate rispetto alle aree ordinarie.</p>
+
+    <table class="vtable">
+      <thead>
+        <tr>
+          <th>Regime</th>
+          <th>Cos'è</th>
+          <th>Chi è competente</th>
+          <th>Tempi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="r-libera">Attività libera</span></td>
+          <td>Nessuna autorizzazione richiesta. L'impianto si installa liberamente (salvo norme edilizie ordinarie). Per piccoli impianti su edifici già esistenti e per alcune installazioni in zone non vincolate.</td>
+          <td>Nessuno: il privato agisce direttamente senza comunicare nulla (o con semplice comunicazione per alcune categorie).</td>
+          <td>Immediato</td>
+        </tr>
+        <tr>
+          <td><span class="r-pas">PAS — Procedura Abilitativa Semplificata</span></td>
+          <td>Analoga a una SCIA: il privato presenta la PAS allo sportello (SUAP) con tutti gli elaborati. Decorsi 30 giorni senza opposizione, i lavori possono iniziare. Non è richiesta un'approvazione esplicita.</td>
+          <td><strong>SUAP</strong> del Comune (o Unione). Il SUAP convoca la Conferenza dei Servizi con gli enti coinvolti se necessario.</td>
+          <td>30 giorni dalla presentazione</td>
+        </tr>
+        <tr>
+          <td><span class="r-au">Autorizzazione Unica (AU)</span></td>
+          <td>Procedimento unico che riunisce tutti i titoli, pareri, nulla osta necessari (incluso eventuale autorizzazione paesaggistica). Si svolge con Conferenza dei Servizi. L'AU sostituisce e comprende tutti gli altri atti autorizzativi.</td>
+          <td><strong>Regione</strong> (o Provincia/Città Metropolitana se delegata) per impianti sopra soglia. Termini: 90 giorni in aree idonee, 180 giorni in aree ordinarie.</td>
+          <td>90 gg (aree idonee)<br>180 gg (altre aree)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">⚡</span>
+      <div><strong>La logica della PAS vs SCIA edilizia:</strong> la PAS funziona esattamente come la SCIA ex LR 15/2013 — il privato presenta la documentazione e, passati 30 giorni senza che lo sportello la blocchi, può iniziare i lavori. Non aspetta un "sì" esplicito. Se lo sportello rileva problemi entro i 30 giorni, può sospendere o vietare l'inizio. Questo meccanismo è importante da conoscere perché il SUE/SUAP deve sapere reagire rapidamente.</div>
+    </div>
+
+    <div class="mnemonic">
+      <h4>Mnemonica — I tre regimi</h4>
+      <p><span>LIBERA</span> = fai senza chiedere · <span>PAS</span> = presenta e aspetta 30 giorni · <span>AU</span> = chiedi alla Regione e aspetta 90/180 giorni<br>
+      → dimensione crescente dell'impianto → complessità crescente della procedura</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     3 — SOGLIE E TECNOLOGIE
+══════════════════════════════════ -->
+<h2 class="section-title" id="soglie">
+  <span class="num">3</span>
+  Soglie per tecnologia — quale regime si applica
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Allegati A e B D.Lgs. 190/2024</div>
+      <div class="art-title">Fotovoltaico, eolico, idroelettrico, biomasse — soglie per regime</div>
+    </div>
+  </div>
+  <div class="art-body">
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">ℹ</span>
+      <span>Le soglie variano anche in base alla localizzazione: area idonea vs area ordinaria vs area con vincoli. Qui le soglie si riferiscono al <strong>caso ordinario (area non idonea, senza vincoli particolari)</strong>. In area idonea le soglie per PAS sono più alte (si può fare PAS invece di AU per potenze maggiori).</span>
+    </div>
+
+    <table class="vtable">
+      <thead>
+        <tr>
+          <th>Tecnologia</th>
+          <th><span class="r-libera">Attività libera</span></th>
+          <th><span class="r-pas">PAS</span></th>
+          <th><span class="r-au">Autorizzazione Unica</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Fotovoltaico su edificio</strong></td>
+          <td>Fino a <strong>50 kW</strong> su edificio esistente, in zone non vincolate (anche integrato in copertura)</td>
+          <td>Da 50 kW fino a <strong>1 MW</strong> su edificio o pertinenza</td>
+          <td>Oltre 1 MW; o qualsiasi potenza in aree vincolate senza regime semplificato</td>
+        </tr>
+        <tr>
+          <td><strong>Fotovoltaico a terra</strong></td>
+          <td>Non ammesso in attività libera (sempre richiesta procedura)</td>
+          <td>Fino a <strong>1 MW</strong> in area idonea; fino a 200 kW in area ordinaria</td>
+          <td>Oltre 1 MW in area ordinaria; oltre le soglie PAS in area idonea</td>
+        </tr>
+        <tr>
+          <td><strong>Agrivoltaico</strong></td>
+          <td>Non ammesso (sempre procedura)</td>
+          <td>Fino a <strong>1 MW</strong> con attività agricola dimostrata</td>
+          <td>Oltre 1 MW o in assenza di dimostrazione attività agricola</td>
+        </tr>
+        <tr>
+          <td><strong>Eolico — mini/micro</strong></td>
+          <td>Fino a <strong>60 kW</strong> (singola turbina su edificio o in pertinenza)</td>
+          <td>Da 60 kW fino a <strong>1 MW</strong></td>
+          <td>Oltre 1 MW (impianti industriali)</td>
+        </tr>
+        <tr>
+          <td><strong>Eolico — grande</strong></td>
+          <td>Mai attività libera</td>
+          <td>Mai PAS (per natura richiedono AU)</td>
+          <td>Sempre AU. Per potenza > 30 MW: competenza <strong>MASE</strong> (Ministero)</td>
+        </tr>
+        <tr>
+          <td><strong>Idroelettrico</strong></td>
+          <td>Piccoli impianti su infrastrutture esistenti fino a 100 kW</td>
+          <td>Da 100 kW a 1 MW</td>
+          <td>Oltre 1 MW; sempre con concessione d'acqua regionale</td>
+        </tr>
+        <tr>
+          <td><strong>Biomasse / biogas</strong></td>
+          <td>Non ammesso</td>
+          <td>Fino a <strong>200 kW</strong> in area idonea</td>
+          <td>Quasi sempre AU (impatti su aria, odori, traffico richiedono valutazione)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">⚠</span>
+      <div><strong>Attenzione — le soglie contano, ma la localizzazione cambia tutto:</strong> un fotovoltaico a terra da 500 kW in area ordinaria richiede AU; lo stesso impianto in un'area idonea identificata dalla Regione può richiedere solo PAS. La verifica dell'area viene prima della verifica della potenza. Per l'Unione Valli e Delizie, la pianura agricola ferrarese è zona di alta vocazione FER (pianura aperta, buona irradiazione), quindi molte aree potrebbero essere designate come idonee dalla Regione ER.</div>
+    </div>
+
+    <div class="esempio">Un privato chiede al SUAP dell'Unione di installare 200 kW di fotovoltaico a terra su terreno agricolo non vincolato. Prima di rispondere, il tecnico del SUAP verifica: (1) l'area è idonea ex designazione regionale? Se sì → PAS. Se no → AU con istruttoria regionale. (2) L'area ha vincoli paesaggistici? Se sì → l'autorizzazione paesaggistica va integrata nella procedura (PAS include il parere paesaggistico, AU lo ingloba direttamente).</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     4 — AREE IDONEE
+══════════════════════════════════ -->
+<h2 class="section-title" id="aree">
+  <span class="num">4</span>
+  Aree idonee e non idonee — il concetto chiave
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Artt. 23–26 D.Lgs. 190/2024</div>
+      <div class="art-title">La mappa del possibile — dove le rinnovabili sono facilitate o vietate</div>
+    </div>
+    <span class="prio prio-red">Concetto chiave</span>
+  </div>
+  <div class="art-body">
+    <p>Il concetto di "aree idonee" è la grande novità sistematica del D.Lgs. 190/2024. L'idea è semplice: invece di valutare caso per caso ogni singolo impianto da zero, si predispone una mappa del territorio dove alcune zone sono già pre-qualificate come adatte alle rinnovabili (aree idonee) e altre come inadatte (aree non idonee). Questo accelera enormemente le procedure: in area idonea si va subito in PAS o AU accelerata, senza dover dimostrare la compatibilità ambientale da capo ogni volta.</p>
+
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>Aree idonee — caratteristiche</h4>
+        <ul>
+          <li>Zone industriali, artigianali e commerciali dismesse o degradate</li>
+          <li>Cave e miniere dismesse</li>
+          <li>Discariche esaurite e siti contaminati bonificati</li>
+          <li>Aree agricole abbandonate o a bassa vocazione produttiva</li>
+          <li>Fasce di rispetto di infrastrutture (autostrade, ferrovie, elettrodotti)</li>
+          <li>Zone già interessate da impianti FER (per repowering/revamping)</li>
+          <li><strong>Effetto:</strong> procedura accelerata, soglie PAS più alte, AU in 90 giorni</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>Aree non idonee — caratteristiche</h4>
+        <ul>
+          <li>Aree naturali protette (parchi nazionali, regionali, riserve)</li>
+          <li>Siti Natura 2000 (ZSC, ZPS) e relative zone di rispetto</li>
+          <li>Aree con vincolo paesaggistico diretto (D.Lgs. 42/2004 art. 136)</li>
+          <li>Zone di tutela dei corpi idrici e fasce fluviali</li>
+          <li>Siti UNESCO e buffer zones</li>
+          <li>Aree con rischio idrogeologico elevato (PAI)</li>
+          <li><strong>Effetto:</strong> vietato o fortemente limitato, con procedura massima</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Chi designa le aree idonee e non idonee</div>
+      <p style="font-size:.9rem">Il decreto prevede un <strong>doppio livello</strong>:</p>
+      <ul style="list-style:none;padding:0;font-size:.9rem">
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Il <strong>Ministero dell'Ambiente e della Sicurezza Energetica (MASE)</strong> adotta i <strong>criteri nazionali</strong> per identificare le aree idonee e non idonee (in concerto con le Regioni e la Conferenza Stato-Regioni)</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Le <strong>Regioni</strong> recepiscono i criteri nazionali e individuano concretamente le aree idonee e non idonee sul proprio territorio, con propri atti (delibere, piani energetici regionali)</li>
+        <li style="padding:.3rem 0">▸ Il <strong>Comune</strong>, nel PUG o in appositi atti, può ulteriormente precisare la localizzazione delle aree, nel rispetto degli indirizzi regionali. Non può però ampliare le aree non idonee oltre i criteri nazionali (non può bloccare le rinnovabili arbitrariamente)</li>
+      </ul>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">📍</span>
+      <div><strong>Situazione in Emilia-Romagna:</strong> la Regione ER sta recependo i criteri del D.Lgs. 190/2024 per aggiornare il proprio Piano Energetico Regionale (PER) e individuare le aree idonee. Nella pianura ferrarese, caratterizzata da ampi spazi aperti e buona irradiazione solare, ci si aspetta che molte aree agricole (specie quelle non di pregio) vengano designate come idonee per il fotovoltaico. Le aree del Delta del Po con vincoli UNESCO/paesaggistici rientrano invece nelle aree non idonee.</div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Il silenzio assenso in area idonea</div>
+      <p style="font-size:.9rem">Una delle innovazioni più forti del decreto: in area idonea, se l'amministrazione competente non si pronuncia entro i termini di legge (90 giorni per AU, 30 giorni per PAS), <strong>si forma il silenzio assenso</strong>. L'impianto può essere realizzato. Questo inverte la logica tradizionale della PA: non è il privato ad attendere l'approvazione, ma la PA che ha l'onere di agire entro i termini o perdere il controllo. Questo crea un onere importante sugli uffici tecnici degli enti.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     5 — PROCEDIMENTI
+══════════════════════════════════ -->
+<h2 class="section-title" id="procedimenti">
+  <span class="num">5</span>
+  Procedimenti — come funzionano in pratica
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">PAS — Procedura Abilitativa Semplificata</div>
+      <div class="art-title">Come funziona lo sportello per impianti medi</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Privato (proponente)</div>
+          <div class="flow-action">Presentazione PAS al SUAP</div>
+          <div class="flow-detail">Il proponente deposita al SUAP: progetto impianto, relazione tecnica, planimetrie, eventuale relazione paesaggistica (se area vincolata), dichiarazione di conformità alle norme edilizie, elaborati strutturali se rilevanti.</div>
+          <span class="timer t-blue">Giorno 0</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">SUAP</div>
+          <div class="flow-action">Verifica di completezza formale e acquisizione pareri</div>
+          <div class="flow-detail">Il SUAP verifica che la documentazione sia completa. Se necessario, acquisisce pareri da altri enti (Soprintendenza per aree paesaggistiche, ARPA per impatti ambientali, Autorità di Bacino per aree idrogeologiche). Se la documentazione è incompleta, il termine di 30 giorni è sospeso fino all'integrazione.</div>
+          <span class="timer t-orange">Entro 30 giorni</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:#1A6B3C">3</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">SUAP / Enti terzi</div>
+          <div class="flow-action">Nessuna opposizione → lavori autorizzati</div>
+          <div class="flow-detail">Se entro 30 giorni dalla presentazione nessun ente si oppone o richiede integrazioni, il proponente può iniziare i lavori. Non serve un atto espresso di autorizzazione. La PAS presentata e non opposta equivale al titolo abilitativo.</div>
+          <span class="timer t-green">Dopo 30 giorni — silenzio assenso</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:#C0392B">3b</div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">SUAP</div>
+          <div class="flow-action">Opposizione motivata entro 30 giorni → procedura bloccata</div>
+          <div class="flow-detail">Se il SUAP o un ente terzo rileva incompatibilità (area non idonea, vincolo paesaggistico non gestibile in PAS, impatto ambientale significativo), notifica al proponente il divieto motivato di inizio lavori. Il proponente può ricorrere o presentare una nuova istanza corretta.</div>
+          <span class="timer t-red">Entro 30 giorni — opposizione</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Autorizzazione Unica (AU) — impianti grandi</div>
+      <div class="art-title">Procedimento unico regionale con Conferenza dei Servizi</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:#C0392B">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Proponente → Regione ER</div>
+          <div class="flow-action">Istanza di Autorizzazione Unica alla Regione</div>
+          <div class="flow-detail">Il proponente presenta alla Regione (o alla Provincia se delegata) l'istanza con: progetto definitivo dell'impianto, studio di impatto ambientale (se richiesto VIA), relazione paesaggistica, documentazione sui terreni (proprietà o accordi), piano di dismissione a fine vita.</div>
+          <span class="timer t-blue">Avvio procedimento</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:#C0392B">2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Regione ER</div>
+          <div class="flow-action">Conferenza dei Servizi — acquisizione pareri</div>
+          <div class="flow-detail">La Regione convoca la Conferenza dei Servizi con tutti gli enti coinvolti: Comune, Soprintendenza, ARPA, Autorità di Bacino, gestore rete elettrica (Terna/distributore), Commissione VIA se necessaria. Il Comune esprime parere ma <strong>non ha potere di veto</strong>: il dissenso del Comune viene superato dalla Regione se non è motivato da ragioni ostative fondate.</div>
+          <span class="timer t-orange">90 gg (area idonea) · 180 gg (ordinaria)</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:#C0392B">3</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Regione ER</div>
+          <div class="flow-action">Rilascio dell'Autorizzazione Unica</div>
+          <div class="flow-detail">L'AU comprende e sostituisce tutti i titoli necessari: autorizzazione paesaggistica, nulla osta ambientale, parere edilizio, concessioni demaniali se necessarie. È l'unico atto che serve per iniziare i lavori (insieme agli adempimenti di cantiere: denuncia inizio lavori, deposito sismico se strutture, ecc.).</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:#1A6B3C">4</div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Proponente</div>
+          <div class="flow-action">Inizio lavori + comunicazione al Comune</div>
+          <div class="flow-detail">Il proponente comunica al Comune (SUAP/SUE) l'inizio lavori allegando copia dell'AU. Il Comune registra l'intervento e può effettuare i controlli in cantiere di propria competenza (sicurezza, conformità edilizio-urbanistica).</div>
+          <span class="timer t-green">Inizio lavori</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">🔑</span>
+      <div><strong>Il ruolo del Comune nell'AU è consultivo, non decisionale:</strong> il Comune esprime un parere nella Conferenza dei Servizi, ma non rilascia un'autorizzazione autonoma. Se il Comune si oppone senza motivazioni fondate su norme cogenti, la Regione può superare il dissenso. Questo è diverso dalla PAS, dove il SUAP (comunale) è l'ufficio competente e ha un ruolo attivo. Conoscere questa distinzione è fondamentale per lo sportello.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     6 — ENTI E COMPETENZE
+══════════════════════════════════ -->
+<h2 class="section-title" id="enti">
+  <span class="num">6</span>
+  Chi fa cosa — enti e competenze
+</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <table class="vtable">
+      <thead>
+        <tr><th>Soggetto</th><th>Competenza FER</th><th>Per quale regime</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>MASE</strong><br><small style="color:var(--ink2)">Ministero Ambiente e Sicurezza Energetica</small></td>
+          <td>Rilascia l'AU per gli impianti di grande taglia (eolico e fotovoltaico oltre 30 MW a terra). Adotta i criteri nazionali per le aree idonee. Coordina il PNIEC.</td>
+          <td><span class="r-au">AU nazionale</span> per grandi impianti</td>
+        </tr>
+        <tr>
+          <td><strong>Regione ER</strong></td>
+          <td>Rilascia l'AU per impianti sotto la soglia ministeriale. Individua le aree idonee e non idonee sul territorio regionale. Può delegare la competenza AU alla Provincia/Città Metropolitana.</td>
+          <td><span class="r-au">AU regionale</span></td>
+        </tr>
+        <tr>
+          <td><strong>SUAP</strong><br><small style="color:var(--ink2)">Unione Valli e Delizie per i tre comuni</small></td>
+          <td>Riceve e gestisce le PAS. Coordina i pareri degli enti terzi nella PAS. Riceve le comunicazioni di inizio lavori per gli impianti AU. Per l'Unione: sportello unico per Argenta, Ostellato, Portomaggiore.</td>
+          <td><span class="r-pas">PAS</span> + comunicazioni AU</td>
+        </tr>
+        <tr>
+          <td><strong>SUE</strong><br><small style="color:var(--ink2)">Sportello Unico Edilizia</small></td>
+          <td>Gestisce i profili edilizi degli impianti FER su edifici esistenti (modifica della copertura, strutture di supporto, accesso al tetto). Riceve la CILA o SCIA edilizia se necessaria, separatamente dalla PAS.</td>
+          <td><span class="r-libera">Attività libera</span> su edificio</td>
+        </tr>
+        <tr>
+          <td><strong>Soprintendenza</strong></td>
+          <td>Esprime parere vincolante nella Conferenza dei Servizi per impianti in aree con vincolo paesaggistico diretto (art. 136 D.Lgs. 42). Nell'AU il parere è acquisito dalla Regione; nella PAS il SUAP deve averlo prima di far decorrere i 30 giorni.</td>
+          <td>Tutte le procedure in aree vincolate</td>
+        </tr>
+        <tr>
+          <td><strong>ARPA ER</strong></td>
+          <td>Parere sugli impatti ambientali nella Conferenza dei Servizi. Per biomasse e biogas: valutazione delle emissioni in atmosfera.</td>
+          <td><span class="r-au">AU</span> e grandi <span class="r-pas">PAS</span></td>
+        </tr>
+        <tr>
+          <td><strong>Terna / Distributore rete</strong></td>
+          <td>Gestisce la connessione alla rete elettrica. Il progetto di connessione è un elaborato separato dalla procedura autorizzativa: va concordato con il gestore di rete in parallelo. Può essere il collo di bottiglia pratico.</td>
+          <td>Tutti i regimi</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mnemonic">
+      <h4>Mnemonica — Chi autorizza cosa</h4>
+      <p><span>Piccolo su edificio</span> → SUAP/SUE in attività libera o PAS<br>
+      <span>Medio a terra</span> → SUAP con PAS (area idonea) o AU Regionale<br>
+      <span>Grande eolico/solare</span> → AU Regionale o MASE (oltre 30 MW)<br>
+      → sempre: <span>Soprintendenza</span> se area vincolata · <span>ARPA</span> se biomasse · <span>Terna</span> per la rete</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     7 — PAESAGGIO E VINCOLI
+══════════════════════════════════ -->
+<h2 class="section-title" id="vincoli">
+  <span class="num">7</span>
+  Paesaggio e vincoli — il nodo critico
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Rapporto con D.Lgs. 42/2004 e DPR 31/2017</div>
+      <div class="art-title">FER e autorizzazione paesaggistica — quando e come</div>
+    </div>
+  </div>
+  <div class="art-body">
+
+    <p>Questa è la questione più delicata nella pratica quotidiana degli uffici tecnici. Le FER si diffondono rapidamente anche in aree con vincoli paesaggistici, e il raccordo tra le due normative è fondamentale.</p>
+
+    <div class="concept">
+      <div class="concept-title">Regola generale</div>
+      <p style="font-size:.9rem">Se un impianto FER ricade in un'area soggetta a vincolo paesaggistico (art. 136 o art. 142 D.Lgs. 42/2004), l'<strong>autorizzazione paesaggistica è necessaria</strong> in aggiunta al titolo autorizzativo FER. Tuttavia, il D.Lgs. 190/2024 integra questo adempimento nel procedimento unico:</p>
+      <ul style="list-style:none;padding:0;font-size:.9rem;margin-top:.5rem">
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Nell'<strong>AU</strong>: l'autorizzazione paesaggistica è acquisita nell'ambito della Conferenza dei Servizi ed è compresa nell'AU finale. Non serve un atto separato.</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Nella <strong>PAS</strong>: se l'area è vincolata, il proponente deve allegare la relazione paesaggistica e il SUAP deve acquisire il parere della Soprintendenza nei 30 giorni. Il termine può essere sospeso per l'acquisizione del parere paesaggistico.</li>
+        <li style="padding:.3rem 0">▸ In <strong>attività libera</strong>: alcuni interventi su edifici in aree vincolate sono comunque esclusi dall'autorizzazione paesaggistica se rientrano nel DPR 31/2017 (allegato A — interventi esclusi). Pannelli fotovoltaici complanari alla copertura in molti casi rientrano nell'elenco degli esclusi.</li>
+      </ul>
+    </div>
+
+    <table class="vtable">
+      <thead>
+        <tr><th>Scenario</th><th>Regime FER</th><th>Paesaggio</th><th>Procedura pratica</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pannello FV su copertura, complanare, non in area vincolata</td>
+          <td><span class="r-libera">Libera</span></td>
+          <td>Non serve</td>
+          <td>Si installa senza comunicare nulla (sotto 50 kW)</td>
+        </tr>
+        <tr>
+          <td>Pannello FV su copertura, complanare, in area vincolata (art. 142)</td>
+          <td><span class="r-libera">Libera</span></td>
+          <td>Verificare DPR 31/2017: spesso escluso se complanare</td>
+          <td>Se escluso: attività libera. Se non escluso: serve autorizzazione paesaggistica semplificata al SUE</td>
+        </tr>
+        <tr>
+          <td>FV a terra 300 kW, area idonea, non vincolata</td>
+          <td><span class="r-pas">PAS</span></td>
+          <td>Non serve</td>
+          <td>PAS al SUAP, 30 giorni</td>
+        </tr>
+        <tr>
+          <td>FV a terra 300 kW, area con vincolo paesaggistico art. 142</td>
+          <td><span class="r-pas">PAS</span> + paesaggio</td>
+          <td>Sì — autorizzazione paesaggistica semplificata o ordinaria</td>
+          <td>PAS al SUAP con relazione paesaggistica allegata; SUAP acquisisce parere Soprintendenza; 30 gg sospesi fino al parere</td>
+        </tr>
+        <tr>
+          <td>Eolico industriale 5 MW, area non idonea</td>
+          <td><span class="r-au">AU regionale</span></td>
+          <td>Inclusa nell'AU</td>
+          <td>AU alla Regione; paesaggio valutato in CdS; 180 giorni</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">📍</span>
+      <div><strong>Provincia di Ferrara — aree critiche per il paesaggio:</strong> le fasce fluviali del Po e del Delta, le valli di Comacchio (riserva della biosfera UNESCO), le zone umide tutelate come aree Natura 2000 sono aree dove qualsiasi impianto FER a terra è fortemente limitato o vietato. Nella pianura agricola "normale" della bassa ferrarese (il territorio dell'Unione Valli e Delizie) invece non ci sono vincoli paesaggistici di norma, il che la rende zona ad alta vocazione per il fotovoltaico a terra.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     8 — CASI SPECIALI
+══════════════════════════════════ -->
+<h2 class="section-title" id="speciali">
+  <span class="num">8</span>
+  Casi speciali — Agrivoltaico, Repowering, Comunità Energetiche
+</h2>
+
+<div class="art-card">
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Agrivoltaico — art. 9 D.Lgs. 190/2024</div>
+      <p style="font-size:.9rem">L'agrivoltaico è l'installazione di pannelli fotovoltaici su terreni agricoli in modo che l'attività agricola continui sotto e tra i pannelli. Non è fotovoltaico a terra su un campo bruciato: i pannelli devono essere progettati per <strong>consentire la coltivazione continuativa</strong> e l'area deve mantenere la destinazione d'uso agricola. Il D.Lgs. 190/2024 dà per la prima volta una disciplina organica:</p>
+      <ul style="list-style:none;padding:0;font-size:.9rem;margin-top:.5rem">
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Richiede che l'attività agricola sia <strong>effettiva e continua</strong> (non simulata), verificata da tecnico agrario o agronomista</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ L'area mantiene la classificazione come <strong>territorio rurale agricolo</strong> nel PUG: non è urbanizzazione</li>
+        <li style="padding:.3rem 0;border-bottom:1px solid var(--border)">▸ Soglie PAS più favorevoli: fino a 1 MW con PAS se l'attività agricola è dimostrata</li>
+        <li style="padding:.3rem 0">▸ Nella pianura padana è uno degli strumenti con maggior prospettiva di sviluppo: coltivazione + energia sullo stesso terreno = doppio reddito per l'agricoltore</li>
+      </ul>
+      <div class="esempio">Un agricoltore di Argenta installa 800 kW di agrivoltaico su 5 ettari di terreno, mantenendo la coltivazione di orticole sotto i pannelli (altezza minima 2,5 m). Il terreno resta agricolo nel PUG. La pratica va al SUAP come PAS con relazione agronomica allegata. Nessuna variante urbanistica.</div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Repowering e Revamping — artt. 14–16 D.Lgs. 190/2024</div>
+      <p style="font-size:.9rem">Il <strong>repowering</strong> è la sostituzione di un impianto FER esistente con uno nuovo di potenza maggiore (tipico per gli impianti eolici di prima generazione). Il <strong>revamping</strong> è la sostituzione dei componenti con tecnologia più efficiente a potenza invariata o leggermente aumentata. Il decreto favorisce questi interventi con procedure semplificate rispetto alla realizzazione ex novo: si presume che un'area già destinata a impianto FER sia "idonea" per continuare ad esserlo. Le soglie per PAS si applicano con parametri più favorevoli rispetto a un impianto nuovo.</p>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Comunità Energetiche Rinnovabili (CER) — D.Lgs. 199/2021</div>
+      <p style="font-size:.9rem">Le Comunità Energetiche Rinnovabili sono gruppi di cittadini, imprese, enti locali che condividono energia prodotta da impianti FER locali. Il D.Lgs. 199/2021 (non il 190/2024, ma collegato) disciplina le CER: i singoli impianti all'interno di una CER seguono i regimi autorizzativi del D.Lgs. 190/2024 in base alla loro potenza. Il Comune può partecipare a una CER e anche facilitarla mettendo a disposizione tetti di edifici pubblici. Per l'Unione Valli e Delizie questa è una prospettiva molto concreta: piccoli comuni con edifici pubblici (scuole, municipio) possono diventare soggetti attivi nelle CER.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     9 — RISPOSTE ESAME
+══════════════════════════════════ -->
+<h2 class="section-title" id="risposta">
+  <span class="num">9</span>
+  Risposte modello per l'esame
+</h2>
+
+<div class="alert alert-page">
+  <span class="alert-icon">✏</span>
+  <div>Ogni risposta ha un'<strong>apertura fissa riutilizzabile</strong> (inquadramento della legge), il <strong>corpo specifico</strong> alla domanda, e una <strong>chiusura con il dato locale/pratico</strong>. Strategia: in brutta scrivi i titoli dei paragrafi + 3 parole chiave per paragrafo (2 minuti), poi sviluppi paragrafo per paragrafo (20 minuti), poi riscrivi pulito (8 minuti).</div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Domanda 1 — Molto probabile (è già uscita nel 2024 e ora c'è la norma nuova)</div>
+      <div class="art-title">«Illustri i titoli autorizzativi per la realizzazione di impianti FER»</div>
+    </div>
+    <span class="prio prio-red">🔥 Alta probabilità</span>
+  </div>
+  <div class="art-body">
+    <div class="risposta">
+      <div class="risposta-label">✏ Risposta modello — circa 380 parole</div>
+
+      <div class="par-title">Inquadramento normativo</div>
+      <p>I regimi autorizzativi per la produzione di energia da fonti rinnovabili (FER) sono oggi disciplinati organicamente dal <strong>D.Lgs. 25 novembre 2024, n. 190</strong>, adottato in attuazione della legge delega sulla concorrenza (L. 118/2022). Il decreto, entrato in vigore il 30 dicembre 2024, ha riordinato e semplificato un sistema precedentemente frammentato tra D.Lgs. 387/2003, DM 10 settembre 2010 (Linee Guida Nazionali) e normative regionali, spesso tra loro incoerenti. L'obiettivo è accelerare le autorizzazioni per le FER in linea con gli obiettivi del PNIEC e le direttive europee RED II e RED III.</p>
+
+      <div class="par-title">I tre regimi autorizzativi</div>
+      <p>Il decreto struttura le autorizzazioni in <strong>tre regimi progressivi</strong>, calibrati sulla potenza dell'impianto, sulla tecnologia e sulla localizzazione. Il primo è l'<strong>attività libera</strong>: per impianti di piccola taglia su edifici esistenti (es. fotovoltaico fino a 50 kW su copertura in zona non vincolata) non è richiesta alcuna autorizzazione specifica, salvo le ordinarie norme edilizie. Il secondo regime è la <strong>Procedura Abilitativa Semplificata (PAS)</strong>: analoga alla SCIA nel diritto edilizio, la PAS si presenta allo Sportello Unico per le Attività Produttive (SUAP) del Comune; decorsi 30 giorni senza opposizione, i lavori possono iniziare senza attendere un atto espresso di autorizzazione. Riguarda impianti di media taglia (tipicamente fino a 1 MW per fotovoltaico in area idonea). Il terzo e più complesso regime è l'<strong>Autorizzazione Unica (AU)</strong>: procedimento unico di competenza della Regione (o Provincia delegata), che riunisce tutti i titoli necessari (inclusa eventuale autorizzazione paesaggistica) e si svolge con Conferenza dei Servizi. I termini sono di 90 giorni in aree idonee e 180 giorni in aree ordinarie; il loro mancato rispetto da parte della PA determina il silenzio assenso.</p>
+
+      <div class="par-title">Le aree idonee — il concetto chiave</div>
+      <p>Il decreto introduce sistematicamente il concetto di <strong>aree idonee</strong>: zone pre-qualificate (aree industriali dismesse, cave esaurite, siti contaminati bonificati, fasce di rispetto infrastrutturali) dove le procedure sono accelerate e le soglie PAS più alte. Nelle <strong>aree non idonee</strong> (parchi, siti Natura 2000, zone con vincolo paesaggistico diretto) le installazioni sono vietate o fortemente limitate. La Regione ER individua concretamente queste aree, mentre i criteri nazionali sono definiti dal MASE.</p>
+
+      <div class="par-title">Ruolo del Comune e raccordo con i titoli edilizi</div>
+      <p>Il <strong>SUAP</strong> (per l'Unione Valli e Delizie: sportello unico per i tre comuni) è il riferimento per le PAS; il Comune esprime parere consultivo nella Conferenza dei Servizi per le AU, senza potere di veto se il dissenso non è fondato su norme cogenti. Gli impianti FER su edifici richiedono anche la verifica della compatibilità edilizia (CILA o SCIA se la struttura dell'edificio viene modificata) e, nelle aree vincolate, l'autorizzazione paesaggistica, che nel regime AU è inglobata nel procedimento unico e nella PAS deve essere acquisita dal SUAP come atto presupposto.</p>
+    </div>
+  </div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Domanda 2</div>
+      <div class="art-title">«Cosa sono le aree idonee per le FER e come incidono sulla pianificazione comunale?»</div>
+    </div>
+    <span class="prio prio-orange">Media-alta probabilità</span>
+  </div>
+  <div class="art-body">
+    <div class="risposta">
+      <div class="risposta-label">✏ Risposta modello — circa 250 parole</div>
+
+      <div class="par-title">Definizione e logica delle aree idonee</div>
+      <p>Il <strong>D.Lgs. 190/2024</strong> introduce sistematicamente la distinzione tra <strong>aree idonee</strong> e <strong>aree non idonee</strong> per l'installazione di impianti FER. L'idea è pre-qualificare il territorio invece di valutare ogni impianto da zero: nelle aree idonee si applicano procedure accelerate (PAS con soglie più alte, AU in 90 giorni con silenzio assenso al mancato rispetto dei termini), nelle aree non idonee le installazioni sono vietate o sottoposte al regime più complesso.</p>
+
+      <div class="par-title">Chi le individua e come</div>
+      <p>I <strong>criteri nazionali</strong> sono fissati dal MASE d'intesa con la Conferenza Stato-Regioni. Le <strong>Regioni</strong> recepiscono i criteri e individuano concretamente le aree idonee e non idonee sul proprio territorio, aggiornando i propri piani energetici. Il <strong>Comune</strong> può ulteriormente precisare la localizzazione nel PUG o in atti specifici, ma non può restringere arbitrariamente le aree idonee oltre i criteri regionali (non può cioè bloccare le rinnovabili per ragioni non fondate su norme cogenti). Le aree idonee tipiche sono: zone industriali dismesse, cave esaurite, siti bonificati, fasce infrastrutturali, aree agricole abbandonate a bassa vocazione produttiva. Le aree non idonee comprendono parchi, siti Natura 2000, zone con vincolo paesaggistico diretto, aree a rischio idrogeologico elevato.</p>
+
+      <div class="par-title">Impatto sulla pianificazione locale</div>
+      <p>Per il Settore Programmazione Territoriale dell'Unione Valli e Delizie, la mappatura delle aree idonee è un dato operativo essenziale: ogni richiesta FER che arriva allo sportello deve innanzitutto essere verificata rispetto a questa classificazione, perché determina il regime applicabile e, quindi, i tempi e le competenze del procedimento. Nella pianura ferrarese, priva di vincoli paesaggistici diffusi e con vaste aree agricole, ci si attende un'ampia designazione di aree idonee per il fotovoltaico, con forte pressione sugli uffici locali.</p>
+    </div>
+  </div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Domanda 3 — Domanda trasversale spesso usata per testare i collegamenti</div>
+      <div class="art-title">«Come si raccorda la procedura FER con l'autorizzazione paesaggistica e il titolo edilizio?»</div>
+    </div>
+    <span class="prio prio-orange">Media probabilità</span>
+  </div>
+  <div class="art-body">
+    <div class="risposta">
+      <div class="risposta-label">✏ Risposta modello — circa 200 parole</div>
+
+      <div class="par-title">Il principio del procedimento unico</div>
+      <p>Il <strong>D.Lgs. 190/2024</strong> segue il principio del procedimento unico: l'AU rilasciata dalla Regione comprende e sostituisce tutti gli atti autorizzativi necessari, inclusa l'<strong>autorizzazione paesaggistica</strong> ex D.Lgs. 42/2004 (acquisita nella Conferenza dei Servizi con il parere della Soprintendenza) e i nulla osta ambientali. Non servono atti separati: l'AU è il titolo unico. Nella PAS, il proponente allega la relazione paesaggistica e il SUAP acquisisce il parere paesaggistico nei 30 giorni (con possibile sospensione del termine).</p>
+
+      <div class="par-title">Il raccordo con il titolo edilizio</div>
+      <p>Il titolo FER (AU o PAS) è distinto dal titolo edilizio, ma i due procedimenti possono sovrapporsi. Quando l'impianto FER comporta modifiche strutturali all'edificio (es. rinforzo del tetto per i pannelli) o nuove costruzioni di supporto (cabine elettriche, recinzioni), si applica la disciplina edilizia della <strong>LR 15/2013</strong>: a seconda della rilevanza strutturale serve CILA, SCIA o PDC, presentato al SUE. Per gli impianti a terra privi di strutture edilizie rilevanti, il titolo FER è di norma sufficiente senza aggiuntivo titolo edilizio. Il tecnico dello sportello deve valutare caso per caso l'eventuale necessità di entrambi i procedimenti, che viaggiano in parallelo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     10 — QUIZ
+══════════════════════════════════ -->
+<h2 class="section-title" id="quiz">
+  <span class="num">10</span>
+  Quiz — domande e approfondimenti
+</h2>
+
+<div class="quiz-area">
+  <div class="quiz-title">Clicca per risposta</div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Un privato vuole installare 30 kW di fotovoltaico sul tetto della propria abitazione in zona non vincolata. Quale regime si applica? <span class="arrow">▾</span></div>
+    <div class="quiz-a"><span class="r-libera">Attività libera</span>. Sotto i 50 kW su edificio esistente in area non vincolata non è richiesta alcuna autorizzazione FER. Eventualmente serve solo verificare se la modifica strutturale del tetto richiede CILA o SCIA edilizia, ma per pannelli complanari di norma non è richiesto neanche il titolo edilizio (manutenzione ordinaria o libera).</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Un privato vuole 400 kW di fotovoltaico a terra su terreno agricolo nell'area di Portomaggiore. Cosa deve fare? <span class="arrow">▾</span></div>
+    <div class="quiz-a">Prima verificare se l'area è idonea secondo la classificazione regionale ER. <strong>Se area idonea:</strong> <span class="r-pas">PAS</span> al SUAP dell'Unione Valli e Delizie. 30 giorni per l'opposizione. <strong>Se area non idonea o ordinaria:</strong> <span class="r-au">AU</span> alla Regione ER (180 giorni). In entrambi i casi verificare anche: vincoli paesaggistici (improbabili nella pianura agricola ferrarese ma verificare sempre), vincoli idrogeologici (fasce PAI), eventuale verifica agrivoltaico se l'attività agricola continua.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Qual è la differenza tra PAS e AU? La PAS è come una SCIA? <span class="arrow">▾</span></div>
+    <div class="quiz-a">Sì, la <strong>PAS</strong> funziona esattamente come la SCIA edilizia: il proponente presenta al SUAP la documentazione completa e, trascorsi 30 giorni senza opposizione, può iniziare i lavori senza attendere un atto esplicito di autorizzazione. Il silenzio è assenso. Il SUAP ha l'onere di agire entro 30 giorni se rileva problemi. La <strong>AU</strong> invece richiede un atto espresso della Regione al termine di una Conferenza dei Servizi: non si può iniziare senza l'AU in mano. La PAS è applicabile a impianti medi; l'AU a impianti grandi. In area idonea le soglie per la PAS sono più alte.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Il Comune può bloccare un grande impianto eolico nel proprio territorio? <span class="arrow">▾</span></div>
+    <div class="quiz-a">Non liberamente. Nella procedura di AU, il Comune esprime un <strong>parere consultivo</strong> nella Conferenza dei Servizi, ma non ha potere di veto. Se il Comune si oppone senza fondarsi su norme cogenti (vincoli reali, non scelte politiche), la Regione può superare il dissenso e rilasciare l'AU ugualmente. Il Comune può però incidere sul processo: se ha correttamente classificato l'area come "non idonea" nel PUG (rispettando i criteri nazionali e regionali), questo diventa un elemento di peso nell'istruttoria regionale. Il limite al potere comunale è il divieto di bloccare arbitrariamente le rinnovabili in violazione degli obiettivi nazionali.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Cos'è l'agrivoltaico e come si differenzia dal fotovoltaico a terra? <span class="arrow">▾</span></div>
+    <div class="quiz-a">L'<strong>agrivoltaico</strong> è l'installazione di pannelli fotovoltaici su terreni agricoli in modo che l'attività agricola continui effettivamente sotto e tra i pannelli. La differenza fondamentale col fotovoltaico a terra "ordinario" è che il terreno mantiene la destinazione agricola nel PUG — non è urbanizzazione. I pannelli sono progettati per consentire l'accesso ai macchinari agricoli (altezza minima generalmente 2,1–2,5 m). Il proponente deve dimostrare con relazione agronomica che l'attività agricola è reale e continuativa. Beneficio: procedure semplificate (PAS fino a 1 MW), il suolo non è "consumato" in senso LR 24/2017, e l'agricoltore ottiene un doppio reddito.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Serve l'autorizzazione paesaggistica per un impianto FER in area vincolata? Come si gestisce? <span class="arrow">▾</span></div>
+    <div class="quiz-a">Sì, se l'impianto ricade in un'area con vincolo paesaggistico (art. 136 o 142 D.Lgs. 42/2004) l'autorizzazione paesaggistica è necessaria. Ma il D.Lgs. 190/2024 la integra nel procedimento unico: nell'<strong>AU</strong> viene acquisita nella Conferenza dei Servizi (parere Soprintendenza, spesso vincolante) e confluisce nell'atto finale. Nella <strong>PAS</strong> il proponente allega la relazione paesaggistica e il SUAP acquisisce il parere della Soprintendenza, con possibile sospensione del termine di 30 giorni. Fanno eccezione gli interventi esclusi dall'autorizzazione paesaggistica ex DPR 31/2017 (es. pannelli complanari su copertura in area art. 142): in quel caso nessun parere paesaggistico.</div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Perché il D.Lgs. 190/2024 è stato necessario? Cosa non funzionava prima? <span class="arrow">▾</span></div>
+    <div class="quiz-a">Prima del D.Lgs. 190/2024 il sistema era frammentato tra D.Lgs. 387/2003, DM 2010 e normative regionali diverse. Risultato: lo stesso tipo di impianto richiedeva procedure completamente diverse da regione a regione; i tempi medi dell'AU superavano 18-24 mesi; le competenze tra SUAP, Regione e MASE erano incerte; non esisteva una disciplina organica per agrivoltaico, repowering e CER. L'obiettivo del decreto è uniformare le soglie a livello nazionale, accelerare i tempi (termini perentori con silenzio assenso in area idonea), chiarire le competenze e semplificare in linea con le direttive UE RED II/RED III che impongono all'Italia target di energia rinnovabile crescenti fino al 2030.</div>
+  </div>
+
+</div>
+
+<div class="mnemonic">
+  <h4>Mnemonica — La logica del D.Lgs. 190/2024 in una frase</h4>
+  <p><span>LIBERA</span> per il piccolo · <span>PAS</span> per il medio (30 gg al SUAP) · <span>AU</span> per il grande (Regione, 90/180 gg) ·
+  <span>AREA IDONEA</span> = procedura accelerata · <span>AREA NON IDONEA</span> = vietato o massima complessità ·
+  <span>AGRIVOLTAICO</span> = non consuma suolo se l'agricoltura continua</p>
+</div>
+
+</main>
+
+<footer>
+  D.Lgs. 190/2024 · Regimi amministrativi FER · Studio Concorso Unione Valli e Delizie · Aprile 2026
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  const html   = document.documentElement;
+  function applyTheme(dark) {
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    toggle.checked = dark;
+  }
+  const saved = localStorage.getItem('theme');
+  if (saved) { applyTheme(saved === 'dark'); }
+  else { applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches); }
+  toggle.addEventListener('change', () => {
+    const dark = toggle.checked;
+    applyTheme(dark);
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
+
+  function tq(el) {
+    el.classList.toggle('active');
+    el.nextElementSibling.classList.toggle('open');
+  }
+
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 300));
+
+  const allTargets = [...document.querySelectorAll('[id]')].filter(el =>
+    [...document.querySelectorAll('.nav-pill')].some(p => p.getAttribute('href') === '#' + el.id)
+  );
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    allTargets.forEach(t => { if (window.scrollY >= t.offsetTop - 140) cur = t.id; });
+    document.querySelectorAll('.nav-pill').forEach(p => {
+      const on = p.getAttribute('href') === '#' + cur;
+      p.style.background  = on ? 'var(--page-color)' : '';
+      p.style.color       = on ? 'white' : '';
+      p.style.borderColor = on ? 'var(--page-color)' : '';
+    });
+  });
+</script>
+</body>
+</html>
