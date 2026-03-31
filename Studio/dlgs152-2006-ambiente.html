@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D.Lgs. 152/2006 — Codice Ambientale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Crimson+Pro:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --page-color:        #2D7D46;
+    --page-color2:       #1B5C31;
+    --page-color-bg:     rgba(45,125,70,.07);
+    --page-color-border: rgba(45,125,70,.28);
+  }
+  [data-theme="dark"] {
+    --page-color-bg:     rgba(45,125,70,.12);
+    --page-color-border: rgba(45,125,70,.36);
+  }
+
+  .esempio {
+    background: var(--alert-green-bg);
+    border: 1px solid var(--alert-green-br);
+    border-radius: 5px; padding: .75rem 1rem;
+    margin: .6rem 0; font-size: .87rem; line-height: 1.65;
+  }
+  .esempio::before { content: '📌 Esempio pratico: '; font-weight: 600; color: #1A6B3C; }
+
+  /* parte badge */
+  .parte {
+    font-family: var(--mono); font-size: .67rem; font-weight: 700;
+    padding: .15rem .6rem; border-radius: 3px; display: inline-block;
+    background: var(--page-color-bg); color: var(--page-color);
+    border: 1px solid var(--page-color-border);
+  }
+  .parte-via { background: var(--alert-blue-bg); color: #2C5AA0; border: 1px solid var(--alert-blue-br); font-family: var(--mono); font-size: .67rem; font-weight: 700; padding: .15rem .6rem; border-radius: 3px; display: inline-block; }
+  .parte-acque { background: var(--alert-blue-bg); color: #1a5276; border: 1px solid var(--alert-blue-br); font-family: var(--mono); font-size: .67rem; font-weight: 700; padding: .15rem .6rem; border-radius: 3px; display: inline-block; }
+  .parte-rifiuti { background: var(--alert-orange-bg); color: #C9670A; border: 1px solid var(--alert-orange-br); font-family: var(--mono); font-size: .67rem; font-weight: 700; padding: .15rem .6rem; border-radius: 3px; display: inline-block; }
+  .parte-bonifica { background: var(--alert-red-bg); color: #C0392B; border: 1px solid var(--alert-red-br); font-family: var(--mono); font-size: .67rem; font-weight: 700; padding: .15rem .6rem; border-radius: 3px; display: inline-block; }
+  .parte-aria { background: var(--alert-dark-bg); color: var(--ink2); border: 1px solid var(--alert-dark-br); font-family: var(--mono); font-size: .67rem; font-weight: 700; padding: .15rem .6rem; border-radius: 3px; display: inline-block; }
+
+  .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: .8rem 0; }
+  .vs-old { background: var(--alert-red-bg); border: 1px solid var(--alert-red-br); border-radius: 6px; padding: .9rem 1rem; }
+  .vs-new { background: var(--alert-green-bg); border: 1px solid var(--alert-green-br); border-radius: 6px; padding: .9rem 1rem; }
+  .vs-old h4 { color: #C0392B; font-family: var(--mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; }
+  .vs-new h4 { color: #1A6B3C; font-family: var(--mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; }
+  .vs-old ul, .vs-new ul { list-style: none; padding: 0; }
+  .vs-old li, .vs-new li { font-size: .87rem; padding: .25rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .5rem; line-height: 1.5; }
+  .vs-old li:last-child, .vs-new li:last-child { border-bottom: none; }
+  .vs-old li::before { content: '→'; color: #C0392B; flex-shrink: 0; }
+  .vs-new li::before { content: '→'; color: #1A6B3C; flex-shrink: 0; }
+
+  @media (max-width: 700px) { .vs-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <div class="badge">D.Lgs. 3 aprile 2006, n. 152 e s.m.i. — Codice dell'Ambiente</div>
+      <h1>Norme in materia<br>ambientale</h1>
+      <p>VIA · VAS · Acque · Rifiuti · Bonifica siti contaminati · Aria — con focus sulla bonifica, materia chiave per il Settore Programmazione Territoriale e già uscita al concorso stesso ente</p>
+    </div>
+    <div class="controls">
+      <div class="toggle-row">
+        <span class="toggle-label">Tema scuro</span>
+        <label class="toggle">
+          <input type="checkbox" id="themeToggle">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-wrap">
+  <div class="nav-pills">
+    <a class="nav-pill" href="#struttura">Struttura</a>
+    <a class="nav-pill" href="#via">VIA e VAS</a>
+    <a class="nav-pill" href="#acque">Acque</a>
+    <a class="nav-pill" href="#rifiuti">Rifiuti</a>
+    <a class="nav-pill" href="#bonifica">Bonifica</a>
+    <a class="nav-pill" href="#enti">Enti</a>
+    <a class="nav-pill" href="#risposta">Risposte esame</a>
+    <a class="nav-pill" href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<div class="real-q">
+  <div class="label">★ Domanda reale — Concorso Dirigente 2022, stesso ente (Busta 10)</div>
+  <p>«Il candidato illustri di massima l'iter afferente all'avvio di procedure di bonifica di siti contaminati, riferendosi nel caso a esperienze concrete e declinando eventuali problematiche operative emerse.» — Domanda probabile anche per Specialista: «Quali autorizzazioni ambientali debbono essere richieste ad ARPAE nel caso di realizzazione di una nuova attività produttiva?» (già uscita orale 2024)</p>
+</div>
+
+<main class="main">
+
+<!-- ══════════════════════════════════
+     1 — STRUTTURA DEL CODICE
+══════════════════════════════════ -->
+<h2 class="section-title" id="struttura">
+  <span class="num">1</span>
+  Struttura del Codice — cosa contiene e perché è enorme
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">D.Lgs. 152/2006 — il "Codice dell'Ambiente"</div>
+      <div class="art-title">Sei parti, un universo — cosa studiare per l'esame</div>
+    </div>
+    <span class="prio prio-orange">Selettivo: studia le parti utili</span>
+  </div>
+  <div class="art-body">
+    <p>Il D.Lgs. 152/2006 è il testo fondamentale del diritto ambientale italiano. Non va studiato tutto: è un codice di circa 330 articoli più allegati tecnici enormi. Per il concorso di un tecnico del Settore Programmazione Territoriale di un ente locale, le parti rilevanti sono quelle con cui ti interfaccerai concretamente ogni giorno. Le altre le conosci come "esiste e regola quello".</p>
+
+    <table class="vtable">
+      <thead>
+        <tr><th>Parte</th><th>Materia</th><th>Rilevanza esame</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="parte-via">Parte II</span></td>
+          <td><strong>VIA e VAS</strong> — Valutazione d'Impatto Ambientale e Valutazione Ambientale Strategica. Quando un progetto o un piano deve passare per una valutazione ambientale preventiva.</td>
+          <td><strong>Alta</strong> — si raccorda con LR 24/2017 (VALSAT), FER (D.Lgs. 190/2024), grandi opere</td>
+        </tr>
+        <tr>
+          <td><span class="parte-acque">Parte III</span></td>
+          <td><strong>Difesa del suolo e acque</strong> — Gestione dei corsi d'acqua, scarichi idrici, tutela delle acque sotterranee, Autorità di Bacino. Le fasce di rispetto dei corsi d'acqua nel PUG vengono da qui.</td>
+          <td><strong>Media-alta</strong> — ogni SUE lavora con fasce PAI e scarichi</td>
+        </tr>
+        <tr>
+          <td><span class="parte-rifiuti">Parte IV</span></td>
+          <td><strong>Rifiuti e bonifica</strong> — Gestione dei rifiuti (raccolta, smaltimento, responsabilità del produttore) e bonifica dei siti contaminati. Due argomenti distinti nella stessa Parte.</td>
+          <td><strong>Alta</strong> — bonifica già uscita al concorso dello stesso ente; rifiuti: gestione cantieri</td>
+        </tr>
+        <tr>
+          <td><span class="parte-aria">Parte V</span></td>
+          <td><strong>Aria e agenti fisici</strong> — Qualità dell'aria, emissioni degli impianti, inquinamento acustico ed elettromagnetico. Riguarda principalmente le autorizzazioni agli impianti produttivi (AIA/AUA).</td>
+          <td><strong>Media</strong> — uscita nell'orale 2024 ("autorizzazioni ARPAE per attività produttiva")</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">🎯</span>
+      <div><strong>Strategia di studio:</strong> la <strong>bonifica dei siti contaminati</strong> (Titolo V, Parte IV) è la materia più probabile e già uscita allo stesso ente. Studiala a fondo con l'iter completo. La <strong>VIA/VAS</strong> la conosci già parzialmente dalla LR 24/2017 (VALSAT). Le <strong>acque</strong> le conosci per i vincoli nel PUG. I <strong>rifiuti</strong> conosci il principio. <strong>L'aria/AIA/AUA</strong> la conosci dal raccordo con le FER e le attività produttive.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     2 — VIA E VAS
+══════════════════════════════════ -->
+<h2 class="section-title" id="via">
+  <span class="num">2</span>
+  VIA e VAS — quando scattano e come funzionano
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Parte II D.Lgs. 152/2006 — artt. 4–52</div>
+      <div class="art-title">Valutazione d'Impatto Ambientale e Valutazione Ambientale Strategica</div>
+    </div>
+  </div>
+  <div class="art-body">
+    <div class="grid2">
+      <div class="grid2-item">
+        <h4>VAS — per Piani e Programmi</h4>
+        <ul>
+          <li>Si applica a <strong>piani e programmi</strong> che possono avere effetti ambientali significativi</li>
+          <li>Il PUG ex LR 24/2017 la incorpora nella <strong>VALSAT</strong> (principio non duplicazione)</li>
+          <li>Livello statale: competenza MASE; regionale: competenza Regione ER</li>
+          <li>Il Comune per il PUG fa la VALSAT che integra la VAS: non le fa separatamente</li>
+          <li>Rapporto ambientale + consultazione pubblica + monitoraggio</li>
+        </ul>
+      </div>
+      <div class="grid2-item">
+        <h4>VIA — per Progetti</h4>
+        <ul>
+          <li>Si applica a <strong>singoli progetti</strong> che possono avere impatti ambientali significativi</li>
+          <li>Allegato II: VIA statale (grandi opere, autostrade, centrali, impianti FER &gt;30 MW)</li>
+          <li>Allegato III: VIA regionale (opere di media rilevanza)</li>
+          <li>Allegato IV: verifica di assoggettabilità (screening) — decide se serve VIA o no</li>
+          <li>Procedura: studio di impatto ambientale + CdS + provvedimento unico</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Il Provvedimento Unico Ambientale (PUA)</div>
+      <p style="font-size:.9rem">Dal D.Lgs. 104/2017 (recepimento direttiva UE), la VIA statale è integrata nel <strong>Provvedimento Unico Ambientale</strong>: un solo atto che comprende VIA + AIA (se necessaria) + tutti gli altri titoli ambientali. Il Comune partecipa alla Conferenza dei Servizi ma non rilascia titoli separati. Per le VIA regionali (Regione ER), la procedura è simile ma gestita a livello regionale.</p>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Cosa deve sapere il tecnico comunale di una VIA</div>
+      <p style="font-size:.9rem">Il Comune viene consultato nella procedura di VIA: esprime un parere sulla compatibilità urbanistica del progetto con gli strumenti vigenti (PUG, vincoli). Non può bloccare un progetto che ha ottenuto VIA positiva solo per ragioni urbanistiche: dovrà adeguare lo strumento urbanistico. Nella pratica, per i grandi impianti FER o per nuovi insediamenti produttivi rilevanti, il SUE riceve comunicazione dell'avvio della VIA e deve contribuire con le informazioni urbanistiche richieste.</p>
+    </div>
+
+    <div class="esempio">Un operatore privato vuole realizzare un impianto eolico da 50 MW nella pianura ferrarese. Potenza sopra i 30 MW → VIA statale (MASE) + AU ministeriale ex D.Lgs. 190/2024, riunite nel PUA. L'Unione Valli e Delizie viene consultata e deve fornire parere sulla compatibilità urbanistica entro i termini della CdS. Se la VIA viene approvata e il sito non è previsto nel PUG, il Comune dovrà adeguare il piano.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     3 — ACQUE
+══════════════════════════════════ -->
+<h2 class="section-title" id="acque">
+  <span class="num">3</span>
+  Difesa del suolo e acque — cosa conta per lo sportello
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Parte III D.Lgs. 152/2006</div>
+      <div class="art-title">Acque, scarichi, fasce di rispetto — gli strumenti operativi quotidiani</div>
+    </div>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Le Autorità di Bacino e il PAI — perché compaiono nel PUG</div>
+      <p style="font-size:.9rem">La Parte III del D.Lgs. 152 istituisce le <strong>Autorità di Bacino Distrettuale</strong> (per Ferrara: Autorità di Bacino Distrettuale del Po e AIPO per i corsi d'acqua padani) che adottano il <strong>PAI — Piano di Assetto Idrogeologico</strong>. Il PAI individua le aree a rischio idraulico e idrogeologico, suddivise in fasce fluviali (A, B, C con rischio crescente). Queste fasce vengono <em>recepite</em> nel PUG come vincoli sovraordinati: in fascia A (esondazione frequente) è vietata qualsiasi nuova costruzione; in fascia B forti limitazioni; in fascia C controllo.</p>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Scarichi idrici — chi autorizza e chi controlla</div>
+      <p style="font-size:.9rem">Gli <strong>scarichi in acque superficiali</strong> (canali, fiumi) richiedono autorizzazione della <strong>Regione ER</strong> (o Provincia delegata). Gli <strong>scarichi in fognatura</strong> richiedono l'autorizzazione del <strong>gestore del servizio idrico integrato</strong> (in ER: Hera, AIMAG, ecc.). Gli <strong>scarichi sul suolo</strong> (pozzi perdenti) sono vietati in via generale salvo casi specifici (abitazioni isolate non raggiungibili da fognatura). Per le <strong>nuove attività produttive</strong>, l'autorizzazione agli scarichi è uno degli atti da richiedere ad ARPAE, insieme all'AUA (Autorizzazione Unica Ambientale).</p>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Fascia di rispetto dai corsi d'acqua — 10 metri</div>
+      <p style="font-size:.9rem">Il D.Lgs. 152 e il Codice dei beni culturali (D.Lgs. 42/2004) stabiliscono una fascia di rispetto di <strong>10 metri</strong> dalle sponde dei corsi d'acqua demaniali entro cui è vietata qualsiasi nuova costruzione. Questa fascia appare come vincolo nelle tavole del PUG. In area ferrarese, dove la rete idrica è capillare (Po, Reno, Volano, canali di bonifica), questa fascia interessa molte aree del territorio comunale.</p>
+    </div>
+
+    <div class="alert alert-blue">
+      <span class="alert-icon">💧</span>
+      <div><strong>AUA — Autorizzazione Unica Ambientale (DPR 59/2013):</strong> per le piccole e medie imprese, l'AUA è il titolo unico che comprende fino a sette diverse autorizzazioni ambientali (scarichi idrici, emissioni in atmosfera, uso suolo, rifiuti, ecc.), rilasciato dallo <strong>SUAP</strong> che funge da coordinatore. Il SUAP acquisisce i pareri di ARPAE e degli altri enti e rilascia l'AUA come atto unico. Conoscere l'AUA è fondamentale: è uno dei procedimenti più frequenti allo sportello.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     4 — RIFIUTI
+══════════════════════════════════ -->
+<h2 class="section-title" id="rifiuti">
+  <span class="num">4</span>
+  Rifiuti — principi e cosa serve sapere per lo sportello
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Titolo I–IV Parte IV D.Lgs. 152/2006</div>
+      <div class="art-title">Gerarchia dei rifiuti, responsabilità, rifiuti da costruzione</div>
+    </div>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">La gerarchia dei rifiuti — l'ordine di priorità</div>
+      <p style="font-size:.9rem">Il D.Lgs. 152 recepisce la direttiva quadro sui rifiuti 2008/98/CE e stabilisce una <strong>gerarchia obbligatoria</strong> di trattamento, dall'opzione preferibile alla meno preferibile:</p>
+      <ol style="padding-left:1.2rem;font-size:.9rem;line-height:1.9">
+        <li><strong>Prevenzione</strong> — non produrre rifiuti (la scelta migliore)</li>
+        <li><strong>Preparazione per il riutilizzo</strong> — riparare, ricondizionare</li>
+        <li><strong>Riciclaggio</strong> — recupero di materia</li>
+        <li><strong>Recupero di energia</strong> — incenerimento con recupero energetico</li>
+        <li><strong>Smaltimento</strong> — discarica (ultima opzione)</li>
+      </ol>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">I rifiuti da costruzione e demolizione (C&D) — rilevanza pratica immediata</div>
+      <p style="font-size:.9rem">Per un tecnico del SUE/Settore Edilizio, i rifiuti più rilevanti sono quelli prodotti dai cantieri: macerie, calcestruzzo, mattoni, legname, metalli. Il D.Lgs. 152 li classifica come <strong>rifiuti speciali non pericolosi</strong> (salvo presenza di amianto, bitume con idrocarburi, ecc. → speciali pericolosi). Il responsabile della loro gestione è il <strong>produttore del rifiuto</strong> (solitamente l'impresa di demolizione). Le condizioni per depositarli temporaneamente in cantiere senza autorizzazione sono tassative (deposito temporaneo). I Piani di Utilizzo in cantiere (MPS — Materie Prime Secondarie) permettono di riutilizzare i materiali di scavo come sottoprodotti invece che smaltirli come rifiuti: riduce i costi del cantiere e i carichi ambientali.</p>
+    </div>
+
+    <div class="alert alert-orange">
+      <span class="alert-icon">🏗️</span>
+      <div><strong>Cosa controllare nelle pratiche edilizie con demolizioni:</strong> quando il SUE riceve una SCIA o PDC per demolizione significativa, deve verificare che il piano di gestione dei rifiuti da demolizione sia allegato agli elaborati. Per le demolizioni con presenza di amianto (edifici costruiti prima del 1992), è obbligatorio il <strong>Piano di Lavoro per la rimozione dell'amianto</strong> da presentare all'ASL, e i rifiuti contenenti amianto sono rifiuti pericolosi con smaltimento in discariche autorizzate.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     5 — BONIFICA — IL CUORE
+══════════════════════════════════ -->
+<h2 class="section-title" id="bonifica">
+  <span class="num">5</span>
+  Bonifica dei siti contaminati — il cuore dell'esame
+</h2>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Titolo V Parte IV D.Lgs. 152/2006 — artt. 239–253</div>
+      <div class="art-title">Iter completo dalla scoperta alla certificazione</div>
+    </div>
+    <span class="prio prio-red">🔥 Alta probabilità — già uscita stesso ente</span>
+  </div>
+  <div class="art-body">
+
+    <div class="concept">
+      <div class="concept-title">Il concetto fondamentale — quando un sito è "contaminato"</div>
+      <p style="font-size:.9rem">Un sito è <strong>potenzialmente contaminato</strong> quando vi è il sospetto (o la certezza) che vi siano sostanze inquinanti nel suolo, nel sottosuolo o nelle acque sotterranee. Diventa <strong>contaminato</strong> solo quando le analisi dimostrano che le concentrazioni di inquinanti superano le <strong>CSC (Concentrazioni Soglia di Contaminazione)</strong> fissate nell'Allegato 5 al Titolo V. Le CSC variano per tipo di utilizzo del suolo: i valori limite sono più bassi per le aree a uso verde/residenziale (uso A, più protettivo) e più alti per le aree a uso commerciale/industriale (uso B, meno protettivo). Questo è logico: un bambino che gioca in un prato è più esposto di un operaio in fabbrica.</p>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Chi è responsabile della bonifica</div>
+      <p style="font-size:.9rem">Il principio cardine è <strong>"chi inquina paga"</strong> (art. 239 D.Lgs. 152): il responsabile della contaminazione è obbligato a eseguire la bonifica a proprie spese. Se il responsabile è ignoto, irreperibile o insolvente, la bonifica può essere avviata dal <strong>proprietario del sito</strong> (che però non risponde se dimostra di essere estraneo alla contaminazione) o, in ultima istanza, dalla <strong>Pubblica Amministrazione</strong> con diritto di rivalsa sul responsabile. Nelle aree industriali dismesse, spesso chi ha inquinato non esiste più (fallimento, cessazione) e la bonifica ricade sul proprietario attuale o sull'ente pubblico, creando problemi enormi di sostenibilità economica.</p>
+    </div>
+
+    <div class="alert alert-page">
+      <span class="alert-icon">⚡</span>
+      <div><strong>Connessione con il lavoro quotidiano:</strong> nell'Unione Valli e Delizie, la pianura ferrarese ha una storia industriale e agricola intensa. Ci sono aree con ex impianti chimici, stazioni di carburante, depositi di gasolio, aree di smaltimento illegale. Ogni volta che arriva una richiesta per un cambio d'uso di un'area industriale dismessa (es. da capannone a residenziale), il primo passo è verificare la storia del sito e richiedere un'indagine preliminare. Non farlo espone l'ente a gravi responsabilità.</div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">L'iter completo — fase per fase</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Chiunque scopra o sospetti la contaminazione</div>
+          <div class="flow-action">Comunicazione dell'evento potenzialmente contaminante</div>
+          <div class="flow-detail">Chi scopre o causa una contaminazione (anche accidentale: sversamento di carburante, perdita di serbatoio interrato) deve comunicarlo immediatamente alla <strong>Regione, Provincia, Comune e ARPAE</strong>. Contemporaneamente deve adottare le <strong>misure di prevenzione</strong> per evitare che la contaminazione si estenda (es. messa in sicurezza d'emergenza: barriere, pompaggio acque contaminate, copertura suolo).</div>
+          <span class="timer t-red">Immediato — obbligo di legge</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Responsabile / proprietario</div>
+          <div class="flow-action">Indagine preliminare — superamento delle CSC?</div>
+          <div class="flow-detail">Si effettuano prelievi di campioni di suolo, sottosuolo e acque sotterranee e si analizzano in laboratorio. I risultati vengono confrontati con le <strong>CSC (Concentrazioni Soglia di Contaminazione)</strong> dell'Allegato 5. Se nessun valore supera le CSC → il sito NON è contaminato, si chiude il procedimento con comunicazione agli enti. Se anche solo un parametro supera le CSC → si procede al passo successivo.</div>
+          <span class="timer t-blue">Entro 30 giorni dall'evento (per messa in sicurezza)</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">3</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Responsabile — con ARPAE e Regione/Provincia</div>
+          <div class="flow-action">Piano di Caratterizzazione (PdC)</div>
+          <div class="flow-detail">Il Piano di Caratterizzazione è il documento tecnico che descrive come verrà indagato il sito in modo sistematico: quanti sondaggi, dove, a che profondità, quali parametri analizzare, come campionare le acque sotterranee. Va presentato alla Regione (o Provincia delegata) che lo approva in Conferenza dei Servizi con ARPAE, Comune, AUSL. Solo con il PdC approvato si procede all'indagine dettagliata.</div>
+          <span class="timer t-orange">Presentato entro 90 giorni dall'evento</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">4</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Responsabile con supervisione ARPAE</div>
+          <div class="flow-action">Esecuzione della caratterizzazione — campionamento e analisi</div>
+          <div class="flow-detail">Si eseguono i sondaggi, i prelievi e le analisi previste nel PdC approvato. ARPAE supervisiona le operazioni e può presenziare ai campionamenti. I risultati vengono elaborati in un <strong>Rapporto di Caratterizzazione</strong> che fotografa con precisione lo stato del sito: dove sono gli inquinanti, a che concentrazioni, in quale matrice (suolo superficiale, suolo profondo, acque di falda).</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">5</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Responsabile + Conferenza dei Servizi</div>
+          <div class="flow-action">Analisi di Rischio (AdR) — calcolo delle CSR</div>
+          <div class="flow-detail">Se i valori superano le CSC, non è detto che il sito debba essere bonificato fino ai valori delle CSC: si fa un'<strong>Analisi di Rischio sito-specifica</strong> che calcola le <strong>CSR (Concentrazioni Soglia di Rischio)</strong>, ovvero i valori limite specifici per quel sito in funzione del suo uso attuale e futuro, dei percorsi di esposizione reali e dei ricettori presenti. Se i valori rilevati non superano le CSR (anche se superano le CSC), il sito non richiede bonifica in senso stretto ma solo <strong>monitoraggio</strong>. Se superano anche le CSR → bonifica obbligatoria.</div>
+          <span class="timer t-orange">Momento chiave: determina se serve bonifica o solo monitoraggio</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:var(--page-color)">6</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Responsabile + Conferenza dei Servizi</div>
+          <div class="flow-action">Progetto di Bonifica — approvazione e realizzazione</div>
+          <div class="flow-detail">Se la bonifica è necessaria, il responsabile presenta il <strong>Progetto di Bonifica</strong> con le tecniche di intervento (rimozione del suolo contaminato, trattamento in situ, pump-and-treat per le acque, barriere idrauliche, ecc.). La Conferenza dei Servizi (Regione/Provincia + ARPAE + Comune + AUSL) lo approva. La bonifica viene eseguita sotto supervisione di ARPAE, che certifica in corso d'opera la conformità alle prescrizioni.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle" style="background:#1A6B3C">7</div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-who">Regione/Provincia + ARPAE</div>
+          <div class="flow-action">Certificazione di avvenuta bonifica</div>
+          <div class="flow-detail">Al termine delle operazioni, ARPAE verifica il raggiungimento degli obiettivi di bonifica (concentrazioni residue sotto le CSR o le CSC concordate). La Regione/Provincia rilascia la <strong>certificazione di avvenuta bonifica</strong>. Da quel momento il sito non è più soggetto a vincoli di bonifica e può essere utilizzato come previsto dal progetto (residenziale, commerciale, ecc.). La certificazione viene comunicata al Comune che aggiorna il PUG.</div>
+          <span class="timer t-green">Fine procedimento — sito certificato</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">Messa in Sicurezza d'Emergenza (MISE) e Messa in Sicurezza Operativa (MISO)</div>
+      <p style="font-size:.9rem"><strong>MISE</strong>: intervento immediato per contenere la contaminazione e impedirne la diffusione (barriere fisiche, pompaggio, coperture). Si fa subito, prima ancora di capire l'entità del problema. <strong>MISO</strong>: quando la bonifica completa non è tecnicamente o economicamente fattibile nell'immediato (es. falda molto contaminata su vasto territorio), si adottano misure di sicurezza che consentono di usare il sito con limitazioni, in attesa di una soluzione definitiva. Il sito resta formalmente "contaminato" ma è gestito in sicurezza. Frequente per i vecchi siti industriali con contaminazione profonda delle acque di falda.</p>
+    </div>
+
+    <div class="concept">
+      <div class="concept-title">CSC vs CSR — la distinzione che fa la differenza</div>
+    </div>
+    <div class="vs-grid">
+      <div class="vs-old">
+        <h4>CSC — Concentrazioni Soglia di Contaminazione</h4>
+        <ul>
+          <li>Fissate per legge nell'Allegato 5 al Titolo V</li>
+          <li>Valori tabellari nazionali, uguali per tutti</li>
+          <li>Distinzione uso A (verde/residenziale) e uso B (commerciale/industriale)</li>
+          <li>Superarle significa che il sito è "potenzialmente contaminato"</li>
+          <li>Non significa necessariamente che ci sia un rischio reale</li>
+        </ul>
+      </div>
+      <div class="vs-new">
+        <h4>CSR — Concentrazioni Soglia di Rischio</h4>
+        <ul>
+          <li>Calcolate caso per caso con l'Analisi di Rischio sito-specifica</li>
+          <li>Tengono conto del reale uso del sito e dei percorsi di esposizione effettivi</li>
+          <li>Possono essere più alte delle CSC (meno restrittive) se il rischio reale è basso</li>
+          <li>Superarle significa che esiste un rischio sanitario reale e la bonifica è obbligatoria</li>
+          <li>Permettono di evitare bonifiche costosissime quando il rischio è trascurabile</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="esempio">Un ex distributore di carburante a Ostellato viene dismesso. Il proprietario trova un acquirente che vuole costruirci appartamenti (cambio d'uso da commerciale a residenziale). Prima di qualsiasi variante urbanistica, il SUE deve verificare se il sito è potenzialmente contaminato (serbatoi interrati, perdite storiche di carburanti). Se sì → avvio procedura bonifica. Le CSC per uso residenziale (uso A) sono più basse di quelle per uso commerciale: quindi anche se il sito era "ok" come distributore, potrebbe non esserlo per uso abitativo. L'analisi di rischio calcolerà le CSR specifiche per l'uso residenziale.</div>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">⚠</span>
+      <div><strong>Vincolo urbanistico sui siti contaminati:</strong> un sito inserito nell'anagrafe dei siti da bonificare ha un <strong>vincolo che limita le trasformazioni urbanistiche</strong> fino alla certificazione di avvenuta bonifica. Il Comune non può rilasciare titoli edilizi per usi diversi da quelli vigenti su un sito contaminato non ancora bonificato. Questo è un punto chiave operativo: prima la bonifica, poi il cambio d'uso.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     6 — ENTI E COMPETENZE
+══════════════════════════════════ -->
+<h2 class="section-title" id="enti">
+  <span class="num">6</span>
+  Enti e competenze — chi fa cosa in materia ambientale
+</h2>
+
+<div class="art-card">
+  <div class="art-body">
+    <table class="vtable">
+      <thead>
+        <tr><th>Soggetto</th><th>Ruolo in materia ambientale</th><th>Collegamento con lo sportello</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ARPAE ER</strong><br><small style="color:var(--ink2)">Agenzia Regionale Prevenzione Ambiente Energia</small></td>
+          <td>Controllo ambientale, campionamenti, analisi laboratoristiche. Supervisiona le bonifiche, esprime pareri nelle CdS ambientali, gestisce i procedimenti AUA per conto del SUAP. Rileva e classifica le emissioni. Parere su VIA e VAS.</td>
+          <td>Per qualsiasi nuova attività produttiva, il SUAP deve acquisire parere ARPAE nell'AUA. Per le bonifiche, ARPAE è il supervisore tecnico. Il SUE consulta ARPAE per gli aspetti ambientali delle pratiche edilizie su siti a rischio.</td>
+        </tr>
+        <tr>
+          <td><strong>Regione ER</strong></td>
+          <td>Competente per l'approvazione dei Piani di Caratterizzazione e dei Progetti di Bonifica (Conferenza dei Servizi). Rilascia le autorizzazioni agli scarichi. Gestisce l'anagrafe regionale dei siti da bonificare. VIA regionale.</td>
+          <td>Il Comune partecipa alla CdS regionale sulle bonifiche nel proprio territorio. Deve essere aggiornato dalla Regione sullo stato dei siti nel PUG.</td>
+        </tr>
+        <tr>
+          <td><strong>Provincia di Ferrara</strong></td>
+          <td>Autorizza gli scarichi in acque superficiali (per conto della Regione dove delegata). Pianificazione rifiuti. Può avere delega regionale per alcune VIA di media rilevanza.</td>
+          <td>Per scarichi di impianti produttivi, il SUAP può dover coinvolgere la Provincia.</td>
+        </tr>
+        <tr>
+          <td><strong>Comune / SUAP / SUE</strong></td>
+          <td>Partecipa alle CdS per VIA, bonifica, AIA. Rilascia AUA come sportello unico. Controlla la compatibilità urbanistica degli insediamenti produttivi. Segnala all'ARPAE situazioni di rischio rilevate nell'attività di sportello. Aggiorna il PUG con i siti bonificati/da bonificare.</td>
+          <td>Ruolo operativo quotidiano: riceve le domande AUA, partecipa alle conferenze, tiene aggiornato il quadro conoscitivo del PUG.</td>
+        </tr>
+        <tr>
+          <td><strong>AUSL</strong></td>
+          <td>Valuta gli impatti sulla salute umana nelle procedure di bonifica (in CdS). Autorizza i Piani di lavoro per la rimozione dell'amianto.</td>
+          <td>Per le demolizioni con amianto, il SUE deve verificare che il Piano di Lavoro sia approvato dall'AUSL prima dell'inizio dei lavori.</td>
+        </tr>
+        <tr>
+          <td><strong>Autorità di Bacino del Po</strong></td>
+          <td>Adotta il PAI con le fasce fluviali di rischio idraulico. Esprime parere nelle CdS per interventi in fascia fluviale.</td>
+          <td>Le fasce PAI sono recepite nel PUG. Per interventi nelle fasce A e B, il SUE deve acquisire il parere dell'Autorità di Bacino.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mnemonic">
+      <h4>Mnemonica — Chi chiamare per cosa</h4>
+      <p><span>ARPAE</span> = controllo tecnico-scientifico (analisi, supervisione, pareri AUA)<br>
+      <span>Regione</span> = autorizzazioni grandi (bonifiche, scarichi, VIA, AIA)<br>
+      <span>Provincia</span> = scarichi in acque superficiali (per delega), pianificazione rifiuti<br>
+      <span>AUSL</span> = salute umana nelle bonifiche, amianto<br>
+      <span>Autorità Bacino</span> = rischio idraulico, fasce PAI, interventi in alveo</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     7 — RISPOSTE ESAME
+══════════════════════════════════ -->
+<h2 class="section-title" id="risposta">
+  <span class="num">7</span>
+  Risposte modello per l'esame
+</h2>
+
+<div class="alert alert-page">
+  <span class="alert-icon">✏</span>
+  <div><strong>Strategia mezzoretta:</strong> 3 minuti — scrivi i titoli dei paragrafi e 2–3 parole chiave per ognuno (è la scaletta in brutta). 20 minuti — sviluppa ogni paragrafo in 4–6 righe. 7 minuti — riscrivi pulito e correggi. La risposta sulla bonifica è quella dove puoi dimostrare conoscenza tecnica reale, non solo nozionistica: usa i termini CSC, CSR, Piano di Caratterizzazione, Analisi di Rischio. Questi termini da soli valgono punti.</div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Domanda 1 — già uscita allo stesso ente nel 2022</div>
+      <div class="art-title">«Illustri l'iter della procedura di bonifica di siti contaminati»</div>
+    </div>
+    <span class="prio prio-red">🔥 Alta probabilità</span>
+  </div>
+  <div class="art-body">
+    <div class="risposta">
+      <div class="risposta-label">✏ Risposta modello — circa 400 parole · 5 paragrafi</div>
+
+      <div class="par-title">Inquadramento normativo</div>
+      <p>La disciplina della bonifica dei siti contaminati è contenuta nel <strong>Titolo V della Parte IV del D.Lgs. 3 aprile 2006, n. 152</strong> (Codice dell'Ambiente), agli artt. 239–253. Il principio fondante è il <strong>"chi inquina paga"</strong> (art. 239): il responsabile della contaminazione è obbligato a eseguire la bonifica a proprie spese. In assenza di responsabile identificabile o solvibile, l'obbligo ricade sul proprietario del sito o, in ultima istanza, sulla pubblica amministrazione con diritto di rivalsa.</p>
+
+      <div class="par-title">La distinzione tra CSC e CSR — il cuore concettuale</div>
+      <p>Il sistema si fonda su due soglie. Le <strong>CSC (Concentrazioni Soglia di Contaminazione)</strong>, fissate per legge nell'Allegato 5 con valori distinti per uso del suolo (uso A: verde/residenziale, più protettivo; uso B: commerciale/industriale), identificano il sito come "potenzialmente contaminato". Le <strong>CSR (Concentrazioni Soglia di Rischio)</strong> sono invece calcolate caso per caso tramite l'<strong>Analisi di Rischio sito-specifica</strong>, tenendo conto del reale uso del sito, dei percorsi di esposizione effettivi e dei ricettori presenti. Solo il superamento delle CSR determina l'obbligo di bonifica: se i valori rilevati stanno tra CSC e CSR, il sito è monitorato ma non necessariamente bonificato. Questa distinzione consente di evitare interventi costosi quando il rischio sanitario reale è trascurabile.</p>
+
+      <div class="par-title">L'iter procedurale</div>
+      <p>Il procedimento si articola in fasi successive. Al verificarsi di un <strong>evento potenzialmente contaminante</strong>, il responsabile deve immediatamente comunicarlo a Regione, Provincia, Comune e ARPAE, adottando le <strong>misure di prevenzione</strong> (messa in sicurezza d'emergenza — MISE) per contenere la diffusione. Entro 90 giorni, il responsabile presenta alla Regione (competente per l'istruttoria) il <strong>Piano di Caratterizzazione (PdC)</strong>, approvato in Conferenza dei Servizi con ARPAE, Comune e AUSL, che disciplina le modalità dell'indagine del sito. Eseguita la caratterizzazione con campionamenti e analisi di laboratorio sotto supervisione ARPAE, i risultati vengono confrontati con le CSC. Se queste sono superate, si redige l'<strong>Analisi di Rischio</strong> per calcolare le CSR: se anche le CSR sono superate, la bonifica è obbligatoria. Il <strong>Progetto di Bonifica</strong> (rimozione del suolo, trattamento in situ, pump-and-treat per le acque di falda, barriere idrauliche o fisiche) viene approvato in Conferenza dei Servizi e realizzato sotto il controllo di ARPAE. Al termine, la Regione rilascia la <strong>certificazione di avvenuta bonifica</strong>, che sblocca qualsiasi trasformazione urbanistica del sito e viene comunicata al Comune per l'aggiornamento del PUG.</p>
+
+      <div class="par-title">Il ruolo del Comune e le implicazioni urbanistiche</div>
+      <p>Il Comune partecipa alle Conferenze dei Servizi con un <strong>parere sulla compatibilità urbanistica</strong> delle operazioni. Operativamente, il <strong>SUE non può rilasciare titoli edilizi</strong> per usi più intensi (es. residenziale) su un sito inserito nell'anagrafe regionale dei siti da bonificare finché non sia rilasciata la certificazione. Questa connessione tra procedimento ambientale e procedimento edilizio è frequente nelle aree di trasformazione urbana: ogni cambio d'uso di aree ex industriali parte dalla verifica dello stato di contaminazione del suolo, prima di qualsiasi valutazione urbanistica.</p>
+
+      <div class="par-title">Criticità operative</div>
+      <p>Le principali criticità pratiche sono: la difficoltà di identificare il responsabile in siti con storia industriale complessa e proprietà succedutesi nel tempo; i lunghi tempi dell'iter (caratterizzazione + AdR + progetto + esecuzione possono richiedere anni); il costo elevato degli interventi sulle acque di falda contaminate su vasta scala. In questi casi, la <strong>Messa in Sicurezza Operativa (MISO)</strong> — che consente l'uso limitato del sito con misure di controllo in attesa di una bonifica completa — rappresenta spesso la soluzione transitoria adottata.</p>
+    </div>
+  </div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Domanda 2 — già uscita nell'orale 2024 stesso ente</div>
+      <div class="art-title">«Quali autorizzazioni ambientali debbono essere richieste ad ARPAE nel caso di realizzazione di una nuova attività produttiva?»</div>
+    </div>
+    <span class="prio prio-red">🔥 Alta probabilità</span>
+  </div>
+  <div class="art-body">
+    <div class="risposta">
+      <div class="risposta-label">✏ Risposta modello — circa 280 parole</div>
+
+      <div class="par-title">Inquadramento — l'AUA come strumento unificatore</div>
+      <p>Per la realizzazione di una nuova attività produttiva, il soggetto proponente deve acquisire una serie di autorizzazioni ambientali che, grazie al <strong>DPR 13 marzo 2013, n. 59</strong> (che integra e attua le previsioni del D.Lgs. 152/2006), possono essere riunite in un unico atto: l'<strong>AUA — Autorizzazione Unica Ambientale</strong>. L'AUA è rilasciata dallo <strong>SUAP</strong> dell'ente locale, che funge da sportello unico e acquisisce i pareri di ARPAE e degli altri enti competenti, restituendo al proponente un atto unico valido per tutti gli adempimenti ambientali.</p>
+
+      <div class="par-title">Le autorizzazioni ricomprese nell'AUA</div>
+      <p>L'AUA può sostituire fino a <strong>sette diversi titoli ambientali</strong>: (1) l'autorizzazione agli <strong>scarichi idrici</strong> non in fognatura (Parte III D.Lgs. 152); (2) la comunicazione o autorizzazione alle <strong>emissioni in atmosfera</strong> per impianti non soggetti ad AIA (Parte V D.Lgs. 152); (3) l'autorizzazione a <strong>utilizzare fanghi in agricoltura</strong> (D.Lgs. 99/1992); (4) il <strong>nulla osta acustico</strong> se richiesto; (5) l'autorizzazione all'uso di <strong>acque reflue</strong>; (6) le comunicazioni per <strong>aree non contaminate</strong> con attività di scavo. Il tutto in un unico procedimento, coordinato dal SUAP con il supporto tecnico di ARPAE che esprime i pareri specialistici di competenza.</p>
+
+      <div class="par-title">Quando non basta l'AUA — AIA e VIA</div>
+      <p>Per le attività produttive di grande dimensione (allegati alla direttiva IED — Industrial Emissions Directive), al posto dell'AUA è necessaria l'<strong>AIA — Autorizzazione Integrata Ambientale</strong>, di competenza regionale (Regione ER) o statale (MASE), che fissa tutte le condizioni di esercizio dell'impianto in modo integrato. Se l'attività supera le soglie dell'Allegato III al D.Lgs. 152, è richiesta anche la <strong>VIA regionale</strong> prima dell'autorizzazione. In questi casi il SUAP non è competente: il proponente si rivolge direttamente alla Regione.</p>
+    </div>
+  </div>
+</div>
+
+<div class="art-card">
+  <div class="art-header">
+    <div>
+      <div class="art-num">Domanda 3</div>
+      <div class="art-title">«Illustri la struttura del D.Lgs. 152/2006 e i principi generali del diritto ambientale»</div>
+    </div>
+    <span class="prio prio-orange">Media probabilità</span>
+  </div>
+  <div class="art-body">
+    <div class="risposta">
+      <div class="risposta-label">✏ Risposta modello sintetica — circa 200 parole</div>
+
+      <div class="par-title">Struttura e scopo</div>
+      <p>Il <strong>D.Lgs. 3 aprile 2006, n. 152</strong> — "Norme in materia ambientale" — è il principale testo di codificazione del diritto ambientale italiano. Raccoglie in un unico corpus normativo la disciplina della <strong>valutazione ambientale strategica (VAS) e di impatto ambientale (VIA)</strong> (Parte II), della <strong>tutela delle acque e difesa del suolo</strong> (Parte III), della <strong>gestione dei rifiuti e bonifica dei siti contaminati</strong> (Parte IV), della <strong>tutela dell'aria e riduzione delle emissioni</strong> (Parte V). Il decreto recepisce numerose direttive europee (direttiva quadro acque, direttiva rifiuti, direttiva IED, direttiva VIA) nel quadro della competenza statale in materia di tutela dell'ambiente (art. 117 c.2 lett. s) Cost.).</p>
+
+      <div class="par-title">I principi generali</div>
+      <p>Il codice si fonda su tre principi fondamentali del diritto ambientale europeo: il <strong>principio di precauzione</strong> (agire per prevenire danni anche in assenza di certezza scientifica), il <strong>principio "chi inquina paga"</strong> (il responsabile della contaminazione sostiene i costi del ripristino) e il <strong>principio di integrazione</strong> (le esigenze di tutela ambientale devono essere integrate in tutte le politiche settoriali, incluso il governo del territorio). Quest'ultimo principio trova espressione concreta nella VALSAT integrata nel PUG ex LR 24/2017 e nella VIA integrata nel Provvedimento Unico Ambientale.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     8 — QUIZ
+══════════════════════════════════ -->
+<h2 class="section-title" id="quiz">
+  <span class="num">8</span>
+  Quiz — domande e approfondimenti
+</h2>
+
+<div class="quiz-area">
+  <div class="quiz-title">Clicca per risposta</div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Qual è la differenza tra CSC e CSR nella procedura di bonifica? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      Le <strong>CSC (Concentrazioni Soglia di Contaminazione)</strong> sono valori tabellari fissati per legge (Allegato 5 Titolo V): se superati, il sito è "potenzialmente contaminato" e scatta l'obbligo di indagine. Distinguono uso A (verde/residenziale, più restrittivo) e uso B (commerciale/industriale). Le <strong>CSR (Concentrazioni Soglia di Rischio)</strong> si calcolano con l'Analisi di Rischio sito-specifica: tengono conto del reale uso del sito, dei percorsi di esposizione e dei ricettori. Solo il superamento delle CSR obbliga alla bonifica vera e propria. Tra CSC e CSR: sito "potenzialmente contaminato" ma non necessariamente a rischio reale — può bastare il monitoraggio.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Il SUE può rilasciare un permesso di costruire per appartamenti su un ex distributore di carburante? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      Non senza prima verificare lo stato ambientale del sito. L'ex distributore è un sito a rischio contaminazione (serbatoi interrati, perdite di carburanti). Prima di qualsiasi rilascio di titolo edilizio per uso residenziale, il SUE deve verificare se il sito è nell'<strong>anagrafe regionale dei siti da bonificare</strong>. Se è contaminato (o potenzialmente tale), il Comune <strong>non può rilasciare titoli edilizi</strong> per usi più intensi (residenziale richiede CSC uso A, più restrittive di quelle uso B per impianti commerciali) fino alla certificazione di avvenuta bonifica. La pratica edilizia deve essere sospesa fino alla chiusura del procedimento ambientale.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Chi è responsabile della bonifica se il sito appartiene a un proprietario che non ha mai inquinato? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      Il principio "chi inquina paga" (art. 239 D.Lgs. 152) identifica come responsabile il <strong>soggetto che ha causato la contaminazione</strong>. Il proprietario attuale del sito che non ha inquinato <strong>non è obbligato a bonificare</strong>, ma deve <strong>consentire l'accesso al sito</strong> per le operazioni di bonifica e non può opporsi all'intervento. Se il responsabile è irreperibile o insolvente, la bonifica può essere eseguita dalla PA (Regione o Comune) con <strong>diritto di rivalsa</strong> sul responsabile per le spese sostenute. Se anche il proprietario era a conoscenza della contaminazione e non ha comunicato, risponde per omissione.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Cos'è l'AUA e chi la rilascia? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      L'<strong>AUA — Autorizzazione Unica Ambientale</strong> (DPR 59/2013) è il titolo unico che sostituisce fino a sette diverse autorizzazioni ambientali (scarichi idrici non in fognatura, emissioni in atmosfera, nulla osta acustico, ecc.) per le piccole e medie imprese. È rilasciata dallo <strong>SUAP</strong> del Comune (o Unione), che funge da sportello unico coordinando i pareri di ARPAE e degli altri enti. Non serve per le grandi installazioni (che richiedono l'AIA) né per le attività sotto certe soglie che hanno solo comunicazioni semplificate. Per l'Unione Valli e Delizie: il SUAP gestisce l'AUA per le imprese dei tre comuni.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Cosa sono le fasce PAI e come entrano nel PUG? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      Le fasce PAI (Piano di Assetto Idrogeologico) sono le zone di rischio idraulico individuate dall'<strong>Autorità di Bacino Distrettuale del Po</strong> lungo i corsi d'acqua. Si dividono in: <strong>Fascia A</strong> (area di deflusso della piena, rischio elevatissimo: nessuna costruzione); <strong>Fascia B</strong> (area di esondazione, rischio alto: forti limitazioni); <strong>Fascia C</strong> (area di inondazione per piena catastrofica: attenzione ma edificazione possibile con cautele). Il PUG le recepisce come vincoli sovraordinati nelle proprie tavole: il Comune non può derrogarle. Per qualsiasi intervento in fascia A o B occorre il parere dell'Autorità di Bacino nella Conferenza dei Servizi. Nella bassa pianura ferrarese, dove il territorio è storicamente a rischio idraulico, queste fasce interessano aree significative del territorio dell'Unione.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Qual è la differenza tra MISE e MISO nella procedura di bonifica? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      <strong>MISE — Messa in Sicurezza d'Emergenza</strong>: intervento immediato per contenere la contaminazione nel momento in cui viene scoperta o prodotta (barriere fisiche, pompaggio acque contaminate, coperture del suolo). Si fa subito, anche prima di conoscere l'entità del problema, per evitare che si espanda. Non richiede approvazione: è un obbligo immediato del responsabile. <strong>MISO — Messa in Sicurezza Operativa</strong>: intervento di medio-lungo periodo adottato quando la bonifica completa non è tecnicamente fattibile nell'immediato (es. falda molto contaminata su grande estensione). Consente di usare il sito con limitazioni in modo controllato mentre si attende una soluzione definitiva. Il sito resta formalmente "contaminato" ma gestito in sicurezza con monitoraggio continuativo.
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Quando è richiesta la VIA e quando basta la VAS? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      <strong>VAS</strong>: si applica a <em>piani e programmi</em> che possono avere effetti ambientali significativi (es. PUG, PTCP, piani energetici). Per il PUG ex LR 24/2017, la VAS è inglobata nella VALSAT (principio di non duplicazione). <strong>VIA</strong>: si applica a <em>singoli progetti</em> (es. nuove strade, impianti produttivi grandi, centrali energetiche, grandi impianti FER). L'allegato alla Parte II del D.Lgs. 152 elenca i progetti soggetti: allegato II (VIA statale, MASE), allegato III (VIA regionale, Regione ER), allegato IV (verifica di assoggettabilità — "screening" che decide se serve VIA o no). Regola: se stai pianificando → VAS; se stai realizzando un'opera specifica → VIA. Possono coesistere (il progetto attuativo di un piano già sottoposto a VAS può a sua volta richiedere VIA).
+    </div>
+  </div>
+
+  <div class="quiz-item">
+    <div class="quiz-q" onclick="tq(this)">Quali sono i tre principi fondamentali del D.Lgs. 152/2006? <span class="arrow">▾</span></div>
+    <div class="quiz-a">
+      <strong>1. Principio di precauzione</strong>: anche in assenza di certezza scientifica su un danno ambientale, si adottano misure preventive se vi è il rischio che l'inazione provochi danni gravi o irreversibili. Il dubbio porta all'azione, non all'attesa.<br><br>
+      <strong>2. Principio "chi inquina paga"</strong>: i costi delle misure di prevenzione, riduzione dell'inquinamento e ripristino ambientale sono a carico del soggetto che ha causato il danno. È la base della responsabilità nella bonifica.<br><br>
+      <strong>3. Principio di integrazione</strong>: le esigenze di protezione ambientale devono essere integrate in tutte le politiche e azioni settoriali — urbanistica, trasporti, energia, agricoltura. Si traduce concretamente nella VALSAT del PUG, nella VIA per i grandi progetti, nell'AUA per le attività produttive.
+    </div>
+  </div>
+
+</div>
+
+<div class="mnemonic">
+  <h4>Mnemonica — La bonifica in 7 passi</h4>
+  <p>
+    <span>1. Evento</span> → comunicazione immediata + MISE ·
+    <span>2. Indagine</span> → superamento CSC? ·
+    <span>3. Piano di Caratterizzazione</span> → approvato in CdS ·
+    <span>4. Campionamento</span> → sotto supervisione ARPAE ·
+    <span>5. Analisi di Rischio</span> → calcolo CSR → serve bonifica? ·
+    <span>6. Progetto di Bonifica</span> → approvato in CdS → eseguito ·
+    <span>7. Certificazione</span> → sito libero da vincoli · aggiornamento PUG
+  </p>
+</div>
+
+</main>
+
+<footer>
+  D.Lgs. 152/2006 — Codice dell'Ambiente · Studio Concorso Unione Valli e Delizie · Aprile 2026
+</footer>
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  const html   = document.documentElement;
+  function applyTheme(dark) {
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    toggle.checked = dark;
+  }
+  const saved = localStorage.getItem('theme');
+  if (saved) { applyTheme(saved === 'dark'); }
+  else { applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches); }
+  toggle.addEventListener('change', () => {
+    applyTheme(toggle.checked);
+    localStorage.setItem('theme', toggle.checked ? 'dark' : 'light');
+  });
+
+  function tq(el) {
+    el.classList.toggle('active');
+    el.nextElementSibling.classList.toggle('open');
+  }
+
+  const btn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 300));
+
+  const allTargets = [...document.querySelectorAll('[id]')].filter(el =>
+    [...document.querySelectorAll('.nav-pill')].some(p => p.getAttribute('href') === '#' + el.id)
+  );
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    allTargets.forEach(t => { if (window.scrollY >= t.offsetTop - 140) cur = t.id; });
+    document.querySelectorAll('.nav-pill').forEach(p => {
+      const on = p.getAttribute('href') === '#' + cur;
+      p.style.background  = on ? 'var(--page-color)' : '';
+      p.style.color       = on ? 'white' : '';
+      p.style.borderColor = on ? 'var(--page-color)' : '';
+    });
+  });
+</script>
+</body>
+</html>
