@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulatore Esame - Hub Concorso</title>
+  
+  <!-- RICHIAMO AL TUO FOGLIO DI STILE ESTERNO -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Variabili colore specifiche per questa pagina (Verde = Pratica/Lavoro) */
+    :root {
+      --page-color: #2E8B57;
+      --page-color-bg: rgba(46, 139, 87, 0.05);
+      --page-color-border: #8FBC8F;
+    }
+    .highlight-word { font-weight: 700; color: var(--page-color); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-text">
+        <span class="badge">Sessione Simulazione</span>
+        <h1>L'Esame Perfetto</h1>
+        <p>Banca dati domande a risposta aperta, strutturate per l'ottimizzazione del tempo (Max 30 min/domanda).</p>
+      </div>
+      <div class="controls">
+        <div class="toggle-row">
+          <span class="toggle-label">Tema</span>
+          <label class="toggle">
+            <input type="checkbox" id="themeToggle">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <div class="nav-wrap">
+    <div class="nav-pills">
+      <a href="index_studio.html" class="nav-pill">&larr; Torna all'Indice di Studio</a>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="section-title">
+      <span class="num">Q</span>
+      Domande Lunghe (Tipologia Tema Scritto - 30 min)
+    </div>
+
+    <!-- DOMANDA 1: OPERA PUBBLICA -->
+    <article class="art-card" id="tema1">
+      <div class="art-header">
+        <div>
+          <div class="art-num">DOMANDA 01</div>
+          <h3 class="art-title">Il candidato illustri le principali fasi tecnico-amministrative per la realizzazione di una nuova opera pubblica (es. edificio scolastico) dalla sua ideazione al collaudo.</h3>
+        </div>
+        <span class="prio prio-red">Alta Probabilità</span>
+      </div>
+      
+      <div class="art-body">
+        <p><em>(Traccia di svolgimento consigliata. Strutturata per massima leggibilità della Commissione.)</em></p>
+        
+        <p>L'iter tecnico-amministrativo per la realizzazione di un'opera pubblica è disciplinato trasversalmente dal <strong>D.Lgs. 36/2023 (Nuovo Codice dei Contratti Pubblici)</strong> per le procedure di appalto, e dalla normativa regionale (in Emilia-Romagna: <strong>L.R. 24/2017 e L.R. 15/2013</strong>) per i profili urbanistico-edilizi. Le macro-fasi si articolano come segue:</p>
+
+        <ol>
+          <li><span class="highlight-word">Programmazione:</span> L'opera, sulla base del DIP (Documento di Indirizzo alla Progettazione) redatto dal RUP, deve essere inserita obbligatoriamente nel <strong>Programma Triennale dei Lavori Pubblici</strong> e nel relativo elenco annuale dell'Ente (se di importo superiore a 150.000 euro).</li>
+          
+          <li><span class="highlight-word">Progettazione (Ex D.Lgs. 36/2023):</span> Il nuovo Codice ha ridotto i livelli di progettazione da tre a due:
+            <ul>
+              <li><strong>Progetto di Fattibilità Tecnico Economica (PFTE):</strong> Individua le caratteristiche, i costi, le indagini geologiche e definisce il quadro economico dell'opera.</li>
+              <li><strong>Progetto Esecutivo:</strong> Costituisce l'ingegnerizzazione di dettaglio, è cantierabile e costituisce la base per la gara d'appalto.</li>
+            </ul>
+          </li>
+
+          <li><span class="highlight-word">Verifica di Conformità Urbanistica (L.R. Emilia-Romagna):</span>
+            <div class="concept">
+              Fase dirimente. Il RUP verifica la conformità dell'opera al PUG. 
+              <br><strong>Se conforme:</strong> l'approvazione del progetto (validazione) assorbe e sostituisce la SCIA/Permesso di Costruire ai sensi dell'Art. 10 della L.R. 15/2013. 
+              <br><strong>Se NON conforme:</strong> il progetto deve essere approvato in Consiglio Comunale ai sensi dell'Art. 54 della L.R. 24/2017. Tale approvazione costituisce <em>variante al PUG</em> e appone il Vincolo Preordinato all'Esproprio.
+            </div>
+          </li>
+
+          <li><span class="highlight-word">Verifica e Validazione:</span> Prima dell'inizio della gara, il Progetto Esecutivo è sottoposto a "Verifica" (da parte di soggetti accreditati o dallo stesso RUP per importi inferiori alla soglia) e alla successiva "Validazione", un atto formale del RUP che attesta l'appaltabilità dell'opera.</li>
+
+          <li><span class="highlight-word">Gara e Affidamento:</span> Il RUP, supportato dalla stazione appaltante, redige la Determina a Contrarre. Si procede con l'espletamento della procedura di gara (affidamento diretto, procedura negoziata o aperta in base all'importo). Termina con il provvedimento di <strong>Aggiudicazione</strong> e la stipula del contratto (dopo le verifiche antimafia e dei requisiti generali).</li>
+
+          <li><span class="highlight-word">Esecuzione dei Lavori:</span> Il Direttore dei Lavori (DL) provvede alla "Consegna dei Lavori" all'impresa. Da questo momento decorre il cronoprogramma. Durante questa fase il DL contabilizza le opere (SAL - Stati Avanzamento Lavori), controlla la regolarità contributiva (DURC) ed eventuali necessità di Perizie di Variante.</li>
+
+          <li><span class="highlight-word">Collaudo e Agibilità:</span> Ultimati i lavori, l'appaltatore invia il Certificato di Ultimazione. Segue il <strong>Collaudo Tecnico-Amministrativo</strong> (o Certificato di Regolare Esecuzione per opere minori) e il Collaudo Statico. 
+          <em>Nota per la Regione ER:</em> Per le opere pubbliche comunali, l'atto di collaudo tecnico-amministrativo sostituisce e assorbe la Segnalazione Certificata di Agibilità (SCA). L'opera viene infine presa in carico dal Comune.</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- INSERISCI QUI ALTRE DOMANDE (Copiando l'Article tag) -->
+
+
+    <!-- SEZIONE FLASH QUIZ -->
+    <div class="quiz-area">
+      <h2 class="quiz-title">Domande Flash / Trappole da Orale</h2>
+      
+      <!-- Domanda 1 -->
+      <div class="quiz-item">
+        <div class="quiz-q">
+          1. Il PUG può destinare un'area libera all'edificabilità automatica ("zonizzazione di espansione")?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="quiz-a">
+          <strong>Assolutamente NO (Art. 25 L.R. 24/2017).</strong> La legge ha abolito la rendita fondiaria. Nessuna area esterna al territorio urbanizzato acquisisce aspettative edificatorie. I diritti edificatori si generano solo ed esclusivamente attraverso l'approvazione di <em>Accordi Operativi</em> in cui il privato dimostra l'interesse pubblico e assume obbligazioni verso la collettività.
+        </div>
+      </div>
+
+      <!-- Domanda 2 -->
+      <div class="quiz-item">
+        <div class="quiz-q">
+          2. Cosa si intende per "Garante della Comunicazione"? Sostituisce il RUP?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="quiz-a">
+          <strong>No, non sostituisce il RUP (Art. 56 L.R. 24/2017).</strong> È una figura obbligatoria e indipendente (rispetto a chi redige il piano tecnicamente), con l'unico compito di assicurare l'accessibilità, la trasparenza e la partecipazione civica durante tutte le fasi del procedimento urbanistico, tutelando il diritto dei cittadini a formulare Osservazioni al piano.
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Area Studio e Simulazione - Area Tecnica PA</p>
+  </footer>
+
+  <!-- SCRIPT JS: TEMA E ACCORDION (Non serve un file JS esterno, è piccolissimo e fa tutto) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      /* --- GESTIONE TEMA DARK/LIGHT --- */
+      const toggle = document.getElementById('themeToggle');
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      
+      // Imposta stato iniziale
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      toggle.checked = currentTheme === 'dark';
+
+      // Cambia tema
+      toggle.addEventListener('change', (e) => {
+        const newTheme = e.target.checked ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      });
+
+      /* --- GESTIONE ACCORDION (QUIZ FLASH) --- */
+      const quizQuestions = document.querySelectorAll('.quiz-q');
+      
+      quizQuestions.forEach(q => {
+        q.addEventListener('click', () => {
+          // Togli "open" a tutti gli altri se vuoi l'effetto fisarmonica pura
+          // (Se vuoi poterli aprire tutti, commenta le prossime 3 righe)
+          /*
+          document.querySelectorAll('.quiz-q').forEach(otherQ => {
+            if (otherQ !== q) {
+              otherQ.classList.remove('active');
+              otherQ.nextElementSibling.classList.remove('open');
+            }
+          });
+          */
+          
+          // Toggle quello cliccato
+          q.classList.toggle('active');
+          const answer = q.nextElementSibling;
+          answer.classList.toggle('open');
+        });
+      });
+      
+    });
+  </script>
+
+</body>
+</html>
