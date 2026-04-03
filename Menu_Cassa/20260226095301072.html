@@ -2,703 +2,506 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Cassiere - A4 Gold</title>
+    <title>Menu Cassa - A4 Perfetto</title>
+    
+    <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Limelight&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- PAPAPARSE -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     
     <style>
         :root {
-            --bg-color: #fdfaf4;
-            --text-color: #222;
-            /* Definizione Gradiente Oro CSS */
-            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --bg-color: #fdfaf4; /*white; /* */
+            --text-color: #111; /*#111;black;*/
+            --accent-color: #b08d55; 
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background-color: #333;
+            background-color: #333; 
             font-family: 'Josefin Sans', sans-serif;
             color: var(--text-color);
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
 
-        /* Pagina A4 */
+        #pages-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
         .page {
             width: 210mm;
-            min-height: 297mm; /* Min height per sicurezza */
+            height: 297mm;
             background-color: var(--bg-color);
-            margin: 10mm auto;
             position: relative;
-            padding: 20mm 15mm; /* Margini interni sicuri */
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
             overflow: hidden; 
+            page-break-after: always;
         }
 
-        /* Stili per la STAMPA */
         @media print {
             @page { size: A4 portrait; margin: 0; }
-            body { background: none; margin: 0; }
-            .page { margin: 0; box-shadow: none; width: 100%; height: 100%; page-break-after: always; }
+            body { background: none; }
+            #pages-wrapper { padding: 0; gap: 0; display: block; }
+            .page { box-shadow: none; margin: 0; }
         }
 
-        /* SVG CORNICE SULLO SFONDO */
+        /* --- CORNICE SVG --- */
         .full-frame {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: 1;
             pointer-events: none;
+            background: linear-gradient(145deg, 
+                #a07f4a 0%,  
+                #edd09d 50%,  
+                #a88751 100%  
+            );
+            -webkit-mask: url('Cornici.svg') no-repeat center / 100% 100%;
+            mask: url('Cornici.svg') no-repeat center / 100% 100%;
         }
 
-        /* LAYOUT A COLONNE */
+
+
+
+
+        /* --- TITOLO MAIN --- */
+
+        #main-title-box {
+            text-align: center;
+            margin-bottom: 10mm; /* Ho dato un filo di respiro in più sotto */
+            color: #333; 
+            break-inside: avoid;
+            /* ECCO LA MAGIA: Scavalca le colonne e si centra su tutto il foglio */
+            column-span: all; 
+            -webkit-column-span: all;
+        }
+        .mt-menu { font-family: 'Limelight', cursive; font-size: 38pt; line-height: 1; }
+        .mt-bar { font-family: 'Josefin Sans', sans-serif; font-weight: 300; font-size: 14pt; letter-spacing: 6px; text-transform: uppercase; margin-top: 5px; }
+
+        /* --- AREE DEL TESTO --- */
         .content {
-            column-count: 2;
-            column-gap: 10mm;
-            column-rule: 1px solid #e0e0e0; /* Riga grigia tra le colonne */
-            position: relative;
-            z-index: 10;
-            height: 100%;
-        }
-
-        .section {
-            break-inside: avoid; /* Non spezzare le categorie a metà */
-            margin-bottom: 8mm;
-        }
-
-        /* TITOLI CON GRADIENTE ORO */
-        h2.category-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2mm;
-            padding-bottom: 2px;
-            border-bottom: 2px solid #ddd;
-            
-            /* Applicazione Gradiente al Testo */
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-        }
-
-        /* INTESTAZIONE B | T (Piccola) */
-        .price-header {
-            display: flex;
-            justify-content: flex-end;
-            font-size: 0.6rem;
-            font-weight: 700;
-            color: #b38728; /* Oro scuro piatto per leggibilità */
-            margin-bottom: 2px;
-            padding-right: 0;
-            opacity: 0.8;
-        }
-        .price-header span { width: 75px; text-align: center; }
-
-        /* RIGA PRODOTTO */
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 1.5mm;
-            font-size: 0.85rem; /* Testo compatto per farci stare tutto */
-        }
-
-        .item-name {
-            font-weight: 600;
-            color: #333;
-            padding-right: 4px;
-        }
-
-        .dots {
-            flex-grow: 1;
-            border-bottom: 1px dotted #ccc;
-            margin: 0 4px;
-            position: relative;
-            top: -4px;
-        }
-
-        /* PREZZI */
-        .item-prices {
-            display: flex;
-            justify-content: space-between;
-            width: 75px; /* Larghezza fissa per allineare le colonne */
-            flex-shrink: 0;
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.9rem;
-        }
-        .price-banco { 
-            color: #777; 
-            font-weight: 400; 
-            width: 50%; 
-            text-align: center; 
-            font-size: 0.8rem; /* Un po' più piccolo */
-        }
-        .price-tavolo { 
-            font-weight: 700; 
-            color: #000; 
-            width: 50%; 
-            text-align: center; 
-        }
-
-        /* BOX SPECIALE PER COCKTAIL/BIRRE GRUPPI */
-        .special-box {
-            background: rgba(196, 166, 97, 0.1); /* Oro chiarissimo */
-            border: 1px solid #d4af37;
-            padding: 8px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-        .special-header {
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px dashed #d4af37;
-            padding-bottom: 4px; margin-bottom: 6px;
-        }
-        .special-title { font-weight: 700; color: #b38728; font-size: 0.9rem; }
-        .special-prices { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 1rem; }
-        
-        .special-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px 10px;
-        }
-        .special-item {
-            font-size: 0.8rem;
-            color: #444;
-            /* Separation dot */
-        }
-        .special-item::after { content: "•"; color: #ccc; margin-left: 10px; }
-        .special-item:last-child::after { content: ""; }
-
-    </style>
-</head>
-<body>
-
-    <div class="page">
-        <!-- SVG FRAME con Gradiente incorporato -->
-        <svg class="full-frame" viewBox="0 0 612 792" preserveAspectRatio="none">
-            <defs>
-                <!-- Definizione del Gradiente Oro per l'SVG -->
-                <linearGradient id="svgGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#bf953f;stop-opacity:1" />
-                    <stop offset="25%" style="stop-color:#fcf6ba;stop-opacity:1" />
-                    <stop offset="50%" style="stop-color:#b38728;stop-opacity:1" />
-                    <stop offset="75%" style="stop-color:#fbf5b7;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#aa771c;stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            
-            <!-- Applico fill="url(#svgGold)" a tutto il gruppo -->
-            <g fill="url(#svgGold)">
-                <rect x="517.1" y="34.9" width="73.6" height="3.6"/>
-                <rect x="574.3" y="22.1" width="16.4" height="3.6"/>
-                <rect x="580.8" y="28.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 558.5303 619.2797)" width="16.1" height="3.6"/>
-                <polyline points="574.3,95.7 574.3,22.1 577.8,22.1 577.8,95.7 574.3,95.7 "/>
-                <rect x="529.2" y="36.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 498.8557 573.734)" width="14.1" height="1.8"/>
-                <rect x="568.5" y="75.7" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 1151.0797 153.2081)" width="14.1" height="1.8"/>
-                <polyline points="535.4,28.7 583.9,28.7 583.9,30.5 535.4,30.5 "/>
-                <polyline points="582.3,77.5 582.3,28.8 584.1,28.8 584.1,77.5 "/>
-                <polyline points="517.1,43 570,43 570,44.5 517.1,44.5 "/>
-                <polyline points="568.5,95.7 568.5,43 570,43 570,95.7 "/>
-                <rect x="22.2" y="34.9" transform="matrix(-1 -6.673007e-12 6.673007e-12 -1 539.3257 73.3332)" width="494.9" height="3.6"/>
-                <rect x="22.2" y="22.1" transform="matrix(-1 -4.491220e-11 4.491220e-11 -1 60.8377 47.7308)" width="16.4" height="3.6"/>
-                <rect x="15.9" y="28.6" transform="matrix(4.485396e-11 -1 1 4.485396e-11 -6.3884 54.361)" width="16.1" height="3.6"/>
-                <polyline points="38.6,696 38.6,22.1 35.1,22.1 35.1,696 38.6,696 "/>
-                <rect x="69.5" y="36.6" transform="matrix(4.493123e-11 -1 1 4.493123e-11 39.1572 114.0356)" width="14.1" height="1.8"/>
-                <rect x="30.3" y="75.7" width="14.1" height="1.8"/>
-                <polyline points="77.5,28.7 29,28.7 29,30.5 77.5,30.5 "/>
-                <polyline points="30.6,77.5 30.6,28.8 28.8,28.8 28.8,77.5 "/>
-                <polyline points="517.1,43 42.9,43 42.9,44.5 517.1,44.5 "/>
-                <polyline points="44.4,696 44.4,44.5 42.9,44.5 42.9,696 "/>
-                <rect x="517.1" y="753.2" width="73.6" height="3.6"/>
-                <rect x="574.3" y="766" width="16.4" height="3.6"/>
-                <rect x="580.8" y="759.5" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 1350.2006 172.3907)" width="16.1" height="3.6"/>
-                <polyline points="574.3,95.7 574.3,769.6 577.8,769.6 577.8,95.7 574.3,95.7 "/>
-                <rect x="529.2" y="753.3" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 1290.526 217.9363)" width="14.1" height="1.8"/>
-                <rect x="568.5" y="714.2" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 1151.0797 1430.1326)" width="14.1" height="1.8"/>
-                <polyline points="535.4,762.9 583.9,762.9 583.9,761.2 535.4,761.2 "/>
-                <polyline points="582.3,714.2 582.3,762.9 584.1,762.9 584.1,714.2 "/>
-                <polyline points="517.1,748.7 570,748.7 570,747.2 517.1,747.2 "/>
-                <polyline points="568.5,95.7 568.5,747.2 570,747.2 570,95.7 "/>
-                <rect x="22.2" y="753.2" transform="matrix(-1 6.670986e-12 -6.670986e-12 -1 539.3257 1510.0074)" width="494.9" height="3.6"/>
-                <rect x="22.2" y="766" transform="matrix(-1 4.491195e-11 -4.491195e-11 -1 60.8377 1535.6099)" width="16.4" height="3.6"/>
-                <rect x="15.9" y="759.5" transform="matrix(4.485371e-11 1 -1 4.485371e-11 785.2819 737.3093)" width="16.1" height="3.6"/>
-                <polyline points="38.6,696 38.6,769.6 35.1,769.6 35.1,696 38.6,696 "/>
-                <rect x="69.5" y="753.3" transform="matrix(4.493099e-11 1 -1 4.493099e-11 830.8275 677.6348)" width="14.1" height="1.8"/>
-                <rect x="30.3" y="714.2" width="14.1" height="1.8"/>
-                <polyline points="77.5,762.9 29,762.9 29,761.2 77.5,761.2 "/>
-                <polyline points="30.6,714.2 30.6,762.9 28.8,762.9 28.8,714.2 "/>
-                <polyline points="517.1,748.7 42.9,748.7 42.9,747.2 517.1,747.2 "/>
-                <polyline points="44.4,696 44.4,748.7 42.9,748.7 42.9,696 "/>
-            </g>
-        </svg>
-
-        <div id="content-container" class="content">
-            <!-- Il contenuto viene generato qui via JS -->
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const CSV_URL = 'menu_nuovo.csv';
-            
-            Papa.parse(CSV_URL, {
-                download: true,
-                header: true,
-                skipEmptyLines: true,
-                complete: (res) => {
-                    generateMenu(res.data);
-                }
-            });
-        });
-
-        function generateMenu(data) {
-            const container = document.getElementById('content-container');
-            const grouped = {};
-            
-            // Ordine delle Categorie
-            const order = ["Caffetteria", "Tè & Cioccolate", "Bevande", "Spritz", "Cocktails", "Vini", "Franciacorta", "Birre", "Gin & Tonic", "Rum", "Whisky", "Amari e Liquori", "Grappe", "Brandy", "Vodka", "Vermouth", "Spuntini", "Panini & Piadine"];
-
-            // Raggruppa i dati
-            data.forEach(row => {
-                const cat = row.Categoria ? row.Categoria.trim() : null;
-                if(!cat) return;
-                if(!grouped[cat]) grouped[cat] = [];
-                grouped[cat].push(row);
-            });
-
-            // Genera HTML
-            order.forEach(cat => {
-                if (!grouped[cat]) return;
-                const items = grouped[cat];
-                const section = document.createElement('div');
-                section.className = 'section';
-
-                // Titolo Categoria
-                const h2 = document.createElement('h2');
-                h2.className = 'category-title';
-                h2.textContent = cat;
-                section.appendChild(h2);
-
-                // Intestazione Banco | Tavolo (Tranne se è box speciale)
-                if (cat !== 'Cocktails') {
-                    const hdr = document.createElement('div');
-                    hdr.className = 'price-header';
-                    hdr.innerHTML = '<span>BANCO | TAVOLO</span>';
-                    section.appendChild(hdr);
-                }
-
-                // --- LOGICA SPECIALE: COCKTAILS (Box Unico) ---
-                if (cat === 'Cocktails') {
-                    const box = document.createElement('div');
-                    box.className = 'special-box';
-                    
-                    // Header del box
-                    box.innerHTML = `
-                        <div class="special-header">
-                            <span class="special-title">CLASSICI</span>
-                            <span class="special-prices">€ 8.00 | € 8.00</span>
-                        </div>
-                        <div class="special-list"></div>
-                    `;
-                    
-                    const listContainer = box.querySelector('.special-list');
-                    items.forEach(item => {
-                        const span = document.createElement('span');
-                        span.className = 'special-item';
-                        span.textContent = item.Nome;
-                        listContainer.appendChild(span);
-                    });
-                    
-                    section.appendChild(box);
-                }
-                
-                // --- LOGICA STANDARD (Tutto il resto) ---
-                else {
-                    items.forEach(item => {
-                        // Salta righe "info" pure (tipo titoli salumi senza prezzo)
-                        if (!item.Prezzo) return;
-
-                        const row = document.createElement('div');
-                        row.className = 'menu-item';
-
-                        // Prezzi: Gestisce il range di prezzi se c'è, o vuoto se manca Banco
-                        // Nota: Il CSV ha Prezzo_banco (col D) e Prezzo (Tavolo, col E)
-                        const pBanco = item.Prezzo_banco ? parseFloat(item.Prezzo_banco).toFixed(2) : '-';
-                        const pTavolo = item.Prezzo ? parseFloat(item.Prezzo.replace(/[^\d.]/g, '')).toFixed(2) : '-';
-
-                        row.innerHTML = `
-                            <span class="item-name">${item.Nome}</span>
-                            <span class="dots"></span>
-                            <div class="item-prices">
-                                <span class="price-banco">${pBanco}</span>
-                                <span class="price-tavolo">${pTavolo}</span>
-                            </div>
-                        `;
-                        section.appendChild(row);
-                    });
-                }
-
-                container.appendChild(section);
-            });
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Cassiere - A4 Gold</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    
-    <style>
-        :root {
-            --bg-color: #fdfaf4;
-            --text-color: #222;
-            /* Definizione Gradiente Oro CSS */
-            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            background-color: #333;
-            font-family: 'Josefin Sans', sans-serif;
-            color: var(--text-color);
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-
-        /* Pagina A4 */
-        .page {
-            width: 210mm;
-            min-height: 297mm; /* Min height per sicurezza */
-            background-color: var(--bg-color);
-            margin: 10mm auto;
-            position: relative;
-            padding: 20mm 15mm; /* Margini interni sicuri */
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            overflow: hidden; 
-        }
-
-        /* Stili per la STAMPA */
-        @media print {
-            @page { size: A4 portrait; margin: 0; }
-            body { background: none; margin: 0; }
-            .page { margin: 0; box-shadow: none; width: 100%; height: 100%; page-break-after: always; }
-        }
-
-        /* SVG CORNICE SULLO SFONDO */
-        .full-frame {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* LAYOUT A COLONNE */
-        .content {
-            column-count: 2;
-            column-gap: 10mm;
-            column-rule: 1px solid #e0e0e0; /* Riga grigia tra le colonne */
-            position: relative;
+            top: 25mm; left: 20mm; right: 20mm; bottom: 25mm; 
             z-index: 10;
-            height: 100%;
+            column-count: 2; 
+            column-gap: 12mm;
+            column-rule: 1px solid #e0d0b0;
         }
 
-        .section {
-            break-inside: avoid; /* Non spezzare le categorie a metà */
-            margin-bottom: 8mm;
-        }
+        #content-1 { top: 28mm; } 
 
-        /* TITOLI CON GRADIENTE ORO */
+        .section { break-inside: avoid; margin-bottom: 7mm; }
+
+        .split-col { break-inside: auto !important; }
+
         h2.category-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-family: 'Limelight', cursive;
+            color: var(--accent-color);
+            font-size: 1.3rem;
             margin-bottom: 2mm;
-            padding-bottom: 2px;
-            border-bottom: 2px solid #ddd;
-            
-            /* Applicazione Gradiente al Testo */
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--accent-color);
+            line-height: 1.2;
         }
 
-        /* INTESTAZIONE B | T (Piccola) */
+        /* INTESTAZIONE BANCO | TAVOLO */
         .price-header {
             display: flex;
             justify-content: flex-end;
+            gap: 10px; 
+            width: 90px;
+            margin-left: auto; 
             font-size: 0.6rem;
             font-weight: 700;
-            color: #b38728; /* Oro scuro piatto per leggibilità */
-            margin-bottom: 2px;
-            padding-right: 0;
-            opacity: 0.8;
+            color: var(--accent-color);
+            margin-bottom: 4px;
         }
-        .price-header span { width: 75px; text-align: center; }
+        .price-header span { width: 40px; text-align: right; }
 
-        /* RIGA PRODOTTO */
+        /* SINGOLO PRODOTTO */
         .menu-item {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
+            align-items: flex-end; 
             margin-bottom: 1.5mm;
-            font-size: 0.85rem; /* Testo compatto per farci stare tutto */
+            font-size: 0.9rem;
+            line-height: 1.1; 
         }
 
-        .item-name {
-            font-weight: 600;
-            color: #333;
+        .item-name { 
+            font-weight: 600; 
             padding-right: 4px;
+            white-space: normal; 
+            max-width: calc(100% - 95px); 
+        }
+
+        .sub-name {
+            font-weight: 400 !important; 
+            font-size: 0.85rem;
+            color: #444;
+            padding-left: 12px; 
         }
 
         .dots {
             flex-grow: 1;
-            border-bottom: 1px dotted #ccc;
+            border-bottom: 1px dotted #999;
             margin: 0 4px;
-            position: relative;
-            top: -4px;
+            position: relative; top: -3px; 
         }
 
-        /* PREZZI */
+        /* AREA PREZZI NUMERICI */
         .item-prices {
             display: flex;
-            justify-content: space-between;
-            width: 75px; /* Larghezza fissa per allineare le colonne */
+            width: 90px;
             flex-shrink: 0;
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.9rem;
+            justify-content: flex-end;
+            gap: 10px; 
         }
-        .price-banco { 
-            color: #777; 
-            font-weight: 400; 
-            width: 50%; 
-            text-align: center; 
-            font-size: 0.8rem; /* Un po' più piccolo */
-        }
-        .price-tavolo { 
+        .price-val {
+            width: 40px; 
+            text-align: right;
             font-weight: 700; 
             color: #000; 
-            width: 50%; 
-            text-align: center; 
         }
 
-        /* BOX SPECIALE PER COCKTAIL/BIRRE GRUPPI */
-        .special-box {
-            background: rgba(196, 166, 97, 0.1); /* Oro chiarissimo */
-            border: 1px solid #d4af37;
-            padding: 8px;
-            border-radius: 4px;
-            margin-bottom: 10px;
+        /* RIGA BOTTIGLIA */
+        .bot-row { margin-top: -1mm; margin-bottom: 2.5mm; }
+        .bot-name { font-weight: 400; font-style: italic; font-size: 0.8rem; color: #555; padding-left: 12px; }
+
+        /* COCKTAIL */
+        .cocktail-box { border: 2px solid var(--accent-color); padding: 8px; background-color: rgba(255,255,255,0.7); margin-bottom: 5mm; }
+        .c-header { display: flex; justify-content: space-between; font-weight: 700; color: var(--accent-color); border-bottom: 1px solid var(--accent-color); margin-bottom: 8px; font-family: 'Limelight', cursive; font-size: 1.1rem; align-items: center; }
+        .c-prices { font-family: 'Josefin Sans', sans-serif; font-weight: 700; color: #000; font-size: 0.8rem; }
+        .c-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 10px; row-gap: 3px; }
+        .c-name { font-size: 0.85rem; font-weight: 600; color: #222; text-transform: uppercase; }
+
+/* --- PANINI --- */
+        .panini-info { 
+            font-size: 0.9rem; /* ALZATO: era 0.8rem, ora è grande come il resto del testo */
+            font-style: italic; 
+            color: #333; /* Scurito leggermente (era #444) per renderlo più leggibile */
+            margin-bottom: 6px; /* Dato un pelino di respiro in più */
+            line-height: 1.2; 
         }
-        .special-header {
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px dashed #d4af37;
-            padding-bottom: 4px; margin-bottom: 6px;
+        .panini-header { 
+            font-weight: 700; 
+            font-size: 0.95rem; /* Ho alzato di uno sputo anche il titolo per bilanciare */
+            color: var(--accent-color); 
+            margin-top: 8px; 
+            margin-bottom: 2px; 
+            text-transform: uppercase; 
         }
-        .special-title { font-weight: 700; color: #b38728; font-size: 0.9rem; }
-        .special-prices { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 1rem; }
-        
-        .special-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px 10px;
+        /* --- QR CODE --- */
+        .qr-section { text-align: center; margin-top: 15mm; break-inside: avoid; }
+        .qr-section h4 { 
+            font-family: 'Limelight', cursive; 
+            font-size: 14pt; 
+            color: var(--accent-color); 
+            margin-bottom: 5px; 
+            letter-spacing: 2px;
         }
-        .special-item {
-            font-size: 0.8rem;
-            color: #444;
-            /* Separation dot */
-        }
-        .special-item::after { content: "•"; color: #ccc; margin-left: 10px; }
-        .special-item:last-child::after { content: ""; }
+        /* Immagine generata più grande (45x45mm) */
+        .qr-section img { width: 42mm; height: 42mm; margin-top: 5px; }
 
     </style>
 </head>
 <body>
 
-    <div class="page">
-        <!-- SVG FRAME con Gradiente incorporato -->
-        <svg class="full-frame" viewBox="0 0 612 792" preserveAspectRatio="none">
-            <defs>
-                <!-- Definizione del Gradiente Oro per l'SVG -->
-                <linearGradient id="svgGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#bf953f;stop-opacity:1" />
-                    <stop offset="25%" style="stop-color:#fcf6ba;stop-opacity:1" />
-                    <stop offset="50%" style="stop-color:#b38728;stop-opacity:1" />
-                    <stop offset="75%" style="stop-color:#fbf5b7;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#aa771c;stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            
-            <!-- Applico fill="url(#svgGold)" a tutto il gruppo -->
-            <g fill="url(#svgGold)">
-                <rect x="517.1" y="34.9" width="73.6" height="3.6"/>
-                <rect x="574.3" y="22.1" width="16.4" height="3.6"/>
-                <rect x="580.8" y="28.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 558.5303 619.2797)" width="16.1" height="3.6"/>
-                <polyline points="574.3,95.7 574.3,22.1 577.8,22.1 577.8,95.7 574.3,95.7 "/>
-                <rect x="529.2" y="36.6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 498.8557 573.734)" width="14.1" height="1.8"/>
-                <rect x="568.5" y="75.7" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 1151.0797 153.2081)" width="14.1" height="1.8"/>
-                <polyline points="535.4,28.7 583.9,28.7 583.9,30.5 535.4,30.5 "/>
-                <polyline points="582.3,77.5 582.3,28.8 584.1,28.8 584.1,77.5 "/>
-                <polyline points="517.1,43 570,43 570,44.5 517.1,44.5 "/>
-                <polyline points="568.5,95.7 568.5,43 570,43 570,95.7 "/>
-                <rect x="22.2" y="34.9" transform="matrix(-1 -6.673007e-12 6.673007e-12 -1 539.3257 73.3332)" width="494.9" height="3.6"/>
-                <rect x="22.2" y="22.1" transform="matrix(-1 -4.491220e-11 4.491220e-11 -1 60.8377 47.7308)" width="16.4" height="3.6"/>
-                <rect x="15.9" y="28.6" transform="matrix(4.485396e-11 -1 1 4.485396e-11 -6.3884 54.361)" width="16.1" height="3.6"/>
-                <polyline points="38.6,696 38.6,22.1 35.1,22.1 35.1,696 38.6,696 "/>
-                <rect x="69.5" y="36.6" transform="matrix(4.493123e-11 -1 1 4.493123e-11 39.1572 114.0356)" width="14.1" height="1.8"/>
-                <rect x="30.3" y="75.7" width="14.1" height="1.8"/>
-                <polyline points="77.5,28.7 29,28.7 29,30.5 77.5,30.5 "/>
-                <polyline points="30.6,77.5 30.6,28.8 28.8,28.8 28.8,77.5 "/>
-                <polyline points="517.1,43 42.9,43 42.9,44.5 517.1,44.5 "/>
-                <polyline points="44.4,696 44.4,44.5 42.9,44.5 42.9,696 "/>
-                <rect x="517.1" y="753.2" width="73.6" height="3.6"/>
-                <rect x="574.3" y="766" width="16.4" height="3.6"/>
-                <rect x="580.8" y="759.5" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 1350.2006 172.3907)" width="16.1" height="3.6"/>
-                <polyline points="574.3,95.7 574.3,769.6 577.8,769.6 577.8,95.7 574.3,95.7 "/>
-                <rect x="529.2" y="753.3" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 1290.526 217.9363)" width="14.1" height="1.8"/>
-                <rect x="568.5" y="714.2" transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 1151.0797 1430.1326)" width="14.1" height="1.8"/>
-                <polyline points="535.4,762.9 583.9,762.9 583.9,761.2 535.4,761.2 "/>
-                <polyline points="582.3,714.2 582.3,762.9 584.1,762.9 584.1,714.2 "/>
-                <polyline points="517.1,748.7 570,748.7 570,747.2 517.1,747.2 "/>
-                <polyline points="568.5,95.7 568.5,747.2 570,747.2 570,95.7 "/>
-                <rect x="22.2" y="753.2" transform="matrix(-1 6.670986e-12 -6.670986e-12 -1 539.3257 1510.0074)" width="494.9" height="3.6"/>
-                <rect x="22.2" y="766" transform="matrix(-1 4.491195e-11 -4.491195e-11 -1 60.8377 1535.6099)" width="16.4" height="3.6"/>
-                <rect x="15.9" y="759.5" transform="matrix(4.485371e-11 1 -1 4.485371e-11 785.2819 737.3093)" width="16.1" height="3.6"/>
-                <polyline points="38.6,696 38.6,769.6 35.1,769.6 35.1,696 38.6,696 "/>
-                <rect x="69.5" y="753.3" transform="matrix(4.493099e-11 1 -1 4.493099e-11 830.8275 677.6348)" width="14.1" height="1.8"/>
-                <rect x="30.3" y="714.2" width="14.1" height="1.8"/>
-                <polyline points="77.5,762.9 29,762.9 29,761.2 77.5,761.2 "/>
-                <polyline points="30.6,714.2 30.6,762.9 28.8,762.9 28.8,714.2 "/>
-                <polyline points="517.1,748.7 42.9,748.7 42.9,747.2 517.1,747.2 "/>
-                <polyline points="44.4,696 44.4,748.7 42.9,748.7 42.9,696 "/>
-            </g>
-        </svg>
+    <div id="pages-wrapper">
+        <div class="page" id="page-1">
+            <div class="full-frame"></div>
+            <div class="content" id="content-1">
+                <div id="main-title-box">
+                    <div class="mt-menu">MENU</div>
+                    <div class="mt-bar">Bar Nuovo</div>
+                </div>
+            </div>
+        </div>
 
-        <div id="content-container" class="content">
-            <!-- Il contenuto viene generato qui via JS -->
+        <div class="page" id="page-2">
+            <div class="full-frame"></div>
+            <div class="content" id="content-2"></div>
+        </div>
+
+        <div class="page" id="page-3">
+            <div class="full-frame"></div>
+            <div class="content" id="content-3"></div>
+        </div>
+
+        <div class="page" id="page-4">
+            <div class="full-frame"></div>
+            <div class="content" id="content-4"></div>
         </div>
     </div>
 
     <script>
+        const layoutPlan = {
+            "content-1":[
+                "Caffetteria", 
+                "Tè & Cioccolate", 
+                "Bevande",
+                "Spuntini",
+                "Panini & Piadine"
+            ],
+            "content-2":[
+                "Spritz", 
+                "Franciacorta", 
+                "Vini", 
+                "Birre",          
+                "Amari e Liquori",
+                "Cocktails"
+            ],
+            "content-3":[
+                "Rum", 
+                "Vodka",          
+                "Grappe", 
+                "Vermouth", 
+                "Brandy"
+            ],
+            "content-4":[
+                "Gin & Tonic", /* Invertito come richiesto */
+                "Whisky"
+            ]
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
-            const CSV_URL = 'menu_nuovo_cassa.csv';
+            const CSV_URL = 'menu_nuovo_cassa.csv'; 
             
             Papa.parse(CSV_URL, {
                 download: true,
                 header: true,
                 skipEmptyLines: true,
                 complete: (res) => {
-                    generateMenu(res.data);
+                    renderMenu(res.data);
+                },
+                error: (err) => {
+                    console.error("ERRORE CSV:", err);
+                    alert("Impossibile caricare il CSV.");
                 }
             });
         });
 
-        function generateMenu(data) {
-            const container = document.getElementById('content-container');
+        function renderMenu(data) {
             const grouped = {};
             
-            // Ordine delle Categorie
-            const order = ["Caffetteria", "Tè & Cioccolate", "Bevande", "Spritz", "Cocktails", "Vini", "Franciacorta", "Birre", "Gin & Tonic", "Rum", "Whisky", "Amari e Liquori", "Grappe", "Brandy", "Vodka", "Vermouth", "Spuntini", "Panini & Piadine"];
-
-            // Raggruppa i dati
             data.forEach(row => {
                 const cat = row.Categoria ? row.Categoria.trim() : null;
                 if(!cat) return;
-                if(!grouped[cat]) grouped[cat] = [];
+                if(!grouped[cat]) grouped[cat] =[];
                 grouped[cat].push(row);
             });
 
-            // Genera HTML
-            order.forEach(cat => {
-                if (!grouped[cat]) return;
-                const items = grouped[cat];
-                const section = document.createElement('div');
-                section.className = 'section';
-
-                // Titolo Categoria
-                const h2 = document.createElement('h2');
-                h2.className = 'category-title';
-                h2.textContent = cat;
-                section.appendChild(h2);
-
-                // Intestazione Banco | Tavolo (Tranne se è box speciale)
-                if (cat !== 'Cocktails') {
-                    const hdr = document.createElement('div');
-                    hdr.className = 'price-header';
-                    hdr.innerHTML = '<span>BANCO | TAVOLO</span>';
-                    section.appendChild(hdr);
-                }
-
-                // --- LOGICA SPECIALE: COCKTAILS (Box Unico) ---
-                if (cat === 'Cocktails') {
-                    const box = document.createElement('div');
-                    box.className = 'special-box';
-                    
-                    // Header del box
-                    box.innerHTML = `
-                        <div class="special-header">
-                            <span class="special-title">CLASSICI</span>
-                            <span class="special-prices">€ 8.00 | € 8.00</span>
-                        </div>
-                        <div class="special-list"></div>
-                    `;
-                    
-                    const listContainer = box.querySelector('.special-list');
-                    items.forEach(item => {
-                        const span = document.createElement('span');
-                        span.className = 'special-item';
-                        span.textContent = item.Nome;
-                        listContainer.appendChild(span);
-                    });
-                    
-                    section.appendChild(box);
-                }
+            for (const[containerId, categories] of Object.entries(layoutPlan)) {
+                const container = document.getElementById(containerId);
                 
-                // --- LOGICA STANDARD (Tutto il resto) ---
-                else {
-                    items.forEach(item => {
-                        // Salta righe "info" pure (tipo titoli salumi senza prezzo)
-                        if (!item.Prezzo) return;
+                categories.forEach(cat => {
+                    if (!grouped[cat]) return;
+                    const items = grouped[cat];
 
-                        const row = document.createElement('div');
-                        row.className = 'menu-item';
+                    const section = document.createElement('div');
+                    section.className = 'section';
+                    
+                    if (cat === 'Gin & Tonic') {
+                        section.classList.add('split-col');
+                    }
 
-                        // Prezzi: Gestisce il range di prezzi se c'è, o vuoto se manca Banco
-                        // Nota: Il CSV ha Prezzo_banco (col D) e Prezzo (Tavolo, col E)
-                        const pBanco = item.Prezzo_banco ? parseFloat(item.Prezzo_banco).toFixed(2) : '-';
-                        const pTavolo = item.Prezzo ? parseFloat(item.Prezzo.replace(/[^\d.]/g, '')).toFixed(2) : '-';
+                    // --- COCKTAILS (Logica Classici vs Premium) ---
+                    if (cat === 'Cocktails') {
+                        // 1. Stampo il Titolo della Sezione
+                        const h2 = document.createElement('h2');
+                        h2.className = 'category-title';
+                        h2.textContent = "COCKTAIL";
+                        section.appendChild(h2);
 
-                        row.innerHTML = `
-                            <span class="item-name">${item.Nome}</span>
-                            <span class="dots"></span>
-                            <div class="item-prices">
-                                <span class="price-banco">${pBanco}</span>
-                                <span class="price-tavolo">${pTavolo}</span>
-                            </div>
-                        `;
-                        section.appendChild(row);
-                    });
+                        // 2. Dividiamo i cocktail in base al prezzo
+                        const classici = [];
+                        const premium =[];
+
+                        items.forEach(item => {
+                            // Legge il prezzo e lo trasforma in numero per sicurezza
+                            let rawPrice = item.Prezzo ? item.Prezzo.toString() : '';
+                            let parsedPrice = parseFloat(rawPrice.replace(/[^\d.,]/g, '').replace(',', '.'));
+                            
+                            // Se il prezzo è esattamente 8 o vuoto (per errore), va nei classici, sennò nei premium
+                            if (parsedPrice === 8 || isNaN(parsedPrice)) {
+                                classici.push(item);
+                            } else {
+                                premium.push(item);
+                            }
+                        });
+
+                        // 3. Creo il Box "Classici a 8€" (Solo se ci sono)
+                        if (classici.length > 0) {
+                            const box = document.createElement('div');
+                            box.className = 'cocktail-box';
+                            box.innerHTML = `
+                                <div class="c-header">
+                                    <span>CLASSICI:</span>
+                                    <div class="c-prices">
+                                        BANCO 8.00  &nbsp;|&nbsp;  TAVOLO 8.00
+                                    </div>
+                                </div>
+                                <div class="c-grid"></div>
+                            `;
+                            const grid = box.querySelector('.c-grid');
+                            classici.forEach(item => {
+                                const div = document.createElement('div');
+                                div.className = 'c-name';
+                                div.textContent = item.Nome; 
+                                grid.appendChild(div);
+                            });
+                            section.appendChild(box);
+                        }
+
+                        // 4. Stampo i Premium/Speciali sotto al box (con prezzi e puntini)
+                        if (premium.length > 0) {
+                            // Titolo Header Prezzi solo per questa sotto-sezione
+                            const hdr = document.createElement('div');
+                            hdr.className = 'price-header';
+                            hdr.style.marginTop = '4px'; // Un pelo d'aria dal box
+                            hdr.innerHTML = '<span>BANCO</span><span>TAVOLO</span>';
+                            section.appendChild(hdr);
+
+                            premium.forEach(item => {
+                                const fmtPrice = (p) => {
+                                    if(!p) return '-';
+                                    let cl = p.toString().replace(/[^\d.,]/g, '').replace(',','.');
+                                    let val = parseFloat(cl);
+                                    return isNaN(val) ? '-' : val.toFixed(2);
+                                };
+
+                                let pB = fmtPrice(item.Prezzo_banco);
+                                let pT = fmtPrice(item.Prezzo);
+
+                                const row = document.createElement('div');
+                                row.className = 'menu-item';
+                                row.innerHTML = `
+                                    <span class="item-name">${item.Nome}</span>
+                                    <span class="dots"></span>
+                                    <div class="item-prices">
+                                        <span class="price-val">${pB}</span>
+                                        <span class="price-val">${pT}</span>
+                                    </div>
+                                `;
+                                section.appendChild(row);
+                            });
+                        }
+                    }
+                    
+                    else {
+                        const h2 = document.createElement('h2');
+                        h2.className = 'category-title';
+                        h2.textContent = cat;
+                        section.appendChild(h2);
+
+                        if (!cat.includes("Panini")) {
+                            const hdr = document.createElement('div');
+                            hdr.className = 'price-header';
+                            hdr.innerHTML = '<span>BANCO</span><span>TAVOLO</span>';
+                            section.appendChild(hdr);
+                        }
+
+                        items.forEach(item => {
+                            if (cat.includes("Panini")) {
+                                const isHeader = item.Nome.trim().endsWith(':') ||["Salumi:", "Formaggi:", "Verdure:", "SALSE:"].includes(item.Nome.trim());
+                                if(isHeader) {
+                                    section.innerHTML += `<div class="panini-header">${item.Nome.replace(':','')}</div>`;
+                                }
+                                if(item.Tipo === 'info' || (!item.Prezzo && item.Descrizione_Lista)) {
+                                    section.innerHTML += `<div class="panini-info">${item.Descrizione_Lista || item.Descrizione_Popup}</div>`;
+                                }
+                            }
+
+                            if(!item.Prezzo && !item.Prezzo_banco) return; 
+
+                            let displayName = item.Nome.trim();
+                            let nameClass = "item-name";
+                            if(displayName.startsWith('-') || displayName.startsWith('+')) {
+                                displayName = displayName.substring(1).trim();
+                                nameClass = "item-name sub-name";
+                            }
+
+                            const rawPrice = item.Prezzo ? item.Prezzo.toString() : '';
+                            const hasPipe = rawPrice.includes('|'); 
+
+                            const fmtPrice = (p) => {
+                                if(!p) return '-';
+                                let cl = p.toString().replace(/[^\d.,]/g, '').replace(',','.');
+                                let val = parseFloat(cl);
+                                return isNaN(val) ? '-' : val.toFixed(2);
+                            };
+
+                            let pB = fmtPrice(item.Prezzo_banco);
+
+                            if (hasPipe) {
+                                let parts = rawPrice.split('|');
+                                let pT_cal = fmtPrice(parts[0]); 
+                                let pT_bot = fmtPrice(parts[1]); 
+
+                                const rowCalice = document.createElement('div');
+                                rowCalice.className = 'menu-item';
+                                rowCalice.innerHTML = `
+                                    <span class="${nameClass}">${displayName}</span>
+                                    <span class="dots"></span>
+                                    <div class="item-prices">
+                                        <span class="price-val">${pB}</span>
+                                        <span class="price-val">${pT_cal}</span>
+                                    </div>
+                                `;
+                                section.appendChild(rowCalice);
+
+                                const rowBottiglia = document.createElement('div');
+                                rowBottiglia.className = 'menu-item bot-row';
+                                rowBottiglia.innerHTML = `
+                                    <span class="item-name bot-name">Bottiglia</span>
+                                    <span class="dots"></span>
+                                    <div class="item-prices">
+                                        <span class="price-val">-</span>
+                                        <span class="price-val">${pT_bot}</span>
+                                    </div>
+                                `;
+                                section.appendChild(rowBottiglia);
+
+                            } else {
+                                let pT = fmtPrice(item.Prezzo);
+                                
+                                const row = document.createElement('div');
+                                row.className = 'menu-item';
+                                row.innerHTML = `
+                                    <span class="${nameClass}">${displayName}</span>
+                                    <span class="dots"></span>
+                                    <div class="item-prices">
+                                        <span class="price-val">${pB}</span>
+                                        <span class="price-val">${pT}</span>
+                                    </div>
+                                `;
+                                section.appendChild(row);
+                            }
+                        });
+                    }
+                    container.appendChild(section);
+                });
+
+                if (containerId === "content-3") {
+                    const qrDiv = document.createElement('div');
+                    qrDiv.className = 'qr-section';
+                    qrDiv.innerHTML = `
+                        <h4>MENU ONLINE</h4>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://bar-menu.github.io/nuovo.html&color=333333" alt="QR Menu">
+                    `;
+                    container.appendChild(qrDiv);
                 }
-
-                container.appendChild(section);
-            });
+            }
         }
     </script>
 </body>

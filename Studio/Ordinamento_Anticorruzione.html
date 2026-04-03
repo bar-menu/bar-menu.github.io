@@ -9,6 +9,7 @@
             --primary: #1e272e;
             --secondary: #0fb9b1;
             --accent: #3867d6;
+            --danger: #eb3b5a;
             --bg-light: #f1f2f6;
             --border: #d1d8e0;
         }
@@ -79,6 +80,12 @@
             font-weight: bold;
             color: #2d3436;
         }
+        .danger {
+            background-color: #fdedec;
+            border-left: 5px solid var(--danger);
+            padding: 15px;
+            margin-top: 15px;
+        }
         ul, ol {
             font-size: 1.1em;
             margin-left: 20px;
@@ -104,91 +111,106 @@
 <body>
 
     <h1>Diritto Amministrativo: Il Kit di Sopravvivenza</h1>
-    <p>In un Comune (o in un'Unione), non basta sapere come si fa un muro. Devi sapere chi comanda, di chi è la colpa se le cose vanno male e come evitare che qualcuno ti accusi di nascondere le carte nel cassetto. Benvenuto nel meraviglioso mondo del TUEL e dell'Anticorruzione.</p>
+    <p>Questo è il cuore burocratico dell'ente. Se sbagli un appalto o firmi una pratica in conflitto d'interessi, non ti mandano una letterina di richiamo: ti mandano la Guardia di Finanza. Studia questa roba come se ne andasse della tua libertà, perché è così.</p>
 
-    <h2>1. Ordinamento Enti Locali (TUEL - D.Lgs. 267/2000)</h2>
-    <p>Il principio supremo del TUEL è l'<strong>Articolo 107</strong>: la separazione tra politica e amministrazione. I politici (Sindaco, Giunta, Consiglio) danno le "direttive". I Funzionari e i Dirigenti mettono le firme, gestiscono i soldi, rilasciano i permessi e si prendono le responsabilità civili e penali.</p>
+    <h2>1. Anticorruzione: I Protagonisti e il PIAO (L. 190/2012)</h2>
+    <p>La legge Severino ha ribaltato tutto. L'anticorruzione non punisce il reato (quello lo fa il codice penale), ma <strong>previene</strong> che il reato possa accadere creando un ambiente ostile alle tangenti e ai favoritismi.</p>
 
     <details>
-        <summary>Cos'è un'Unione di Comuni e chi la comanda? (Domanda Scritto 2024)</summary>
+        <summary>Il RPCT (Chi è e cosa rischia)</summary>
         <div class="content">
             <div class="definition">
-                <strong>L'Unione di Comuni (Art. 32 TUEL):</strong> È un ente locale vero e proprio, costituito da due o più Comuni (di solito piccoli o confinanti) allo scopo di esercitare <em>congiuntamente</em> una pluralità di funzioni e servizi. 
+                <strong>RPCT = Responsabile della Prevenzione della Corruzione e della Trasparenza.</strong>
             </div>
-            <p><strong>Perché si fa?</strong> Per risparmiare soldi e ottimizzare il personale. Invece di avere tre piccoli uffici tecnici sfigati in tre Comuni diversi, se ne fa uno unico, grosso e cazzuto (come il tuo futuro posto di lavoro) che gestisce le pratiche per tutti i territori dell'Unione.</p>
-            
-            <p><strong>Gli Organi Politici dell'Unione:</strong> A differenza di un Comune normale, qui non ci sono elezioni dirette da parte dei cittadini. Gli organi sono formati da politici che sono già stati eletti nei Comuni membri.</p>
-            <ul>
-                <li><strong>Il Presidente:</strong> È scelto tra i Sindaci dei Comuni associati (di solito fanno a turno).</li>
-                <li><strong>La Giunta dell'Unione:</strong> È l'organo esecutivo. I membri sono scelti dal Presidente tra gli assessori o i Sindaci dei Comuni membri.</li>
-                <li><strong>Il Consiglio dell'Unione:</strong> È l'organo di indirizzo e controllo. È composto da consiglieri eletti dai singoli Consigli Comunali tra i propri membri (garantendo la rappresentanza delle minoranze).</li>
-            </ul>
+            <p><strong>Chi è?</strong> Negli Enti Locali è nominato dal Sindaco e, di norma, è il <strong>Segretario Comunale</strong>. Non può mai essere un politico.</p>
+            <p><strong>Cosa fa?</strong> 
+                <ul>
+                    <li>Predispone il piano triennale anticorruzione (oggi nel PIAO) e lo propone alla Giunta.</li>
+                    <li>Vigila sul rispetto delle regole (es. rotazione del personale, astensione per conflitti di interesse).</li>
+                    <li>Riceve le segnalazioni di illeciti.</li>
+                    <li>Se scopre o sospetta qualcosa, segnala tutto all'ANAC (Autorità Nazionale Anticorruzione), alla Procura o alla Corte dei Conti.</li>
+                </ul>
+            </p>
+            <p><strong>Responsabilità:</strong> Se nell'ente si verifica un grave reato di corruzione, il RPCT risponde per "danno erariale" e "responsabilità dirigenziale", a meno che non provi di aver fatto tutto il possibile (tramite il Piano) per prevenirlo. Ecco perché i Segretari Comunali sono sempre stressati e paranoici.</p>
         </div>
     </details>
 
-    <h2>2. La Trasparenza e gli "Accessi" (L'incubo dell'Ufficio Tecnico)</h2>
-    <p>La gente vuole vedere le tue scartoffie. Il problema è capire a che titolo te le chiedono, perché le regole cambiano. Se sbagli e dai un documento a chi non ne ha diritto, violi la privacy. Se lo neghi a chi ne ha diritto, è omissione d'atti d'ufficio.</p>
-
     <details>
-        <summary>I 3 Tipi di Accesso agli Atti (DOMANDONA DA CONCORSO)</summary>
+        <summary>Dal PTPCT al PIAO (Cosa cazzo è cambiato)</summary>
         <div class="content">
-            <p>Non dire mai "accesso agli atti" in modo generico. Ne esistono tre tipi precisi:</p>
-            
-            <ol>
-                <li><strong>Accesso Documentale (L. 241/1990):</strong><br>
-                È quello classico, da avvocati. Il cittadino deve avere un <em>"interesse diretto, concreto e attuale"</em>. Non puoi chiedere i documenti tanto per curiosità. Devi dimostrare che quel documento ti serve per tutelare un tuo diritto.<br>
-                <em>Esempio:</em> Il vicino ha costruito un tetto che mi toglie la luce. Voglio vedere il suo Permesso di Costruire per fargli causa.</li>
-                
-                <br><li><strong>Accesso Civico Semplice (Art. 5, c. 1, D.Lgs. 33/2013):</strong><br>
-                Riguarda i documenti che il Comune <em>ha l'obbligo per legge di pubblicare online</em> (su Amministrazione Trasparente), ma che si è dimenticato di pubblicare. Chiunque (anche un passante senza nessun interesse) può bussare e dire: "Oh, non avete pubblicato questa cosa, tiratela fuori".</li>
-                
-                <br><li><strong>Accesso Civico Generalizzato / FOIA (Art. 5, c. 2, D.Lgs. 33/2013):</strong><br>
-                È il modello americano. Consente a <em>chiunque</em> di accedere a dati e documenti della PA, anche se non c'è nessun obbligo di pubblicarli e anche se non si ha nessun interesse diretto. Serve per il "controllo democratico".<br>
-                <em>Il limite:</em> Si può negare solo se la diffusione del documento crea un "pregiudizio concreto" alla privacy, alla sicurezza pubblica o agli interessi commerciali di qualcuno.</li>
-            </ol>
-            <div class="alert">Regola d'oro all'esame: Il Documentale (241/90) richiede un MOTIVO (interesse diretto). I due Civici (33/2013) NON richiedono alcun motivo, chiunque li può chiedere.</div>
+            <p>Nelle vecchie banche dati d'esame troverai mille domande sul <strong>PTPCT</strong> (Piano Triennale di Prevenzione della Corruzione e della Trasparenza). Oggi quel documento autonomo <strong>non esiste più</strong>.</p>
+            <div class="definition">
+                <strong>Il PIAO (Piano Integrato di Attività e Organizzazione):</strong> Introdotto recentemente, è un mega-documento unico che assorbe tutti i vecchi piani (piano performance, fabbisogno del personale, lavoro agile, e appunto l'anticorruzione).
+            </div>
+            <p><strong>Scadenze e Approvazione:</strong> La sezione anticorruzione è predisposta dal RPCT, ma il PIAO intero viene approvato dalla <strong>Giunta Comunale</strong> (l'organo esecutivo). La scadenza naturale è il <strong>31 gennaio</strong> di ogni anno (anche se il Governo la proroga quasi sempre in base a quando approvano i bilanci).</p>
         </div>
     </details>
 
-    <h2>3. Anticorruzione (L. 190/2012)</h2>
-    <p>Non è solo "non prendere le mazzette". È un sistema di procedure per prevenire situazioni in cui potresti essere "tentato" o influenzato.</p>
+    <h2>2. Gli Strumenti Operativi dell'Anticorruzione</h2>
+    <p>La teoria è bella, ma come si evita in pratica che l'Ufficio Tecnico diventi la succursale di un'impresa edile?</p>
 
     <details>
-        <summary>Il PIAO, l'RPCT e il Conflitto di Interessi</summary>
+        <summary>Whistleblowing: Il dipendente che fa la spia (Novità D.Lgs. 24/2023)</summary>
         <div class="content">
-            <p><strong>Il PIAO (Piano Integrato di Attività e Organizzazione):</strong> È il nuovo mega-documento che ogni ente deve fare. Ha assorbito dentro di sé il vecchio Piano Triennale dell'Anticorruzione (PTPCT). Al suo interno ci sono mappati i "processi a rischio" (e l'Ufficio Tecnico edilizio/appalti ha il livello di rischio corruzione rosso fuoco).</p>
-            
-            <p><strong>Il RPCT (Responsabile Prevenzione Corruzione e Trasparenza):</strong> Di solito è il Segretario Comunale. È lo sceriffo dell'ente. Verifica che le regole anticorruzione vengano applicate. Se qualcuno prende mazzette e lui non aveva fatto nulla per prevenirlo, rischia grosso anche lui.</p>
-            
-            <div class="definition">
-                <strong>Il Conflitto di Interessi (L'errore più comune):</strong> Se devi istruire o firmare una pratica edilizia, e il richiedente (o il progettista) è tuo cugino, tua moglie, il tuo socio in affari o uno con cui hai una "grave inimicizia", ti devi <strong>ASTENERE</strong>. Devi dirlo al tuo Dirigente e la pratica la farà il tuo collega di scrivania. Se non lo fai, è finita.
+            <div class="danger">
+                <strong>ATTENZIONE: TEMA CALDISSIMO PER I CONCORSI.</strong> Il D.Lgs. 24/2023 ha recepito una direttiva europea stravolgendo la materia.
             </div>
+            <p><strong>Cos'è?</strong> È la segnalazione di illeciti (corruzione, truffe, sprechi) di cui il dipendente pubblico viene a conoscenza durante il suo lavoro.</p>
+            <p><strong>Le Tutele Assolute:</strong> In Italia nessuno segnalava niente per paura di essere licenziato o mobbizzato. La nuova legge garantisce:
+                <ul>
+                    <li><strong>Riservatezza assoluta dell'identità:</strong> La segnalazione si fa tramite piattaforme informatiche crittografate fornite dall'ANAC o dall'ente. Nessuno sa chi sei, tranne il RPCT.</li>
+                    <li><strong>Divieto di Ritorsione:</strong> Il dipendente che segnala non può essere licenziato, demansionato, trasferito o sottoposto a provvedimenti disciplinari per via della segnalazione.</li>
+                </ul>
+            </p>
+        </div>
+    </details>
 
-            <p><strong>La Rotazione degli Incarichi:</strong> Principio cardine. Un funzionario non dovrebbe rimanere a gestire gli appalti stradali o le concessioni per 20 anni di fila. Dopo un po' lo devi spostare ad un altro ufficio, per evitare che crei "reti di amicizie" troppo solide con le ditte del posto.</p>
+    <details>
+        <summary>Inconferibilità vs Incompatibilità (D.Lgs. 39/2013) - La Trappola</summary>
+        <div class="content">
+            <p>All'esame cercano di farti confondere tra queste due parole. Imparale così:</p>
+            <div class="definition">
+                <strong>INCONFERIBILITÀ (Il Blocco a monte):</strong> L'incarico dirigenziale <em>non te lo posso proprio dare</em>. Si verifica quando hai subìto condanne penali per reati contro la PA (es. peculato, concussione), oppure quando hai avuto incarichi politici (es. eri Sindaco o Assessore in quel comune fino all'anno scorso). Se ti danno l'incarico, il contratto è nullo.
+            </div>
+            <div class="definition">
+                <strong>INCOMPATIBILITÀ (Il Divieto di doppia vita):</strong> L'incarico te lo posso dare, ma <em>non puoi fare due cose contemporaneamente</em> che vanno in conflitto. Esempio: non puoi fare il Dirigente dell'Ufficio Tecnico Comunale e, contemporaneamente, il Presidente di una società privata di costruzioni. <strong>Come si risolve?</strong> Hai 15 giorni per scegliere: o ti dimetti dalla carica privata, o decadi dall'incarico pubblico.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>Rotazione e Codice di Comportamento (DPR 62/2013)</summary>
+        <div class="content">
+            <p><strong>La Rotazione del Personale:</strong> Le "aree a rischio" (Appalti, Edilizia, Tributi) non possono avere gli stessi impiegati per 20 anni. Il Comune DEVE far ruotare i funzionari tra uffici diversi per evitare che si creino "incrostazioni" e amicizie pericolose con l'esterno.</p>
+            <p><strong>Codice di Comportamento (DPR 62/2013):</strong> Stabilisce i doveri fondamentali del dipendente:
+                <ul>
+                    <li><strong>I Regali:</strong> C'è il divieto assoluto di accettare regali, se non quelli "d'uso di modico valore". Il decreto fissa il limite a <strong>150 euro</strong>, ma quasi tutti gli Enti Locali, nei loro codici aziendali integrativi, lo hanno abbassato a ZERO o 50 euro. Se il regalo vale di più, va messo a disposizione dell'Ente.</li>
+                    <li><strong>Conflitto di interessi e Astensione:</strong> Se la pratica riguarda tuoi parenti (fino al 2° grado), conviventi, società di cui hai quote, o persone con cui hai grave inimicizia, ti DEVI astenere e passarla a un collega.</li>
+                    <li><strong>I Social Media:</strong> I dipendenti non possono sputtanare l'Amministrazione su Facebook. Il Codice richiede continenza e tutela dell'immagine dell'ente.</li>
+                </ul>
+            </p>
         </div>
     </details>
 
     <h2>SEZIONE Q&A: Preparazione Scritto e Orale</h2>
-    <p>Quesiti diretti estratti dalle logiche delle tue prove passate.</p>
 
     <div class="qa-box">
-        <div class="question">Quesito 1: Cos'è un'Unione di Comuni e quali sono i suoi organi politici (Rif. Busta 1 - 2024)?</div>
+        <div class="question">Quesito 1: Quali sono le differenze tra Inconferibilità e Incompatibilità degli incarichi ex D.Lgs. 39/2013?</div>
         <p><strong>Risposta Consigliata:</strong><br>
-        L'Unione di Comuni (Art. 32 TUEL) è un ente locale costituito da due o più Comuni per l'esercizio associato di funzioni e servizi, con l'obiettivo di razionalizzare la spesa e migliorare l'efficienza organizzativa. A differenza dei Comuni, gli organi politici dell'Unione non sono eletti direttamente dai cittadini, ma sono di secondo livello, scelti tra gli amministratori dei Comuni aderenti. Essi sono: il <strong>Presidente</strong> (scelto tra i Sindaci), la <strong>Giunta</strong> (nominata dal Presidente tra i membri dell'esecutivo o i Sindaci dei comuni associati) e il <strong>Consiglio dell'Unione</strong> (composto da un numero di consiglieri eletti dai singoli Consigli comunali, garantendo la rappresentanza delle minoranze).</p>
+        L'<strong>inconferibilità</strong> preclude in via assoluta e preventiva l'assegnazione di un incarico dirigenziale a chi abbia riportato condanne penali per reati contro la PA o abbia ricoperto, in un recente arco temporale (periodo di raffreddamento), incarichi politici o di vertice in enti di diritto privato regolati dalla PA. L'atto di conferimento adottato in violazione è nullo.<br>
+        L'<strong>incompatibilità</strong>, invece, interviene quando il soggetto, pur potendo assumere l'incarico, si trova in una situazione di divieto di cumulo con altre cariche (es. incarichi in enti privati finanziati dall'amministrazione). Essa non rende nullo l'incarico ab origine, ma obbliga l'interessato a esercitare un'opzione (dimissioni dall'altro incarico) entro 15 giorni, pena la decadenza dall'incarico pubblico.</p>
     </div>
 
     <div class="qa-box">
-        <div class="question">Quesito 2: Il candidato illustri le differenze tra l'accesso documentale ex L. 241/90 e l'accesso civico generalizzato ex D.Lgs. 33/2013 (Rif. Busta 4 e Busta 3).</div>
+        <div class="question">Quesito 2: Il candidato illustri le novità introdotte in materia di Whistleblowing dal D.Lgs. 24/2023.</div>
         <p><strong>Risposta Consigliata:</strong><br>
-        La differenza fondamentale risiede nella legittimazione del richiedente e nelle finalità dell'istituto.<br>
-        L'<strong>accesso documentale (L. 241/90)</strong> è uno strumento di tutela: richiede che il richiedente possieda un interesse diretto, concreto e attuale, corrispondente ad una situazione giuridicamente tutelata collegata al documento. Senza questo interesse, l'accesso viene respinto.<br>
-        L'<strong>accesso civico generalizzato o FOIA (D.Lgs. 33/2013)</strong> risponde invece all'esigenza di controllo diffuso sull'operato della PA. La legittimazione è riconosciuta a chiunque, senza alcun obbligo di motivazione. L'amministrazione può negare questo accesso solo qualora vi sia la necessità di evitare un pregiudizio concreto alla tutela di interessi pubblici (es. sicurezza) o privati (es. dati personali, segreto commerciale).</p>
+        Il D.Lgs. 24/2023 ha potenziato le tutele per i dipendenti (e collaboratori) che segnalano violazioni di disposizioni normative nazionali o europee che ledono l'interesse pubblico. Le novità principali riguardano l'istituzione obbligatoria di <strong>canali di segnalazione interni sicuri</strong> e crittografati, gestiti solitamente dal RPCT, la possibilità di utilizzare un <strong>canale esterno gestito dall'ANAC</strong> (qualora quello interno non sia efficace o via sia rischio di ritorsione), e la garanzia assoluta di <strong>riservatezza dell'identità</strong>. È sancito il divieto totale di <strong>ritorsioni</strong> (licenziamenti, demansionamenti, ritorsioni indirette), le cui eventuali adozioni sono nulle e sanzionabili dall'ANAC.</p>
     </div>
 
     <div class="qa-box">
-        <div class="question">Quesito 3: Quali sono i principali strumenti di prevenzione della corruzione a livello di singolo ente locale?</div>
+        <div class="question">Quesito 3: Si illustrino i contenuti del Piano Integrato di Attività e Organizzazione (PIAO) in riferimento alla Prevenzione della Corruzione.</div>
         <p><strong>Risposta Consigliata:</strong><br>
-        A livello locale, lo strumento principale di pianificazione è il <strong>PIAO</strong> (Piano Integrato di Attività e Organizzazione), che ingloba le strategie di prevenzione della corruzione mappando i processi a maggior rischio (es. procedure di gara, rilascio titoli edilizi). Le misure operative includono: l'obbligo di astensione in caso di <strong>conflitto di interessi</strong> (reale o potenziale), la <strong>rotazione del personale</strong> addetto alle aree a rischio, la tutela del dipendente che segnala illeciti (<strong>Whistleblowing</strong>), e la rigida applicazione degli obblighi di pubblicazione previsti dal decreto sulla Trasparenza (D.Lgs. 33/2013), la cui supervisione è affidata al RPCT dell'ente.</p>
+        Il PIAO ha assorbito il precedente PTPCT (Piano Triennale per la Prevenzione della Corruzione e della Trasparenza). All'interno del PIAO, l'apposita sezione "Rischi corruttivi e Trasparenza", predisposta dal RPCT, contiene l'analisi del contesto interno ed esterno dell'Ente, la <strong>mappatura dei processi a rischio corruttivo</strong> (con particolare attenzione ad appalti ed edilizia), e l'individuazione delle <strong>misure di trattamento del rischio</strong>. Tali misure includono protocolli di rotazione del personale, regolamentazione del conflitto di interessi, patti di integrità e monitoraggio dei tempi procedimentali. L'approvazione spetta alla Giunta Comunale (o dell'Unione).</p>
     </div>
 
 </body>
