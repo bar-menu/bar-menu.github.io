@@ -718,3 +718,11 @@ footer {
   .flow-left { width: 36px; }
   .flow-circle { width: 26px; height: 26px; font-size: .68rem; }
 }
+
+
+@media print {
+    .salto-pagina {
+        page-break-before: always;
+        break-before: page;
+    }
+}
