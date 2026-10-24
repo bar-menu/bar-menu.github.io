@@ -37,7 +37,7 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const CSV_URL = 'menu_nuovo.csv'; 
+    const CSV_URL = 'menu_nuovo.csv?v=' + Date.now(); 
     
     const I18N = {
         it: {
