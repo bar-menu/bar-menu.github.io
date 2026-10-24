@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    const CSV_URL = 'menu_santos.csv'; 
+    const CSV_URL = 'menu_santos.csv?v=' + Date.now(); 
     
     // TRADUZIONI INTERFACCIA (Titoli categorie, bottoni, ecc.)
     const I18N = {
